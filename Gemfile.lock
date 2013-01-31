@@ -43,5 +43,5 @@ PLATFORMS
 DEPENDENCIES
   cucumber
   rspec
-  test-factory (>= 0.0.7)
+  test-factory (>= 0.1.3)
   watir-webdriver (>= 0.6.1)
