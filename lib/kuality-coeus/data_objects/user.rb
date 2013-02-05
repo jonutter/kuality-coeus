@@ -68,7 +68,7 @@ class UserObject
   end
 
   def s_o
-    @browser.link(id: "navbar-link-signout")
+    @browser.button(value: "Logout")
   end
 
   def login_info

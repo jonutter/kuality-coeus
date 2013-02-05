@@ -1,6 +1,7 @@
 class CommitteeDocument < BasePage
 
   frame_element
+  global_buttons
 
   class << self
 
