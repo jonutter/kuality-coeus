@@ -17,6 +17,7 @@ class BasePage < PageFactory
       value(:last_updated) {|p| p.headerinfo_table[1][3].text }
       value(:committee_id) { |p| p.headerinfo_table[2][1].text }
       value(:committee_name) { |p| p.headerinfo_table[2][3].text }
+      alias_method :doc_nbr, :document_id
     end
 
     def frame_element
