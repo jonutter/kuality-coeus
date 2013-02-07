@@ -1,8 +1,6 @@
 class Researcher < BasePage
 
-  page_url $base_url
-
-  header_tabs
+  page_url "#{$base_url}selectedTab=portalResearcherBody"
 
   link "Create Proposal"
   link "Proposals Enroute"

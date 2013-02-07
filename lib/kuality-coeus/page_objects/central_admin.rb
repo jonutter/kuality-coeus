@@ -1,6 +1,6 @@
 class CentralAdmin < BasePage
 
-  header_tabs
+  page_url "#{$base_url}selectedTab=portalCentralAdminBody"
 
   action(:create_committee) { |b| b.link(title: "Create Committeee").click }
 

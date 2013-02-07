@@ -2,14 +2,6 @@ class BasePage < PageFactory
 
   class << self
 
-    def header_tabs
-      link "Researcher"
-      link "Unit"
-      link "Central Admin"
-      link "Maintenance"
-      link "System Admin"
-    end
-
     def document_header_elements
       element(:headerinfo_table) { |b| b.div(class: "headerbox").table(class: "headerinfo") }
 
