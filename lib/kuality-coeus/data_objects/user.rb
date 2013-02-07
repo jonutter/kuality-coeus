@@ -20,15 +20,6 @@ class UserObject
 
   end
 
-  def registered?
-
-  end
-
-  def register
-
-  end
-  alias_method :sign_up, :register
-
   def sign_in
     if logged_out?
       user_login

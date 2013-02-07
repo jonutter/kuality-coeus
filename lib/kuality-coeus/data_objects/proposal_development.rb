@@ -25,7 +25,8 @@ class ProposalDevelopmentObject
   end
     
   def create
-    
+    visit(Researcher).create_proposal
+
   end
     
   def edit opts={}

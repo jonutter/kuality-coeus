@@ -2,6 +2,10 @@ class BasePage < PageFactory
 
   class << self
 
+    def frame_element
+      element(:frm) { |b| b.frame(id: "iframeportlet") }
+    end
+
     def document_header_elements
       element(:headerinfo_table) { |b| b.div(class: "headerbox").table(class: "headerinfo") }
 
