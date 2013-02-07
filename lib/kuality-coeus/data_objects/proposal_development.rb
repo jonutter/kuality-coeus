@@ -26,7 +26,13 @@ class ProposalDevelopmentObject
     
   def create
     visit(Researcher).create_proposal
-
+    on Proposal do |doc|
+      if @lead_unit==:random
+        @lead_unit=doc.lead_unit.select_at_random
+      else
+        doc.lead_unit.select @lead_unit
+      end
+    end
   end
     
   def edit opts={}
