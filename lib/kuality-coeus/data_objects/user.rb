@@ -31,8 +31,8 @@ class UserObject
   alias_method :log_in, :sign_in
 
   def logged_in?
-    if login_info.present?
-      login_info.text=~/#{@name}/ ? true : false
+    if login_info.exists?
+      login_info.text=~/#{@username}/ ? true : false
     else
       false
     end
@@ -53,7 +53,7 @@ class UserObject
 
   def user_login
     visit Login do |log_in|
-      log_in.username.set @name
+      log_in.username.set @username
       log_in.login
     end
   end

@@ -8,3 +8,5 @@ directory.yml
 *.log
 *test_spec.rb
 Gemfile.lock
+projectFilesBackup
+.gitignore

@@ -18,8 +18,8 @@ class ProposalDevelopmentObject
       activity_type: :random,
       project_title: random_alphanums,
       sponsor_code: "000500",
-      start_date: next_week[:custom].strftime("%m/%d/%Y"),
-      end_date: next_year[:custom].strftime("%m/%d/%Y")
+      start_date: next_week[:date_w_slashes],
+      end_date: next_year[:date_w_slashes]
     }
     set_options(defaults.merge(opts))
   end
