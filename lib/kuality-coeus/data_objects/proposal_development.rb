@@ -27,11 +27,15 @@ class ProposalDevelopmentObject
   def create
     visit(Researcher).create_proposal
     on Proposal do |doc|
-      if @lead_unit==:random
-        @lead_unit=doc.lead_unit.select_at_random
-      else
-        doc.lead_unit.select @lead_unit
-      end
+      doc.description.set @description
+      doc.sponsor_code.set @sponsor_code
+      doc.proposal_type.set @type
+      @activity_type=doc.activity_type.pick @activity_type
+      @lead_unit=doc.lead_unit.pick @lead_unit
+      doc.project_title.set @project_title
+      doc.project_start_date.set @start_date
+      doc.project_end_date.set @end_date
+      doc.save
     end
   end
     
