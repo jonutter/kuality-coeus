@@ -7,7 +7,8 @@ class ProposalDevelopmentObject
   include Navigation
   
   attr_accessor :description, :type, :lead_unit, :activity_type, :project_title,
-                :sponsor_code, :start_date, :end_date, :explanation
+                :sponsor_code, :start_date, :end_date, :explanation, :id, :status,
+                :initiator, :created
   
   def initialize(browser, opts={})
     @browser = browser
@@ -27,6 +28,10 @@ class ProposalDevelopmentObject
   def create
     visit(Researcher).create_proposal
     on Proposal do |doc|
+      @id=doc.document_id
+      @status=doc.status
+      @initiator=doc.initiator
+      @created=doc.created
       doc.description.set @description
       doc.sponsor_code.set @sponsor_code
       @type=doc.proposal_type.pick @type

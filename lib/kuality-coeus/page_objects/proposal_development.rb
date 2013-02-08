@@ -1,6 +1,5 @@
 class ProposalDevelopmentDocument < BasePage
 
-  frame_element
   document_header_elements
   global_buttons
 

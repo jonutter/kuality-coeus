@@ -7,5 +7,4 @@ When /^I create a proposal$/ do
 end
 Then /^It's created$/ do
   on(Proposal).feedback.should=='Document was successfully saved.'
-  puts @proposal.explanation
 end

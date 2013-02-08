@@ -2,10 +2,6 @@ class BasePage < PageFactory
 
   class << self
 
-    def frame_element
-      element(:frm) { |b| b.frame(id: "iframeportlet") }
-    end
-
     def document_header_elements
       element(:headerinfo_table) { |b| b.frm.div(class: "headerbox").table(class: "headerinfo") }
 
@@ -33,4 +29,16 @@ class BasePage < PageFactory
     
   end
 
+end
+
+module Watir
+  module Container
+    def frm
+      if frame(id: "iframeportlet").exist?
+        frame(id: "iframeportlet")
+      else
+        self
+      end
+    end
+  end
 end
