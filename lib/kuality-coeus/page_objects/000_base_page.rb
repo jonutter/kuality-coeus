@@ -28,6 +28,7 @@ class BasePage < PageFactory
       action(:blanket_approve) { |b| b.image(class: "globalbuttons", title: "blanket approve").click }
       action(:close) { |b| b.image(class: "globalbuttons", title: "close").click }
       action(:cancel) { |b| b.image(class: "globalbuttons", title: "cancel").click }
+      action(:reload) { |b| b.image(class: "globalbuttons", title: "reload").click }
     end
     
   end

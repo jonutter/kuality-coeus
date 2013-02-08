@@ -29,7 +29,7 @@ class ProposalDevelopmentObject
     on Proposal do |doc|
       doc.description.set @description
       doc.sponsor_code.set @sponsor_code
-      doc.proposal_type.set @type
+      @type=doc.proposal_type.pick @type
       @activity_type=doc.activity_type.pick @activity_type
       @lead_unit=doc.lead_unit.pick @lead_unit
       doc.project_title.set @project_title
