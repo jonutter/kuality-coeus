@@ -7,7 +7,7 @@ class ProposalDevelopmentObject
   include Navigation
   
   attr_accessor :description, :type, :lead_unit, :activity_type, :project_title,
-                :sponsor_code, :start_date, :end_date
+                :sponsor_code, :start_date, :end_date, :explanation
   
   def initialize(browser, opts={})
     @browser = browser
@@ -35,6 +35,7 @@ class ProposalDevelopmentObject
       doc.project_title.set @project_title
       doc.project_start_date.set @start_date
       doc.project_end_date.set @end_date
+      doc.explanation.set @explanation
       doc.save
     end
   end

@@ -6,5 +6,6 @@ When /^I create a proposal$/ do
   @proposal = create ProposalDevelopmentObject
 end
 Then /^It's created$/ do
-  puts @proposal.lead_unit
+  on(Proposal).feedback.should=='Document was successfully saved.'
+  puts @proposal.explanation
 end
