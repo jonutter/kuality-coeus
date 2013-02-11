@@ -8,7 +8,7 @@ class ProposalDevelopmentObject
   
   attr_accessor :description, :type, :lead_unit, :activity_type, :project_title,
                 :sponsor_code, :start_date, :end_date, :explanation, :id, :status,
-                :initiator, :created
+                :initiator, :created, :sponsor_deadline_date
   
   def initialize(browser, opts={})
     @browser = browser
@@ -20,7 +20,8 @@ class ProposalDevelopmentObject
       project_title: random_alphanums,
       sponsor_code: "000500",
       start_date: next_week[:date_w_slashes],
-      end_date: next_year[:date_w_slashes]
+      end_date: next_year[:date_w_slashes],
+      sponsor_deadline_date: next_week[:date_w_slashes]
     }
     set_options(defaults.merge(opts))
   end
@@ -32,6 +33,7 @@ class ProposalDevelopmentObject
       @status=doc.status
       @initiator=doc.initiator
       @created=doc.created
+      doc.expand_all
       doc.description.set @description
       doc.sponsor_code.set @sponsor_code
       @type=doc.proposal_type.pick @type
@@ -41,6 +43,7 @@ class ProposalDevelopmentObject
       doc.project_start_date.set @start_date
       doc.project_end_date.set @end_date
       doc.explanation.set @explanation
+      doc.sponsor_deadline_date.set @sponsor_deadline_date
       doc.save
     end
   end

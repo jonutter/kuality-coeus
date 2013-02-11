@@ -1,12 +1,13 @@
 class ProposalDevelopmentDocument < BasePage
 
   document_header_elements
+  tab_buttons
   global_buttons
 
   class << self
 
     def proposal_header_elements
-      action(:proposal) { |b| b.frm.link(text: "").click }
+      action(:proposal) { |b| b.frm.link(text: "Proposal").click }
       action(:grants_gov) { |b| b.frm.link(text: "Grants.gov").click }
       action(:key_personnel) { |b| b.frm.link(text: "Key Personnel").click }
       action(:special_review) { |b| b.frm.link(text: "Special Review").click }

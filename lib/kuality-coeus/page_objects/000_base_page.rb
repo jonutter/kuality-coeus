@@ -18,19 +18,35 @@ class BasePage < PageFactory
     end
 
     def global_buttons
-      action(:expand_all) { |b| b.frm.button(name: "methodToCall.showAllTabs").click } # TODO: Think about moving this into its own element group
       action(:submit) { |b| b.frm.button(class: "globalbuttons", title: "submit").click }
       action(:save) { |b| b.frm.button(class: "globalbuttons", title: "save").click }
       action(:blanket_approve) { |b| b.frm.button(class: "globalbuttons", title: "blanket approve").click }
       action(:close) { |b| b.frm.button(class: "globalbuttons", title: "close").click }
       action(:cancel) { |b| b.frm.button(class: "globalbuttons", title: "cancel").click }
       action(:reload) { |b| b.frm.button(class: "globalbuttons", title: "reload").click }
+      action(:delete_selected) { |b| b.frm.button(class: "globalbuttons", name: "methodToCall.deletePerson").click }
     end
-    
+
+    def tab_buttons
+      action(:expand_all) { |b| b.frm.button(name: "methodToCall.showAllTabs").click }
+    end
+
+    def tiny_buttons
+      action(:search) { |b| b.frm.button(name: "methodToCall.search").click }
+      action(:clear) { |b| b.frm.button(name: "methodToCall.clearValues").click }
+      action(:cancel) { |b| b.frm.link(title: "cancel").click }
+    end
+
+    def search_results_table
+      element(:results_table) { |b| b.frm.table(id: "row") }
+    end
+
   end
 
 end
 
+# Included here because, in a sense, the frame element
+# is a part of the "base page"
 module Watir
   module Container
     def frm
