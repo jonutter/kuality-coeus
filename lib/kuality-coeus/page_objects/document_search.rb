@@ -4,7 +4,9 @@ class DocumentSearch < BasePage
 
   tiny_buttons
   search_results_table
-  
+
+  element(:document_id) { |b| b.frm.text_field(id: "documentId") }
+
   action(:open_doc) { |document_id, b| b.frm.link(text: document_id).click }
 
 end

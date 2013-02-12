@@ -4,7 +4,6 @@ class ProposalDevelopmentObject
   include DataFactory
   include StringFactory
   include DateFactory
-  include Navigation
   
   attr_accessor :description, :type, :lead_unit, :activity_type, :project_title,
                 :sponsor_code, :start_date, :end_date, :explanation, :id, :status,

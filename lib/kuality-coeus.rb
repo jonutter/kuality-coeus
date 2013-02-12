@@ -3,6 +3,7 @@ Dir["#{File.dirname(__FILE__)}/kuality-coeus/*.rb"].each {|f| require f }
 Dir["#{File.dirname(__FILE__)}/kuality-coeus/page_objects/*.rb"].each {|f| require f }
 Dir["#{File.dirname(__FILE__)}/kuality-coeus/page_objects/*/*.rb"].each {|f| require f }
 Dir["#{File.dirname(__FILE__)}/kuality-coeus/data_objects/*.rb"].each {|f| require f }
+Dir["#{File.dirname(__FILE__)}/kuality-coeus/data_objects/*/*.rb"].each {|f| require f }
 
 # Initialize this class at the start of your test cases to
 # open the specified test browser at the specified Sakai welcome page URL.
