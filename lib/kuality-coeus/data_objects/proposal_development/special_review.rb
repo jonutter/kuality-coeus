@@ -1,36 +1,25 @@
-class KeyPersonnelObject
+class SpecialReviewObject
 
   include Foundry
   include DataFactory
   include StringFactory
-  include Navigation
 
-  attr_accessor :first_name, :last_name, :role, :document_id
+  attr_accessor :type, :approval_status, :document_id
 
   def initialize(browser, opts={})
     @browser = browser
+
     defaults = {
-      first_name: "Jeff",
-      last_name: "Covey",
-      role: "Principal Investigator"
+      type: :random,
+      approval_status: :random
     }
+
     set_options(defaults.merge(opts))
     requires @document_id
   end
 
   def create
-    navigate
-    on(KeyPersonnel).employee_search
-    on PersonLookup do |look|
-      look.last_name.set @last_name
-      look.search
-      look.return_value "#{@first_name} #{@last_name}"
-    end
-    on KeyPersonnel do |person|
-      person.proposal_role.pick @role
-      person.add_person
-      person.save
-    end
+
   end
 
   def edit opts={}
@@ -46,9 +35,7 @@ class KeyPersonnelObject
 
   end
 
-  private
-
-  # Nav Aids...
+  #private
 
   def navigate
     unless on_document?
@@ -61,7 +48,7 @@ class KeyPersonnelObject
       end
     end
     unless on_page?
-      on(Proposal).key_personnel
+      on(Proposal).special_review
     end
   end
 
@@ -71,10 +58,11 @@ class KeyPersonnelObject
     # firefox elements gets fixed. This is
     # still broken in selenium-webdriver 2.29
     begin
-      on(KeyPersonnel).proposal_role.exist?
+      on(SpecialReview).type.exist?
     rescue
       false
     end
   end
 
 end
+
