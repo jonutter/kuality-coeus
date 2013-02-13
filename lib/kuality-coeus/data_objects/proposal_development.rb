@@ -4,10 +4,12 @@ class ProposalDevelopmentObject
   include DataFactory
   include StringFactory
   include DateFactory
+  include Navigation
   
   attr_accessor :description, :type, :lead_unit, :activity_type, :project_title,
                 :sponsor_code, :start_date, :end_date, :explanation, :id, :status,
-                :initiator, :created, :sponsor_deadline_date, :key_personnel
+                :initiator, :created, :sponsor_deadline_date, :key_personnel,
+                :special_review
   
   def initialize(browser, opts={})
     @browser = browser
@@ -21,7 +23,8 @@ class ProposalDevelopmentObject
       start_date: next_week[:date_w_slashes],
       end_date: next_year[:date_w_slashes],
       sponsor_deadline_date: next_week[:date_w_slashes],
-      key_personnel: []
+      key_personnel: [],
+      special_review: []
     }
     set_options(defaults.merge(opts))
   end
@@ -48,6 +51,8 @@ class ProposalDevelopmentObject
     end
     person = make KeyPersonnelObject, document_id: @id
     @key_personnel << person.create
+    spec_review = make SpecialReviewObject, document_id: @id
+    @special_review << spec_review.create
   end
     
   def edit opts={}

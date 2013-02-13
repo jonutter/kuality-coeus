@@ -3,6 +3,7 @@ class CommitteeDocumentObject
   include Foundry
   include DataFactory
   include StringFactory
+  include Navigation
 
   attr_accessor :description, :committee_id, :document_id, :status, :committee_name,
                 :home_unit, :min_members_for_quorum, :maximum_protocols,
@@ -26,7 +27,7 @@ class CommitteeDocumentObject
   end
     
   def create
-    go_to_central_admin
+    visit(Research).central_admin
     on(CentralAdmin).add_irb_committee
     on Committee do |comm|
       @document_id=comm.document_id

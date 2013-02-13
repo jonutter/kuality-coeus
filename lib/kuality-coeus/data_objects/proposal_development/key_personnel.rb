@@ -56,8 +56,6 @@ class KeyPersonnelObject
         search.document_id.set @document_id
         search.search
         search.open_doc @document_id
-        search.windows.first.close
-        search.windows.last.use
       end
     end
     unless on_page?

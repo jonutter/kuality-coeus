@@ -1,5 +1,7 @@
 class BasePage < PageFactory
 
+  action(:use_new_tab) { |b| b.windows.first.close; b.windows.last.use }
+
   class << self
 
     def document_header_elements

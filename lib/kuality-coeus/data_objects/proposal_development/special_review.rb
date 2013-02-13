@@ -3,6 +3,7 @@ class SpecialReviewObject
   include Foundry
   include DataFactory
   include StringFactory
+  include Navigation
 
   attr_accessor :type, :approval_status, :document_id
 
@@ -19,7 +20,13 @@ class SpecialReviewObject
   end
 
   def create
-
+    navigate
+    on SpecialReview do |add|
+      add.type.pick @type
+      add.approval_status.pick @approval_status
+      add.add
+      add.save
+    end
   end
 
   def edit opts={}
@@ -35,7 +42,7 @@ class SpecialReviewObject
 
   end
 
-  #private
+  private
 
   def navigate
     unless on_document?
@@ -43,8 +50,6 @@ class SpecialReviewObject
         search.document_id.set @document_id
         search.search
         search.open_doc @document_id
-        search.windows.first.close
-        search.windows.last.use
       end
     end
     unless on_page?

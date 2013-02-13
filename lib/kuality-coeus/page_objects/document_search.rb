@@ -7,6 +7,6 @@ class DocumentSearch < BasePage
 
   element(:document_id) { |b| b.frm.text_field(id: "documentId") }
 
-  action(:open_doc) { |document_id, b| b.frm.link(text: document_id).click }
+  action(:open_doc) { |document_id, b| b.frm.link(text: document_id).click; b.use_new_tab }
 
 end
