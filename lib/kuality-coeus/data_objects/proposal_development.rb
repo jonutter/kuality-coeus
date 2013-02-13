@@ -7,7 +7,7 @@ class ProposalDevelopmentObject
   
   attr_accessor :description, :type, :lead_unit, :activity_type, :project_title,
                 :sponsor_code, :start_date, :end_date, :explanation, :id, :status,
-                :initiator, :created, :sponsor_deadline_date
+                :initiator, :created, :sponsor_deadline_date, :key_personnel
   
   def initialize(browser, opts={})
     @browser = browser
@@ -20,7 +20,8 @@ class ProposalDevelopmentObject
       sponsor_code: "000500",
       start_date: next_week[:date_w_slashes],
       end_date: next_year[:date_w_slashes],
-      sponsor_deadline_date: next_week[:date_w_slashes]
+      sponsor_deadline_date: next_week[:date_w_slashes],
+      key_personnel: []
     }
     set_options(defaults.merge(opts))
   end
@@ -45,6 +46,8 @@ class ProposalDevelopmentObject
       doc.sponsor_deadline_date.set @sponsor_deadline_date
       doc.save
     end
+    person = make KeyPersonnelObject, document_id: @id
+    @key_personnel << person.create
   end
     
   def edit opts={}

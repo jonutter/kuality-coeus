@@ -18,7 +18,18 @@ class KeyPersonnelObject
   end
 
   def create
-
+    navigate
+    on(KeyPersonnel).employee_search
+    on PersonLookup do |look|
+      look.last_name.set @last_name
+      look.search
+      look.return_value "#{@first_name} #{@last_name}"
+    end
+    on KeyPersonnel do |person|
+      person.proposal_role.pick @role
+      person.add_person
+      person.save
+    end
   end
 
   def edit opts={}
@@ -44,8 +55,9 @@ class KeyPersonnelObject
         search.document_id.set @document_id
         search.search
         search.open_doc @document_id
+        search.windows.first.close
+        search.windows.last.use
       end
-      @browser.use(title: "Kuali :: Proposal Development Document")
     end
     unless on_page?
       on(Proposal).key_personnel

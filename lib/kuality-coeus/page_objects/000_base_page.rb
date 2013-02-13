@@ -32,7 +32,7 @@ class BasePage < PageFactory
     end
 
     def tiny_buttons
-      action(:search) { |b| b.frm.button(name: "methodToCall.search").click }
+      action(:search) { |b| b.frm.button(title: "search", value: "search").click }
       action(:clear) { |b| b.frm.button(name: "methodToCall.clearValues").click }
       action(:cancel) { |b| b.frm.link(title: "cancel").click }
     end
