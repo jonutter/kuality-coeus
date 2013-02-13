@@ -1,18 +1,17 @@
-class SpecialReviewObject
+class BudgetVersionsObject
 
   include Foundry
   include DataFactory
   include StringFactory
   include Navigation
 
-  attr_accessor :type, :approval_status, :document_id
+  attr_accessor :name, :document_id
 
   def initialize(browser, opts={})
     @browser = browser
 
     defaults = {
-      type: :random,
-      approval_status: :random
+      name: random_alphanums
     }
 
     set_options(defaults.merge(opts))
@@ -21,16 +20,15 @@ class SpecialReviewObject
 
   def create
     navigate
-    on SpecialReview do |add|
-      add.type.pick @type
-      add.approval_status.pick @approval_status
+    on BudgetVersions do |add|
+      add.name.set @name
       add.add
       add.save
     end
   end
 
   def edit opts={}
-
+    navigate
     set_options(opts)
   end
 
@@ -44,9 +42,11 @@ class SpecialReviewObject
 
   private
 
+  # Nav Aids...
+
   def navigate
     open_document unless on_document?
-    on(Proposal).special_review unless on_page?
+    on(Proposal).budget_versions unless on_page?
   end
 
   def on_page?
@@ -55,11 +55,10 @@ class SpecialReviewObject
     # firefox elements gets fixed. This is
     # still broken in selenium-webdriver 2.29
     begin
-      on(SpecialReview).type.exist?
+      on(BudgetVersions).name.exist?
     rescue
       false
     end
   end
 
 end
-

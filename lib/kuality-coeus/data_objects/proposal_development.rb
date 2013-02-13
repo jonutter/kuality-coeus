@@ -9,7 +9,7 @@ class ProposalDevelopmentObject
   attr_accessor :description, :type, :lead_unit, :activity_type, :project_title,
                 :sponsor_code, :start_date, :end_date, :explanation, :id, :status,
                 :initiator, :created, :sponsor_deadline_date, :key_personnel,
-                :special_review
+                :special_review, :budget_versions, :permissions
   
   def initialize(browser, opts={})
     @browser = browser
@@ -24,7 +24,8 @@ class ProposalDevelopmentObject
       end_date: next_year[:date_w_slashes],
       sponsor_deadline_date: next_week[:date_w_slashes],
       key_personnel: [],
-      special_review: []
+      special_review: [],
+      budget_versions: []
     }
     set_options(defaults.merge(opts))
   end
@@ -50,9 +51,15 @@ class ProposalDevelopmentObject
       doc.save
     end
     person = make KeyPersonnelObject, document_id: @id
-    @key_personnel << person.create
+    person.create
+    @key_personnel << person
     spec_review = make SpecialReviewObject, document_id: @id
-    @special_review << spec_review.create
+    spec_review.create
+    @special_review << spec_review
+    budget = make BudgetVersionsObject, document_id: @id
+    budget.create
+    @budget_versions << budget
+    @permissions = make PermissionsObject, document_id: @id, roles: { 'Aggregator'=>@initiator, 'approver'=>'lralph' }
   end
     
   def edit opts={}

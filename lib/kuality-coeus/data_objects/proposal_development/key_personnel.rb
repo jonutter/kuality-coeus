@@ -51,16 +51,8 @@ class KeyPersonnelObject
   # Nav Aids...
 
   def navigate
-    unless on_document?
-      visit DocumentSearch do |search|
-        search.document_id.set @document_id
-        search.search
-        search.open_doc @document_id
-      end
-    end
-    unless on_page?
-      on(Proposal).key_personnel
-    end
+    open_document unless on_document?
+    on(Proposal).key_personnel unless on_page?
   end
 
   def on_page?
