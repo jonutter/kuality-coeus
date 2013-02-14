@@ -61,20 +61,5 @@ class ProposalDevelopmentObject
     @budget_versions << budget
     @permissions = make PermissionsObject, document_id: @id, roles: { 'Aggregator'=>@initiator, 'approver'=>'lralph' }
   end
-    
-  def edit opts={}
-    
-    set_options(opts)
-  end
-    
-  def view
-    
-  end
-    
-  def delete
-    
-  end
   
 end
-    
-      
