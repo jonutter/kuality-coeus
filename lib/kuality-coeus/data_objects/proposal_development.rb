@@ -61,5 +61,12 @@ class ProposalDevelopmentObject
     @budget_versions << budget
     @permissions = make PermissionsObject, document_id: @id, roles: { 'Aggregator'=>@initiator, 'approver'=>'lralph' }
   end
-  
+
+  def delete
+    open_document unless on_document?
+    on(Proposal).proposal_actions
+    on(ProposalActions).delete_proposal
+    on(ConfirmationPage).yes
+  end
+
 end
