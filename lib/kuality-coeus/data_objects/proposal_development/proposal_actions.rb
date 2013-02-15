@@ -31,6 +31,6 @@ class ProposalActions < ProposalDevelopmentDocument
   element(:name) { |b| b.frm.text_field(name: "newAdHocRouteWorkgroup.recipientName") }
   action(:add_group_request) { |b| b.frm.button(name: "methodToCall.insertAdHocRouteWorkgroup").click }
 
-  action(:delete_proposal) { |b| b.frm.button(name: "methodToCall.deleteProposal").click; use_new_tab }
+  action(:delete_proposal) { |b| b.frm.button(name: "methodToCall.deleteProposal").click }
 
 end

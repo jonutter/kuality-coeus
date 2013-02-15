@@ -34,4 +34,7 @@ class Proposal < ProposalDevelopmentDocument
 
   # Keywords
 
+  # When the proposal is deleted...
+  value(:error_message) { |b| b.frm.table(class: "container2").row[1].text }
+
 end
