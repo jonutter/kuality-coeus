@@ -68,3 +68,15 @@ class KeyPersonnelObject
   end
 
 end
+
+class KeyPersonnelCollection < Array
+
+  def names
+    self.collect { |person| "#{person.first_name} #{person.last_name}" }
+  end
+
+  def roles
+    self.collect { |person| person.role }
+  end
+
+end
