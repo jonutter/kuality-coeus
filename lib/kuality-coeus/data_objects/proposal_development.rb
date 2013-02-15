@@ -58,9 +58,10 @@ class ProposalDevelopmentObject
   # It must only be used with:
   # 1) Instance variables that are arrays.
   # 2) Data objects that have a create method.
-  add_data_object(KeyPersonnelObject, @key_personnel)
-  add_data_object(SpecialReviewObject, @special_review)
-  add_data_object(BudgetVersionsObject, @budget_versions)
+  # DON'T FORGET: pass the instance variable as a symbol!
+  add_data_object(KeyPersonnelObject, :@key_personnel)
+  add_data_object(SpecialReviewObject, :@special_review)
+  add_data_object(BudgetVersionsObject, :@budget_versions)
 
   def assign_permissions opts={}
     merge_settings opts
