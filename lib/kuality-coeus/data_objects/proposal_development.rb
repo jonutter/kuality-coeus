@@ -10,7 +10,19 @@ class ProposalDevelopmentObject
                 :sponsor_code, :start_date, :end_date, :explanation, :document_id, :status,
                 :initiator, :created, :sponsor_deadline_date, :key_personnel,
                 :special_review, :budget_versions, :permissions
-  
+
+  def self.add_data_object(object_class, instance_var_symb)
+    name_string = "add_" + instance_var_symb.to_s.gsub('@', '')
+    define_method name_string do |opts={}|
+      merge_settings(opts)
+      var = make(eval(object_class), opts)
+      var.create
+      array = instance_variable_get instance_var_symb
+      array << var
+      instance_variable_set(instance_var_symb, array)
+    end
+  end
+
   def initialize(browser, opts={})
     @browser = browser
     defaults = {
@@ -58,10 +70,11 @@ class ProposalDevelopmentObject
   # It must only be used with:
   # 1) Instance variables that are arrays.
   # 2) Data objects that have a create method.
-  # DON'T FORGET: pass the instance variable as a symbol!
-  add_data_object(KeyPersonnelObject, :@key_personnel)
-  add_data_object(SpecialReviewObject, :@special_review)
-  add_data_object(BudgetVersionsObject, :@budget_versions)
+  # DON'T FORGET: pass the instance variable as a symbol
+  # and the class name as a string!
+  add_data_object('KeyPersonnelObject', :@key_personnel)
+  add_data_object('SpecialReviewObject', :@special_review)
+  add_data_object('BudgetVersionsObject', :@budget_versions)
 
   def assign_permissions opts={}
     merge_settings opts
@@ -94,16 +107,6 @@ class ProposalDevelopmentObject
     opts.merge!(defaults)
   end
 
-  def add_data_object(object_class, instance_var_symb)
-    name_string = "add_" + instance_var_symb.to_s.gsub('@', '')
-    define_method name_string do |opts={}|
-      merge_settings(opts)
-      var = make object_class, opts
-      var.create
-      array = instance_variable_get instance_var_symb
-      array << var
-      instance_variable_set(instance_var_symb, array)
-    end
-  end
+
 
 end
