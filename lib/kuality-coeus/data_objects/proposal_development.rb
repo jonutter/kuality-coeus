@@ -52,6 +52,12 @@ class ProposalDevelopmentObject
     end
   end
 
+  # Note that these lines create methods of the form "add_key_personnel".
+  # The method name is based on the name of the class instance
+  # variable.
+  # It must only be used with:
+  # 1) Instance variables that are arrays.
+  # 2) Data objects that have a create method.
   add_data_object(KeyPersonnelObject, @key_personnel)
   add_data_object(SpecialReviewObject, @special_review)
   add_data_object(BudgetVersionsObject, @budget_versions)
