@@ -5,7 +5,7 @@ class KeyPersonnelObject
   include StringFactory
   include Navigation
 
-  attr_accessor :first_name, :last_name, :role, :document_id
+  attr_accessor :first_name, :last_name, :role, :document_id, :key_person_role #TODO: Add support for key_person_role
 
   def initialize(browser, opts={})
     @browser = browser
