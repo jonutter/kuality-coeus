@@ -50,30 +50,11 @@ class ProposalDevelopmentObject
       doc.sponsor_deadline_date.set @sponsor_deadline_date
       doc.save
     end
-
-
   end
 
-  def add_key_personnel opts={}
-    merge_settings opts
-    person = make KeyPersonnelObject, opts
-    person.create
-    @key_personnel << person
-  end
-
-  def add_special_review opts={}
-    merge_settings opts
-    spec_review = make SpecialReviewObject, opts
-    spec_review.create
-    @special_review << spec_review
-  end
-
-  def add_budget_version opts={}
-    merge_settings opts
-    budget = make BudgetVersionsObject, opts
-    budget.create
-    @budget_versions << budget
-  end
+  add_data_object(KeyPersonnelObject, @key_personnel)
+  add_data_object(SpecialReviewObject, @special_review)
+  add_data_object(BudgetVersionsObject, @budget_versions)
 
   def assign_permissions opts={}
     merge_settings opts
@@ -104,6 +85,18 @@ class ProposalDevelopmentObject
         document_id: @document_id
     }
     opts.merge!(defaults)
+  end
+
+  def add_data_object(object_class, instance_var_symb)
+    name_string = "add_" + instance_var_symb.to_s.gsub('@', '')
+    define_method name_string do |opts={}|
+      merge_settings(opts)
+      var = make object_class, opts
+      var.create
+      array = instance_variable_get instance_var_symb
+      array << var
+      instance_variable_set(instance_var_symb, array)
+    end
   end
 
 end
