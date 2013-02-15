@@ -50,16 +50,35 @@ class ProposalDevelopmentObject
       doc.sponsor_deadline_date.set @sponsor_deadline_date
       doc.save
     end
-    person = make KeyPersonnelObject, document_id: @document_id
+
+
+  end
+
+  def add_key_personnel opts={}
+    merge_settings opts
+    person = make KeyPersonnelObject, opts
     person.create
     @key_personnel << person
-    spec_review = make SpecialReviewObject, document_id: @document_id
+  end
+
+  def add_special_review opts={}
+    merge_settings opts
+    spec_review = make SpecialReviewObject, opts
     spec_review.create
     @special_review << spec_review
-    budget = make BudgetVersionsObject, document_id: @document_id
+  end
+
+  def add_budget_version opts={}
+    merge_settings opts
+    budget = make BudgetVersionsObject, opts
     budget.create
     @budget_versions << budget
-    @permissions = make PermissionsObject, document_id: @document_id, roles: { 'Aggregator'=>@initiator, 'approver'=>'lralph' }
+  end
+
+  def assign_permissions opts={}
+    merge_settings opts
+    @permissions = make PermissionsObject, opts
+    @permissions.assign
   end
 
   def delete
@@ -74,6 +93,17 @@ class ProposalDevelopmentObject
       search.search
       @status=search.doc_status @document_id
     end
+  end
+
+  # =======
+  private
+  # =======
+
+  def merge_settings(opts)
+    defaults = {
+        document_id: @document_id
+    }
+    opts.merge!(defaults)
   end
 
 end
