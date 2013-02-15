@@ -17,7 +17,7 @@ class PermissionsObject
     requires @document_id
   end
 
-  def create
+  def assign
     navigate
     on Permissions do |add|
       @roles.each do |role, username|
