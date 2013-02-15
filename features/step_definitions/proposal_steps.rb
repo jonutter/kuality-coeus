@@ -20,3 +20,8 @@ Then /^The proposal is deleted$/ do
   @proposal.open_document
   on(Proposal).error_message.should=='The Development Proposal has been deleted.'
 end
+
+Given /bla/  do
+  @proposal.add_key_personnel first_name: "Abe", role: "Key Person"
+
+end
