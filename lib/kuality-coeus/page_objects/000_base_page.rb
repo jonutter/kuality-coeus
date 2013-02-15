@@ -43,6 +43,17 @@ class BasePage < PageFactory
       element(:results_table) { |b| b.frm.table(id: "row") }
     end
 
+    def budget_header_elements
+      action(:budget_versions) { |b| b.frm.button(text: "Budget Version").click }
+      action(:parameters) { |b| b.frm.button(text: "Parameters").click }
+      action(:rates) { |b| b.frm.button(text: "Rates").click }
+      action(:summary) { |b| b.frm.button(text: "Summary").click }
+      action(:Personnel) { |b| b.frm.button(text: "Personnel").click }
+      action(:non_personnel) { |b| b.frm.button(text: "Non-Personnel").click }
+      action(:distribution_and_income) { |b| b.frm.button(text: "Distribution & Income").click }
+      action(:modular_budget) { |b| b.frm.button(text: "Modular Budget").click }
+      action(:budget_actions) { |b| b.frm.button(text: "Budget Actions").click }
+    end
   end
 
 end
