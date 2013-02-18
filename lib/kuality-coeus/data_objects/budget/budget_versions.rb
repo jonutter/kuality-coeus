@@ -61,4 +61,10 @@ class BudgetVersionsObject
     end
   end
 
-end
+end # BudgetVersionsObject
+
+class BudgetVersionsCollection < Array
+
+
+
+end # BudgetVersionsCollection

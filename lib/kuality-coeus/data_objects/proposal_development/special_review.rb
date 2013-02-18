@@ -34,14 +34,6 @@ class SpecialReviewObject
     set_options(opts)
   end
 
-  def view
-
-  end
-
-  def delete
-
-  end
-
   private
 
   def navigate
@@ -61,5 +53,17 @@ class SpecialReviewObject
     end
   end
 
-end
+end # SpecialReviewObject
+
+class SpecialReviewCollection < Array
+
+  def types
+    self.collect { |s_r| s_r.type }
+  end
+
+  def statuses
+    self.collect { |s_r| s_r.approval_status }
+  end
+
+end # SpecialReviewCollection
 

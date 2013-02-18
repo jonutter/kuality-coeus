@@ -2,7 +2,7 @@ class ProposalActions < ProposalDevelopmentDocument
 
   proposal_header_elements
 
-  element(:turn_on_validation) { |b| b.frm.button(name: "methodToCall.activate") }
+  element(:turn_on_validation) { |b| b.frm.button(name: "methodToCall.activate"); b.td(class: "subhead", text: "Validation Errors").wait_until_present }
 
   action(:key_personnel_errors) { |b| b.frm.button(name: "methodToCall.toggleTab.tabKeyPersonnelInformationValidationErrors").click }
   value(:key_personnel_error) { |b| b.frm.tbody(id: "tab-KeyPersonnelInformationValidationErrors-div")[1].text }
