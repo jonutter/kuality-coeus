@@ -51,15 +51,7 @@ class KeyPersonnelObject
   end
 
   def on_page?
-    # Note, the rescue clause should be
-    # removed when the Selenium bug with
-    # firefox elements gets fixed. This is
-    # still broken in selenium-webdriver 2.29
-    begin
-      on(KeyPersonnel).proposal_role.exist?
-    rescue
-      false
-    end
+    on(KeyPersonnel).proposal_role.exist?
   end
 
 end # KeyPersonnelObject
