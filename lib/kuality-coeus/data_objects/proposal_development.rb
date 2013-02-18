@@ -24,8 +24,8 @@ class ProposalDevelopmentObject
       end_date: next_year[:date_w_slashes],
       sponsor_deadline_date: next_week[:date_w_slashes],
       key_personnel: KeyPersonnelCollection.new,
-      special_review: [],
-      budget_versions: []
+      special_review: SpecialReviewCollection.new,
+      budget_versions: BudgetVersionsCollection.new
     }
     set_options(defaults.merge(opts))
   end
@@ -54,13 +54,24 @@ class ProposalDevelopmentObject
 
   def add_key_personnel opts={}
     merge_settings(opts)
-    var = make KeyPersonnelObject, opts
-    var.create
-    @key_personnel << var
+    kpo = make KeyPersonnelObject, opts
+    kpo.create
+    @key_personnel << kpo
   end
 
-  # add_data_object('SpecialReviewObject', :@special_review)
-  # add_data_object('BudgetVersionsObject', :@budget_versions)
+  def add_special_review opts={}
+    merge_settings(opts)
+    sro = make SpecialReviewObject, opts
+    sro.create
+    @special_review << sro
+  end
+
+  def add_budget_versions opts={}
+    merge_settings(opts)
+    bvo = make BudgetVersionsObject, opts
+    bvo.create
+    @budget_versions << bvo
+  end
 
   def assign_permissions opts={}
     merge_settings opts

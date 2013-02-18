@@ -5,7 +5,7 @@ class KeyPersonnelObject
   include StringFactory
   include Navigation
 
-  attr_accessor :first_name, :last_name, :role, :document_id, :key_person_role #TODO: Add support for key_person_role
+  attr_accessor :first_name, :last_name, :role, :document_id, :key_person_role
 
   def initialize(browser, opts={})
     @browser = browser
@@ -28,6 +28,7 @@ class KeyPersonnelObject
     end
     on KeyPersonnel do |person|
       person.proposal_role.pick @role
+      person.key_person_role.fit @key_person_role
       person.add_person
       person.save
     end
@@ -38,15 +39,9 @@ class KeyPersonnelObject
     set_options(opts)
   end
 
-  def view
-
-  end
-
-  def delete
-
-  end
-
+  # =======
   private
+  # =======
 
   # Nav Aids...
 
@@ -67,7 +62,7 @@ class KeyPersonnelObject
     end
   end
 
-end
+end # KeyPersonnelObject
 
 class KeyPersonnelCollection < Array
 
@@ -79,4 +74,4 @@ class KeyPersonnelCollection < Array
     self.collect { |person| person.role }
   end
 
-end
+end # KeyPersonnelCollection
