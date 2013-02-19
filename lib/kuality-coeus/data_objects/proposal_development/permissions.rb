@@ -49,7 +49,9 @@ class PermissionsObject
 
   end
 
+  # =======
   private
+  # =======
 
   # Nav Aids...
 
