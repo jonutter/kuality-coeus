@@ -1,13 +1,11 @@
 class Questions < ProposalDevelopmentDocument
 
   proposal_header_elements
-  expected_element :questions_header
 
   # Used strictly for navigation validation...
-  element(:questions_header) { |b| b.frm.table(class: "tab") }
+  element(:questions_header) { |b| b.frm.h2(text: "A. Proposal Questions") }
 
   # S2S Questions...
-  action(:q_num_div) { |index, b| b.frm.div(id: "HD0-QN#{index}div").div(class: "Qresponsediv") }
   action(:show_s2s_questions) { |b| b.frm.button(name: "methodToCall.toggleTab.tab0").click }
 
   # S2S Radio button questions...
@@ -32,7 +30,7 @@ class Questions < ProposalDevelopmentDocument
   alias_method :total_ftes, :s2s_r2
 
   1.upto(6) do |i|
-    alias_method "year#{i+1}".to_sym, "s2s_r#{i+2}".to_sym unless i==6
+    alias_method "year_#{i+1}".to_sym, "s2s_r#{i+2}".to_sym unless i==6
     element("fiscal_year_#{i}".to_sym) { |b| b.frm.select(name: "questionnaireHelper.answerHeaders[0].answers[#{i+(2*i-1)}].answer") }
     element("ftes_for_fy_#{i}".to_sym) { |b| b.frm.text_field(id: "questionnaireHelper.answerHeaders[0].answers[#{3*i}].answer") }
   end
@@ -91,11 +89,16 @@ class Questions < ProposalDevelopmentDocument
   alias_method :other_agencies, :s2s_r28
   element(:submitted_to_govt_agency) { |b| b.frm.text_field(id: "questionnaireHelper.answerHeaders[0].answers[76].answer") }
   element(:application_date) { |b| b.frm.text_field(id: "questionnaireHelper.answerHeaders[0].answers[78].answer") }
-
+  element(:program) { |b| b.frm.select(name: "questionnaireHelper.answerHeaders[0].answers[79].answer") }
+  
   alias_method :subject_to_review, :s2s_r29
   alias_method :novice_applicants, :s2s_r31
 
   # Proposal Questions...
 
+  private
+
+  # Used in other elements. Not needed outside this class
+  action(:q_num_div) { |index, b| b.frm.div(id: "HD0-QN#{index}div").div(class: "Qresponsediv") }
 
 end
