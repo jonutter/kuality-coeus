@@ -1,6 +1,6 @@
 Feature: Deleting a proposal
 
-  Background: [insert text here]
+  #Background: [insert text here]
 
   Scenario: Delete a Proposal
     Given I am logged in as admin
