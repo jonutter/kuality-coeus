@@ -6,10 +6,10 @@ Dir["#{File.dirname(__FILE__)}/kuality-coeus/data_objects/*.rb"].each {|f| requi
 Dir["#{File.dirname(__FILE__)}/kuality-coeus/data_objects/*/*.rb"].each {|f| require f }
 
 # Initialize this class at the start of your test cases to
-# open the specified test browser at the specified Sakai welcome page URL.
+# open the specified test browser at the specified welcome page URL.
 #
 # The initialization will
-# create the @browser variable used throughout the page classes
+# create the browser object that can be used throughout the page classes
 class Kuality
 
   attr_reader :browser
