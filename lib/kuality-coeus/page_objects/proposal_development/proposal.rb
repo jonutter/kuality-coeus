@@ -37,4 +37,8 @@ class Proposal < ProposalDevelopmentDocument
   # When the proposal is deleted...
   value(:error_message) { |b| b.frm.table(class: "container2").row[1].text }
 
+  # Overview tab errors
+  # noinspection RubyArgCount
+  value(:overview_tab_errors) { |b| b.frm.div(class: 'left-errmsg-tab').div.div.text }
+
 end
