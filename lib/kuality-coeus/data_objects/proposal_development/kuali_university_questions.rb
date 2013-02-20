@@ -1,4 +1,4 @@
-class ProposalQuestionsObject
+class KualiUniversityQuestionsObject
 
   include Foundry
   include DataFactory
@@ -6,7 +6,9 @@ class ProposalQuestionsObject
   include DateFactory
   include Navigation
 
-  attr_accessor :document_id, :agree_to_nih_policy, :policy_review_date
+  attr_accessor :document_id, :dual_dept_appointment, :dual_dept_review_date, :dual_dept_explanation,
+                :on_sabbatical, :sabbatical_review_date, :used_by_small_biz, :small_biz_review_date,
+                :understand_deadline, :deadline_review_date
 
   def initialize(browser, opts={})
     @browser = browser
@@ -18,8 +20,10 @@ class ProposalQuestionsObject
     # In general, it's not workable to set up radio button elements
     # to use "Y" and "N" as the instance variables associated with them.
     defaults = {
-      agree_to_nih_policy: "Y",
-      policy_review_date: right_now[:date_w_slashes],
+      dual_dept_appointment: "N",
+      on_sabbatical: "N",
+      used_by_small_biz: "N",
+      understand_deadline: "Y"
     }
     set_options(defaults.merge(opts))
     requires @document_id
@@ -27,11 +31,18 @@ class ProposalQuestionsObject
 
   def create
     navigate
-    on Questions do |pq|
-      pq.show_proposal_questions
-      pq.agree_to_nih_policy @agree_to_nih_policy
-      pq.policy_review_date.set @policy_review_date
-      pq.save
+    on Questions do |kuali|
+      kuali.show_kuali_university
+      kuali.dual_dept_appointment @dual_dept_appointment
+      kuali.dual_dept_review_date.fit @dual_dept_review_date
+      kuali.dual_dept_explanation.fit @dual_dept_explanation
+      kuali.on_sabbatical @on_sabbatical
+      kuali.sabbatical_review_date.fit @sabbatical_review_date
+      kuali.used_by_small_biz @used_by_small_biz
+      kuali.small_biz_review_date @small_biz_review_date
+      kuali.understand_deadline @understand_deadline
+      kuali.deadline_review_date.fit @deadline_review_date
+      kuali.save
     end
   end
 

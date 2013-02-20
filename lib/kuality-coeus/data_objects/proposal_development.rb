@@ -9,7 +9,8 @@ class ProposalDevelopmentObject
   attr_accessor :description, :proposal_type, :lead_unit, :activity_type, :project_title,
                 :sponsor_code, :start_date, :end_date, :explanation, :document_id, :status,
                 :initiator, :created, :sponsor_deadline_date, :key_personnel,
-                :special_review, :budget_versions, :permissions, :s2s_questionnaire
+                :special_review, :budget_versions, :permissions, :s2s_questionnaire,
+                :proposal_questions, :compliance_questions
 
   def initialize(browser, opts={})
     @browser = browser
@@ -79,10 +80,28 @@ class ProposalDevelopmentObject
     @permissions.assign
   end
 
-  def add_s2s_questionnaire opts={}
+  def answer_s2s_questionnaire opts={}
     merge_settings(opts)
     @s2s_questionnaire = make S2SQuestionnaireObject, opts
     @s2s_questionnaire.create
+  end
+
+  def answer_proposal_questions opts={}
+    merge_settings(opts)
+    @proposal_questions = make ProposalQuestionsObject
+    @proposal_questions.create
+  end
+
+  def answer_compliance_questions opts={}
+    merge_settings(opts)
+    @compliance_questions = make ComplianceQuestionsObject
+    @compliance_questions.create
+  end
+
+  def answer_kuali_university_questions opts={}
+    merge_settings(opts)
+    @kuali_university_questions = make KualiUniversityQuestionsObject
+    @kuali_university_questions.create
   end
 
   def delete

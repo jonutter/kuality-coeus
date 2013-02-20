@@ -1,4 +1,4 @@
-class ProposalQuestionsObject
+class ComplianceQuestionsObject
 
   include Foundry
   include DataFactory
@@ -6,7 +6,7 @@ class ProposalQuestionsObject
   include DateFactory
   include Navigation
 
-  attr_accessor :document_id, :agree_to_nih_policy, :policy_review_date
+  attr_accessor :document_id, :agree_to_ethical_conduct, :conduct_review_date
 
   def initialize(browser, opts={})
     @browser = browser
@@ -18,8 +18,8 @@ class ProposalQuestionsObject
     # In general, it's not workable to set up radio button elements
     # to use "Y" and "N" as the instance variables associated with them.
     defaults = {
-      agree_to_nih_policy: "Y",
-      policy_review_date: right_now[:date_w_slashes],
+        agree_to_ethical_conduct: "Y",
+        conduct_review_date: right_now[:date_w_slashes],
     }
     set_options(defaults.merge(opts))
     requires @document_id
@@ -27,11 +27,11 @@ class ProposalQuestionsObject
 
   def create
     navigate
-    on Questions do |pq|
-      pq.show_proposal_questions
-      pq.agree_to_nih_policy @agree_to_nih_policy
-      pq.policy_review_date.set @policy_review_date
-      pq.save
+    on Questions do |cq|
+      cq.show_compliance_questions
+      cq.agree_to_nih_policy @agree_to_ethical_conduct
+      cq.policy_review_date.fit @conduct_review_date
+      cq.save
     end
   end
 
