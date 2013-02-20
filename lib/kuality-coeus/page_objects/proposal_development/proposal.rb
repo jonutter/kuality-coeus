@@ -50,6 +50,7 @@ class Proposal < ProposalDevelopmentDocument
     errs = []
     overview_tab_errors.each { |err| errs << err.text }
     required_fields_errors.each { |err| errs << err.text }
+    errs
   end
 
 end
