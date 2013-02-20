@@ -44,6 +44,12 @@ class Proposal < ProposalDevelopmentDocument
   element(:required_fields_errors) { |b| b.frm.div(index: 1, class: "left-errmsg-tab").div(index: 0).divs(style: "display:list-item;margin-left:20px;") }
 
   # An array whose elements are the text contents of all errors that appear in the tabs.
+  # It will NOT contain the error message at the top of the page, or the error that appears when
+  # a proposal is deleted.
   def errors
+    errs = []
+    overview_tab_errors.each { |err| errs << err.text }
+    required_fields_errors.each { |err| errs << err.text }
+  end
 
 end
