@@ -24,4 +24,4 @@ Feature: Creating a proposal
         | Proposal Type | Proposal Type is a required field. |
         | Activity Type | Activity Type is a required field. |
 
-    Scenario: Attempt to
+#    Scenario: Attempt to

@@ -6,7 +6,7 @@ class ProposalDevelopmentObject
   include DateFactory
   include Navigation
   
-  attr_accessor :description, :type, :lead_unit, :activity_type, :project_title,
+  attr_accessor :description, :proposal_type, :lead_unit, :activity_type, :project_title,
                 :sponsor_code, :start_date, :end_date, :explanation, :document_id, :status,
                 :initiator, :created, :sponsor_deadline_date, :key_personnel,
                 :special_review, :budget_versions, :permissions
@@ -15,7 +15,7 @@ class ProposalDevelopmentObject
     @browser = browser
     defaults = {
       description: random_alphanums,
-      type: "New",
+      proposal_type: "New",
       lead_unit: :random,
       activity_type: :random,
       project_title: random_alphanums,
@@ -40,7 +40,7 @@ class ProposalDevelopmentObject
       doc.expand_all
       doc.description.set @description
       doc.sponsor_code.set @sponsor_code
-      @type=doc.proposal_type.pick @type
+      @proposal_type=doc.proposal_type.pick @proposal_type
       @activity_type=doc.activity_type.pick @activity_type
       @lead_unit=doc.lead_unit.pick @lead_unit
       doc.project_title.set @project_title

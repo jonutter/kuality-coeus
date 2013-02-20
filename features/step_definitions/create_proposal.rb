@@ -11,8 +11,9 @@ When /^I begin a proposal without a (.*)$/ do |name|
   @proposal = create ProposalDevelopmentObject, field=> ""
 end
 Then /^I should see an error that says (.*)$/ do |error|
-  on(Proposal).overview_tab_errors.should == error
+  on(Proposal).overview_tab_errors[0].text.should == error
 end
-When /^I begin a proposal without selecting a (.*)$/ do ||
-  #TODO
+When /^I begin a proposal without selecting a (.*)$/ do |name|
+  field = StringFactory.damballa(name).to_sym
+  @proposal = create ProposalDevelopmentObject, field=>"select"
 end
