@@ -107,6 +107,17 @@ class Questions < ProposalDevelopmentDocument
   element(:conduct_review_date) { |b| b.frm.text_field(name: "document.developmentProposalList[0].proposalYnq[1].reviewDate") }
 
   # Kuali University
+
+  # Note that this method gets the Watir li element objects and returns them
+  # in a collection. You will have to specify which error li you want, plus the text
+  # attribute for that li.
+  #
+  # For example, if you want the text of the second error listed, your code should look
+  # like this:
+  #
+  # page.kuali_university_errors[1].text
+  element(:kuali_university_errors) { |b| b.frm.div(id: "tab-CKualiUniversity-div").div(class: "error").lis }
+
   action(:show_kuali_university) { |b| b.frm.button(name: "methodToCall.toggleTab.tabCKualiUniversity").click }
 
   action(:dual_dept_appointment) { |answer, b| b.frm.radio(value: answer, name: "document.developmentProposalList[0].proposalYnq[0].answer").set }
