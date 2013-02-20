@@ -37,10 +37,20 @@ class Proposal < ProposalDevelopmentDocument
   # When the proposal is deleted...
   value(:error_message) { |b| b.frm.table(class: "container2").row[1].text }
 
-  # Overview tab errors
-  value(:overview_tab_errors) { |b| b.frm.div(index: 0, class: "left-errmsg-tab").div(index: 0).divs(style: "display:list-item;margin-left:20px;") }
+  # Overview tab error divs
+  element(:overview_tab_errors) { |b| b.frm.div(index: 0, class: "left-errmsg-tab").div(index: 0).divs(style: "display:list-item;margin-left:20px;") }
 
-  # required fields tab errors
-  value(:required_fields_errors) { |b| b.frm.div(index: 1, class: "left-errmsg-tab").div(index: 0).divs(style: "display:list-item;margin-left:20px;") }
+  # Required Fields tab error divs
+  element(:required_fields_errors) { |b| b.frm.div(index: 1, class: "left-errmsg-tab").div(index: 0).divs(style: "display:list-item;margin-left:20px;") }
+
+  # An array whose elements are the text contents of all errors that appear in the tabs.
+  # It will NOT contain the error message at the top of the page, or the error that appears when
+  # a proposal is deleted.
+  def errors
+    errs = []
+    overview_tab_errors.each { |err| errs << err.text }
+    required_fields_errors.each { |err| errs << err.text }
+    errs
+  end
 
 end
