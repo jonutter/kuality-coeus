@@ -5,11 +5,20 @@ class ProposalActions < ProposalDevelopmentDocument
   element(:turn_on_validation) { |b| b.frm.button(name: "methodToCall.activate"); b.td(class: "subhead", text: "Validation Errors").wait_until_present }
 
   action(:show_key_personnel_errors) { |b| b.frm.button(name: "methodToCall.toggleTab.tabKeyPersonnelInformationValidationErrors").click }
+  element(:key_personnel_errors) { |b| b.frm.tbody(id: "tab-KeyPersonnelInformationValidationErrors-div").tds(width: "94%") }
   action(:show_budget_versions_errors) { |b| b.frm.button(name: "methodToCall.toggleTab.tabBudgetVersionsValidationErrors").click }
+  #element(:budget_versions_errors) { |b| b.frm.tbody(id: "").tds(width: "94%") }
   action(:show_proposal_questions_errors) { |b| b.frm.button(name: "methodToCall.toggleTab.tabAProposalQuestionsValidationErrors").click }
+  element(:proposal_questions_errors) { |b| b.frm.tbody(id: "tab-AProposalQuestionsValidationErrors-div").tds(width: "94%") }
   action(:show_kuali_u_errors) { |b| b.frm.button(name: "methodToCall.toggleTab.tabCKualiUniversityValidationErrors").click }
+  element(:kuali_u_errors) { |b| b.frm.tbody(id: "tab-CKualiUniversityValidationErrors-div").tds(width: "94%") }
   action(:show_questionnaire_errors) { |b| b.frm.button(name: "methodToCall.toggleTab.tabS2SFATFlatQuestionnaireValidationErrors").click }
+  element(:questionnaire_errors) { |b| b.frm.tbody(id: "tab-S2SFATFlatQuestionnaireValidationErrors-div").tds(width: "94%") }
   action(:show_compliance_errors) { |b| b.frm.button(name: "methodToCall.toggleTab.tabBComplianceValidationErrors").click }
+  element(:compliance_errors) { |b| b.frm.tbody(id: "tab-BComplianceValidationErrors-div").tds(width: "94%") }
+
+  action(:show_sponsor_warnings) { |b| b.frm.button(name: "methodToCall.toggleTab.tabSponsorProgramInformationWarnings").click }
+  element(:sponsor_warnings) { |b| b.frm.tbody(id: "tab-SponsorProgramInformationWarnings-div").tds(width: "94%") }
 
   value(:warnings) { |b| b.frm.td(text: "Warnings").parent.parent.td(class: "datacell").text }
   value(:grants_gov_errors) { |b| b.frm.td(text: "Grants.Gov Errors").parent.parent.td(class: "datacell").text }
