@@ -12,5 +12,5 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:select_unit) { |b| b.frm.button(name: "methodToCall.performLookup.(!!org.kuali.kra.bo.Unit!!).(((unitNumber:newProposalPersonUnit[0].unitNumber,unitName:newProposalPersonUnit[0].unitName))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchor").click }
   element(:unit_number) { |b| b.frm.text_field(id: /unitNumber/) }
 
-  value()
+  element(:no_pi_error) { |b| b.frm.div(id: "left-errmsg-tab").div(class: "error").lis }
 end
