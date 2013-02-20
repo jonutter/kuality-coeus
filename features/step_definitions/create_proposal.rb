@@ -1,15 +1,18 @@
 Given /^I am logged in as admin$/ do
   @user = make UserObject
-  @user.sign_in
+  @user.sign_in unless @user.logged_in?
 end
 
-And /^I create a proposal$/ do
-  on(Researcher).create_proposal
-  on Proposal do |create|
+And /^I begin a proposal$/ do
+  @proposal = create ProposalDevelopmentObject
 end
-When /^I validate my proposal$/ do
-  pending
+When /^I begin a proposal without a (.*)$/ do |name|
+  field = StringFactory.damballa(name).to_sym
+  @proposal = create ProposalDevelopmentObject, field=> ""
 end
-Then /^I see an error that says There is no Principal Investigator selected. Please enter a Principal Investigator.$/ do
-  pending
+Then /^I should see an error that says (.*)$/ do |error|
+  on(Proposal).overview_tab_errors.should == error
+end
+When /^I begin a proposal without selecting a (.*)$/ do ||
+  #TODO
 end
