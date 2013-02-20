@@ -43,5 +43,4 @@ class Proposal < ProposalDevelopmentDocument
   # required fields tab errors
   value(:required_fields_errors) { |b| b.frm.div(index: 1, class: "left-errmsg-tab").div(index: 0).divs(style: "display:list-item;margin-left:20px;") }
 
-
 end
