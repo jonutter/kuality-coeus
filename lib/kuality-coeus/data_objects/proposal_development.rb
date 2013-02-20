@@ -9,7 +9,7 @@ class ProposalDevelopmentObject
   attr_accessor :description, :proposal_type, :lead_unit, :activity_type, :project_title,
                 :sponsor_code, :start_date, :end_date, :explanation, :document_id, :status,
                 :initiator, :created, :sponsor_deadline_date, :key_personnel,
-                :special_review, :budget_versions, :permissions
+                :special_review, :budget_versions, :permissions, :s2s_questionnaire
 
   def initialize(browser, opts={})
     @browser = browser
@@ -25,7 +25,7 @@ class ProposalDevelopmentObject
       sponsor_deadline_date: next_week[:date_w_slashes],
       key_personnel: KeyPersonnelCollection.new,
       special_review: SpecialReviewCollection.new,
-      budget_versions: BudgetVersionsCollection.new
+      budget_versions: BudgetVersionsCollection.new,
     }
     set_options(defaults.merge(opts))
   end
@@ -77,6 +77,12 @@ class ProposalDevelopmentObject
     merge_settings opts
     @permissions = make PermissionsObject, opts
     @permissions.assign
+  end
+
+  def add_s2s_questionnaire opts={}
+    merge_settings(opts)
+    @s2s_questionnaire = make S2SQuestionnaireObject, opts
+    @s2s_questionnaire.create
   end
 
   def delete
