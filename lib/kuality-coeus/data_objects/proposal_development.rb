@@ -16,11 +16,11 @@ class ProposalDevelopmentObject
     @browser = browser
     defaults = {
       description: random_alphanums,
-      proposal_type: "New",
+      proposal_type: 'New',
       lead_unit: :random,
       activity_type: :random,
       project_title: random_alphanums,
-      sponsor_code: "000500",
+      sponsor_code: "000#{rand(8)+1}#{rand(1)}0",
       start_date: next_week[:date_w_slashes],
       end_date: next_year[:date_w_slashes],
       sponsor_deadline_date: next_week[:date_w_slashes],

@@ -18,7 +18,7 @@ class ProposalQuestionsObject
     # In general, it's not workable to set up radio button elements
     # to use "Y" and "N" as the instance variables associated with them.
     defaults = {
-      agree_to_nih_policy: "Y",
+      agree_to_nih_policy: 'Y',
       policy_review_date: right_now[:date_w_slashes],
     }
     set_options(defaults.merge(opts))

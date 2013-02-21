@@ -20,10 +20,10 @@ class KualiUniversityQuestionsObject
     # In general, it's not workable to set up radio button elements
     # to use "Y" and "N" as the instance variables associated with them.
     defaults = {
-      dual_dept_appointment: "N",
-      on_sabbatical: "N",
-      used_by_small_biz: "N",
-      understand_deadline: "Y"
+      dual_dept_appointment: 'N',
+      on_sabbatical: 'N',
+      used_by_small_biz: 'N',
+      understand_deadline: 'Y'
     }
     set_options(defaults.merge(opts))
     requires @document_id

@@ -18,7 +18,7 @@ class ComplianceQuestionsObject
     # In general, it's not workable to set up radio button elements
     # to use "Y" and "N" as the instance variables associated with them.
     defaults = {
-        agree_to_ethical_conduct: "Y",
+        agree_to_ethical_conduct: 'Y',
         conduct_review_date: right_now[:date_w_slashes],
     }
     set_options(defaults.merge(opts))
