@@ -1,5 +1,8 @@
 Feature: Creating a proposal
 
+  As a researcher, I want to be able to create proposals so that
+  I can get funding for my research.
+
   Background: KC user is logged in as admin
       Given   I am logged in as admin
 
