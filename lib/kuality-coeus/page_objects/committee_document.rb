@@ -5,9 +5,9 @@ class CommitteeDocument < BasePage
   class << self
 
     def committee_header_elements
-      element(:committee) { |b| b.frm.button(value: "Committee") }
-      element(:members) { |b| b.frm.button(value: "Members") }
-      element(:schedule) { |b| b.frm.button(value: "Schedule") }
+      element(:committee) { |b| b.frm.button(value: 'Committee') }
+      element(:members) { |b| b.frm.button(value: 'Members') }
+      element(:schedule) { |b| b.frm.button(value: 'Schedule') }
     end
 
   end

@@ -8,16 +8,9 @@ class UserObject
   def initialize(browser, opts={})
     @browser = browser
     defaults = {
-        #name:     "Tester Ten",
-        username: "admin",
-        #email:    "test10@customer1.herokuapp.com",
-        #password: "test10"
+        username: 'admin',
     }
     set_options defaults.merge(opts)
-  end
-
-  def edit opts={}
-
   end
 
   def sign_in
@@ -37,10 +30,12 @@ class UserObject
       false
     end
   end
+  alias_method :signed_in?, :logged_in?
 
   def logged_out?
     !logged_in?
   end
+  alias_method :signed_out?, :logged_out?
 
   def log_out
     s_o.click if s_o.present?
@@ -59,11 +54,11 @@ class UserObject
   end
 
   def s_o
-    @browser.button(value: "Logout")
+    @browser.button(value: 'Logout')
   end
 
   def login_info
-    @browser.div(id: "login-info")
+    @browser.div(id: 'login-info')
   end
 
 end

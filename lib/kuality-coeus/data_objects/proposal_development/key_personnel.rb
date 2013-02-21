@@ -10,9 +10,9 @@ class KeyPersonnelObject
   def initialize(browser, opts={})
     @browser = browser
     defaults = {
-      first_name: "Jeff",
-      last_name: "Covey",
-      role: "Principal Investigator"
+      first_name: 'Jeff',
+      last_name: 'Covey',
+      role: 'Principal Investigator'
     }
     set_options(defaults.merge(opts))
     requires @document_id

@@ -31,26 +31,26 @@ class S2SQuestionnaireObject
     # In general, it's not workable to set up radio button elements
     # to use "Y" and "N" as the instance variables associated with them.
     defaults = {
-        civil_service: "N",
-        potential_effects: "N",
-        international_support: "N",
-        pi_in_govt: "N",
-        pi_foreign_employee: "N",
-        change_in_pi: "N",
-        change_in_institution: "N",
-        renewal_application:"N",
-        disclose_title: "N",
-        clinical_trial: "N",
-        human_stem_cells: "N",
-        pi_new_investigator: "N",
-        proprietary_info: "N",
-        environmental_impact: "N",
-        site_historic: "N",
-        international_activities:"N",
-        other_agencies: "N",
-        subject_to_review:"N",
-        program: "Program not covered by EO 12372",
-        novice_applicants: "X" # Note the X, here. That's for the "N/A" option.
+        civil_service: 'N',
+        potential_effects: 'N',
+        international_support: 'N',
+        pi_in_govt: 'N',
+        pi_foreign_employee: 'N',
+        change_in_pi: 'N',
+        change_in_institution: 'N',
+        renewal_application:'N',
+        disclose_title: 'N',
+        clinical_trial: 'N',
+        human_stem_cells: 'N',
+        pi_new_investigator: 'N',
+        proprietary_info: 'N',
+        environmental_impact: 'N',
+        site_historic: 'N',
+        international_activities:'N',
+        other_agencies: 'N',
+        subject_to_review:'N',
+        program: 'Program not covered by EO 12372',
+        novice_applicants: 'X' # Note the X, here. That's for the "N/A" option.
     }
     set_options(defaults.merge(opts))
     requires @document_id
@@ -75,7 +75,7 @@ class S2SQuestionnaireObject
       end
       fat.explain_support.fit @explain_support
       fat.pi_in_govt @pi_in_govt
-      fat.pis_us_govt_agency.pick @pis_us_govt_agency
+      @pis_us_govt_agency=fat.pis_us_govt_agency.pick @pis_us_govt_agency
       fat.total_amount_requested.fit @total_amount_requested
       fat.pi_foreign_employee @pi_foreign_employee
       fat.change_in_pi @change_in_pi
