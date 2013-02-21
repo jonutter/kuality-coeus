@@ -51,12 +51,14 @@ class BasePage < PageFactory
       action(:Personnel) { |b| b.frm.button(text: "Personnel").click }
       action(:non_personnel) { |b| b.frm.button(text: "Non-Personnel").click }
       action(:distribution_and_income) { |b| b.frm.button(text: "Distribution & Income").click }
-      action(:modular_budget) { |b| b.frm.button(text: "Modular Budget").click }
+      # Need the _tab suffix because of method collisions
+      action(:modular_budget_tab) { |b| b.frm.button(text: "Modular Budget").click }
       action(:budget_actions) { |b| b.frm.button(text: "Budget Actions").click }
     end
-  end
 
-end
+  end # self
+
+end # BasePage
 
 # Included here because, in a sense, the frame element
 # is a part of the "base page"
