@@ -75,7 +75,7 @@ class S2SQuestionnaireObject
       end
       fat.explain_support.fit @explain_support
       fat.pi_in_govt @pi_in_govt
-      fat.pis_us_govt_agency.pick @pis_us_govt_agency
+      @pis_us_govt_agency=fat.pis_us_govt_agency.pick @pis_us_govt_agency
       fat.total_amount_requested.fit @total_amount_requested
       fat.pi_foreign_employee @pi_foreign_employee
       fat.change_in_pi @change_in_pi

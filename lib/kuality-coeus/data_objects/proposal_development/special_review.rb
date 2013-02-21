@@ -22,8 +22,8 @@ class SpecialReviewObject
   def create
     navigate
     on SpecialReview do |add|
-      add.type.pick @type
-      add.approval_status.pick @approval_status
+      @type = add.type.pick @type
+      @approval_status = add.approval_status.pick @approval_status
       add.add
       add.save
     end
