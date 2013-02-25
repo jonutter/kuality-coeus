@@ -7,7 +7,7 @@ class ProposalDevelopmentObject
   include Navigation
   
   attr_accessor :description, :proposal_type, :lead_unit, :activity_type, :project_title,
-                :sponsor_code, :start_date, :end_date, :explanation, :document_id, :status,
+                :sponsor_code, :project_start_date, :project_end_date, :explanation, :document_id, :status,
                 :initiator, :created, :sponsor_deadline_date, :key_personnel,
                 :special_review, :budget_versions, :permissions, :s2s_questionnaire,
                 :proposal_questions, :compliance_questions
@@ -21,8 +21,8 @@ class ProposalDevelopmentObject
       activity_type: :random,
       project_title: random_alphanums,
       sponsor_code: "000#{rand(8)+1}#{rand(1)}0",
-      start_date: next_week[:date_w_slashes],
-      end_date: next_year[:date_w_slashes],
+      project_start_date: next_week[:date_w_slashes],
+      project_end_date: next_year[:date_w_slashes],
       sponsor_deadline_date: next_week[:date_w_slashes],
       key_personnel: KeyPersonnelCollection.new,
       special_review: SpecialReviewCollection.new,
@@ -45,8 +45,8 @@ class ProposalDevelopmentObject
       @activity_type=doc.activity_type.pick @activity_type
       @lead_unit=doc.lead_unit.pick @lead_unit
       doc.project_title.set @project_title
-      doc.project_start_date.set @start_date
-      doc.project_end_date.set @end_date
+      doc.project_start_date.set @project_start_date
+      doc.project_end_date.set @project_end_date
       doc.explanation.set @explanation
       doc.sponsor_deadline_date.set @sponsor_deadline_date
       doc.save
