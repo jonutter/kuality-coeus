@@ -26,7 +26,7 @@ class ProposalDevelopmentObject
       sponsor_deadline_date: next_week[:date_w_slashes],
       key_personnel: KeyPersonnelCollection.new,
       special_review: SpecialReviewCollection.new,
-      budget_versions: BudgetVersionsCollection.new,
+      budget_versions: BudgetVersionsCollection.new
     }
     set_options(defaults.merge(opts))
   end
