@@ -48,8 +48,16 @@ class Proposal < ProposalDevelopmentDocument
   # a proposal is deleted.
   def errors
     errs = []
-    overview_tab_errors.each { |err| errs << err.text }
-    required_fields_errors.each { |err| errs << err.text }
+    begin
+      overview_tab_errors.each { |err| errs << err.text }
+    rescue Watir::Exception::UnknownObjectException
+      # No errors to collect, so do nothing
+    end
+    begin
+      required_fields_errors.each { |err| errs << err.text }
+    rescue Watir::Exception::UnknownObjectException
+      # No errors to collect, so do nothing
+    end
     errs
   end
 
