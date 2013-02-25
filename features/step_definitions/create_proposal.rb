@@ -8,7 +8,7 @@ And /^I begin a proposal$/ do
 end
 
 When /^I begin a proposal without a (.*)$/ do |name|
-  name=~/Type/ || name=='Lead Unit' ? value='select' : value=' '
+  name=~/Type/ || name=='Lead Unit' ? value='select' : value=''
   field = StringFactory.damballa(name).to_sym
   @proposal = create ProposalDevelopmentObject, field=>value
 end
