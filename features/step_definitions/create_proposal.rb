@@ -20,3 +20,4 @@ When /^I begin a proposal without selecting a (.*)$/ do |name|
   field = StringFactory.damballa(name).to_sym
   @proposal = create ProposalDevelopmentObject, field=>"select"
 end
+
