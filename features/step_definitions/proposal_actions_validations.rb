@@ -1,6 +1,5 @@
 And /^I activate a validation check$/ do
-  on(ProposalDevelopmentObject).
-  on ProposalActions.turn_on_validation.click
+  pending
 end
 Then /^I should see a key personal information error$/ do
   pending
