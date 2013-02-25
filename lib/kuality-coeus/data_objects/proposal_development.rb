@@ -118,6 +118,13 @@ class ProposalDevelopmentObject
     end
   end
 
+  def view
+    open_document unless on_document?
+    on Proposal do |page|
+      page.proposal unless page.description.exists? || @status=='CANCELED'
+    end
+  end
+
   # =======
   private
   # =======

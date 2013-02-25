@@ -17,11 +17,11 @@ Feature: Creating a proposal
         | Project Start Date  | Project Start Date is a required field.   |
         | Project End Date    | Project End Date is a required field.     |
 
-    Scenario Outline: Attempt to update a proposal while leaving the required select-lists null
-      When    I begin a proposal without selecting a <Select List>
-      Then    I should see an error that says <Error>
-
-      Scenarios:
-        | Select List   | Error                              |
-        | Proposal Type | Proposal Type is a required field. |
-        | Activity Type | Activity Type is a required field. |
+#    Scenario Outline: Attempt to update a proposal while leaving the required select-lists null
+#      When    I begin a proposal without selecting a <Select List>
+#      Then    I should see an error that says <Error>
+#
+#      Scenarios:
+#        | Select List   | Error                              |
+#        | Proposal Type | Proposal Type is a required field. |
+#        | Activity Type | Activity Type is a required field. |
