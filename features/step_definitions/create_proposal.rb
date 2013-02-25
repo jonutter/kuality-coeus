@@ -8,9 +8,9 @@ And /^I begin a proposal$/ do
 end
 
 When /^I begin a proposal without a (.*)$/ do |name|
-  name=~/Type/ ? value='select' : value=''
+  name=~/Type/ || name=='Lead Unit' ? value='select' : value=''
   field = StringFactory.damballa(name).to_sym
-  @proposal = create ProposalDevelopmentObject, field: value
+  @proposal = create ProposalDevelopmentObject, field=>value
 end
 
 Then /^I should see an error that says (.*)$/ do |error|
