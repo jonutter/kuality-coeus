@@ -2,8 +2,10 @@ class ProposalActions < ProposalDevelopmentDocument
 
   proposal_header_elements
 
-  action(:turn_on_validation) { |b| b.frm.button(name: 'methodToCall.activate').click; b.td(class: 'subhead', text: 'Validation Errors').wait_until_present }
+  element(:validation_button) { |b| b.frm.button(name: 'methodToCall.activate') }
+  action(:turn_on_validation) { |b| b.validation_button.click; b.td(class: 'subhead', text: 'Validation Errors').wait_until_present }
 
+  action(:show_data_validation) { |b| b.frm.button(id: 'tab-DataValidation-imageToggle').click; b.validation_button.wait_until_present }
   action(:show_key_personnel_errors) { |b| b.frm.button(name: 'methodToCall.toggleTab.tabKeyPersonnelInformationValidationErrors').click }
   element(:key_personnel_errors) { |b| b.frm.tbody(id: 'tab-KeyPersonnelInformationValidationErrors-div').tds(width: '94%') }
   action(:show_budget_versions_errors) { |b| b.frm.button(name: 'methodToCall.toggleTab.tabBudgetVersionsValidationErrors').click }
