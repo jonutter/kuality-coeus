@@ -7,4 +7,5 @@ directory.yml
 *.gem
 *.log
 *test_spec.rb
-Gemfile*
+Gemfile
+Gemfile.lock

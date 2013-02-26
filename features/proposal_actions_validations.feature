@@ -5,7 +5,7 @@ Feature: Proposal Actions Validations
 
   Background: KC user is logged in as admin
       Given   I am logged in as admin
-
+    @test
     Scenario: Attempt to validate a proposal without a principal investigator
       When    I begin a proposal
       And     the proposal has no principal investigator
@@ -23,4 +23,3 @@ Feature: Proposal Actions Validations
       And     the proposal has no sponsor deadline date
       And     I activate a validation check
       Then    #pending step
-
