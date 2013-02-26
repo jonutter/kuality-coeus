@@ -8,15 +8,12 @@ And /^I begin a proposal$/ do
 end
 
 When /^I begin a proposal without a (.*)$/ do |name|
+  name=~/Type/ ? value='select' : value=''
   field = StringFactory.damballa(name).to_sym
-  @proposal = create ProposalDevelopmentObject, field=> ""
+  @proposal = create ProposalDevelopmentObject, field: value
 end
 
 Then /^I should see an error that says (.*)$/ do |error|
   on(Proposal).errors.should include error
 end
 
-When /^I begin a proposal without selecting a (.*)$/ do |name|
-  field = StringFactory.damballa(name).to_sym
-  @proposal = create ProposalDevelopmentObject, field=>"select"
-end

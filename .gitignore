@@ -7,7 +7,4 @@ directory.yml
 *.gem
 *.log
 *test_spec.rb
-Gemfile
-Gemfile.lock
-projectFilesBackup
-.gitignore
+Gemfile*

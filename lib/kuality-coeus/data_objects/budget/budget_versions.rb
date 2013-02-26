@@ -5,7 +5,9 @@ class BudgetVersionsObject
   include StringFactory
   include Navigation
 
-  attr_accessor :name, :document_id
+  attr_accessor :name, :document_id, :status, :version, :direct_cost, :f_and_a,
+                :total, :final, :residual_funds, :cost_sharing, :unrecovered_fa,
+                :comments, :fa_rate_type, :last_updated, :last_updated_by
 
   def initialize(browser, opts={})
     @browser = browser

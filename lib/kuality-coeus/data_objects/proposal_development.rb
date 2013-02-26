@@ -26,7 +26,7 @@ class ProposalDevelopmentObject
       sponsor_deadline_date: next_week[:date_w_slashes],
       key_personnel: KeyPersonnelCollection.new,
       special_review: SpecialReviewCollection.new,
-      budget_versions: BudgetVersionsCollection.new,
+      budget_versions: BudgetVersionsCollection.new
     }
     set_options(defaults.merge(opts))
   end
@@ -45,8 +45,8 @@ class ProposalDevelopmentObject
       @activity_type=doc.activity_type.pick @activity_type
       @lead_unit=doc.lead_unit.pick @lead_unit
       doc.project_title.set @project_title
-      doc.project_start_date.set @start_date
-      doc.project_end_date.set @end_date
+      doc.project_start_date.set @project_start_date
+      doc.project_end_date.set @project_end_date
       doc.explanation.set @explanation
       doc.sponsor_deadline_date.set @sponsor_deadline_date
       doc.save

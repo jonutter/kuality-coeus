@@ -30,7 +30,15 @@ class Parameters < BasePage
   element(:direct_cost_limit) { |b| b.frm.text_field(name: 'newBudgetPeriod.directCostLimit') }
   action(:add_budget_period) { |b| b.frm.button(name:'methodToCall.recalculateBudgetPeriod.anchorBudgetPeriodsTotals').click }
 
-  # TODO: Add methods for editing/deleting specific budget period lines.
+  action(:start_date_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].startDate") }
+  action(:end_date_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].endDate") }
+  action(:total_sponsor_cost_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].totalCost") }
+  action(:direct_cost_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].totalDirectCost") }
+  action(:fa_cost_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].totalIndirectCost") }
+  action(:unrecovered_fa_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].underrecoveryAmount") }
+  action(:cost_sharing_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].costSharingAmount") }
+  action(:cost_limit_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].totalCostLimit") }
+  action(:direct_cost_limit_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].directCostLimit") }
 
   action(:recalculate) { |b| b.frm.button(name: 'methodToCall.recalculateBudgetPeriod.anchorBudgetPeriodsTotals').click }
 
