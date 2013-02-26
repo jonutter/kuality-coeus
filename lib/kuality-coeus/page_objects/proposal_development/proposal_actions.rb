@@ -3,10 +3,11 @@ class ProposalActions < ProposalDevelopmentDocument
   proposal_header_elements
 
   element(:validation_button) { |b| b.frm.button(name: 'methodToCall.activate') }
-  action(:turn_on_validation) { |b| b.validation_button.click; b.td(class: 'subhead', text: 'Validation Errors').wait_until_present }
-
   action(:show_data_validation) { |b| b.frm.button(id: 'tab-DataValidation-imageToggle').click; b.validation_button.wait_until_present }
-  action(:show_key_personnel_errors) { |b| b.frm.button(name: 'methodToCall.toggleTab.tabKeyPersonnelInformationValidationErrors').click }
+  action(:turn_on_validation) { |b| b.validation_button.click; b.key_personnel_button.wait_until_present }
+
+  element(:key_personnel_button) { |b| b.frm.button(name: 'methodToCall.toggleTab.tabKeyPersonnelInformationValidationErrors') }
+  action(:show_key_personnel_errors) { |b| b.key_personnel_button.click }
   element(:key_personnel_errors) { |b| b.frm.tbody(id: 'tab-KeyPersonnelInformationValidationErrors-div').tds(width: '94%') }
   action(:show_budget_versions_errors) { |b| b.frm.button(name: 'methodToCall.toggleTab.tabBudgetVersionsValidationErrors').click }
   #element(:budget_versions_errors) { |b| b.frm.tbody(id: '').tds(width: '94%') }
