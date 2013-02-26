@@ -8,5 +8,6 @@ Feature: Proposal Actions Validations
     @test
     Scenario: Attempt to validate a proposal without a principal investigator
       When    I begin a proposal
+      And     the proposal has no principal investigator
       And     I activate a validation check
-      Then    I should see a key personal information error
+      Then    the validation error should say there is no principal investigator
