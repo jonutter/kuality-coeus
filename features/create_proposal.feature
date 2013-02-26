@@ -7,14 +7,14 @@ Feature: Creating a proposal
     @test
     Scenario Outline: Attempt to update a proposal while leaving the required text-fields null
       When    I begin a proposal without a <Field Name>
-      Then    I should see an error that says <Error>
+      Then    I should see an error that says "<Field Name> is a required field."
 
       Scenarios:
-        | Field Name          | Error                                     |
-        | Description         | Document Description is a required field. |
-        | Project Title       | Project Title is a required field.        |
-        | Sponsor Code        | Sponsor Code is a required field.         |
-        | Project Start Date  | Project Start Date is a required field.   |
-        | Project End Date    | Project End Date is a required field.     |
-        | Proposal Type       | Proposal Type is a required field.        |
-        | Activity Type       | Activity Type is a required field.        |
+        | Field Name          |
+        | Description         |
+        | Project Title       |
+        | Sponsor Code        |
+        | Project Start Date  |
+        | Project End Date    |
+        | Proposal Type       |
+        | Activity Type       |
