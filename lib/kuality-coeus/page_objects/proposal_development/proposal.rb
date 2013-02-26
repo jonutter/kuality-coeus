@@ -62,5 +62,4 @@ class Proposal < ProposalDevelopmentDocument
     end
     errs
   end
-
 end
