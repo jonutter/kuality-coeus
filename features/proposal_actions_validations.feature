@@ -5,18 +5,9 @@ Feature: Proposal Actions Validations
 
   Background: KC user is logged in as admin
       Given   I am logged in as admin
-
+    @test
     Scenario: Attempt to validate a proposal without a principal investigator
       When    I begin a proposal
+      And     the proposal has no principal investigator
       And     I activate a validation check
-      Then    I should see a key personal information error
-
-  Scenario: Attempt to validate a proposal with an incomplete budget
-      And     I begin a proposal
-      When    I activate a validation check
-      Then    I should see a budget versions error
-
-  Scenario: Attempt to validate a proposal without an answer to Proposal Questions
-      And     I have started a proposal
-      When    I activate a validation check
-      Then    I should see a proposal questions error
+      Then    the validation error should say there is no principal investigator

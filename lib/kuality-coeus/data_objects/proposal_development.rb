@@ -20,7 +20,7 @@ class ProposalDevelopmentObject
       lead_unit: :random,
       activity_type: :random,
       project_title: random_alphanums,
-      sponsor_code: "000#{rand(8)+1}#{rand(1)}0",
+      sponsor_code: "000#{rand(5)+1}#{rand(1)}0",
       project_start_date: next_week[:date_w_slashes],
       project_end_date: next_year[:date_w_slashes],
       sponsor_deadline_date: next_week[:date_w_slashes],

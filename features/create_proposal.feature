@@ -12,9 +12,10 @@ Feature: Creating a proposal
       Scenarios:
         | Field Name          |
         | Description         |
+        | Proposal Type       |
+        | Lead Unit           |
+        | Activity Type       |
         | Project Title       |
         | Sponsor Code        |
         | Project Start Date  |
         | Project End Date    |
-        | Proposal Type       |
-        | Activity Type       |
