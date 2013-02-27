@@ -5,7 +5,7 @@ class CommitteeMemberObject
   include StringFactory
 
   attr_accessor :document_id, :name, :membership_type, :paid_member, :term_start_date, :term_end_date,
-                :roles,
+                :roles
 
   def initialize(browser, opts={})
     @browser = browser

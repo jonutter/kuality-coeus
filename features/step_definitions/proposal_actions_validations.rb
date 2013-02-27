@@ -18,6 +18,3 @@ end
 When /^I do not answer my proposal questions$/ do
   #nothing needed for this step
 end
-When /^I begin a proposal with no sponsor deadline date$/ do
-  @proposal = create ProposalDevelopmentObject
-end
