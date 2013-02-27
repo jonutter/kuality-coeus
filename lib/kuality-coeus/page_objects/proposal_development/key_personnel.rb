@@ -23,23 +23,37 @@ class KeyPersonnel < ProposalDevelopmentDocument
   # in the context of deleting the person from the Personnel
   action(:check_person) { |full_name, b| b.frm.h2(text: full_name).parent.checkbox(title: 'Generic Boolean Attribute') }
 
-  action(:show_person) { |full_name, b| b.frm.button(title: "open #{full_name}").click }
+  action(:show_person) { |full_name, b| b.frm.button(title: "open #{twospace(full_name)}").click }
   action(:show_person_details) { |full_name, b| b.frm.button(id: "tab-#{nsp(full_name)}:PersonDetails-imageToggle").click }
 
   # Note this method ONLY relates to the select list for the role, not
   # the read-only field that appears when the role is "Key Person"
   action(:role) { |full_name, p| p.person_div(full_name).select(name: /document.developmentProposalList[\d+].proposalPersons[\d+].proposalPersonRoleId/) }
   action(:user_name) { |full_name, p| p.person_div(full_name).table[1][3].text }
+  action(:home_unit) { |full_name, p| p.person_div(full_name).table[5][1].text }
+
+  action(:show_unit_details) { |full_name, b| b.frm.button(id: "tab-#{nsp(full_name)}:UnitDetails-imageToggle").click }
+
   # Combined Credit Split
+  action(:responsibility) { |name, b| b.credit_split_div_table.row(text: /#{name}/)[1].text_field }
+  action(:financial) { |name, b| b.credit_split_div_table.row(text: /#{name}/)[2].text_field }
+  action(:recognition) { |name, b| b.credit_split_div_table.row(text: /#{name}/)[3].text_field }
 
   # =======
   private
   # =======
 
-  def nsp(string)
-    string.gsub(' ', '')
+  class << self
+    def nsp(string)
+      string.gsub(' ', '')
+    end
+
+    def twospace(string)
+      string.gsub(' ', '  ')
+    end
   end
 
+  element(:credit_split_div_table) { |b| b.frm.div(id: "tab-CombinedCreditSplit-div").table }
   action(:person_div) { |full_name, b| b.frm.div(id: "tab-#{nsp(full_name)}:PersonDetails-div") }
 
 end

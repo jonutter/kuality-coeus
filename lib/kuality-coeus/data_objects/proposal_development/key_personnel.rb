@@ -6,12 +6,13 @@ class KeyPersonnelObject
   include Navigation
 
   attr_accessor :first_name, :last_name, :role, :document_id, :key_person_role,
-                :full_name, :user_name
+                :full_name, :user_name, :home_unit, :units
 
   def initialize(browser, opts={})
     @browser = browser
     defaults = {
-      role: 'Principal Investigator'
+      role: 'Principal Investigator',
+      units: []
     }
     set_options(defaults.merge(opts))
     requires @document_id
@@ -41,7 +42,11 @@ class KeyPersonnelObject
       person.proposal_role.pick @role
       person.key_person_role.fit @key_person_role
       person.add_person
+      person.show_person @full_name
+      person.show_person_details @full_name
       @user_name=person.user_name @full_name
+      @home_unit=person.home_unit @full_name
+      # Add gathering of more attributes here as needed
       person.save
     end
   end
