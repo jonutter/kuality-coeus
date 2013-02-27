@@ -19,7 +19,6 @@ Feature: Proposal Actions Validations
       Then    the validation error should say proposal questions were not answered
     @test
     Scenario: Attempt to validate a proposal without a sponsor deadline date
-      When    I begin a proposal
-      And     the proposal has no sponsor deadline date
+      When    I begin a proposal with no sponsor deadline date
       And     I activate a validation check
-      Then    #pending step
+      Then    the validation error should say sponsor deadline date not entered

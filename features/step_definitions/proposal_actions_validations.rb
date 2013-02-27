@@ -10,14 +10,14 @@ When /^the proposal has no principal investigator$/ do
 end
 Then /^the validation error should say (.*)$/ do |error|
   errors = {'there is no principal investigator' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.',
-  'proposal questions were not answered' => 'Answer is required for Question 1 in group A. Proposal Questions.'
+  'proposal questions were not answered' => 'Answer is required for Question 1 in group A. Proposal Questions.',
+  'sponsor deadline date not entered' => 'Sponsor deadline date has not been entered.'
   }
   on(ProposalActions).validation_errors_and_warnings.should include errors[error]
-  #TODO Figure out how warnings from the data validation page can be included in the hash above
 end
 When /^I do not answer my proposal questions$/ do
   #nothing needed for this step
 end
-When /^the proposal has no sponsor deadline date$/ do
-  #nothing needed for this step
+When /^I begin a proposal with no sponsor deadline date$/ do
+  @proposal = create ProposalDevelopmentObject
 end
