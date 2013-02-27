@@ -35,3 +35,9 @@ Feature: Proposal Actions Validations
       And     I activate a validation check
       Then    the validation error should say you must complete the compliance question
 
+    Scenario: Attempt to validate a proposal without completing the Kuali University questions
+      When    I begin a proposal
+      And     I do not complete the kuali university questions
+      And     I activate a validation check
+      #TODO: create a flexible way to answer these questions
+      Then    the validation error should say you must complete the kuali university questions
