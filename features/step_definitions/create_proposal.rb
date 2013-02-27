@@ -20,3 +20,9 @@ Then /^I should see an error that says "(.* is a required field.)"$/ do |text|
     page.errors.should include error
   end
 end
+When /^I begin a proposal with an invalid sponsor code$/ do
+  @proposal = create ProposalDevelopmentObject, :sponsor_code=>'000000'
+end
+Then /^I should see an error that says valid sponsor code required$/ do
+  on(Proposal).errors.should include 'A valid Sponsor Code (Sponsor) must be selected.'
+end

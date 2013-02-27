@@ -19,3 +19,7 @@ Feature: Creating a proposal
         | Sponsor Code        |
         | Project Start Date  |
         | Project End Date    |
+  @test
+    Scenario: Attempt to create a proposal with invalid sponsor code
+      When    I begin a proposal with an invalid sponsor code
+      Then    I should see an error that says valid sponsor code required

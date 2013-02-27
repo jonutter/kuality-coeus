@@ -25,3 +25,6 @@ end
 When /^I do not complete the compliance question$/ do
   #nothing necessary for this step
 end
+When /^I do not complete the kuali university questions$/ do
+  #nothing necessary for this step
+end
