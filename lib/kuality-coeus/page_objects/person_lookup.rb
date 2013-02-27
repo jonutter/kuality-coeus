@@ -7,6 +7,6 @@ class PersonLookup < BasePage
 
   action(:return_value) { |match, p| p.results_table.row(text: /#{match}/).link(text: 'return value').click }
 
-
+  action(:return_random) { |b| b.results_table.row(index: rand(results_table.rows.length)).link(text: 'return value').click }
 
 end

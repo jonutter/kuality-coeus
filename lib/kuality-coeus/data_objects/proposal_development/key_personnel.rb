@@ -5,13 +5,12 @@ class KeyPersonnelObject
   include StringFactory
   include Navigation
 
-  attr_accessor :first_name, :last_name, :role, :document_id, :key_person_role
+  attr_accessor :first_name, :last_name, :role, :document_id, :key_person_role,
+                :full_name
 
   def initialize(browser, opts={})
     @browser = browser
     defaults = {
-      first_name: 'Jeff',
-      last_name: 'Covey',
       role: 'Principal Investigator'
     }
     set_options(defaults.merge(opts))
@@ -21,10 +20,22 @@ class KeyPersonnelObject
   def create
     navigate
     on(KeyPersonnel).employee_search
-    on PersonLookup do |look|
-      look.last_name.set @last_name
-      look.search
-      look.return_value "#{@first_name} #{@last_name}"
+    if @last_name==nil
+      on PersonLookup do |look|
+        look.search
+        look.return_random
+      end
+      on KeyPersonnel do |person|
+        @full_name=person.person_name
+        @first_name=@full_name[/^\w+/]
+        @last_name=@full_name[/\w+$/]
+      end
+    else
+      on PersonLookup do |look|
+        look.last_name.set @last_name
+        look.search
+        look.return_value "#{@first_name} #{@last_name}"
+      end
     end
     on KeyPersonnel do |person|
       person.proposal_role.pick @role

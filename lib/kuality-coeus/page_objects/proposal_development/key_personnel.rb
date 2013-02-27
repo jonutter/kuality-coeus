@@ -9,6 +9,8 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:add_person) { |b| b.frm.button(name: 'methodToCall.insertProposalPerson').click }
   action(:clear) { |b| b.frm.button(name: 'methodToCall.clearProposalPerson').click }
 
+  value(:person_name) { |b| b.frm.table(class: 'grid')[0][1].text }
+
   action(:select_unit) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.Unit!!).(((unitNumber:newProposalPersonUnit[0].unitNumber,unitName:newProposalPersonUnit[0].unitName))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchor').click }
   element(:unit_number) { |b| b.frm.text_field(id: /unitNumber/) }
 
