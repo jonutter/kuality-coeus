@@ -6,7 +6,7 @@ class KeyPersonnelObject
   include Navigation
 
   attr_accessor :first_name, :last_name, :role, :document_id, :key_person_role,
-                :full_name
+                :full_name, :user_name
 
   def initialize(browser, opts={})
     @browser = browser
@@ -41,6 +41,7 @@ class KeyPersonnelObject
       person.proposal_role.pick @role
       person.key_person_role.fit @key_person_role
       person.add_person
+      @user_name=person.user_name @full_name
       person.save
     end
   end
