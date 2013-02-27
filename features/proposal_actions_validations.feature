@@ -22,3 +22,16 @@ Feature: Proposal Actions Validations
       When    I begin a proposal without a sponsor deadline date
       And     I activate a validation check
       Then    the validation error should say sponsor deadline date not entered
+
+    Scenario: Attempt to validate proposal without completing the S2S FAT & Flat questionnaire
+      When    I begin a proposal
+      And     I do not complete the S2S FAT & Flat questionnaire
+      And     I activate a validation check
+      Then    the validation error should say questionnaire must be completed
+
+    Scenario: Attempt to validate a proposal without completing the compliance question
+      When    I begin a proposal
+      And     I do not complete the compliance question
+      And     I activate a validation check
+      Then    the validation error should say you must complete the compliance question
+
