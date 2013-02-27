@@ -6,7 +6,8 @@ class KeyPersonnelObject
   include Navigation
 
   attr_accessor :first_name, :last_name, :role, :document_id, :key_person_role,
-                :full_name, :user_name, :home_unit, :units
+                :full_name, :user_name, :home_unit, :units, :responsibility,
+                :financial, :recognition
 
   def initialize(browser, opts={})
     @browser = browser
@@ -42,10 +43,10 @@ class KeyPersonnelObject
       person.proposal_role.pick @role
       person.key_person_role.fit @key_person_role
       person.add_person
-      person.show_person @full_name
-      person.show_person_details @full_name
+      person.expand_all
       @user_name=person.user_name @full_name
       @home_unit=person.home_unit @full_name
+      @units=person.units @full_name
       # Add gathering of more attributes here as needed
       person.save
     end
