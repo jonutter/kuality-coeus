@@ -35,11 +35,9 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:show_unit_details) { |full_name, b| b.frm.button(id: "tab-#{nsp(full_name)}:UnitDetails-imageToggle").click }
   action(:add_unit) { |full_name, p| p.unit_div(full_name).button(title: "Add Unit").click }
 
-  action(:units) do |full_name, p|
-    units = []
-    p.unit_div(full_name).table.to_a[2..-1].each { |unit| units << {name: unit[1], number: unit[2]} }
-    units
-  end
+  # This returns an array of hashes, like so:
+  # [{:name=>"Unit1 Name", :number=>"Unit1 Number"}, {:name=>"Unit2 Name", :number=>"Unit2 Number"}]
+  action(:units) { |full_name, p| units = []; p.unit_div(full_name).table.to_a[2..-1].each { |unit| units << {name: unit[1], number: unit[2]} }; units }
 
   # Combined Credit Split
   action(:responsibility) { |name, b| b.credit_split_div_table.row(text: /#{name}/)[1].text_field }
@@ -51,10 +49,13 @@ class KeyPersonnel < ProposalDevelopmentDocument
   # =======
 
   class << self
+    # Used for getting rid of the space in the full name
     def nsp(string)
       string.gsub(' ', '')
     end
 
+    # Used to add an extra space in the full name (because some
+    # elements in the page have that, annoyingly!)
     def twospace(string)
       string.gsub(' ', '  ')
     end

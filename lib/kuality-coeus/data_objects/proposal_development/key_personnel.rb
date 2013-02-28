@@ -17,6 +17,7 @@ class KeyPersonnelObject
     }
     set_options(defaults.merge(opts))
     requires @document_id
+    @full_name="#{@first_name} #{@last_name}"
   end
 
   def create
@@ -36,7 +37,7 @@ class KeyPersonnelObject
       on PersonLookup do |look|
         look.last_name.set @last_name
         look.search
-        look.return_value "#{@first_name} #{@last_name}"
+        look.return_value @full_name
       end
     end
     on KeyPersonnel do |person|
@@ -89,7 +90,8 @@ class KeyPersonnelCollection < Array
   end
 
   def roles
-    self.collect { |person| person.role }
+    rls = self.collect { |person| person.role }
+    rls.uniq!
   end
 
 end # KeyPersonnelCollection
