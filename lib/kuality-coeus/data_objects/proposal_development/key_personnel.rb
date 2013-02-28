@@ -13,7 +13,7 @@ class KeyPersonnelObject
     @browser = browser
     defaults = {
       role: 'Principal Investigator',
-      units: []
+      units: UnitsCollection.new
     }
     set_options(defaults.merge(opts))
     requires @document_id
@@ -47,7 +47,7 @@ class KeyPersonnelObject
       person.expand_all
       @user_name=person.user_name @full_name
       @home_unit=person.home_unit @full_name
-      @units=person.units @full_name
+      person.units(@full_name).each { |unit| @units << unit }
       # Add gathering of more attributes here as needed
       person.save
     end
@@ -95,3 +95,9 @@ class KeyPersonnelCollection < Array
   end
 
 end # KeyPersonnelCollection
+
+class UnitsCollection < Array
+
+
+
+end
