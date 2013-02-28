@@ -1,4 +1,4 @@
-class KeyPersonnelObject
+class KeyPersonObject
 
   include Foundry
   include DataFactory
@@ -13,7 +13,7 @@ class KeyPersonnelObject
     @browser = browser
     defaults = {
       role: 'Principal Investigator',
-      units: UnitsCollection.new
+      units: []
     }
     set_options(defaults.merge(opts))
     requires @document_id
@@ -47,7 +47,14 @@ class KeyPersonnelObject
       person.expand_all
       @user_name=person.user_name @full_name
       @home_unit=person.home_unit @full_name
-      person.units(@full_name).each { |unit| @units << unit }
+      if @units.empty?
+        @units=person.units(@full_name)
+      else
+        # Note that this assumes we're adding
+        # Unit(s) that aren't already present
+        # in the list, so be careful!
+
+      end
       # Add gathering of more attributes here as needed
       person.save
     end
@@ -95,9 +102,3 @@ class KeyPersonnelCollection < Array
   end
 
 end # KeyPersonnelCollection
-
-class UnitsCollection < Array
-
-
-
-end

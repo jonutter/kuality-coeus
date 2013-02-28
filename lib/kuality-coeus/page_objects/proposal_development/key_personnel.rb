@@ -11,9 +11,6 @@ class KeyPersonnel < ProposalDevelopmentDocument
 
   value(:person_name) { |b| b.frm.table(class: 'grid')[0][1].text }
 
-  action(:select_unit) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.Unit!!).(((unitNumber:newProposalPersonUnit[0].unitNumber,unitName:newProposalPersonUnit[0].unitName))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchor').click }
-  element(:unit_number) { |b| b.frm.text_field(id: /unitNumber/) }
-
   # Note this method returns a collection of Watir li objects
   element(:add_validation_errors) { |b| b.frm.div(id: 'left-errmsg-tab').div(class: 'error').lis }
 
@@ -24,6 +21,8 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:check_person) { |full_name, b| b.frm.h2(text: full_name).parent.checkbox(title: 'Generic Boolean Attribute') }
 
   action(:show_person) { |full_name, b| b.frm.button(title: "open #{twospace(full_name)}").click }
+
+  # Person Details...
   action(:show_person_details) { |full_name, b| b.frm.button(id: "tab-#{nsp(full_name)}:PersonDetails-imageToggle").click }
 
   # Note this method ONLY relates to the select list for the role, not
@@ -32,7 +31,10 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:user_name) { |full_name, p| p.person_div(full_name).table[1][3].text }
   action(:home_unit) { |full_name, p| p.person_div(full_name).table[5][1].text }
 
+  # Unit Details...
   action(:show_unit_details) { |full_name, b| b.frm.button(id: "tab-#{nsp(full_name)}:UnitDetails-imageToggle").click }
+  action(:lookup_unit) { |full_name, p| p.unit_div(full_name).button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.Unit!!).(((unitNumber:newProposalPersonUnit[0].unitNumber,unitName:newProposalPersonUnit[0].unitName))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchor').click }
+  action(:unit_number) { |full_name, p| p.unit_div(full_name).text_field(id: /unitNumber/) }
   action(:add_unit) { |full_name, p| p.unit_div(full_name).button(title: "Add Unit").click }
 
   # This returns an array of hashes, like so:

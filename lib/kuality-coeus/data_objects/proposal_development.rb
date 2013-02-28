@@ -55,7 +55,7 @@ class ProposalDevelopmentObject
 
   def add_key_person opts={}
     merge_settings(opts)
-    kpo = make KeyPersonnelObject, opts
+    kpo = make KeyPersonObject, opts
     kpo.create
     @key_personnel << kpo
   end
