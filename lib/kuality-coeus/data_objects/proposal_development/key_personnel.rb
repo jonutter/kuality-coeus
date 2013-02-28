@@ -117,7 +117,7 @@ class KeyPersonObject
   end
 
   def rand_num
-    "#{rand(200)}.#{rand(100)}"
+    "#{rand(100)}.#{rand(100)}"
   end
 
 end # KeyPersonnelObject
