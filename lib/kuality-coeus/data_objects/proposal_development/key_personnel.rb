@@ -76,7 +76,7 @@ class KeyPersonObject
         [:responsibility, :financial, :recognition].each do |item|
           unit[item]==nil ? unit.store(item, rand_num) : unit[item]
         # Then we update the UI with the values...
-          person.send(item, unit[:name]).set unit[item]
+          person.send(item, unit[:number]).set unit[item]
         end
       end
 
@@ -120,17 +120,32 @@ class KeyPersonObject
     "#{rand(100)}.#{rand(100)}"
   end
 
-end # KeyPersonnelObject
+end # KeyPersonObject
 
 class KeyPersonnelCollection < Array
 
   def names
-    self.collect { |person| "#{person.first_name} #{person.last_name}" }
+    self.collect { |person| person.full_name }
   end
 
   def roles
     rls = self.collect { |person| person.role }
     rls.uniq!
+  end
+
+  def unit_names
+    names = units.collect { |unit| unit[:name] }
+    names.uniq
+  end
+
+  def unit_numbers
+    nums = units.collect { |unit| unit[:number] }
+    nums.uniq
+  end
+
+  def units
+    units=self.collect { |person| person.units }
+    units.flatten
   end
 
 end # KeyPersonnelCollection
