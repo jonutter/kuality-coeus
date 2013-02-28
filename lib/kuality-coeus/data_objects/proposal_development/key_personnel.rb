@@ -13,7 +13,10 @@ class KeyPersonObject
     @browser = browser
     defaults = {
       role: 'Principal Investigator',
-      units: []
+      units: [],
+      responsibility: rand_num,
+      financial: rand_num,
+      recognition: rand_num
     }
     set_options(defaults.merge(opts))
     requires @document_id
@@ -47,14 +50,39 @@ class KeyPersonObject
       person.expand_all
       @user_name=person.user_name @full_name
       @home_unit=person.home_unit @full_name
-      if @units.empty?
-        @units=person.units(@full_name)
-      else
+      if @units.empty? # No units in @units, so we're not setting units
+        # ...so, get the units from the UI:
+        @units=person.units @full_name
+
+      else # We have Units to add and update...
+        # Temporarily store any existing units...
+        units=person.units @full_name
         # Note that this assumes we're adding
         # Unit(s) that aren't already present
         # in the list, so be careful!
+        @units.each do |unit|
+          person.unit_number(@full_name).set unit[:number]
+          person.add_unit @full_name
 
+        end
+        # Now add the previously existing units to
+        # @units
+        units.each { |unit| @units << unit }
       end
+
+      # Now we groom the Unit Hashes, to include
+      # the Combined Credit Split numbers...
+      @units.each do |unit|
+        [:responsibility, :financial, :recognition].each do |item|
+          unit[item]==nil ? unit.store(item, rand_num) : unit[item]
+        # Then we update the UI with the values...
+          person.send(item, unit[:name]).set unit[item]
+        end
+      end
+
+      person.responsibility(@full_name).set @responsibility
+      person.financial(@full_name).set @financial
+      person.recognition(@full_name).set @recognition
       # Add gathering of more attributes here as needed
       person.save
     end
@@ -86,6 +114,10 @@ class KeyPersonObject
     rescue
       false
     end
+  end
+
+  def rand_num
+    "#{rand(200)}.#{rand(100)}"
   end
 
 end # KeyPersonnelObject
