@@ -32,7 +32,3 @@ end
 And /^I add a Key Person with a (.*) credit split of (.*)$/ do |cs_type, amount|
   @proposal.add_key_person cs_type.downcase.to_sym=>amount
 end
-
-Then /^I should see an error that the credit split is not a valid percentage$/ do
-  on(KeyPersonnel).combined_credit_split_errors.should include 'Credit Split is not a valid percentage.'
-end
