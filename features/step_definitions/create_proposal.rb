@@ -32,3 +32,9 @@ end
 And /^I add a Key Person with a (.*) credit split of (.*)$/ do |cs_type, amount|
   @proposal.add_key_person cs_type.downcase.to_sym=>amount
 end
+
+When /^I try to add two Principal Investigators$/ do
+  [{first_name: 'Dick', last_name: 'Keogh', role: 'Principal Investigator'},
+   {first_name: 'Pam', last_name: 'Brown', role: 'Principal Investigator'}]
+  .each { |opts| @proposal.add_key_person opts }
+end

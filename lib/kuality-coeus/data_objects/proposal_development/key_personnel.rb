@@ -48,6 +48,7 @@ class KeyPersonObject
       person.proposal_role.pick @role
       person.key_person_role.fit @key_person_role
       person.add_person
+      break if person.add_person_errors_div.present? # ..we've thrown an error, so no need to continue this method...
       person.expand_all
       @user_name=person.user_name @full_name
       @home_unit=person.home_unit @full_name
