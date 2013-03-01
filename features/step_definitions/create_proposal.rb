@@ -30,7 +30,7 @@ And /^I add (.*) (.*) as a Key Person with a role of (.*)$/ do |fname, lname, kp
 end
 
 And /^I add a Key Person with a (.*) credit split of (.*)$/ do |cs_type, amount|
-  @proposal.add_key_person cs_type.to_sym=>amount
+  @proposal.add_key_person cs_type.downcase.to_sym=>amount
 end
 
 Then /^I should see an error that the credit split is not a valid percentage$/ do
