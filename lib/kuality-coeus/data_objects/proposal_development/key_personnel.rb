@@ -9,6 +9,7 @@ class KeyPersonObject
                 :full_name, :user_name, :home_unit, :units, :responsibility,
                 :financial, :recognition
 
+  # Note that you must pass in both first and last names (or neither).
   def initialize(browser, opts={})
     @browser = browser
     defaults = {

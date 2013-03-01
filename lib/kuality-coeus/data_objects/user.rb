@@ -3,12 +3,12 @@ class UserObject
   include Foundry
   include DataFactory
 
-  attr_accessor :name, :username, :email, :password, :role
+  attr_accessor :name, :user_name, :email, :password, :role
 
   def initialize(browser, opts={})
     @browser = browser
     defaults = {
-        username: 'admin',
+        user_name: 'admin',
     }
     set_options defaults.merge(opts)
   end
@@ -25,7 +25,7 @@ class UserObject
 
   def logged_in?
     if login_info.exists?
-      login_info.text=~/#{@username}/ ? true : false
+      login_info.text=~/#{@user_name}/ ? true : false
     else
       false
     end
@@ -48,7 +48,7 @@ class UserObject
 
   def user_login
     visit Login do |log_in|
-      log_in.username.set @username
+      log_in.username.set @user_name
       log_in.login
     end
   end

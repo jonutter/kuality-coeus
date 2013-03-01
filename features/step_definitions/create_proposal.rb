@@ -22,9 +22,14 @@ Then /^I should see an error that says "(.* is a required field.)"$/ do |text|
 end
 
 And /^I add (.*) (.*) as a (.*) to Key Personnel$/ do |fname, lname, proposal_role|
-  @proposal.add_key_personnel first_name: fname, last_name: lname, role: proposal_role
+  @proposal.add_key_person first_name: fname, last_name: lname, role: proposal_role
 end
 
 And /^I add (.*) (.*) as a Key Person with a role of (.*)$/ do |fname, lname, kp_role|
-  @proposal.add_key_personnel first_name: fname, last_name: lname, role: 'Key Person', key_person_role: kp_role
+  @proposal.add_key_person first_name: fname, last_name: lname, role: 'Key Person', key_person_role: kp_role
 end
+
+And /^I add a Key Person with a (.*) credit split of (\d+)$/ do |cs_type, amount|
+  @proposal.add_key_person cs_type.to_sym=>amount
+end
+
