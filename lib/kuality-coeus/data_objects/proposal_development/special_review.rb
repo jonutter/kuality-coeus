@@ -5,7 +5,9 @@ class SpecialReviewObject
   include StringFactory
   include Navigation
 
-  attr_accessor :type, :approval_status, :document_id
+  attr_accessor :type, :approval_status, :document_id, :protocol_number,
+                :application_date, :approval_date, :expiration_date,
+                :exemption_number
 
   def initialize(browser, opts={})
     @browser = browser
@@ -22,9 +24,20 @@ class SpecialReviewObject
   def create
     navigate
     on SpecialReview do |add|
-      @type = add.type.pick @type
-      @approval_status = add.approval_status.pick @approval_status
+      @type = add.add_type.pick @type
+      @approval_status = case(@type)
+                           when 'Human Subjects'
+                             'Pending/In Progress'
+                           else
+                             add.add_approval_status.pick @approval_status
+                         end
+      add.add_protocol_number.fit @protocol_number
+      add.add_application_date.fit @application_date
+      add.add_approval_date.fit @approval_date
+      add.add_expiration_date.fit @expiration_date
+      add.add_exemption_number.fit @exemption_number
       add.add
+      break if add.error_messages_div.present? # No need to save if we've thrown an error already
       add.save
     end
   end

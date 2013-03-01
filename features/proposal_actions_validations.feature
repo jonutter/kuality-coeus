@@ -5,7 +5,7 @@ Feature: Proposal Actions Validations
 
   Background: KC user is logged in as admin
       Given   I am logged in as admin
-    @test
+
     Scenario: Attempt to validate a proposal without a principal investigator
       When    I begin a proposal
       And     the proposal has no principal investigator
@@ -17,9 +17,27 @@ Feature: Proposal Actions Validations
       And     I do not answer my proposal questions
       And     I activate a validation check
       Then    the validation error should say proposal questions were not answered
-    @test
+
     Scenario: Attempt to validate a proposal without a sponsor deadline date
-      When    I begin a proposal
-      And     the proposal has no sponsor deadline date
+      When    I begin a proposal without a sponsor deadline date
       And     I activate a validation check
-      Then    #pending step
+      Then    the validation error should say sponsor deadline date not entered
+
+    Scenario: Attempt to validate proposal without completing the S2S FAT & Flat questionnaire
+      When    I begin a proposal
+      And     I do not complete the S2S FAT & Flat questionnaire
+      And     I activate a validation check
+      Then    the validation error should say questionnaire must be completed
+
+    Scenario: Attempt to validate a proposal without completing the compliance question
+      When    I begin a proposal
+      And     I do not complete the compliance question
+      And     I activate a validation check
+      Then    the validation error should say you must complete the compliance question
+
+    Scenario: Attempt to validate a proposal without completing the kuali university questions
+      When    I begin a proposal
+      And     I do not complete the kuali university questions
+      And     I activate a validation check
+      #TODO: create a flexible way to answer these questions
+      Then    the validation error should say you must complete the kuali university questions

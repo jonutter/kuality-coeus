@@ -21,6 +21,14 @@ Then /^I should see an error that says "(.* is a required field.)"$/ do |text|
   end
 end
 
+When /^I begin a proposal with an invalid sponsor code$/ do
+  @proposal = create ProposalDevelopmentObject, :sponsor_code=>'000000'
+end
+
+Then /^I should see an error that says valid sponsor code required$/ do
+  on(Proposal).errors.should include 'A valid Sponsor Code (Sponsor) must be selected.'
+end
+
 And /^I add (.*) (.*) as a (.*) to Key Personnel$/ do |fname, lname, proposal_role|
   @proposal.add_key_person first_name: fname, last_name: lname, role: proposal_role
 end

@@ -21,6 +21,7 @@ require 'rspec/matchers'
 
 World Foundry
 World StringFactory
+World DateFactory
 
 kuality = Kuality.new @config[:browser]
 
