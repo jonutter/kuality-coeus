@@ -27,6 +27,5 @@ Feature: Key Personnel Validations
     Then    I should see an error that says proposal role is required
 
   Scenario: Trying to add a a co-investigator without a unit
-    When    I add a co-investigator
-    And     I do not select a unit
+    When    I add a co-investigator without a unit
     Then    I should see a key personnel error that says at least one unit is required
