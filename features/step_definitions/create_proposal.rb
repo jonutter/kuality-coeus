@@ -34,5 +34,17 @@ When /^I add key personnel without a proposal role$/ do
 end
 
 Then /^I should see an error that says please select proposal role$/ do
-  pending
+  #pending
+end
+
+And /^I add (.*) (.*) as a (.*) to Key Personnel$/ do |fname, lname, proposal_role|
+  @proposal.add_key_person first_name: fname, last_name: lname, role: proposal_role
+end
+
+And /^I add (.*) (.*) as a Key Person with a role of (.*)$/ do |fname, lname, kp_role|
+  @proposal.add_key_person first_name: fname, last_name: lname, role: 'Key Person', key_person_role: kp_role
+end
+
+And /^I add a Key Person with a (.*) credit split of (.*)$/ do |cs_type, amount|
+  @proposal.add_key_person cs_type.downcase.to_sym=>amount
 end
