@@ -29,14 +29,6 @@ Then /^I should see an error that says valid sponsor code required$/ do
   on(Proposal).errors.should include 'A valid Sponsor Code (Sponsor) must be selected.'
 end
 
-When /^I add key personnel without a proposal role$/ do
-  @proposal = create KeyPersonObject :key_person_role=>''
-end
-
-Then /^I should see an error that says please select proposal role$/ do
-  #pending
-end
-
 And /^I add (.*) (.*) as a (.*) to Key Personnel$/ do |fname, lname, proposal_role|
   @proposal.add_key_person first_name: fname, last_name: lname, role: proposal_role
 end

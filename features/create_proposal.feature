@@ -23,10 +23,3 @@ Feature: Creating a proposal
     Scenario: Attempt to create a proposal with invalid sponsor code
       When    I begin a proposal with an invalid sponsor code
       Then    I should see an error that says valid sponsor code required
-
-    Scenario: Attempt to add key personnel without a proposal role specified
-      When    I begin a proposal
-      And     I add key personnel without a proposal role
-      Then    I should see an error that says please select proposal role
-
-    Scenario:

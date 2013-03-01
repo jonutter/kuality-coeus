@@ -17,7 +17,16 @@ Feature: Key Personnel Validations
     | Responsibility | 100.01 |
     | Financial      | 1000   |
     | Recognition    | -0.01  |
-  @test
+
   Scenario: Trying to add two PIs to a Proposal
     When  I try to add two Principal Investigators
     Then  I should see an error that only one PI is allowed
+
+  Scenario: Attempt to add key personnel without a proposal role specified
+    When    I add a key person without a key person role
+    Then    I should see an error that says proposal role is required
+
+  Scenario: Trying to add a a co-investigator without a unit
+    When    I add a co-investigator
+    And     I do not select a unit
+    Then    I should see a key personnel error that says at least one unit is required
