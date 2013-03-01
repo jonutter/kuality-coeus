@@ -29,7 +29,10 @@ And /^I add (.*) (.*) as a Key Person with a role of (.*)$/ do |fname, lname, kp
   @proposal.add_key_person first_name: fname, last_name: lname, role: 'Key Person', key_person_role: kp_role
 end
 
-And /^I add a Key Person with a (.*) credit split of (\d+)$/ do |cs_type, amount|
+And /^I add a Key Person with a (.*) credit split of (.*)$/ do |cs_type, amount|
   @proposal.add_key_person cs_type.to_sym=>amount
 end
 
+Then /^I should see an error that the credit split is not a valid percentage$/ do
+  on(KeyPersonnel).combined_credit_split_errors.should include 'Credit Split is not a valid percentage.'
+end
