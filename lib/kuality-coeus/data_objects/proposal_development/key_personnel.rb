@@ -90,9 +90,12 @@ class KeyPersonObject
     end
   end
 
-  def edit opts={}
-
-    set_options(opts)
+  def delete
+    navigate
+    on KeyPersonnel do |person|
+      person.check_person @full_name
+      person.delete_selected
+    end
   end
 
   # =======
