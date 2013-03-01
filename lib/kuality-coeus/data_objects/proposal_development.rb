@@ -53,9 +53,9 @@ class ProposalDevelopmentObject
     end
   end
 
-  def add_key_personnel opts={}
+  def add_key_person opts={}
     merge_settings(opts)
-    kpo = make KeyPersonnelObject, opts
+    kpo = make KeyPersonObject, opts
     kpo.create
     @key_personnel << kpo
   end
@@ -73,7 +73,7 @@ class ProposalDevelopmentObject
     bvo.create
     @budget_versions << bvo
   end
-
+                                    puts
   def assign_permissions opts={}
     merge_settings opts
     @permissions = make PermissionsObject, opts
