@@ -19,7 +19,5 @@ Feature: Key Personnel Validations
     | Recognition    | -0.01  |
   @test
   Scenario: Trying to add two PIs to a Proposal
-    # TODO: consider rewriting these two steps as a single one ("When I try to add two PIs...")...
-    When  I add John OspDirector as a Key Person with a role of Principal Investigator
-    And   I add Dick Keogh as a Key Person with a role of Principal Investigator
+    When  I try to add two Principal Investigators
     Then  I should see an error that only one PI is allowed
