@@ -4,7 +4,7 @@ Feature: Creating a proposal
 
   Background: KC user is logged in as admin
       Given   I am logged in as admin
-
+    @test
     Scenario Outline: Attempt to create a proposal while leaving the required text-fields null
       When    I begin a proposal without a <Field Name>
       Then    I should see an error that says "<Field Name> is a required field."
@@ -19,7 +19,14 @@ Feature: Creating a proposal
         | Sponsor Code        |
         | Project Start Date  |
         | Project End Date    |
-  @test
+
     Scenario: Attempt to create a proposal with invalid sponsor code
       When    I begin a proposal with an invalid sponsor code
       Then    I should see an error that says valid sponsor code required
+
+    Scenario: Attempt to add key personnel without a proposal role specified
+      When    I begin a proposal
+      And     I add key personnel without a proposal role
+      Then    I should see an error that says please select proposal role
+
+    Scenario:
