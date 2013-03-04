@@ -163,7 +163,7 @@ class KeyPersonnelCollection < Array
   end
 
   def person(full_name)
-    self.find { |person| person[:full_name]==full_name }
+    self.find { |person| person.full_name==full_name }
   end
 
 end # KeyPersonnelCollection
