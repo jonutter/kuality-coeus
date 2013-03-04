@@ -33,7 +33,7 @@ And /^I add (.*) (.*) as a (.*) to Key Personnel$/ do |fname, lname, proposal_ro
   @proposal.add_key_person first_name: fname, last_name: lname, role: proposal_role
 end
 
-And /^I add (.*) (.*) as a Key Person with a role of (.*)$/ do |fname, lname, kp_role|
+When /^I add (.*) (.*) as a Key Person with a role of (.*)$/ do |fname, lname, kp_role|
   @proposal.add_key_person first_name: fname, last_name: lname, role: 'Key Person', key_person_role: kp_role
 end
 
