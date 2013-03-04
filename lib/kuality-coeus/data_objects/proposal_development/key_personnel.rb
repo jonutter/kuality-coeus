@@ -98,6 +98,15 @@ class KeyPersonObject
     end
   end
 
+  def delete_units
+    @units.each do |unit|
+      on KeyPersonnel do |units|
+        units.delete_unit(unit[:name])
+      end
+    end
+    @units=[]
+  end
+
   # =======
   private
   # =======

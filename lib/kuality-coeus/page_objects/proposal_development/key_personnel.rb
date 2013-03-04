@@ -39,7 +39,8 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:show_unit_details) { |full_name, b| b.frm.button(id: "tab-#{nsp(full_name)}:UnitDetails-imageToggle").click }
   action(:lookup_unit) { |full_name, p| p.unit_div(full_name).button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.Unit!!).(((unitNumber:newProposalPersonUnit[0].unitNumber,unitName:newProposalPersonUnit[0].unitName))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchor').click }
   action(:unit_number) { |full_name, p| p.unit_div(full_name).text_field(id: /unitNumber/) }
-  action(:add_unit) { |full_name, p| p.unit_div(full_name).button(title: "Add Unit").click }
+  action(:add_unit) { |full_name, p| p.unit_div(full_name).button(title: 'Add Unit').click }
+  action(:delete_unit) { |full_name, unit_name, p| p.unit_div(full_name).table(class: 'tab').row(text: /#{unit_name}/).button(title: 'Remove Unit').click }
 
   # This returns an array of hashes, like so:
   # [{:name=>"Unit1 Name", :number=>"Unit1 Number"}, {:name=>"Unit2 Name", :number=>"Unit2 Number"}]
