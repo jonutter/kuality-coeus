@@ -18,3 +18,6 @@ end
 Then /^I should see a key personnel error that says at least one unit is required$/ do
   on(KeyPersonnel).add_validation_errors.should include 'At least one Unit is required for Dick COIAdmin.'
 end
+Then /^I should see an error that says only one pi role is allowed$/ do
+  on(KeyPersonnel).add_validation_errors.should include 'Only one proposal role of Principal Investigator is allowed.'
+end
