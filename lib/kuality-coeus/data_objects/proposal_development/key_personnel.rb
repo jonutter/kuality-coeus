@@ -57,6 +57,7 @@ class KeyPersonObject
         @units=person.units @full_name
 
       else # We have Units to add and update...
+        person.units(@full_name).inspect
         # Temporarily store any existing units...
         units=person.units @full_name
         # Note that this assumes we're adding
