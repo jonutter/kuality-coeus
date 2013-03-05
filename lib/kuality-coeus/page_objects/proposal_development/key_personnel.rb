@@ -40,7 +40,7 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:lookup_unit) { |full_name, p| p.unit_div(full_name).button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.Unit!!).(((unitNumber:newProposalPersonUnit[0].unitNumber,unitName:newProposalPersonUnit[0].unitName))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchor').click }
   action(:unit_number) { |full_name, p| p.unit_div(full_name).text_field(id: /unitNumber/) }
   action(:add_unit) { |full_name, p| p.unit_div(full_name).button(title: 'Add Unit').click }
-  action(:delete_unit) { |full_name, unit_name, p| p.unit_div(full_name).table(class: 'tab').row(text: /#{unit_name}/).button(title: 'Remove Unit').click }
+  action(:delete_unit) { |full_name, unit_number, p| p.unit_div(full_name).table(class: 'tab').row(text: /#{unit_number}/).button(title: 'Remove Unit').click }
 
   # This returns an array of hashes, like so:
   # [{:name=>"Unit1 Name", :number=>"Unit1 Number"}, {:name=>"Unit2 Name", :number=>"Unit2 Number"}]
@@ -50,6 +50,11 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:responsibility) { |name, b| b.credit_split_div_table.row(text: /#{name}/)[1].text_field }
   action(:financial) { |name, b| b.credit_split_div_table.row(text: /#{name}/)[2].text_field }
   action(:recognition) { |name, b| b.credit_split_div_table.row(text: /#{name}/)[3].text_field }
+
+  action(:unit_responsibility) { |full_name, unit_name, p| p.target_unit_row(full_name, unit_name)[1].text_field }
+  action(:unit_financial) { |full_name, unit_name, p| p.target_unit_row(full_name, unit_name)[2].text_field() }
+  action(:unit_recognition) { |full_name, unit_name, p| p.target_unit_row(full_name, unit_name)[3].text_field() }
+
 
   # =======
   private
@@ -69,6 +74,13 @@ class KeyPersonnel < ProposalDevelopmentDocument
   end
 
   element(:credit_split_div_table) { |b| b.frm.div(id: "tab-CombinedCreditSplit-div").table }
+
+  action(:target_unit_row) do |full_name, unit_number, p|
+    trows = p.credit_split_div_table.rows
+    index = trows.find_index { |row| row.text=~/#{full_name}/ }
+    trows[index..-1].find { |row| row.text=~/#{unit_number}/ }
+  end
+
   action(:person_div) { |full_name, b| b.frm.div(id: "tab-#{nsp(full_name)}:PersonDetails-div") }
   action(:unit_div) { |full_name, b| b.frm.div(id: "tab-#{nsp(full_name)}:UnitDetails-div") }
 

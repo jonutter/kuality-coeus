@@ -90,14 +90,45 @@ class KeyPersonObject
     end
   end
 
-  def update_person_credit_splits opts={}
+  # IMPORTANT NOTE:
+  # Currently this method only edits the person credit splits
+  # for the data object!
+  #
+  # Add edit options to this method as needed.
+  #
+  # HOWEVER:
+  # Do NOT add updating of Unit Credit Splits here.
+  # Those require special handling and
+  # thus have their own method: #update_unit_credit_splits
+  def edit opts={}
     navigate
-
+    on KeyPersonnel do |update|
+      update.expand_all
+      update.responsibility(@full_name).fit opts[:responsibility]
+      update.financial(@full_name).fit opts[:financial]
+      update.recognition(@full_name).fit opts[:recognition]
+      update.save
+    end
+    update_options(opts)
   end
 
-  def update_unit_credit_splits opts={}
-    navigate
-
+  # This method requires a parameter that is an Array
+  # of Hashes. Example:
+  # [{:number=>"UNIT NUMBER", :responsibility=>"33.33"}]
+  def update_unit_credit_splits units
+    splits=[:responsibility, :financial, :recognition]
+    units.each do |unit|
+      on KeyPersonnel do |update|
+        update.responsibility(@full_name, unit[:number]).fit unit[:responsibility]
+        update.financial(@full_name, unit[:number]).fit unit[:financial]
+        update.recognition(@full_name, unit[:number]).fit unit[:recognition]
+      end
+      splits.each do |split|
+        unless unit[split]==nil
+          @units[@units.find_index{|u| u[:number]==unit[:number]}][split]=unit[split]
+        end
+      end
+    end
   end
 
   def delete
@@ -175,7 +206,5 @@ class KeyPersonnelCollection < Array
   def person(full_name)
     self.find { |person| person.full_name==full_name }
   end
-
-
 
 end # KeyPersonnelCollection
