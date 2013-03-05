@@ -41,3 +41,9 @@ Feature: Proposal Actions Validations
       And     I activate a validation check
       #TODO: create a flexible way to answer these questions
       Then    the validation error should say you must complete the kuali university questions
+
+    Scenario: Attempt to validate proposal without certifying co-investigator
+      When    I begin a proposal
+      And     I add an uncertified co-investigator
+      And     I activate a validation check
+      Then    I should see an error that says the investigator needs to be certified

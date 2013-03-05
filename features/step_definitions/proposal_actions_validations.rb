@@ -34,3 +34,9 @@ end
 When /^I do not complete the kuali university questions$/ do
   #nothing necessary for this step
 end
+When /^I add an uncertified co-investigator$/ do
+  pending
+end
+Then /^I should see an error that says the investigator needs to be certified$/ do
+  pending
+end

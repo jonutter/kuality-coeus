@@ -33,5 +33,3 @@ Feature: Key Personnel Validations
   Scenario: Attempt to add multiple principle investigators
     When    I try to add two Principal Investigators
     Then    I should see an error that says only one pi role is allowed
-
-  Scenario:
