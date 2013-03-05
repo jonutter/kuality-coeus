@@ -26,3 +26,9 @@ end
 Then /^I should see an error that says only one pi role is allowed$/ do
   on(KeyPersonnel).add_validation_errors.should include 'Only one proposal role of Principal Investigator is allowed.'
 end
+When /^I add a key person with an invalid unit type$/ do
+  @proposal.add_key_person first_name: 'Jeff', last_name: 'Covey', role: 'Key Person', key_person_role: 'king', units: [{number: 'invalid'}]
+end
+Then /^I should see an error that says please select a valid unit$/ do
+  on(KeyPersonnel).add_validation_errors.should include 'Please select a valid Unit.'
+end

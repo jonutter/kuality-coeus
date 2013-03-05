@@ -15,7 +15,8 @@ Then /^the validation error should say (.*)$/ do |error|
   'proposal questions were not answered' => 'Answer is required for Question 1 in group A. Proposal Questions.',
   'sponsor deadline date not entered' => 'Sponsor deadline date has not been entered.',
   'questionnaire must be completed' => %|You must complete the questionnaire "S2S FAT &amp; Flat Questionnaire"|,
-  'you must complete the compliance question' => 'Answer is required for Question 1 in group B. Compliance.'}
+  'you must complete the compliance question' => 'Answer is required for Question 1 in group B. Compliance.',
+  'the investigator needs to be certified' => 'The Investigators are not all certified. Please certify Dick  COIAdmin.'}
   on(ProposalActions).validation_errors_and_warnings.should include errors[error]
 end
 
@@ -34,9 +35,6 @@ end
 When /^I do not complete the kuali university questions$/ do
   #nothing necessary for this step
 end
-When /^I add an uncertified co-investigator$/ do
-  pending
-end
-Then /^I should see an error that says the investigator needs to be certified$/ do
-  pending
+When /^I add a co-investigator without certifying him$/ do
+  @proposal.add_key_person first_name: 'Dick', last_name: 'COIAdmin', role: 'Co-Investigator'
 end

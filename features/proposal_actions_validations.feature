@@ -44,6 +44,6 @@ Feature: Proposal Actions Validations
 
     Scenario: Attempt to validate proposal without certifying co-investigator
       When    I begin a proposal
-      And     I add an uncertified co-investigator
+      And     I add a co-investigator without certifying him
       And     I activate a validation check
-      Then    I should see an error that says the investigator needs to be certified
+      Then    the validation error should say the investigator needs to be certified
