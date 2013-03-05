@@ -37,6 +37,8 @@ class KeyPersonnel < ProposalDevelopmentDocument
 
   # Unit Details...
 
+  action(:unit_details_errors_div) { |full_name, p| p.unit_div(full_name).div(class: 'left-errmsg-tab').div }
+
   # This button is only present in the context of a Key Person...
   action(:add_unit_details) { |full_name, p| p.unit_div(full_name).button(title: 'Add Unit Details').click }
 

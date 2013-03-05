@@ -57,9 +57,8 @@ class KeyPersonObject
         @units=person.units @full_name unless @key_person_role==nil
 
       else # We have Units to add and update...
-        person.units(@full_name).inspect
         # Temporarily store any existing units...
-        person.add_unit_details unless @key_person_role==nil
+        person.add_unit_details(@full_name) unless @key_person_role==nil
 
         units=person.units @full_name
         # Note that this assumes we're adding
@@ -68,8 +67,8 @@ class KeyPersonObject
         @units.each do |unit|
           person.unit_number(@full_name).set unit[:number]
           person.add_unit @full_name
-
         end
+        break if person.unit_details_errors_div(@full_name).present?
         # Now add the previously existing units to
         # @units
         units.each { |unit| @units << unit }
