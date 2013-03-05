@@ -1,6 +1,7 @@
 When /^I delete the proposal$/ do
   @proposal.delete
 end
+
 Then /^The proposal is deleted$/ do
   @proposal.status.should == 'CANCELED'
   @proposal.view

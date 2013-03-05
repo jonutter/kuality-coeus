@@ -47,7 +47,9 @@ class SpecialReviewObject
     set_options(opts)
   end
 
+  # =======
   private
+  # =======
 
   def navigate
     open_document unless on_document?
@@ -78,5 +80,12 @@ class SpecialReviewCollection < Array
     self.collect { |s_r| s_r.approval_status }
   end
 
-end # SpecialReviewCollection
+  # A warning about this method:
+  # it's going to return the FIRST match in the collection,
+  # under the assumption that there won't be multiple
+  # Special Review items of the same type.
+  def type(srtype)
+    self.find { |s_r| s_r.type==srtype}
+  end
 
+end # SpecialReviewCollection

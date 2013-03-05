@@ -166,4 +166,25 @@ class KeyPersonnelCollection < Array
     self.find { |person| person.full_name==full_name }
   end
 
+  # This method will update ALL credit splits instance variables to values
+  # that will not cause the proposal to throw errors.
+  # This is ONLY updating the instance variables, however, so this
+  # should ONLY be used in a method that immediately updates the
+  # data in the site.
+  def set_valid_credit_splits
+    # TODO: Come up with a more interesting way to split this...
+    person_split = (100.0/self.size).round(2)
+    credits = %w{responsibility financial recognition}
+    self.each do |person|
+      units_split = (100.0/person.units.size).round(2)
+      credits.each do |credit|
+        person.send("#{credit}=".to_sym, person_split)
+        person.units(person.full_name).each do |unit|
+          unit[credit.to_sym]=units_split
+        end
+      end
+    end
+
+  end
+
 end # KeyPersonnelCollection
