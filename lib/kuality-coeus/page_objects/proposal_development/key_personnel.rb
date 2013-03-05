@@ -36,6 +36,10 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:home_unit) { |full_name, p| p.person_div(full_name).table[5][1].text }
 
   # Unit Details...
+
+  # This button is only present in the context of a Key Person...
+  action(:add_unit_details) { |full_name, p| p.unit_div(full_name).button(title: 'Add Unit Details').click }
+
   action(:show_unit_details) { |full_name, b| b.frm.button(id: "tab-#{nsp(full_name)}:UnitDetails-imageToggle").click }
   action(:lookup_unit) { |full_name, p| p.unit_div(full_name).button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.Unit!!).(((unitNumber:newProposalPersonUnit[0].unitNumber,unitName:newProposalPersonUnit[0].unitName))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchor').click }
   action(:unit_number) { |full_name, p| p.unit_div(full_name).text_field(id: /unitNumber/) }
@@ -54,7 +58,6 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:unit_responsibility) { |full_name, unit_name, p| p.target_unit_row(full_name, unit_name)[1].text_field }
   action(:unit_financial) { |full_name, unit_name, p| p.target_unit_row(full_name, unit_name)[2].text_field() }
   action(:unit_recognition) { |full_name, unit_name, p| p.target_unit_row(full_name, unit_name)[3].text_field() }
-
 
   # =======
   private
