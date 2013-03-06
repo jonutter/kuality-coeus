@@ -101,12 +101,6 @@ class KeyPersonObject
       if @certified
         person.include_certification_questions(@full_name) unless @key_person_role==nil
         cert_questions.each { |q| person.send(q, full_name, eval("@#{q.to_s}"))}
-        #person.certify_info_true @full_name, @certify_info_true
-        #person.potential_for_conflict @full_name, @potential_for_conflict
-        #person.submitted_financial_disclosures @full_name, @submitted_financial_disclosures
-        #person.lobbying_activities @full_name, @lobbying_activities
-        #person.excluded_from_transactions @full_name, @excluded_from_transactions
-        #person.familiar_with_pla @full_name, @familiar_with_pla
       else
          cert_questions.each { |q| instance_variable_set("@#{q.to_s}", nil) }
       end
