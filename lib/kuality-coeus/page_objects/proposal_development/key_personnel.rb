@@ -15,7 +15,11 @@ class KeyPersonnel < ProposalDevelopmentDocument
   element(:add_person_errors_div) { |b| b.frm.div(class: 'annotate-container').div(class: 'left-errmsg-tab').div }
 
   # Note these methods return arrays
-  value(:add_validation_errors) { |p| p.add_person_errors_div.divs.collect{ |div| div.text} }
+  value(:add_validation_errors) do |b|
+    array = []
+    b.frm.div(class: 'annotate-container').divs(class: 'left-errmsg-tab').collect
+    b.frm.div(class: 'annotate-container').lis.collect{ |li| li.text}
+  end
   value(:combined_credit_split_errors) { |b| b.frm.div(id: 'tab-CombinedCreditSplit-div').div(class: 'left-errmsg-tab').div.divs.collect{ |div| div.text } }
 
   # Person info...
