@@ -129,7 +129,7 @@ class ProposalDevelopmentObject
     @compliance_questions.create
   end
 
-  def answer_kuali_university_questions opts={}
+  def answer_kuali_u_questions opts={}
     merge_settings(opts)
     @kuali_university_questions = make KualiUniversityQuestionsObject
     @kuali_university_questions.create
