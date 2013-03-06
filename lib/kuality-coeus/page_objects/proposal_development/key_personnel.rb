@@ -19,12 +19,16 @@ class KeyPersonnel < ProposalDevelopmentDocument
     array = []
     array << add_person_errors
     array << add_validation_errors
-    array << combined_credit_split_errors
+    begin
+      array << combined_credit_split_errors
+    rescue Selenium::WebDriver::Error::StaleElementReferenceError
+      #do nothing
+    end
     array.flatten
   end
-  value(:add_person_errors) { |p| p.add_person_errors_div.divs.collect{ |div| div.text} }
+  value(:add_person_errors) { |b| b.frm.div(class: 'annotate-container').div(class: 'left-errmsg-tab').divs.collect{ |div| div.text} }
   value(:add_validation_errors) { |b| b.frm.div(class: 'annotate-container').div(class: 'left-errmsg-tab', index: 1).lis.collect{ |li| li.text} }
-  value(:combined_credit_split_errors) { |b| b.frm.div(id: 'tab-CombinedCreditSplit-div').div(class: 'left-errmsg-tab').div.divs.collect{ |div| div.text } }
+  value(:combined_credit_split_errors) { |b| b.frm.div(id: 'tab-CombinedCreditSplit-div').div(class: 'left-errmsg-tab').divs.collect{ |div| div.text } }
 
   # Person info...
 

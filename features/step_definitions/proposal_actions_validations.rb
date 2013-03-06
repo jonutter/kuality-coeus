@@ -42,11 +42,16 @@ And /^checking the key personnel page shows an error that says (.*)$/ do |error|
   on(ProposalActions).key_personnel
   errors = {'there is no principal investigator' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.'
   }
-  on(KeyPersonnel).add_validation_errors.should include errors[error]
+  on(KeyPersonnel).errors.should include errors[error]
 end
 When /^checking the proposal page shows an error that says (.*)$/ do |error|
   on(ProposalActions).proposal
   errors = {'sponsor deadline date not entered' => 'Sponsor deadline date has not been entered.'
   }
-  on(Proposal).required_fields_errors.should include e
+  on(Proposal).required_fields_errors.should include errors[error]
+end
+When /^checking the questions page shows an error that says (.*)$/ do |error|
+  on(Proposal).questions
+  errors = {'questionnaire must be completed' => ''}
+  on(Questions).x # Create page objs for errors on Questions page
 end
