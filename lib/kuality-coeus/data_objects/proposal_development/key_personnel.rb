@@ -99,6 +99,7 @@ class KeyPersonObject
 
       # Proposal Person Certification
       if @certified
+        person.include_certification_questions(@full_name) unless @key_person_role==nil
         person.certify_info_true @full_name, @certify_info_true
         person.potential_for_conflict @full_name, @potential_for_conflict
         person.submitted_financial_disclosures @full_name, @submitted_financial_disclosures
