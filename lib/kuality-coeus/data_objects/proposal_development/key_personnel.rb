@@ -20,7 +20,7 @@ class KeyPersonObject
       responsibility: rand_num,
       financial: rand_num,
       recognition: rand_num,
-      certified: true,
+      certified: true, # Set this to false if you do not want any Proposal Person Certification Questions answered
       certify_info_true: 'Y',
       potential_for_conflicts: 'Y',
       submitted_financial_disclosures: 'Y',

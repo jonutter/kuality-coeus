@@ -15,11 +15,16 @@ class KeyPersonnel < ProposalDevelopmentDocument
   element(:add_person_errors_div) { |b| b.frm.div(class: 'annotate-container').div(class: 'left-errmsg-tab').div }
 
   # Note these methods return arrays
-  value(:add_validation_errors) do |b|
+  def errors
     array = []
-    b.frm.div(class: 'annotate-container').divs(class: 'left-errmsg-tab').collect
-    b.frm.div(class: 'annotate-container').lis.collect{ |li| li.text}
+    array << add_person_errors
+    array << add_validation_errors
+    array << combined_credit_split_errors
+    array << unit_details_errors
+    array.flatten
   end
+  value(:add_person_errors) { |p| p.add_person_errors_div.divs.collect{ |div| div.text} }
+  value(:add_validation_errors) { |b| b.frm.div(class: 'annotate-container').div(class: 'left-errmsg-tab', index: 1).lis.collect{ |li| li.text} }
   value(:combined_credit_split_errors) { |b| b.frm.div(id: 'tab-CombinedCreditSplit-div').div(class: 'left-errmsg-tab').div.divs.collect{ |div| div.text } }
 
   # Person info...
@@ -40,8 +45,8 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:home_unit) { |full_name, p| p.person_div(full_name).table[5][1].text }
 
   # Unit Details...
-
   action(:unit_details_errors_div) { |full_name, p| p.unit_div(full_name).div(class: 'left-errmsg-tab').div }
+  action(:unit_details_errors) { |full_name, p| p.unit_details_errors_div.divs.collect { |div| div.text } }
 
   # This button is only present in the context of a Key Person...
   action(:add_unit_details) { |full_name, p| p.unit_div(full_name).button(title: 'Add Unit Details').click }
