@@ -15,7 +15,7 @@ class KeyPersonnel < ProposalDevelopmentDocument
   element(:add_person_errors_div) { |b| b.frm.div(class: 'annotate-container').div(class: 'left-errmsg-tab').div }
 
   # Note these methods return arrays
-  def errors # these errors are non-person-specific errors only
+  def errors # These errors are non-person-specific errors only
     array = []
     array << add_person_errors
     array << add_validation_errors
@@ -64,12 +64,12 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:show_proposal_person_certification) {}
   # Questions...
   {
-    :certify_info_true=>1,
-    :potential_for_conflict=>2,
-    :submitted_financial_disclosures=>3,
-    :lobbying_activities=>4,
-    :excluded_from_transactions=>5,
-    :familiar_with_pla=>6
+    :certify_info_true=>0,
+    :potential_for_conflict=>1,
+    :submitted_financial_disclosures=>2,
+    :lobbying_activities=>3,
+    :excluded_from_transactions=>4,
+    :familiar_with_pla=>5
   }.each { |key, value| action(key) { |full_name, answer, p| p.questions_div(full_name).div(id: "HD0-QN#{value}div").radio(value: answer).set } }
 
   # Combined Credit Split

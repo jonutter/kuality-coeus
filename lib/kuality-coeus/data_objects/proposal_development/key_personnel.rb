@@ -22,7 +22,7 @@ class KeyPersonObject
       recognition: rand_num,
       certified: true, # Set this to false if you do not want any Proposal Person Certification Questions answered
       certify_info_true: 'Y',
-      potential_for_conflicts: 'Y',
+      potential_for_conflict: 'Y',
       submitted_financial_disclosures: 'Y',
       lobbying_activities: 'Y',
       excluded_from_transactions: 'Y',
