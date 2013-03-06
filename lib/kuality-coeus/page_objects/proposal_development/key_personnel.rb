@@ -15,12 +15,11 @@ class KeyPersonnel < ProposalDevelopmentDocument
   element(:add_person_errors_div) { |b| b.frm.div(class: 'annotate-container').div(class: 'left-errmsg-tab').div }
 
   # Note these methods return arrays
-  def errors
+  def errors # these errors are non-person-specific errors only
     array = []
     array << add_person_errors
     array << add_validation_errors
     array << combined_credit_split_errors
-    array << unit_details_errors
     array.flatten
   end
   value(:add_person_errors) { |p| p.add_person_errors_div.divs.collect{ |div| div.text} }
@@ -46,7 +45,7 @@ class KeyPersonnel < ProposalDevelopmentDocument
 
   # Unit Details...
   action(:unit_details_errors_div) { |full_name, p| p.unit_div(full_name).div(class: 'left-errmsg-tab').div }
-  action(:unit_details_errors) { |full_name, p| p.unit_details_errors_div.divs.collect { |div| div.text } }
+  action(:unit_details_errors) { |full_name, p| p.unit_details_errors_div(full_name).divs.collect { |div| div.text } }
 
   # This button is only present in the context of a Key Person...
   action(:add_unit_details) { |full_name, p| p.unit_div(full_name).button(title: 'Add Unit Details').click }
@@ -71,7 +70,7 @@ class KeyPersonnel < ProposalDevelopmentDocument
     :lobbying_activities=>4,
     :excluded_from_transactions=>5,
     :familiar_with_pla=>6
-  }.each { |key, value| action(key) { |full_name, answer, p| p.questions_div(full_name).div(id: "HD0-QN#{value}div").checkbox(value: answer).set } }
+  }.each { |key, value| action(key) { |full_name, answer, p| p.questions_div(full_name).div(id: "HD0-QN#{value}div").radio(value: answer).set } }
 
   # Combined Credit Split
   {

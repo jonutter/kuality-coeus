@@ -18,11 +18,13 @@ Feature: Proposal Actions Validations
       And     I do not answer my proposal questions
       And     I activate a validation check
       Then    the validation error should say proposal questions were not answered
+      And     checking the key personnel page shows an error that says proposal questions were not answered
 
     Scenario: Attempt to validate a proposal without a sponsor deadline date
       When    I begin a proposal without a sponsor deadline date
       And     I activate a validation check
       Then    the validation error should say sponsor deadline date not entered
+      And     checking the proposal page shows an error that says sponsor deadline date not entered
 
     Scenario: Attempt to validate proposal without completing the S2S FAT & Flat questionnaire
       When    I begin a proposal
