@@ -32,3 +32,11 @@ end
 Then /^I should see an error that says please select a valid unit$/ do
   on(KeyPersonnel).add_validation_errors.should include 'Please select a valid Unit.'
 end
+Then /^the key personnel error should say (.*)$/ do |error|
+  errors = {'at least one principal investigator is required' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.'
+  }
+  on(KeyPersonnel).add_validation_errors.should include errors[error]
+end
+When /^I add a principal investigator$/ do
+  @proposal.add_key_person first_name: 'Dick', last_name: 'Keogh' ,role: 'Principal Investigator'
+end

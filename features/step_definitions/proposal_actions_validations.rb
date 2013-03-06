@@ -38,3 +38,9 @@ end
 When /^I add a co-investigator without certifying him$/ do
   @proposal.add_key_person first_name: 'Dick', last_name: 'COIAdmin', role: 'Co-Investigator'
 end
+And /^checking the key personnel page shows an error that says (.*)$/ do |error|
+  on(ProposalActions).key_personnel
+  errors = {'there is no principal investigator' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.'
+  }
+  on(KeyPersonnel).add_validation_errors.should include errors[error]
+end
