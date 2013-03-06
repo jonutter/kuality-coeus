@@ -63,7 +63,7 @@ class KeyPersonObject
       @home_unit=person.home_unit @full_name
       if @units.empty? # No units in @units, so we're not setting units
         # ...so, get the units from the UI:
-        @units=person.units @full_name unless @key_person_role==nil
+        @units=person.units @full_name if @key_person_role==nil
 
       else # We have Units to add and update...
         # Temporarily store any existing units...
@@ -89,7 +89,7 @@ class KeyPersonObject
         [:responsibility, :financial, :recognition].each do |item|
           unit[item]==nil ? unit.store(item, rand_num) : unit[item]
         # Then we update the UI with the values...
-          person.send(item, unit[:number]).set unit[item]
+          person.send("unit_#{item.to_s}".to_sym, @full_name, unit[:number]).set unit[item]
         end
       end
 
@@ -142,9 +142,9 @@ class KeyPersonObject
     splits=[:responsibility, :financial, :recognition]
     units.each do |unit|
       on KeyPersonnel do |update|
-        update.responsibility(@full_name, unit[:number]).fit unit[:responsibility]
-        update.financial(@full_name, unit[:number]).fit unit[:financial]
-        update.recognition(@full_name, unit[:number]).fit unit[:recognition]
+        update.unit_responsibility(@full_name, unit[:number]).fit unit[:responsibility]
+        update.unit_financial(@full_name, unit[:number]).fit unit[:financial]
+        update.unit_recognition(@full_name, unit[:number]).fit unit[:recognition]
       end
       splits.each do |split|
         unless unit[split]==nil
