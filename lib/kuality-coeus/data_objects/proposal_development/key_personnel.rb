@@ -7,7 +7,9 @@ class KeyPersonObject
 
   attr_accessor :first_name, :last_name, :role, :document_id, :key_person_role,
                 :full_name, :user_name, :home_unit, :units, :responsibility,
-                :financial, :recognition
+                :financial, :recognition, :certified, :certify_info_true,
+                :potential_for_conflicts, :submitted_financial_disclosures,
+                :lobbying_activities, :excluded_from_transactions, :familiar_with_pla
 
   # Note that you must pass in both first and last names (or neither).
   def initialize(browser, opts={})
@@ -17,7 +19,14 @@ class KeyPersonObject
       units: [],
       responsibility: rand_num,
       financial: rand_num,
-      recognition: rand_num
+      recognition: rand_num,
+      certified: true,
+      certify_info_true: 'Y',
+      potential_for_conflicts: 'Y',
+      submitted_financial_disclosures: 'Y',
+      lobbying_activities: 'Y',
+      excluded_from_transactions: 'Y',
+      familiar_with_pla: 'Y'
     }
     set_options(defaults.merge(opts))
     requires @document_id
@@ -87,6 +96,17 @@ class KeyPersonObject
       person.responsibility(@full_name).set @responsibility
       person.financial(@full_name).set @financial
       person.recognition(@full_name).set @recognition
+
+      # Proposal Person Certification
+      if @certified
+        person.certify_info_true @full_name, @certify_info_true
+        person.potential_for_conflict @full_name, @potential_for_conflict
+        person.submitted_financial_disclosures @full_name, @submitted_financial_disclosures
+        person.lobbying_activities @full_name, @lobbying_activities
+        person.excluded_from_transactions @full_name, @excluded_from_transactions
+        person.familiar_with_pla @full_name, @familiar_with_pla
+      end
+
       # Add gathering of more attributes here as needed
       person.save
     end
