@@ -106,6 +106,10 @@ class KeyPersonObject
         person.lobbying_activities @full_name, @lobbying_activities
         person.excluded_from_transactions @full_name, @excluded_from_transactions
         person.familiar_with_pla @full_name, @familiar_with_pla
+      else
+        [:@certify_info_true,:@potential_for_conflict,:@submitted_financial_disclosures,
+        :@lobbying_activities,:@excluded_from_transactions,:@familiar_with_pla]
+        .each { |var| instance_variable_set(var, nil) }
       end
 
       # Add gathering of more attributes here as needed

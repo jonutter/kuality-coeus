@@ -36,7 +36,7 @@ When /^I do not complete the kuali university questions$/ do
   #nothing necessary for this step
 end
 When /^I add a co-investigator without certifying him$/ do
-  @proposal.add_key_person first_name: 'Dick', last_name: 'COIAdmin', role: 'Co-Investigator'
+  @proposal.add_key_person first_name: 'Dick', last_name: 'COIAdmin', role: 'Co-Investigator', certified: false
 end
 And /^checking the key personnel page shows an error that says (.*)$/ do |error|
   on(ProposalActions).key_personnel
