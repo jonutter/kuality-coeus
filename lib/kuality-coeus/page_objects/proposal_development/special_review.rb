@@ -1,8 +1,7 @@
 class SpecialReview < ProposalDevelopmentDocument
 
   proposal_header_elements
-
-  element(:error_messages_div) { |b| b.frm.div(id: 'tab-SpecialReview-div').div(class: 'left-errmsg-tab').div }
+  error_messages
 
   # Method returns an array
   value(:errors) { |p| p.error_messages_div.divs.collect{|div| div.text} }

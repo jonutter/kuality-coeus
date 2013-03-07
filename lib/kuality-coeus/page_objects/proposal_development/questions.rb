@@ -1,22 +1,10 @@
 class Questions < ProposalDevelopmentDocument
 
   proposal_header_elements
+  error_messages
 
   # Used strictly for navigation validation...
   element(:questions_header) { |b| b.frm.h2(text: 'A. Proposal Questions') }
-
-  # The catch-all container for all errors that appear on the page
-  def errors
-    errs = []
-    left_errmsg_tabs.each do |div|
-      if div.div.div.exist?
-        errs << div.div.divs.collect{ |div| div.text }
-      elsif div.li.exist?
-        errs << div.lis.collect{ |li| li.text }
-      end
-    end
-    errs.flatten
-  end
 
   # S2S Questions...
   action(:show_s2s_questions) { |b| b.frm.button(name: 'methodToCall.toggleTab.tab0').click }
@@ -150,7 +138,5 @@ class Questions < ProposalDevelopmentDocument
 
   # Used in other elements. Not needed outside this class
   action(:q_num_div) { |index, b| b.frm.div(id: "HD0-QN#{index}div").div(class: 'Qresponsediv') }
-
-  element(:left_errmsg_tabs) { |b| b.frm.divs(class: 'left-errmsg-tab') }
 
 end

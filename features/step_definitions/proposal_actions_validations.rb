@@ -55,7 +55,7 @@ When /^checking the proposal page shows an error that says (.*)$/ do |error|
   on(ProposalActions).proposal
   errors = {'sponsor deadline date not entered' => 'Sponsor deadline date has not been entered.'
   }
-  on(Proposal).required_fields_errors.should include errors[error]
+  on(Proposal).errors.should include errors[error]
 end
 
 When /^checking the questions page shows an error that says (.*)$/ do |error|

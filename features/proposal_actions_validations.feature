@@ -40,8 +40,8 @@ Feature: Proposal Actions Validations
       When    I activate a validation check
       Then    the validation error should say you must complete the kuali university questions
       And     checking the questions page shows an error that says you must complete the kuali university questions
-
-]   Scenario: Validate a proposal without a sponsor deadline date
+    @test
+    Scenario: Validate a proposal without a sponsor deadline date
       Given   I begin a proposal without a sponsor deadline date
       When    I activate a validation check
       Then    the validation error should say sponsor deadline date not entered

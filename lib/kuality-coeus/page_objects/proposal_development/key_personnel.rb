@@ -1,6 +1,7 @@
 class KeyPersonnel < ProposalDevelopmentDocument
 
   proposal_header_elements
+  error_messages
 
   action(:employee_search) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.KcPerson!!).(((personId:newPersonId))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchor').click }
   action(:non_employee_search) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.NonOrganizationalRolodex!!).(((rolodexId:newRolodexId))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchor').click }
@@ -15,17 +16,6 @@ class KeyPersonnel < ProposalDevelopmentDocument
   element(:add_person_errors_div) { |b| b.frm.div(class: 'annotate-container').div(class: 'left-errmsg-tab').div }
 
   # The catch-all container for all errors that appear on the page
-  def errors
-    errs = []
-    left_errmsg_tabs.each do |div|
-      if div.div.div.exist?
-        errs << div.div.divs.collect{ |div| div.text }
-      elsif div.li.exist?
-        errs << div.lis.collect{ |li| li.text }
-      end
-    end
-    errs.flatten
-  end
 
   value(:add_person_errors) { |b| b.frm.div(class: 'annotate-container').div(class: 'left-errmsg-tab').divs.collect{ |div| div.text} }
   value(:add_validation_errors) { |b| b.frm.div(class: 'annotate-container').div(class: 'left-errmsg-tab', index: 1).lis.collect{ |li| li.text} }
@@ -121,7 +111,5 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:unit_div) { |full_name, b| b.frm.div(id: "tab-#{nsp(full_name)}:UnitDetails-div") }
   action(:questions_div) { |full_name, b| b.frm.h3(text: full_name).parent.div(id: /questionpanelcontent:proposalPersonQuestionnaireHelpers/) }
   action(:certification_div) { |full_name, b| b.frm.div(id: "tab-#{nsp(full_name)}:Certify-div") }
-
-  element(:left_errmsg_tabs) { |b| b.frm.divs(class: 'left-errmsg-tab') }
 
 end
