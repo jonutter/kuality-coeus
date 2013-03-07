@@ -21,7 +21,7 @@ Feature: Key Personnel Validations
   Scenario: Attempt to add key personnel without a proposal role specified
     When    I add a key person without a key person role
     Then    I should see an error that says proposal role is required
-  @test
+
   Scenario: Trying to add a a co-investigator without a unit
     When    I add a co-investigator without a unit
     Then    I should see a key personnel error that says at least one unit is required

@@ -1,6 +1,7 @@
 class KeyPersonnel < ProposalDevelopmentDocument
 
   proposal_header_elements
+  error_messages
 
   action(:employee_search) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.KcPerson!!).(((personId:newPersonId))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchor').click }
   action(:non_employee_search) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.NonOrganizationalRolodex!!).(((rolodexId:newRolodexId))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchor').click }
@@ -14,18 +15,8 @@ class KeyPersonnel < ProposalDevelopmentDocument
   # Use to check if there are errors present or not...
   element(:add_person_errors_div) { |b| b.frm.div(class: 'annotate-container').div(class: 'left-errmsg-tab').div }
 
-  # Note these methods return arrays
-  def errors # These errors are non-person-specific errors only
-    errs = []
-    errs << add_person_errors
-    errs << add_validation_errors
-    begin
-      errs << combined_credit_split_errors
-    rescue Selenium::WebDriver::Error::StaleElementReferenceError
-      # Do nothing
-    end
-    errs.flatten
-  end
+  # The catch-all container for all errors that appear on the page
+
   value(:add_person_errors) { |b| b.frm.div(class: 'annotate-container').div(class: 'left-errmsg-tab').divs.collect{ |div| div.text} }
   value(:add_validation_errors) { |b| b.frm.div(class: 'annotate-container').div(class: 'left-errmsg-tab', index: 1).lis.collect{ |li| li.text} }
   value(:combined_credit_split_errors) { |b| b.frm.div(id: 'tab-CombinedCreditSplit-div').div(class: 'left-errmsg-tab').divs.collect{ |div| div.text } }
@@ -65,16 +56,6 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:units) { |full_name, p| units = []; p.unit_div(full_name).table.to_a[2..-1].each { |unit| units << {name: unit[1], number: unit[2]} }; units }
 
   # Proposal Person Certification
-  def certification_errors(full_name)
-    errors=[]
-    errors << cert_section_errs(full_name)
-    errors << cert_validation_errs(full_name)
-    errors.flatten!
-  end
-
-  action(:cert_section_errs) { |full_name, b| b.certification_div(full_name).div(class: 'left-errmsg-tab', index: 1).div.divs.collect{ |div| div.text } }
-  action(:cert_validation_errs) { |full_name, b| b.certification_div(full_name).div(class: 'left-errmsg-tab', index: 2).lis.collect{ |li| li.text} }
-
   action(:include_certification_questions) { |full_name, b| b.certification_div(full_name).button(title: 'Add Certification Question').click }
   action(:show_proposal_person_certification) {}
   # Questions...

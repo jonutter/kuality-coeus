@@ -1,6 +1,7 @@
 class Permissions < ProposalDevelopmentDocument
 
   proposal_header_elements
+  error_messages
 
   element(:user_name) { |b| b.frm.text_field(id: 'newProposalUser.username') }
   element(:role) { |b| b.frm.select(id: 'newProposalUser.roleName') }
