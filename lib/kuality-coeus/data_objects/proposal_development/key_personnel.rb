@@ -240,4 +240,10 @@ class KeyPersonnelCollection < Array
     self.find { |person| person.full_name==full_name }
   end
 
+  # returns an array of KeyPersonObjects who have associated
+  # units
+  def with_units
+    self.collect { |person| person.units.size > 0 }
+  end
+
 end # KeyPersonnelCollection
