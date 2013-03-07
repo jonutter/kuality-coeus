@@ -16,15 +16,15 @@ class KeyPersonnel < ProposalDevelopmentDocument
 
   # Note these methods return arrays
   def errors # These errors are non-person-specific errors only
-    array = []
-    array << add_person_errors
-    array << add_validation_errors
+    errs = []
+    errs << add_person_errors
+    errs << add_validation_errors
     begin
-      array << combined_credit_split_errors
+      errs << combined_credit_split_errors
     rescue Selenium::WebDriver::Error::StaleElementReferenceError
       # Do nothing
     end
-    array.flatten
+    errs.flatten
   end
   value(:add_person_errors) { |b| b.frm.div(class: 'annotate-container').div(class: 'left-errmsg-tab').divs.collect{ |div| div.text} }
   value(:add_validation_errors) { |b| b.frm.div(class: 'annotate-container').div(class: 'left-errmsg-tab', index: 1).lis.collect{ |li| li.text} }
@@ -65,7 +65,17 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:units) { |full_name, p| units = []; p.unit_div(full_name).table.to_a[2..-1].each { |unit| units << {name: unit[1], number: unit[2]} }; units }
 
   # Proposal Person Certification
-  action(:certification_errors) { |full_name, b| b.certification_div(full_name).div(class: 'left-errmsg-tab', index: 1).divs.collect{ |div| div.text } }
+  def certification_errors(full_name)
+    errors=[]
+    errors << cert_section_errs(full_name)
+    errors << cert_validation_errs(full_name)
+    errors.flatten
+    errors.delete('')
+  end
+
+  action(:cert_section_errs) { |full_name, b| b.certification_div(full_name).div(class: 'left-errmsg-tab', index: 0).div.divs.collect{ |div| div.text } }
+  action(:cert_validation_errs) { |full_name, b| b.certification_div(full_name).div(class: 'left-errmsg-tab', index: 1).lis.collect{ |li| li.text} }
+
   action(:include_certification_questions) { |full_name, b| b.certification_div(full_name).button(title: 'Add Certification Question').click }
   action(:show_proposal_person_certification) {}
   # Questions...
