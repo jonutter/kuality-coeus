@@ -44,8 +44,8 @@ end
 
 And /^checking the key personnel page shows an error that says (.*)$/ do |error|
   on(ProposalActions).key_personnel
-  errors = {'there is no principal investigator' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.',
-  'the key person needs to be certified' => 'The Investigators are not all certified. Please certify Jeff  Covey.'}
+  errors = {'there is no principal investigator' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.'
+  }
   on(KeyPersonnel).errors.should include errors[error]
 end
 
@@ -61,13 +61,13 @@ When /^checking the questions page shows an error that says (.*)$/ do |error|
   errors = {'questionnaire must be completed' => ''}
   on(Questions).x # Create page objs for errors on Questions page
 end
+
 Given /^I begin a proposal with an uncertified key person but add the certification questions$/ do
   @proposal = create ProposalDevelopmentObject
   @proposal.add_key_person first_name: 'Jeff', last_name: 'Covey', role: 'Key Person', key_person_role: 'default', certified: false
-  sleep 10
-  on(KeyPersonnel) do |page|
-    page.include_certification_questions 'Jeff Covey'
-    page.save
-  end
+  on(KeyPersonnel).include_certification_questions 'Jeff Covey'
 end
 
+When /^checking the key personnel page shows a proposal person certification error that says the key person needs to be certified$/ do
+  on(KeyPersonnel).certification_errors.should include 'The Investigators are not all certified. Please certify Jeff Covey.'
+end
