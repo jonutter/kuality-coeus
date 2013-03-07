@@ -65,9 +65,9 @@ end
 Given /^I begin a proposal with an uncertified key person but add the certification questions$/ do
   @proposal = create ProposalDevelopmentObject
   @proposal.add_key_person first_name: 'Jeff', last_name: 'Covey', role: 'Key Person', key_person_role: 'default', certified: false
-  on(KeyPersonnel).include_certification_questions 'Jeff Covey'
+  on(KeyPersonnel).include_certification_questions @proposal.key_personnel.uncertified_key_person.full_name
 end
 
 When /^checking the key personnel page shows a proposal person certification error that says the key person needs to be certified$/ do
-  on(KeyPersonnel).certification_errors.should include 'The Investigators are not all certified. Please certify Jeff Covey.'
+  on(KeyPersonnel).certification_errors(@proposal.key_personnel.uncertified_key_person.full_name).should include "The Investigators are not all certified. Please certify #{@proposal.key_personnel.uncertified_key_person.full_name}."
 end
