@@ -60,7 +60,9 @@ class S2SQuestionnaireObject
     navigate
     on Questions do |fat|
       fat.show_s2s_questions
-      questions.each { |q| fat.send(q, eval("@#{q.to_s}"))}
+      # Answers all of the Yes/No questions first
+      yn_questions.each { |q| fat.send(q, eval("@#{q.to_s}"))}
+      # Next we answer the questions that are conditional, based on the above answers...
       1.upto(6) do |n|
         fat.send("fiscal_year_#{n}".to_sym).pick eval("@fiscal_year_#{n}")
         fat.send("ftes_for_fy_#{n}".to_sym).fit eval("@ftes_for_fy_#{n}")
@@ -112,16 +114,14 @@ class S2SQuestionnaireObject
     end
   end
 
-  def questions
-    [:civil_service, :total_ftes, :potential_effects,
-     :international_support, :pi_in_govt,
-     :pi_foreign_employee, :change_in_pi, :change_in_institution,
-     :renewal_application, :inventions_conceived, :previously_reported, :disclose_title,
-     :clinical_trial, :phase_3_trial, :human_stem_cells, :specific_cell_line,
-     :pi_new_investigator, :proprietary_info, :environmental_impact,
-     :authorized_exemption, :site_historic,
-     :international_activities,
-     :other_agencies, :subject_to_review,
+  def yn_questions
+    [:civil_service, :total_ftes, :potential_effects, :international_support,
+     :pi_in_govt, :pi_foreign_employee, :change_in_pi, :change_in_institution,
+     :renewal_application, :inventions_conceived, :previously_reported,
+     :disclose_title, :clinical_trial, :phase_3_trial, :human_stem_cells,
+     :specific_cell_line, :pi_new_investigator, :proprietary_info,
+     :environmental_impact, :authorized_exemption, :site_historic,
+     :international_activities, :other_agencies, :subject_to_review,
      :novice_applicants]
   end
 

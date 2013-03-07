@@ -29,8 +29,8 @@ class ComplianceQuestionsObject
     navigate
     on Questions do |cq|
       cq.show_compliance_questions
-      cq.agree_to_nih_policy @agree_to_ethical_conduct
-      cq.policy_review_date.fit @conduct_review_date
+      cq.agree_to_ethical_conduct @agree_to_ethical_conduct
+      cq.conduct_review_date.fit @conduct_review_date
       cq.save
     end
   end
