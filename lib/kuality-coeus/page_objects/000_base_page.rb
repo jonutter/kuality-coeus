@@ -57,6 +57,22 @@ class BasePage < PageFactory
       action(:budget_actions) { |b| b.frm.button(value: 'Budget Actions').click }
     end
 
+    # Gathers all errors on the page and puts them in an array called "errors"
+    def error_messages
+      element(:left_errmsg_tabs) { |b| b.frm.divs(class: 'left-errmsg-tab') }
+      def errors
+        errs = []
+        left_errmsg_tabs.each do |div|
+          if div.div.div.exist?
+            errs << div.div.divs.collect{ |div| div.text }
+          elsif div.li.exist?
+            errs << div.lis.collect{ |li| li.text }
+          end
+        end
+        errs.flatten
+      end
+    end
+
   end # self
 
 end # BasePage

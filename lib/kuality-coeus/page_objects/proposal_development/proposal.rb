@@ -45,21 +45,4 @@ class Proposal < ProposalDevelopmentDocument
 
   element(:error_summary) { |b| b.frm.div(class: "error") }
 
-  # An array whose elements are the text contents of all errors that appear in the tabs.
-  # It will NOT contain the error message at the top of the page, or the error that appears when
-  # a proposal is deleted.
-  def errors
-    errs = []
-    begin
-      overview_tab_errors.each { |err| errs << err.text }
-    rescue Watir::Exception::UnknownObjectException
-      # No errors to collect, so do nothing
-    end
-    begin
-      required_fields_errors.each { |err| errs << err.text }
-    rescue Watir::Exception::UnknownObjectException
-      # No errors to collect, so do nothing
-    end
-    errs
-  end
 end
