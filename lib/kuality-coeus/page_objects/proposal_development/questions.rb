@@ -1,6 +1,7 @@
 class Questions < ProposalDevelopmentDocument
 
   proposal_header_elements
+  error_messages
 
   # Used strictly for navigation validation...
   element(:questions_header) { |b| b.frm.h2(text: 'A. Proposal Questions') }

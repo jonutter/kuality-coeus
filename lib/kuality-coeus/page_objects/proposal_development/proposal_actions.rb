@@ -10,7 +10,6 @@ class ProposalActions < ProposalDevelopmentDocument
   action(:show_key_personnel_errors) { |b| b.key_personnel_button.click }
   element(:key_personnel_errors) { |b| b.frm.tbody(id: 'tab-KeyPersonnelInformationValidationErrors-div').tds(width: '94%') }
   action(:show_budget_versions_errors) { |b| b.frm.button(name: 'methodToCall.toggleTab.tabBudgetVersionsValidationErrors').click }
-  #element(:budget_versions_errors) { |b| b.frm.tbody(id: '').tds(width: '94%') }
   action(:show_proposal_questions_errors) { |b| b.frm.button(name: 'methodToCall.toggleTab.tabAProposalQuestionsValidationErrors').click }
   element(:proposal_questions_errors) { |b| b.frm.tbody(id: 'tab-AProposalQuestionsValidationErrors-div').tds(width: '94%') }
   action(:show_kuali_u_errors) { |b| b.frm.button(name: 'methodToCall.toggleTab.tabCKualiUniversityValidationErrors').click }
