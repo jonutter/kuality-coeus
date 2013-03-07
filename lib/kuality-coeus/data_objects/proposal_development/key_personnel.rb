@@ -82,7 +82,7 @@ class KeyPersonObject
         # @units
         units.each { |unit| @units << unit }
       end
-      sleep 15
+
       # Now we groom the Unit Hashes, to include
       # the Combined Credit Split numbers...
       @units.each do |unit|
@@ -93,7 +93,9 @@ class KeyPersonObject
         end
       end
 
-      if @key_person_role==nil
+      # If it's a key person without units then they won't have credit splits,
+      # otherwise, the person will, so fill them out...
+      if @key_person_role==nil || !@units.empty?
         person.responsibility(@full_name).set @responsibility
         person.financial(@full_name).set @financial
         person.recognition(@full_name).set @recognition
