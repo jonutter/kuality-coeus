@@ -61,8 +61,13 @@ When /^checking the questions page shows an error that says (.*)$/ do |error|
   errors = {'questionnaire must be completed' => ''}
   on(Questions).x # Create page objs for errors on Questions page
 end
-Given /^I begin a proposal with an uncertified key person$/ do
+Given /^I begin a proposal with an uncertified key person but add the certification questions$/ do
   @proposal = create ProposalDevelopmentObject
-  @proposal.add_key_person first_name: 'Jeff', last_name: 'Covey', role: 'Key Person', key_person_role: 'default', certification: false
+  @proposal.add_key_person first_name: 'Jeff', last_name: 'Covey', role: 'Key Person', key_person_role: 'default', certified: false
+  sleep 10
+  on(KeyPersonnel) do |page|
+    page.include_certification_questions 'Jeff Covey'
+    page.save
+  end
 end
 
