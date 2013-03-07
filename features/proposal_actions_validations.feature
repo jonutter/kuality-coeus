@@ -58,4 +58,4 @@ Feature: Proposal Actions Validations
       Given   I begin a proposal with an uncertified key person but add the certification questions
       When    I activate a validation check
       Then    the validation error should say the key person needs to be certified
-      And     checking the key personnel page shows an error that says the key person needs to be certified
+      And     checking the key personnel page shows a proposal person certification error that says the key person needs to be certified
