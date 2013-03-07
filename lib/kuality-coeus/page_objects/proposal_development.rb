@@ -3,7 +3,6 @@ class ProposalDevelopmentDocument < BasePage
   document_header_elements
   tab_buttons
   global_buttons
-  error_messages
 
   class << self
 

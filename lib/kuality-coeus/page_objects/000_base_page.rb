@@ -60,7 +60,7 @@ class BasePage < PageFactory
     # Gathers all errors on the page and puts them in an array called "errors"
     def error_messages
       element(:left_errmsg_tabs) { |b| b.frm.divs(class: 'left-errmsg-tab') }
-      def errors
+      def self.errors
         errs = []
         left_errmsg_tabs.each do |div|
           if div.div.div.exist?

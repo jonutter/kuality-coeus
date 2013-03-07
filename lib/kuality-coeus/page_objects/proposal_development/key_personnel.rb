@@ -112,6 +112,4 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:questions_div) { |full_name, b| b.frm.h3(text: full_name).parent.div(id: /questionpanelcontent:proposalPersonQuestionnaireHelpers/) }
   action(:certification_div) { |full_name, b| b.frm.div(id: "tab-#{nsp(full_name)}:Certify-div") }
 
-  element(:left_errmsg_tabs) { |b| b.frm.divs(class: 'left-errmsg-tab') }
-
 end
