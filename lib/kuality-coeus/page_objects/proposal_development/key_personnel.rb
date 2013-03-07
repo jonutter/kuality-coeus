@@ -22,7 +22,7 @@ class KeyPersonnel < ProposalDevelopmentDocument
     begin
       array << combined_credit_split_errors
     rescue Selenium::WebDriver::Error::StaleElementReferenceError
-      #do nothing
+      # Do nothing
     end
     array.flatten
   end
@@ -34,7 +34,7 @@ class KeyPersonnel < ProposalDevelopmentDocument
 
   # Note this is a *setting* of the person's checkbox, since this method is only used
   # in the context of deleting the person from the Personnel
-  action(:check_person) { |full_name, b| b.frm.h2(text: full_name).parent.checkbox(title: 'Generic Boolean Attribute') }
+  action(:check_person) { |full_name, b| b.frm.h2(text: full_name).parent.checkbox(title: 'Generic Boolean Attribute').set }
 
   action(:show_person) { |full_name, b| b.frm.button(title: "open #{twospace(full_name)}").click }
 
