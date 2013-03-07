@@ -37,13 +37,16 @@ When /^I do not complete the kuali university questions$/ do
   #nothing necessary for this step
 end
 
-When /^I add a co-investigator without certifying him$/ do
+When /^I begin a proposal with an un-certified co-investigator$/ do
+  @proposal = create ProposalDevelopmentObject
+  on(Proposal).key_personnel
   @proposal.add_key_person first_name: 'Dick', last_name: 'COIAdmin', role: 'Co-Investigator', certified: false
 end
 
 And /^checking the key personnel page shows an error that says (.*)$/ do |error|
   on(ProposalActions).key_personnel
-  errors = {'there is no principal investigator' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.'
+  errors = {'there is no principal investigator' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.',
+  'the investigator needs to be certified' => "The Investigators are not all certified. Please certify #{@proposal.key_personnel.uncertified_person('Co-Investigator').full_name}."
   }
   on(KeyPersonnel).errors.should include errors[error]
 end
@@ -70,9 +73,10 @@ end
 
 When /^checking the key personnel page shows a proposal person certification error that says the key person needs to be certified$/ do
   on(ProposalActions).key_personnel
-  on(KeyPersonnel) do |page|
-    puts page.cert_section_errs('Jeff Covey').inspect
-    puts page.cert_validation_errs('Jeff Covey').inspect
-    page.certification_errors(@proposal.key_personnel.uncertified_key_person.full_name).should include "The Investigators are not all certified. Please certify #{@proposal.key_personnel.uncertified_key_person.full_name}."
-  end
+  on(KeyPersonnel).errors.should include "The Investigators are not all certified. Please certify #{@proposal.key_personnel.uncertified_person('Key Person').full_name}."
+end
+Given /^I begin a proposal with an uncertified pricipal investigator$/ do
+  @proposal = create ProposalDevelopmentObject
+  on(Proposal).key_personnel
+  @proposal.add_key_person first_name:'Dick', last_name:'Covey', role:'Principal Investigator', certified: false
 end

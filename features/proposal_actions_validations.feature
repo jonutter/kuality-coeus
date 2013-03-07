@@ -34,12 +34,6 @@ Feature: Proposal Actions Validations
       Then    the validation error should say you must complete the compliance question
       And     checking the questions page shows an error that says you must complete the compliance question
 
-    Scenario: Validate a proposal without a sponsor deadline date
-      Given   I begin a proposal without a sponsor deadline date
-      When    I activate a validation check
-      Then    the validation error should say sponsor deadline date not entered
-      And     checking the proposal page shows an error that says sponsor deadline date not entered
-
     Scenario: Validate a proposal without unanswered Kuali University questions
       Given   I begin a proposal
       And     I do not complete the kuali university questions
@@ -47,9 +41,14 @@ Feature: Proposal Actions Validations
       Then    the validation error should say you must complete the kuali university questions
       And     checking the questions page shows an error that says you must complete the kuali university questions
 
+]   Scenario: Validate a proposal without a sponsor deadline date
+      Given   I begin a proposal without a sponsor deadline date
+      When    I activate a validation check
+      Then    the validation error should say sponsor deadline date not entered
+      And     checking the proposal page shows an error that says sponsor deadline date not entered
+
     Scenario: Validate proposal with an uncertified co-investigator
-      Given   I begin a proposal with an
-      And     I add a co-investigator without certifying him
+      Given   I begin a proposal with an un-certified co-investigator
       When    I activate a validation check
       Then    the validation error should say the investigator needs to be certified
       And     checking the key personnel page shows an error that says the investigator needs to be certified
@@ -59,3 +58,9 @@ Feature: Proposal Actions Validations
       When    I activate a validation check
       Then    the validation error should say the key person needs to be certified
       And     checking the key personnel page shows a proposal person certification error that says the key person needs to be certified
+
+    Scenario: Validate a proposal with an uncertified principal investigator
+      Given   I begin a proposal with an uncertified pricipal investigator
+      When    I activate a validation check
+      Then    the validation error should say the principal needs to be certified
+      And     checking the key personnel page shows an error that says the principal investigator needs to be certified
