@@ -68,7 +68,7 @@ class BasePage < PageFactory
             errs << div.lis.collect{ |li| li.text }
           end
         }
-        return errs.flatten
+        errs.flatten
       }
       element(:left_errmsg_tabs) { |b| b.frm.divs(class: 'left-errmsg-tab') }
     end

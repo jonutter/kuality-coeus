@@ -3,9 +3,6 @@ class SpecialReview < ProposalDevelopmentDocument
   proposal_header_elements
   error_messages
 
-  # Method returns an array
-  value(:errors) { |p| p.error_messages_div.divs.collect{|div| div.text} }
-
   element(:add_type) { |b| b.frm.select(id: 'specialReviewHelper.newSpecialReview.specialReviewTypeCode') }
   element(:add_approval_status) { |b| b.frm.select(id: 'specialReviewHelper.newSpecialReview.approvalTypeCode') }
   element(:add_protocol_number) { |b| b.frm.text_field(id: 'specialReviewHelper.newSpecialReview.protocolNumber') }
