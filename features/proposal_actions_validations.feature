@@ -6,7 +6,6 @@ Feature: Proposal Actions Validations
   Background: KC user is logged in as admin
       Given   I am logged in as admin
 
-    @test
     Scenario: Validate a proposal without a principal investigator
       Given   I begin a proposal
       And     the proposal has no principal investigator
@@ -32,21 +31,31 @@ Feature: Proposal Actions Validations
       And     I do not complete the S2S FAT & Flat questionnaire
       When    I activate a validation check
       Then    the validation error should say questionnaire must be completed
+      And     checking the questions page shows an error that says questionnaire must be completed
 
     Scenario: Validate a proposal without incomplete compliance questions
       Given   I begin a proposal
       And     I do not complete the compliance question
       When    I activate a validation check
       Then    the validation error should say you must complete the compliance question
+      And     checking the questions page shows an error that says you must complete the compliance question
 
     Scenario: Validate a proposal without unanswered Kuali University questions
       Given   I begin a proposal
       And     I do not complete the kuali university questions
       When    I activate a validation check
       Then    the validation error should say you must complete the kuali university questions
+      And     checking the questions page shows an error that says you must complete the kuali university questions
 
     Scenario: Validate proposal with an uncertified co-investigator
       Given   I begin a proposal
       And     I add a co-investigator without certifying him
       When    I activate a validation check
       Then    the validation error should say the investigator needs to be certified
+      And     checking the key personnel page shows an error that says the investigator needs to be certified
+    @test
+    Scenario: Validate a proposal with an uncertified key person
+      Given   I begin a proposal with an uncertified key person
+      When    I activate a validation check
+      Then    the validation error should say the key person needs to be certified
+      And     checking the key personnel page shows an error that says the key person needs to be certified

@@ -40,3 +40,6 @@ end
 When /^I add a principal investigator$/ do
   @proposal.add_key_person first_name: 'Dick', last_name: 'Keogh' ,role: 'Principal Investigator'
 end
+When /^I answer the proposal person certification questions$/ do
+  @proposal.person('Jeff Covey')
+end
