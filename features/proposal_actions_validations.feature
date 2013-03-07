@@ -53,3 +53,6 @@ Feature: Proposal Actions Validations
       When    I activate a validation check
       Then    the validation error should say the investigator needs to be certified
       And     checking the key personnel page shows an error that says the investigator needs to be certified
+
+    Scenario: Validate a proposal with an uncertified key person
+      Given

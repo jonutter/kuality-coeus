@@ -21,7 +21,8 @@ Then /^the validation error should say (.*)$/ do |error|
 end
 
 When /^I do not answer my proposal questions$/ do
-  #nothing needed for this step
+  on(Proposal).questions
+  on(Questions)
 end
 
 When /^I do not complete the S2S FAT & Flat questionnaire$/ do
