@@ -16,7 +16,8 @@ Then /^the validation error should say (.*)$/ do |error|
   'sponsor deadline date not entered' => 'Sponsor deadline date has not been entered.',
   'questionnaire must be completed' => %|You must complete the questionnaire "S2S FAT &amp; Flat Questionnaire"|,
   'you must complete the compliance question' => 'Answer is required for Question 1 in group B. Compliance.',
-  'the investigator needs to be certified' => 'The Investigators are not all certified. Please certify Dick  COIAdmin.'}
+  'the investigator needs to be certified' => 'The Investigators are not all certified. Please certify Dick  COIAdmin.',
+  'the key person needs to be certified' => 'The Investigators are not all certified. Please certify Jeff  Covey.'}
   on(ProposalActions).validation_errors_and_warnings.should include errors[error]
 end
 
@@ -43,8 +44,8 @@ end
 
 And /^checking the key personnel page shows an error that says (.*)$/ do |error|
   on(ProposalActions).key_personnel
-  errors = {'there is no principal investigator' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.'
-  }
+  errors = {'there is no principal investigator' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.',
+  'the key person needs to be certified' => 'The Investigators are not all certified. Please certify Jeff  Covey.'}
   on(KeyPersonnel).errors.should include errors[error]
 end
 
@@ -60,3 +61,8 @@ When /^checking the questions page shows an error that says (.*)$/ do |error|
   errors = {'questionnaire must be completed' => ''}
   on(Questions).x # Create page objs for errors on Questions page
 end
+Given /^I begin a proposal with an uncertified key person$/ do
+  @proposal = create ProposalDevelopmentObject
+  @proposal.add_key_person first_name: 'Jeff', last_name: 'Covey', role: 'Key Person', key_person_role: 'default', certification: false
+end
+

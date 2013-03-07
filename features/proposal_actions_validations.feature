@@ -5,7 +5,7 @@ Feature: Proposal Actions Validations
 
   Background: KC user is logged in as admin
       Given   I am logged in as admin
-    @test
+
     Scenario: Validate a proposal without a principal investigator
       Given   I begin a proposal
       And     the proposal has no principal investigator
@@ -53,6 +53,9 @@ Feature: Proposal Actions Validations
       When    I activate a validation check
       Then    the validation error should say the investigator needs to be certified
       And     checking the key personnel page shows an error that says the investigator needs to be certified
-
+    @test
     Scenario: Validate a proposal with an uncertified key person
-      Given
+      Given   I begin a proposal with an uncertified key person
+      When    I activate a validation check
+      Then    the validation error should say the key person needs to be certified
+      And     checking the key personnel page shows an error that says the key person needs to be certified
