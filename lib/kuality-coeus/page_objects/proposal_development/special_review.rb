@@ -5,7 +5,7 @@ class SpecialReview < ProposalDevelopmentDocument
   element(:error_messages_div) { |b| b.frm.div(id: 'tab-SpecialReview-div').div(class: 'left-errmsg-tab').div }
 
   # Method returns an array
-  value(:error_messages) { |p| p.error_messages_div.divs.collect{|div| div.text} }
+  value(:errors) { |p| p.error_messages_div.divs.collect{|div| div.text} }
 
   element(:add_type) { |b| b.frm.select(id: 'specialReviewHelper.newSpecialReview.specialReviewTypeCode') }
   element(:add_approval_status) { |b| b.frm.select(id: 'specialReviewHelper.newSpecialReview.approvalTypeCode') }

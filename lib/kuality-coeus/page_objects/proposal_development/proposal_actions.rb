@@ -36,6 +36,7 @@ class ProposalActions < ProposalDevelopmentDocument
   element(:person) { |b| b.frm.text_field(name: 'newAdHocRoutePerson.id') }
   action(:add_person_request) { |b| b.frm.button(name: 'methodToCall.insertAdHocRoutePerson').click }
 
+  #
   element(:group_action_requested) { |b| b.frm.select(name: 'newAdHocRouteWorkgroup.actionRequested') }
   element(:namespace_code) { |b| b.frm.text_field(name: 'newAdHocRouteWorkgroup.recipientNamespaceCode') }
   element(:name) { |b| b.frm.text_field(name: 'newAdHocRouteWorkgroup.recipientName') }

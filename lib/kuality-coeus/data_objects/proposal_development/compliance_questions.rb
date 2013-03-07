@@ -11,7 +11,7 @@ class ComplianceQuestionsObject
   def initialize(browser, opts={})
     @browser = browser
     # PLEASE NOTE:
-    # This is a unique data object class in that
+    # This is an unusual data object class in that
     # it breaks the typical model for radio button
     # methods and their associated class instance variables
     #
