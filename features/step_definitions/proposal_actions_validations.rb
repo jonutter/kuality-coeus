@@ -22,8 +22,7 @@ Then /^the validation error should say (.*)$/ do |error|
 end
 
 When /^I do not answer my proposal questions$/ do
-  on(Proposal).questions
-  on(Questions)
+  #nothing necessary for this step
 end
 
 When /^I do not complete the S2S FAT & Flat questionnaire$/ do
@@ -58,8 +57,9 @@ end
 
 When /^checking the questions page shows an error that says (.*)$/ do |error|
   on(Proposal).questions
-  errors = {'questionnaire must be completed' => ''}
-  on(Questions).x # Create page objs for errors on Questions page
+  errors = {'proposal questions were not answered' => 'Answer is required for Question 1 in group A. Proposal Questions.'
+  }
+  on(Questions).errors.should include errors[error]
 end
 
 Given /^I begin a proposal with an uncertified key person but add the certification questions$/ do
