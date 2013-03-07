@@ -70,5 +70,9 @@ end
 
 When /^checking the key personnel page shows a proposal person certification error that says the key person needs to be certified$/ do
   on(ProposalActions).key_personnel
-  on(KeyPersonnel).certification_errors(@proposal.key_personnel.uncertified_key_person.full_name).should include "The Investigators are not all certified. Please certify #{@proposal.key_personnel.uncertified_key_person.full_name}."
+  on(KeyPersonnel) do |page|
+    puts page.cert_section_errs('Jeff Covey').inspect
+    puts page.cert_validation_errs('Jeff Covey').inspect
+    page.certification_errors(@proposal.key_personnel.uncertified_key_person.full_name).should include "The Investigators are not all certified. Please certify #{@proposal.key_personnel.uncertified_key_person.full_name}."
+  end
 end

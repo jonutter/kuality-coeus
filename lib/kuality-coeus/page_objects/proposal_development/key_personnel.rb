@@ -69,12 +69,11 @@ class KeyPersonnel < ProposalDevelopmentDocument
     errors=[]
     errors << cert_section_errs(full_name)
     errors << cert_validation_errs(full_name)
-    errors.flatten
-    errors.delete('')
+    errors.flatten!
   end
 
-  action(:cert_section_errs) { |full_name, b| b.certification_div(full_name).div(class: 'left-errmsg-tab', index: 0).div.divs.collect{ |div| div.text } }
-  action(:cert_validation_errs) { |full_name, b| b.certification_div(full_name).div(class: 'left-errmsg-tab', index: 1).lis.collect{ |li| li.text} }
+  action(:cert_section_errs) { |full_name, b| b.certification_div(full_name).div(class: 'left-errmsg-tab', index: 1).div.divs.collect{ |div| div.text } }
+  action(:cert_validation_errs) { |full_name, b| b.certification_div(full_name).div(class: 'left-errmsg-tab', index: 2).lis.collect{ |li| li.text} }
 
   action(:include_certification_questions) { |full_name, b| b.certification_div(full_name).button(title: 'Add Certification Question').click }
   action(:show_proposal_person_certification) {}
