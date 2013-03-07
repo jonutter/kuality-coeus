@@ -65,7 +65,7 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:units) { |full_name, p| units = []; p.unit_div(full_name).table.to_a[2..-1].each { |unit| units << {name: unit[1], number: unit[2]} }; units }
 
   # Proposal Person Certification
-  action(:certification_errors) { |full_name, b| b.certification_div(full_name).div(class: 'left-errmsg-tab').divs.collect{ |div| div.text } }
+  action(:certification_errors) { |full_name, b| b.certification_div(full_name).div(class: 'left-errmsg-tab', index: 1).divs.collect{ |div| div.text } }
   action(:include_certification_questions) { |full_name, b| b.certification_div(full_name).button(title: 'Add Certification Question').click }
   action(:show_proposal_person_certification) {}
   # Questions...

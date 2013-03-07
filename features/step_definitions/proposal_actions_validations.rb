@@ -69,5 +69,6 @@ Given /^I begin a proposal with an uncertified key person but add the certificat
 end
 
 When /^checking the key personnel page shows a proposal person certification error that says the key person needs to be certified$/ do
+  on(ProposalActions).key_personnel
   on(KeyPersonnel).certification_errors(@proposal.key_personnel.uncertified_key_person.full_name).should include "The Investigators are not all certified. Please certify #{@proposal.key_personnel.uncertified_key_person.full_name}."
 end
