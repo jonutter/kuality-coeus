@@ -1,8 +1,6 @@
-class Parameters < BasePage
+class Parameters < BudgetDocument
 
-  budget_header_elements
-  global_buttons
-  document_header_elements
+  return_button
 
   #Budget Overview
   value(:project_start_date) { |p| p.bo_table[0][1].text }
