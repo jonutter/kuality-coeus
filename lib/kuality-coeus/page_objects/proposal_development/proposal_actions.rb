@@ -1,6 +1,7 @@
 class ProposalActions < ProposalDevelopmentDocument
 
   proposal_header_elements
+  tab_buttons
 
   element(:validation_button) { |b| b.frm.button(name: 'methodToCall.activate') }
   action(:show_data_validation) { |b| b.frm.button(id: 'tab-DataValidation-imageToggle').click; b.validation_button.wait_until_present }

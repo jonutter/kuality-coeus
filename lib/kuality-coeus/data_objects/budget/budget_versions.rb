@@ -42,7 +42,9 @@ class BudgetVersionsObject
 
   end
 
+  # =======
   private
+  # =======
 
   # Nav Aids...
 
@@ -67,6 +69,8 @@ end # BudgetVersionsObject
 
 class BudgetVersionsCollection < Array
 
-
+  def budget(name)
+    self.find { |budget| budget.name==name }
+  end
 
 end # BudgetVersionsCollection
