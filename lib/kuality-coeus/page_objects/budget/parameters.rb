@@ -13,7 +13,7 @@ class Parameters < BudgetDocument
   element(:residual_funds) { |b| b.frm.text_field(name: 'document.budget.residualFunds') }
   element(:total_cost_limit) { |b| b.frm.text_field(name: 'document.budget.totalCostLimit') }
   element(:unrecovered_fa_rate_type) { |b| b.frm.select(name: 'document.budget.urRateClassCode') }
-  element(:fa_rate_type) { |b| b.frm.select(name: 'document.budget.ohRateClassCode') }
+  element(:f_and_a_rate_type) { |b| b.frm.select(name: 'document.budget.ohRateClassCode') }
   element(:submit_cost_sharing) { |b| b.frm.checkbox(name:'document.budget.submitCostSharingFlag') }
 
   #Adding new budget period
