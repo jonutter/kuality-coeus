@@ -21,7 +21,8 @@ class BudgetPeriodObject
       direct_cost_limit: '0.00'
     }
     set_options(defaults.merge(opts))
-    requires @document_id, @budget_name
+    requires @document_id, @budget_name, @start_date
+    datify
   end
 
   def create
@@ -29,7 +30,6 @@ class BudgetPeriodObject
     on Parameters do |create|
       # TODO!
     end
-    @datified=Date.parse(fixdate(@start_date))
   end
 
   def edit opts={}
@@ -38,7 +38,7 @@ class BudgetPeriodObject
       # TODO!
     end
     set_options(opts)
-    @datified=Date.parse(fixdate(@start_date))
+    datify
   end
 
   def delete
@@ -86,8 +86,8 @@ class BudgetPeriodObject
     end
   end
 
-  def fixdate(date_string)
-    date_string[/(?<=\/)\d+$/] + '/' + date_string[/^\d+\/\d+/]
+  def datify
+    @datified=Date.parse(@start_date[/(?<=\/)\d+$/] + '/' + @start_date[/^\d+\/\d+/])
   end
 
 end # BudgetPeriodObject
