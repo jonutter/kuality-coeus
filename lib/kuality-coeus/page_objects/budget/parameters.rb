@@ -30,16 +30,16 @@ class Parameters < BudgetDocument
 
   # These are for editing existing budget periods,
   # based on the number in the left-most column.
-  action(:start_date_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].startDate") }
-  action(:end_date_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].endDate") }
-  action(:total_sponsor_cost_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].totalCost") }
-  action(:direct_cost_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].totalDirectCost") }
-  action(:fa_cost_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].totalIndirectCost") }
-  action(:unrecovered_fa_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].underrecoveryAmount") }
-  action(:cost_sharing_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].costSharingAmount") }
-  action(:cost_limit_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].totalCostLimit") }
-  action(:direct_cost_limit_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].directCostLimit") }
-  action(:delete_period) { |period, b| }
+  action(:start_date_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period-1}].startDate") }
+  action(:end_date_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period-1}].endDate") }
+  action(:total_sponsor_cost_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period-1}].totalCost") }
+  action(:direct_cost_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period-1}].totalDirectCost") }
+  action(:fa_cost_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period-1}].totalIndirectCost") }
+  action(:unrecovered_fa_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period-1}].underrecoveryAmount") }
+  action(:cost_sharing_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period-1}].costSharingAmount") }
+  action(:cost_limit_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period-1}].totalCostLimit") }
+  action(:direct_cost_limit_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period-1}].directCostLimit") }
+  action(:delete_period) { |period, b| b.frm.button(name: "methodToCall.deleteBudgetPeriod.line#{period-1}.anchor12").click }
 
   action(:recalculate) { |b| b.frm.button(name: 'methodToCall.recalculateBudgetPeriod.anchorBudgetPeriodsTotals').click }
 

@@ -25,29 +25,65 @@ class BudgetPeriodObject
   end
 
   def create
-    # ...
+    navigate
+    on Parameters do |create|
+      # TODO!
+    end
     @datified=Date.parse(fixdate(@start_date))
   end
 
   def edit opts={}
     navigate
-    # ...
+    on Parameters do |edit|
+      # TODO!
+    end
     set_options(opts)
     @datified=Date.parse(fixdate(@start_date))
   end
 
   def delete
     navigate
+    on(Parameters).delete_period @number
   end
 
   # =======
   private
   # =======
 
-  # Nav Aids...
+  # Nav Aids
 
+  # Navigation assumes that the parent object has
+  # gotten us most of the way here already...
   def navigate
+    open_document unless on_document?
+    unless on_page? && on_budget?
+      on(Proposal).budget_versions
+      on(BudgetVersions).open @budget_name
+    end
+  end
 
+  def on_page?
+    # Note, the rescue clause should be
+    # removed when the Selenium bug with
+    # firefox elements gets fixed. This is
+    # still broken in selenium-webdriver 2.29
+    begin
+      on(Parameters).on_off_campus.exist?
+    rescue
+      false
+    end
+  end
+
+  def on_budget?
+    # Note, the rescue clause should be
+    # removed when the Selenium bug with
+    # firefox elements gets fixed. This is
+    # still broken in selenium-webdriver 2.29
+    begin
+      on(Parameters).budget_name==@budget_name
+    rescue
+      false
+    end
   end
 
   def fixdate(date_string)
@@ -58,10 +94,6 @@ end # BudgetPeriodObject
 
 class BudgetPeriodsCollection < Array
 
-  def new_number
-    self.size + 1
-  end
-
   def period(number)
     self.find { |period| period.number==number }
   end
@@ -71,6 +103,10 @@ class BudgetPeriodsCollection < Array
   def re_sort!
     self.sort_by! { |period| period.datified }
     self.each_with_index { |period, index| period.store(:number, index+1) }
+  end
+
+  def total_sponsor_cost
+    self.collect{ |period| period.total_sponsor_cost.to_f }.inject(0, :+)
   end
 
 end # BudgetPeriodCollection

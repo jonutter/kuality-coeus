@@ -15,6 +15,7 @@ class BasePage < PageFactory
       alias_method :created, :last_updated
       value(:committee_id) { |p| p.headerinfo_table[2][1].text }
       alias_method :sponsor_name, :committee_id
+      alias_method :budget_name, :committee_id
       value(:committee_name) { |p| p.headerinfo_table[2][3].text }
       alias_method :pi, :committee_name
     end

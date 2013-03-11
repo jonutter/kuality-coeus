@@ -71,6 +71,7 @@ class BudgetVersionsObject
         budget_name: @name
     }
     opts.merge!(defaults)
+
     bp = create BudgetPeriodObject, opts
     # TODO: Add logic for a break if there's an error thrown during create
     @budget_periods << bp
@@ -78,19 +79,19 @@ class BudgetVersionsObject
   end
 
   def edit_period number, opts
-    # TODO
+    @budget_periods.period(number).edit opts
     @budget_periods.re_sort!
   end
 
   def delete_period number
-    # TODO
+    @budget_periods.period(number).delete
     @budget_periods.re_sort!
   end
 
   # Use for editing the Budget Version, but not the Periods
   def edit opts={}
     navigate
-    # ...
+    # TODO!
     set_options(opts)
   end
 
