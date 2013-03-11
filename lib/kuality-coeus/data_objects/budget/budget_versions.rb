@@ -55,14 +55,39 @@ class BudgetVersionsObject
       parameters.unrecovered_fa_rate_type.pick @unrecovered_fa_rate_type
       parameters.f_and_a_rate_type.pick @f_and_a_rate_type
       parameters.submit_cost_sharing.fit @submit_cost_sharing
+      # Add the default Budget Period to the collection.
+      # Note that this is only a make, since the item is already
+      # there on the page.
+      default_bp = make BudgetPeriodObject, document_id: @document_id, budget_name: @name, number: 1,
+                        start_date: @project_start_date, end_date: @project_end_date
+      @budget_periods << default_bp
       parameters.save
     end
   end
 
-  def add_budget_period
-    # TODO!
+  def add_period opts={}
+    defaults={
+        document_id: @document_id,
+        budget_name: @name
+    }
+    opts.merge!(defaults)
+    bp = create BudgetPeriodObject, opts
+    # TODO: Add logic for a break if there's an error thrown during create
+    @budget_periods << bp
+    @budget_periods.re_sort! # This updates the number value of all periods, as necessary
   end
 
+  def edit_period number, opts
+    # TODO
+    @budget_periods.re_sort!
+  end
+
+  def delete_period number
+    # TODO
+    @budget_periods.re_sort!
+  end
+
+  # Use for editing the Budget Version, but not the Periods
   def edit opts={}
     navigate
     # ...

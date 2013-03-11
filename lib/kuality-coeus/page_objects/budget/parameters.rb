@@ -28,6 +28,8 @@ class Parameters < BudgetDocument
   element(:direct_cost_limit) { |b| b.frm.text_field(name: 'newBudgetPeriod.directCostLimit') }
   action(:add_budget_period) { |b| b.frm.button(name:'methodToCall.recalculateBudgetPeriod.anchorBudgetPeriodsTotals').click }
 
+  # These are for editing existing budget periods,
+  # based on the number in the left-most column.
   action(:start_date_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].startDate") }
   action(:end_date_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].endDate") }
   action(:total_sponsor_cost_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].totalCost") }
@@ -37,6 +39,7 @@ class Parameters < BudgetDocument
   action(:cost_sharing_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].costSharingAmount") }
   action(:cost_limit_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].totalCostLimit") }
   action(:direct_cost_limit_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period+1}].directCostLimit") }
+  action(:delete_period) { |period, b| }
 
   action(:recalculate) { |b| b.frm.button(name: 'methodToCall.recalculateBudgetPeriod.anchorBudgetPeriodsTotals').click }
 
