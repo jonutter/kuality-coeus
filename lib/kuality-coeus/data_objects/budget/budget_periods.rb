@@ -23,7 +23,7 @@ class BudgetPeriodObject
     }
 
     set_options(defaults.merge(opts))
-    requires @document_id, @budget_name, @start_date
+    requires :document_id, :budget_name, :start_date
     datify
   end
 

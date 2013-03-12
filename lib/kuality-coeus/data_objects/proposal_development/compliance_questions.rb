@@ -22,7 +22,7 @@ class ComplianceQuestionsObject
         conduct_review_date:      right_now[:date_w_slashes],
     }
     set_options(defaults.merge(opts))
-    requires @document_id
+    requires :document_id
   end
 
   def create

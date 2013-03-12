@@ -18,7 +18,7 @@ class SpecialReviewObject
     }
 
     set_options(defaults.merge(opts))
-    requires @document_id
+    requires :document_id
   end
 
   def create

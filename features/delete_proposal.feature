@@ -1,7 +1,7 @@
 Feature: Deleting a proposal
 
   As an Admin I want to be able to delete proposals for various reasons.
-
+  @test
   Scenario: Delete a Proposal
     Given I am logged in as admin
     And   I begin a proposal
