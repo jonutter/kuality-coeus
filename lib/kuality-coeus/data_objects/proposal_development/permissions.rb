@@ -9,6 +9,7 @@ class PermissionsObject
 
   def initialize(browser, opts={})
     @browser = browser
+
     defaults = {
         roles: { 'Aggregator'=>'admin' }
     }

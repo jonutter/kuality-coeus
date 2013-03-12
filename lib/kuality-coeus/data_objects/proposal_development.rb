@@ -14,20 +14,22 @@ class ProposalDevelopmentObject
 
   def initialize(browser, opts={})
     @browser = browser
+
     defaults = {
-      description: random_alphanums,
-      proposal_type: 'New',
-      lead_unit: :random,
-      activity_type: :random,
-      project_title: random_alphanums,
-      sponsor_code: "000#{rand(5)+1}#{rand(1)}0",
-      project_start_date: next_week[:date_w_slashes],
-      project_end_date: next_year[:date_w_slashes],
+      description:           random_alphanums,
+      proposal_type:         'New',
+      lead_unit:             :random,
+      activity_type:         :random,
+      project_title:         random_alphanums,
+      sponsor_code:          "000#{rand(5)+1}#{rand(1)}0",
+      project_start_date:    next_week[:date_w_slashes],
+      project_end_date:      next_year[:date_w_slashes],
       sponsor_deadline_date: next_week[:date_w_slashes],
-      key_personnel: KeyPersonnelCollection.new,
-      special_review: SpecialReviewCollection.new,
-      budget_versions: BudgetVersionsCollection.new
+      key_personnel:         KeyPersonnelCollection.new,
+      special_review:        SpecialReviewCollection.new,
+      budget_versions:       BudgetVersionsCollection.new
     }
+
     set_options(defaults.merge(opts))
   end
     

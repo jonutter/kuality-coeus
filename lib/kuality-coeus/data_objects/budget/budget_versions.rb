@@ -20,11 +20,11 @@ class BudgetVersionsObject
     @browser = browser
 
     defaults = {
-      name: random_alphanums,
-      cost_sharing: '0.00',
-      f_and_a: '0.00',
+      name:              random_alphanums,
+      cost_sharing:      '0.00',
+      f_and_a:           '0.00',
       f_and_a_rate_type: 'MTDC',
-      budget_periods: BudgetPeriodsCollection.new
+      budget_periods:    BudgetPeriodsCollection.new
     }
 
     set_options(defaults.merge(opts))

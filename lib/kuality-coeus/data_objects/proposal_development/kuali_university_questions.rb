@@ -12,6 +12,7 @@ class KualiUniversityQuestionsObject
 
   def initialize(browser, opts={})
     @browser = browser
+
     # PLEASE NOTE:
     # This is a unique data object class in that
     # it breaks the typical model for radio button
@@ -21,10 +22,11 @@ class KualiUniversityQuestionsObject
     # to use "Y" and "N" as the instance variables associated with them.
     defaults = {
       dual_dept_appointment: 'N',
-      on_sabbatical: 'N',
-      used_by_small_biz: 'N',
-      understand_deadline: 'Y'
+      on_sabbatical:         'N',
+      used_by_small_biz:     'N',
+      understand_deadline:   'Y'
     }
+
     set_options(defaults.merge(opts))
     requires @document_id
   end

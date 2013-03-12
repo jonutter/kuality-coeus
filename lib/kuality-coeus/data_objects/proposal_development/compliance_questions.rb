@@ -19,7 +19,7 @@ class ComplianceQuestionsObject
     # to use "Y" and "N" as the instance variables associated with them.
     defaults = {
         agree_to_ethical_conduct: 'Y',
-        conduct_review_date: right_now[:date_w_slashes],
+        conduct_review_date:      right_now[:date_w_slashes],
     }
     set_options(defaults.merge(opts))
     requires @document_id

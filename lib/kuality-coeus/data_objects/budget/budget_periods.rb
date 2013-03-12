@@ -11,15 +11,17 @@ class BudgetPeriodObject
 
   def initialize(browser, opts={})
     @browser = browser
+
     defaults = {
-      total_sponsor_cost: '0.00',
-      direct_cost: '0.00',
-      f_and_a_cost: '0.00',
+      total_sponsor_cost:  '0.00',
+      direct_cost:         '0.00',
+      f_and_a_cost:        '0.00',
       unrecovered_f_and_a: '0.00',
-      cost_sharing: '0.00',
-      cost_limit:'0.00',
-      direct_cost_limit: '0.00'
+      cost_sharing:        '0.00',
+      cost_limit:          '0.00',
+      direct_cost_limit:   '0.00'
     }
+
     set_options(defaults.merge(opts))
     requires @document_id, @budget_name, @start_date
     datify

@@ -14,20 +14,22 @@ class KeyPersonObject
   # Note that you must pass in both first and last names (or neither).
   def initialize(browser, opts={})
     @browser = browser
+
     defaults = {
-      role: 'Principal Investigator',
-      units: [],
-      responsibility: rand_num,
-      financial: rand_num,
-      recognition: rand_num,
-      certified: true, # Set this to false if you do not want any Proposal Person Certification Questions answered
-      certify_info_true: 'Y',
-      potential_for_conflict: 'Y',
+      role:                            'Principal Investigator',
+      units:                           [],
+      responsibility:                  rand_num,
+      financial:                       rand_num,
+      recognition:                     rand_num,
+      certified:                       true, # Set this to false if you do not want any Proposal Person Certification Questions answered
+      certify_info_true:               'Y',
+      potential_for_conflict:          'Y',
       submitted_financial_disclosures: 'Y',
-      lobbying_activities: 'Y',
-      excluded_from_transactions: 'Y',
-      familiar_with_pla: 'Y'
+      lobbying_activities:             'Y',
+      excluded_from_transactions:      'Y',
+      familiar_with_pla:               'Y'
     }
+
     set_options(defaults.merge(opts))
     requires @document_id
     @full_name="#{@first_name} #{@last_name}"

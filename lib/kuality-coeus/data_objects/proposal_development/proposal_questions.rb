@@ -10,6 +10,7 @@ class ProposalQuestionsObject
 
   def initialize(browser, opts={})
     @browser = browser
+
     # PLEASE NOTE:
     # This is a unique data object class in that
     # it breaks the typical model for radio button
@@ -19,8 +20,9 @@ class ProposalQuestionsObject
     # to use "Y" and "N" as the instance variables associated with them.
     defaults = {
       agree_to_nih_policy: 'Y',
-      policy_review_date: right_now[:date_w_slashes],
+      policy_review_date:  right_now[:date_w_slashes],
     }
+
     set_options(defaults.merge(opts))
     requires @document_id
   end

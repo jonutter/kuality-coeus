@@ -13,7 +13,7 @@ class SpecialReviewObject
     @browser = browser
 
     defaults = {
-      type: :random,
+      type:            :random,
       approval_status: :random
     }
 
