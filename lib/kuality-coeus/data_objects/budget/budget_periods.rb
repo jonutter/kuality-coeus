@@ -86,6 +86,11 @@ class BudgetPeriodObject
     end
   end
 
+  # This takes the period start date and converts it into a Date object
+  # which is then stored in @datified.
+  #
+  # It's important in the context of the Budget Periods Collection,
+  # which uses it to determine the order of the Periods on the page.
   def datify
     @datified=Date.parse(@start_date[/(?<=\/)\d+$/] + '/' + @start_date[/^\d+\/\d+/])
   end
@@ -109,4 +114,4 @@ class BudgetPeriodsCollection < Array
     self.collect{ |period| period.total_sponsor_cost.to_f }.inject(0, :+)
   end
 
-end # BudgetPeriodCollection
+end # BudgetPeriodsCollection
