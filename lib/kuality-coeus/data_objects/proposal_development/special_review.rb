@@ -13,7 +13,7 @@ class SpecialReviewObject
     @browser = browser
 
     defaults = {
-      type:            :random,
+      type:            '::random::',
       approval_status: '::random::'
     }
 
@@ -27,7 +27,7 @@ class SpecialReviewObject
       add.add_type.pick! @type
       case(@type)
         when 'Human Subjects'
-          @approval_status = 'Pending/In Progress'
+          @approval_status='Pending/In Progress'
         else
           add.add_approval_status.pick! @approval_status
       end

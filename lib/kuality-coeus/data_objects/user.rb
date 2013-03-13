@@ -6,10 +6,13 @@ class UserObject
   attr_accessor :name, :user_name, :email, :password, :role
 
   DEFAULT_USERS = {
+    # Syntax:
+    # :user=>hash_of_user_settings
     :admin=>{
         role: 'admin',
         user_name: 'admin'
-    }
+    },
+    :custom=>{}
   }
 
   def initialize(browser, opts={})

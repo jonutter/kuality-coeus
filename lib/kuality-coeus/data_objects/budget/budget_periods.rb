@@ -30,7 +30,16 @@ class BudgetPeriodObject
   def create
     navigate
     on Parameters do |create|
-      # TODO!
+      create.period_start_date.set @start_date
+      create.period_end_date.set @end_date
+      create.total_sponsor_cost.set @total_sponsor_cost
+      create.direct_cost.set @direct_cost
+      create.fa_cost.set @f_and_a_cost
+      create.unrecovered_fa_cost.set @unrecoverd_f_and_a
+      create.cost_sharing.set @cost_sharing
+      create.cost_limit.set @cost_limit
+      create.direct_cost_limit.set @direct_cost_limit
+      create.add_budget_period
     end
   end
 
