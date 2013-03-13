@@ -7,8 +7,8 @@ class ProposalDevelopmentObject
   include Navigation
   
   attr_accessor :description, :proposal_type, :lead_unit, :activity_type, :project_title,
-                :sponsor_code, :project_start_date, :project_end_date, :explanation, :document_id, :status,
-                :initiator, :created, :sponsor_deadline_date, :key_personnel,
+                :sponsor_code, :project_start_date, :project_end_date, :explanation, :document_id,
+                :status, :initiator, :created, :sponsor_deadline_date, :key_personnel,
                 :special_review, :budget_versions, :permissions, :s2s_questionnaire,
                 :proposal_questions, :compliance_questions
 
@@ -18,8 +18,8 @@ class ProposalDevelopmentObject
     defaults = {
       description:           random_alphanums,
       proposal_type:         'New',
-      lead_unit:             :random,
-      activity_type:         :random,
+      lead_unit:             '::random::',
+      activity_type:         '::random::',
       project_title:         random_alphanums,
       sponsor_code:          "000#{rand(5)+1}#{rand(1)}0",
       project_start_date:    next_week[:date_w_slashes],
@@ -43,9 +43,9 @@ class ProposalDevelopmentObject
       doc.expand_all
       doc.description.set @description
       doc.sponsor_code.set @sponsor_code
-      @proposal_type=doc.proposal_type.pick @proposal_type
-      @activity_type=doc.activity_type.pick @activity_type
-      @lead_unit=doc.lead_unit.pick @lead_unit
+      doc.proposal_type.pick! @proposal_type
+      doc.activity_type.pick! @activity_type
+      doc.lead_unit.pick! @lead_unit
       doc.project_title.set @project_title
       doc.project_start_date.set @project_start_date
       doc.project_end_date.set @project_end_date
@@ -106,7 +106,7 @@ class ProposalDevelopmentObject
     bvo.create
     @budget_versions << bvo
   end
-                                    puts
+
   def assign_permissions opts={}
     merge_settings opts
     @permissions = make PermissionsObject, opts
@@ -121,19 +121,19 @@ class ProposalDevelopmentObject
 
   def answer_proposal_questions opts={}
     merge_settings(opts)
-    @proposal_questions = make ProposalQuestionsObject
+    @proposal_questions = make ProposalQuestionsObject, opts
     @proposal_questions.create
   end
 
   def answer_compliance_questions opts={}
     merge_settings(opts)
-    @compliance_questions = make ComplianceQuestionsObject
+    @compliance_questions = make ComplianceQuestionsObject, opts
     @compliance_questions.create
   end
 
   def answer_kuali_u_questions opts={}
     merge_settings(opts)
-    @kuali_university_questions = make KualiUniversityQuestionsObject
+    @kuali_university_questions = make KualiUniversityQuestionsObject, opts
     @kuali_university_questions.create
   end
 

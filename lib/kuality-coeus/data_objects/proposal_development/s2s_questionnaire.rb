@@ -73,16 +73,16 @@ class S2SQuestionnaireObject
       yn_questions.each { |q| fat.send(q, eval("@#{q.to_s}"))}
       # Next we answer the questions that are conditional, based on the above answers...
       1.upto(6) do |n|
-        fat.send("fiscal_year_#{n}".to_sym).pick eval("@fiscal_year_#{n}")
+        fat.send("fiscal_year_#{n}".to_sym).pick!(eval("@fiscal_year_#{n}"))
         fat.send("ftes_for_fy_#{n}".to_sym).fit eval("@ftes_for_fy_#{n}")
         fat.send("year_#{n+1}".to_sym, eval("@year_#{n+1}")) unless n==6
       end
       fat.explain_potential_effects.fit @explain_potential_effects
       1.upto(5) do |n|
-        fat.send("support_provided_#{n}".to_sym).pick eval("@support_provided_#{n}")
+        fat.send("support_provided_#{n}".to_sym).pick! eval("@support_provided_#{n}")
       end
       fat.explain_support.fit @explain_support
-      @pis_us_govt_agency=fat.pis_us_govt_agency.pick @pis_us_govt_agency
+      fat.pis_us_govt_agency.pick! @pis_us_govt_agency
       fat.total_amount_requested.fit @total_amount_requested
       fat.former_pi.fit @former_pi
       fat.former_institution.fit @former_institution
@@ -96,7 +96,7 @@ class S2SQuestionnaireObject
       fat.explain_international_activities.fit @explain_international_activities
       fat.submitted_to_govt_agency.fit @submitted_to_govt_agency
       fat.application_date.fit @application_date
-      fat.program.pick @program
+      fat.program.pick! @program
     end
   end
 

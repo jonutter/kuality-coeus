@@ -5,11 +5,17 @@ class UserObject
 
   attr_accessor :name, :user_name, :email, :password, :role
 
+  DEFAULT_USERS = {
+    :admin=>{
+        role: 'admin',
+        user_name: 'admin'
+    }
+  }
+
   def initialize(browser, opts={})
     @browser = browser
-    defaults = {
-        user_name: 'admin',
-    }
+    opts[:user]=:admin if opts[:user]==nil
+    defaults = DEFAULT_USERS[opts[:user]]
     set_options defaults.merge(opts)
   end
 

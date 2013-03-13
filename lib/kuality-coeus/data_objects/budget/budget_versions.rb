@@ -37,7 +37,7 @@ class BudgetVersionsObject
       add.name.set @name
       add.add
       add.final(@name).fit @final
-      add.status(@name).pick @status
+      add.status(@name).pick! @status
       add.save
       break if parameters.compact==nil # No reason to continue if there aren't other things to do
       # Otherwise, go to parameters page and fill out the rest of the stuff...
@@ -47,13 +47,13 @@ class BudgetVersionsObject
       @project_start_date=parameters.project_start_date
       @project_end_date=parameters.project_end_date
       parameters.total_direct_cost_limit.fit @total_direct_cost_limit
-      parameters.on_off_campus.pick @on_off_campus
+      parameters.on_off_campus.pick! @on_off_campus
       parameters.comments.fit @comments
       parameters.modular_budget.fit @modular_budget
       parameters.residual_funds.fit @residual_funds
       parameters.total_cost_limit.fit @total_cost_limit
-      parameters.unrecovered_fa_rate_type.pick @unrecovered_fa_rate_type
-      parameters.f_and_a_rate_type.pick @f_and_a_rate_type
+      parameters.unrecovered_fa_rate_type.pick! @unrecovered_fa_rate_type
+      parameters.f_and_a_rate_type.pick! @f_and_a_rate_type
       parameters.submit_cost_sharing.fit @submit_cost_sharing
       # Add the default Budget Period to the collection.
       # Note that this is only a make, since the item is already

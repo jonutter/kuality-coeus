@@ -14,7 +14,7 @@ class SpecialReviewObject
 
     defaults = {
       type:            :random,
-      approval_status: :random
+      approval_status: '::random::'
     }
 
     set_options(defaults.merge(opts))
@@ -24,13 +24,13 @@ class SpecialReviewObject
   def create
     navigate
     on SpecialReview do |add|
-      @type = add.add_type.pick @type
-      @approval_status = case(@type)
-                           when 'Human Subjects'
-                             'Pending/In Progress'
-                           else
-                             add.add_approval_status.pick @approval_status
-                         end
+      add.add_type.pick! @type
+      case(@type)
+        when 'Human Subjects'
+          @approval_status = 'Pending/In Progress'
+        else
+          add.add_approval_status.pick! @approval_status
+      end
       add.add_protocol_number.fit @protocol_number
       add.add_application_date.fit @application_date
       add.add_approval_date.fit @approval_date
@@ -43,7 +43,7 @@ class SpecialReviewObject
   end
 
   def edit opts={}
-
+    # TODO
     set_options(opts)
   end
 

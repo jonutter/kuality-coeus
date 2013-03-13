@@ -56,7 +56,7 @@ class KeyPersonObject
       end
     end
     on KeyPersonnel do |person|
-      person.proposal_role.pick @role
+      person.proposal_role.pick! @role
       person.key_person_role.fit @key_person_role
       person.add_person
       break if person.add_person_errors_div.present? # ..we've thrown an error, so no need to continue this method...
@@ -220,7 +220,7 @@ class KeyPersonnelCollection < Array
 
   def roles
     rls = self.collect { |person| person.role }
-    rls.uniq!
+    rls.uniq
   end
 
   def unit_names

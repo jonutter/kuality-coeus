@@ -40,12 +40,12 @@ class CommitteeDocumentObject
       comm.description.set @description
       comm.committee_id.set @committee_id
       comm.committee_name.set @committee_name
-      @type=comm.type.pick @type
+      comm.type.pick! @type
       comm.home_unit.set @home_unit
       comm.min_members_for_quorum.set @min_members_for_quorum
       comm.maximum_protocols.set @maximum_protocols
       comm.adv_submission_days.set @adv_submission_days
-      @review_type=comm.review_type.pick @review_type
+      comm.review_type.pick! @review_type
       comm.save
     end
   end
