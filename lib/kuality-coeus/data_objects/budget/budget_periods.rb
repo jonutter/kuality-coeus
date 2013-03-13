@@ -46,7 +46,17 @@ class BudgetPeriodObject
   def edit opts={}
     navigate
     on Parameters do |edit|
-      # TODO!
+      edit.start_date_period(@number).fit opts[:start_date]
+      edit.end_date_period(@number).fit opts[:end_date]
+      edit.total_sponsor_cost_period(@number).fit opts[:total_sponsor_cost]
+      edit.direct_cost_period(@number).fit opts[:direct_cost]
+      edit.fa_cost_period(@number).fit opts[:f_and_a_cost]
+      edit.unrecoverd_fa_period(@number).fit opts[:unrecovered_f_and_a]
+      edit.cost_sharing_period(@number).fit opts[:cost_sharing]
+      edit.cost_limit_period(@number).fit opts[:cost_limit]
+      edit.direct_cost_limit_period(@number).fit opts[:direct_cost_limit]
+      edit.save
+      break if edit.errors.size > 0
     end
     set_options(opts)
     datify
