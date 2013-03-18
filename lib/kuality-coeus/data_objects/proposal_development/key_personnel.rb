@@ -14,22 +14,24 @@ class KeyPersonObject
   # Note that you must pass in both first and last names (or neither).
   def initialize(browser, opts={})
     @browser = browser
+
     defaults = {
-      role: 'Principal Investigator',
-      units: [],
-      responsibility: rand_num,
-      financial: rand_num,
-      recognition: rand_num,
-      certified: true, # Set this to false if you do not want any Proposal Person Certification Questions answered
-      certify_info_true: 'Y',
-      potential_for_conflict: 'Y',
+      role:                            'Principal Investigator',
+      units:                           [],
+      responsibility:                  rand_num,
+      financial:                       rand_num,
+      recognition:                     rand_num,
+      certified:                       true, # Set this to false if you do not want any Proposal Person Certification Questions answered
+      certify_info_true:               'Y',
+      potential_for_conflict:          'Y',
       submitted_financial_disclosures: 'Y',
-      lobbying_activities: 'Y',
-      excluded_from_transactions: 'Y',
-      familiar_with_pla: 'Y'
+      lobbying_activities:             'Y',
+      excluded_from_transactions:      'Y',
+      familiar_with_pla:               'Y'
     }
+
     set_options(defaults.merge(opts))
-    requires @document_id
+    requires :document_id
     @full_name="#{@first_name} #{@last_name}"
   end
 
@@ -54,7 +56,7 @@ class KeyPersonObject
       end
     end
     on KeyPersonnel do |person|
-      person.proposal_role.pick @role
+      person.proposal_role.pick! @role
       person.key_person_role.fit @key_person_role
       person.add_person
       break if person.add_person_errors_div.present? # ..we've thrown an error, so no need to continue this method...
@@ -218,7 +220,7 @@ class KeyPersonnelCollection < Array
 
   def roles
     rls = self.collect { |person| person.role }
-    rls.uniq!
+    rls.uniq
   end
 
   def unit_names

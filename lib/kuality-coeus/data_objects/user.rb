@@ -3,13 +3,22 @@ class UserObject
   include Foundry
   include DataFactory
 
-  attr_accessor :name, :user_name, :email, :password, :role
+  attr_accessor :user_name, :role
+
+  DEFAULT_USERS = {
+    # Syntax:
+    # :user=>hash_of_user_settings
+    :admin=>{
+        role: 'admin',
+        user_name: 'admin'
+    },
+    :custom=>{}
+  }
 
   def initialize(browser, opts={})
     @browser = browser
-    defaults = {
-        user_name: 'admin',
-    }
+    opts[:user]=:admin if opts[:user]==nil
+    defaults = DEFAULT_USERS[opts[:user]]
     set_options defaults.merge(opts)
   end
 

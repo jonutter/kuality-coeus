@@ -14,7 +14,7 @@ class MemberRolesObject
     }
 
     set_options(defaults.merge(opts))
-    requires @name, @document_id
+    requires :name, :document_id
   end
 
   def create

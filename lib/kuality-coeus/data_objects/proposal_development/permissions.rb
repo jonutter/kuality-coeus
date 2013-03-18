@@ -9,12 +9,13 @@ class PermissionsObject
 
   def initialize(browser, opts={})
     @browser = browser
+
     defaults = {
         roles: { 'Aggregator'=>'admin' }
     }
 
     set_options(defaults.merge(opts))
-    requires @document_id
+    requires :document_id
   end
 
   def assign

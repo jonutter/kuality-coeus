@@ -14,18 +14,19 @@ class CommitteeDocumentObject
     @browser = browser
     
     defaults = {
-      description: random_alphanums,
-      committee_id: random_alphanums,
-      home_unit: '000001',
-      committee_name: random_alphanums,
+      description:            random_alphanums,
+      committee_id:           random_alphanums,
+      home_unit:              '000001',
+      committee_name:         random_alphanums,
       min_members_for_quorum: rand(100).to_s,
-      maximum_protocols: rand(100).to_s,
-      adv_submission_days: rand(365).to_s,
-      review_type: 'Full',
-      members: CommitteeMemberCollection.new,
-      areas_of_research: [],
-      schedule: CommitteeScheduleCollection.new
+      maximum_protocols:      rand(100).to_s,
+      adv_submission_days:    rand(365).to_s,
+      review_type:            'Full',
+      members:                CommitteeMemberCollection.new,
+      areas_of_research:      [],
+      schedule:               CommitteeScheduleCollection.new
     }
+
     set_options(defaults.merge(opts))
   end
     
@@ -39,12 +40,12 @@ class CommitteeDocumentObject
       comm.description.set @description
       comm.committee_id.set @committee_id
       comm.committee_name.set @committee_name
-      @type=comm.type.pick @type
+      comm.type.pick! @type
       comm.home_unit.set @home_unit
       comm.min_members_for_quorum.set @min_members_for_quorum
       comm.maximum_protocols.set @maximum_protocols
       comm.adv_submission_days.set @adv_submission_days
-      @review_type=comm.review_type.pick @review_type
+      comm.review_type.pick! @review_type
       comm.save
     end
   end

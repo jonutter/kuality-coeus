@@ -1,4 +1,5 @@
 require 'test-factory'
+require 'date'
 Dir["#{File.dirname(__FILE__)}/kuality-coeus/*.rb"].each {|f| require f }
 Dir["#{File.dirname(__FILE__)}/kuality-coeus/page_objects/*.rb"].each {|f| require f }
 Dir["#{File.dirname(__FILE__)}/kuality-coeus/page_objects/*/*.rb"].each {|f| require f }

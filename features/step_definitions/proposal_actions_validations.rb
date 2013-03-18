@@ -34,7 +34,12 @@ When /^I do not complete the compliance question$/ do
 end
 
 When /^I do not complete the kuali university questions$/ do
-  #nothing necessary for this step
+  questions=[:dual_dept_appointment, :on_sabbatical, :used_by_small_biz, :understand_deadline]
+  answers=['Y','N',nil]
+  answers.shuffle!
+  opts={}
+  questions.shuffle.each_with_index { |question, index| opts.store(question, (index==3 ? nil : answers.sample)) }
+  @proposal.answer_kuali_u_questions opts
 end
 
 When /^I begin a proposal with an un-certified co-investigator$/ do

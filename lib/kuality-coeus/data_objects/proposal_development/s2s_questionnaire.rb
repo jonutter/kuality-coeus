@@ -15,6 +15,13 @@ class S2SQuestionnaireObject
                 :international_activities, :identify_countries, :explain_international_activities,
                 :other_agencies, :submitted_to_govt_agency, :application_date, :subject_to_review,
                 :novice_applicants, :program
+  # More instance variable definitions.
+  # These make instance variables such as:
+  # @year_2 (up to year 6)
+  # @support_provided_1  (up to 5)
+  # @fiscal_year_1 (up to 6)
+  # @ftes_for_fy_1 (up to 6)
+  # @stem_cell_line_1 (up to 20)
   1.upto(20) do |x|
     attr_accessor("year_#{x+1}".to_sym, "support_provided_#{x}".to_sym) if x < 6
     attr_accessor("fiscal_year_#{x}".to_sym, "ftes_for_fy_#{x}".to_sym) if x < 7
@@ -23,6 +30,7 @@ class S2SQuestionnaireObject
 
   def initialize(browser, opts={})
     @browser = browser
+
     # PLEASE NOTE:
     # This is a unique data object class in that
     # it breaks the typical model for radio button
@@ -31,29 +39,30 @@ class S2SQuestionnaireObject
     # In general, it's not workable to set up radio button elements
     # to use "Y" and "N" as the instance variables associated with them.
     defaults = {
-        civil_service: 'N',
-        potential_effects: 'N',
-        international_support: 'N',
-        pi_in_govt: 'N',
-        pi_foreign_employee: 'N',
-        change_in_pi: 'N',
-        change_in_institution: 'N',
-        renewal_application:'N',
-        disclose_title: 'N',
-        clinical_trial: 'N',
-        human_stem_cells: 'N',
-        pi_new_investigator: 'N',
-        proprietary_info: 'N',
-        environmental_impact: 'N',
-        site_historic: 'N',
-        international_activities:'N',
-        other_agencies: 'N',
-        subject_to_review:'N',
-        program: 'Program not covered by EO 12372',
-        novice_applicants: 'X' # Note the X, here. That's for the "N/A" option.
+        civil_service:            'N',
+        potential_effects:        'N',
+        international_support:    'N',
+        pi_in_govt:               'N',
+        pi_foreign_employee:      'N',
+        change_in_pi:             'N',
+        change_in_institution:    'N',
+        renewal_application:      'N',
+        disclose_title:           'N',
+        clinical_trial:           'N',
+        human_stem_cells:         'N',
+        pi_new_investigator:      'N',
+        proprietary_info:         'N',
+        environmental_impact:     'N',
+        site_historic:            'N',
+        international_activities: 'N',
+        other_agencies:           'N',
+        subject_to_review:        'N',
+        program:                  'Program not covered by EO 12372',
+        novice_applicants:        'X' # Note the X, here. That's for the "N/A" option.
     }
+
     set_options(defaults.merge(opts))
-    requires @document_id
+    requires :document_id
   end
 
   def create
@@ -64,16 +73,16 @@ class S2SQuestionnaireObject
       yn_questions.each { |q| fat.send(q, eval("@#{q.to_s}"))}
       # Next we answer the questions that are conditional, based on the above answers...
       1.upto(6) do |n|
-        fat.send("fiscal_year_#{n}".to_sym).pick eval("@fiscal_year_#{n}")
+        fat.send("fiscal_year_#{n}".to_sym).pick!(eval("@fiscal_year_#{n}"))
         fat.send("ftes_for_fy_#{n}".to_sym).fit eval("@ftes_for_fy_#{n}")
         fat.send("year_#{n+1}".to_sym, eval("@year_#{n+1}")) unless n==6
       end
       fat.explain_potential_effects.fit @explain_potential_effects
       1.upto(5) do |n|
-        fat.send("support_provided_#{n}".to_sym).pick eval("@support_provided_#{n}")
+        fat.send("support_provided_#{n}".to_sym).pick! eval("@support_provided_#{n}")
       end
       fat.explain_support.fit @explain_support
-      @pis_us_govt_agency=fat.pis_us_govt_agency.pick @pis_us_govt_agency
+      fat.pis_us_govt_agency.pick! @pis_us_govt_agency
       fat.total_amount_requested.fit @total_amount_requested
       fat.former_pi.fit @former_pi
       fat.former_institution.fit @former_institution
@@ -87,7 +96,7 @@ class S2SQuestionnaireObject
       fat.explain_international_activities.fit @explain_international_activities
       fat.submitted_to_govt_agency.fit @submitted_to_govt_agency
       fat.application_date.fit @application_date
-      fat.program.pick @program
+      fat.program.pick! @program
     end
   end
 
@@ -114,6 +123,8 @@ class S2SQuestionnaireObject
     end
   end
 
+  # Convenient gathering of all Yes/No questions. Makes it possible to
+  # do simple iterations through them.
   def yn_questions
     [:civil_service, :total_ftes, :potential_effects, :international_support,
      :pi_in_govt, :pi_foreign_employee, :change_in_pi, :change_in_institution,

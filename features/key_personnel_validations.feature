@@ -25,7 +25,7 @@ Feature: Key Personnel Validations
   Scenario: Trying to add a a co-investigator without a unit
     When    I add a co-investigator without a unit
     Then    I should see a key personnel error that says at least one unit is required
-
+  @test
   Scenario: Attempt to add multiple principle investigators
     When    I try to add two Principal Investigators
     Then    I should see an error that says only one pi role is allowed
