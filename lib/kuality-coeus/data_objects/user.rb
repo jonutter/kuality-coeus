@@ -3,7 +3,7 @@ class UserObject
   include Foundry
   include DataFactory
 
-  attr_accessor :name, :user_name, :email, :password, :role
+  attr_accessor :user_name, :role
 
   DEFAULT_USERS = {
     # Syntax:
