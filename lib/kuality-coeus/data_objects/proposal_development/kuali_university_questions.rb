@@ -41,7 +41,7 @@ class KualiUniversityQuestionsObject
       kuali.on_sabbatical @on_sabbatical
       kuali.sabbatical_review_date.fit @sabbatical_review_date
       kuali.used_by_small_biz @used_by_small_biz
-      kuali.small_biz_review_date @small_biz_review_date
+      kuali.small_biz_review_date.fit @small_biz_review_date
       kuali.understand_deadline @understand_deadline
       kuali.deadline_review_date.fit @deadline_review_date
       kuali.save
