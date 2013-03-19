@@ -73,7 +73,7 @@ class BudgetVersionsObject
     opts.merge!(defaults)
 
     bp = create BudgetPeriodObject, opts
-    break if on(Parameters).errors.size > 0
+    return if on(Parameters).errors.size > 0 # No need to continue the method if we have an error
     @budget_periods << bp
     @budget_periods.re_sort! # This updates the number value of all periods, as necessary
   end
