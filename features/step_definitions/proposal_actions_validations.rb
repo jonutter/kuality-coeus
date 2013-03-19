@@ -44,7 +44,8 @@ When /^I do not complete the kuali university questions$/ do
   # the resulting options to the proposal object...
   opts={}
   questions.shuffle.each_with_index { |question, index| opts.store(question, (index==3 ? nil : answers.sample)) }
-  puts opts.inspect # some debug code
+  @unanswered_question=opts.collect { |k,v| v==nil ? k : nil }.compact[0]
+  puts @unanswered_question.inspect
   @proposal.answer_kuali_u_questions opts
 end
 
