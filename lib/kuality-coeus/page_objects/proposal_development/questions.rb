@@ -25,7 +25,7 @@ class Questions < ProposalDevelopmentDocument
   # page.civil_service "Y" #=> The "Y" is the value of the instance variable, and could also be "N"
   # ...
   [0,1,4,7,10,13,16,19,21,28,31,32,34,36,37,38,39,40,41,42,43,64,65,66,68,70,72,75,77,80,81].each_with_index do |num, index|
-    action("s2s_r#{index+1}".to_sym) { |answer, b| b.q_num_div(num).radio(value: answer).set unless answer==nil }
+    action("s2s_r#{index+1}".to_sym) { |answer, b| b.q_num_div(num).radio(value: answer).fit answer }
   end
   alias_method :civil_service, :s2s_r1
   alias_method :total_ftes, :s2s_r2
