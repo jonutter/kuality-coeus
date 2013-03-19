@@ -78,10 +78,10 @@ class BasePage < PageFactory
 
 end # BasePage
 
-# Included here because, in a sense, the frame element
-# is a part of the "base page"
 module Watir
   module Container
+    # Included here because, in a sense, the frame element
+    # is a part of the "base page"
     def frm
       if frame(id: 'iframeportlet').exist?
         frame(id: 'iframeportlet')
