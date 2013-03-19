@@ -38,8 +38,8 @@ Feature: Proposal Actions Validations
       Given   I begin a proposal
       And     I do not complete the kuali university questions
       When    I activate a validation check
-      Then    the validation error should say you must complete the kuali university questions
-      And     checking the questions page shows an error that says you must complete the kuali university questions
+      Then    the validation should report the question was not answered
+      And     checking the questions page should show the question was not answered
 
     Scenario: Validate a proposal without a sponsor deadline date
       Given   I begin a proposal without a sponsor deadline date

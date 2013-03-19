@@ -44,9 +44,21 @@ When /^I do not complete the kuali university questions$/ do
   # the resulting options to the proposal object...
   opts={}
   questions.shuffle.each_with_index { |question, index| opts.store(question, (index==3 ? nil : answers.sample)) }
+  opts[:dual_dept_appointment]=='Y' ? opts.store(:dual_dept_explanation, random_alphanums) : opts
+  # Keep the unanswered question handy for the validation step.
+  # TODO: I don't really like the storing of test data outside of the data object. Come up with a better way to do this.
   @unanswered_question=opts.collect { |k,v| v==nil ? k : nil }.compact[0]
-  puts @unanswered_question.inspect
   @proposal.answer_kuali_u_questions opts
+end
+
+Then /^the validation should report the question was not answered$/ do
+  questions={
+      :dual_dept_appointment=>1,
+      :on_sabbatical=>2,
+      :used_by_small_biz=>3,
+      :understand_deadline=>4
+  }
+  on(ProposalActions).validation_errors_and_warnings.should include "Answer is required for Question #{questions[@unanswered_question]} in group C. Kuali University."
 end
 
 When /^I begin a proposal with an un-certified co-investigator$/ do
@@ -91,4 +103,14 @@ Given /^I begin a proposal with an uncertified pricipal investigator$/ do
   @proposal = create ProposalDevelopmentObject
   on(Proposal).key_personnel
   @proposal.add_key_person first_name:'Dick', last_name:'Covey', role:'Principal Investigator', certified: false
+end
+When /^checking the questions page should show the question was not answered$/ do
+  on(Proposal).questions
+  questions={
+      :dual_dept_appointment=>1,
+      :on_sabbatical=>2,
+      :used_by_small_biz=>3,
+      :understand_deadline=>4
+  }
+  on(Questions).errors.should include "Answer is required for Question #{questions[@unanswered_question]} in group C. Kuali University."
 end
