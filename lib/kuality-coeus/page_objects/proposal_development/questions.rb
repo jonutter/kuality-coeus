@@ -104,7 +104,7 @@ class Questions < ProposalDevelopmentDocument
   # Compliance...
   action(:show_compliance_questions) { |b| b.frm.button(name: 'methodToCall.toggleTab.tabBCompliance').click }
 
-  action(:agree_to_ethical_conduct) { |answer, b| b.frm.radio(name: 'document.developmentProposalList[0].proposalYnq[1].answer', value: answer).set }
+  action(:agree_to_ethical_conduct) { |answer, b| b.frm.radio(name: 'document.developmentProposalList[0].proposalYnq[1].answer', value: answer).fit }
   element(:conduct_review_date) { |b| b.frm.text_field(name: 'document.developmentProposalList[0].proposalYnq[1].reviewDate') }
 
   # Kuali University
