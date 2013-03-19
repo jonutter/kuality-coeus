@@ -98,7 +98,7 @@ class Questions < ProposalDevelopmentDocument
   # Proposal Questions...
   action(:show_proposal_questions) { |b| b.frm.button(name: 'methodToCall.toggleTab.tabAProposalQuestions').click }
 
-  action(:agree_to_nih_policy) { |answer, b| b.frm.radio(name: 'document.developmentProposalList[0].proposalYnq[2].answer', value: answer).set }
+  action(:agree_to_nih_policy) { |answer, b| b.frm.radio(name: 'document.developmentProposalList[0].proposalYnq[2].answer', value: answer).fit }
   element(:policy_review_date) { |b| b.frm.text_field(id: 'document.developmentProposalList[0].proposalYnq[2].reviewDate') }
 
   # Compliance...
@@ -121,17 +121,17 @@ class Questions < ProposalDevelopmentDocument
 
   action(:show_kuali_university) { |b| b.frm.button(name: 'methodToCall.toggleTab.tabCKualiUniversity').click }
 
-  action(:dual_dept_appointment) { |answer, b| b.frm.radio(value: answer, name: 'document.developmentProposalList[0].proposalYnq[0].answer').set }
+  action(:dual_dept_appointment) { |answer, b| b.frm.radio(value: answer, name: 'document.developmentProposalList[0].proposalYnq[0].answer').fit }
   element(:dual_dept_review_date) { |b| b.frm.text_field(name: 'document.developmentProposalList[0].proposalYnq[0].reviewDate') }
   element(:dual_dept_explanation) { |b| b.frm.text_field(name: 'document.developmentProposalList[0].proposalYnq[0].explanation') }
 
-  action(:on_sabbatical) { |answer, b| b.frm.radio(value: answer, name: 'document.developmentProposalList[0].proposalYnq[3].answer').set }
+  action(:on_sabbatical) { |answer, b| b.frm.radio(value: answer, name: 'document.developmentProposalList[0].proposalYnq[3].answer').fit }
   element(:sabbatical_review_date) { |b| b.frm.text_field(name: 'document.developmentProposalList[0].proposalYnq[3].reviewDate') }
   
-  action(:used_by_small_biz) { |answer, b| b.frm.radio(value: answer, name: 'document.developmentProposalList[0].proposalYnq[4].answer').set }
+  action(:used_by_small_biz) { |answer, b| b.frm.radio(value: answer, name: 'document.developmentProposalList[0].proposalYnq[4].answer').fit }
   element(:small_biz_review_date) { |b| b.frm.text_field(name: 'document.developmentProposalList[0].proposalYnq[4].reviewDate') }
 
-  action(:understand_deadline) { |answer, b| b.frm.radio(value: answer, name: 'document.developmentProposalList[0].proposalYnq[5].answer').set }
+  action(:understand_deadline) { |answer, b| b.frm.radio(value: answer, name: 'document.developmentProposalList[0].proposalYnq[5].answer').fit }
   element(:deadline_review_date) { |b| b.frm.text_field(name: 'document.developmentProposalList[0].proposalYnq[5].reviewDate') }
   
   private

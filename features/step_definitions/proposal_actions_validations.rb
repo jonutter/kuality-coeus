@@ -43,7 +43,8 @@ When /^I do not complete the kuali university questions$/ do
   # Set them up, answering all questions but one, and pass
   # the resulting options to the proposal object...
   opts={}
-  questions.shuffle[0..2].each { |question| opts.store(question, answers.sample) }
+  questions.shuffle.each_with_index { |question, index| opts.store(question, (index==3 ? nil : answers.sample)) }
+  puts opts.inspect # some debug code
   @proposal.answer_kuali_u_questions opts
 end
 
