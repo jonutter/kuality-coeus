@@ -34,10 +34,16 @@ When /^I do not complete the compliance question$/ do
 end
 
 When /^I do not complete the kuali university questions$/ do
+  # Here we're going to answer a random selection of all but one
+  # of the questions required in the questionnaire.
+  # The questions...
   questions=[:dual_dept_appointment, :on_sabbatical, :used_by_small_biz, :understand_deadline]
-  answers=['Y','N',nil]
+  # The answers...
+  answers=%w{Y N}
+  # Set them up, answering all questions but one, and pass
+  # the resulting options to the proposal object...
   opts={}
-  questions.shuffle.each_with_index { |question, index| opts.store(question, (index==3 ? nil : answers.sample)) }
+  questions.shuffle[0..2].each { |question| opts.store(question, answers.sample) }
   @proposal.answer_kuali_u_questions opts
 end
 
