@@ -5,70 +5,73 @@ class PermissionsObject
   include StringFactory
   include Navigation
 
-  attr_accessor :roles, :document_id
+  attr_accessor :document_id, :aggregators, :budget_creators, :narrative_writers, :viewers
 
   def initialize(browser, opts={})
     @browser = browser
 
     defaults = {
-        # For maximal flexibility in supporting
-        # custom roles, the @roles instance variable
-        # should be a Hash.
-        #
-        # It should have the role as its Key, and
-        # the user name as its Value.
-        #
-        # Note that the #assign method will take care
-        # of saving any roles that already exist in
-        # the system but aren't explicitly passed here.
-        #
-        roles: { 'Aggregator'=>'admin' }
+        budget_creators:   [], # Arrays should contain usernames
+        narrative_writers: [],
+        viewers:           []
     }
 
     set_options(defaults.merge(opts))
-    requires :document_id
+    requires :document_id, :aggregators
   end
 
+  # It's important to realize that this method assigns
+  # users to roles, but does not check who is already
+  # assigned. You need to make sure that the values
+  # used in the instantiation of the class are
+  # an accurate reflection of what exists in the site.
   def assign
     navigate
-    # temp storage container for use with @roles below...
-    users=[]
     on Permissions do |add|
-      @roles.each do |role, username|
-        # We don't need to assign a role/user pair
-        # if it is already assigned...
-        unless add.assigned_role(username)==role
-          add.user_name.set username
-          add.role.select role
-          add.add
+      roles.each do |inst_var, role|
+        instance_variable_get(inst_var).each do |username|
+          unless add.assigned_role(username).include? role
+            add.user_name.set username
+            add.role.select role
+            add.add
+          end
         end
       end
-      # Now that things are added, we store things
-      # temporarily so that we can properly
-      # update the @roles variable with the
-      # current settings...
-      users = add.user_roles_table.to_a
       add.save
     end
-    2.times { users.delete_at(0) }
-    roles = {}
-    users.each { |row| roles.store(row[5],row[1]) }
-    # Doing this as a merge because we want to preserve the
-    @roles.merge!(roles)
   end
 
-  def edit opts={}
+  def add_roles(username, *roles)
+    # get to the right page...
     navigate
-    # ...
-    set_options(opts)
+    on Permissions do |page|
+      # click the edit role button for the right user...
+      page.edit_role username
+      # This opens a new window, so we have to use it...
+      page.windows.last.use
+    end
+    on Roles do |page|
+      roles.each do |role|
+        # Set the appropriate role checkbox...
+        page.send(damballa(role)).set
+        # Add the username to the correct role
+        # instance variable...
+        instance_variable_get(roles.invert[role]) << username
+      end
+      page.save
+      # Now we're done with the child window so we close it...
+      page.close
+      # Attach to the main window again...
+      page.windows.first.use
+    end
   end
 
-  def view
-
-  end
-
-  def delete
-
+  def delete username
+    navigate
+    on(Permissions).delete username
+    roles.each do |role|
+      instance_variable_get(role).delete_if { |name| name==username }
+    end
   end
 
   # =======
@@ -92,6 +95,15 @@ class PermissionsObject
     rescue
       false
     end
+  end
+
+  def roles
+    {
+        :@aggregators=>'Aggregator',
+        :@viewers=>'Viewer',
+        :@budget_creators=>'Budget Creator',
+        :@narrative_writers=>'Narrative Writer'
+    }
   end
 
 end

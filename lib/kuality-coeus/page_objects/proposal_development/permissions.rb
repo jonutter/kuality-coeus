@@ -14,3 +14,18 @@ class Permissions < ProposalDevelopmentDocument
   element(:user_roles_table) { |b| b.frm.table(id: 'user-roles') }
 
 end
+
+class Roles < BasePage
+
+  global_buttons
+
+  def self.chkbx(name, number)
+    element(name) { |b| b.frm.checkbox(name: "proposalUserEditRoles.roleStates[#{number}].state") }
+  end
+
+  chkbx :viewer, 0
+  chkbx :budget_creator, 1
+  chkbx :narrative_writer, 2
+  chkbx :aggregator, 3
+
+end
