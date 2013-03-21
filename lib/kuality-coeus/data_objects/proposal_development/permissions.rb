@@ -11,6 +11,12 @@ class PermissionsObject
     @browser = browser
 
     defaults = {
+        # For maximal flexibility in supporting
+        # custom roles, the @roles instance variable
+        # should be a Hash.
+        #
+        # It should have the role as its Key, and
+        # the user name as its Value.
         roles: { 'Aggregator'=>'admin' }
     }
 
@@ -20,14 +26,22 @@ class PermissionsObject
 
   def assign
     navigate
+    # temp storage container for use with @roles below...
+    users=[]
     on Permissions do |add|
       @roles.each do |role, username|
+        # We don't need to assign a role/user pair
+        # if it is already assigned...
         unless add.assigned_role(username)==role
           add.user_name.set username
           add.role.select role
           add.add
         end
       end
+      # Now that things are added, we store things
+      # temporarily so that we can properly
+      # update the @roles variable with the
+      # current settings...
       users = add.user_roles_table.to_a
       add.save
     end
