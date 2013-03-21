@@ -107,36 +107,6 @@ class ProposalDevelopmentObject
     @budget_versions << bvo
   end
 
-  def assign_permissions opts={}
-    merge_settings opts
-    @permissions = make PermissionsObject, opts
-    @permissions.assign
-  end
-
-  def answer_s2s_questionnaire opts={}
-    merge_settings(opts)
-    @s2s_questionnaire = make S2SQuestionnaireObject, opts
-    @s2s_questionnaire.create
-  end
-
-  def answer_proposal_questions opts={}
-    merge_settings(opts)
-    @proposal_questions = make ProposalQuestionsObject, opts
-    @proposal_questions.create
-  end
-
-  def answer_compliance_questions opts={}
-    merge_settings(opts)
-    @compliance_questions = make ComplianceQuestionsObject, opts
-    @compliance_questions.create
-  end
-
-  def answer_kuali_u_questions opts={}
-    merge_settings(opts)
-    @kuali_university_questions = make KualiUniversityQuestionsObject, opts
-    @kuali_university_questions.create
-  end
-
   def delete
     open_document unless on_document?
     on(Proposal).proposal_actions
