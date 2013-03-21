@@ -39,6 +39,7 @@ class PermissionsObject
 
   def edit opts={}
     navigate
+    # ...
     set_options(opts)
   end
 
