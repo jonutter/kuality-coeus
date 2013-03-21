@@ -61,16 +61,23 @@ Then /^the validation should report the question was not answered$/ do
   on(ProposalActions).validation_errors_and_warnings.should include "Answer is required for Question #{questions[@unanswered_question]} in group C. Kuali University."
 end
 
-When /^I begin a proposal with an un-certified co-investigator$/ do
+When /^I begin a proposal with an un-certified (.*)$/ do |role|
+  @role = role
   @proposal = create ProposalDevelopmentObject
   on(Proposal).key_personnel
-  @proposal.add_key_person first_name: 'Dick', last_name: 'COIAdmin', role: 'Co-Investigator', certified: false
+  @proposal.add_key_person first_name: 'Dick', last_name: 'COIAdmin', role: @role, certified: false
+end
+
+Given /^I begin a proposal where the un-certified key person has certification questions$/ do
+  @role = 'Key Person'
+  @proposal = create ProposalDevelopmentObject
+  @proposal.add_key_person first_name: 'Jeff', last_name: 'Covey', role: @role, key_person_role: 'default', certified: false
+  on(KeyPersonnel).include_certification_questions @proposal.key_personnel.uncertified_key_person(@role).full_name
 end
 
 And /^checking the key personnel page shows an error that says (.*)$/ do |error|
   on(ProposalActions).key_personnel
-  errors = {'there is no principal investigator' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.',
-  'the investigator needs to be certified' => "The Investigators are not all certified. Please certify #{@proposal.key_personnel.uncertified_person('Co-Investigator').full_name}."
+  errors = {'there is no principal investigator' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.'
   }
   on(KeyPersonnel).errors.should include errors[error]
 end
@@ -82,27 +89,16 @@ When /^checking the proposal page shows an error that says (.*)$/ do |error|
   on(Proposal).errors.should include errors[error]
 end
 
-When /^checking the questions page shows an error that says (.*)$/ do |error|
+And /^checking the questions page shows an error that says (.*)$/ do |error|
   on(Proposal).questions
   errors = {'proposal questions were not answered' => 'Answer is required for Question 1 in group A. Proposal Questions.'
   }
   on(Questions).errors.should include errors[error]
 end
 
-Given /^I begin a proposal with an uncertified key person but add the certification questions$/ do
-  @proposal = create ProposalDevelopmentObject
-  @proposal.add_key_person first_name: 'Jeff', last_name: 'Covey', role: 'Key Person', key_person_role: 'default', certified: false
-  on(KeyPersonnel).include_certification_questions @proposal.key_personnel.uncertified_key_person.full_name
-end
-
-When /^checking the key personnel page shows a proposal person certification error that says the key person needs to be certified$/ do
+When /^checking the key personnel page shows a proposal person certification error that says the investigator needs to be certified$/ do
   on(ProposalActions).key_personnel
-  on(KeyPersonnel).errors.should include "The Investigators are not all certified. Please certify #{@proposal.key_personnel.uncertified_person('Key Person').full_name}."
-end
-Given /^I begin a proposal with an uncertified pricipal investigator$/ do
-  @proposal = create ProposalDevelopmentObject
-  on(Proposal).key_personnel
-  @proposal.add_key_person first_name:'Dick', last_name:'Covey', role:'Principal Investigator', certified: false
+  on(KeyPersonnel).errors.should include "The Investigators are not all certified. Please certify #{@proposal.key_personnel.uncertified_person(@role).full_name}."
 end
 When /^checking the questions page should show the question was not answered$/ do
   on(Proposal).questions
