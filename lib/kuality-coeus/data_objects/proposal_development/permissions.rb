@@ -17,6 +17,11 @@ class PermissionsObject
         #
         # It should have the role as its Key, and
         # the user name as its Value.
+        #
+        # Note that the #assign method will take care
+        # of saving any roles that already exist in
+        # the system but aren't explicitly passed here.
+        #
         roles: { 'Aggregator'=>'admin' }
     }
 
@@ -48,6 +53,7 @@ class PermissionsObject
     2.times { users.delete_at(0) }
     roles = {}
     users.each { |row| roles.store(row[5],row[1]) }
+    # Doing this as a merge because we want to preserve the
     @roles.merge!(roles)
   end
 
