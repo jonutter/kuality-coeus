@@ -42,13 +42,13 @@ When /^I do not complete the kuali university questions$/ do
   answers=%w{Y N}
   # Set them up, answering all questions but one, and pass
   # the resulting options to the proposal object...
-  opts={}
+  opts={document_id: @proposal.document_id}
   questions.shuffle.each_with_index { |question, index| opts.store(question, (index==3 ? nil : answers.sample)) }
   opts[:dual_dept_appointment]=='Y' ? opts.store(:dual_dept_explanation, random_alphanums) : opts
   # Keep the unanswered question handy for the validation step.
   # TODO: I don't really like the storing of test data outside of the data object. Come up with a better way to do this.
   @unanswered_question=opts.collect { |k,v| v==nil ? k : nil }.compact[0]
-  @proposal.answer_kuali_u_questions opts
+  @proposal.kuali_u_questions = create KualiUniversityQuestionsObject, opts
 end
 
 Then /^the validation should report the question was not answered$/ do
