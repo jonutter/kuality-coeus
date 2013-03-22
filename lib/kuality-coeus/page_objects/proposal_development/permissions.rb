@@ -15,6 +15,8 @@ class Permissions < ProposalDevelopmentDocument
 
 end
 
+# This a child window that appears when you click the
+# "edit role" button for an existing participant.
 class Roles < BasePage
 
   global_buttons

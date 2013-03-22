@@ -3,7 +3,7 @@ Feature: Creating a proposal
   As a researcher I want to create a proposals so that I can get funding for my research.
 
   Background: KC user is logged in as admin
-      Given   I am logged in as admin
+      Given   I am logged in as the admin
 
     Scenario Outline: Attempt to create a proposal while leaving the required text-fields null
       When    I begin a proposal without a <Field Name>

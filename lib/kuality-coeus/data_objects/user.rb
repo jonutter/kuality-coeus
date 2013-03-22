@@ -8,6 +8,12 @@ class UserObject
   DEFAULT_USERS = {
     # Syntax:
     # :user=>hash_of_user_settings
+    #
+    # Note: Except in the "custom" situation,
+    # please make the Key for the user hash
+    # match the role value, snake-ified, of
+    # course.
+    #
     :admin=>{
         role: 'admin',
         user_name: 'admin'

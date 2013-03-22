@@ -1,5 +1,11 @@
-Given /^I am logged in as admin$/ do
-  @user = make UserObject
+Given /^I am logged in as (a|an|the) (.*)$/ do |x, user|
+  # Note that this step definition is written
+  # assuming that it's the creation step for the
+  # user object in the scenario, meaning that @user
+  # will be nil prior to this. If there's any chance
+  # @ user won't be nil, do not use this step def in
+  # the scenario.
+  @user = make UserObject, user: damballa(user)
   @user.sign_in unless @user.logged_in?
 end
 
