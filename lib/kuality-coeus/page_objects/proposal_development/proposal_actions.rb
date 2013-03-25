@@ -3,6 +3,8 @@ class ProposalActions < ProposalDevelopmentDocument
   proposal_header_elements
   tab_buttons
 
+  # Data Validation
+
   element(:validation_button) { |b| b.frm.button(name: 'methodToCall.activate') }
   action(:show_data_validation) { |b| b.frm.button(id: 'tab-DataValidation-imageToggle').click; b.validation_button.wait_until_present }
   action(:turn_on_validation) { |b| b.validation_button.click; b.key_personnel_button.wait_until_present }
@@ -28,15 +30,18 @@ class ProposalActions < ProposalDevelopmentDocument
   value(:unit_business_rules_errors) { |b| b.frm.td(text: 'Unit Business Rules Errors').parent.parent.td(class: 'datacell').text }
   value(:unit_business_rules_warnings) { |b| b.frm.td(text: 'Unit Business Rules Warnings').parent.parent.td(class: 'datacell').text }
 
+  # Proposal Hierarchy
+
   element(:link_child_proposal) { |b| b.frm.text_field(id: 'newHierarchyProposalNumber') }
   element(:link_budget_type) { |b| b.frm.select(id: 'newHierarchyBudgetTypeCode') }
   action(:link_to_hierarchy) { |b| b.frm.button(name: 'methodToCall.linkToHierarchy.anchorProposalHierarchy').click }
+
+  # Ad Hoc Recipients
 
   element(:person_action_requested) { |b| b.frm.select(name: 'newAdHocRoutePerson.actionRequested') }
   element(:person) { |b| b.frm.text_field(name: 'newAdHocRoutePerson.id') }
   action(:add_person_request) { |b| b.frm.button(name: 'methodToCall.insertAdHocRoutePerson').click }
 
-  #
   element(:group_action_requested) { |b| b.frm.select(name: 'newAdHocRouteWorkgroup.actionRequested') }
   element(:namespace_code) { |b| b.frm.text_field(name: 'newAdHocRouteWorkgroup.recipientNamespaceCode') }
   element(:name) { |b| b.frm.text_field(name: 'newAdHocRouteWorkgroup.recipientName') }
@@ -50,7 +55,9 @@ class ProposalActions < ProposalDevelopmentDocument
     errs
   end
 
+  # =======
   private
+  # =======
 
   element(:validation_err_war_fields) { |b| b.frm.tds(width: '94%') }
 
