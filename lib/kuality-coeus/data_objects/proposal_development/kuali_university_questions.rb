@@ -14,12 +14,15 @@ class KualiUniversityQuestionsObject
     @browser = browser
 
     # PLEASE NOTE:
-    # This is a unique data object class in that
+    # This is an unusual data object class in that
     # it breaks the typical model for radio button
     # methods and their associated class instance variables
     #
     # In general, it's not workable to set up radio button elements
     # to use "Y" and "N" as the instance variables associated with them.
+    #
+    # These are set up in this way, however, because of how
+    # the HTML elements are being defined.
     defaults = {
       dual_dept_appointment: 'N',
       on_sabbatical:         'N',
