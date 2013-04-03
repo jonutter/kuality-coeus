@@ -38,15 +38,19 @@ class KualiUniversityQuestionsObject
     navigate
     on Questions do |kuali|
       kuali.show_kuali_university
-      kuali.dual_dept_appointment @dual_dept_appointment
-      kuali.dual_dept_review_date.fit @dual_dept_review_date
-      kuali.dual_dept_explanation.fit @dual_dept_explanation
-      kuali.on_sabbatical @on_sabbatical
-      kuali.sabbatical_review_date.fit @sabbatical_review_date
-      kuali.used_by_small_biz @used_by_small_biz
-      kuali.small_biz_review_date.fit @small_biz_review_date
-      kuali.understand_deadline @understand_deadline
-      kuali.deadline_review_date.fit @deadline_review_date
+      fill_out kuali, :dual_dept_appointment, :dual_dept_review_date,
+               :dual_dept_explanation, :on_sabbatical, :sabbatical_review_date,
+               :used_by_small_biz, :small_biz_review_date, :understand_deadline,
+               :deadline_review_date
+      #kuali.dual_dept_appointment @dual_dept_appointment
+      #kuali.dual_dept_review_date.fit @dual_dept_review_date
+      #kuali.dual_dept_explanation.fit @dual_dept_explanation
+      #kuali.on_sabbatical @on_sabbatical
+      #kuali.sabbatical_review_date.fit @sabbatical_review_date
+      #kuali.used_by_small_biz @used_by_small_biz
+      #kuali.small_biz_review_date.fit @small_biz_review_date
+      #kuali.understand_deadline @understand_deadline
+      #kuali.deadline_review_date.fit @deadline_review_date
       kuali.save
     end
   end

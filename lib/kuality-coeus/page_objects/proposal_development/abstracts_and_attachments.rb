@@ -5,7 +5,7 @@ class AbstractsAndAttachments < ProposalDevelopmentDocument
 
   # Proposal Attachments
   element(:proposal_attachment_type) { |b| b.frm.select(id: 'newNarrative.narrativeTypeCode') }
-  element(:status) { |b| b.frm.select(id: 'newNarrative.moduleStatusCode') }
+  element(:attachment_status) { |b| b.frm.select(id: 'newNarrative.moduleStatusCode') }
   element(:proposal_attachment_file_name) { |b| b.frm.file_field(name: 'newNarrative.narrativeFile') }
   element(:contact_name) { |b| b.frm.text_field(id: 'newNarrative.contactName') }
   element(:email_address) { |b| b.frm.text_field(id: 'newNarrative.emailAddress') }
