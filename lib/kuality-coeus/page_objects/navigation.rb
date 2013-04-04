@@ -16,36 +16,34 @@ module Navigation
     end
   end
 
-  # Experimental at this point. Not entirely sure it's really going to be
-  # useful.
-  def fill_out_form(page, *fields)
-
+  # Use in the #create method of your data objects for filling out
+  # fields. This method eliminates the need to write repetitive
+  # lines of code, with one line for every field needing to be
+  # filled in.
+  #
+  # Requirement: The field method name and the class instance variable
+  # must be the same!
+  #
+  # This method currently only supports text fields, selection lists,
+  # and radio buttons.
+  def fill_out(page, *fields)
     methods={
-        'Watir::TextField'=>:fit,
-        'Watir::Select'   =>:pick!
+        'Watir::TextField' => lambda{|p, f| p.send(f).fit(ivg f)},
+        'Watir::Select'    => lambda{|p, f| p.send(f).pick!(ivg f)},
+        'Watir::Radio'     => lambda{|p, f| p.send(f, ivg(f))}
     }
-
     fields.each do |field|
-      methid=page.send(field).class.to_s
-      if methid=='Watir::Radio'
-        page.send(field, instance_variable_get('@'+field.to_s))
-      else
-        fill page, field, methods[methid]
-      end
+      methods[page.send(field).class.to_s].call(page, field)
     end
-
   end
-  alias_method :fill_in_form, :fill_out_form
-  alias_method :fill_in_page, :fill_out_form
-  alias_method :fill_out, :fill_out_form
+  alias_method :fill_in, :fill_out
 
-  # =======
+  # ==========
   private
-  # =======
+  # ==========
 
-  def fill page, field, meth
-    page.send(field).send(meth, instance_variable_get('@'+field.to_s))
+  def ivg(symb)
+    instance_variable_get('@'+symb.to_s)
   end
-
 
 end
