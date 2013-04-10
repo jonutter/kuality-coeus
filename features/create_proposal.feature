@@ -25,9 +25,19 @@ Feature: Creating proposals
       Then    I should see an error that says valid sponsor code required
 
     Scenario: Valid Proposals can be submitted to routing
-      When    I complete a valid proposal
+      When    I complete a valid simple proposal for a private organization
       And     I submit the proposal
       Then    The proposal should immediately have a status of Approval Pending
       And     The proposal's 'actions taken' should include 'Completed'
       And     The proposal's 'pending actions' should include 'in action list approve' requested of ???
       And     The proposal's 'future action requests' should include 'pending approve' requested of ???
+      And     ???
+
+    Scenario: Valid Proposals can be submitted to routing
+      When    I complete a valid grants.gov proposal for the NIH
+      And     I submit the proposal
+      Then    The proposal should immediately have a status of Approval Pending
+      And     The proposal's 'actions taken' should include 'Completed'
+      And     The proposal's 'pending actions' should include 'in action list approve' requested of ???
+      And     The proposal's 'future action requests' should include 'pending approve' requested of ???
+      And     ???
