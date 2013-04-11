@@ -30,3 +30,9 @@ Feature: Permissions in a Proposal
     And   I submit the proposal
     Then  That person can access the proposal
     And   can approve the proposal
+
+  Scenario: A person's role can be edited
+    Given  I assign a person a role
+    When   I change that person's role
+    Then   That person can access the proposal
+    And    Their permissions reflect their newly assigned role
