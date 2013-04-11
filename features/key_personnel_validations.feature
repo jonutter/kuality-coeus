@@ -5,7 +5,7 @@ Feature: Key Personnel Validations
   before I submit the proposal
 
   Background: KC user is logged in as admin
-    Given I am logged in as admin
+    Given I am logged in as the admin
     And   I begin a proposal
 
   Scenario Outline: Unable to add Credit Split percentages above 100 or less than 0
@@ -33,3 +33,7 @@ Feature: Key Personnel Validations
   Scenario: Attempt to add unit with invalid unit
     When    I add a key person with an invalid unit type
     Then    I should see an error that says please select a valid unit
+
+  Scenario: Change role of person entered incorrectly
+    When    I add a person with an incorrect role
+    Then    I should be able to update the person's role
