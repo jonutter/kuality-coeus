@@ -7,3 +7,7 @@ Feature: Deleting a proposal
     And   I begin a proposal
     When  I delete the proposal
     Then  The proposal is deleted
+
+  Scenario: A submitted proposal can no longer be deleted
+    When  I submit the proposal to routing
+    Then  The proposal cannot be deleted
