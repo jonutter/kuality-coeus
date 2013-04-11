@@ -30,7 +30,7 @@ Feature: Key Personnel Validations
     When    I try to add two Principal Investigators
     Then    I should see an error that says only one pi role is allowed
 
-  Scenario: Attempt to add unit with invalid unit
+  Scenario: Attempt to add person with invalid unit
     When    I add a key person with an invalid unit type
     Then    I should see an error that says please select a valid unit
 
