@@ -5,17 +5,17 @@ Feature: Permissions in a Proposal
   they are capable of performing with it.
 
   Background: A user has started a proposal
-    Given I am logged in as the admin
-    And   I begin a proposal
+    Given   I am logged in as the admin
+    And     I begin a proposal
 
   Scenario: The initiator is automatically an aggregator
-    When  I visit the proposal permissions page
-    Then  I am listed as an aggregator for the proposal
+    When    I visit the proposal permissions page
+    Then    I am listed as an aggregator for the proposal
 
   Scenario Outline: Adding various roles to proposals
-    When  I add a <Role> to the proposal
-    Then  That person can access the proposal
-    And   can <Permissions>
+    When    I add a <Role> to the proposal
+    Then    That person can access the proposal
+    And     can <Permissions>
 
     Examples:
     | Role             | Permissions                                    |
@@ -26,13 +26,13 @@ Feature: Permissions in a Proposal
     | Deleter          | delete the proposal                            |
 
   Scenario: Adding an approver
-    When  I add an approver to the proposal
-    And   I submit the proposal
-    Then  That person can access the proposal
-    And   can approve the proposal
+    When    I add an approver to the proposal
+    And     I submit the proposal
+    Then    That person can access the proposal
+    And     can approve the proposal
 
   Scenario: A person's role can be edited
-    Given  I assign a person a role
-    When   I change that person's role
-    Then   That person can access the proposal
-    And    Their permissions reflect their newly assigned role
+    Given   I assign a person a role
+    When    I change that person's role
+    Then    That person can access the proposal
+    And     Their permissions reflect their newly assigned role

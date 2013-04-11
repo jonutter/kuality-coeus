@@ -47,19 +47,19 @@ Feature: Proposal Actions Validations
       Then    the validation error should say sponsor deadline date not entered
       And     checking the proposal page shows an error that says sponsor deadline date not entered
 
-    Scenario: Validate proposal with an uncertified co-investigator
+    Scenario: Validate proposal with an un-certified co-investigator
       Given   I begin a proposal with an un-certified Co-Investigator
       When    I activate a validation check
       Then    the validation error should say the investigator needs to be certified
       And     checking the key personnel page shows a proposal person certification error that says the investigator needs to be certified
 
-    Scenario: Validate a proposal with an uncertified principal investigator
+    Scenario: Validate a proposal with an un-certified principal investigator
       Given   I begin a proposal with an un-certified Principal Investigator
       When    I activate a validation check
       Then    the validation error should say the principal needs to be certified
       And     checking the key personnel page shows a proposal person certification error that says the investigator needs to be certified
 
-    Scenario: Validate a proposal with an uncertified key person
+    Scenario: Validate a proposal with an un-certified key person
       Given   I begin a proposal where the un-certified key person has certification questions
       When    I activate a validation check
       Then    the validation error should say the key person needs to be certified
