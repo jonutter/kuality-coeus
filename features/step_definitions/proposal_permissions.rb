@@ -22,6 +22,7 @@ Then /^That person can access the proposal$/ do
   @permissions_user.sign_in
   @proposal.open_document
 end
+
 When /^can (.*)$/ do |permissions|
   case permissions
     when 'only update the Abstracts and Attachments page'
@@ -29,6 +30,10 @@ When /^can (.*)$/ do |permissions|
     when 'edit all parts of the proposal'
 
     when 'only update the budget'
+
+    when 'only read the proposal'
+
+    when 'delete the proposal'
 
   end
 end

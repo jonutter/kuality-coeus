@@ -30,7 +30,7 @@ class PermissionsObject
     on Permissions do |add|
       roles.each do |inst_var, role|
         instance_variable_get(inst_var).each do |username|
-          unless add.assigned_role(username).include? role
+          unless add.user_row(username).present? && add.assigned_role(username).include?(role)
             add.user_name.set username
             add.role.select role
             add.add
