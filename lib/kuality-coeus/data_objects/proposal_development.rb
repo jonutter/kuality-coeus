@@ -55,6 +55,7 @@ class ProposalDevelopmentObject
       #doc.explanation.set @explanation
       #doc.sponsor_deadline_date.set @sponsor_deadline_date
       doc.save
+      @permissions = make PermissionsObject, document_id: @document_id, aggregators: [@initiator]
     end
   end
 

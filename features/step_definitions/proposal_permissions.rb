@@ -11,3 +11,24 @@ Then /^I am listed as (a|an) (.*) for the proposal$/ do |x, role|
   on(Permissions).assigned_role(@user.user_name).should include role
 end
 
+When /^I assign (.*) as (a|an) (.*) to the proposal permissions$/ do |username, x, role|
+  # TODO: Add code here that can pick a user at random instead of requiring an exact username
+  @permissions_user = make UserObject, :custom=>{user_name: username, role: role}
+  @proposal.permissions.send(StringFactory.damballa(role+'s')) << username
+  @proposal.permissions.assign
+end
+
+Then /^That person can access the proposal$/ do
+  @permissions_user.sign_in
+  @proposal.open_document
+end
+When /^can (.*)$/ do |permissions|
+  case permissions
+    when 'only update the Abstracts and Attachments page'
+
+    when 'edit all parts of the proposal'
+
+    when 'only update the budget'
+
+  end
+end
