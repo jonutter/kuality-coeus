@@ -41,7 +41,7 @@ class ProposalDevelopmentObject
       @initiator=doc.initiator
       @created=doc.created
       doc.expand_all
-      fill_out_form doc, :description, :sponsor_code, :proposal_type, :activity_type, :lead_unit,
+      fill_out doc, :description, :sponsor_code, :proposal_type, :activity_type, :lead_unit,
                     :project_title, :project_start_date, :project_end_date, :explanation,
                     :sponsor_deadline_date
       #doc.description.set @description
@@ -111,7 +111,7 @@ class ProposalDevelopmentObject
   end
 
   def delete
-    open_document unless on_document?
+    open_document
     on(Proposal).proposal_actions
     on(ProposalActions).delete_proposal
     on(ConfirmationPage).yes
@@ -125,7 +125,7 @@ class ProposalDevelopmentObject
   end
 
   def view
-    open_document unless on_document?
+    open_document
     on Proposal do |page|
       page.proposal unless page.description.exists? || @status=='CANCELED'
     end

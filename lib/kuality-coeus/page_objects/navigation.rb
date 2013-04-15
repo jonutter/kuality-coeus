@@ -1,10 +1,12 @@
 module Navigation
 
   def open_document
-    visit DocumentSearch do |search|
-      search.document_id.set @document_id
-      search.search
-      search.open_doc @document_id
+    unless on_document?
+      visit DocumentSearch do |search|
+        search.document_id.set @document_id
+        search.search
+        search.open_doc @document_id
+      end
     end
   end
 

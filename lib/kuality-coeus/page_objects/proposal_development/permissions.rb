@@ -10,7 +10,8 @@ class Permissions < ProposalDevelopmentDocument
   action(:assigned_role) { |user, b| b.user_roles_table.row(text: /#{user}/)[5].text }
   action(:edit_role) { |user, b| b.user_roles_table.row(text: /#{user}/).button(name: /methodToCall.editRoles.line\d+.anchorUsers/).click }
   action(:delete) { |user, b| b.user_roles_table.row(text: /#{user}/).button(name: /methodToCall.deleteProposalUser.line\d+.anchorUsers/).click }
-  
+
+  # Note this is the table in the Users tab on the page...
   element(:user_roles_table) { |b| b.frm.table(id: 'user-roles') }
 
 end

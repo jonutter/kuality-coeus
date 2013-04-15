@@ -7,10 +7,10 @@ Feature: Permissions in a Proposal
   Background: A user has started a proposal
     Given   I am logged in as the admin
     And     I begin a proposal
-
+  @test
   Scenario: The initiator is automatically an aggregator
-    When    I visit the proposal permissions page
-    Then    I am listed as an aggregator for the proposal
+    When    I visit the proposal's Permissions page
+    Then    I am listed as an Aggregator for the proposal
 
   Scenario Outline: Adding various roles to proposals
     When    I add a <Role> to the proposal
