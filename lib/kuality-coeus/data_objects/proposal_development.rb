@@ -10,7 +10,7 @@ class ProposalDevelopmentObject
                 :sponsor_code, :project_start_date, :project_end_date, :explanation, :document_id,
                 :status, :initiator, :created, :sponsor_deadline_date, :key_personnel,
                 :special_review, :budget_versions, :permissions, :s2s_questionnaire,
-                :proposal_questions, :compliance_questions
+                :proposal_questions, :compliance_questions, :kuali_u_questions
 
   def initialize(browser, opts={})
     @browser = browser

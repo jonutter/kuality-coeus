@@ -18,6 +18,10 @@ class UserObject
         role: 'admin',
         user_name: 'admin'
     },
+    :aggregator=>{
+        role: 'aggregator',
+        user_name: 'jutter'
+    },
     :custom=>{}
   }
 

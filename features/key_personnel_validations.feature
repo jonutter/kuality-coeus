@@ -5,12 +5,12 @@ Feature: Key Personnel Validations
   before I submit the proposal
 
   Background: KC user is logged in as admin
-    Given I am logged in as admin
-    And   I begin a proposal
+    Given   I am logged in as an admin
+    And     I initiate a proposal
 
   Scenario Outline: Unable to add Credit Split percentages above 100 or less than 0
-    When  I add a Key Person with a <Type> credit split of <Value>
-    Then  I should see an error that the credit split is not a valid percentage
+    When    I add a Key Person with a <Type> credit split of <Value>
+    Then    I should see an error that the credit split is not a valid percentage
 
     Examples:
     | Type           | Value  |

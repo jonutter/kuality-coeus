@@ -5,15 +5,15 @@ Given /^I am logged in as (a|an|the) (.*)$/ do |x, user|
   # will be nil prior to this. If there's any chance
   # @ user won't be nil, do not use this step def in
   # the scenario.
-  @user = make UserObject, user: damballa(user)
+  @user = make UserObject, user: StringFactory.damballa(user)
   @user.sign_in unless @user.logged_in?
 end
 
-And /^I begin a proposal$/ do
+And /^I initiate a proposal$/ do
   @proposal = create ProposalDevelopmentObject
 end
 
-When /^I begin a proposal without a (.*)$/ do |name|
+When /^I initiate a proposal without a (.*)$/ do |name|
   name=~/Type/ || name=='Lead Unit' ? value='select' : value=''
   field = StringFactory.damballa(name).to_sym
   @proposal = create ProposalDevelopmentObject, field=>value
@@ -27,7 +27,7 @@ Then /^I should see an error that says "(.* is a required field.)"$/ do |text|
   end
 end
 
-When /^I begin a proposal with an invalid sponsor code$/ do
+When /^I initiate a proposal with an invalid sponsor code$/ do
   @proposal = create ProposalDevelopmentObject, :sponsor_code=>'000000'
 end
 
