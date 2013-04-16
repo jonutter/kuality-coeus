@@ -132,6 +132,12 @@ class ProposalDevelopmentObject
     end
   end
 
+  def submit
+    open_document
+    on(Proposal).proposal_actions
+    on(ProposalActions).submit
+  end
+
   # =======
   private
   # =======

@@ -52,3 +52,7 @@ When /^I try to add two (.*)s$/ do |rol|
    {first_name: 'Pam', last_name: 'Brown', role: rol}]
   .each { |opts| @proposal.add_key_person opts }
 end
+
+When /^I submit the proposal$/ do
+  @proposal.submit
+end

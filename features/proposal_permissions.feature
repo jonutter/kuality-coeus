@@ -27,6 +27,7 @@ Feature: Permissions in a Proposal
 
   Scenario: Adding an approver
     When    I add an approver to the proposal
+    And     I complete the proposal
     And     I submit the proposal
     Then    That person can access the proposal
     And     can approve the proposal
