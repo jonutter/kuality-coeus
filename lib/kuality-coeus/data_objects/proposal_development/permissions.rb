@@ -34,6 +34,7 @@ class PermissionsObject
             add.user_name.set username
             add.role.select role
             add.add
+            add.user_row(username).wait_until_present
           end
         end
       end

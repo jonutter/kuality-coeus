@@ -13,12 +13,13 @@ end
 
 When /^I assign (.*) as (a|an) (.*) to the proposal permissions$/ do |username, x, role|
   # TODO: Add code here that can pick a user at random instead of requiring an exact username
-  @permissions_user = make UserObject, :custom=>{user_name: username, role: role}
+  @permissions_user = make UserObject, :user=>:custom, user_name: username, role: role
   @proposal.permissions.send(StringFactory.damballa(role+'s')) << username
   @proposal.permissions.assign
 end
 
 Then /^That person can access the proposal$/ do
+  @user.sign_out
   @permissions_user.sign_in
   @proposal.open_document
 end
@@ -34,6 +35,8 @@ When /^can (.*)$/ do |permissions|
     when 'only read the proposal'
 
     when 'delete the proposal'
+
+    when 'approve the proposal'
 
   end
 end

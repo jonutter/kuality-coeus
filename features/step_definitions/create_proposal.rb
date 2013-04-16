@@ -6,7 +6,7 @@ Given /^I am logged in as (a|an|the) (.*)$/ do |x, user|
   # @user won't be nil, do not use this step def in
   # the scenario.
   @user = make UserObject, user: StringFactory.damballa(user)
-  @user.sign_in unless @user.logged_in?
+  @user.sign_in
 end
 
 And /^I begin a proposal$/ do
