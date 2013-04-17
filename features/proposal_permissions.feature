@@ -11,7 +11,7 @@ Feature: Permissions in a Proposal
   Scenario: The initiator is automatically an aggregator
     When    I visit the proposal's Permissions page
     Then    I am listed as an Aggregator for the proposal
-  @test
+
   Scenario Outline: Adding various roles to proposals
     When    I assign jcovey as a <Role> to the proposal permissions
     Then    That person can access the proposal
@@ -24,8 +24,8 @@ Feature: Permissions in a Proposal
     | Budget Creator   | only update the budget                         |
     | Viewer           | only read the proposal                         |
     | Deleter          | delete the proposal                            |
-
-  Scenario: Adding an approver
+  @test
+  Scenario: Adding an Approver
     When    I add an approver to the proposal
     And     I complete the proposal
     And     I submit the proposal

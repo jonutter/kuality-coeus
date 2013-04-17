@@ -4,7 +4,8 @@ class PermissionsObject
   include DataFactory
   include Navigation
 
-  attr_accessor :document_id, :aggregators, :budget_creators, :narrative_writers, :viewers
+  attr_accessor :document_id, :aggregators, :budget_creators, :narrative_writers,
+                :viewers, :approvers
 
   def initialize(browser, opts={})
     @browser = browser
@@ -13,7 +14,8 @@ class PermissionsObject
         budget_creators:   [], # Arrays should contain usernames
         narrative_writers: [],
         viewers:           [],
-        deleters:          []
+        deleters:          [],
+        approvers:         []
     }
 
     set_options(defaults.merge(opts))
@@ -106,7 +108,8 @@ class PermissionsObject
         :@aggregators=>'Aggregator',
         :@viewers=>'Viewer',
         :@budget_creators=>'Budget Creator',
-        :@narrative_writers=>'Narrative Writer'
+        :@narrative_writers=>'Narrative Writer',
+        :@approvers=>'approver'
     }
   end
 

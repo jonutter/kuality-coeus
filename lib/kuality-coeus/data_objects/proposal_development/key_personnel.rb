@@ -2,6 +2,7 @@ class KeyPersonObject
 
   include Foundry
   include DataFactory
+  include DateFactory
   include StringFactory
   include Navigation
 
@@ -139,9 +140,12 @@ class KeyPersonObject
   end
 
   # This method requires a parameter that is an Array
-  # of Hashes. Example:
+  # of Hashes. Though it defaults to the person objects
+  # @units variable.
+  #
+  # Example:
   # [{:number=>"UNIT NUMBER", :responsibility=>"33.33"}]
-  def update_unit_credit_splits units
+  def update_unit_credit_splits(units=@units)
     splits=[:responsibility, :financial, :recognition]
     units.each do |unit|
       on KeyPersonnel do |update|
@@ -245,7 +249,7 @@ class KeyPersonnelCollection < Array
   # returns an array of KeyPersonObjects who have associated
   # units
   def with_units
-    self.collect { |person| person.units.size > 0 }
+    self.find_all { |person| person.units.size > 0 }
   end
 
   # IMPORTANT: This method returns a KeyPersonObject--meaning that if there

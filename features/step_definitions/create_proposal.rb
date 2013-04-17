@@ -56,3 +56,19 @@ end
 When /^I submit the proposal$/ do
   @proposal.submit
 end
+
+When /^I complete the proposal$/ do
+  @proposal.add_key_person
+  @proposal.set_valid_credit_splits
+  opts={document_id: @proposal.document_id}
+  @proposal.kuali_u_questions = create KualiUniversityQuestionsObject, opts
+  @proposal.proposal_questions = create ProposalQuestionsObject, opts
+  @proposal.compliance_questions = create ComplianceQuestionsObject, opts
+  @proposal.s2s_questionnaire = create S2SQuestionnaireObject, opts
+end
+
+When /^I add an approver to the proposal$/ do
+  @permissions_user = make UserObject, :user=>:custom, user_name: 'jcovey', role: 'approver'
+  @proposal.permissions.send(StringFactory.damballa(@permissions_user.role+'s')) << @permissions_user.user_name
+  @proposal.permissions.assign
+end
