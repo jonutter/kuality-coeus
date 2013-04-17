@@ -41,17 +41,21 @@ class ProposalDevelopmentObject
       @initiator=doc.initiator
       @created=doc.created
       doc.expand_all
-      doc.description.set @description
-      doc.sponsor_code.set @sponsor_code
-      doc.proposal_type.pick! @proposal_type
-      doc.activity_type.pick! @activity_type
-      doc.lead_unit.pick! @lead_unit
-      doc.project_title.set @project_title
-      doc.project_start_date.set @project_start_date
-      doc.project_end_date.set @project_end_date
-      doc.explanation.set @explanation
-      doc.sponsor_deadline_date.set @sponsor_deadline_date
+      fill_out doc, :description, :sponsor_code, :proposal_type, :activity_type, :lead_unit,
+                    :project_title, :project_start_date, :project_end_date, :explanation,
+                    :sponsor_deadline_date
+      #doc.description.set @description
+      #doc.sponsor_code.set @sponsor_code
+      #doc.proposal_type.pick! @proposal_type
+      #doc.activity_type.pick! @activity_type
+      #doc.lead_unit.pick! @lead_unit
+      #doc.project_title.set @project_title
+      #doc.project_start_date.set @project_start_date
+      #doc.project_end_date.set @project_end_date
+      #doc.explanation.set @explanation
+      #doc.sponsor_deadline_date.set @sponsor_deadline_date
       doc.save
+      @permissions = make PermissionsObject, document_id: @document_id, aggregators: [@initiator]
     end
   end
 
@@ -108,7 +112,7 @@ class ProposalDevelopmentObject
   end
 
   def delete
-    open_document unless on_document?
+    open_document
     on(Proposal).proposal_actions
     on(ProposalActions).delete_proposal
     on(ConfirmationPage).yes
@@ -122,7 +126,7 @@ class ProposalDevelopmentObject
   end
 
   def view
-    open_document unless on_document?
+    open_document
     on Proposal do |page|
       page.proposal unless page.description.exists? || @status=='CANCELED'
     end

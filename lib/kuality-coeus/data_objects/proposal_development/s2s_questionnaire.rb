@@ -77,26 +77,31 @@ class S2SQuestionnaireObject
         fat.send("ftes_for_fy_#{n}".to_sym).fit eval("@ftes_for_fy_#{n}")
         fat.send("year_#{n+1}".to_sym, eval("@year_#{n+1}")) unless n==6
       end
-      fat.explain_potential_effects.fit @explain_potential_effects
+      #fat.explain_potential_effects.fit @explain_potential_effects
       1.upto(5) do |n|
         fat.send("support_provided_#{n}".to_sym).pick! eval("@support_provided_#{n}")
       end
-      fat.explain_support.fit @explain_support
-      fat.pis_us_govt_agency.pick! @pis_us_govt_agency
-      fat.total_amount_requested.fit @total_amount_requested
-      fat.former_pi.fit @former_pi
-      fat.former_institution.fit @former_institution
+      #fat.explain_support.fit @explain_support
+      #fat.pis_us_govt_agency.pick! @pis_us_govt_agency
+      #fat.total_amount_requested.fit @total_amount_requested
+      #fat.former_pi.fit @former_pi
+      #fat.former_institution.fit @former_institution
       1.upto(20) do |n|
         fat.send("stem_cell_line_#{n}".to_sym).fit eval("@stem_cell_line_#{n}")
       end
-      fat.explain_environmental_impact.fit @explain_environmental_impact
-      fat.explain_exemption.fit @explain_exemption
-      fat.explain_historic_designation.fit @explain_historic_designation
-      fat.identify_countries.fit @identify_countries
-      fat.explain_international_activities.fit @explain_international_activities
-      fat.submitted_to_govt_agency.fit @submitted_to_govt_agency
-      fat.application_date.fit @application_date
-      fat.program.pick! @program
+      #fat.explain_environmental_impact.fit @explain_environmental_impact
+      #fat.explain_exemption.fit @explain_exemption
+      #fat.explain_historic_designation.fit @explain_historic_designation
+      #fat.identify_countries.fit @identify_countries
+      #fat.explain_international_activities.fit @explain_international_activities
+      #fat.submitted_to_govt_agency.fit @submitted_to_govt_agency
+      #fat.application_date.fit @application_date
+      #fat.program.pick! @program
+      fill_out fat, :explain_potential_effects, :explain_support, :pis_us_govt_agency,
+                    :total_amount_requested, :former_pi, :former_institution,
+                    :explain_environmental_impact, :explain_exemption, :explain_historic_designation,
+                    :identify_countries, :explain_international_activities, :submitted_to_govt_agency,
+                    :application_date, :program
     end
   end
 

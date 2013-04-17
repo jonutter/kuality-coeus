@@ -2,7 +2,6 @@ class PermissionsObject
 
   include Foundry
   include DataFactory
-  include StringFactory
   include Navigation
 
   attr_accessor :document_id, :aggregators, :budget_creators, :narrative_writers, :viewers
@@ -13,7 +12,8 @@ class PermissionsObject
     defaults = {
         budget_creators:   [], # Arrays should contain usernames
         narrative_writers: [],
-        viewers:           []
+        viewers:           [],
+        deleters:          []
     }
 
     set_options(defaults.merge(opts))
@@ -30,7 +30,7 @@ class PermissionsObject
     on Permissions do |add|
       roles.each do |inst_var, role|
         instance_variable_get(inst_var).each do |username|
-          unless add.assigned_role(username).include? role
+          unless add.user_row(username).present? && add.assigned_role(username).include?(role)
             add.user_name.set username
             add.role.select role
             add.add
@@ -38,9 +38,12 @@ class PermissionsObject
         end
       end
       add.save
+      # TODO: Add some logic here to use in case the user is already added to the list (so use add_roles)
     end
   end
 
+  # This method is used when the user is already assigned a
+  # role and you need to assign them more roles.
   def add_roles(username, *roles)
     # get to the right page...
     navigate
@@ -53,7 +56,7 @@ class PermissionsObject
     on Roles do |page|
       roles.each do |role|
         # Set the appropriate role checkbox...
-        page.send(damballa(role)).set
+        page.send(StringFactory.damballa(role)).set
         # Add the username to the correct role
         # instance variable...
         instance_variable_get(roles.invert[role]) << username
@@ -81,7 +84,7 @@ class PermissionsObject
   # Nav Aids...
 
   def navigate
-    open_document unless on_document?
+    open_document
     on(Proposal).permissions unless on_page?
   end
 

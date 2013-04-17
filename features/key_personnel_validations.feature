@@ -5,8 +5,8 @@ Feature: Key Personnel Validations
   before I submit the proposal
 
   Background: KC user is logged in as admin
-    Given   I am logged in as an admin
-    And     I initiate a proposal
+    Given   I am logged in as the admin
+    And     I begin a proposal
 
   Scenario Outline: Unable to add Credit Split percentages above 100 or less than 0
     When    I add a Key Person with a <Type> credit split of <Value>
@@ -30,6 +30,10 @@ Feature: Key Personnel Validations
     When    I try to add two Principal Investigators
     Then    I should see an error that says only one pi role is allowed
 
-  Scenario: Attempt to add unit with invalid unit
+  Scenario: Attempt to add person with invalid unit
     When    I add a key person with an invalid unit type
     Then    I should see an error that says please select a valid unit
+
+  Scenario: Change role of person entered incorrectly
+    When    I add a person with an incorrect role
+    Then    I should be able to update the person's role

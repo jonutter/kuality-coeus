@@ -9,7 +9,9 @@ class UserObject
     # Syntax:
     # :user=>hash_of_user_settings
     #
-    # Note: Except in the "custom" situation,
+    # Note: When you are adding a
+    # canned user type to this list, then,
+    # except in the "custom" situation,
     # please make the Key for the user hash
     # match the role value, snake-ified, of
     # course.

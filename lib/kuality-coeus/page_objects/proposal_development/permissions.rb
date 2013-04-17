@@ -7,11 +7,14 @@ class Permissions < ProposalDevelopmentDocument
   element(:role) { |b| b.frm.select(id: 'newProposalUser.roleName') }
   action(:add) { |b| b.frm.button(name: 'methodToCall.addProposalUser.anchorUsers').click }
 
-  action(:assigned_role) { |user, b| b.user_roles_table.row(text: /#{user}/)[5].text }
-  action(:edit_role) { |user, b| b.user_roles_table.row(text: /#{user}/).button(name: /methodToCall.editRoles.line\d+.anchorUsers/).click }
-  action(:delete) { |user, b| b.user_roles_table.row(text: /#{user}/).button(name: /methodToCall.deleteProposalUser.line\d+.anchorUsers/).click }
-  
+  action(:assigned_role) { |user, b| b.user_row(user)[5].text }
+  action(:edit_role) { |user, b| b.user_row(user).button(name: /methodToCall.editRoles.line\d+.anchorUsers/).click }
+  action(:delete) { |user, b| b.user_row(user).button(name: /methodToCall.deleteProposalUser.line\d+.anchorUsers/).click }
+
+  # Note this is the table in the Users tab on the page...
   element(:user_roles_table) { |b| b.frm.table(id: 'user-roles') }
+
+  action(:user_row) { |user, b| b.user_roles_table.row(text: /#{user}/) }
 
 end
 

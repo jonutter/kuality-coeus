@@ -20,7 +20,7 @@ class ProposalQuestionsObject
     # to use "Y" and "N" as the instance variables associated with them.
     defaults = {
       agree_to_nih_policy: 'Y',
-      policy_review_date:  right_now[:date_w_slashes],
+      policy_review_date:  right_now[:date_w_slashes]
     }
 
     set_options(defaults.merge(opts))
@@ -31,8 +31,9 @@ class ProposalQuestionsObject
     navigate
     on Questions do |pq|
       pq.show_proposal_questions
-      pq.agree_to_nih_policy @agree_to_nih_policy
-      pq.policy_review_date.set @policy_review_date
+      fill_out pq, :agree_to_nih_policy, :policy_review_date
+      #pq.agree_to_nih_policy @agree_to_nih_policy
+      #pq.policy_review_date.set @policy_review_date
       pq.save
     end
   end

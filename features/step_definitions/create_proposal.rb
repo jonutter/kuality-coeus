@@ -3,7 +3,7 @@ Given /^I am logged in as (a|an|the) (.*)$/ do |x, user|
   # assuming that it's the creation step for the
   # user object in the scenario, meaning that @user
   # will be nil prior to this. If there's any chance
-  # @ user won't be nil, do not use this step def in
+  # @user won't be nil, do not use this step def in
   # the scenario.
   @user = make UserObject, user: StringFactory.damballa(user)
   @user.sign_in unless @user.logged_in?
