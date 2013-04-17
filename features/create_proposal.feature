@@ -4,7 +4,7 @@ Feature: Creating proposals
 
   Background: KC user is logged in as admin
       Given   I am logged in as the admin
-
+    @test
     Scenario Outline: Attempt to create a proposal while leaving the required text-fields null
       When    I begin a proposal without a <Field Name>
       Then    I should see an error that says "<Field Name> is a required field."

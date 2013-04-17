@@ -6,7 +6,7 @@ Given /^I am logged in as (a|an|the) (.*)$/ do |x, user|
   # @user won't be nil, do not use this step def in
   # the scenario.
   @user = make UserObject, user: StringFactory.damballa(user)
-  @user.sign_in unless @user.logged_in?
+  @user.sign_in
 end
 
 And /^I initiate a proposal$/ do
@@ -51,4 +51,24 @@ When /^I try to add two (.*)s$/ do |rol|
   [{first_name: 'Dick', last_name: 'Keogh', role: rol},
    {first_name: 'Pam', last_name: 'Brown', role: rol}]
   .each { |opts| @proposal.add_key_person opts }
+end
+
+When /^I submit the proposal$/ do
+  @proposal.submit
+end
+
+When /^I complete the proposal$/ do
+  @proposal.add_key_person
+  @proposal.set_valid_credit_splits
+  opts={document_id: @proposal.document_id}
+  @proposal.kuali_u_questions = create KualiUniversityQuestionsObject, opts
+  @proposal.proposal_questions = create ProposalQuestionsObject, opts
+  @proposal.compliance_questions = create ComplianceQuestionsObject, opts
+  @proposal.s2s_questionnaire = create S2SQuestionnaireObject, opts
+end
+
+When /^I add an approver to the proposal$/ do
+  @permissions_user = make UserObject, :user=>:custom, user_name: 'jcovey', role: 'approver'
+  @proposal.permissions.send(StringFactory.damballa(@permissions_user.role+'s')) << @permissions_user.user_name
+  @proposal.permissions.assign
 end

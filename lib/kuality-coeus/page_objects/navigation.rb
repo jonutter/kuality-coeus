@@ -32,10 +32,16 @@ module Navigation
     methods={
         'Watir::TextField' => lambda{|p, f| p.send(f).fit(ivg f)},
         'Watir::Select'    => lambda{|p, f| p.send(f).pick!(ivg f)},
-        'Watir::Radio'     => lambda{|p, f| p.send(f, ivg(f))}
+        'Watir::Radio'     => lambda{|p, f| p.send(f, ivg(f)) unless ivg(f)==nil }
     }
     fields.each do |field|
-      methods[page.send(field).class.to_s].call(page, field)
+      # TODO: Someday see if there's a way to fix things so this rescue isn't necessary...
+      begin
+        key = page.send(field).class.to_s
+      rescue NoMethodError
+        key = 'Watir::Radio'
+      end
+      methods[key].call(page, field)
     end
   end
   alias_method :fill_in, :fill_out

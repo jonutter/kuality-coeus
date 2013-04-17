@@ -25,7 +25,14 @@ class Questions < ProposalDevelopmentDocument
   # page.civil_service "Y" #=> The "Y" is the value of the instance variable, and could also be "N"
   # ...
   [0,1,4,7,10,13,16,19,21,28,31,32,34,36,37,38,39,40,41,42,43,64,65,66,68,70,72,75,77,80,81].each_with_index do |num, index|
-    action("s2s_r#{index+1}".to_sym) { |answer, b| b.q_num_div(num).radio(value: answer).fit answer }
+    action("s2s_r#{index+1}"
+           .to_sym) { |answer, b|
+                                  b
+                                  .q_num_div(
+                                      num.to_s)
+                                  .radio(value: answer)
+                                  .set
+    }
   end
   alias_method :civil_service, :s2s_r1
   alias_method :total_ftes, :s2s_r2
@@ -98,13 +105,13 @@ class Questions < ProposalDevelopmentDocument
   # Proposal Questions...
   action(:show_proposal_questions) { |b| b.frm.button(name: 'methodToCall.toggleTab.tabAProposalQuestions').click }
 
-  action(:agree_to_nih_policy) { |answer, b| b.frm.radio(name: 'document.developmentProposalList[0].proposalYnq[2].answer', value: answer).fit answer }
+  action(:agree_to_nih_policy) { |answer, b| b.frm.radio(name: 'document.developmentProposalList[0].proposalYnq[2].answer', value: answer).set }
   element(:policy_review_date) { |b| b.frm.text_field(id: 'document.developmentProposalList[0].proposalYnq[2].reviewDate') }
 
   # Compliance...
   action(:show_compliance_questions) { |b| b.frm.button(name: 'methodToCall.toggleTab.tabBCompliance').click }
 
-  action(:agree_to_ethical_conduct) { |answer, b| b.frm.radio(name: 'document.developmentProposalList[0].proposalYnq[1].answer', value: answer).fit answer }
+  action(:agree_to_ethical_conduct) { |answer, b| b.frm.radio(name: 'document.developmentProposalList[0].proposalYnq[1].answer', value: answer).set }
   element(:conduct_review_date) { |b| b.frm.text_field(name: 'document.developmentProposalList[0].proposalYnq[1].reviewDate') }
 
   # Kuali University
@@ -121,17 +128,17 @@ class Questions < ProposalDevelopmentDocument
 
   action(:show_kuali_university) { |b| b.frm.button(name: 'methodToCall.toggleTab.tabCKualiUniversity').click }
 
-  action(:dual_dept_appointment) { |answer, b| b.frm.radio(value: answer, name: 'document.developmentProposalList[0].proposalYnq[0].answer').fit answer }
+  action(:dual_dept_appointment) { |answer, b| b.frm.radio(value: answer, name: 'document.developmentProposalList[0].proposalYnq[0].answer').set }
   element(:dual_dept_review_date) { |b| b.frm.text_field(name: 'document.developmentProposalList[0].proposalYnq[0].reviewDate') }
   element(:dual_dept_explanation) { |b| b.frm.text_field(name: 'document.developmentProposalList[0].proposalYnq[0].explanation') }
 
-  action(:on_sabbatical) { |answer, b| b.frm.radio(value: answer, name: 'document.developmentProposalList[0].proposalYnq[3].answer').fit answer }
+  action(:on_sabbatical) { |answer, b| b.frm.radio(value: answer, name: 'document.developmentProposalList[0].proposalYnq[3].answer').set }
   element(:sabbatical_review_date) { |b| b.frm.text_field(name: 'document.developmentProposalList[0].proposalYnq[3].reviewDate') }
   
-  action(:used_by_small_biz) { |answer, b| b.frm.radio(value: answer, name: 'document.developmentProposalList[0].proposalYnq[4].answer').fit answer }
+  action(:used_by_small_biz) { |answer, b| b.frm.radio(value: answer, name: 'document.developmentProposalList[0].proposalYnq[4].answer').set }
   element(:small_biz_review_date) { |b| b.frm.text_field(name: 'document.developmentProposalList[0].proposalYnq[4].reviewDate') }
 
-  action(:understand_deadline) { |answer, b| b.frm.radio(value: answer, name: 'document.developmentProposalList[0].proposalYnq[5].answer').fit answer }
+  action(:understand_deadline) { |answer, b| b.frm.radio(value: answer, name: 'document.developmentProposalList[0].proposalYnq[5].answer').set }
   element(:deadline_review_date) { |b| b.frm.text_field(name: 'document.developmentProposalList[0].proposalYnq[5].reviewDate') }
   
   private

@@ -3,7 +3,7 @@ class UserObject
   include Foundry
   include DataFactory
 
-  attr_accessor :user_name, :role
+  attr_accessor :user_name, :role, :logged_in
 
   DEFAULT_USERS = {
     # Syntax:
@@ -29,37 +29,50 @@ class UserObject
 
   def initialize(browser, opts={})
     @browser = browser
+    # TODO: This syntax is in dire need of improvement...
     opts[:user]=:admin if opts[:user]==nil
     defaults = DEFAULT_USERS[opts[:user]]
     set_options defaults.merge(opts)
   end
 
   def sign_in
-    if logged_out?
-      user_login
-    else # Log the current user out, then log in
-      log_out
-      user_login
-    end
+    log_out
+    login
   end
   alias_method :log_in, :sign_in
 
+  alias_method :signed_in, :logged_in
+
+  def logged_out
+    !@logged_in
+  end
+  alias_method :signed_out, :logged_out
+
   def logged_in?
-    if login_info.exists?
-      login_info.text=~/#{@user_name}/ ? true : false
-    else
-      false
-    end
+    @logged_in
   end
   alias_method :signed_in?, :logged_in?
 
   def logged_out?
-    !logged_in?
+    logged_out
   end
   alias_method :signed_out?, :logged_out?
 
   def log_out
-    s_o.click if s_o.present?
+  # This _might_ cause an infinite loop, but I'm
+  # hoping not...
+    if s_o.present?
+      s_o.click
+    else
+      visit Login do |page|
+        if page.username.present?
+          # do nothing
+        else
+          log_out
+        end
+      end
+    end
+    @logged_in = false
   end
   alias_method :sign_out, :log_out
 
@@ -67,19 +80,18 @@ class UserObject
   private
   #========
 
-  def user_login
-    visit Login do |log_in|
-      log_in.username.set @user_name
-      log_in.login
+  def login
+    unless logged_in?
+      visit Login do |log_in|
+        log_in.username.set @user_name
+        log_in.login
+      end
+      @logged_in=true
     end
   end
 
   def s_o
     @browser.button(value: 'Logout')
-  end
-
-  def login_info
-    @browser.div(id: 'login-info')
   end
 
 end
