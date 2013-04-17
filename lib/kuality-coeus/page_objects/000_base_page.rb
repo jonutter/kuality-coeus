@@ -5,7 +5,7 @@ class BasePage < PageFactory
   class << self
 
     def document_header_elements
-      element(:headerinfo_table) { |b| b.frm.div(class: 'headerbox').table(class: 'headerinfo') }
+      element(:headerinfo_table) { |b| b.frm.div(id: 'headerarea').table(class: 'headerinfo') }
 
       value(:document_id) { |p| p.headerinfo_table[0][1].text }
       alias_method :doc_nbr, :document_id
@@ -83,10 +83,15 @@ module Watir
     # Included here because, in a sense, the frame element
     # is a part of the "base page"
     def frm
-      if frame(id: 'iframeportlet').exist?
-        frame(id: 'iframeportlet')
-      else
-        self
+      case
+        when frame(id: 'iframeportlet').exist?
+          frame(id: 'iframeportlet')
+        when frame(id: /easyXDM_default\d+_provider/).frame(id: 'iframeportlet').exist?
+          frame(id: /easyXDM_default\d+_provider/).frame(id: 'iframeportlet')
+        when frame(id: /easyXDM_default\d+_provider/).exist?
+          frame(id: /easyXDM_default\d+_provider/)
+        else
+          self
       end
     end
   end

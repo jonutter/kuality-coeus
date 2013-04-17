@@ -36,6 +36,9 @@ module Navigation
     }
     fields.each do |field|
       # TODO: Someday see if there's a way to fix things so this rescue isn't necessary...
+      # It's here because the radio button "element" definitions
+      # require a parameter, so just sending the method to the page
+      # is not going to work.
       begin
         key = page.send(field).class.to_s
       rescue NoMethodError

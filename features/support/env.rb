@@ -29,4 +29,5 @@ Before do
   @browser = kuality.browser
 end
 
-at_exit { kuality.browser.close }
+# Comment out to help with debugging...
+# at_exit { kuality.browser.close }

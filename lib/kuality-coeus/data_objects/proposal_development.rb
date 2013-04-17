@@ -6,8 +6,8 @@ class ProposalDevelopmentObject
   include DateFactory
   include Navigation
   
-  attr_accessor :description, :proposal_type, :lead_unit, :activity_type, :project_title,
-                :sponsor_code, :project_start_date, :project_end_date, :explanation, :document_id,
+  attr_accessor :proposal_type, :lead_unit, :activity_type, :project_title,
+                :sponsor_code, :project_start_date, :project_end_date, :document_id,
                 :status, :initiator, :created, :sponsor_deadline_date, :key_personnel,
                 :special_review, :budget_versions, :permissions, :s2s_questionnaire,
                 :proposal_questions, :compliance_questions, :kuali_u_questions
@@ -16,7 +16,6 @@ class ProposalDevelopmentObject
     @browser = browser
 
     defaults = {
-      description:           random_alphanums,
       proposal_type:         'New',
       lead_unit:             '::random::',
       activity_type:         '::random::',
@@ -41,8 +40,8 @@ class ProposalDevelopmentObject
       @initiator=doc.initiator
       @created=doc.created
       doc.expand_all
-      fill_out doc, :description, :sponsor_code, :proposal_type, :activity_type, :lead_unit,
-                    :project_title, :project_start_date, :project_end_date, :explanation,
+      fill_out doc, :sponsor_code, :proposal_type, :activity_type, :lead_unit,
+                    :project_title, :project_start_date, :project_end_date,
                     :sponsor_deadline_date
       doc.save
       @permissions = make PermissionsObject, document_id: @document_id, aggregators: [@initiator]
