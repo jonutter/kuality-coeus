@@ -68,7 +68,7 @@ When /^I complete the proposal$/ do
 end
 
 When /^I add an approver to the proposal$/ do
-  @permissions_user = make UserObject, :user=>:custom, user_name: 'jcovey', role: 'approver'
+  @permissions_user = make UserObject, :user=>:custom, user_name: 'mwmartin', role: 'approver'
   @proposal.permissions.send(StringFactory.damballa(@permissions_user.role+'s')) << @permissions_user.user_name
   @proposal.permissions.assign
 end

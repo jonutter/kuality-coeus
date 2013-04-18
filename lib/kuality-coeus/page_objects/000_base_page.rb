@@ -1,6 +1,7 @@
 class BasePage < PageFactory
 
   action(:use_new_tab) { |b| b.windows.first.close; b.windows.last.use }
+  action(:loading) { |b| b.frm.image(alt: 'working...').wait_while_present }
 
   class << self
 
@@ -21,13 +22,13 @@ class BasePage < PageFactory
     end
 
     def global_buttons
-      action(:submit) { |b| b.frm.button(class: 'globalbuttons', title: 'submit').click }
-      action(:save) { |b| b.frm.button(class: 'globalbuttons', title: 'save').click }
-      action(:blanket_approve) { |b| b.frm.button(class: 'globalbuttons', title: 'blanket approve').click }
-      action(:close) { |b| b.frm.button(class: 'globalbuttons', title: 'close').click }
-      action(:cancel) { |b| b.frm.button(class: 'globalbuttons', title: 'cancel').click }
-      action(:reload) { |b| b.frm.button(class: 'globalbuttons', title: 'reload').click }
-      action(:delete_selected) { |b| b.frm.button(class: 'globalbuttons', name: 'methodToCall.deletePerson').click }
+      action(:submit) { |b| b.frm.button(class: 'globalbuttons', title: 'submit').click; b.loading }
+      action(:save) { |b| b.frm.button(class: 'globalbuttons', title: 'save').click; b.loading }
+      action(:blanket_approve) { |b| b.frm.button(class: 'globalbuttons', title: 'blanket approve').click; b.loading }
+      action(:close) { |b| b.frm.button(class: 'globalbuttons', title: 'close').click; b.loading }
+      action(:cancel) { |b| b.frm.button(class: 'globalbuttons', title: 'cancel').click; b.loading }
+      action(:reload) { |b| b.frm.button(class: 'globalbuttons', title: 'reload').click; b.loading }
+      action(:delete_selected) { |b| b.frm.button(class: 'globalbuttons', name: 'methodToCall.deletePerson').click; b.loading }
     end
 
     def tab_buttons
@@ -35,9 +36,9 @@ class BasePage < PageFactory
     end
 
     def tiny_buttons
-      action(:search) { |b| b.frm.button(title: 'search', value: 'search').click }
-      action(:clear) { |b| b.frm.button(name: 'methodToCall.clearValues').click }
-      action(:cancel) { |b| b.frm.link(title: 'cancel').click }
+      action(:search) { |b| b.frm.button(title: 'search', value: 'search').click; b.loading }
+      action(:clear) { |b| b.frm.button(name: 'methodToCall.clearValues').click; b.loading }
+      action(:cancel) { |b| b.frm.link(title: 'cancel').click; b.loading }
     end
 
     def search_results_table
