@@ -5,30 +5,18 @@ class UserObject
 
   attr_accessor :user_name, :role, :logged_in
 
-  DEFAULT_USERS = {
-    # Syntax:
-    # :user=>hash_of_user_settings
-    #
-    # Note: When you are adding a
-    # canned user type to this list, then,
-    # except in the "custom" situation,
-    # please make the Key for the user hash
-    # match the role value, snake-ified, of
-    # course.
-    #
-    :admin=>{
-        role: 'admin',
-        user_name: 'admin'
-    },
-    :custom=>{}
-  }
+  DEFAULT_USERS = YAML.load_file("#{File.dirname(__FILE__)}/users.yml")
 
   def initialize(browser, opts={})
     @browser = browser
-    # TODO: This syntax is in dire need of improvement...
     opts[:user]=:admin if opts[:user]==nil
     defaults = DEFAULT_USERS[opts[:user]]
+    exit
     set_options defaults.merge(opts)
+  end
+
+  def create
+
   end
 
   def sign_in
