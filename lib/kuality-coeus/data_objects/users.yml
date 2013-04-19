@@ -1,0 +1,67 @@
+:admin:
+  :first_name: admin
+  :last_name:  admin
+:brunelle:  # "Principal Name"
+  :description:      asdfasdf
+  :affiliation_type: Faculty
+  :campus_code:      'UN - University'
+  :employee_id:      brunelle
+  :employee_status:  Active
+  :employee_type:    Professional
+  :base_salary:      100
+  :first_name:       ANTWAN
+  :last_name:        BRUNELLE
+  :groups:
+    - 2001 # KcAdmin
+    - 2003 # ProposalAdmin
+    - 2004 # IRBAdmin
+:aemcafee:  # "Principal Name"
+  :description:      kkjhgk
+  :affiliation_type: Faculty
+  :campus_code:      'UN - University'
+  :employee_id:      aemcafee
+  :employee_status:  Active
+  :employee_type:    Professional
+  :base_salary:      123
+  :first_name:       ALAN
+  :last_name:        MCAFEE
+  :groups:
+    - 2001 # KcAdmin
+    - 2003 # ProposalAdmin
+    - 2004 # IRBAdmin
+  :roles:
+    - 105 # Protocol Aggregator
+    - 1421 # IACUC Protocol Aggregator
+    - 1619 # IACUC ProtocolApprover
+:negcreator:  # AKA: "Principal Name"
+  :description: dfgsdfg
+  :affiliation_type:
+  :campus_code:
+  :employee_id:
+  :employee_status:
+  :employee_type:
+  :base_salary:
+  :first_name: Negotiation
+  :last_name: Creator
+  :roles:
+    - 123 # Award Viewer
+    - 1409 # View Subaward
+    - 1382 # Negotiation Creator
+    - 142 # View Proposal Log
+    - 118 # Institutional Proposal Viewer
+  :role_qualifiers:
+    123: 000001
+    142: 000001
+    118: 000001
+# Replace 'username' below with the login string for the user...
+#:username:  # AKA: "Principal Name"
+#  :description:
+#  :affiliation_type:
+#  :campus_code:
+#  :employee_id:
+#  :employee_status:
+#  :employee_type:
+#  :base_salary:
+#  :first_name:
+#  :last_name:
+#
