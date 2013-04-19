@@ -3,7 +3,12 @@ class UserObject
   include Foundry
   include DataFactory
 
-  attr_accessor :user_name, :role, :logged_in
+  attr_accessor :user_name,
+                :first_name, :last_name,
+                :description, :affiliation_type, :campus_code,
+                :employee_id, :employee_status, :employee_type, :base_salary,
+                :groups, :roles, :role_qualifiers,
+                :logged_in
 
   DEFAULT_USERS = YAML.load_file("#{File.dirname(__FILE__)}/users.yml")
 
@@ -11,12 +16,11 @@ class UserObject
     @browser = browser
     opts[:user]=:admin if opts[:user]==nil
     defaults = DEFAULT_USERS[opts[:user]]
-    exit
     set_options defaults.merge(opts)
   end
 
   def create
-
+    # TODO
   end
 
   def sign_in
@@ -65,6 +69,7 @@ class UserObject
   #========
 
   def login
+    Researcher.return_to_portal if @browser.windows.size > 1
     unless logged_in?
       visit Login do |log_in|
         log_in.username.set @user_name

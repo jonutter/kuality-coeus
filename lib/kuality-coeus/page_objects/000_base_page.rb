@@ -1,6 +1,7 @@
 class BasePage < PageFactory
 
-  action(:use_new_tab) { |b| b.windows.first.close; b.windows.last.use }
+  action(:use_new_tab) { |b| b.windows.last.use }
+  action(:return_to_portal) { |b| b.windows[1..-1].each{ |w| w.close}; b.windows[0].use }
   action(:loading) { |b| b.frm.image(alt: 'working...').wait_while_present }
 
   class << self
