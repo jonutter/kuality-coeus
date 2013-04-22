@@ -35,7 +35,7 @@
     - 1619 # IACUC ProtocolApprover
 :negcreator:  # AKA: "Principal Name"
   :description: dfgsdfg
-  :affiliation_type:
+  :affiliation_type: 'UN - University'
   :campus_code:
   :employee_id:
   :employee_status:
@@ -43,6 +43,26 @@
   :base_salary:
   :first_name: Negotiation
   :last_name: Creator
+  :roles:
+    - 123 # Award Viewer
+    - 1409 # View Subaward
+    - 1382 # Negotiation Creator
+    - 142 # View Proposal Log
+    - 118 # Institutional Proposal Viewer
+  :role_qualifiers:
+    123: 000001
+    142: 000001
+    118: 000001
+:thefunk:  # AKA: "Principal Name"
+  :description: dfgsdfg
+  :affiliation_type: Faculty
+  :campus_code: 'UN - University'
+  :employee_id: thefunk
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: 123456
+  :first_name: Theodore
+  :last_name: Funkmeister
   :roles:
     - 123 # Award Viewer
     - 1409 # View Subaward
