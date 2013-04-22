@@ -34,7 +34,7 @@ module Navigation
         'Watir::Select'    => lambda{|p, f| p.send(f).pick!(ivg f)},
         'Watir::Radio'     => lambda{|p, f| p.send(f, ivg(f)) unless ivg(f)==nil }
     }
-    fields.each do |field|
+    fields.shuffle.each do |field|
       # TODO: Someday see if there's a way to fix things so this rescue isn't necessary...
       # It's here because the radio button "element" definitions
       # require a parameter, so just sending the method to the page
