@@ -31,6 +31,22 @@ class UserObject
       # as "default"...
       add.affiliation_default.set
       add.name_default.set
+      add.add_affiliation
+      fill_out add, :employee_id, :employee_status, :employee_type, :base_salary
+      add.add_employment_information
+      add.add_name
+      @roles.each do |role|
+        add.role_id.set role
+        add.add_role
+      end
+      @groups.each do |group|
+        add.group_id.set group
+        add.add_group
+      end
+      @role_qualifiers.each do |role, unit|
+        add.unit_number(role).set unit
+        add.add_role_qualifier
+      end
       add.blanket_approve
     end
   end
@@ -63,6 +79,16 @@ class UserObject
     end
   end
   alias_method :log_out, :sign_out
+
+  def exist?
+    visit(SystemAdmin).person
+    on PersonLookup do |search|
+      search.principal_id.set @user_name
+      search.search
+      search.results_table.present?
+    end
+  end
+  alias_method :exists?, :exist?
 
   #========
   private
