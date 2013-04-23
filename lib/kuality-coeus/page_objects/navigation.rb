@@ -1,5 +1,7 @@
 module Navigation
 
+  include Utilities
+
   def open_document
     unless on_document?
       visit DocumentSearch do |search|
@@ -30,9 +32,9 @@ module Navigation
   # and radio buttons.
   def fill_out(page, *fields)
     methods={
-        'Watir::TextField' => lambda{|p, f| p.send(f).fit(ivg f)},
-        'Watir::Select'    => lambda{|p, f| p.send(f).pick!(ivg f)},
-        'Watir::Radio'     => lambda{|p, f| p.send(f, ivg(f)) unless ivg(f)==nil }
+        'Watir::TextField' => lambda{|p, f| p.send(f).fit(get f)},
+        'Watir::Select'    => lambda{|p, f| p.send(f).pick!(get f)},
+        'Watir::Radio'     => lambda{|p, f| p.send(f, get(f)) unless get(f)==nil }
     }
     fields.shuffle.each do |field|
       # TODO: Someday see if there's a way to fix things so this rescue isn't necessary...
@@ -48,13 +50,5 @@ module Navigation
     end
   end
   alias_method :fill_in, :fill_out
-
-  # ==========
-  private
-  # ==========
-
-  def ivg(symb)
-    instance_variable_get('@'+symb.to_s)
-  end
 
 end

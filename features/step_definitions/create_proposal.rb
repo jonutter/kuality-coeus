@@ -1,14 +1,3 @@
-Given /^I'm logged in with (.*)$/ do |username|
-  # Note that this step definition is written
-  # assuming that it's the creation step for the
-  # user object in the scenario, meaning that @user
-  # will be nil prior to this. If there's any chance
-  # @user won't be nil, do not use this step def in
-  # the scenario.
-  @user = make UserObject, user: username
-  @user.sign_in
-end
-
 And /^I begin a proposal$/ do
   @proposal = create ProposalDevelopmentObject
 end
@@ -67,8 +56,7 @@ When /^I complete the proposal$/ do
   @proposal.s2s_questionnaire = create S2SQuestionnaireObject, opts
 end
 
-When /^I add an approver to the proposal$/ do
-  @permissions_user = make UserObject, :user=>:custom, user_name: 'mwmartin', role: 'approver'
-  @proposal.permissions.send(StringFactory.damballa(@permissions_user.role+'s')) << @permissions_user.user_name
+When /^I add (.*) as an approver to the proposal$/ do |username|
+  @proposal.permissions.send(StringFactory.damballa(get(username).role+'s')) << get(username).user_name
   @proposal.permissions.assign
 end

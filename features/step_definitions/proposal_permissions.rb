@@ -7,20 +7,18 @@ When /^I visit the proposal's (.*) page$/ do |page|
   on(Proposal).send(StringFactory.damballa(page))
 end
 
-Then /^I am listed as (a|an) (.*) for the proposal$/ do |x, role|
-  on(Permissions).assigned_role(@user.user_name).should include role
+Then /^(.*) is listed as (a|an) (.*) for the proposal$/ do |username, x, role|
+  on(Permissions).assigned_role(get(username).user_name).should include role
 end
 
 When /^I assign (.*) as (a|an) (.*) to the proposal permissions$/ do |username, x, role|
-  # TODO: Add code here that can pick a user at random instead of requiring an exact username
-  @permissions_user = make UserObject, :user=>:custom, user_name: username, role: role
+  set(username, (make UserObject, user: username))
   @proposal.permissions.send(StringFactory.damballa(role+'s')) << username
   @proposal.permissions.assign
 end
 
-Then /^That person can access the proposal$/ do
-  @user.sign_out
-  @permissions_user.sign_in
+Then /^(.*) can access the proposal$/ do |username|
+  get(username).sign_in
   @proposal.open_document
 end
 
