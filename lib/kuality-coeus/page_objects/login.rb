@@ -1,4 +1,4 @@
-class Login < PageFactory
+class Login < BasePage
 
   page_url $base_url
 

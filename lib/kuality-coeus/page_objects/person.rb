@@ -9,6 +9,8 @@ class Person < BasePage
   element(:affiliation_type) { |b| b.frm.select(id: 'newAffln.affiliationTypeCode') }
   element(:campus_code) { |b| b.frm.select(id: 'newAffln.campusCode') }
   element(:affiliation_default) { |b| b.frm.checkbox(id: 'newAffln.dflt') }
+  element(:first_name) { |b| b.frm.text_field(id: 'newName.firstName') }
+  element(:last_name) { |b| b.frm.text_field(id: 'newName.lastName') }
   element(:name_default) { |b| b.frm.checkbox(id: 'newName.dflt') }
   action(:add_affiliation) { |b| b.frm.button(name: 'methodToCall.addAffln.anchor').click }
   element(:employee_id) { |b| b.frm.text_field(id: 'document.affiliations[0].newEmpInfo.employeeId') }
@@ -22,13 +24,21 @@ class Person < BasePage
   element(:group_id) { |b| b.frm.text_field(id: 'newGroup.groupId') }
   action(:add_group) { |b| b.frm.button(name: 'methodToCall.addGroup.anchor').click; b.loading }
 
-  action(:unit_number) { |role, b| b.frm.div(id: 'tab-Roles-div').table(index: 0).row[role_row(role)+1].text_field(title: '* Unit Number') }
+  action(:unit_number) { |role, b| b.frm.div(id: 'tab-Roles-div').table(index: 0).row[(b.role_row(role)+1).to_s].text_field(title: '* Unit Number') }
   action(:add_role_qualifier) { |b| b.frm.button(name: 'methodToCall.addRoleQualifier.line0.anchor').click; b.loading }
 
   # =========
   private
   # =========
 
-  action(:role_row) { |role, b| b.frm.div(id: 'tab-Roles-div').table(index: 0).rows.find_index{|row| row.text.includes?(role)} }
+  action(:role_row) { |role, b| b.frm.
+      div(id: 'tab-Roles-div').
+      table(index: 0).rows.
+      find_index{ |row|
+      row.
+          text.
+          include?(role.to_s)
+    }
+  }
 
 end
