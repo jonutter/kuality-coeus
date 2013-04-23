@@ -7,12 +7,6 @@
 #    a class instance variable based on the username
 # 3) Logs that user in (if they're not already)...
 Given /^I'm logged in with (.*)$/ do |username|
-  # Note that this step definition is written
-  # assuming that it's the creation step for the
-  # user object in the scenario, meaning that @user
-  # will be nil prior to this. If there's any chance
-  # @user won't be nil, do not use this step def in
-  # the scenario.
   user = set(username, (make UserObject, user: username))
   user.sign_in
 end
