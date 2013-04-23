@@ -7,7 +7,7 @@
 #    a class instance variable based on the username
 # 3) Logs that user in (if they're not already)...
 Given /^I'm logged in with (.*)$/ do |username|
-  user = set(username, (make UserObject, user: username))
+  user = make_user username
   user.sign_in
 end
 
@@ -26,6 +26,6 @@ end
 # 2) Creates the user object in a class instance variable based on the user name
 # 3) Creates the user in the system if they don't exist already
 Given /^I have a user with the user name (.*)$/ do |username|
-  user = set(username, (make UserObject, user: username))
+  user = make_user username
   user.create unless user.exists?
 end

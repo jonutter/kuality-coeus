@@ -8,4 +8,8 @@ module Utilities
     instance_variable_set("@#{item}", obj)
   end
 
+  def make_user(un)
+    set(un, (make UserObject, user: un))
+  end
+
 end
