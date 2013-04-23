@@ -34,6 +34,9 @@ class UserObject
       add.name_default.set
       add.add_affiliation
       fill_out add, :employee_id, :employee_status, :employee_type, :base_salary
+      # TODO: Another thing that will need to be changed if ever there's a need to test multiple
+      # lines of employment:
+      add.primary_employment.set
       add.add_employment_information
       add.add_name
       unless @roles==nil
@@ -46,7 +49,7 @@ class UserObject
         puts @role_qualifiers.inspect
         @role_qualifiers.each do |role, unit|
           add.unit_number(role).set unit
-          add.add_role_qualifier
+          add.add_role_qualifier role
         end
       end
       unless @groups==nil
