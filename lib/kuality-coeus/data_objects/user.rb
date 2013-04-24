@@ -2,6 +2,7 @@ class UserObject
 
   include Foundry
   include DataFactory
+  include Navigation
 
   attr_accessor :user_name,
                 :first_name, :last_name,
@@ -9,17 +10,17 @@ class UserObject
                 :employee_id, :employee_status, :employee_type, :base_salary,
                 :groups, :roles, :role_qualifiers
 
-  DEFAULT_USERS = YAML.load_file("#{File.dirname(__FILE__)}/users.yml")
+  USERS = YAML.load_file("#{File.dirname(__FILE__)}/users.yml")
 
-  def initialize(browser, opts={})
+  def initialize(browser, opts={:user=>'admin'})
     @browser = browser
-    opts[:user]=:admin if opts[:user]==nil
-    defaults = DEFAULT_USERS[opts[:user]]
-    set_options defaults.merge(opts)
+    @user_name=opts[:user]
+    defaults = USERS[@user_name]
+    set_options defaults
   end
 
   def create
-    visit(SystemAdmin).person
+    visit(SystemAdmin).person unless PersonLookup.new(@browser).principal_id.present?
     on(PersonLookup).create
     on Person do |add|
       add.expand_all
@@ -33,29 +34,46 @@ class UserObject
       add.name_default.set
       add.add_affiliation
       fill_out add, :employee_id, :employee_status, :employee_type, :base_salary
+      # TODO: Another thing that will need to be changed if ever there's a need to test multiple
+      # lines of employment:
+      add.primary_employment.set
       add.add_employment_information
       add.add_name
-      @roles.each do |role|
-        add.role_id.set role
-        add.add_role
+      unless @roles==nil
+        @roles.each do |role|
+          add.role_id.set role
+          add.add_role
+        end
       end
-      @groups.each do |group|
-        add.group_id.set group
-        add.add_group
+      unless @role_qualifiers==nil
+        puts @role_qualifiers.inspect
+        @role_qualifiers.each do |role, unit|
+          add.unit_number(role).set unit
+          add.add_role_qualifier role
+        end
       end
-      @role_qualifiers.each do |role, unit|
-        add.unit_number(role).set unit
-        add.add_role_qualifier
+      unless @groups==nil
+        @groups.each do |group|
+          add.group_id.set group
+          add.add_group
+        end
       end
       add.blanket_approve
     end
   end
 
   def sign_in
-    visit Login { |log_in|
-      log_in.username.set @user_name
-      log_in.login
-    } unless logged_in?
+    unless logged_in?
+      if username_field.present?
+        # Do nothing because we're already there
+      else
+        on(Researcher).logout
+      end
+      on Login do |log_in|
+        log_in.username.set @user_name
+        log_in.login
+      end
+    end
   end
   alias_method :log_in, :sign_in
 
@@ -73,7 +91,7 @@ class UserObject
         if page.username.present?
           # do nothing because we're already logged out...
         else
-          log_out
+          sign_out
         end
       end
     end
@@ -83,30 +101,36 @@ class UserObject
   def exist?
     visit(SystemAdmin).person
     on PersonLookup do |search|
-      search.principal_id.set @user_name
+      search.principal_name.set @user_name
       search.search
-      search.results_table.present?
+      return search.results_table.present? #TODO: Make this a little more robust, as there's a slim chance for a false positive
     end
   end
   alias_method :exists?, :exist?
 
+  def logged_in?
+    if username_field.present?
+      false
+    elsif login_info_div.present?
+      return login_info_div.text.include? @user_name
+    else
+      begin
+        on(Researcher).return_to_portal
+      rescue
+        visit(Login).close_children
+        @browser.windows[0].use
+      end
+      logged_in?
+    end
+  end
+
+  def logged_out?
+    !logged_in?
+  end
+
   #========
   private
   #========
-
-  def logged_in?
-    begin
-      on(Researcher).return_to_portal
-    rescue
-      visit(Login).close_children
-      @browser.windows[0].use
-    end
-    if login_info_div.present?
-      login_info_div.text.include? @user_name ? true : false
-    else
-      false
-    end
-  end
 
   def s_o
     @browser.button(value: 'Logout')
@@ -114,6 +138,10 @@ class UserObject
 
   def login_info_div
     @browser.div(id: 'login-info')
+  end
+
+  def username_field
+    Login.new(@browser).username
   end
 
 end

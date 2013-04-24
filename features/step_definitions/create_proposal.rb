@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Given /^I am logged in as (a|an|the) (.*)$/ do |x, user|
   # Note that this step definition is written
   # assuming that it's the creation step for the
@@ -10,12 +11,15 @@ Given /^I am logged in as (a|an|the) (.*)$/ do |x, user|
 end
 
 And /^I initiate a proposal$/ do
+=======
+And /^I begin a proposal$/ do
+>>>>>>> 82e1f4e152a567d0fba03330eb9e9079fbe5bfd4
   @proposal = create ProposalDevelopmentObject
 end
 
 When /^I initiate a proposal without a (.*)$/ do |name|
   name=~/Type/ || name=='Lead Unit' ? value='select' : value=''
-  field = StringFactory.damballa(name).to_sym
+  field = StringFactory.damballa(name)
   @proposal = create ProposalDevelopmentObject, field=>value
 end
 
@@ -67,8 +71,7 @@ When /^I complete the proposal$/ do
   @proposal.s2s_questionnaire = create S2SQuestionnaireObject, opts
 end
 
-When /^I add an approver to the proposal$/ do
-  @permissions_user = make UserObject, :user=>:custom, user_name: 'mwmartin', role: 'approver'
-  @proposal.permissions.send(StringFactory.damballa(@permissions_user.role+'s')) << @permissions_user.user_name
+When /^I add (.*) as an approver to the proposal$/ do |username|
+  @proposal.permissions.send(get(username).role+'s') << get(username).user_name
   @proposal.permissions.assign
 end

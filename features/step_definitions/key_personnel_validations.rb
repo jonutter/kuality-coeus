@@ -7,7 +7,7 @@ Then /^I should see an error that only one PI is allowed$/ do
 end
 
 When /^I add a key person without a key person role$/ do
-  @proposal.add_key_person first_name: 'Dick', last_name: 'COIAdmin' ,role: 'Key Person', key_person_role:''
+  @proposal.add_key_person first_name: 'Dick', last_name: 'COIAdmin', role: 'Key Person', key_person_role:''
 end
 
 Then /^I should see an error that says proposal role is required$/ do
