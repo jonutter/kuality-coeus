@@ -4,7 +4,7 @@ end
 
 When /^I begin a proposal without a (.*)$/ do |name|
   name=~/Type/ || name=='Lead Unit' ? value='select' : value=''
-  field = StringFactory.damballa(name).to_sym
+  field = StringFactory.damballa(name)
   @proposal = create ProposalDevelopmentObject, field=>value
 end
 
@@ -57,6 +57,6 @@ When /^I complete the proposal$/ do
 end
 
 When /^I add (.*) as an approver to the proposal$/ do |username|
-  @proposal.permissions.send(StringFactory.damballa(get(username).role+'s')) << get(username).user_name
+  @proposal.permissions.send(get(username).role+'s') << get(username).user_name
   @proposal.permissions.assign
 end

@@ -29,3 +29,7 @@ Given /^I have a user with the user name (.*)$/ do |username|
   user = make_user username
   user.create unless user.exists?
 end
+
+Then /^(.*) is logged in$/ do |username|
+  get(username).logged_in?
+end

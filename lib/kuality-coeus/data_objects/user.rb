@@ -10,12 +10,12 @@ class UserObject
                 :employee_id, :employee_status, :employee_type, :base_salary,
                 :groups, :roles, :role_qualifiers
 
-  DEFAULT_USERS = YAML.load_file("#{File.dirname(__FILE__)}/users.yml")
+  USERS = YAML.load_file("#{File.dirname(__FILE__)}/users.yml")
 
   def initialize(browser, opts={:user=>'admin'})
     @browser = browser
     @user_name=opts[:user]
-    defaults = DEFAULT_USERS[@user_name]
+    defaults = USERS[@user_name]
     set_options defaults
   end
 
@@ -65,14 +65,14 @@ class UserObject
   def sign_in
     unless logged_in?
       if username_field.present?
-        mthd = :on
+        # Do nothing because we're already there
       else
-        mthd = :visit
+        on(Researcher).logout
       end
-      send(mthd, Login) { |log_in|
+      on Login do |log_in|
         log_in.username.set @user_name
         log_in.login
-      }
+      end
     end
   end
   alias_method :log_in, :sign_in
@@ -103,20 +103,16 @@ class UserObject
     on PersonLookup do |search|
       search.principal_name.set @user_name
       search.search
-      return search.results_table.present?
+      return search.results_table.present? #TODO: Make this a little more robust, as there's a slim chance for a false positive
     end
   end
   alias_method :exists?, :exist?
-
-  #========
-  private
-  #========
 
   def logged_in?
     if username_field.present?
       false
     elsif login_info_div.present?
-      login_info_div.text.include? @user_name ? true : false
+      return login_info_div.text.include? @user_name
     else
       begin
         on(Researcher).return_to_portal
@@ -127,6 +123,14 @@ class UserObject
       logged_in?
     end
   end
+
+  def logged_out?
+    !logged_in?
+  end
+
+  #========
+  private
+  #========
 
   def s_o
     @browser.button(value: 'Logout')

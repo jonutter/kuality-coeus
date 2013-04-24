@@ -51,6 +51,7 @@ When /^I do not complete the kuali university questions$/ do
 end
 
 Then /^the validation should report the question was not answered$/ do
+  #TODO: Figure out a better spot to put this, since it's used in multiple places...
   questions={
       :dual_dept_appointment=>1,
       :on_sabbatical=>2,
@@ -99,8 +100,10 @@ When /^checking the key personnel page shows a proposal person certification err
   on(ProposalActions).key_personnel
   on(KeyPersonnel).errors.should include "The Investigators are not all certified. Please certify #{@proposal.key_personnel.uncertified_person(@role).full_name}."
 end
+
 When /^checking the questions page should show the question was not answered$/ do
   on(Proposal).questions
+  #TODO: Figure out a better spot to put this, since it's used in multiple places...
   questions={
       :dual_dept_appointment=>1,
       :on_sabbatical=>2,
