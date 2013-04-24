@@ -13,7 +13,7 @@ Feature: Permissions in a Proposal
     Then    I am listed as an Aggregator for the proposal
 
   Scenario Outline: Adding various roles to proposals
-    When    I assign jcovey as a <Role> to the proposal permissions
+    When    I assign mwmartin as a <Role> to the proposal permissions
     Then    That person can access the proposal
     And     can <Permissions>
 

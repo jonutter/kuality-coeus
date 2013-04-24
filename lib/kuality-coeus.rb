@@ -1,5 +1,6 @@
 require 'test-factory'
 require 'date'
+require 'yaml'
 Dir["#{File.dirname(__FILE__)}/kuality-coeus/*.rb"].each {|f| require f }
 Dir["#{File.dirname(__FILE__)}/kuality-coeus/page_objects/*.rb"].each {|f| require f }
 Dir["#{File.dirname(__FILE__)}/kuality-coeus/page_objects/*/*.rb"].each {|f| require f }
