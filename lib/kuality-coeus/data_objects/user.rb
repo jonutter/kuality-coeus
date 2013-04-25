@@ -2,92 +2,165 @@ class UserObject
 
   include Foundry
   include DataFactory
+  include Navigation
 
-  attr_accessor :user_name, :role, :logged_in
+  attr_accessor :user_name,
+                :first_name, :last_name,
+                :description, :affiliation_type, :campus_code,
+                :employee_id, :employee_status, :employee_type, :base_salary,
+                :groups, :roles, :role_qualifiers
 
-  DEFAULT_USERS = {
-    # Syntax:
-    # :user=>hash_of_user_settings
-    #
-    # Note: When you are adding a
-    # canned user type to this list, then,
-    # except in the "custom" situation,
-    # please make the Key for the user hash
-    # match the role value, snake-ified, of
-    # course.
-    #
-    :admin=>{
-        role: 'admin',
-        user_name: 'admin'
-    },
-    :custom=>{}
-  }
+  USERS = YAML.load_file("#{File.dirname(__FILE__)}/users.yml")
 
-  def initialize(browser, opts={})
+  def initialize(browser, opts={:user=>'admin'})
     @browser = browser
-    # TODO: This syntax is in dire need of improvement...
-    opts[:user]=:admin if opts[:user]==nil
-    defaults = DEFAULT_USERS[opts[:user]]
-    set_options defaults.merge(opts)
+    @user_name=opts[:user]
+    defaults = USERS[@user_name]
+    set_options defaults
   end
 
+  def create
+    visit(SystemAdmin).person unless PersonLookup.new(@browser).principal_id.present?
+    on(PersonLookup).create
+    on Person do |add|
+      add.expand_all
+      add.principal_name.set @user_name
+      fill_out add, :description, :affiliation_type, :campus_code, :first_name, :last_name
+      # TODO: These "default" checkboxes will need to be reworked if and when
+      # a test is going to require multiple affiliations, names, addresses, etc.
+      # Until then, there's no need to do anything other than set the necessary single values
+      # as "default"...
+      add.affiliation_default.set
+      add.name_default.set
+      add.add_affiliation
+      fill_out add, :employee_id, :employee_status, :employee_type, :base_salary
+      # TODO: Another thing that will need to be changed if ever there's a need to test multiple
+      # lines of employment:
+      add.primary_employment.set
+      add.add_employment_information
+      add.add_name
+      unless @roles==nil
+        @roles.each do |role|
+          add.role_id.set role
+          add.add_role
+        end
+      end
+      unless @role_qualifiers==nil
+        puts @role_qualifiers.inspect
+        @role_qualifiers.each do |role, unit|
+          add.unit_number(role).set unit
+          add.add_role_qualifier role
+        end
+      end
+      unless @groups==nil
+        @groups.each do |group|
+          add.group_id.set group
+          add.add_group
+        end
+      end
+      add.blanket_approve
+    end
+  end
+
+  # Keep in mind...
+  # - This method does nothing if the user
+  #   is already logged in
+  # - If some other user is logged in, they
+  #   will be automatically logged out
+  # - This method will close all child
+  #   tabs/windows and return to the window
+  #   with the header frame, so it can see
+  #   who is currently logged in
   def sign_in
-    log_out
-    login
+    unless logged_in?
+      if username_field.present?
+        # Do nothing because we're already there
+      else
+        on(Researcher).logout
+      end
+      on Login do |log_in|
+        log_in.username.set @user_name
+        log_in.login
+      end
+    end
   end
   alias_method :log_in, :sign_in
 
-  alias_method :signed_in, :logged_in
-
-  def logged_out
-    !@logged_in
-  end
-  alias_method :signed_out, :logged_out
-
-  def logged_in?
-    @logged_in
-  end
-  alias_method :signed_in?, :logged_in?
-
-  def logged_out?
-    logged_out
-  end
-  alias_method :signed_out?, :logged_out?
-
-  def log_out
+  def sign_out
   # This _might_ cause an infinite loop, but I'm
   # hoping not...
+    on(Researcher) do |page|
+      page.return_to_portal
+      page.close_children
+    end
     if s_o.present?
       s_o.click
     else
       visit Login do |page|
         if page.username.present?
-          # do nothing
+          # do nothing because we're already logged out...
         else
-          log_out
+          sign_out
         end
       end
     end
-    @logged_in = false
   end
-  alias_method :sign_out, :log_out
+  alias_method :log_out, :sign_out
+
+  def exist?
+    visit(SystemAdmin).person
+    on PersonLookup do |search|
+      search.principal_name.set @user_name
+      search.search
+      return search.results_table.present? #TODO: Make this a little more robust, as there's a slim chance for a false positive
+    end
+  end
+  alias_method :exists?, :exist?
+
+  def logged_in?
+    # Are we on the login page already?
+    if username_field.present?
+      # Yes! So, we're not logged in...
+      false
+    # No, the Kuali header is showing...
+    elsif login_info_div.present?
+      # So, is the user currently listed as logged in?
+      return login_info_div.text.include? @user_name
+    else # We're on some page that has no Kuali header, so...
+      begin
+        # We'll assume that the portal window exists, and go to it.
+        on(Researcher).return_to_portal
+      # Oops. Apparently there's no portal window, so...
+      rescue
+        # We'll close any extra tabs/windows
+        visit(Login).close_children if @browser.windows.size > 1
+        # And make sure that we're using the "parent" window
+        @browser.windows[0].use
+      end
+      # Now that things are hopefully in a clean state, we'll start
+      # the process again...
+      logged_in?
+    end
+  end
+
+  def logged_out?
+    !logged_in?
+  end
 
   #========
   private
   #========
 
-  def login
-    unless logged_in?
-      visit Login do |log_in|
-        log_in.username.set @user_name
-        log_in.login
-      end
-      @logged_in=true
-    end
-  end
-
   def s_o
     @browser.button(value: 'Logout')
+  end
+
+  def login_info_div
+    @browser.div(id: 'login-info')
+  end
+
+  def username_field
+    Login.new(@browser).username
   end
 
 end

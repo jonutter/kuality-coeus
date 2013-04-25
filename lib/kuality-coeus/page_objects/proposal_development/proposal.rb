@@ -6,6 +6,7 @@ class Proposal < ProposalDevelopmentDocument
   value(:feedback) { |b| b.frm.div(class: 'left-errmsg').text }
 
   # Required fields
+  element(:description) { |b| b.frm.text_field(id: 'document.documentHeader.documentDescription') }
   element(:sponsor_code) { |b| b.frm.text_field(id: 'document.developmentProposalList[0].sponsorCode') }
   element(:proposal_type) { |b| b.frm.select(id: 'document.developmentProposalList[0].proposalTypeCode') }
   element(:lead_unit) { |b| b.frm.select(id: 'document.developmentProposalList[0].ownedByUnitNumber') }

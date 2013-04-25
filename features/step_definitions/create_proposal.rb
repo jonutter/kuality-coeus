@@ -1,21 +1,10 @@
-Given /^I am logged in as (a|an|the) (.*)$/ do |x, user|
-  # Note that this step definition is written
-  # assuming that it's the creation step for the
-  # user object in the scenario, meaning that @user
-  # will be nil prior to this. If there's any chance
-  # @user won't be nil, do not use this step def in
-  # the scenario.
-  @user = make UserObject, user: StringFactory.damballa(user)
-  @user.sign_in
-end
-
 And /^I begin a proposal$/ do
   @proposal = create ProposalDevelopmentObject
 end
 
 When /^I begin a proposal without a (.*)$/ do |name|
   name=~/Type/ || name=='Lead Unit' ? value='select' : value=''
-  field = StringFactory.damballa(name).to_sym
+  field = StringFactory.damballa(name)
   @proposal = create ProposalDevelopmentObject, field=>value
 end
 
@@ -61,14 +50,13 @@ When /^I complete the proposal$/ do
   @proposal.add_key_person
   @proposal.set_valid_credit_splits
   opts={document_id: @proposal.document_id}
-  @proposal.kuali_u_questions = create KualiUniversityQuestionsObject, opts
-  @proposal.proposal_questions = create ProposalQuestionsObject, opts
-  @proposal.compliance_questions = create ComplianceQuestionsObject, opts
-  @proposal.s2s_questionnaire = create S2SQuestionnaireObject, opts
+  #@proposal.kuali_u_questions = create KualiUniversityQuestionsObject, opts
+  #@proposal.proposal_questions = create ProposalQuestionsObject, opts
+  #@proposal.compliance_questions = create ComplianceQuestionsObject, opts
+  #@proposal.s2s_questionnaire = create S2SQuestionnaireObject, opts
 end
 
-When /^I add an approver to the proposal$/ do
-  @permissions_user = make UserObject, :user=>:custom, user_name: 'mwmartin', role: 'approver'
-  @proposal.permissions.send(StringFactory.damballa(@permissions_user.role+'s')) << @permissions_user.user_name
+When /^I add (.*) as an approver to the proposal$/ do |username|
+  @proposal.permissions.send(get(username).role+'s') << get(username).user_name
   @proposal.permissions.assign
 end

@@ -5,12 +5,14 @@ class KeyPersonObject
   include DateFactory
   include StringFactory
   include Navigation
+  include Utilities
 
   attr_accessor :first_name, :last_name, :role, :document_id, :key_person_role,
                 :full_name, :user_name, :home_unit, :units, :responsibility,
                 :financial, :recognition, :certified, :certify_info_true,
                 :potential_for_conflicts, :submitted_financial_disclosures,
-                :lobbying_activities, :excluded_from_transactions, :familiar_with_pla
+                :lobbying_activities, :excluded_from_transactions, :familiar_with_pla,
+                :space
 
   # Note that you must pass in both first and last names (or neither).
   def initialize(browser, opts={})
@@ -19,6 +21,7 @@ class KeyPersonObject
     defaults = {
       role:                            'Principal Investigator',
       units:                           [],
+      space:                           rand_num,
       responsibility:                  rand_num,
       financial:                       rand_num,
       recognition:                     rand_num,
@@ -89,7 +92,7 @@ class KeyPersonObject
       # Now we groom the Unit Hashes, to include
       # the Combined Credit Split numbers...
       @units.each do |unit|
-        [:responsibility, :financial, :recognition].each do |item|
+        [:space, :responsibility, :financial, :recognition].each do |item|
           unit[item]==nil ? unit.store(item, rand_num) : unit[item]
         # Then we update the UI with the values...
           person.send("unit_#{item.to_s}".to_sym, @full_name, unit[:number]).set unit[item]
@@ -99,6 +102,7 @@ class KeyPersonObject
       # If it's a key person without units then they won't have credit splits,
       # otherwise, the person will, so fill them out...
       if @key_person_role==nil || !@units.empty?
+        person.space(@full_name).set @space
         person.responsibility(@full_name).set @responsibility
         person.financial(@full_name).set @financial
         person.recognition(@full_name).set @recognition
@@ -107,9 +111,9 @@ class KeyPersonObject
       # Proposal Person Certification
       if @certified
         person.include_certification_questions(@full_name) unless @key_person_role==nil
-        cert_questions.each { |q| person.send(q, full_name, eval("@#{q.to_s}"))}
+        cert_questions.each { |q| person.send(q, full_name, get(q)) }
       else
-         cert_questions.each { |q| instance_variable_set("@#{q.to_s}", nil) }
+         cert_questions.each { |q| set(q, nil) }
       end
 
       # Add gathering of more attributes here as needed
@@ -131,6 +135,7 @@ class KeyPersonObject
     navigate
     on KeyPersonnel do |update|
       update.expand_all
+      update.space(@full_name).fit opts[:space]
       update.responsibility(@full_name).fit opts[:responsibility]
       update.financial(@full_name).fit opts[:financial]
       update.recognition(@full_name).fit opts[:recognition]
@@ -140,24 +145,27 @@ class KeyPersonObject
   end
 
   # This method requires a parameter that is an Array
-  # of Hashes. Though it defaults to the person objects
+  # of Hashes. Though it defaults to the person object's
   # @units variable.
   #
   # Example:
   # [{:number=>"UNIT NUMBER", :responsibility=>"33.33"}]
   def update_unit_credit_splits(units=@units)
-    splits=[:responsibility, :financial, :recognition]
+    splits=[:responsibility, :financial, :recognition, :space]
     units.each do |unit|
       on KeyPersonnel do |update|
+        update.unit_space(@full_name, unit[:number]).fit unit[:space]
         update.unit_responsibility(@full_name, unit[:number]).fit unit[:responsibility]
         update.unit_financial(@full_name, unit[:number]).fit unit[:financial]
         update.unit_recognition(@full_name, unit[:number]).fit unit[:recognition]
+        update.save
       end
       splits.each do |split|
         unless unit[split]==nil
           @units[@units.find_index{|u| u[:number]==unit[:number]}][split]=unit[split]
         end
       end
+
     end
   end
 

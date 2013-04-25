@@ -36,7 +36,7 @@ class KeyPersonnel < ProposalDevelopmentDocument
   # the read-only field that appears when the role is "Key Person"
   action(:role) { |full_name, p| p.person_div(full_name).select(name: /document.developmentProposalList[\d+].proposalPersons[\d+].proposalPersonRoleId/) }
   action(:user_name) { |full_name, p| p.person_div(full_name).table[1][3].text }
-  action(:home_unit) { |full_name, p| p.person_div(full_name).table[5][1].text }
+  action(:home_unit) { |full_name, p| p.person_div(full_name).table[8][1].text }
 
   # Unit Details...
   action(:unit_details_errors_div) { |full_name, p| p.unit_div(full_name).div(class: 'left-errmsg-tab').div }
@@ -66,13 +66,14 @@ class KeyPersonnel < ProposalDevelopmentDocument
     :lobbying_activities=>3,
     :excluded_from_transactions=>4,
     :familiar_with_pla=>5
-  }.each { |key, value| action(key) { |full_name, answer, p| p.questions_div(full_name).div(id: "HD0-QN#{value}div").radio(value: answer).set } }
+  }.each { |key, value| action(key) { |full_name, answer, p| p.questions_div(full_name).table(data_kc_questionindex: value.to_s).radio(value: answer).set } }
 
   # Combined Credit Split
   {
-    'responsibility'=>1,
-    'financial'=>2,
-    'recognition'=>3
+    'recognition'=>1,
+    'responsibility'=>2,
+    'space'=>3,
+    'financial'=>4
   }.each do |key, value|
     # Makes methods for the person's 3 credit splits (doesn't have to take the full name of the person to work)
     # Example: page.responsibility('Joe Schmoe').set '100.00'
@@ -109,7 +110,7 @@ class KeyPersonnel < ProposalDevelopmentDocument
 
   action(:person_div) { |full_name, b| b.frm.div(id: "tab-#{nsp(full_name)}:PersonDetails-div") }
   action(:unit_div) { |full_name, b| b.frm.div(id: "tab-#{nsp(full_name)}:UnitDetails-div") }
-  action(:questions_div) { |full_name, b| b.frm.h3(text: full_name).parent.div(id: /questionpanelcontent:proposalPersonQuestionnaireHelpers/) }
+  action(:questions_div) { |full_name, b| b.frm.span(class: 'subhead-left', text: full_name).parent.parent.div(class: 'questionnaireContent') }
   action(:certification_div) { |full_name, b| b.frm.div(id: "tab-#{nsp(full_name)}:Certify-div") }
 
 end

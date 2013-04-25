@@ -5,7 +5,7 @@ Feature: Permissions in a Proposal
   they are capable of performing with it.
 
   Background: A user has started a proposal
-    Given   I am logged in as the admin
+    Given   I'm logged in with admin
     And     I begin a proposal
 
   Scenario: The initiator is automatically an aggregator

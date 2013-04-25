@@ -1,6 +1,6 @@
 class DocumentSearch < BasePage
 
-  page_url "#{$base_url}channelTitle=Document Search&channelUrl=https://rdrive.kc.rsmart.com:/kc-dev/kew/DocumentSearch.do?"
+  page_url "#{$base_url}portal.do?channelTitle=Document Search&channelUrl=#{$base_url}kew/DocumentSearch.do?"
 
   tiny_buttons
   search_results_table

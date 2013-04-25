@@ -10,12 +10,13 @@ class ProposalDevelopmentObject
                 :sponsor_code, :project_start_date, :project_end_date, :document_id,
                 :status, :initiator, :created, :sponsor_deadline_date, :key_personnel,
                 :special_review, :budget_versions, :permissions, :s2s_questionnaire,
-                :proposal_questions, :compliance_questions, :kuali_u_questions
+                :proposal_questions, :compliance_questions, :kuali_u_questions, :description
 
   def initialize(browser, opts={})
     @browser = browser
 
     defaults = {
+      #description:           random_alphanums,
       proposal_type:         'New',
       lead_unit:             '::random::',
       activity_type:         '::random::',
@@ -42,7 +43,7 @@ class ProposalDevelopmentObject
       doc.expand_all
       fill_out doc, :sponsor_code, :proposal_type, :activity_type, :lead_unit,
                     :project_title, :project_start_date, :project_end_date,
-                    :sponsor_deadline_date
+                    :sponsor_deadline_date#, :description
       doc.save
       @permissions = make PermissionsObject, document_id: @document_id, aggregators: [@initiator]
     end
@@ -67,7 +68,7 @@ class ProposalDevelopmentObject
     split = (100.0/@key_personnel.with_units.size).round(2)
 
     # Now make a hash to use for editing the person's splits...
-    splits = {responsibility: split, financial: split, recognition: split}
+    splits = {responsibility: split, financial: split, recognition: split, space: split}
 
     # Now we update the KeyPersonObjects' instance variables
     # for their own splits as well as for their units
@@ -80,7 +81,7 @@ class ProposalDevelopmentObject
       # Iterate through the units, updating their credit splits with the
       # valid split amount...
       units.each do |unit|
-        [:responsibility, :financial, :recognition].each { |item| unit[item]=units_split }
+        [:responsibility, :financial, :recognition, :space].each { |item| unit[item]=units_split }
       end
       person.update_unit_credit_splits units
     end

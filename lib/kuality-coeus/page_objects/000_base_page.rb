@@ -1,7 +1,12 @@
 class BasePage < PageFactory
 
-  action(:use_new_tab) { |b| b.windows.first.close; b.windows.last.use }
+  action(:use_new_tab) { |b| b.windows.last.use }
+  action(:return_to_portal) { |b| b.portal_window.use }
+  action(:close_children) { |b| b.windows[1..-1].each{ |w| w.close} }
   action(:loading) { |b| b.frm.image(alt: 'working...').wait_while_present }
+  button 'Logout'
+
+  element(:portal_window) { |b| b.windows(title: 'Kuali Portal Index') }
 
   class << self
 

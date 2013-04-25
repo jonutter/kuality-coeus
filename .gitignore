@@ -2,6 +2,7 @@ config.yml
 directory.yml
 /test.rb
 *test.rb
+test.feature
 .DS_Store
 .idea/
 *.gem
