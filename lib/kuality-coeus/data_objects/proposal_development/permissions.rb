@@ -31,8 +31,9 @@ class PermissionsObject
   def assign
     navigate
     on Permissions do |add|
+      # See the roles method defined below...
       roles.each do |inst_var, role|
-        instance_variable_get(inst_var).each do |username|
+        get(inst_var).each do |username|
           unless add.user_row(username).present? && add.assigned_role(username).include?(role)
             add.user_name.set username
             add.role.select role
@@ -63,7 +64,7 @@ class PermissionsObject
         page.send(snakify(role)).set
         # Add the username to the correct role
         # instance variable...
-        instance_variable_get(roles.invert[role]) << username
+        get(roles.invert[role]) << username
       end
       page.save
       # Now we're done with the child window so we close it...
@@ -77,7 +78,7 @@ class PermissionsObject
     navigate
     on(Permissions).delete username
     roles.each do |role|
-      instance_variable_get(role).delete_if { |name| name==username }
+      get(role).delete_if { |name| name==username }
     end
   end
 
@@ -104,6 +105,7 @@ class PermissionsObject
     end
   end
 
+  # Add/Remove roles here, as needed...
   def roles
     {
         :@aggregators=>'Aggregator',

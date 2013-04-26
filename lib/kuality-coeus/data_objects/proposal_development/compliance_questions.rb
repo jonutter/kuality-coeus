@@ -30,8 +30,6 @@ class ComplianceQuestionsObject
     on Questions do |cq|
       cq.show_compliance_questions
       fill_out cq, :agree_to_ethical_conduct, :conduct_review_date
-      #cq.agree_to_ethical_conduct @agree_to_ethical_conduct
-      #cq.conduct_review_date.fit @conduct_review_date
       cq.save
     end
   end

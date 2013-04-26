@@ -47,14 +47,9 @@ class BudgetVersionsObject
       @project_start_date=parameters.project_start_date
       @project_end_date=parameters.project_end_date
       parameters.total_direct_cost_limit.fit @total_direct_cost_limit
-      parameters.on_off_campus.pick! @on_off_campus
-      parameters.comments.fit @comments
-      parameters.modular_budget.fit @modular_budget
-      parameters.residual_funds.fit @residual_funds
-      parameters.total_cost_limit.fit @total_cost_limit
-      parameters.unrecovered_fa_rate_type.pick! @unrecovered_fa_rate_type
-      parameters.f_and_a_rate_type.pick! @f_and_a_rate_type
-      parameters.submit_cost_sharing.fit @submit_cost_sharing
+      fill_out parameters, :on_off_campus, :comments, :modular_budget, :residual_funds,
+                           :total_cost_limit, :unrecovered_fa_rate_type, :f_and_a_rate_type,
+                           :submit_cost_sharing
       # Add the default Budget Period to the collection.
       # Note that this is only a make, since the item is already
       # there on the page.
