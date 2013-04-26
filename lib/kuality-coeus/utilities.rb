@@ -13,7 +13,7 @@ module Utilities
   end
 
   def snakify(item)
-    if item.class==Symbol && item.to_s[0]=='@'
+    if item.to_s[0]=='@'
       item
     else
       "@#{StringFactory.damballa(item.to_s)}"
