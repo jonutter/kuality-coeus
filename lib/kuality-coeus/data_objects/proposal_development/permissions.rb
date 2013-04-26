@@ -3,6 +3,7 @@ class PermissionsObject
   include Foundry
   include DataFactory
   include Navigation
+  include Utilities
 
   attr_accessor :document_id, :aggregators, :budget_creators, :narrative_writers,
                 :viewers, :approvers
@@ -59,7 +60,7 @@ class PermissionsObject
     on Roles do |page|
       roles.each do |role|
         # Set the appropriate role checkbox...
-        page.send(StringFactory.damballa(role)).set
+        page.send(snakify(role)).set
         # Add the username to the correct role
         # instance variable...
         instance_variable_get(roles.invert[role]) << username
