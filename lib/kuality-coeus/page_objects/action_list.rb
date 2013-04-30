@@ -14,7 +14,8 @@ class ActionList < BasePage
   DELEGATOR = 6
   DATE_CREATED = 7
   GROUP_REQUEST = 8
-  LOG = 9
+  ACTIONS = 9
+  LOG = 10
 
   action(:item) { |item_id, b| b.results_table.row(text: /#{item_id}/) }
   action(:open_item) { |item_id, b| b.results_table.link(text: item_id).click }
