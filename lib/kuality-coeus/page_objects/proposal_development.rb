@@ -8,7 +8,7 @@ class ProposalDevelopmentDocument < BasePage
 
     def proposal_header_elements
       action(:proposal) { |b| b.frm.button(value: 'Proposal').click }
-      action(:grants_gov) { |b| b.frm.button(value: 'Grants.gov').click }
+      action(:s2s) { |b| b.frm.button(value: 'S2S').click }
       action(:key_personnel) { |b| b.frm.button(value: 'Key Personnel').click }
       action(:special_review) { |b| b.frm.button(value: 'Special Review').click }
       action(:custom_data) { |b| b.frm.button(value: 'Custom Data').click }

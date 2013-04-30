@@ -41,10 +41,11 @@ class ProposalDevelopmentObject
       @initiator=doc.initiator
       @created=doc.created
       doc.expand_all
-      fill_out doc, :proposal_type, :activity_type, :lead_unit,
+      fill_out doc, :proposal_type, :activity_type,
                     :project_title, :project_start_date, :project_end_date,
                     :sponsor_deadline_date#, :description
       set_sponsor_code
+      set_lead_unit
       doc.save
       @permissions = make PermissionsObject, document_id: @document_id, aggregators: [@initiator]
     end
@@ -151,6 +152,17 @@ class ProposalDevelopmentObject
       end
     else
       on(Proposal).sponsor_code.fit @sponsor_code
+    end
+  end
+
+  def set_lead_unit
+    on(Proposal)do |prop|
+      if lead_unit.exist?
+        prop.lead_unit.pick! @lead_unit
+      else
+        @lead_unit=prop.lead_unit_ro
+      end
+
     end
   end
 
