@@ -4,8 +4,8 @@ Feature: Proposal Actions Validations
   so that I can fix them prior to submitting my proposal
 
   Background: KC user is logged in as admin
-      Given   I am logged in as the admin
-
+      Given   I'm logged in with admin
+    @test
     Scenario: Validate a proposal without a principal investigator
       Given   I begin a proposal
       And     the proposal has no principal investigator

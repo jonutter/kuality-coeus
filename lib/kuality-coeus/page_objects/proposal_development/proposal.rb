@@ -6,8 +6,9 @@ class Proposal < ProposalDevelopmentDocument
   value(:feedback) { |b| b.frm.div(class: 'left-errmsg').text }
 
   # Required fields
-  element(:description) { |b| b.frm.text_field(id: 'document.documentHeader.documentDescription') }
+  #element(:description) { |b| b.frm.text_field(id: 'document.documentHeader.documentDescription') }
   element(:sponsor_code) { |b| b.frm.text_field(id: 'document.developmentProposalList[0].sponsorCode') }
+  action(:find_sponsor_code) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.Sponsor!!).(((sponsorCode:document.developmentProposalList[0].sponsorCode,sponsorName:document.developmentProposalList[0].sponsor.sponsorName))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchorRequiredFieldsforSavingDocument').click }
   element(:proposal_type) { |b| b.frm.select(id: 'document.developmentProposalList[0].proposalTypeCode') }
   element(:lead_unit) { |b| b.frm.select(id: 'document.developmentProposalList[0].ownedByUnitNumber') }
   element(:project_start_date) { |b| b.frm.text_field(id: 'document.developmentProposalList[0].requestedStartDateInitial') }

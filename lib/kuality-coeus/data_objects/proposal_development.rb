@@ -10,7 +10,7 @@ class ProposalDevelopmentObject
                 :sponsor_code, :project_start_date, :project_end_date, :document_id,
                 :status, :initiator, :created, :sponsor_deadline_date, :key_personnel,
                 :special_review, :budget_versions, :permissions, :s2s_questionnaire,
-                :proposal_questions, :compliance_questions, :kuali_u_questions, :description
+                :proposal_questions, :compliance_questions, :kuali_u_questions#, :description
 
   def initialize(browser, opts={})
     @browser = browser
@@ -21,7 +21,7 @@ class ProposalDevelopmentObject
       lead_unit:             '::random::',
       activity_type:         '::random::',
       project_title:         random_alphanums,
-      sponsor_code:          %|1000#{'%02d' %(rand(29))}|,
+      sponsor_code:          '::random::',
       project_start_date:    next_week[:date_w_slashes],
       project_end_date:      next_year[:date_w_slashes],
       sponsor_deadline_date: next_week[:date_w_slashes],
@@ -41,9 +41,10 @@ class ProposalDevelopmentObject
       @initiator=doc.initiator
       @created=doc.created
       doc.expand_all
-      fill_out doc, :sponsor_code, :proposal_type, :activity_type, :lead_unit,
+      fill_out doc, :proposal_type, :activity_type, :lead_unit,
                     :project_title, :project_start_date, :project_end_date,
                     :sponsor_deadline_date#, :description
+      set_sponsor_code
       doc.save
       @permissions = make PermissionsObject, document_id: @document_id, aggregators: [@initiator]
     end
@@ -137,6 +138,20 @@ class ProposalDevelopmentObject
         document_id: @document_id
     }
     opts.merge!(defaults)
+  end
+
+  def set_sponsor_code
+    if @sponsor_code=='::random::'
+      on(Proposal).find_sponsor_code
+      on SponsorLookup do |look|
+        look.sponsor_type_code.fit '::random::'
+        look.search
+        look.page_links.shuffle[0].click if look.page_links.size > 0
+        look.return_random
+      end
+    else
+      on(Proposal).sponsor_code.fit @sponsor_code
+    end
   end
 
 end
