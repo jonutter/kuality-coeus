@@ -5,8 +5,8 @@ Feature: Permissions in a Proposal
   they are capable of performing with it.
 
   Background: A user has started a proposal
-    Given   I am logged in as the admin
-    And     I begin a proposal
+    Given   I'm logged in as
+    And     I initiate a proposal
 
   Scenario: The initiator is automatically an aggregator
     When    I visit the proposal's Permissions page
@@ -26,7 +26,9 @@ Feature: Permissions in a Proposal
     | Deleter          | delete the proposal                            |
   @test
   Scenario: Adding an Approver
-    When    I add an approver to the proposal
+#    Given   I am logged in as the kctestuser17
+#    And     I initiate a proposal
+    When    I assign tdurkin as an approver to the proposal permissions
     And     I complete the proposal
     And     I submit the proposal
     Then    That person can access the proposal

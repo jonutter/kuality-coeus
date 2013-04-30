@@ -454,7 +454,7 @@ kctestuser7:  # AKA: "Principal Name"
   :role_qualifiers:
     :105: '000001'
     :140: '000001'
- kctestuser8:  # AKA: "Principal Name"
+kctestuser8:  # AKA: "Principal Name"
    :description: creating test user with kc admin permissions
    :affiliation_type: Service Staff
    :campus_code: 'UN - University'
@@ -634,15 +634,15 @@ kctestuser18:  # AKA: "Principal Name"
   :role_qualifier:
       :103: '000001'
 kctestuser19:  # AKA: "Principal Name"
-  :description: creating workflow admin user with approver role
+  :description:      creating workflow admin user with approver role
   :affiliation_type: Student
-  :campus_code: 'UN - University'
-  :employee_id: kctestuser19
-  :employee_status: Active
-  :employee_type: Other
-  :base_salary: '50'
-  :first_name: jackson
-  :last_name: test
+  :campus_code:      'UN - University'
+  :employee_id:      kctestuser19
+  :employee_status:  Active
+  :employee_type:    Other
+  :base_salary:      '50'
+  :first_name:       jackson
+  :last_name:        test
   :groups:
     - '1'   # Workflow Admin
   :roles:
@@ -650,7 +650,7 @@ kctestuser19:  # AKA: "Principal Name"
     - '100' # OSP Approver
     - '103' # Approver
   :role_qualifier:
-      :103: '000001'
+    :103:   '000001'
 kctestuser20:  # AKA: "Principal Name"
   :description: creating workflow admin user
   :affiliation_type: Faculty

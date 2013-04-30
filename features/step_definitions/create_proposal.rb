@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Given /^I am logged in as (a|an|the) (.*)$/ do |x, user|
   # Note that this step definition is written
   # assuming that it's the creation step for the
@@ -11,9 +10,6 @@ Given /^I am logged in as (a|an|the) (.*)$/ do |x, user|
 end
 
 And /^I initiate a proposal$/ do
-=======
-And /^I begin a proposal$/ do
->>>>>>> 82e1f4e152a567d0fba03330eb9e9079fbe5bfd4
   @proposal = create ProposalDevelopmentObject
 end
 
