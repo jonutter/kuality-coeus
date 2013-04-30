@@ -22,6 +22,11 @@ Then /^(.*) can access the proposal$/ do |username|
   @proposal.open_document
 end
 
+Then /^the proposal is in (.*)'s action list$/ do |username|
+  get(username).sign_in
+  visit(ActionList).item(@proposal.document_id).should exist
+end
+
 When /^can (.*)$/ do |permissions|
   case permissions
     when 'only update the Abstracts and Attachments page'

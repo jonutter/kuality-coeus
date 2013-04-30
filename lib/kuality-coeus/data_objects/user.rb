@@ -62,6 +62,15 @@ class UserObject
     end
   end
 
+  # Keep in mind...
+  # - This method does nothing if the user
+  #   is already logged in
+  # - If some other user is logged in, they
+  #   will be automatically logged out
+  # - This method will close all child
+  #   tabs/windows and return to the window
+  #   with the header frame, so it can see
+  #   who is currently logged in
   def sign_in
     unless logged_in?
       if username_field.present?
@@ -109,17 +118,27 @@ class UserObject
   alias_method :exists?, :exist?
 
   def logged_in?
+    # Are we on the login page already?
     if username_field.present?
+      # Yes! So, we're not logged in...
       false
+    # No, the Kuali header is showing...
     elsif login_info_div.present?
+      # So, is the user currently listed as logged in?
       return login_info_div.text.include? @user_name
-    else
+    else # We're on some page that has no Kuali header, so...
       begin
+        # We'll assume that the portal window exists, and go to it.
         on(Researcher).return_to_portal
+      # Oops. Apparently there's no portal window, so...
       rescue
-        visit(Login).close_children
+        # We'll close any extra tabs/windows
+        visit(Login).close_children if @browser.windows.size > 1
+        # And make sure that we're using the "parent" window
         @browser.windows[0].use
       end
+      # Now that things are hopefully in a clean state, we'll start
+      # the process again...
       logged_in?
     end
   end

@@ -1,19 +1,8 @@
-Given /^I am logged in as (a|an|the) (.*)$/ do |x, user|
-  # Note that this step definition is written
-  # assuming that it's the creation step for the
-  # user object in the scenario, meaning that @user
-  # will be nil prior to this. If there's any chance
-  # @user won't be nil, do not use this step def in
-  # the scenario.
-  @user = make UserObject, user: StringFactory.damballa(user)
-  @user.sign_in
-end
-
 And /^I initiate a proposal$/ do
   @proposal = create ProposalDevelopmentObject
 end
 
-When /^I initiate a proposal without a (.*)$/ do |name|
+When /^I begin a proposal without a (.*)$/ do |name|
   name=~/Type/ || name=='Lead Unit' ? value='select' : value=''
   field = StringFactory.damballa(name)
   @proposal = create ProposalDevelopmentObject, field=>value
@@ -27,7 +16,7 @@ Then /^I should see an error that says "(.* is a required field.)"$/ do |text|
   end
 end
 
-When /^I initiate a proposal with an invalid sponsor code$/ do
+When /^I begin a proposal with an invalid sponsor code$/ do
   @proposal = create ProposalDevelopmentObject, :sponsor_code=>'000000'
 end
 
@@ -61,10 +50,10 @@ When /^I complete the proposal$/ do
   @proposal.add_key_person
   @proposal.set_valid_credit_splits
   opts={document_id: @proposal.document_id}
-  @proposal.kuali_u_questions = create KualiUniversityQuestionsObject, opts
-  @proposal.proposal_questions = create ProposalQuestionsObject, opts
-  @proposal.compliance_questions = create ComplianceQuestionsObject, opts
-  @proposal.s2s_questionnaire = create S2SQuestionnaireObject, opts
+  #@proposal.kuali_u_questions = create KualiUniversityQuestionsObject, opts
+  #@proposal.proposal_questions = create ProposalQuestionsObject, opts
+  #@proposal.compliance_questions = create ComplianceQuestionsObject, opts
+  #@proposal.s2s_questionnaire = create S2SQuestionnaireObject, opts
 end
 
 When /^I add (.*) as an approver to the proposal$/ do |username|

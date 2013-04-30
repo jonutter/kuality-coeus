@@ -598,7 +598,7 @@ kctestuser16:  # AKA: "Principal Name"
 kctestuser17:  # AKA: "Principal Name"
   :description: creating narrative writer user
   :affiliation_type: Faculty
-  :campus_code: 'UN - University'
+  :campus_code: 'UN - UNIVERSITY'
   :employee_id: kctestuser17
   :employee_status: Active
   :employee_type: Other

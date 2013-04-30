@@ -4,6 +4,7 @@ class S2SQuestionnaireObject
   include DataFactory
   include StringFactory
   include Navigation
+  include Utilities
 
   attr_accessor :document_id, :civil_service, :total_ftes, :potential_effects, :explain_potential_effects,
                 :international_support, :explain_support, :pi_in_govt, :pis_us_govt_agency, :total_amount_requested,
@@ -72,24 +73,24 @@ class S2SQuestionnaireObject
 
       # Answers all of the Yes/No questions first (in random order)
       yn_questions.shuffle.each do |q|
-        var = ivg(q)
+        var = get(q)
         fat.send(q, var) unless var==nil
       end
 
       # Next we answer the questions that are conditional, based on the above answers...
       1.upto(6) do |n|
         fy = "fiscal_year_#{n}"
-        fat.send(fy).pick!(ivg(fy))
+        fat.send(fy).pick!(get(fy))
         ftes = "ftes_for_fy_#{n}"
-        fat.send(ftes).fit ivg(ftes)
+        fat.send(ftes).fit get(ftes)
         yr = "year_#{n+1}"
-        var = ivg(yr)
+        var = get(yr)
         fat.send(yr, var) unless var==nil
       end
       #fat.explain_potential_effects.fit @explain_potential_effects
       1.upto(5) do |n|
         sp = "support_provided_#{n}"
-        fat.send(sp).pick! ivg(sp)
+        fat.send(sp).pick! get(sp)
       end
       #fat.explain_support.fit @explain_support
       #fat.pis_us_govt_agency.pick! @pis_us_govt_agency
@@ -98,7 +99,7 @@ class S2SQuestionnaireObject
       #fat.former_institution.fit @former_institution
       1.upto(20) do |n|
         scl = "stem_cell_line_#{n}"
-        fat.send(scl).fit ivg(scl)
+        fat.send(scl).fit get(scl)
       end
       fill_out fat, :explain_potential_effects, :explain_support, :pis_us_govt_agency,
                     :total_amount_requested, :former_pi, :former_institution,
@@ -142,10 +143,6 @@ class S2SQuestionnaireObject
      :environmental_impact, :authorized_exemption, :site_historic,
      :international_activities, :other_agencies, :subject_to_review,
      :novice_applicants]
-  end
-
-  def ivg(item)
-    instance_variable_get "@#{item}".to_sym
   end
 
 end

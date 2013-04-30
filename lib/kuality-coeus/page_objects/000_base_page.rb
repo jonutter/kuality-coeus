@@ -48,6 +48,8 @@ class BasePage < PageFactory
 
     def search_results_table
       element(:results_table) { |b| b.frm.table(id: 'row') }
+      action(:return_value) { |match, p| p.results_table.row(text: /#{match}/).link(text: 'return value').click }
+      action(:return_random) { |b| b.results_table.row(index: rand(b.results_table.rows.length)).link(text: 'return value').click }
     end
 
     def budget_header_elements

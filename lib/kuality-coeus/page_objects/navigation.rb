@@ -38,7 +38,7 @@ module Navigation
     }
     fields.shuffle.each do |field|
       # TODO: Someday see if there's a way to fix things so this rescue isn't necessary...
-      # It's here because the radio button "element" definitions
+      # It's here because the radio button "element" definitions are *actions* that
       # require a parameter, so just sending the method to the page
       # is not going to work.
       begin
