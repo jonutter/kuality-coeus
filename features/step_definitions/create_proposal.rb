@@ -49,7 +49,7 @@ end
 When /^I complete the proposal$/ do
   @proposal.add_key_person
   @proposal.set_valid_credit_splits
-  opts={document_id: @proposal.document_id}
+  #opts={document_id: @proposal.document_id}
   #@proposal.kuali_u_questions = create KualiUniversityQuestionsObject, opts
   #@proposal.proposal_questions = create ProposalQuestionsObject, opts
   #@proposal.compliance_questions = create ComplianceQuestionsObject, opts
