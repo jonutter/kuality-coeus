@@ -144,9 +144,9 @@ class ProposalDevelopmentObject
     if @sponsor_code=='::random::'
       on(Proposal).find_sponsor_code
       on SponsorLookup do |look|
-        look.sponsor_type_code.fit '::random::'
+        look.sponsor_type_code.pick! '::random::'
         look.search
-        look.page_links.shuffle[0].click if look.page_links.size > 0
+        look.page_links[rand(look.page_links.length)].click if look.page_links.size > 0
         look.return_random
       end
     else
