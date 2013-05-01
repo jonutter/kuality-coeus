@@ -1,6 +1,6 @@
 class ActionList < BasePage
 
-  page_url "#{$base_url}portal.do?channelTitle=Action List&channelUrl=#{$base_url[/^.+com/]+':443'+$base_url[/(?<=com)(\/.+\/)$/]}kew/ActionList.do"
+  page_url "#{$base_url}portal.do?channelTitle=Action List&channelUrl=#{$base_url[/^.+com/]+':'+$base_url[/(?<=com)(\/.+\/)$/]}kew/ActionList.do"
 
   search_results_table
 

@@ -10,7 +10,7 @@ class ProposalDevelopmentObject
                 :sponsor_code, :project_start_date, :project_end_date, :document_id,
                 :status, :initiator, :created, :sponsor_deadline_date, :key_personnel,
                 :special_review, :budget_versions, :permissions, :s2s_questionnaire,
-                :proposal_questions, :compliance_questions, :kuali_u_questions#, :description
+                :proposal_questions, :compliance_questions, :kuali_u_questions, :custom_data#, :description
 
   def initialize(browser, opts={})
     @browser = browser
@@ -103,6 +103,12 @@ class ProposalDevelopmentObject
     @budget_versions << bvo
   end
 
+  def add_custom_data opts={}
+    merge_settings(opts)
+    @custom_data = make CustomDataObject, opts
+    @custom_data.create
+  end
+
   def delete
     open_document
     on(Proposal).proposal_actions
@@ -115,6 +121,11 @@ class ProposalDevelopmentObject
       search.search
       @status=search.doc_status @document_id
     end
+  end
+
+  def close
+    open_document
+    on(Proposal).close
   end
 
   def view
@@ -157,12 +168,11 @@ class ProposalDevelopmentObject
 
   def set_lead_unit
     on(Proposal)do |prop|
-      if lead_unit.exist?
+      if prop.lead_unit.exist?
         prop.lead_unit.pick! @lead_unit
       else
         @lead_unit=prop.lead_unit_ro
       end
-
     end
   end
 

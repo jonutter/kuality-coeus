@@ -16,7 +16,8 @@ class UserObject
     @browser = browser
     @user_name=opts[:user]
     defaults = USERS[@user_name]
-    set_options defaults
+    defaults.nil? ? options=opts : options=defaults.merge(opts)
+    set_options options
   end
 
   def create
@@ -32,13 +33,15 @@ class UserObject
       # as "default"...
       add.affiliation_default.set
       add.name_default.set
+      add.add_name
       add.add_affiliation
-      fill_out add, :employee_id, :employee_status, :employee_type, :base_salary
       # TODO: Another thing that will need to be changed if ever there's a need to test multiple
       # lines of employment:
-      add.primary_employment.set
-      add.add_employment_information
-      add.add_name
+      unless @employee_id.nil?
+        fill_out add, :employee_id, :employee_status, :employee_type, :base_salary
+        add.primary_employment.set
+        add.add_employment_information
+      end
       unless @roles==nil
         @roles.each do |role|
           add.role_id.set role
@@ -82,6 +85,7 @@ class UserObject
         log_in.username.set @user_name
         log_in.login
       end
+      on(Researcher).logout_button.wait_until_present
     end
   end
   alias_method :log_in, :sign_in
