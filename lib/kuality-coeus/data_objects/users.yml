@@ -34,15 +34,15 @@ aemcafee:  # "Principal Name"
     - '1421' # IACUC Protocol Aggregator
     - '1619' # IACUC Protocol Approver
 negcreator:  # AKA: "Principal Name"
-  :description: dfgsdfg
+  :description:      dfgsdfg
   :affiliation_type: 'UN - UNIVERSITY'
   :campus_code:
   :employee_id:
   :employee_status:
   :employee_type:
   :base_salary:
-  :first_name: Negotiation
-  :last_name: Creator
+  :first_name:      Negotiation
+  :last_name:       Creator
   :roles:
     - '123'  # Award Viewer
     - '1409' # View Subaward
@@ -54,15 +54,15 @@ negcreator:  # AKA: "Principal Name"
     :142: '000001'
     :118: '000001'
 thefunk:  # AKA: "Principal Name"
-  :description: dfgsdfg
+  :description:      dfgsdfg
   :affiliation_type: Faculty
-  :campus_code: 'UN - UNIVERSITY'
-  :employee_id: thefunk
-  :employee_status: Active
-  :employee_type: Other
-  :base_salary: '123456'
-  :first_name: Theodore
-  :last_name: Funkmeister
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      thefunk
+  :employee_status:  Active
+  :employee_type:    Other
+  :base_salary:      '123456'
+  :first_name:       Theodore
+  :last_name:        Funkmeister
   :roles:
     - '123'  # Award Viewer
     - '1409' # View Subaward
@@ -74,9 +74,9 @@ thefunk:  # AKA: "Principal Name"
     :142: '000001'
     :118: '000001'
 propcreator:  # AKA: "Principal Name"
-  :description: creating user with create prop only permissions
+  :description:      creating user with create prop only permissions
   :affiliation_type: Faculty
-  :campus_code: 'UN - University'
+  :campus_code:      'UN - University'
   :employee_id: jupropcreator
   :employee_status: Active
   :employee_type: Other
