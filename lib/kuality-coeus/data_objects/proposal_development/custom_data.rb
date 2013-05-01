@@ -13,7 +13,7 @@ class CustomDataObject
 
     defaults = {
         graduate_student_count: rand(50).to_s,
-        billing_element:        random_alphanums(50)
+        billing_element:        random_alphanums(40)
     }
     set_options(defaults.merge(opts))
     requires :document_id
@@ -22,6 +22,7 @@ class CustomDataObject
   def create
     navigate
     on CustomData do |create|
+      create.expand_all
       fill_out create, :graduate_student_count, :billing_element
       create.save
     end
