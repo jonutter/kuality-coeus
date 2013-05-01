@@ -260,6 +260,10 @@ class KeyPersonnelCollection < Array
     self.find_all { |person| person.units.size > 0 }
   end
 
+  def principal_investigator
+    self.find { |person| person.role=='Principal Investigator' }
+  end
+
   # IMPORTANT: This method returns a KeyPersonObject--meaning that if there
   # are multiple key persons in the collection that match this search only
   # the first one will be returned.  If you need a collection of multiple persons

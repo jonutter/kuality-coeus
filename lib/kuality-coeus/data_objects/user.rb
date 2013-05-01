@@ -16,7 +16,8 @@ class UserObject
     @browser = browser
     @user_name=opts[:user]
     defaults = USERS[@user_name]
-    set_options defaults
+    defaults.class==NilClass ? options=opts : options=defaults.merge(opts)
+    set_options options
   end
 
   def create
@@ -82,6 +83,7 @@ class UserObject
         log_in.username.set @user_name
         log_in.login
       end
+      on(Researcher).logout_button.wait_until_present
     end
   end
   alias_method :log_in, :sign_in
