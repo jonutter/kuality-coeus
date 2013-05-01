@@ -388,10 +388,6 @@ kctestuser5:  # AKA: "Principal Name"
   :description:      creating test user with viewer permissions
   :affiliation_type: Other Academic Group
   :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      kctestuser5
-  :employee_status:  Active
-  :employee_type:    Other
-  :base_salary:      '50'
   :first_name:       kim
   :last_name:        test
   :roles:
@@ -426,10 +422,6 @@ kctestuser7:  # AKA: "Principal Name"
   :description:      creating test user with protocol aggregator permissions
   :affiliation_type: Other Academic Group
   :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      kctestuser7
-  :employee_status:  Active
-  :employee_type:    Other
-  :base_salary:      '58'
   :first_name:       drew
   :last_name:        test
   :roles:
@@ -458,10 +450,6 @@ kctestuser9:  # AKA: "Principal Name"
   :description:      creating test user with manager permissions
   :affiliation_type: Other Academic Group
   :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      kctestuser9
-  :employee_status:  Active
-  :employee_type:    Other
-  :base_salary:      '50'
   :first_name:       newman
   :last_name:        test
   :roles:
@@ -474,10 +462,6 @@ kctestuser10:  # AKA: "Principal Name"
   :description:      creating test user with aggregator permissions
   :affiliation_type: Other Academic Group
   :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      kctestuser5
-  :employee_status:  Active
-  :employee_type:    Professional
-  :base_salary:      '50'
   :first_name:       truman
   :last_name:        test
   :roles:
@@ -488,10 +472,6 @@ kctestuser11:  # AKA: "Principal Name"
   :description:      creating test user with aggregator permissions
   :affiliation_type: Other Academic Group
   :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      kctestuser5
-  :employee_status:  Active
-  :employee_type:    Professional
-  :base_salary:      '50'
   :first_name:       truman
   :last_name:        test
   :roles:
@@ -502,10 +482,6 @@ kctestuser12:  # AKA: "Principal Name"
   :description:      creating test user with aggregator permissions
   :affiliation_type: Other Academic Group
   :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      kctestuser12
-  :employee_status:  Active
-  :employee_type:    Professional
-  :base_salary:      '50'
   :first_name:       ford
   :last_name:        test
   :roles:
@@ -516,10 +492,6 @@ kctestuser13:  # AKA: "Principal Name"
   :description:      creating test user with aggregator permissions
   :affiliation_type: Other Academic Group
   :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      kctestuser13
-  :employee_status:  Active
-  :employee_type:    Professional
-  :base_salary:      '50'
   :first_name:       luke
   :last_name:        test
   :roles:
@@ -530,10 +502,6 @@ kctestuser14:  # AKA: "Principal Name"
   :description:      creating test user with aggregator permissions
   :affiliation_type: Other Academic Group
   :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      kctestuser14
-  :employee_status:  Active
-  :employee_type:    Professional
-  :base_salary:      '50'
   :first_name:       henry
   :last_name:        test
   :roles:
