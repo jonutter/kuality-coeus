@@ -1,4 +1,4 @@
-class CustomData < ProposalDevelopment
+class CustomData < ProposalDevelopmentDocument
 
   proposal_header_elements
 
