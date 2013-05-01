@@ -125,10 +125,6 @@ irbadmin:  # AKA: "Principal Name"
   :description: creating IRBAdmin role
   :affiliation_type: Affiliate
   :campus_code: 'UN - UNIVERSITY'
-  :employee_id: juirbadmin
-  :employee_status: Active
-  :employee_type: Other
-  :base_salary: '50,000.00'
   :first_name: francis
   :last_name: test
   :groups:
@@ -159,10 +155,6 @@ juworkflowuser:  # AKA: "Principal Name"
   :description: creating workflow user
   :affiliation_type: Graduate Student Staff
   :campus_code: 'UN - UNIVERSITY'
-  :employee_id: juworkflowuser
-  :employee_status: Active
-  :employee_type: Other
-  :base_salary: '50'
   :first_name: galileo
   :last_name: test
   :groups:
@@ -351,43 +343,39 @@ kctestuser:  # AKA: "Principal Name"
   :role_qualifiers:
     :109: '000001'
 kctestuser2:  # AKA: "Principal Name"
-  :description: creating test user with questionnaire permissions
+  :description:      creating test user with questionnaire permissions
   :affiliation_type: Faculty
-  :campus_code: 'UN - UNIVERSITY'
-  :employee_id: kctestuser2
-  :employee_status: Active
-  :employee_type: Other
-  :base_salary: '260'
-  :first_name: maxwell
-  :last_name: test
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      kctestuser2
+  :employee_status:  Active
+  :employee_type:    Other
+  :base_salary:      '260'
+  :first_name:       maxwell
+  :last_name:        test
   :groups:
     - '2007' # Questionnaire Admin
   :roles:
     - '177'  # Maintain Proposal Questionnaire
 kctestuser3:  # AKA: "Principal Name"
-  :description: creating test user with viewer permissions
+  :description:      creating test user with viewer permissions
   :affiliation_type: Student
-  :campus_code: 'UN - UNIVERSITY'
-  :employee_id: kctestuser3
-  :employee_status: Processing
-  :employee_type: Other
-  :base_salary: '50'
-  :first_name: sean
-  :last_name: test
+  :campus_code:      'UN - UNIVERSITY'
+  :first_name:       sean
+  :last_name:        test
   :roles:
     - '107' # Viewer
   :role_qualifiers:
     :107: '000001'
 kctestuser4:  # AKA: "Principal Name"
-  :description: creating test user generic proposal document permissions
+  :description:      creating test user generic proposal document permissions
   :affiliation_type: Faculty
-  :campus_code: 'UN - UNIVERSITY'
-  :employee_id: kctestuser4
-  :employee_status: Active
-  :employee_type: Other
-  :base_salary: '50'
-  :first_name: james
-  :last_name: test
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      kctestuser4
+  :employee_status:  Active
+  :employee_type:    Other
+  :base_salary:      '50'
+  :first_name:       james
+  :last_name:        test
   :roles:
     - '103' # Approver
     - '107' # Viewer
@@ -397,57 +385,53 @@ kctestuser4:  # AKA: "Principal Name"
     :107: '000001'
     :109: '000001'
 kctestuser5:  # AKA: "Principal Name"
-  :description: creating test user with viewer permissions
+  :description:      creating test user with viewer permissions
   :affiliation_type: Other Academic Group
-  :campus_code: 'UN - UNIVERSITY'
-  :employee_id: kctestuser5
-  :employee_status: Active
-  :employee_type: Other
-  :base_salary: '50'
-  :first_name: kim
-  :last_name: test
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      kctestuser5
+  :employee_status:  Active
+  :employee_type:    Other
+  :base_salary:      '50'
+  :first_name:       kim
+  :last_name:        test
   :roles:
     - '140' # Create Proposal Log
   :role_qualifiers:
     :140: '000001'
 unassigneduser:  # AKA: "Principal Name"
-  :description: creating test user 'unassigned' permissions
+  :description:      creating test user 'unassigned' permissions
   :affiliation_type: Student
-  :campus_code: 'UN - UNIVERSITY'
-  :employee_id: unassigneduser
-  :employee_status: Active
-  :employee_type: Other
-  :base_salary: '50'
-  :first_name: july
-  :last_name: test
+  :campus_code:      'UN - UNIVERSITY'
+  :first_name:       july
+  :last_name:        test
   :roles:
     - '106' # Unassigned
   :role_qualifiers:
     :106: '000001'
 kctestuser6:  # AKA: "Principal Name"
-  :description: creating test user with 'unassigned' permissions
+  :description:      creating test user with 'unassigned' permissions
   :affiliation_type: Medical Staff
-  :campus_code: 'UN - UNIVERSITY'
-  :employee_id: kctestuser6
-  :employee_status: Pending
-  :employee_type: Other
-  :base_salary: '50'
-  :first_name: mike
-  :last_name: test
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      kctestuser6
+  :employee_status:  Pending
+  :employee_type:    Other
+  :base_salary:      '50'
+  :first_name:       mike
+  :last_name:        test
   :roles:
     - '106' # Unassigned
   :role_qualifiers:
     :106: '000001'
 kctestuser7:  # AKA: "Principal Name"
-  :description: creating test user with protocol aggregator permissions
+  :description:      creating test user with protocol aggregator permissions
   :affiliation_type: Other Academic Group
-  :campus_code: 'UN - UNIVERSITY'
-  :employee_id: kctestuser7
-  :employee_status: Active
-  :employee_type: Other
-  :base_salary: '58'
-  :first_name: drew
-  :last_name: test
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      kctestuser7
+  :employee_status:  Active
+  :employee_type:    Other
+  :base_salary:      '58'
+  :first_name:       drew
+  :last_name:        test
   :roles:
     - '105' # Protocol Aggregator
     - '140' # Create Proposal Log
@@ -455,15 +439,15 @@ kctestuser7:  # AKA: "Principal Name"
     :105: '000001'
     :140: '000001'
 kctestuser8:  # AKA: "Principal Name"
-   :description: creating test user with kc admin permissions
-   :affiliation_type: Service Staff
-   :campus_code: 'UN - UNIVERSITY'
-   :employee_id: kctestuser8
-   :employee_status: Status Not Yet Processed
-   :employee_type: Other
-   :base_salary: '80'
-   :first_name: pascal
-   :last_name: test
+   :description:       creating test user with kc admin permissions
+   :affiliation_type:  Service Staff
+   :campus_code:       'UN - UNIVERSITY'
+   :employee_id:       kctestuser8
+   :employee_status:   Status Not Yet Processed
+   :employee_type:     Other
+   :base_salary:       '80'
+   :first_name:        pascal
+   :last_name:         test
    :group:
      - '2001' # KcAdmin
    :roles:
@@ -471,15 +455,15 @@ kctestuser8:  # AKA: "Principal Name"
    :role_qualifiers:
      :162: '000001'
 kctestuser9:  # AKA: "Principal Name"
-  :description: creating test user with manager permissions
+  :description:      creating test user with manager permissions
   :affiliation_type: Other Academic Group
-  :campus_code: 'UN - UNIVERSITY'
-  :employee_id: kctestuser9
-  :employee_status: Active
-  :employee_type: Other
-  :base_salary: '50'
-  :first_name: newman
-  :last_name: test
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      kctestuser9
+  :employee_status:  Active
+  :employee_type:    Other
+  :base_salary:      '50'
+  :first_name:       newman
+  :last_name:        test
   :roles:
     - '98'  # Manager
     - '110' # Aggregator
@@ -487,71 +471,71 @@ kctestuser9:  # AKA: "Principal Name"
     :98:  '000001'
     :110: '000001'
 kctestuser10:  # AKA: "Principal Name"
-  :description: creating test user with aggregator permissions
+  :description:      creating test user with aggregator permissions
   :affiliation_type: Other Academic Group
-  :campus_code: 'UN - UNIVERSITY'
-  :employee_id: kctestuser5
-  :employee_status: Active
-  :employee_type: Professional
-  :base_salary: '50'
-  :first_name: truman
-  :last_name: test
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      kctestuser5
+  :employee_status:  Active
+  :employee_type:    Professional
+  :base_salary:      '50'
+  :first_name:       truman
+  :last_name:        test
   :roles:
     - '110' # Aggregator
   :role_qualifiers:
     :110: '000001'
 kctestuser11:  # AKA: "Principal Name"
-  :description: creating test user with aggregator permissions
+  :description:      creating test user with aggregator permissions
   :affiliation_type: Other Academic Group
-  :campus_code: 'UN - UNIVERSITY'
-  :employee_id: kctestuser5
-  :employee_status: Active
-  :employee_type: Professional
-  :base_salary: '50'
-  :first_name: truman
-  :last_name: test
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      kctestuser5
+  :employee_status:  Active
+  :employee_type:    Professional
+  :base_salary:      '50'
+  :first_name:       truman
+  :last_name:        test
   :roles:
     - '110' # Aggregator
   :role_qualifiers:
     :110: '000001'
 kctestuser12:  # AKA: "Principal Name"
-  :description: creating test user with aggregator permissions
+  :description:      creating test user with aggregator permissions
   :affiliation_type: Other Academic Group
-  :campus_code: 'UN - UNIVERSITY'
-  :employee_id: kctestuser12
-  :employee_status: Active
-  :employee_type: Professional
-  :base_salary: '50'
-  :first_name: ford
-  :last_name: test
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      kctestuser12
+  :employee_status:  Active
+  :employee_type:    Professional
+  :base_salary:      '50'
+  :first_name:       ford
+  :last_name:        test
   :roles:
     - '110' # Aggregator
   :role_qualifiers:
     :110: '000001'
 kctestuser13:  # AKA: "Principal Name"
-  :description: creating test user with aggregator permissions
+  :description:      creating test user with aggregator permissions
   :affiliation_type: Other Academic Group
-  :campus_code: 'UN - UNIVERSITY'
-  :employee_id: kctestuser13
-  :employee_status: Active
-  :employee_type: Professional
-  :base_salary: '50'
-  :first_name: luke
-  :last_name: test
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      kctestuser13
+  :employee_status:  Active
+  :employee_type:    Professional
+  :base_salary:      '50'
+  :first_name:       luke
+  :last_name:        test
   :roles:
     - '110' # Aggregator
   :role_qualifiers:
     :110: '000001'
 kctestuser14:  # AKA: "Principal Name"
-  :description: creating test user with aggregator permissions
+  :description:      creating test user with aggregator permissions
   :affiliation_type: Other Academic Group
-  :campus_code: 'UN - UNIVERSITY'
-  :employee_id: kctestuser14
-  :employee_status: Active
-  :employee_type: Professional
-  :base_salary: '50'
-  :first_name: henry
-  :last_name: test
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      kctestuser14
+  :employee_status:  Active
+  :employee_type:    Professional
+  :base_salary:      '50'
+  :first_name:       henry
+  :last_name:        test
   :roles:
     - '110' # Aggregator
     - '98'  # Manager
@@ -559,15 +543,15 @@ kctestuser14:  # AKA: "Principal Name"
     :110: '000001'
     :98:  '000001'
 kctestuser15:  # AKA: "Principal Name"
-  :description: creating workflow admin user with agg role
+  :description:      creating workflow admin user with agg role
   :affiliation_type: Medical Staff
-  :campus_code: 'UN - UNIVERSITY'
-  :employee_id: kctestuser15
-  :employee_status: Active
-  :employee_type: Professional
-  :base_salary: '50'
-  :first_name: braun
-  :last_name: test
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      kctestuser15
+  :employee_status:  Active
+  :employee_type:    Professional
+  :base_salary:      '50'
+  :first_name:       braun
+  :last_name:        test
   :groups:
     - '1'   # Workflow Admin
   :roles:
@@ -577,15 +561,15 @@ kctestuser15:  # AKA: "Principal Name"
   :role_qualifiers:
     :110:   '000001'
 kctestuser16:  # AKA: "Principal Name"
-  :description: creating workflow admin user with prop creator role
+  :description:      creating workflow admin user with prop creator role
   :affiliation_type: Faculty
-  :campus_code: 'UN - UNIVERSITY'
-  :employee_id: kctestuser16
-  :employee_status: Active
-  :employee_type: Other
-  :base_salary: '50'
-  :first_name: jorge
-  :last_name: test
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      kctestuser16
+  :employee_status:  Active
+  :employee_type:    Other
+  :base_salary:      '50'
+  :first_name:       jorge
+  :last_name:        test
   :groups:
     - '1'   # Workflow Admin
   :roles:
@@ -596,15 +580,15 @@ kctestuser16:  # AKA: "Principal Name"
   :role_qualifiers:
     :111:   '000001'
 kctestuser17:  # AKA: "Principal Name"
-  :description: creating narrative writer user
+  :description:      creating narrative writer user
   :affiliation_type: Faculty
-  :campus_code: 'UN - UNIVERSITY'
-  :employee_id: kctestuser17
-  :employee_status: Active
-  :employee_type: Other
-  :base_salary: '50'
-  :first_name: sia
-  :last_name: test
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      kctestuser17
+  :employee_status:  Active
+  :employee_type:    Other
+  :base_salary:      '50'
+  :first_name:       sia
+  :last_name:        test
   :groups:
     - '1'   # Workflow Admin
   :roles:
@@ -616,15 +600,15 @@ kctestuser17:  # AKA: "Principal Name"
       :111: '000001'
       :109: '000001'
 kctestuser18:  # AKA: "Principal Name"
-  :description: creating workflow admin user with approver role
+  :description:      creating workflow admin user with approver role
   :affiliation_type: Faculty
-  :campus_code: 'UN - UNIVERSITY'
-  :employee_id: kctestuser18
-  :employee_status: Active
-  :employee_type: Other
-  :base_salary: '50'
-  :first_name: sadier
-  :last_name: test
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      kctestuser18
+  :employee_status:  Active
+  :employee_type:    Other
+  :base_salary:      '50'
+  :first_name:       sadier
+  :last_name:        test
   :groups:
     - '1'   # Workflow Admin
   :roles:
@@ -637,10 +621,6 @@ kctestuser19:  # AKA: "Principal Name"
   :description:      creating workflow admin user with approver role
   :affiliation_type: Student
   :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      kctestuser19
-  :employee_status:  Active
-  :employee_type:    Other
-  :base_salary:      '50'
   :first_name:       jackson
   :last_name:        test
   :groups:
@@ -652,15 +632,15 @@ kctestuser19:  # AKA: "Principal Name"
   :role_qualifier:
     :103:   '000001'
 kctestuser20:  # AKA: "Principal Name"
-  :description: creating workflow admin user
+  :description:      creating workflow admin user
   :affiliation_type: Faculty
-  :campus_code: 'UN - UNIVERSITY'
-  :employee_id: kctestuser20
-  :employee_status: Active
-  :employee_type: Other
-  :base_salary: '50'
-  :first_name: fred
-  :last_name: test
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      kctestuser20
+  :employee_status:  Active
+  :employee_type:    Other
+  :base_salary:      '50'
+  :first_name:       fred
+  :last_name:        test
   :groups:
     - '1'   # Workflow Admin
   :roles:
