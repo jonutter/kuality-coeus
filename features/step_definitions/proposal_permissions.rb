@@ -20,6 +20,7 @@ end
 Then /^(.*) can access the proposal$/ do |username|
   get(username).sign_in
   @proposal.open_document
+  on(Researcher).error_table.should_not be_present
 end
 
 Then /^the proposal is in (.*)'s action list$/ do |username|
