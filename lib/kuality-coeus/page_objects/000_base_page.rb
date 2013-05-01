@@ -10,6 +10,12 @@ class BasePage < PageFactory
 
   class << self
 
+    def glbl(*titles)
+      titles.each do |title|
+        action(StringFactory.damballa(title)) { |b| b.frm.button(class: 'globalbuttons', title: title).click; b.loading }
+      end
+    end
+
     def document_header_elements
       element(:headerinfo_table) { |b| b.frm.div(id: 'headerarea').table(class: 'headerinfo') }
 
@@ -27,12 +33,8 @@ class BasePage < PageFactory
     end
 
     def global_buttons
-      action(:submit) { |b| b.frm.button(class: 'globalbuttons', title: 'submit').click; b.loading }
-      action(:save) { |b| b.frm.button(class: 'globalbuttons', title: 'save').click; b.loading }
-      action(:blanket_approve) { |b| b.frm.button(class: 'globalbuttons', title: 'blanket approve').click; b.loading }
-      action(:close) { |b| b.frm.button(class: 'globalbuttons', title: 'close').click; b.loading }
-      action(:cancel) { |b| b.frm.button(class: 'globalbuttons', title: 'cancel').click; b.loading }
-      action(:reload) { |b| b.frm.button(class: 'globalbuttons', title: 'reload').click; b.loading }
+      glbl 'submit', 'save', 'blanket approve', 'close', 'cancel', 'reload', 'Submit To Sponsor', 'Send Notification', 'Delete Proposal'
+      action(:recall) { |b| b.frm.button(class: 'globalbuttons', title: 'Recall current document').click; b.loading }
       action(:delete_selected) { |b| b.frm.button(class: 'globalbuttons', name: 'methodToCall.deletePerson').click; b.loading }
     end
 
