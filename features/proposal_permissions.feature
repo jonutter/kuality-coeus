@@ -6,11 +6,11 @@ Feature: Permissions in a Proposal
 
   Background: A user has started a proposal
     Given   I'm logged in with admin
-    And     I begin a proposal
 
-  Scenario: The initiator is automatically an aggregator
+  Scenario: The proposal initiator is automatically an aggregator
+    Given   I initiate a proposal
     When    I visit the proposal's Permissions page
-    Then    I am listed as an Aggregator for the proposal
+    Then    admin is listed as an Aggregator for the proposal
 
   Scenario Outline: Adding various roles to proposals
     When    I assign mwmartin as a <Role> to the proposal permissions
@@ -26,7 +26,10 @@ Feature: Permissions in a Proposal
     | Deleter          | delete the proposal                            |
   @test
   Scenario: Adding an Approver
-    When    I add an approver to the proposal
+    Given   I have a user with the user name kctestuser17
+    And     I log in with kctestuser17
+    And     I initiate a proposal
+    When    I add tdurkin as an approver to the proposal
     And     I complete the proposal
     And     I submit the proposal
     Then    That person can access the proposal

@@ -33,7 +33,7 @@ When /^I do not complete the compliance question$/ do
   #nothing necessary for this step
 end
 
-When /^I do not complete the kuali university questions$/ do
+When /^I do not answer one of the kuali university questions$/ do
   # Here we're going to answer a random selection of all but one
   # of the questions required in the questionnaire.
   # The questions...
@@ -61,14 +61,14 @@ Then /^the validation should report the question was not answered$/ do
   on(ProposalActions).validation_errors_and_warnings.should include "Answer is required for Question #{questions[@unanswered_question]} in group C. Kuali University."
 end
 
-When /^I begin a proposal with an un-certified (.*)$/ do |role|
+When /^I initiate a proposal with an un-certified (.*)$/ do |role|
   @role = role
   @proposal = create ProposalDevelopmentObject
   on(Proposal).key_personnel
   @proposal.add_key_person first_name: 'Dick', last_name: 'COIAdmin', role: @role, certified: false
 end
 
-Given /^I begin a proposal where the un-certified key person has certification questions$/ do
+Given /^I initiate a proposal where the un-certified key person has certification questions$/ do
   @role = 'Key Person'
   @proposal = create ProposalDevelopmentObject
   @proposal.add_key_person first_name: 'Jeff', last_name: 'Covey', role: @role, key_person_role: 'default', certified: false
@@ -91,7 +91,9 @@ end
 
 And /^checking the questions page shows an error that says (.*)$/ do |error|
   on(Proposal).questions
-  errors = {'proposal questions were not answered' => 'Answer is required for Question 1 in group A. Proposal Questions.'
+  errors = {'proposal questions were not answered' => 'Answer is required for Question 1 in group A. Proposal Questions.',
+            'questionnaire must be completed' => %|You must complete the questionnaire "S2S FAT & Flat Questionnaire"|,
+            'you must complete the compliance question' => 'Answer is required for Question 1 in group B. Compliance.'
   }
   on(Questions).errors.should include errors[error]
 end

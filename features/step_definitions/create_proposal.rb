@@ -1,4 +1,4 @@
-And /^I begin a proposal$/ do
+And /^I initiate a proposal$/ do
   @proposal = create ProposalDevelopmentObject
 end
 

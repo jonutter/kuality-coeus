@@ -30,45 +30,644 @@ aemcafee:  # "Principal Name"
     - '2003' # ProposalAdmin
     - '2004' # IRBAdmin
   :roles:
-    - '105' # Protocol Aggregator
+    - '105'  # Protocol Aggregator
     - '1421' # IACUC Protocol Aggregator
-    - '1619' # IACUC ProtocolApprover
+    - '1619' # IACUC Protocol Approver
 negcreator:  # AKA: "Principal Name"
-  :description: dfgsdfg
+  :description:      dfgsdfg
   :affiliation_type: 'UN - UNIVERSITY'
   :campus_code:
   :employee_id:
   :employee_status:
   :employee_type:
   :base_salary:
-  :first_name: Negotiation
-  :last_name: Creator
+  :first_name:      Negotiation
+  :last_name:       Creator
   :roles:
-    - '123' # Award Viewer
-    - '142' # View Proposal Log
-    - '118' # Institutional Proposal Viewer
+    - '123'  # Award Viewer
+    - '1409' # View Subaward
+    - '1382' # Negotiation Creator
+    - '142'  # View Proposal Log
+    - '118'  # Institutional Proposal Viewer
   :role_qualifiers:
     :123: '000001'
     :142: '000001'
     :118: '000001'
 thefunk:  # AKA: "Principal Name"
-  :description: dfgsdfg
+  :description:      dfgsdfg
   :affiliation_type: Faculty
-  :campus_code: 'UN - UNIVERSITY'
-  :employee_id: thefunk
-  :employee_status: Active
-  :employee_type: Other
-  :base_salary: '123456'
-  :first_name: Theodore
-  :last_name: Funkmeister
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      thefunk
+  :employee_status:  Active
+  :employee_type:    Other
+  :base_salary:      '123456'
+  :first_name:       Theodore
+  :last_name:        Funkmeister
   :roles:
-    - '123' # Award Viewer
-    - '142' # View Proposal Log
-    - '118' # Institutional Proposal Viewer
+    - '123'  # Award Viewer
+    - '1409' # View Subaward
+    - '1382' # Negotiation Creator
+    - '142'  # View Proposal Log
+    - '118'  # Institutional Proposal Viewer
   :role_qualifiers:
     :123: '000001'
     :142: '000001'
     :118: '000001'
+propcreator:  # AKA: "Principal Name"
+  :description:      creating user with create prop only permissions
+  :affiliation_type: Faculty
+  :campus_code:      'UN - University'
+  :employee_id: jupropcreator
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '50,000.00'
+  :first_name: nicholas
+  :last_name: test
+  :roles:
+    - '111' # Proposal Creator
+  :role_qualifiers:
+    :123: '000001'
+pi:  # AKA: "Principal Name"
+  :description: creating pi role for viewing, modifying, certifying, etc
+  :affiliation_type: Faculty
+  :campus_code: 'UN - University'
+  :employee_id: jupi
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '50,000.00'
+  :first_name: jupi
+  :last_name: test
+  :groups:
+    - '2005' # Proposal Development - Department Reviewers
+  :roles:
+    - '101' # Award Budget Viewer
+    - '102' # Award Budget Modifier
+    - '110' # Aggregator
+    - '111' # Proposal Creator
+  :role_qualifiers:
+    :101: '000001'
+    :102: '000001'
+    :110: '000001'
+    :111: '000001'
+systemuser:  # AKA: "Principal Name"
+  :description: creating a generic system user
+  :affiliation_type: Research Staff
+  :campus_code: 'UN - University'
+  :employee_id: jusysuser
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '50,000.00'
+  :first_name: jusysuser
+  :last_name: test
+  :roles:
+    - '90' # System User
+irbadmin:  # AKA: "Principal Name"
+  :description: creating IRBAdmin role
+  :affiliation_type: Affiliate
+  :campus_code: 'UN - University'
+  :employee_id: juirbadmin
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '50,000.00'
+  :first_name: francis
+  :last_name: test
+  :groups:
+    - '2004' # IRBAdmin
+  :roles:
+    - '127'  # IRB Reviewer
+    - '128'  # IRB Administrator
+    - '1638' # IACUC Protocol Approver
+  :role_qualifiers:
+    :127: '000001'
+    :128: '000001'
+workflowadmin:  # AKA: "Principal Name"
+  :description: creating workflow admin user
+  :affiliation_type: Faculty
+  :campus_code: 'UN - University'
+  :employee_id: juworkflowadmin
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '50'
+  :first_name: kepler
+  :last_name: test
+  :groups:
+    - '1'   # Workflow Admin
+  :roles:
+    - '99'  # IRB Approver
+    - '100' # OSP Approver
+juworkflowuser:  # AKA: "Principal Name"
+  :description: creating workflow user
+  :affiliation_type: Graduate Student Staff
+  :campus_code: 'UN - University'
+  :employee_id: juworkflowuser
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '50'
+  :first_name: galileo
+  :last_name: test
+  :groups:
+    - '1'    # Workflow Admin
+    - '2004' # IRBAdmin
+  :roles:
+    - '99'  # IRB Approver
+    - '100' # OSP Approver
+    - '161' # Maintain IRB Questionnaire
+aggregator:  # AKA: "Principal Name"
+  :description: creating user with aggregator permissions
+  :affiliation_type: Faculty
+  :campus_code: 'UN - University'
+  :employee_id: juaggregator
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '160'
+  :first_name: jacques
+  :last_name: test
+  :roles:
+    - '110' # Aggregator
+    - '113' # Award Budget Aggregator
+  :role_qualifiers:
+    :110: '000001'
+protocolagg:  # AKA: "Principal Name"
+  :description: creating protocol aggregator user
+  :affiliation_type: Medical Staff
+  :campus_code: 'UN - University'
+  :employee_id: juprotagg
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '160'
+  :first_name: rene
+  :last_name: test
+  :roles:
+    - '105' # Protocol Aggregator
+    - '110' # Aggregator
+    - '113' # Award Budget Aggregator
+  :role_qualifiers:
+    :105: '000001'
+    :110: '000001'
+budgetcreator:  # AKA: "Principal Name"
+  :description: creating user with budget creator role
+  :affiliation_type: Medical Staff
+  :campus_code: 'UN - University'
+  :employee_id: jubudgetcreator
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '160'
+  :first_name: boyle
+  :last_name: test
+  :roles:
+    - '108' # Protocol Aggregator
+  :role_qualifiers:
+    :108: '000001'
+propcreateadmin:  # AKA: "Principal Name"
+  :description: creating proposal admin user with prop creator role
+  :affiliation_type: Medical Staff
+  :campus_code: 'UN - University'
+  :employee_id: propcreateadmin
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '160'
+  :first_name: faraday
+  :last_name: test
+  :groups:
+    - '2003' # Proposal Admin
+  :roles:
+    - '111'  # Proposal Creator
+  :role_qualifiers:
+    :111: '000001'
+nonemplpropcreator:  # AKA: "Principal Name"
+  :description: creating proposal creator who is not an employee
+  :affiliation_type: Graduate Student Staff
+  :campus_code: 'UN - University'
+  :employee_id: nonemplpropcreator
+  :employee_status: Status Not Yet Processed
+  :employee_type: Other
+  :base_salary: '75'
+  :first_name: mendel
+  :last_name: test
+  :roles:
+    - '111' # Proposal Creator
+  :role_qualifiers:
+    :111: '000001'
+deptadmin:  # AKA: "Principal Name"
+  :description: creating departmental proposal admin
+  :affiliation_type: Staff
+  :campus_code: 'UN - University'
+  :employee_id: judept
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '200'
+  :first_name: kelvin
+  :last_name: test
+  :groups:
+    - '2005' # Proposal Development - Department Reviewers
+  :roles:
+    - '121' # Departments Awards Viewer
+  :role_qualifiers:
+    :121: '000001'
+approver:  # AKA: "Principal Name"
+  :description: creating user with approver role
+  :affiliation_type: Staff
+  :campus_code: 'UN - University'
+  :employee_id: approver
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '200'
+  :first_name: albert
+  :last_name: test
+  :roles:
+    - '100' # OSP Approver
+    - '103' # Approver
+    - '112' # Award Budget Approver
+  :role_qualifiers:
+    :103: '000001'
+    :112: '000001'
+ospapprover:  # AKA: "Principal Name"
+  :description: creating osp approver
+  :affiliation_type: Faculty
+  :campus_code: 'UN - University'
+  :employee_id: ospapprover
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '180'
+  :first_name: gregor
+  :last_name: test
+  :roles:
+    - '100' # OSP Approver
+ospadmin:  # AKA: "Principal Name"
+  :description: creating osp admin
+  :affiliation_type: Staff
+  :campus_code: 'UN - University'
+  :employee_id: ospadmin
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '200'
+  :first_name: adam
+  :last_name: test
+  :roles:
+    - '100' # OSPApprover
+    - '131' # OSP Administrator
+  :role_qualifiers:
+    :131: '000001'
+kcsuperuser:  # AKA: "Principal Name"
+  :description: creating super user
+  :affiliation_type: Faculty
+  :campus_code: 'UN - University'
+  :employee_id: kcsuperuser
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '200'
+  :first_name: superad
+  :last_name: test
+  :roles:
+    - '177' # KC Super User
+  :role_qualifiers:
+    :177: '000001'
+kcsuperuser:  # AKA: "Principal Name"
+  :description: creating super user
+  :affiliation_type: Faculty
+  :campus_code: 'UN - University'
+  :employee_id: kcsuperuser
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '200'
+  :first_name: super
+  :last_name: test
+  :roles:
+    - '177' # KC Super User
+  :role_qualifiers:
+    :177: '000001'
+kctestuser:  # AKA: "Principal Name"
+  :description: creating test user with narrative writer permissions
+  :affiliation_type: Medical Staff
+  :campus_code: 'UN - University'
+  :employee_id: kctestuser
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '150'
+  :first_name: isaac
+  :last_name: test
+  :roles:
+    - '109' # Narrative Writer
+  :role_qualifiers:
+    :109: '000001'
+kctestuser2:  # AKA: "Principal Name"
+  :description: creating test user with questionnaire permissions
+  :affiliation_type: Faculty
+  :campus_code: 'UN - University'
+  :employee_id: kctestuser2
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '260'
+  :first_name: maxwell
+  :last_name: test
+  :groups:
+    - '2007' # Questionnaire Admin
+  :roles:
+    - '177'  # Maintain Proposal Questionnaire
+kctestuser3:  # AKA: "Principal Name"
+  :description: creating test user with viewer permissions
+  :affiliation_type: Student
+  :campus_code: 'UN - University'
+  :employee_id: kctestuser3
+  :employee_status: Processing
+  :employee_type: Other
+  :base_salary: '50'
+  :first_name: sean
+  :last_name: test
+  :roles:
+    - '107' # Viewer
+  :role_qualifiers:
+    :107: '000001'
+kctestuser4:  # AKA: "Principal Name"
+  :description: creating test user generic proposal document permissions
+  :affiliation_type: Faculty
+  :campus_code: 'UN - University'
+  :employee_id: kctestuser4
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '50'
+  :first_name: james
+  :last_name: test
+  :roles:
+    - '103' # Approver
+    - '107' # Viewer
+    - '109' # Narrative Writer
+  :role_qualifiers:
+    :103: '000001'
+    :107: '000001'
+    :109: '000001'
+kctestuser5:  # AKA: "Principal Name"
+  :description: creating test user with viewer permissions
+  :affiliation_type: Other Academic Group
+  :campus_code: 'UN - University'
+  :employee_id: kctestuser5
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '50'
+  :first_name: kim
+  :last_name: test
+  :roles:
+    - '140' # Create Proposal Log
+  :role_qualifiers:
+    :140: '000001'
+unassigneduser:  # AKA: "Principal Name"
+  :description: creating test user 'unassigned' permissions
+  :affiliation_type: Student
+  :campus_code: 'UN - University'
+  :employee_id: unassigneduser
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '50'
+  :first_name: july
+  :last_name: test
+  :roles:
+    - '106' # Unassigned
+  :role_qualifiers:
+    :106: '000001'
+kctestuser6:  # AKA: "Principal Name"
+  :description: creating test user with 'unassigned' permissions
+  :affiliation_type: Medical Staff
+  :campus_code: 'UN - University'
+  :employee_id: kctestuser6
+  :employee_status: Pending
+  :employee_type: Other
+  :base_salary: '50'
+  :first_name: mike
+  :last_name: test
+  :roles:
+    - '106' # Unassigned
+  :role_qualifiers:
+    :106: '000001'
+kctestuser7:  # AKA: "Principal Name"
+  :description: creating test user with protocol aggregator permissions
+  :affiliation_type: Other Academic Group
+  :campus_code: 'UN - University'
+  :employee_id: kctestuser7
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '58'
+  :first_name: drew
+  :last_name: test
+  :roles:
+    - '105' # Protocol Aggregator
+    - '140' # Create Proposal Log
+  :role_qualifiers:
+    :105: '000001'
+    :140: '000001'
+kctestuser8:  # AKA: "Principal Name"
+   :description: creating test user with kc admin permissions
+   :affiliation_type: Service Staff
+   :campus_code: 'UN - University'
+   :employee_id: kctestuser8
+   :employee_status: Status Not Yet Processed
+   :employee_type: Other
+   :base_salary: '80'
+   :first_name: pascal
+   :last_name: test
+   :group:
+     - '2001' # KcAdmin
+   :roles:
+     - '162'  # Maintain Proposal Questionnaire
+   :role_qualifiers:
+     :162: '000001'
+kctestuser9:  # AKA: "Principal Name"
+  :description: creating test user with manager permissions
+  :affiliation_type: Other Academic Group
+  :campus_code: 'UN - University'
+  :employee_id: kctestuser9
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '50'
+  :first_name: newman
+  :last_name: test
+  :roles:
+    - '98'  # Manager
+    - '110' # Aggregator
+  :role_qualifiers:
+    :98:  '000001'
+    :110: '000001'
+kctestuser10:  # AKA: "Principal Name"
+  :description: creating test user with aggregator permissions
+  :affiliation_type: Other Academic Group
+  :campus_code: 'UN - University'
+  :employee_id: kctestuser5
+  :employee_status: Active
+  :employee_type: Professional
+  :base_salary: '50'
+  :first_name: truman
+  :last_name: test
+  :roles:
+    - '110' # Aggregator
+  :role_qualifiers:
+    :110: '000001'
+kctestuser11:  # AKA: "Principal Name"
+  :description: creating test user with aggregator permissions
+  :affiliation_type: Other Academic Group
+  :campus_code: 'UN - University'
+  :employee_id: kctestuser5
+  :employee_status: Active
+  :employee_type: Professional
+  :base_salary: '50'
+  :first_name: truman
+  :last_name: test
+  :roles:
+    - '110' # Aggregator
+  :role_qualifiers:
+    :110: '000001'
+kctestuser12:  # AKA: "Principal Name"
+  :description: creating test user with aggregator permissions
+  :affiliation_type: Other Academic Group
+  :campus_code: 'UN - University'
+  :employee_id: kctestuser12
+  :employee_status: Active
+  :employee_type: Professional
+  :base_salary: '50'
+  :first_name: ford
+  :last_name: test
+  :roles:
+    - '110' # Aggregator
+  :role_qualifiers:
+    :110: '000001'
+kctestuser13:  # AKA: "Principal Name"
+  :description: creating test user with aggregator permissions
+  :affiliation_type: Other Academic Group
+  :campus_code: 'UN - University'
+  :employee_id: kctestuser13
+  :employee_status: Active
+  :employee_type: Professional
+  :base_salary: '50'
+  :first_name: luke
+  :last_name: test
+  :roles:
+    - '110' # Aggregator
+  :role_qualifiers:
+    :110: '000001'
+kctestuser14:  # AKA: "Principal Name"
+  :description: creating test user with aggregator permissions
+  :affiliation_type: Other Academic Group
+  :campus_code: 'UN - University'
+  :employee_id: kctestuser14
+  :employee_status: Active
+  :employee_type: Professional
+  :base_salary: '50'
+  :first_name: henry
+  :last_name: test
+  :roles:
+    - '110' # Aggregator
+    - '98'  # Manager
+  :role_qualifiers:
+    :110: '000001'
+    :98:  '000001'
+kctestuser15:  # AKA: "Principal Name"
+  :description: creating workflow admin user with agg role
+  :affiliation_type: Medical Staff
+  :campus_code: 'UN - University'
+  :employee_id: kctestuser15
+  :employee_status: Active
+  :employee_type: Professional
+  :base_salary: '50'
+  :first_name: braun
+  :last_name: test
+  :groups:
+    - '1'   # Workflow Admin
+  :roles:
+    - '99'  # IRB Approver
+    - '100' # OSP Approver
+    - '110' # Aggregator
+  :role_qualifiers:
+    :110:   '000001'
+kctestuser16:  # AKA: "Principal Name"
+  :description: creating workflow admin user with prop creator role
+  :affiliation_type: Faculty
+  :campus_code: 'UN - University'
+  :employee_id: kctestuser16
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '50'
+  :first_name: jorge
+  :last_name: test
+  :groups:
+    - '1'   # Workflow Admin
+  :roles:
+    - '98'  # Manager
+    - '99'  # IRB Approver
+    - '100' # OSP Approver
+    - '111' # Proposal Creator
+  :role_qualifiers:
+    :111:   '000001'
+kctestuser17:  # AKA: "Principal Name"
+  :description: creating narrative writer user
+  :affiliation_type: Faculty
+  :campus_code: 'UN - UNIVERSITY'
+  :employee_id: kctestuser17
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '50'
+  :first_name: sia
+  :last_name: test
+  :groups:
+    - '1'   # Workflow Admin
+  :roles:
+    - '99'  # IRB Approver
+    - '100' # OSP Approver
+    - '111' # Proposal Creator
+    - '109' # Narrative Writer
+  :role_qualifiers:
+      :111: '000001'
+      :109: '000001'
+kctestuser18:  # AKA: "Principal Name"
+  :description: creating workflow admin user with approver role
+  :affiliation_type: Faculty
+  :campus_code: 'UN - University'
+  :employee_id: kctestuser18
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '50'
+  :first_name: sadier
+  :last_name: test
+  :groups:
+    - '1'   # Workflow Admin
+  :roles:
+    - '99'  # IRB Approver
+    - '100' # OSP Approver
+    - '103' # Approver
+  :role_qualifier:
+      :103: '000001'
+kctestuser19:  # AKA: "Principal Name"
+  :description:      creating workflow admin user with approver role
+  :affiliation_type: Student
+  :campus_code:      'UN - University'
+  :employee_id:      kctestuser19
+  :employee_status:  Active
+  :employee_type:    Other
+  :base_salary:      '50'
+  :first_name:       jackson
+  :last_name:        test
+  :groups:
+    - '1'   # Workflow Admin
+  :roles:
+    - '99'  # IRB Approver
+    - '100' # OSP Approver
+    - '103' # Approver
+  :role_qualifier:
+    :103:   '000001'
+kctestuser20:  # AKA: "Principal Name"
+  :description: creating workflow admin user
+  :affiliation_type: Faculty
+  :campus_code: 'UN - University'
+  :employee_id: kctestuser20
+  :employee_status: Active
+  :employee_type: Other
+  :base_salary: '50'
+  :first_name: fred
+  :last_name: test
+  :groups:
+    - '1'   # Workflow Admin
+  :roles:
+    - '106' # Unassigned
+  :role_qualifier:
+      :106: '000001'
+#
 # Replace 'username' below with the login string for the user...
 #username:  # AKA: "Principal Name"
 #  :description:
