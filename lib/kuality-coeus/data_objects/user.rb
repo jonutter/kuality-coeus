@@ -18,7 +18,7 @@ class UserObject
                 :employee_id, :employee_status, :employee_type, :base_salary,
                 :groups, :roles, :role_qualifiers,
                 :address_type, :line_1, :line_2, :line_3, :city, :state, :country,
-
+                :phone_type, :phone_number
 
   USERS = UserCollection[YAML.load_file("#{File.dirname(__FILE__)}/users.yml")]
 
@@ -119,8 +119,8 @@ class UserObject
         add.add_address
       end
       unless @phone_number.nil?
-
-        add.phone_type
+        fill_out add, :phone_type, :phone_number
+        add.phone_default.set
         add.add_phone
       end
       add.blanket_approve
