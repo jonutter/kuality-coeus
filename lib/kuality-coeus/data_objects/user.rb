@@ -52,9 +52,7 @@ class UserObject
       'Unassigned'                      => '106',
       'Viewer'                          => '107',
       'View Subaward'                   => '1409',
-      'View Proposal Log'               => '142',
-
-
+      'View Proposal Log'               => '142'
   }
 
   def initialize(browser, opts={})

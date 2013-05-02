@@ -1,5 +1,6 @@
 class Proposal < ProposalDevelopmentDocument
 
+  global_buttons
   proposal_header_elements
   error_messages
 

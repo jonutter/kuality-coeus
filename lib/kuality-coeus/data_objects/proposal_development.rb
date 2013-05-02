@@ -123,6 +123,11 @@ class ProposalDevelopmentObject
     end
   end
 
+  def recall
+    open_document
+    on(Proposal).recall
+  end
+
   def close
     open_document
     on(Proposal).close
