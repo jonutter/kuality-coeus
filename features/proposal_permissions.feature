@@ -6,7 +6,7 @@ Feature: Permissions in a Proposal
 
   Background: A user has started a proposal
     Given   I'm logged in with admin
-
+  @test
   Scenario: The proposal initiator is automatically an aggregator
     Given   I initiate a proposal
     When    I visit the proposal's Permissions page
@@ -24,7 +24,7 @@ Feature: Permissions in a Proposal
     | Budget Creator   | only update the budget                         |
     | Viewer           | only read the proposal                         |
     | Deleter          | delete the proposal                            |
-  @test
+
   Scenario: Adding an Approver
     Given   I have a user with the user name kctestuser17
     And     I log in with kctestuser17

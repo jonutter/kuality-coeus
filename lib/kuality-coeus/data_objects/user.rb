@@ -22,9 +22,38 @@ class UserObject
 
   ROLES = {
       # Add roles here as needed for testing...
-      'OSPApprover'           => '100',
-      'approver'              => '103',
-      'Award Budget Approver' => '112',
+      'Aggregator'                      => '110',
+      'Approver'                        => '103',
+      'Award Budget Aggregator'         => '113',
+      'Award Budget Approver'           => '112',
+      'Award Budget Modifier'           => '102',
+      'Award Budget Viewer'             => '101',
+      'Award Viewer'                    => '123',
+      'Budget Creator'                  => '108',
+      'Create Proposal Log'             => '140',
+      'Departments Awards Viewer'       => '121',
+      'IACUC Protocol Aggregator'       => '1421',
+      'IACUC Protocol Approver'         => '1638',
+      'Institutional Proposal Viewer'   => '118',
+      'IRB Administrator'               => '128',
+      'IRB Approver'                    => '99',
+      'IRB Reviewer'                    => '127',
+      'KC Super User'                   => '177',
+      'Maintain IRB Questionnaire'      => '161',
+      'Maintain Proposal Questionnaire' => '162',
+      'Manager'                         =>  '98',
+      'Narrative Writer'                => '109',
+      'Negotiation Creator'             => '1382',
+      'OSP Administrator'               => '131',
+      'OSPApprover'                     => '100',
+      'Protocol Aggregator'             => '105',
+      'Proposal Creator'                => '111',
+      'System User'                     => '90',
+      'Unassigned'                      => '106',
+      'Viewer'                          => '107',
+      'View Subaward'                   => '1409',
+      'View Proposal Log'               => '142',
+
 
   }
 
