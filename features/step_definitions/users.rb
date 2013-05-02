@@ -30,6 +30,15 @@ Given /^I have a user with the user name (.*)$/ do |username|
   user.create unless user.exists?
 end
 
+# This step definition will return a user with
+# the specified role. If there are multiple matching
+# users, it will select one of them randomly, and create
+# them if they don't exist in the system.
+Given /^I have a user with a role of '(.*)'$/ do |role|
+  user = make_role role
+  user.create unless user.exists?
+end
+
 Then /^(.*) is logged in$/ do |username|
   get(username).logged_in?
 end

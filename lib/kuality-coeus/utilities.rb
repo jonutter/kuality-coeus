@@ -12,6 +12,10 @@ module Utilities
     set(un, (make UserObject, user: un))
   end
 
+  def make_role(role)
+    set(role, (make UserObject, role: role))
+  end
+
   def snakify(item)
     if item.to_s[0]=='@'
       item
