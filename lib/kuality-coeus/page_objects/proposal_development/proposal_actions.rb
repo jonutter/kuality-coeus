@@ -49,6 +49,10 @@ class ProposalActions < ProposalDevelopmentDocument
 
   action(:delete_proposal) { |b| b.frm.button(name: 'methodToCall.deleteProposal').click }
 
+  # Route Log
+
+
+
   def validation_errors_and_warnings
     errs = []
       validation_err_war_fields.each { |field| errs << field.html[/(?<=>).*(?=<)/] }
