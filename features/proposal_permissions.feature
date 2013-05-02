@@ -27,14 +27,14 @@ Feature: Permissions in a Proposal
   @test
   Scenario: Adding an Approver
     Given   I have a user with the user name propcreateadmin
-    And     I have a user with the user name tdurkin
+    And     I have a user with the user name approver
     And     I log in with propcreateadmin
     And     I initiate a proposal
-    When    I add tdurkin as an approver to the proposal
+    When    I assign approver as an approver to the proposal permissions
     And     I complete the proposal
     And     I submit the proposal
-    Then    tdurkin can access the proposal
-    And     can approve the proposal
+    Then    approver can access the proposal
+    #And     can approve the proposal
 
   Scenario: A person's role can be edited
     Given   I assign a person a role

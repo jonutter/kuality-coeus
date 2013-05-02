@@ -123,6 +123,11 @@ class ProposalDevelopmentObject
     end
   end
 
+  def recall
+    open_document
+    on(Proposal).recall
+  end
+
   def close
     open_document
     on(Proposal).close
@@ -168,7 +173,7 @@ class ProposalDevelopmentObject
 
   def set_lead_unit
     on(Proposal)do |prop|
-      if prop.lead_unit.exist?
+      if prop.lead_unit.present?
         prop.lead_unit.pick! @lead_unit
       else
         @lead_unit=prop.lead_unit_ro
