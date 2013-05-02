@@ -23,7 +23,7 @@ class UserObject
   ROLES = {
       # Add roles here as needed for testing...
       'Aggregator'                      => '110',
-      'Approver'                        => '103',
+      'approver'                        => '103',
       'Award Budget Aggregator'         => '113',
       'Award Budget Approver'           => '112',
       'Award Budget Modifier'           => '102',
@@ -52,7 +52,7 @@ class UserObject
       'Unassigned'                      => '106',
       'Viewer'                          => '107',
       'View Subaward'                   => '1409',
-      'View Proposal Log'               => '142',
+      'View Proposal Log'               => '142'
 
 
   }
