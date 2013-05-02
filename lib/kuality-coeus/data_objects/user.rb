@@ -16,7 +16,9 @@ class UserObject
                 :first_name, :last_name,
                 :description, :affiliation_type, :campus_code,
                 :employee_id, :employee_status, :employee_type, :base_salary,
-                :groups, :roles, :role_qualifiers
+                :groups, :roles, :role_qualifiers,
+                :address_type, :line_1, :line_2, :line_3, :city, :state, :country,
+
 
   USERS = UserCollection[YAML.load_file("#{File.dirname(__FILE__)}/users.yml")]
 
@@ -92,24 +94,34 @@ class UserObject
         add.primary_employment.set
         add.add_employment_information
       end
-      unless @roles==nil
+      unless @roles.nil?
         @roles.each do |role|
           add.role_id.set role
           add.add_role
         end
       end
-      unless @role_qualifiers==nil
+      unless @role_qualifiers.nil?
         puts @role_qualifiers.inspect
         @role_qualifiers.each do |role, unit|
           add.unit_number(role).set unit
           add.add_role_qualifier role
         end
       end
-      unless @groups==nil
+      unless @groups.nil?
         @groups.each do |group|
           add.group_id.set group
           add.add_group
         end
+      end
+      unless @line_1.nil?
+        fill_out add, :address_type, :line_1, :line_2, :line_3, :city, :state, :country
+        add.address_default.set
+        add.add_address
+      end
+      unless @phone_number.nil?
+
+        add.phone_type
+        add.add_phone
       end
       add.blanket_approve
     end

@@ -20,6 +20,20 @@ class Person < BasePage
   element(:base_salary) { |b| b.frm.text_field(id: 'document.affiliations[0].newEmpInfo.baseSalaryAmount') }
   action(:add_employment_information) { |b| b.frm.button(name: 'methodToCall.addEmpInfo.line0.anchor').click; b.loading }
   action(:add_name) { |b| b.frm.button(name: 'methodToCall.addName.anchor').click }
+  element(:address_type) { |b| b.frm.select(id: 'newAddress.addressTypeCode') }
+  element(:line_1) { |b| b.frm.text_field(id: 'newAddress.line1') }
+  element(:line_2) { |b| b.frm.text_field(id: 'newAddress.line2') }
+  element(:line_3) { |b| b.frm.text_field(id: 'newAddress.line3') }
+  element(:city) { |b| b.frm.text_field(id: 'newAddress.city') }
+  element(:state) { |b| b.frm.select(id: 'newAddress.stateProvinceCode') }
+  element(:zip) { |b| b.frm.text_field(id: 'newAddress.postalCode') }
+  element(:country) { |b| b.frm.select(id: 'newAddress.countryCode') }
+  element(:address_default) { |b| b.frm.checkbox(id: 'newAddress.dflt') }
+  action(:add_address) { |b| b.frm.button(name: 'methodToCall.addAddress.anchor').click }
+  element(:phone_type) { |b| b.frm.select(id: 'newPhone.phoneTypeCode') }
+  element(:phone_number) { |b| b.frm.text_field(id: 'newPhone.phoneNumber') }
+  element(:phone_default) { |b| b.frm.checkbox(id: 'newPhone.dflt') }
+  action(:add_phone) { |b| b.frm.button(name: 'methodToCall.addPhone.anchor').click }
   element(:role_id) { |b| b.frm.text_field(id: 'newRole.roleId') }
   action(:add_role) { |b| b.frm.button(name: 'methodToCall.addRole.anchor').click; b.loading }
   element(:group_id) { |b| b.frm.text_field(id: 'newGroup.groupId') }
