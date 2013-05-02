@@ -1,3 +1,11 @@
+class UserCollection < Hash
+
+  def have_role(role)
+    self.find_all{|user| user[1][:roles] != nil && user[1][:roles].include?(role)}.shuffle
+  end
+
+end
+
 class UserObject
 
   include Foundry
@@ -10,11 +18,27 @@ class UserObject
                 :employee_id, :employee_status, :employee_type, :base_salary,
                 :groups, :roles, :role_qualifiers
 
-  USERS = YAML.load_file("#{File.dirname(__FILE__)}/users.yml")
+  USERS = UserCollection[YAML.load_file("#{File.dirname(__FILE__)}/users.yml")]
 
-  def initialize(browser, opts={:user=>'admin'})
+  ROLES = {
+      # Add roles here as needed for testing...
+      'OSPApprover'           => '100',
+      'approver'              => '103',
+      'Award Budget Approver' => '112',
+
+  }
+
+  def initialize(browser, opts={})
     @browser = browser
-    @user_name=opts[:user]
+    if opts.empty?
+      @user_name='admin'
+    elsif opts.key?(:user)
+      @user_name=opts[:user]
+    elsif opts.key?(:role)
+      @user_name=USERS.have_role(ROLES[opts[:role]])[0][0]
+      puts @user_name
+      exit
+    end
     defaults = USERS[@user_name]
     defaults.nil? ? options=opts : options=defaults.merge(opts)
     set_options options
@@ -168,3 +192,4 @@ class UserObject
   end
 
 end
+
