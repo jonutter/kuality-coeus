@@ -30,14 +30,13 @@ class UserObject
 
   def initialize(browser, opts={})
     @browser = browser
-    if opts.empty?
-      @user_name='admin'
-    elsif opts.key?(:user)
-      @user_name=opts[:user]
-    elsif opts.key?(:role)
-      @user_name=USERS.have_role(ROLES[opts[:role]])[0][0]
-      puts @user_name
-      exit
+    @user_name=case
+      when opts.empty?
+        'admin'
+      when opts.key?(:user)
+        opts[:user]
+      when opts.key?(:role)
+        USERS.have_role(ROLES[opts[:role]])[0][0]
     end
     defaults = USERS[@user_name]
     defaults.nil? ? options=opts : options=defaults.merge(opts)

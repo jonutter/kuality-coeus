@@ -37,6 +37,8 @@ end
 Given /^I have a user with a role of '(.*)'$/ do |role|
   user = make_role role
   user.create unless user.exists?
+  puts user.user_name
+  exit
 end
 
 Then /^(.*) is logged in$/ do |username|
