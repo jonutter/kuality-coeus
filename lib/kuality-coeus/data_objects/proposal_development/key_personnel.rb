@@ -12,7 +12,7 @@ class KeyPersonObject
                 :financial, :recognition, :certified, :certify_info_true,
                 :potential_for_conflicts, :submitted_financial_disclosures,
                 :lobbying_activities, :excluded_from_transactions, :familiar_with_pla,
-                :space
+                :space, :other_key_persons
 
   # Note that you must pass in both first and last names (or neither).
   def initialize(browser, opts={})
@@ -180,7 +180,7 @@ class KeyPersonObject
   def delete_units
     @units.each do |unit|
       on KeyPersonnel do |units|
-        units.delete_unit(unit[:name])
+        units.delete_unit(@full_name, unit[:number])
       end
     end
     @units=[]
@@ -262,6 +262,14 @@ class KeyPersonnelCollection < Array
 
   def principal_investigator
     self.find { |person| person.role=='Principal Investigator' }
+  end
+
+  def co_investigator
+    self.find { |person| person.role=='Co-Investigator' }
+  end
+
+  def key_person(role)
+    self.find { |person| person.key_person_role==role }
   end
 
   # IMPORTANT: This method returns a KeyPersonObject--meaning that if there

@@ -24,26 +24,6 @@ Then /^I should see an error that says valid sponsor code required$/ do
   on(Proposal).errors.should include 'A valid Sponsor Code (Sponsor) must be selected.'
 end
 
-# TODO: This and the next step def need to be reworked in light of the new user stuff...
-And /^I add (.*) (.*) as a (.*) to Key Personnel$/ do |fname, lname, proposal_role|
-  @proposal.add_key_person first_name: fname, last_name: lname, role: proposal_role
-end
-
-When /^I add (.*) (.*) as a Key Person with a role of (.*)$/ do |fname, lname, kp_role|
-  @proposal.add_key_person first_name: fname, last_name: lname, role: 'Key Person', key_person_role: kp_role
-end
-
-And /^I add a Key Person with a (.*) credit split of (.*)$/ do |cs_type, amount|
-  @proposal.add_key_person cs_type.downcase.to_sym=>amount
-end
-
-# TODO: Rewrite this, as it will not work in the new test environment...
-When /^I try to add two (.*)s$/ do |rol|
-  [{first_name: 'Dick', last_name: 'Keogh', role: rol},
-   {first_name: 'Pam', last_name: 'Brown', role: rol}]
-  .each { |opts| @proposal.add_key_person opts }
-end
-
 When /^I submit the proposal$/ do
   @proposal.submit
 end
