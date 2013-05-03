@@ -43,7 +43,8 @@ When /^I add (.*) as (a|an) (.*) to the proposal permissions$/ do |username, x, 
   @proposal.permissions.send("#{StringFactory.damballa(role)}s") << username
   @proposal.permissions.assign
 end
+
 When /^I save and close the proposal document$/ do
-  on(Proposal).close
+  @proposal.close
   on(QuestionDialogPage).yes
 end
