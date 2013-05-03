@@ -24,7 +24,7 @@ Feature: Permissions in a Proposal
     | Budget Creator   | only update the budget                         |
     | Viewer           | only read the proposal                         |
     | Deleter          | delete the proposal                            |
-  @test
+
   Scenario: Adding an Approver
     Given   I have a user with the user name propcreateadmin
     And     I have a user with the user name approver
@@ -35,9 +35,13 @@ Feature: Permissions in a Proposal
     And     I submit the proposal
     Then    approver can access the proposal
     #And     can approve the proposal
-
-  Scenario: A person's role can be edited
-    Given   I assign a person a role
-    When    I change that person's role
-    Then    That person can access the proposal
+  @test
+  Scenario: Budget creator can edit proposal Budget Versions screen
+    Given   I have a user with the user name propcreateadmin
+    And     I log in with propcreateadmin
+    And     I initiate a proposal
+    And     I assign unassigneduser as a budget creator to the proposal permissions
+    And     I save and close the proposal document
+    And     I log out
+    When    I log in with unassigned user
     And     Their permissions reflect their newly assigned role
