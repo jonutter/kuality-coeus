@@ -13,7 +13,7 @@ And /^I add a (.*) with a (.*) credit split of (.*)$/ do |role, cs_type, amount|
 end
 
 When /^I try to add two Principal Investigators$/ do
-  2.times { @proposal.add_key_person }
+  2.times { @proposal.add_principal_investigator }
 end
 
 Then /^I should see an error that the credit split is not a valid percentage$/ do
@@ -55,9 +55,5 @@ Then /^the key personnel error should say (.*)$/ do |error|
 end
 
 When /^I add a principal investigator$/ do
-  @proposal.add_key_person
-end
-
-When /^I answer the proposal person certification questions$/ do
-  @proposal.person('Jeff Covey')
+  @proposal.add_principal_investigator
 end

@@ -57,6 +57,10 @@ class ProposalDevelopmentObject
     kpo.create
     @key_personnel << kpo
   end
+  # This alias is recommended only for when
+  # using this method with no options.
+  alias_method :add_principal_investigator, :add_key_person
+
 
   # This method simply sets all the credit splits to
   # equal values based on how many persons and units
