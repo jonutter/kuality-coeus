@@ -6,15 +6,17 @@ Feature: Permissions in a Proposal
 
   Background: A user has started a proposal
     Given   I'm logged in with admin
+    And     I initiate a proposal
 
   Scenario: The proposal initiator is automatically an aggregator
     Given   I initiate a proposal
     When    I visit the proposal's Permissions page
     Then    admin is listed as an Aggregator for the proposal
-
+  @test
   Scenario Outline: Adding various roles to proposals
-    When    I assign mwmartin as a <Role> to the proposal permissions
-    Then    That person can access the proposal
+    Given   I have a user with the user name kctestuser6
+    When    I assign kctestuser6 as a <Role> to the proposal permissions
+    Then    kctestuser6 can access the proposal
     And     can <Permissions>
 
     Examples:
@@ -25,36 +27,18 @@ Feature: Permissions in a Proposal
     | Viewer           | only read the proposal                         |
     | Deleter          | delete the proposal                            |
 
-  Scenario: Adding an Approver
-    Given   I have a user with the user name propcreateadmin
-    And     I have a user with the user name approver
-    And     I log in with propcreateadmin
-    And     I initiate a proposal
-    When    I assign approver as an approver to the proposal permissions
-    And     I complete the proposal
-    And     I submit the proposal
-    Then    approver can access the proposal
-    #And     can approve the proposal
-<<<<<<< Updated upstream
-  @test
   Scenario: Budget creator can edit proposal Budget Versions screen
     Given   I have a user with the user name propcreateadmin
+    And     I have a user with the user name kctestuser6
     And     I log in with propcreateadmin
     And     I initiate a proposal
-    And     I assign unassigneduser as a budget creator to the proposal permissions
+    And     I assign kctestuser6 as a Budget Creator to the proposal permissions
     And     I save and close the proposal document
-    And     I log out
-    When    I log in with unassigned user
-    And     Their permissions reflect their newly assigned role
-=======
+    When    I log in with kctestuser6
+    And     I visit the proposal's budget versions page
+#    Then    I can add a budget
+#    And     I can save and close the proposal document
 
-#  Scenario: A person's role can be edited
-#    Given   I assign a person a role
-#    When    I change that person's role
-#    Then    That person can access the proposal
-#    And     Their permissions reflect their newly assigned role
-  @test
-  Scenario: test
-    Given   I have a user with the user name deptadmin
-    And     I log in with deptadmin
->>>>>>> Stashed changes
+  Scenario: Error when Aggregator role is designated among others
+
+  Scenario:

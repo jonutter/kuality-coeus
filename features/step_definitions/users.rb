@@ -42,7 +42,3 @@ end
 Then /^(.*) is logged in$/ do |username|
   get(username).logged_in?
 end
-
-When /^I log out$/ do
-  on(Researcher).button('')
-end
