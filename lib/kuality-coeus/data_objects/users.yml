@@ -11,6 +11,13 @@ brunelle:  # "Principal Name"
   :base_salary:      '100'
   :first_name:       ANTWAN
   :last_name:        BRUNELLE
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :groups:
     - '2001' # KcAdmin
     - '2003' # ProposalAdmin
@@ -63,6 +70,13 @@ thefunk:  # AKA: "Principal Name"
   :base_salary:      '123456'
   :first_name:       Theodore
   :last_name:        Funkmeister
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '123'  # Award Viewer
     - '1409' # View Subaward
@@ -83,6 +97,13 @@ propcreator:  # AKA: "Principal Name"
   :base_salary:      '50,000.00'
   :first_name:       nicholas
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '111' # Proposal Creator
   :role_qualifiers:
@@ -97,6 +118,13 @@ pi:  # AKA: "Principal Name"
   :base_salary:      '50,000.00'
   :first_name:       jupi
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :groups:
     - '2005' # Proposal Development - Department Reviewers
   :roles:
@@ -115,6 +143,13 @@ systemuser:  # AKA: "Principal Name"
   :campus_code:      'UN - UNIVERSITY'
   :first_name:       jusysuser
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '90' # System User
 irbadmin:  # AKA: "Principal Name"
@@ -123,6 +158,13 @@ irbadmin:  # AKA: "Principal Name"
   :campus_code:      'UN - UNIVERSITY'
   :first_name:       francis
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :groups:
     - '2004' # IRBAdmin
   :roles:
@@ -142,6 +184,13 @@ workflowadmin:  # AKA: "Principal Name"
   :base_salary:      '50'
   :first_name:       kepler
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :groups:
     - '1'   # Workflow Admin
   :roles:
@@ -153,6 +202,13 @@ juworkflowuser:  # AKA: "Principal Name"
   :campus_code:      'UN - UNIVERSITY'
   :first_name:       galileo
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :groups:
     - '1'    # Workflow Admin
     - '2004' # IRBAdmin
@@ -170,6 +226,13 @@ aggregator:  # AKA: "Principal Name"
   :base_salary:      '160'
   :first_name:       jacques
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '110' # Aggregator
     - '113' # Award Budget Aggregator
@@ -185,6 +248,13 @@ protocolagg:  # AKA: "Principal Name"
   :base_salary:      '160'
   :first_name:       rene
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '105' # Protocol Aggregator
     - '110' # Aggregator
@@ -202,6 +272,13 @@ budgetcreator:  # AKA: "Principal Name"
   :base_salary:      '160'
   :first_name:       boyle
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '105' # Protocol Aggregator
   :role_qualifiers:
@@ -216,6 +293,13 @@ propcreateadmin:  # AKA: "Principal Name"
   :base_salary:      '160'
   :first_name:       faraday
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :groups:
     - '2003' # Proposal Admin
   :roles:
@@ -232,6 +316,13 @@ nonemplpropcreator:  # AKA: "Principal Name"
   :base_salary:      '75'
   :first_name:       mendel
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '111' # Proposal Creator
   :role_qualifiers:
@@ -246,6 +337,13 @@ deptadmin:  # AKA: "Principal Name"
   :base_salary:      '200'
   :first_name:       kelvin
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :groups:
     - '2005' # Proposal Development - Department Reviewers
   :roles:
@@ -262,6 +360,13 @@ approver:  # AKA: "Principal Name"
   :base_salary:      '200'
   :first_name:       albert
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '100' # OSP Approver
     - '103' # Approver
@@ -279,6 +384,13 @@ ospapprover:  # AKA: "Principal Name"
   :base_salary:      '180'
   :first_name:       gregor
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '100' # OSP Approver
 ospadmin:  # AKA: "Principal Name"
@@ -291,6 +403,13 @@ ospadmin:  # AKA: "Principal Name"
   :base_salary:      '200'
   :first_name:       adam
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '100' # OSPApprover
     - '131' # OSP Administrator
@@ -306,6 +425,13 @@ kcsuperuser:  # AKA: "Principal Name"
   :base_salary:      '200'
   :first_name:       superad
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '177' # KC Super User
   :role_qualifiers:
@@ -320,6 +446,13 @@ kcsuperuser:  # AKA: "Principal Name"
   :base_salary:      '200'
   :first_name:       super
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '177' # KC Super User
   :role_qualifiers:
@@ -334,6 +467,13 @@ kctestuser:  # AKA: "Principal Name"
   :base_salary:      '150'
   :first_name:       isaac
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '109' # Narrative Writer
   :role_qualifiers:
@@ -348,6 +488,13 @@ kctestuser2:  # AKA: "Principal Name"
   :base_salary:      '260'
   :first_name:       maxwell
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :groups:
     - '2007' # Questionnaire Admin
   :roles:
@@ -358,6 +505,13 @@ kctestuser3:  # AKA: "Principal Name"
   :campus_code:      'UN - UNIVERSITY'
   :first_name:       sean
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '107' # Viewer
   :role_qualifiers:
@@ -372,6 +526,13 @@ kctestuser4:  # AKA: "Principal Name"
   :base_salary:      '50'
   :first_name:       james
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '103' # Approver
     - '107' # Viewer
@@ -386,6 +547,13 @@ kctestuser5:  # AKA: "Principal Name"
   :campus_code:      'UN - UNIVERSITY'
   :first_name:       kim
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '140' # Create Proposal Log
   :role_qualifiers:
@@ -396,6 +564,13 @@ unassigneduser:  # AKA: "Principal Name"
   :campus_code:      'UN - UNIVERSITY'
   :first_name:       july
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '106' # Unassigned
   :role_qualifiers:
@@ -410,6 +585,13 @@ kctestuser6:  # AKA: "Principal Name"
   :base_salary:      '50'
   :first_name:       mike
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '106' # Unassigned
   :role_qualifiers:
@@ -420,6 +602,13 @@ kctestuser7:  # AKA: "Principal Name"
   :campus_code:      'UN - UNIVERSITY'
   :first_name:       drew
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '105' # Protocol Aggregator
     - '140' # Create Proposal Log
@@ -436,6 +625,13 @@ kctestuser8:  # AKA: "Principal Name"
    :base_salary:      '80'
    :first_name:       pascal
    :last_name:        test
+   :address_type: Home
+   :line_1: 475 n scottsdale rd
+   :city: scottsdale
+   :state: ARIZONA
+   :country: United States
+   :phone_type: Home
+   :phone_number: 555-555-5555
    :group:
      - '2001' # KcAdmin
    :roles:
@@ -448,6 +644,13 @@ kctestuser9:  # AKA: "Principal Name"
   :campus_code:      'UN - UNIVERSITY'
   :first_name:       newman
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '98'  # Manager
     - '110' # Aggregator
@@ -460,6 +663,13 @@ kctestuser10:  # AKA: "Principal Name"
   :campus_code:      'UN - UNIVERSITY'
   :first_name:       truman
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '110' # Aggregator
   :role_qualifiers:
@@ -470,6 +680,13 @@ kctestuser11:  # AKA: "Principal Name"
   :campus_code:      'UN - UNIVERSITY'
   :first_name:       truman
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '110' # Aggregator
   :role_qualifiers:
@@ -480,6 +697,13 @@ kctestuser12:  # AKA: "Principal Name"
   :campus_code:      'UN - UNIVERSITY'
   :first_name:       ford
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '110' # Aggregator
   :role_qualifiers:
@@ -490,6 +714,13 @@ kctestuser13:  # AKA: "Principal Name"
   :campus_code:      'UN - UNIVERSITY'
   :first_name:       luke
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '110' # Aggregator
   :role_qualifiers:
@@ -500,6 +731,13 @@ kctestuser14:  # AKA: "Principal Name"
   :campus_code:      'UN - UNIVERSITY'
   :first_name:       henry
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :roles:
     - '110' # Aggregator
     - '98'  # Manager
@@ -516,6 +754,13 @@ kctestuser15:  # AKA: "Principal Name"
   :base_salary:      '50'
   :first_name:       braun
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :groups:
     - '1'   # Workflow Admin
   :roles:
@@ -534,6 +779,13 @@ kctestuser16:  # AKA: "Principal Name"
   :base_salary:      '50'
   :first_name:       jorge
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :groups:
     - '1'   # Workflow Admin
   :roles:
@@ -553,6 +805,13 @@ kctestuser17:  # AKA: "Principal Name"
   :base_salary:      '50'
   :first_name:       sia
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :groups:
     - '1'   # Workflow Admin
   :roles:
@@ -573,6 +832,13 @@ kctestuser18:  # AKA: "Principal Name"
   :base_salary:      '50'
   :first_name:       sadier
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :groups:
     - '1'   # Workflow Admin
   :roles:
@@ -587,6 +853,13 @@ kctestuser19:  # AKA: "Principal Name"
   :campus_code:      'UN - UNIVERSITY'
   :first_name:       jackson
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :groups:
     - '1'   # Workflow Admin
   :roles:
@@ -605,6 +878,13 @@ kctestuser20:  # AKA: "Principal Name"
   :base_salary:      '50'
   :first_name:       fred
   :last_name:        test
+  :address_type: Home
+  :line_1: 475 n scottsdale rd
+  :city: scottsdale
+  :state: ARIZONA
+  :country: United States
+  :phone_type: Home
+  :phone_number: 555-555-5555
   :groups:
     - '1'   # Workflow Admin
   :roles:
@@ -623,3 +903,4 @@ kctestuser20:  # AKA: "Principal Name"
 #  :base_salary:
 #  :first_name:
 #  :last_name:
+#
