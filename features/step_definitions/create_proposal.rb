@@ -29,7 +29,7 @@ When /^I submit the proposal$/ do
 end
 
 When /^I complete the proposal$/ do
-  @proposal.add_key_person
+  @proposal.add_principal_investigator
   @proposal.set_valid_credit_splits
   @proposal.add_custom_data
   #opts={document_id: @proposal.document_id}
