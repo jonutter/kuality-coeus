@@ -35,6 +35,7 @@ Feature: Permissions in a Proposal
     And     I submit the proposal
     Then    approver can access the proposal
     #And     can approve the proposal
+<<<<<<< Updated upstream
   @test
   Scenario: Budget creator can edit proposal Budget Versions screen
     Given   I have a user with the user name propcreateadmin
@@ -45,3 +46,15 @@ Feature: Permissions in a Proposal
     And     I log out
     When    I log in with unassigned user
     And     Their permissions reflect their newly assigned role
+=======
+
+#  Scenario: A person's role can be edited
+#    Given   I assign a person a role
+#    When    I change that person's role
+#    Then    That person can access the proposal
+#    And     Their permissions reflect their newly assigned role
+  @test
+  Scenario: test
+    Given   I have a user with the user name deptadmin
+    And     I log in with deptadmin
+>>>>>>> Stashed changes
