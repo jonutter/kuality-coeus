@@ -26,6 +26,7 @@ end
 class Roles < BasePage
 
   global_buttons
+  error_messages
 
   def self.chkbx(name, number)
     element(name) { |b| b.frm.checkbox(name: "proposalUserEditRoles.roleStates[#{number}].state") }
