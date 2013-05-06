@@ -11,7 +11,7 @@ Feature: Permissions in a Proposal
     Given   I initiate a proposal
     When    I visit the proposal's Permissions page
     Then    admin is listed as an Aggregator for the proposal
-
+  @test
   Scenario Outline: Adding various roles to proposals
     Given   I have a user with the user name kctestuser7
     And     I initiate a proposal
@@ -21,11 +21,11 @@ Feature: Permissions in a Proposal
 
     Examples:
     | Role             | Permissions                                    |
-    | Narrative Writer | only update the Abstracts and Attachments page |
+#    | Narrative Writer | only update the Abstracts and Attachments page |
     | Aggregator       | edit all parts of the proposal                 |
-    | Budget Creator   | only update the budget                         |
-    | Deleter          | delete the proposal                            |
-    | Viewer           | only read the proposal                         |
+#    | Budget Creator   | only update the budget                         |
+#    | Deleter          | delete the proposal                            |
+#    | Viewer           | only read the proposal                         |
 
   Scenario: Error when Aggregator role is designated among others
     Given I initiate a proposal

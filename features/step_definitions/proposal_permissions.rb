@@ -37,13 +37,20 @@ And /^their proposal permissions allow them to (.*)$/ do |permissions|
 
     when 'edit all parts of the proposal'
       on(Proposal).save_button.should be_present
-      on(AbstractsAndAttachments).save_button.should be_present
+      #on(Proposal).abstracts_and_attachments
+      #on(AbstractsAndAttachments).save_button.should be_present
+      on(Proposal).custom_data
       on(CustomData).save_button.should be_present
-      on(KeyPersonnel).save_button.should be_present
-#      on(Permissions).save_button.should be_present
-      on(ProposalActions).save_button.should be_present
-      on(Questions).save_button.should be_present
-      on(SpecialReview).save_button.should be_present
+      #on(Proposal).key_personnel
+      #on(KeyPersonnel).save_button.should be_present
+      #on(Proposal).permissions
+      #on(Permissions).save_button.should be_present
+      #on(Proposal).proposal_actions
+      #on(ProposalActions).save_button.should be_present
+      #on(Proposal).questions
+      #on(Questions).save_button.should be_present
+      #on(Proposal).special_review
+      #on(SpecialReview).save_button.should be_present
 
     when 'only update the budget'
       on(Proposal).budget_versions
