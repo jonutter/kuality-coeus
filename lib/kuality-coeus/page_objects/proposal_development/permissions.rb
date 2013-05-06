@@ -33,4 +33,8 @@ class Roles < BasePage
   chkbx :narrative_writer, 2
   chkbx :aggregator, 3
 
+  #Action buttons
+  element(:save_button) { |b| b.frm.button(title: 'save') }
+  action(:save) { |b| b.save_button.click }
+
 end

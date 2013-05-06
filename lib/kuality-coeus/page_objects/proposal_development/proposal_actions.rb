@@ -65,4 +65,8 @@ class ProposalActions < ProposalDevelopmentDocument
 
   element(:validation_err_war_fields) { |b| b.frm.tds(width: '94%') }
 
+  #Action buttons
+  element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
+  action(:save) { |b| b.save_button.click }
+
 end

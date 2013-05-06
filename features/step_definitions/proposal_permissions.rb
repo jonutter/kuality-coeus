@@ -28,19 +28,34 @@ Then /^the proposal is in (.*)'s action list$/ do |username|
   visit(ActionList).item(@proposal.document_id).should exist
 end
 
-When /^can (.*)$/ do |permissions|
+And /^their proposal permissions allow them to (.*)$/ do |permissions|
   case permissions
     when 'only update the Abstracts and Attachments page'
+      on(Proposal).abstracts_and_attachments
+      @proposal.close
+      on(QuestionDialogPage).yes
 
     when 'edit all parts of the proposal'
+      on(Proposal).save_button.should be_present
+      on(AbstractsAndAttachments).save_button.should be_present
+      on(CustomData).save_button.should be_present
+      on(KeyPersonnel).save_button.should be_present
+#      on(Permissions).save_button.should be_present
+      on(ProposalActions).save_button.should be_present
+      on(Questions).save_button.should be_present
+      on(SpecialReview).save_button.should be_present
 
     when 'only update the budget'
+      on(Proposal).budget_versions
+      @proposal.close
+      on(QuestionDialogPage).yes
 
     when 'only read the proposal'
 
     when 'delete the proposal'
-
-    when 'approve the proposal'
+      on(Proposal).proposal_actions
+      @proposal.delete_proposal
+      on(QuestionDialogPage).yes
 
   end
 end
