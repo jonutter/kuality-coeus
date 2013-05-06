@@ -4,9 +4,10 @@ class BasePage < PageFactory
   action(:return_to_portal) { |b| b.portal_window.use }
   action(:close_children) { |b| b.windows[1..-1].each{ |w| w.close} }
   action(:loading) { |b| b.frm.image(alt: 'working...').wait_while_present }
-  button 'Logout'
+  element(:logout_button) { |b| b.button(title: 'Click to logout.') }
+  action(:logout) { |b| b.logout_button.click }
 
-  element(:portal_window) { |b| b.windows(title: 'Kuali Portal Index') }
+  element(:portal_window) { |b| b.windows(title: 'Kuali Portal Index')[0] }
 
   class << self
 

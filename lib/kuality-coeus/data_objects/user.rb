@@ -141,7 +141,11 @@ class UserObject
       if username_field.present?
         # Do nothing because we're already there
       else
-        on(Researcher).logout
+        visit Researcher do |page|
+          page.return_to_portal
+          page.close_children
+          page.logout
+        end
       end
       on Login do |log_in|
         log_in.username.set @user_name
