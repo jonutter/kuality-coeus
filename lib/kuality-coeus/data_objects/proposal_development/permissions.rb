@@ -6,7 +6,7 @@ class PermissionsObject
   include Utilities
 
   attr_accessor :document_id, :aggregators, :budget_creators, :narrative_writers,
-                :viewers, :approvers
+                :viewers, :approvers, :deleters
 
   def initialize(browser, opts={})
     @browser = browser
@@ -112,7 +112,8 @@ class PermissionsObject
         :@viewers=>'Viewer',
         :@budget_creators=>'Budget Creator',
         :@narrative_writers=>'Narrative Writer',
-        :@approvers=>'approver'
+        :@approvers=>'approver',
+        :@deleters=>'Delete Proposal'
     }
   end
 
