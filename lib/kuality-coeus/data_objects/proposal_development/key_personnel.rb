@@ -91,13 +91,17 @@ class KeyPersonObject
 
       # Now we groom the Unit Hashes, to include
       # the Combined Credit Split numbers...
-      @units.each do |unit|
-        [:space, :responsibility, :financial, :recognition].each do |item|
-          unit[item]==nil ? unit.store(item, rand_num) : unit[item]
-        # Then we update the UI with the values...
-          person.send("unit_#{item.to_s}".to_sym, @full_name, unit[:number]).set unit[item]
-        end
-      end
+      #
+      # NOTE: Commenting out this code until we
+      # determine either we need it or else we come up with
+      # a better way to do this...
+      #@units.each do |unit|
+      #  [:space, :responsibility, :financial, :recognition].each do |item|
+      #    unit[item] ||= unit.store(item, rand_num)
+      #  # Then we update the UI with the values...
+      #    person.send("unit_#{item.to_s}".to_sym, @full_name, unit[:number]).set unit[item]
+      #  end
+      #end
 
       # If it's a key person without units then they won't have credit splits,
       # otherwise, the person will, so fill them out...
