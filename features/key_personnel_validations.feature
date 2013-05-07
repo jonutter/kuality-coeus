@@ -33,7 +33,3 @@ Feature: Key Personnel Validations
   Scenario: Attempt to add person with invalid unit
     When    I add a key person with an invalid unit type
     Then    I should see an error that says please select a valid unit
-
-  Scenario: Change role of person entered incorrectly
-    When    I add a person with an incorrect role
-    Then    I should be able to update the person's role
