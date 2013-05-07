@@ -1,4 +1,4 @@
-class QuestionDialogPage < BasePage
+class Confirmation < BasePage
 
    global_buttons
 

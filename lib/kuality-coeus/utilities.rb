@@ -16,6 +16,12 @@ module Utilities
     set(role, (make UserObject, role: role))
   end
 
+  def snake_case(string)
+    StringFactory.damballa(string)
+  end
+
+  private
+
   def snakify(item)
     if item.to_s[0]=='@'
       item
