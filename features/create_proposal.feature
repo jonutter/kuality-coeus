@@ -24,20 +24,14 @@ Feature: Creating proposals
       When    I begin a proposal with an invalid sponsor code
       Then    I should see an error that says valid sponsor code required
     @test
+    Scenario: Selecting a Federal Sponsor activates the S2S tab
+      When    I begin a proposal with a 'Federal' sponsor type
+      Then    The S2S tab should become available
+
     Scenario: Valid Proposals can be submitted to routing
       When    I complete a valid simple proposal for a 'Private Profit' organization
       And     I submit the proposal
       Then    The proposal should immediately have a status of 'Approval Pending'
       And     The proposal's 'Actions Taken' should include 'COMPLETED'
-      #And     The proposal's 'pending actions' should include 'in action list approve' requested of ???
-      #And     The proposal's 'future action requests' should include 'pending approve' requested of ???
-      #And     ???
-
-    Scenario: Valid Proposals can be submitted to routing
-      When    I complete a valid grants.gov proposal for the NIH
-      And     I submit the proposal
-      Then    The proposal should immediately have a status of Approval Pending
-      And     The proposal's 'actions taken' should include 'Completed'
-      And     The proposal's 'pending actions' should include 'in action list approve' requested of ???
-      And     The proposal's 'future action requests' should include 'pending approve' requested of ???
-      And     ???
+      And     The proposal's 'Pending Action Requests' should include 'IN ACTION LIST APPROVE'
+      And     The proposal's 'Future Action Requests' should include 'PENDING APPROVE' for the principal investigator

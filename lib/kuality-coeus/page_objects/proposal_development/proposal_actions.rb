@@ -56,6 +56,9 @@ class ProposalActions < ProposalDevelopmentDocument
 
   value(:actions) { |b| (b.actions_taken_table.rows.collect{ |row| row[1].text }.compact.uniq).reject{ |action| action==''} }
 
+  element(:pnd_act_req_table) { |b| b.route_log_iframe.div(id: 'tab-PendingActionRequests-div').table }
+
+  value(:action_requests) { |b| (b.pnd_act_req_table.rows.collect{ |row| row[1].text}).reject{ |action| action==''} }
 
   def validation_errors_and_warnings
     errs = []
