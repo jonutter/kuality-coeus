@@ -14,11 +14,30 @@ Then /^The proposal should immediately have a status of '(.*)'$/ do |status|
 end
 
 Then /^The proposal's 'Actions Taken' should include '(.*)'$/ do |value|
-  @proposal.view(:proposal_actions)
+  @proposal.view :proposal_actions
   on ProposalActions do |page|
     page.expand_all
-    puts page.actions_taken_table.text
-    puts page.actions.inspect
     page.actions.should include value
+  end
+end
+
+Then /^The proposal's 'Pending Action Requests' should include '(.*)'$/ do |action|
+  @proposal.view :proposal_actions
+  on ProposalActions do |page|
+    page.expand_all
+  end
+end
+
+Then /^The S2S tab should become available$/ do
+  @proposal.view :s2s
+  on(S2S).s2s_header.should be_present
+end
+
+When /^The proposal's 'Future Action Requests' should include 'PENDING APPROVE' for the principal investigator$/ do
+  pi = @proposal.key_personnel.principal_investigator
+  name = "#{pi.last_name}, #{pi.first_name}"
+  @proposal.view :proposal_actions
+  on ProposalActions do |page|
+    page.text.should include 'temp thing to fail test until it is done.'
   end
 end

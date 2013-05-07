@@ -8,6 +8,10 @@ When /^I begin a proposal without a (.*)$/ do |name|
   @proposal = create ProposalDevelopmentObject, field=>value
 end
 
+When /^I begin a proposal with a '(.*)' sponsor type$/ do |type|
+  @proposal = create ProposalDevelopmentObject, sponsor_type_code: type
+end
+
 Then /^I should see an error that says "(.* is a required field.)"$/ do |text|
   text=~/Description/ ? error='Document '+text : error=text
   on(Proposal) do |page|
