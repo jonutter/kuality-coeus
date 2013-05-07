@@ -4,7 +4,7 @@ end
 
 When /^I begin a proposal without a (.*)$/ do |name|
   name=~/Type/ || name=='Lead Unit' ? value='select' : value=''
-  field = StringFactory.damballa(name)
+  field = snake_case(name)
   @proposal = create ProposalDevelopmentObject, field=>value
 end
 
@@ -40,11 +40,11 @@ When /^I complete the proposal$/ do
 end
 
 When /^I add (.*) as (a|an) (.*) to the proposal permissions$/ do |username, x, role|
-  @proposal.permissions.send("#{StringFactory.damballa(role)}s") << username
+  @proposal.permissions.send("#{snake_case(role)}s") << username
   @proposal.permissions.assign
 end
 
 When /^I save and close the proposal document$/ do
   @proposal.close
-  on(QuestionDialogPage).yes
+  on(Confirmation).yes
 end

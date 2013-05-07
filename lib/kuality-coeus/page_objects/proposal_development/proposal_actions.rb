@@ -4,6 +4,7 @@ class ProposalActions < ProposalDevelopmentDocument
   tab_buttons
 
   # Data Validation
+  element(:data_validation_header) { |b| b.frm.h2(text: 'Data Validation') }
 
   element(:validation_button) { |b| b.frm.button(name: 'methodToCall.activate') }
   action(:show_data_validation) { |b| b.frm.button(id: 'tab-DataValidation-imageToggle').click; b.validation_button.wait_until_present }
@@ -50,7 +51,10 @@ class ProposalActions < ProposalDevelopmentDocument
   action(:delete_proposal) { |b| b.frm.button(name: 'methodToCall.deleteProposal').click }
 
   # Route Log
+  element(:route_log_iframe) { |b| b.frm.frame(name: 'routeLogIFrame') }
+  element(:actions_taken_table) { |b| b.route_log_iframe.div(id: 'tab-ActionsTaken-div').table }
 
+  value(:actions) { |b| (b.actions_taken_table.rows.collect{ |row| row[1].text }.compact.uniq).reject{ |action| action==''} }
 
 
   def validation_errors_and_warnings
