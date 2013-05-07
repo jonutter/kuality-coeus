@@ -28,7 +28,7 @@ Feature: Creating proposals
       When    I complete a valid simple proposal for a 'Private Profit' organization
       And     I submit the proposal
       Then    The proposal should immediately have a status of 'Approval Pending'
-      And     The proposal's 'Actions Taken' should include 'Completed'
+      And     The proposal's 'Actions Taken' should include 'COMPLETED'
       #And     The proposal's 'pending actions' should include 'in action list approve' requested of ???
       #And     The proposal's 'future action requests' should include 'pending approve' requested of ???
       #And     ???
