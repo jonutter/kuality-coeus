@@ -21,11 +21,11 @@ Feature: Permissions in a Proposal
 
     Examples:
     | Role                     | Permissions                                    |
-    | Narrative Writer         | only update the Abstracts and Attachments page |
-    | Aggregator               | edit all parts of the proposal                 |
-    | Budget Creator           | only update the budget                         |
-    | Delete Proposal          | delete the proposal                            |
-    | Viewer                   | only read the proposal                         |
+#    | Narrative Writer         | only update the Abstracts and Attachments page |
+#    | Aggregator               | edit all parts of the proposal                 |
+#    | Budget Creator           | only update the budget                         |
+    | Deleter          | delete the proposal                            |
+#    | Viewer                   | only read the proposal                         |
 
   Scenario: Error when Aggregator role is designated among others
     Given I have a user with the user name kctestuser10

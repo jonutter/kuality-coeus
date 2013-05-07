@@ -74,11 +74,42 @@ And /^their proposal permissions allow them to (.*)$/ do |permissions|
       on(QuestionDialogPage).yes
 
     when 'only read the proposal'
+      on Proposal do |page|
+        page.save_button.should_not be_present
+        page.abstracts_and_attachments
+      end
+      on AbstractsAndAttachments do |page|
+        page.save_button.should_not be_present
+        page.custom_data
+      end
+      on CustomData do |page|
+        page.save_button.should_not be_present
+        page.key_personnel
+      end
+      on KeyPersonnel do |page|
+        page.save_button.should_not be_present
+        page.permissions
+      end
+      on Permissions do |page|
+        page.save_button.should_not be_present
+        page.proposal_actions
+      end
+      on ProposalActions do |page|
+        page.save_button.should_not be_present
+        page.questions
+      end
+      on Questions do |page|
+        page.save_button.should_not be_present
+        page.special_review
+      end
+      on SpecialReview do |page|
+        page.save_button.should_not be_present
+      end
 
     when 'delete the proposal'
       on(Proposal).proposal_actions
-      @proposal.delete_proposal
-      on(QuestionDialogPage).yes
+      @proposal.delete
+      on(Confirmation).yes
 
   end
 end
