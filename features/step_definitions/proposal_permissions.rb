@@ -42,20 +42,31 @@ And /^their proposal permissions allow them to (.*)$/ do |permissions|
       end
       on AbstractsAndAttachments do |page|
         page.save_button.should be_present
-        page
+        page.custom_data
       end
-      on(Proposal).custom_data
-      on(CustomData).save_button.should be_present
-      on(Proposal).key_personnel
-      on(KeyPersonnel).save_button.should be_present
-      on(Proposal).permissions
-      on(Permissions).save_button.should be_present
-      on(Proposal).proposal_actions
-      on(ProposalActions).save_button.should be_present
-      on(Proposal).questions
-      on(Questions).save_button.should be_present
-      on(Proposal).special_review
-      on(SpecialReview).save_button.should be_present
+      on CustomData do |page|
+        page.save_button.should be_present
+        page.key_personnel
+      end
+      on KeyPersonnel do |page|
+        page.save_button.should be_present
+        page.permissions
+      end
+      on Permissions do |page|
+        page.save_button.should be_present
+        page.proposal_actions
+      end
+      on ProposalActions do |page|
+        page.save_button.should be_present
+        page.questions
+      end
+      on Questions do |page|
+        page.save_button.should be_present
+        page.special_review
+      end
+      on SpecialReview do |page|
+        page.save_button.should be_present
+      end
 
     when 'only update the budget'
       on(Proposal).budget_versions
