@@ -26,7 +26,7 @@ module Utilities
     if item.to_s[0]=='@'
       item
     else
-      "@#{StringFactory.damballa(item.to_s)}"
+      "@#{snake_case(item.to_s)}"
     end
   end
 

@@ -4,7 +4,7 @@ When /^I visit the proposal's (.*) page$/ do |page|
   # Be sure that the page name used in the scenario
   # will be converted to the snake case value of
   # the method that clicks on the proposal's page tab.
-  on(Proposal).send(StringFactory.damballa(page))
+  on(Proposal).send(snake_case(page))
 end
 
 Then /^(.*) is listed as (a|an) (.*) for the proposal$/ do |username, x, role|
@@ -13,7 +13,7 @@ end
 
 When /^I assign (.*) as (a|an) (.*) to the proposal permissions$/ do |username, x, role|
   set(username, (make UserObject, user: username))
-  @proposal.permissions.send(StringFactory.damballa(role+'s')) << username
+  @proposal.permissions.send(snake_case(role+'s')) << username
   @proposal.permissions.assign
 end
 

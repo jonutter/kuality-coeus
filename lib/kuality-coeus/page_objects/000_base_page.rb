@@ -43,7 +43,7 @@ class BasePage < PageFactory
     end
 
     def tab_buttons
-      action(:expand_all) { |b| b.frm.button(name: 'methodToCall.showAllTabs').click }
+      action(:expand_all) { |b| b.frm.button(name: 'methodToCall.showAllTabs').click; b.loading }
     end
 
     def tiny_buttons

@@ -138,17 +138,23 @@ class ProposalDevelopmentObject
     on(Proposal).close
   end
 
-  def view
+  def view(tab)
     open_document
     on Proposal do |page|
-      page.proposal unless page.description.exists? || @status=='CANCELED'
+      page.send(tab) unless @status=='CANCELED'
     end
   end
 
   def submit
     open_document
     on(Proposal).proposal_actions
-    on(ProposalActions).submit
+    on ProposalActions do |page|
+      page.submit
+      page.data_validation_header.wait_until_present
+      # A breaking of the design pattern, here,
+      # but we have no alternative...
+      @status=page.status
+    end
   end
 
   # =======
