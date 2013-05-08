@@ -38,7 +38,7 @@ class ProposalDevelopmentObject
     visit(Researcher).create_proposal
     on Proposal do |doc|
       @document_id=doc.document_id
-      @status=doc.status
+      @status=doc.document_status
       @initiator=doc.initiator
       @created=doc.created
       doc.expand_all
@@ -140,8 +140,8 @@ class ProposalDevelopmentObject
 
   def view(tab)
     open_document
-    on Proposal do |page|
-      page.send(tab) unless @status=='CANCELED'
+    unless @status=='CANCELED' || on(Proposal).send((tab.to_s+'_button').to_sym).parent.class_name=~/tabcurrent$/
+      on(Proposal).send(tab)
     end
   end
 
@@ -153,7 +153,7 @@ class ProposalDevelopmentObject
       page.data_validation_header.wait_until_present
       # A breaking of the design pattern, here,
       # but we have no alternative...
-      @status=page.status
+      @status=page.document_status
     end
   end
 

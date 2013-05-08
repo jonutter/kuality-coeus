@@ -57,10 +57,10 @@ class ProposalActions < ProposalDevelopmentDocument
 
   value(:action_requests) { |b| (b.pnd_act_req_table.rows.collect{ |row| row[1].text}).reject{ |action| action==''} }
 
-  action(:show_future_action_requests) { |b| b.frm.link(href: /showFuture/).click }
+  action(:show_future_action_requests) { |b| b.route_log_iframe.h2(text: 'Future Action Requests').parent.parent.image(title: 'show').click }
   element(:future_actions_table) { |b| b.route_log_iframe.div(id: 'tab-FutureActionRequests-div').table }
 
-  action(:requested_action_for) { |name, b| b.future_actions_table.row(text: /#{name}/)[1].text }
+  action(:requested_action_for) { |name, b| b.future_actions_table.tr(text: /#{name}/).td(index: 2).text }
   
   def validation_errors_and_warnings
     errs = []
