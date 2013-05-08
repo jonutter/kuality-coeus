@@ -2,7 +2,7 @@ And /^I initiate a proposal$/ do
   @proposal = create ProposalDevelopmentObject
 end
 
-When /^I begin a proposal without a (.*)$/ do |name|
+When /^I initiate a proposal without a (.*)$/ do |name|
   name=~/Type/ || name=='Lead Unit' ? value='select' : value=''
   field = snake_case(name)
   @proposal = create ProposalDevelopmentObject, field=>value
