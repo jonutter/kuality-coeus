@@ -50,8 +50,4 @@ class AbstractsAndAttachments < ProposalDevelopmentDocument
   
   element(:notes_table) { |b| b.frm.table(summary: 'view/add notes') }
 
-  #Action buttons
-  element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
-  action(:save) { |b| b.save_button.click }
-
 end

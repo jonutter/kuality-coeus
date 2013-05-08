@@ -113,8 +113,4 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:questions_div) { |full_name, b| b.frm.span(class: 'subhead-left', text: full_name).parent.parent.div(class: 'questionnaireContent') }
   action(:certification_div) { |full_name, b| b.frm.div(id: "tab-#{nsp(full_name)}:Certify-div") }
 
-  #Action buttons
-  element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
-  action(:save) { |b| b.save_button.click }
-
 end

@@ -23,11 +23,11 @@ Feature: Creating proposals
     Scenario: Attempt to create a proposal with invalid sponsor code
       When    I begin a proposal with an invalid sponsor code
       Then    I should see an error that says valid sponsor code required
-    @test
+
     Scenario: Selecting a Federal Sponsor activates the S2S tab
       When    I begin a proposal with a 'Federal' sponsor type
       Then    The S2S tab should become available
-
+    @test
     Scenario: Valid Proposals can be submitted to routing
       When    I complete a valid simple proposal for a 'Private Profit' organization
       And     I submit the proposal

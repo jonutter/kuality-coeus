@@ -38,6 +38,8 @@ When /^The proposal's 'Future Action Requests' should include 'PENDING APPROVE' 
   name = "#{pi.last_name}, #{pi.first_name}"
   @proposal.view :proposal_actions
   on ProposalActions do |page|
-    page.text.should include 'temp thing to fail test until it is done.'
+    page.expand_all
+    page.show_future_action_requests
+    puts page.requested_action_for(name).inspect
   end
 end
