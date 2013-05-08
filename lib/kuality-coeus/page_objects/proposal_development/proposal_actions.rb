@@ -1,7 +1,6 @@
 class ProposalActions < ProposalDevelopmentDocument
 
   proposal_header_elements
-  tab_buttons
 
   # Data Validation
   element(:data_validation_header) { |b| b.frm.h2(text: 'Data Validation') }
@@ -10,7 +9,7 @@ class ProposalActions < ProposalDevelopmentDocument
   action(:show_data_validation) { |b| b.frm.button(id: 'tab-DataValidation-imageToggle').click; b.validation_button.wait_until_present }
   action(:turn_on_validation) { |b| b.validation_button.click; b.key_personnel_button.wait_until_present }
 
-  element(:key_personnel_button) { |b| b.frm.button(name: 'methodToCall.toggleTab.tabKeyPersonnelInformationValidationErrors') }
+  element(:key_personnel_errors_button) { |b| b.frm.button(name: 'methodToCall.toggleTab.tabKeyPersonnelInformationValidationErrors') }
   action(:show_key_personnel_errors) { |b| b.key_personnel_button.click }
   element(:key_personnel_errors) { |b| b.frm.tbody(id: 'tab-KeyPersonnelInformationValidationErrors-div').tds(width: '94%') }
   action(:show_budget_versions_errors) { |b| b.frm.button(name: 'methodToCall.toggleTab.tabBudgetVersionsValidationErrors').click }
@@ -48,8 +47,6 @@ class ProposalActions < ProposalDevelopmentDocument
   element(:name) { |b| b.frm.text_field(name: 'newAdHocRouteWorkgroup.recipientName') }
   action(:add_group_request) { |b| b.frm.button(name: 'methodToCall.insertAdHocRouteWorkgroup').click }
 
-  action(:delete_proposal) { |b| b.frm.button(name: 'methodToCall.deleteProposal').click }
-
   # Route Log
   element(:route_log_iframe) { |b| b.frm.frame(name: 'routeLogIFrame') }
   element(:actions_taken_table) { |b| b.route_log_iframe.div(id: 'tab-ActionsTaken-div').table }
@@ -60,6 +57,11 @@ class ProposalActions < ProposalDevelopmentDocument
 
   value(:action_requests) { |b| (b.pnd_act_req_table.rows.collect{ |row| row[1].text}).reject{ |action| action==''} }
 
+  action(:show_future_action_requests) { |b| b.frm.link(href: /showFuture/).click }
+  element(:future_actions_table) { |b| b.route_log_iframe.div(id: 'tab-FutureActionRequests-div').table }
+
+  action(:requested_action_for) { |name, b| b.future_actions_table.row(text: /#{name}/)[1].text }
+  
   def validation_errors_and_warnings
     errs = []
       validation_err_war_fields.each { |field| errs << field.html[/(?<=>).*(?=<)/] }
@@ -71,9 +73,5 @@ class ProposalActions < ProposalDevelopmentDocument
   # =======
 
   element(:validation_err_war_fields) { |b| b.frm.tds(width: '94%') }
-
-  #Action buttons
-  element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
-  action(:save) { |b| b.save_button.click }
 
 end

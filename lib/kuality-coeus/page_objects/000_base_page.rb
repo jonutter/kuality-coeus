@@ -13,7 +13,7 @@ class BasePage < PageFactory
 
     def glbl(*titles)
       titles.each do |title|
-        action(StringFactory.damballa(title)) { |b| b.frm.button(class: 'globalbuttons', title: title).click; b.loading }
+        action(damballa(title)) { |b| b.frm.button(class: 'globalbuttons', title: title).click; b.loading }
       end
     end
 
@@ -22,7 +22,7 @@ class BasePage < PageFactory
 
       value(:document_id) { |p| p.headerinfo_table[0][1].text }
       alias_method :doc_nbr, :document_id
-      value(:status) { |p| p.headerinfo_table[0][3].text }
+      value(:document_status) { |p| p.headerinfo_table[0][3].text }
       value(:initiator) { |p| p.headerinfo_table[1][1].text }
       value(:last_updated) {|p| p.headerinfo_table[1][3].text }
       alias_method :created, :last_updated
@@ -63,16 +63,10 @@ class BasePage < PageFactory
 
     def budget_header_elements
       action(:return_to_proposal) { |b| b.frm.button(name: 'methodToCall.returnToProposal').click }
-      action(:budget_versions) { |b| b.frm.button(value: 'Budget Version').click }
-      action(:parameters) { |b| b.frm.button(value: 'Parameters').click }
-      action(:rates) { |b| b.frm.button(value: 'Rates').click }
-      action(:summary) { |b| b.frm.button(value: 'Summary').click }
-      action(:Personnel) { |b| b.frm.button(value: 'Personnel').click }
-      action(:non_personnel) { |b| b.frm.button(value: 'Non-Personnel').click }
-      action(:distribution_and_income) { |b| b.frm.button(value: 'Distribution & Income').click }
+      buttons 'Budget Version', 'Parameters', 'Rates', 'Summary', 'Personnel', 'Non-Personnel',
+              'Distribution & Income', 'Budget Actions'
       # Need the _tab suffix because of method collisions
       action(:modular_budget_tab) { |b| b.frm.button(value: 'Modular Budget').click }
-      action(:budget_actions) { |b| b.frm.button(value: 'Budget Actions').click }
     end
 
     # Gathers all errors on the page and puts them in an array called "errors"
@@ -89,6 +83,30 @@ class BasePage < PageFactory
         errs.flatten
       end
       element(:left_errmsg_tabs) { |b| b.frm.divs(class: 'left-errmsg-tab') }
+    end
+
+    def links(*links_text)
+      links_text.each { |link| elementate(:link, link) }
+    end
+
+    def buttons(*buttons_text)
+     buttons_text.each { |button| elementate(:button, button) }
+    end
+
+    private
+    # A helper method that converts the passed string into snake case. See the StringFactory
+    # module for more info.
+    #
+    def damballa(text)
+      StringFactory::damballa(text)
+    end
+
+    def elementate(type, text)
+      identifiers={:link=>:text, :button=>:value}
+      el_name=damballa("#{text}_#{type}")
+      act_name=damballa(text)
+      element(el_name) { |b| b.frm.send(type, identifiers[type]=>text) }
+      action(act_name) { |b| b.frm.send(type, identifiers[type]=>text).click }
     end
 
   end # self

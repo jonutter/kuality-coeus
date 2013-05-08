@@ -1,6 +1,5 @@
 class Proposal < ProposalDevelopmentDocument
 
-  global_buttons
   proposal_header_elements
   error_messages
 
@@ -17,8 +16,6 @@ class Proposal < ProposalDevelopmentDocument
   element(:project_end_date) { |b| b.frm.text_field(id: 'document.developmentProposalList[0].requestedEndDateInitial') }
   element(:activity_type) { |b| b.frm.select(id: 'document.developmentProposalList[0].activityTypeCode') }
   element(:project_title) { |b| b.frm.text_field(id: 'document.developmentProposalList[0].title') }
-  element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
-  action(:save) { |b| b.save_button.click }
 
   # Institutional fields
 

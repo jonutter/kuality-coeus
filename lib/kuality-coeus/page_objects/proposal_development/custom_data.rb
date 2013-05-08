@@ -9,8 +9,4 @@ class CustomData < ProposalDevelopmentDocument
 
   action(:target_row) { |text, b| b.frm.trs(class: 'datatable').find { |row| row.text.include? text } }
 
-  #Action buttons
-  element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
-  action(:save) { |b| b.save_button.click }
-
 end

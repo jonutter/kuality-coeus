@@ -146,8 +146,4 @@ class Questions < ProposalDevelopmentDocument
   # Used in other elements. Not needed outside this class
   action(:q_num_div) { |index, b| b.frm.div(id: "HD0-QN#{index}div").div(class: 'Qresponsediv') }
 
-  #Action buttons
-  element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
-  action(:save) { |b| b.save_button.click }
-
 end

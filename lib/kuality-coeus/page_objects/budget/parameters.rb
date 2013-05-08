@@ -1,7 +1,5 @@
 class Parameters < BudgetDocument
 
-  return_button
-
   #Budget Overview
   value(:project_start_date) { |p| p.bo_table[0][1].text }
   value(:project_end_date) { |p| p.bo_table[1][1].text }
