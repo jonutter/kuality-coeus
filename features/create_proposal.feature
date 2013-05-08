@@ -4,21 +4,10 @@ Feature: Creating proposals
 
   Background: Logged in as admin
       Given   I'm logged in with admin
-
-    Scenario Outline: Attempt to create a proposal while leaving the required text-fields null
-      When    I initiate a proposal without a <Field Name>
-      Then    I should see an error that says "<Field Name> is a required field."
-
-      Scenarios:
-        | Field Name          |
-        | Description         |
-        | Proposal Type       |
-        | Lead Unit           |
-        | Activity Type       |
-        | Project Title       |
-        | Sponsor Code        |
-        | Project Start Date  |
-        | Project End Date    |
+    @test
+    Scenario: Attempt to create a proposal while leaving a required field empty
+      When    I initiate a proposal but miss a required field
+      Then    I should see an error that says the field is required
 
     Scenario: Attempt to create a proposal with invalid sponsor code
       When    I begin a proposal with an invalid sponsor code
@@ -27,7 +16,7 @@ Feature: Creating proposals
     Scenario: Selecting a Federal Sponsor activates the S2S tab
       When    I begin a proposal with a 'Federal' sponsor type
       Then    The S2S tab should become available
-    @test
+
     Scenario: Valid Proposals can be submitted to routing
       When    I complete a valid simple proposal for a 'Private Profit' organization
       And     I submit the proposal

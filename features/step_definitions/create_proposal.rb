@@ -2,9 +2,12 @@ And /^I initiate a proposal$/ do
   @proposal = create ProposalDevelopmentObject
 end
 
-When /^I initiate a proposal without a (.*)$/ do |name|
-  name=~/Type/ || name=='Lead Unit' ? value='select' : value=''
-  field = snake_case(name)
+When /^I initiate a proposal but miss a required field$/ do
+  @name = ['Description', 'Proposal Type', 'Lead Unit', 'Activity Type',
+           'Project Title', 'Sponsor Code', 'Project Start Date', 'Project End Date'
+          ].sample
+  @name=~/Type/ || @name=='Lead Unit' ? value='select' : value=''
+  field = snake_case(@name)
   @proposal = create ProposalDevelopmentObject, field=>value
 end
 
@@ -12,8 +15,9 @@ When /^I begin a proposal with a '(.*)' sponsor type$/ do |type|
   @proposal = create ProposalDevelopmentObject, sponsor_type_code: type
 end
 
-Then /^I should see an error that says "(.* is a required field.)"$/ do |text|
-  text=~/Description/ ? error='Document '+text : error=text
+Then /^I should see an error that says the field is required$/ do
+  text="#{@name} is a required field."
+  @name=='Description' ? error='Document '+text : error=text
   on(Proposal) do |page|
     page.error_summary.wait_until_present(5)
     page.errors.should include error
