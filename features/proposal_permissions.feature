@@ -11,7 +11,7 @@ Feature: Permissions in a Proposal
     Given   I initiate a proposal
     When    I visit the proposal's Permissions page
     Then    admin is listed as an Aggregator for the proposal
-  @test
+
   Scenario Outline: Adding various roles to proposals
     Given   I have a user with the user name kctestuser7
     And     I initiate a proposal
