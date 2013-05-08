@@ -13,18 +13,19 @@ Then /^The proposal should immediately have a status of '(.*)'$/ do |status|
   @proposal.status.should==status
 end
 
-Then /^The proposal's 'Actions Taken' should include '(.*)'$/ do |value|
+Then /^The proposal route log's 'Actions Taken' should include '(.*)'$/ do |value|
   @proposal.view :proposal_actions
   on ProposalActions do |page|
     page.expand_all
-    page.actions.should include value
+    page.actions_taken.should include value
   end
 end
 
-Then /^The proposal's 'Pending Action Requests' should include '(.*)'$/ do |action|
+Then /^The proposal route log's 'Pending Action Requests' should include '(.*)'$/ do |action|
   @proposal.view :proposal_actions
   on ProposalActions do |page|
     page.expand_all
+    page.action_requests.should include action
   end
 end
 
@@ -40,6 +41,6 @@ When /^The proposal's 'Future Action Requests' should include 'PENDING APPROVE' 
   on ProposalActions do |page|
     page.expand_all
     page.show_future_action_requests
-    puts page.requested_action_for(name).inspect
+    page.requested_action_for(name).should=="PENDING\nAPPROVE"
   end
 end
