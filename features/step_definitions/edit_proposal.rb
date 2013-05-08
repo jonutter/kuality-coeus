@@ -17,7 +17,7 @@ Then /^The proposal route log's 'Actions Taken' should include '(.*)'$/ do |valu
   @proposal.view :proposal_actions
   on ProposalActions do |page|
     page.expand_all
-    page.actions.should include value
+    page.actions_taken.should include value
   end
 end
 
@@ -25,7 +25,7 @@ Then /^The proposal route log's 'Pending Action Requests' should include '(.*)'$
   @proposal.view :proposal_actions
   on ProposalActions do |page|
     page.expand_all
-    raise "failed because this step is not done"
+    page.action_requests.should include action
   end
 end
 

@@ -33,5 +33,4 @@ Feature: Creating proposals
       And     I submit the proposal
       Then    The proposal should immediately have a status of 'Approval Pending'
       And     The proposal route log's 'Actions Taken' should include 'COMPLETED'
-      And     The proposal route log's 'Pending Action Requests' should include 'IN ACTION LIST APPROVE'
       And     The proposal's 'Future Action Requests' should include 'PENDING APPROVE' for the principal investigator

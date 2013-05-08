@@ -51,7 +51,7 @@ class ProposalActions < ProposalDevelopmentDocument
   element(:route_log_iframe) { |b| b.frm.frame(name: 'routeLogIFrame') }
   element(:actions_taken_table) { |b| b.route_log_iframe.div(id: 'tab-ActionsTaken-div').table }
 
-  value(:actions) { |b| (b.actions_taken_table.rows.collect{ |row| row[1].text }.compact.uniq).reject{ |action| action==''} }
+  value(:actions_taken) { |b| (b.actions_taken_table.rows.collect{ |row| row[1].text }.compact.uniq).reject{ |action| action==''} }
 
   element(:pnd_act_req_table) { |b| b.route_log_iframe.div(id: 'tab-PendingActionRequests-div').table }
 
