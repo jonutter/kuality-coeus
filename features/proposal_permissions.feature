@@ -21,11 +21,11 @@ Feature: Permissions in a Proposal
 
     Examples:
     | Role                     | Permissions                                    |
-#    | Narrative Writer         | only update the Abstracts and Attachments page |
-#    | Aggregator               | edit all parts of the proposal                 |
-#    | Budget Creator           | only update the budget                         |
-    | Deleter          | delete the proposal                            |
-#    | Viewer                   | only read the proposal                         |
+    | Narrative Writer         | only update the Abstracts and Attachments page |
+    | Aggregator               | edit all parts of the proposal                 |
+    | Budget Creator           | only update the budget                         |
+    | Deleter                  | delete the proposal                            |
+    | Viewer                   | only read the proposal                         |
 
   Scenario: Error when Aggregator role is designated among others
     Given I have a user with the user name kctestuser10
@@ -35,9 +35,9 @@ Feature: Permissions in a Proposal
     Then  I should see an error message that says not to select other roles alongside aggregator
 
   Scenario: User with Proposal permission sees proposal in their action list
-    Given I'm logged in with admin
-    And   I have a user with a role of 'OSPApprover'
+    Given I have a user with a role of 'OSPApprover'
     And   I initiate a proposal
     And   I complete the proposal
     When  I submit the proposal
     Then  the proposal is in OSPApprover's action list
+

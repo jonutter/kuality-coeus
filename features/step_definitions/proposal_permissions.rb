@@ -109,13 +109,13 @@ And /^their proposal permissions allow them to (.*)$/ do |permissions|
     when 'delete the proposal'
       on(Proposal).proposal_actions
       @proposal.delete
-      on(Confirmation).yes
-
   end
 end
+
 Then /^I should see an error message that says not to select other roles alongside aggregator$/ do
    on(Roles).errors.should include 'Do not select other roles when Aggregator is selected.'
 end
+
 When /^I attempt to add an additional role to (.*)$/ do |username|
   role = [:viewer, :budget_creator, :narrative_writer].sample
   on(Permissions).edit_role(get(username).user_name)
