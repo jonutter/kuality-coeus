@@ -34,7 +34,7 @@ Feature: Permissions in a Proposal
     When  I attempt to add an additional role to kctestuser10
     Then  I should see an error message that says not to select other roles alongside aggregator
 
-  Scenario: User with Proposal permission sees proposal in their action list
+  Scenario: User with Proposal Approver permission sees proposal in their action list
     Given I have a user with a role of 'OSPApprover'
     And   I initiate a proposal
     And   I complete the proposal
