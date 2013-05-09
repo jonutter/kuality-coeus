@@ -28,7 +28,11 @@ When /^I begin a proposal with an invalid sponsor code$/ do
   @proposal = create ProposalDevelopmentObject, :sponsor_code=>'000000'
 end
 
-Then /^I should see an error that says valid sponsor code required$/ do
+Given /^I begin a proposal without a sponsor deadline date$/ do
+  @proposal = create ProposalDevelopmentObject, sponsor_deadline_date: ''
+end
+
+Then /^I should see an error that says a valid sponsor code is required$/ do
   on(Proposal).errors.should include 'A valid Sponsor Code (Sponsor) must be selected.'
 end
 
