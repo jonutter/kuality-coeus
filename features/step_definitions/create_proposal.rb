@@ -2,6 +2,10 @@ And /^I initiate a proposal$/ do
   @proposal = create ProposalDevelopmentObject
 end
 
+Given /^I initiate a second proposal$/ do
+  @proposal2 = create ProposalDevelopmentObject
+end
+
 When /^I initiate a proposal but miss a required field$/ do
   @name = ['Description', 'Proposal Type', 'Lead Unit', 'Activity Type',
            'Project Title', 'Sponsor Code', 'Project Start Date', 'Project End Date'

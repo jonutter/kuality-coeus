@@ -3,6 +3,8 @@ class Permissions < ProposalDevelopmentDocument
   proposal_header_elements
   error_messages
 
+  action(:assigned_to_role) { |role, b| b.frm.td(id: role).text }
+
   element(:user_name) { |b| b.frm.text_field(id: 'newProposalUser.username') }
   element(:role) { |b| b.frm.select(id: 'newProposalUser.roleName') }
   action(:add) { |b| b.frm.button(name: 'methodToCall.addProposalUser.anchorUsers').click }
