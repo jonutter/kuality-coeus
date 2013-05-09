@@ -40,7 +40,7 @@ Feature: Proposal Actions Validations
       When    I activate a validation check
       Then    the validation should report the question was not answered
       And     checking the questions page should show the question was not answered
-
+    @test
     Scenario: Validate a proposal without a sponsor deadline date
       Given   I initiate a proposal without a sponsor deadline date
       When    I activate a validation check

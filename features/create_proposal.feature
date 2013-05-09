@@ -4,14 +4,14 @@ Feature: Creating proposals
 
   Background: Logged in as admin
       Given   I'm logged in with admin
-    @test
+
     Scenario: Attempt to create a proposal while leaving a required field empty
       When    I initiate a proposal but miss a required field
       Then    I should see an error that says the field is required
 
     Scenario: Attempt to create a proposal with invalid sponsor code
       When    I begin a proposal with an invalid sponsor code
-      Then    I should see an error that says valid sponsor code required
+      Then    I should see an error that says a valid sponsor code is required
 
     Scenario: Selecting a Federal Sponsor activates the S2S tab
       When    I begin a proposal with a 'Federal' sponsor type

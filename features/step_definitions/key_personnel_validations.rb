@@ -45,9 +45,11 @@ end
 When /^I add a key person with an invalid unit type$/ do
   @proposal.add_key_person role: 'Key Person', key_person_role: 'king', units: [{number: 'invalid'}]
 end
+
 Then /^I should see an error that says please select a valid unit$/ do
   on(KeyPersonnel).errors.should include 'Please select a valid Unit.'
 end
+
 Then /^the key personnel error should say (.*)$/ do |error|
   errors = {'at least one principal investigator is required' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.'
   }

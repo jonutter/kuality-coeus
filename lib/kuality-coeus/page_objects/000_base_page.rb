@@ -83,6 +83,7 @@ class BasePage < PageFactory
         errs.flatten
       end
       element(:left_errmsg_tabs) { |b| b.frm.divs(class: 'left-errmsg-tab') }
+      element(:error_messages_div) { |b| b.frm.div(class: 'error') }
     end
 
     def links(*links_text)

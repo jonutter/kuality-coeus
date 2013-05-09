@@ -2,6 +2,10 @@ And /^I initiate a proposal$/ do
   @proposal = create ProposalDevelopmentObject
 end
 
+Given /^I initiate a second proposal$/ do
+  @proposal2 = create ProposalDevelopmentObject
+end
+
 When /^I initiate a proposal but miss a required field$/ do
   @name = ['Description', 'Proposal Type', 'Lead Unit', 'Activity Type',
            'Project Title', 'Sponsor Code', 'Project Start Date', 'Project End Date'
@@ -28,7 +32,11 @@ When /^I begin a proposal with an invalid sponsor code$/ do
   @proposal = create ProposalDevelopmentObject, :sponsor_code=>'000000'
 end
 
-Then /^I should see an error that says valid sponsor code required$/ do
+Given /^I begin a proposal without a sponsor deadline date$/ do
+  @proposal = create ProposalDevelopmentObject, sponsor_deadline_date: ''
+end
+
+Then /^I should see an error that says a valid sponsor code is required$/ do
   on(Proposal).errors.should include 'A valid Sponsor Code (Sponsor) must be selected.'
 end
 

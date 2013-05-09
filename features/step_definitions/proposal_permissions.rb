@@ -125,3 +125,11 @@ When /^I attempt to add an additional role to (.*)$/ do |username|
     page.save
   end
 end
+
+Then /^(.*) should not be listed as a (.*) in the second proposal$/ do |username, role|
+  user = get(username)
+  @proposal2.view :permissions
+  on Permissions do |page|
+    page.assigned_to_role(role).should_not include "#{user.first_name} #{user.last_name}"
+  end
+end

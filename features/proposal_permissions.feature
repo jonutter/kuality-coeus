@@ -27,6 +27,22 @@ Feature: Permissions in a Proposal
     | Deleter                  | delete the proposal                            |
     | Viewer                   | only read the proposal                         |
 
+  Scenario Outline: Test
+    Given I have a user with the user name unassigneduser
+    And   I initiate a proposal
+    And   I add unassigneduser as a <Role> to the proposal permissions
+    When  I initiate a second proposal
+    Then  unassigneduser should not be listed as a <Role> in the second proposal
+
+  Examples:
+    | Role             |
+    | Viewer           |
+    | Budget Creator   |
+    | Narrative Writer |
+    | Aggregator       |
+    | approver         |
+    | Delete Proposal  |
+
   Scenario: Error when Aggregator role is designated among others
     Given I have a user with the user name kctestuser10
     And   I initiate a proposal
