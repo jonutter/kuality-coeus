@@ -654,8 +654,9 @@ kctestuser9:  # AKA: "Principal Name"
   :roles:
     - '98'  # Manager
     - '110' # Aggregator
+    - '111' # Proposal Creator
   :role_qualifiers:
-    :98:  '000001'
+    :111: '000001'
     :110: '000001'
 kctestuser10:  # AKA: "Principal Name"
   :description:      creating test user with aggregator permissions
@@ -743,7 +744,6 @@ kctestuser14:  # AKA: "Principal Name"
     - '98'  # Manager
   :role_qualifiers:
     :110: '000001'
-    :98:  '000001'
 kctestuser15:  # AKA: "Principal Name"
   :description:      creating workflow admin user with agg role
   :affiliation_type: Medical Staff

@@ -25,7 +25,12 @@ end
 
 Then /^the proposal is in (.*)'s action list$/ do |username|
   get(username).sign_in
-  visit(ActionList).item(@proposal.document_id).should exist
+  visit(ActionList).filter
+  on ActionListFilter do |page|
+    page.document_title.set @proposal.project_title
+    page.filter
+  end
+  on(ActionList).item(@proposal.document_id).should exist
 end
 
 And /^their proposal permissions allow them to (.*)$/ do |permissions|
@@ -132,4 +137,17 @@ Then /^(.*) should not be listed as a (.*) in the second proposal$/ do |username
   on Permissions do |page|
     page.assigned_to_role(role).should_not include "#{user.first_name} #{user.last_name}"
   end
+end
+
+When /^I recall the proposal to my action list$/ do
+  #TODO: Please fix the recall method
+  @proposal.recall
+  on Confirmation do |page|
+    page.recall_reason.fit random_alphanums
+    page.recall_to_action_list
+  end
+end
+When /^when the proposal is opened the status is (.*)$/ do |status|
+  on(ActionList).open_item(@proposal.document_id)
+  @proposal.status = status
 end
