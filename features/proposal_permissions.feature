@@ -56,7 +56,7 @@ Feature: Permissions in a Proposal
     And   I complete the proposal
     When  I submit the proposal
     Then  the proposal is in OSPApprover's action list
-  @test
+
   Scenario: User with Aggregator role can recall a proposal for revisions
     Given I have a user with the user name kctestuser9
     And   I log in with kctestuser9
@@ -65,3 +65,12 @@ Feature: Permissions in a Proposal
     When  I recall the proposal to my action list
     Then  the proposal is in kctestuser9's action list
     And   when the proposal is opened the status is 'Revisions Requested'
+  @test
+  Scenario: User with Aggregator role can recall a proposal for revisions
+    Given I have a user with the user name kctestuser9
+    And   I log in with kctestuser9
+    And   I complete a valid simple proposal for a 'Private Profit' organization
+    And   I submit the proposal
+    When  I recall and cancel the proposal
+    Then  when I revisit the proposal its status should be 'Document Error Occurred'
+    #TODO: Write steps to check for uneditable pages in the proposal doc

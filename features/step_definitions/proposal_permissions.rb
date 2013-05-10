@@ -147,7 +147,21 @@ When /^I recall the proposal to my action list$/ do
     page.recall_to_action_list
   end
 end
+
 When /^when the proposal is opened the status is (.*)$/ do |status|
   on(ActionList).open_item(@proposal.document_id)
   @proposal.status = status
+end
+
+When /^I recall and cancel the proposal$/ do
+  #TODO: Please fix the recall method
+  @proposal.recall
+  on Confirmation do |page|
+    page.recall_reason.fit random_alphanums
+    page.recall_and_cancel
+  end
+end
+
+Then /^when I revisit the proposal its status should be 'Document Error Occurred'$/ do
+  #todo
 end
