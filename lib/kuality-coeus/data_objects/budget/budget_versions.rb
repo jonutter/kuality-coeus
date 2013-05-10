@@ -37,19 +37,26 @@ class BudgetVersionsObject
       add.name.set @name
       add.add
       add.final(@name).fit @final
-      add.status(@name).pick! @status
+      add.budget_status(@name).pick! @status
       add.save
       break if parameters.compact==nil # No reason to continue if there aren't other things to do
       # Otherwise, go to parameters page and fill out the rest of the stuff...
       add.open(@name)
     end
+    #TODO: This needs to be dealt with more intelligently.
+    # It's clear that we need to learn more about how to set up
+    # sponsors better, so that we can predict when this dialog
+    # will show up and when it won't...
+    if @browser.title=='Kuali :: Question Dialog Page'
+      on(Confirmation).yes
+    end
     on Parameters do |parameters|
       @project_start_date=parameters.project_start_date
       @project_end_date=parameters.project_end_date
       parameters.total_direct_cost_limit.fit @total_direct_cost_limit
-      fill_out parameters, :on_off_campus, :comments, :modular_budget, :residual_funds,
-                           :total_cost_limit, :unrecovered_fa_rate_type, :f_and_a_rate_type,
-                           :submit_cost_sharing
+      fill_out parameters, :on_off_campus, :comments, :modular_budget,
+               :residual_funds, :total_cost_limit, :unrecovered_fa_rate_type,
+               :f_and_a_rate_type, :submit_cost_sharing
       # Add the default Budget Period to the collection.
       # Note that this is only a make, since the item is already
       # there on the page.
@@ -90,6 +97,20 @@ class BudgetVersionsObject
     set_options(opts)
   end
 
+  def open
+    navigate
+    on BudgetVersions do |page|
+      page.open @name
+    end
+    #TODO: This needs to be dealt with more intelligently.
+    # It's clear that we need to learn more about how to set up
+    # sponsors better, so that we can predict when this dialog
+    # will show up and when it won't...
+    if @browser.title=='Kuali :: Question Dialog Page'
+      on(Confirmation).yes
+    end
+  end
+
   # =======
   private
   # =======
@@ -97,7 +118,7 @@ class BudgetVersionsObject
   # Nav Aids...
 
   def navigate
-    open_document unless on_document?
+    open_budget
     on(Proposal).budget_versions unless on_page?
   end
 

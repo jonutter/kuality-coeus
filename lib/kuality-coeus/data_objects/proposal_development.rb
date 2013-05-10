@@ -52,6 +52,17 @@ class ProposalDevelopmentObject
     end
   end
 
+  def edit opts={}
+    open_proposal
+    on Proposal do |edit|
+      edit.expand_all
+      edit.project_start_date.fit opts[:project_start_date]
+      # TODO: Add more stuff here as necessary
+      edit.save
+    end
+    update_options(opts)
+  end
+
   def add_key_person opts={}
     merge_settings(opts)
     kpo = make KeyPersonObject, opts
@@ -101,7 +112,7 @@ class ProposalDevelopmentObject
     @special_review << sro
   end
 
-  def add_budget_versions opts={}
+  def add_budget_version opts={}
     merge_settings(opts)
     bvo = make BudgetVersionsObject, opts
     bvo.create
@@ -115,7 +126,7 @@ class ProposalDevelopmentObject
   end
 
   def delete
-    open_document
+    open_proposal
     on(Proposal).proposal_actions
     on(ProposalActions).delete_proposal
     on(ConfirmationPage).yes
@@ -129,24 +140,24 @@ class ProposalDevelopmentObject
   end
 
   def recall
-    open_document
+    open_proposal
     on(Proposal).recall
   end
 
   def close
-    open_document
+    open_proposal
     on(Proposal).close
   end
 
   def view(tab)
-    open_document
+    open_proposal
     unless @status=='CANCELED' || on(Proposal).send((tab.to_s+'_button').to_sym).parent.class_name=~/tabcurrent$/
       on(Proposal).send(tab)
     end
   end
 
   def submit
-    open_document
+    open_proposal
     on(Proposal).proposal_actions
     on ProposalActions do |page|
       page.submit

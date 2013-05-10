@@ -27,7 +27,7 @@ Feature: Permissions in a Proposal
     | Deleter                  | delete the proposal                            |
     | Viewer                   | only read the proposal                         |
 
-  Scenario Outline: Test
+  Scenario Outline: Permissions for one proposal do not extend to other proposals
     Given I have a user with the user name unassigneduser
     And   I initiate a proposal
     And   I add unassigneduser as a <Role> to the proposal permissions
