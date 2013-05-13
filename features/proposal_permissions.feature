@@ -15,32 +15,32 @@ Feature: Permissions in a Proposal
   Scenario Outline: Adding various roles to proposals
     Given I have a user with a system role of 'Unassigned'
     And   I initiate a proposal
-    When  I assign 'Unassigned' as a <Role> to the proposal permissions
-    Then  'Unassigned' can access the proposal
+    When  I assign the Unassigned user as a <Role> to the proposal permissions
+    Then  the Unassigned user can access the proposal
     And   their proposal permissions allow them to <Permissions>
 
     Examples:
     | Role                     | Permissions                                    |
-    | Narrative Writer         | only update the Abstracts and Attachments page |
+#    | Narrative Writer         | only update the Abstracts and Attachments page |
 #    | Aggregator               | edit all parts of the proposal                 |
 #    | Budget Creator           | only update the budget                         |
-#    | Deleter                  | delete the proposal                            |
+    | Delete Proposal                  | delete the proposal                            |
 #    | Viewer                   | only read the proposal                         |
 
   Scenario Outline: Permissions for one proposal do not extend to other proposals
     Given I have a user with a system role of 'Unassigned'
     And   I initiate a proposal
-    And   I add unassigneduser as a <Role> to the proposal permissions
+    And   I assign the Unassigned user as a <Role> to the proposal permissions
     When  I initiate a second proposal
-    Then  unassigneduser should not be listed as a <Role> in the second proposal
+    Then  the Unassigned user should not be listed as a <Role> in the second proposal
 
   Examples:
     | Role             |
-    | Viewer           |
-    | Budget Creator   |
-    | Narrative Writer |
-    | Aggregator       |
-    | approver         |
+#    | Viewer           |
+#    | Budget Creator   |
+#    | Narrative Writer |
+#    | Aggregator       |
+#    | approver         |
     | Delete Proposal  |
 
   Scenario: Error when Aggregator role is designated among others

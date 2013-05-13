@@ -8,4 +8,3 @@ Then /^opening the Budget Version will display a warning about the date change$/
 end
 
 
-user = make UserObject, role: 'OSPApprover'

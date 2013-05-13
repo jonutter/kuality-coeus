@@ -6,7 +6,7 @@ class PermissionsObject
   include Utilities
 
   attr_accessor :document_id, :aggregators, :budget_creators, :narrative_writers,
-                :viewers, :approvers, :deleters
+                :viewers, :approvers, :delete_proposals
 
   def initialize(browser, opts={})
     @browser = browser
@@ -15,7 +15,7 @@ class PermissionsObject
         budget_creators:   [], # Arrays should contain usernames
         narrative_writers: [],
         viewers:           [],
-        deleters:          [],
+        delete_proposals:  [],
         approvers:         []
     }
 
@@ -89,7 +89,7 @@ class PermissionsObject
   # Nav Aids...
 
   def navigate
-    open_document
+    open_proposal
     on(Proposal).permissions unless on_page?
   end
 
@@ -113,7 +113,7 @@ class PermissionsObject
         :@budget_creators=>'Budget Creator',
         :@narrative_writers=>'Narrative Writer',
         :@approvers=>'approver',
-        :@deleters=>'Delete Proposal'
+        :@delete_proposals=>'Delete Proposal'
     }
   end
 

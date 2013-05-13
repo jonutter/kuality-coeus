@@ -19,6 +19,9 @@ class AbstractsAndAttachments < ProposalDevelopmentDocument
   action(:show_proposal_attachment) { |type, b| b.frm.button(alt: /#{type}/).click }
   action(:proposal_attachment_div) { |type, b| b.frm.div(id: /tab-ProposalAttachments..#{type}Incomplete-div/) }
 
+  element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
+  action(:save) { |b| b.save_button.click }
+
   # Personnel Attachments
   element(:person) { |b| b.frm.select(name: 'newPropPersonBio.proposalPersonNumber') }
   element(:personnel_attachment_type) { |b| b.frm.select(id: 'newPropPersonBio.documentTypeCode') }

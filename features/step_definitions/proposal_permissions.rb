@@ -11,15 +11,15 @@ Then /^(.*) is listed as (a|an) (.*) for the proposal$/ do |username, x, role|
   on(Permissions).assigned_role(get(username).user_name).should include role
 end
 
-When /^I assign (.*) as (a|an) (.*) to the proposal permissions$/ do |username, x, role|
-  set(username, (make UserObject, role: 'Unassigned'))
-  @proposal.permissions.send(snake_case(role+'s')) << username
+When /^I assign the (.*) user as (a|an) (.*) to the proposal permissions$/ do |system_role, x, role|
+  set(system_role, (make UserObject, role: system_role))
+  @proposal.permissions.send(snake_case(role+'s')) << get(system_role).user_name
   @proposal.permissions.assign
 end
 
-Then /^(.*) can access the proposal$/ do |username|
-  get(username).sign_in
-  @proposal.open_document
+Then /^the (.*) user can access the proposal$/ do |role|
+  get(role).sign_in
+  @proposal.open_proposal
   on(Researcher).error_table.should_not be_present
 end
 
@@ -38,7 +38,7 @@ And /^their proposal permissions allow them to (.*)$/ do |permissions|
     when 'only update the Abstracts and Attachments page'
       on(Proposal).abstracts_and_attachments
       @proposal.close
-      on(QuestionDialogPage).yes
+      on(Confirmation).yes
 
     when 'edit all parts of the proposal'
       on Proposal do |page|
@@ -76,7 +76,7 @@ And /^their proposal permissions allow them to (.*)$/ do |permissions|
     when 'only update the budget'
       on(Proposal).budget_versions
       @proposal.close
-      on(QuestionDialogPage).yes
+      on(Confirmation).yes
 
     when 'only read the proposal'
       on Proposal do |page|
@@ -131,8 +131,8 @@ When /^I attempt to add an additional role to (.*)$/ do |username|
   end
 end
 
-Then /^(.*) should not be listed as a (.*) in the second proposal$/ do |username, role|
-  user = get(username)
+Then /^the (.*) user should not be listed as (a|an) (.*) in the second proposal$/ do |system_role, x, role|
+  user = get(system_role)
   @proposal2.view :permissions
   on Permissions do |page|
     page.assigned_to_role(role).should_not include "#{user.first_name} #{user.last_name}"
