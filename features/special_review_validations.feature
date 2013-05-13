@@ -5,8 +5,8 @@ Feature: Special Review Validations
   before I submit the proposal
 
   Background: KC user is logged in as admin
-    Given   I am logged in as the admin
-    And     I begin a proposal
+    Given   I'm logged in with admin
+    And     I initiate a proposal
   @test
   Scenario: The application date must be prior to the approval date
     When    I add a special review item that has an approval date earlier than the application date

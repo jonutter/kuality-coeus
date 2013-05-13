@@ -1,7 +1,24 @@
 class UserCollection < Hash
 
+  # Returns an array of all users with the specified role. Takes the role name as a string.
+  # The array is shuffled so that #have_role('role name')[0] will be a random selection
+  # from the list of matching users.
   def have_role(role)
     self.find_all{|user| user[1][:roles] != nil && user[1][:roles].include?(role)}.shuffle
+  end
+
+  # Returns an array of all users with the specified campus code. Takes the code as a string.
+  # The array is shuffled so that #with_campus_code('code')[0] will be a random selection
+  # from the list of matching users.
+  def with_campus_code(code)
+    self.find_all{|user| user[1][:campus_code]==code }.shuffle
+  end
+
+  # Returns an array of all users with the specified affiliation type. Takes the type name as a string.
+  # The array is shuffled so that #with_affiliation_type('type name')[0] will be a random selection
+  # from the list of matching users.
+  def with_affiliation_type(type)
+    self.find_all{|user| user[1][:affiliation_type]==type }.shuffle
   end
 
 end
@@ -15,7 +32,7 @@ class UserObject
   attr_accessor :user_name,
                 :first_name, :last_name,
                 :description, :affiliation_type, :campus_code,
-                :employee_id, :employee_status, :employee_type, :base_salary,
+                :employee_id, :employee_status, :employee_type, :base_salary, :primary_dept_code,
                 :groups, :roles, :role_qualifiers,
                 :address_type, :line_1, :city, :state, :country,
                 :phone_type, :phone_number
@@ -90,7 +107,7 @@ class UserObject
       # TODO: Another thing that will need to be changed if ever there's a need to test multiple
       # lines of employment:
       unless @employee_id.nil?
-        fill_out add, :employee_id, :employee_status, :employee_type, :base_salary
+        fill_out add, :employee_id, :employee_status, :employee_type, :base_salary, :primary_dept_code
         add.primary_employment.set
         add.add_employment_information
       end

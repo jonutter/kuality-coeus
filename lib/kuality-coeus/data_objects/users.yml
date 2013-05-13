@@ -2,36 +2,38 @@ admin:
   :first_name: admin
   :last_name:  admin
 brunelle:  # "Principal Name"
-  :description:      asdfasdf
-  :affiliation_type: Faculty
-  :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      brunelle
-  :employee_status:  Active
-  :employee_type:    Professional
-  :base_salary:      '100'
-  :first_name:       ANTWAN
-  :last_name:        BRUNELLE
-  :address_type: Home
-  :line_1: 475 n scottsdale rd
-  :city: scottsdale
-  :state: ARIZONA
-  :country: United States
-  :phone_type: Home
-  :phone_number: 555-555-5555
+  :description:       asdfasdf
+  :affiliation_type:  Faculty
+  :campus_code:       'UN - UNIVERSITY'
+  :employee_id:       brunelle
+  :employee_status:   Active
+  :employee_type:     Professional
+  :base_salary:       '100'
+  :primary_dept_code: '000001'
+  :first_name:        ANTWAN
+  :last_name:         BRUNELLE
+  :address_type:      Home
+  :line_1:            475 n scottsdale rd
+  :city:              Scottsdale
+  :state:             ARIZONA
+  :country:           United States
+  :phone_type:        Home
+  :phone_number:      555-555-5555
   :groups:
     - '2001' # KcAdmin
     - '2003' # ProposalAdmin
     - '2004' # IRBAdmin
 aemcafee:  # "Principal Name"
-  :description:      kkjhgk
-  :affiliation_type: Faculty
-  :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      aemcafee
-  :employee_status:  Active
-  :employee_type:    Professional
-  :base_salary:      '123'
-  :first_name:       ALAN
-  :last_name:        MCAFEE
+  :description:       kkjhgk
+  :affiliation_type:  Faculty
+  :campus_code:       'UN - UNIVERSITY'
+  :employee_id:       aemcafee
+  :employee_status:   Active
+  :employee_type:     Professional
+  :base_salary:       '123'
+  :primary_dept_code: '000001'
+  :first_name:        ALAN
+  :last_name:         MCAFEE
   :groups:
     - '2001' # KcAdmin
     - '2003' # ProposalAdmin
@@ -40,91 +42,46 @@ aemcafee:  # "Principal Name"
     - '105'  # Protocol Aggregator
     - '1421' # IACUC Protocol Aggregator
     - '1638' # IACUC Protocol Approver
-negcreator:  # AKA: "Principal Name"
-  :description:      dfgsdfg
-  :affiliation_type: 'UN - UNIVERSITY'
-  :campus_code:
-  :employee_id:
-  :employee_status:
-  :employee_type:
-  :base_salary:
-  :first_name:      Negotiation
-  :last_name:       Creator
-  :roles:
-    - '123'  # Award Viewer
-    - '1409' # View Subaward
-    - '1382' # Negotiation Creator
-    - '142'  # View Proposal Log
-    - '118'  # Institutional Proposal Viewer
-  :role_qualifiers:
-    :123: '000001'
-    :142: '000001'
-    :118: '000001'
-thefunk:  # AKA: "Principal Name"
-  :description:      dfgsdfg
-  :affiliation_type: Faculty
-  :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      thefunk
-  :employee_status:  Active
-  :employee_type:    Other
-  :base_salary:      '123456'
-  :first_name:       Theodore
-  :last_name:        Funkmeister
-  :address_type: Home
-  :line_1: 475 n scottsdale rd
-  :city: scottsdale
-  :state: ARIZONA
-  :country: United States
-  :phone_type: Home
-  :phone_number: 555-555-5555
-  :roles:
-    - '123'  # Award Viewer
-    - '1409' # View Subaward
-    - '1382' # Negotiation Creator
-    - '142'  # View Proposal Log
-    - '118'  # Institutional Proposal Viewer
-  :role_qualifiers:
-    :123: '000001'
-    :142: '000001'
-    :118: '000001'
 propcreator:  # AKA: "Principal Name"
-  :description:      creating user with create prop only permissions
-  :affiliation_type: Faculty
-  :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      jupropcreator
-  :employee_status:  Active
-  :employee_type:    Other
-  :base_salary:      '50,000.00'
-  :first_name:       nicholas
-  :last_name:        test
-  :address_type: Home
-  :line_1: 475 n scottsdale rd
-  :city: scottsdale
-  :state: ARIZONA
-  :country: United States
-  :phone_type: Home
-  :phone_number: 555-555-5555
+  :description:       creating user with create prop only permissions
+  :affiliation_type:  Faculty
+  :campus_code:       'UN - UNIVERSITY'
+  :employee_id:       jupropcreator
+  :employee_status:   Active
+  :employee_type:     Other
+  :base_salary:       '50,000.00'
+  :primary_dept_code: '000001'
+  :first_name:        nicholas
+  :last_name:         test
+  :address_type:      Home
+  :line_1:            475 n scottsdale rd
+  :city:              scottsdale
+  :state:             ARIZONA
+  :country:           United States
+  :phone_type:        Home
+  :phone_number:      555-555-5555
   :roles:
     - '111' # Proposal Creator
   :role_qualifiers:
     :123: '000001'
 pi:  # AKA: "Principal Name"
-  :description:      creating pi role for viewing, modifying, certifying, etc
-  :affiliation_type: Faculty
-  :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      jupi
-  :employee_status:  Active
-  :employee_type:    Other
-  :base_salary:      '50,000.00'
-  :first_name:       jupi
-  :last_name:        test
-  :address_type: Home
-  :line_1: 475 n scottsdale rd
-  :city: scottsdale
-  :state: ARIZONA
-  :country: United States
-  :phone_type: Home
-  :phone_number: 555-555-5555
+  :description:       creating pi role for viewing, modifying, certifying, etc
+  :affiliation_type:  Faculty
+  :campus_code:       'UN - UNIVERSITY'
+  :employee_id:       jupi
+  :employee_status:   Active
+  :employee_type:     Other
+  :base_salary:       '50,000.00'
+  :primary_dept_code: '000001'
+   :first_name:       jupi
+  :last_name:         test
+  :address_type:      Home
+  :line_1:            475 n scottsdale rd
+  :city:              scottsdale
+  :state:             ARIZONA
+  :country:           United States
+  :phone_type:        Home
+  :phone_number:      555-555-5555
   :groups:
     - '2005' # Proposal Development - Department Reviewers
   :roles:
@@ -184,13 +141,13 @@ workflowadmin:  # AKA: "Principal Name"
   :base_salary:      '50'
   :first_name:       kepler
   :last_name:        test
-  :address_type: Home
-  :line_1: 475 n scottsdale rd
-  :city: scottsdale
-  :state: ARIZONA
-  :country: United States
-  :phone_type: Home
-  :phone_number: 555-555-5555
+  :address_type:     Home
+  :line_1:           475 n scottsdale rd
+  :city:             scottsdale
+  :state:            ARIZONA
+  :country:          United States
+  :phone_type:       Home
+  :phone_number:     555-555-5555
   :groups:
     - '1'   # Workflow Admin
   :roles:
@@ -217,22 +174,23 @@ juworkflowuser:  # AKA: "Principal Name"
     - '100' # OSP Approver
     - '161' # Maintain IRB Questionnaire
 aggregator:  # AKA: "Principal Name"
-  :description:      creating user with aggregator permissions
-  :affiliation_type: Faculty
-  :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      juaggregator
-  :employee_status:  Active
-  :employee_type:    Other
-  :base_salary:      '160'
-  :first_name:       jacques
-  :last_name:        test
-  :address_type: Home
-  :line_1: 475 n scottsdale rd
-  :city: scottsdale
-  :state: ARIZONA
-  :country: United States
-  :phone_type: Home
-  :phone_number: 555-555-5555
+  :description:       creating user with aggregator permissions
+  :affiliation_type:  Faculty
+  :campus_code:       'UN - UNIVERSITY'
+  :employee_id:       juaggregator
+  :employee_status:   Active
+  :employee_type:     Other
+  :base_salary:       '160'
+  :primary_dept_code: '000001'
+  :first_name:        jacques
+  :last_name:         test
+  :address_type:      Home
+  :line_1:            475 n scottsdale rd
+  :city:              scottsdale
+  :state:             ARIZONA
+  :country:           United States
+  :phone_type:        Home
+  :phone_number:      555-555-5555
   :roles:
     - '110' # Aggregator
     - '113' # Award Budget Aggregator
@@ -248,13 +206,13 @@ protocolagg:  # AKA: "Principal Name"
   :base_salary:      '160'
   :first_name:       rene
   :last_name:        test
-  :address_type: Home
-  :line_1: 475 n scottsdale rd
-  :city: scottsdale
-  :state: ARIZONA
-  :country: United States
-  :phone_type: Home
-  :phone_number: 555-555-5555
+  :address_type:     Home
+  :line_1:           475 n scottsdale rd
+  :city:             scottsdale
+  :state:            ARIZONA
+  :country:          United States
+  :phone_type:       Home
+  :phone_number:     555-555-5555
   :roles:
     - '105' # Protocol Aggregator
     - '110' # Aggregator
@@ -272,13 +230,13 @@ budgetcreator:  # AKA: "Principal Name"
   :base_salary:      '160'
   :first_name:       boyle
   :last_name:        test
-  :address_type: Home
-  :line_1: 475 n scottsdale rd
-  :city: scottsdale
-  :state: ARIZONA
-  :country: United States
-  :phone_type: Home
-  :phone_number: 555-555-5555
+  :address_type:     Home
+  :line_1:           475 n scottsdale rd
+  :city:             scottsdale
+  :state:            ARIZONA
+  :country:          United States
+  :phone_type:       Home
+  :phone_number:     555-555-5555
   :roles:
     - '105' # Protocol Aggregator
   :role_qualifiers:
@@ -891,6 +849,89 @@ kctestuser20:  # AKA: "Principal Name"
     - '106' # Unassigned
   :role_qualifier:
       :106: '000001'
+cate:  # AKA: "Principal Name"
+  :description:      bla
+  :affiliation_type: Medical Staff
+  :campus_code:      'IN - INDIANAPOLIS'
+  :employee_id:      cate
+  :employee_status:  Active
+  :employee_type:    Professional
+  :base_salary:      '100000'
+  :first_name:       Allyson
+  :last_name:        Cate
+  :address_type: Work
+  :line_1: 1125 Kuali Drive
+  :city: Coeus
+  :state: MASSACHUSETTS
+  :country: United States
+  :phone_type: Work
+  :phone_number: 555-555-5555
+  :groups:
+    - '2001'   # KcAdmin
+    - '2003'   # ProposalAdmin
+    - '2004'   # IRBAdmin
+  :roles:
+    - '111' # Proposal Creator
+  :role_qualifier:
+      :111: 'IN-MED'
+chew:  # AKA: "Principal Name"
+  :description:      foo
+  :affiliation_type: Staff
+  :campus_code:      'BL - BLOOMINGTON'
+  :employee_id:      chew
+  :employee_status:  Active
+  :employee_type:    Professional
+  :base_salary:      '100000'
+  :first_name:       Inez
+  :last_name:        Chew
+  :address_type: Work
+  :line_1: 1122 Kuali Drive
+  :city: Coeus
+  :state: MASSACHUSETTS
+  :country: United States
+  :phone_type: Work
+  :phone_number: 321-321-1201
+  :groups:
+    - '2001'   # KcAdmin
+    - '2003'   # ProposalAdmin
+    - '2004'   # IRBAdmin
+  :roles:
+    - '111'  # Proposal Creator
+    - '99'   # IRBApprover
+    - '116'  # Intellectual Property Review Maintainer
+    - '1651' # IACUCApprover
+    - '1668' # IACUCWorkflowApprover
+  :role_qualifier:
+      :111: 'BL-BL'
+      :116: '000001'
+oblood:  # AKA: "Principal Name"
+  :description:      foo
+  :affiliation_type: Research Staff
+  :campus_code:      'BL - BLOOMINGTON'
+  :employee_id:      oblood
+  :employee_status:  Active
+  :employee_type:    Professional
+  :base_salary:      '100000'
+  :first_name:       Opal
+  :last_name:        Blood
+  :address_type:     Work
+  :line_1:           1124 Kuali Drive
+  :city:             Coeus
+  :state:            MASSACHUSETTS
+  :country:          United States
+  :phone_type:       Work
+  :phone_number:     321-321-1203
+  :groups:
+    - '2001'   # KcAdmin
+    - '2003'   # ProposalAdmin
+    - '2004'   # IRBAdmin
+  :roles:
+    - '111'  # Proposal Creator
+    - '99'   # IRBApprover
+    - '1651' # IACUCApprover
+    - '1668' # IACUCWorkflowApprover
+  :role_qualifier:
+      :111: '000001'
 #
 # Replace 'username' below with the login string for the user...
 #username:  # AKA: "Principal Name"
