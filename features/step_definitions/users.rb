@@ -34,7 +34,7 @@ end
 # the specified role. If there are multiple matching
 # users, it will select one of them randomly, and create
 # them if they don't exist in the system.
-Given /^I have a user with a role of '(.*)'$/ do |role|
+Given /^I have a user with a system role of '(.*)'$/ do |role|
   user = make_role role
   user.create unless user.exists?
 end

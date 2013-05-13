@@ -1,9 +1,15 @@
-And /^I initiate a proposal$/ do
+Given /^I initiate a proposal$/ do
   @proposal = create ProposalDevelopmentObject
 end
 
 Given /^I initiate a second proposal$/ do
   @proposal2 = create ProposalDevelopmentObject
+end
+
+Given /^I initiate a 5-year project proposal$/ do
+  @proposal =create ProposalDevelopmentObject,
+                    project_start_date: "01/01/#{next_year[:year]}",
+                    project_end_date: "12/31/#{next_year[:year].to_i+5}"
 end
 
 When /^I initiate a proposal but miss a required field$/ do

@@ -12,7 +12,7 @@ Then /^(.*) is listed as (a|an) (.*) for the proposal$/ do |username, x, role|
 end
 
 When /^I assign (.*) as (a|an) (.*) to the proposal permissions$/ do |username, x, role|
-  set(username, (make UserObject, user: username))
+  set(username, (make UserObject, role: 'Unassigned'))
   @proposal.permissions.send(snake_case(role+'s')) << username
   @proposal.permissions.assign
 end

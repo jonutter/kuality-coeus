@@ -2,21 +2,35 @@ module Navigation
 
   include Utilities
 
-  def open_document
-    unless on_document?
-      visit DocumentSearch do |search|
-        search.document_id.set @document_id
-        search.search
-        search.open_doc @document_id
-      end
+  def open_proposal
+    doc_search unless on_proposal?
+  end
+
+  def on_proposal?
+    begin
+      on(DocumentHeader).document_id==@document_id && @browser.title=='Kuali :: Proposal Development Document'
+    rescue
+      false
     end
   end
 
-  def on_document?
+  def open_budget
+    doc_search unless on_budget?
+  end
+
+  def on_budget?
     begin
-      on(DocumentHeader).document_id==@document_id
+      on(DocumentHeader).budget_name==@name
     rescue
       false
+    end
+  end
+
+  def doc_search
+    visit DocumentSearch do |search|
+      search.document_id.set @document_id
+      search.search
+      search.open_doc @document_id
     end
   end
 
@@ -34,7 +48,8 @@ module Navigation
     methods={
         'Watir::TextField' => lambda{|p, f| p.send(f).fit(get f)},
         'Watir::Select'    => lambda{|p, f| p.send(f).pick!(get f)},
-        'Watir::Radio'     => lambda{|p, f| p.send(f, get(f)) unless get(f)==nil }
+        'Watir::Radio'     => lambda{|p, f| p.send(f, get(f)) unless get(f)==nil },
+        'Watir::CheckBox'  => lambda{|p, f| p.send(f).fit(get f) }
     }
     fields.shuffle.each do |field|
       # TODO: Someday see if there's a way to fix things so this rescue isn't necessary...

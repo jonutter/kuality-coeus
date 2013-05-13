@@ -1,5 +1,7 @@
 class Parameters < BudgetDocument
 
+  error_messages
+
   #Budget Overview
   value(:project_start_date) { |p| p.bo_table[0][1].text }
   value(:project_end_date) { |p| p.bo_table[1][1].text }
@@ -45,10 +47,22 @@ class Parameters < BudgetDocument
   action(:calculate_all_periods) { |b| b.frm.button(name: 'methodToCall.questionCalculateAllPeriods').click }
   action(:default_periods) { |b| b.frm.button(name: 'methodToCall.defaultPeriods').click }
 
+  element(:warnings) do |b|
+    warns = []
+    b.tab_containers.each do |div|
+      if div.li.exist?
+        warns << div.lis.collect{ |li| li.text }
+      end
+    end
+    warns.flatten
+  end
+
   # =======
   private
   # =======
 
   element(:bo_table) { |b| b.frm.div(id: 'tab-BudgetOverview-div').table }
+
+  element(:tab_containers) { |b| b.divs(class: 'tab-container') }
 
 end
