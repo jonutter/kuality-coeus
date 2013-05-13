@@ -44,6 +44,7 @@ When /^The proposal's 'Future Action Requests' should include 'PENDING APPROVE' 
     page.requested_action_for(name).should=="PENDING\nAPPROVE"
   end
 end
+
 When /^I push the proposal's project start date ahead a year$/ do
   new_year=@proposal.project_start_date[/\d+$/].to_i+1
   new_date="#{@proposal.project_start_date[/^\d+\/\d+/]}/#{new_year}"

@@ -64,36 +64,6 @@ propcreator:  # AKA: "Principal Name"
     - '111' # Proposal Creator
   :role_qualifiers:
     :123: '000001'
-pi:  # AKA: "Principal Name"
-  :description:       creating pi role for viewing, modifying, certifying, etc
-  :affiliation_type:  Faculty
-  :campus_code:       'UN - UNIVERSITY'
-  :employee_id:       jupi
-  :employee_status:   Active
-  :employee_type:     Other
-  :base_salary:       '50,000.00'
-  :primary_dept_code: '000001'
-   :first_name:       jupi
-  :last_name:         test
-  :address_type:      Home
-  :line_1:            475 n scottsdale rd
-  :city:              scottsdale
-  :state:             ARIZONA
-  :country:           United States
-  :phone_type:        Home
-  :phone_number:      555-555-5555
-  :groups:
-    - '2005' # Proposal Development - Department Reviewers
-  :roles:
-    - '101' # Award Budget Viewer
-    - '102' # Award Budget Modifier
-    - '110' # Aggregator
-    - '111' # Proposal Creator
-  :role_qualifiers:
-    :101: '000001'
-    :102: '000001'
-    :110: '000001'
-    :111: '000001'
 systemuser:  # AKA: "Principal Name"
   :description:      creating a generic system user
   :affiliation_type: Research Staff

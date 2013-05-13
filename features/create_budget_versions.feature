@@ -11,3 +11,4 @@ Feature: Creating Budget Versions in Proposal Documents
     And   I create a budget version for the proposal
     When  I push the proposal's project start date ahead a year
     Then  opening the Budget Version will display a warning about the date change
+    And   correcting the Budget Version date will remove the warning
