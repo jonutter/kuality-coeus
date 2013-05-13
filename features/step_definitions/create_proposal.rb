@@ -38,7 +38,7 @@ When /^I begin a proposal with an invalid sponsor code$/ do
   @proposal = create ProposalDevelopmentObject, :sponsor_code=>'000000'
 end
 
-Given /^I begin a proposal without a sponsor deadline date$/ do
+Given /^I initiate a proposal without a sponsor deadline date$/ do
   @proposal = create ProposalDevelopmentObject, sponsor_deadline_date: ''
 end
 
