@@ -23,7 +23,7 @@ Then /^the (.*) user can access the proposal$/ do |role|
   on(Researcher).error_table.should_not be_present
 end
 
-Then /^the proposal is in (.*)'s action list$/ do |username|
+Then /^the proposal is in the (.*) user's action list$/ do |username|
   get(username).sign_in
   visit(ActionList).filter
   on ActionListFilter do |page|
@@ -121,9 +121,9 @@ Then /^I should see an error message that says not to select other roles alongsi
    on(Roles).errors.should include 'Do not select other roles when Aggregator is selected.'
 end
 
-When /^I attempt to add an additional role to (.*)$/ do |username|
-  role = [:viewer, :budget_creator, :narrative_writer].sample
-  on(Permissions).edit_role(get(username).user_name)
+When /^I attempt to add an additional role to the (.*) user$/ do |system_role|
+  role = [:viewer, :budget_creator, :narrative_writer, :aggregator].sample
+  on(Permissions).edit_role.(get(system_role).user_name)
   on Roles do |page|
     page.use_new_tab
     page.send(role).set
@@ -162,6 +162,7 @@ When /^I recall and cancel the proposal$/ do
   end
 end
 
-Then /^when I revisit the proposal its status should be 'Document Error Occurred'$/ do
-  #todo
+Then /^when I revisit the proposal its status should be (.*)$/ do |status|
+  on(Researcher).open_proposal(@proposal.document_id)
+  @proposal.status = status
 end

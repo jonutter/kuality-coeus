@@ -17,8 +17,8 @@ end
 #    based on the username
 # 3) Assumes that username user already exists in the system
 # 4) Logs that user in, if they're not already
-Given /^I log in with (.*)$/ do |username|
-  get(username).sign_in
+Given /^I log in with the (.*) user$/ do |system_role|
+  get(system_role).sign_in
 end
 
 # This step definition

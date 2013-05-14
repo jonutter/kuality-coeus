@@ -37,13 +37,9 @@ class BasePage < PageFactory
       glbl 'submit', 'save', 'blanket approve', 'close', 'cancel', 'reload', 'Submit To Sponsor', 'Send Notification', 'Delete Proposal'
       action(:recall) { |b| b.frm.button(class: 'globalbuttons', title: 'Recall current document').click; b.loading }
       action(:delete_selected) { |b| b.frm.button(class: 'globalbuttons', name: 'methodToCall.deletePerson').click; b.loading }
-      action(:yes) { |b| b.frm.button(class: 'confirm', name: 'methodToCall.processAnswer.button0').click; b.loading }
-      action(:no) { |b| b.frm.button(class: 'confirm', name: 'methodToCall.processAnswer.button1').click; b.loading }
-      action(:return_to_document) { |b| b.frm.button(class: 'confirm', name: 'methodToCall.processAnswer.button2').click; b.loading }
       action(:filter) { |b| b.frm.button(name: 'methodToCall.filter').click; b.loading }
       action(:clear) { |b| b.frm.button(name: 'methodToCall.clear').click; b.loading }
-      action(:recall_to_action_list) { |b| b.frm.button(class: 'confirm', name: 'methodToCall.processAnswer.button0').click b.loading }
-      action(:recall_and_cancel) { |b| b.frm.button(class: 'confirm', name: 'methodToCall.processAnswer.button1').click b.loading }
+
     end
 
     def tab_buttons

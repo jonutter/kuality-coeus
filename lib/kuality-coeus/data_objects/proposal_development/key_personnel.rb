@@ -197,7 +197,7 @@ class KeyPersonObject
   # Nav Aids...
 
   def navigate
-    open_document unless on_document?
+    open_proposal unless on_proposal?
     on(Proposal).key_personnel unless on_page?
   end
 
