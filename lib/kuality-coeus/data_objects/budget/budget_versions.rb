@@ -60,11 +60,9 @@ class BudgetVersionsObject
       # Add the default Budget Period to the collection.
       # Note that this is only a make, since the item is already
       # there on the page.
-      default_bp = make BudgetPeriodObject, document_id: @document_id, budget_name: @name, number: 1,
-                        start_date: @project_start_date, end_date: @project_end_date
-      @budget_periods << default_bp
       parameters.save
     end
+    get_budget_periods
   end
 
   def add_period opts={}
@@ -111,9 +109,57 @@ class BudgetVersionsObject
     end
   end
 
+  def copy_all_periods(new_name)
+    navigate
+    new_version_number='x'
+    on(BudgetVersions).copy @name
+    on(Confirmation).copy_all_periods
+    on BudgetVersions do |copy|
+      copy.name_of_copy.set new_name
+      copy.save
+      new_version_number=copy.version(new_name)
+    end
+    new_bv = self.clone
+    new_bv.name=new_name
+    new_bv.version=new_version_number
+    new_bv
+  end
+
+  def copy_one_period(new_name, version)
+    # pending resolution of a bug
+  end
+
   # =======
   private
   # =======
+
+  # This is just a collection of the instance variables
+  # associated with the Parameters page. It's used to determine
+  # whether or not the create method should go to that page
+  # and fill stuff out.
+  def parameters
+    [@total_direct_cost_limit, @on_off_campus, @comments, @modular_budget,
+     @residual_funds, @total_cost_limit, @unrecovered_fa_rate_type, @f_and_a_rate_type,
+     @submit_cost_sharing]
+  end
+
+  def get_budget_periods
+    on Parameters do |page|
+      1.upto(page.period_count) do |number|
+        puts page.start_date_period(number).value
+        period = make BudgetPeriodObject, document_id: @document_id,
+                      budget_name: @name, start_date: page.start_date_period(number).value,
+                      end_date: page.end_date_period(number).value, total_sponsor_cost: page.total_sponsor_cost_period(number).value,
+                      direct_cost: page.direct_cost_period(number).value,
+                      f_and_a_cost: page.fa_cost_period(number).value,
+                      unrecovered_f_and_a: page.unrecovered_fa_period(number).value,
+                      cost_sharing: page.cost_sharing_period(number).value,
+                      cost_limit: page.cost_limit_period(number).value,
+                      direct_cost_limit: page.direct_cost_limit_period(number).value
+        @budget_periods << period
+      end
+    end
+  end
 
   # Nav Aids...
 
@@ -134,22 +180,16 @@ class BudgetVersionsObject
     end
   end
 
-  # This is just a collection of the instance variables
-  # associated with the Parameters page. It's used to determine
-  # whether or not the create method should go to that page
-  # and fill stuff out.
-  def parameters
-    [@total_direct_cost_limit, @on_off_campus, @comments, @modular_budget,
-    @residual_funds, @total_cost_limit, @unrecovered_fa_rate_type, @f_and_a_rate_type,
-    @submit_cost_sharing]
-  end
-
 end # BudgetVersionsObject
 
 class BudgetVersionsCollection < Array
 
   def budget(name)
     self.find { |budget| budget.name==name }
+  end
+
+  def copy_all_periods(name, new_name)
+    self << self.budget(name).copy_all_periods(new_name)
   end
 
 end # BudgetVersionsCollection

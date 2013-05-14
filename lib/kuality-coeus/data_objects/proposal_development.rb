@@ -113,6 +113,7 @@ class ProposalDevelopmentObject
   end
 
   def add_budget_version opts={}
+    opts[:version] ||= (@budget_versions.size+1).to_s
     merge_settings(opts)
     bvo = make BudgetVersionsObject, opts
     bvo.create

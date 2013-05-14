@@ -14,3 +14,8 @@ When /^correcting the Budget Version date will remove the warning$/ do
     page.warnings.size.should be 0
   end
 end
+
+When /^I copy the budget version \(all periods\)$/ do
+  @proposal.budget_versions.copy_all_periods(@proposal.budget_versions[0].name, random_alphanums)
+  puts @proposal.budget_versions.inspect
+end

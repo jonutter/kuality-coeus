@@ -4,12 +4,13 @@ class BudgetVersions < ProposalDevelopmentDocument
   error_messages
 
   element(:name) { |b| b.frm.text_field(name: 'newBudgetVersionName') }
+  element(:name_of_copy) { |b| b.frm.text_field(name: /budgetVersionOverview.documentDescription/) }
   action(:add) { |b| b.frm.button(name: 'methodToCall.addBudgetVersion').click }
 
-  action(:version) { |budget, p| p.budgetline(budget).td(class: 'subhead', index: 2).text }
-  action(:direct_cost) { |budget, p| p.budgetline(budget).td(class: 'subhead', index: 3).text }
-  action(:f_and_a) { |budget, p| p.budgetline(budget).td(class: 'subhead', index: 4).text }
-  action(:total) { |budget, p| p.budgetline(budget).td(class: 'subhead', index: 5).text }
+  action(:version) { |budget, p| p.budgetline(budget).td(class: 'tab-subhead', index: 2).text }
+  action(:direct_cost) { |budget, p| p.budgetline(budget).td(class: 'tab-subhead', index: 3).text }
+  action(:f_and_a) { |budget, p| p.budgetline(budget).td(class: 'tab-subhead', index: 4).text }
+  action(:total) { |budget, p| p.budgetline(budget).td(class: 'tab-subhead', index: 5).text }
   # Called "budget status" to avoid method collision...
   action(:budget_status) { |budget, p| p.budgetline(budget).select(title: 'Budget Status') }
   action(:final) { |budget, p| p.budgetline(budget).checkbox(title: 'Final?') }
