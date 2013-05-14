@@ -43,10 +43,6 @@ class Parameters < BudgetDocument
 
   action(:recalculate) { |b| b.frm.button(name: 'methodToCall.recalculateBudgetPeriod.anchorBudgetPeriodsTotals').click }
 
-  action(:generate_all_periods) { |b| b.frm.button(name: 'methodToCall.generateAllPeriods').click }
-  action(:calculate_all_periods) { |b| b.frm.button(name: 'methodToCall.questionCalculateAllPeriods').click }
-  action(:default_periods) { |b| b.frm.button(name: 'methodToCall.defaultPeriods').click }
-
   element(:warnings) do |b|
     warns = []
     b.tab_containers.each do |div|

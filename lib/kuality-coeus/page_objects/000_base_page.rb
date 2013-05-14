@@ -34,12 +34,11 @@ class BasePage < PageFactory
     end
 
     def global_buttons
-      glbl 'submit', 'save', 'blanket approve', 'close', 'cancel', 'reload', 'Submit To Sponsor', 'Send Notification', 'Delete Proposal'
+      glbl 'submit', 'save', 'blanket approve', 'close', 'cancel', 'reload',
+           'Submit To Sponsor', 'Send Notification', 'Delete Proposal',
+           'Generate All Periods', 'Calculate All Periods', 'Default Periods'
       action(:recall) { |b| b.frm.button(class: 'globalbuttons', title: 'Recall current document').click; b.loading }
       action(:delete_selected) { |b| b.frm.button(class: 'globalbuttons', name: 'methodToCall.deletePerson').click; b.loading }
-      action(:filter) { |b| b.frm.button(name: 'methodToCall.filter').click; b.loading }
-      action(:clear) { |b| b.frm.button(name: 'methodToCall.clear').click; b.loading }
-
     end
 
     def tab_buttons

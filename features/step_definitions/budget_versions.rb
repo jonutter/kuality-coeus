@@ -7,4 +7,10 @@ Then /^opening the Budget Version will display a warning about the date change$/
   on(Parameters).warnings.should include 'The Project Start and/or End Dates have changed from the previous version of this budget. Please update the Project Start and/or End Dates.'
 end
 
-
+When /^correcting the Budget Version date will remove the warning$/ do
+  on Parameters do |page|
+    page.default_periods
+    page.save
+    page.warnings.size.should be 0
+  end
+end

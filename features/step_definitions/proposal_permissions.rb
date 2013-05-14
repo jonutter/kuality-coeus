@@ -139,7 +139,7 @@ Then /^the (.*) user should not be listed as (a|an) (.*) in the second proposal$
   end
 end
 
-When /^I recall the proposal to my action list$/ do
+When /^I recall the proposal for revisions$/ do
   #TODO: Please fix the recall method
   @proposal.recall
   on Confirmation do |page|
@@ -148,7 +148,7 @@ When /^I recall the proposal to my action list$/ do
   end
 end
 
-When /^when the proposal is opened the status is (.*)$/ do |status|
+When /^when the proposal is opened the status should be (.*)$/ do |status|
   on(ActionList).open_item(@proposal.document_id)
   @proposal.status = status
 end
@@ -162,7 +162,7 @@ When /^I recall and cancel the proposal$/ do
   end
 end
 
-Then /^when I revisit the proposal its status should be (.*)$/ do |status|
-  on(Researcher).open_proposal(@proposal.document_id)
+Then /^the proposal status should be (.*)$/ do |status|
+  @proposal.open_proposal
   @proposal.status = status
 end

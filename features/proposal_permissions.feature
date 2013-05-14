@@ -62,15 +62,37 @@ Feature: Permissions in a Proposal
     And   I log in with the Proposal Creator user
     And   I complete a valid simple proposal for a 'Private Profit' organization
     And   I submit the proposal
-    When  I recall the proposal to my action list
+    When  I recall the proposal for revisions
     Then  the proposal is in the Proposal Creator user's action list
-    And   when the proposal is opened the status is 'Revisions Requested'
-  @test
+    And   when the proposal is opened the status should be 'Revisions Requested'
+
   Scenario: User with proposal Aggregator right can recall a proposal for cancellation
     Given I have a user with a system role of 'Proposal Creator'
     And   I log in with the Proposal Creator user
     And   I complete a valid simple proposal for a 'Private Profit' organization
     And   I submit the proposal
     When  I recall and cancel the proposal
-    Then  when I revisit the proposal its status should be 'Document Error Occurred'
-    #TODO: Write steps to check for uneditable pages in the proposal doc
+    Then  the proposal status should be 'Document Error Occurred'
+  @test
+  Scenario Outline: Users with Proposal rights can edit a proposal that has been recalled for revisions
+    Given I have a user with a system role of 'Unassigned'
+    And   I initiate a proposal
+    And   I assign the Unassigned user as a <Role> to the proposal permissions
+    And   I complete the proposal
+    And   I submit the proposal
+    When  I recall the proposal for revisions
+    Then  the Unassigned user can access the proposal
+    And   the proposal status should be 'Revisions Requested'
+    And   their proposal permissions allow them to <Permissions>
+
+  Examples:
+    | Role                     | Permissions                                    |
+#    | Narrative Writer         | only update the Abstracts and Attachments page |
+    | Aggregator               | edit all parts of the proposal                 |
+#    | Budget Creator           | only update the budget                         |
+#    | Delete Proposal          | delete the proposal                            |
+#    | Viewer                   | only read the proposal                         |
+
+  Scenario: Revisions made to a recalled proposal are successfully saved
+
+  Scenario: A cancelled proposal cannot be edited

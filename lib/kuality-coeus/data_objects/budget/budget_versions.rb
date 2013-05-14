@@ -80,7 +80,7 @@ class BudgetVersionsObject
     @budget_periods.re_sort! # This updates the number value of all periods, as necessary
   end
 
-  def edit_period number, opts
+  def edit_period number, opts={}
     @budget_periods.period(number).edit opts
     @budget_periods.re_sort!
   end
