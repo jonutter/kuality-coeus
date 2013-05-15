@@ -12,3 +12,10 @@ Feature: Creating Budget Versions in Proposal Documents
     When  I push the proposal's project start date ahead a year
     Then  opening the Budget Version will display a warning about the date change
     And   correcting the Budget Version date will remove the warning
+
+  Scenario: Copied budget periods have expected values
+    Given I initiate a 3-year project proposal
+    And   I create a budget version for the proposal
+    And   I enter values for all the budget periods
+    When  I copy the budget version (all periods)
+    Then  the copied budget's values are all as expected

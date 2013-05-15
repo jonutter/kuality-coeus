@@ -6,10 +6,10 @@ Given /^I initiate a second proposal$/ do
   @proposal2 = create ProposalDevelopmentObject
 end
 
-Given /^I initiate a 5-year project proposal$/ do
+Given /^I initiate a (\d+)-year project proposal$/ do |year_count|
   @proposal =create ProposalDevelopmentObject,
                     project_start_date: "01/01/#{next_year[:year]}",
-                    project_end_date: "12/31/#{next_year[:year].to_i+5}"
+                    project_end_date: "12/31/#{next_year[:year].to_i+(year_count.to_i-1)}"
 end
 
 When /^I initiate a proposal but miss a required field$/ do
@@ -54,11 +54,6 @@ When /^I complete the proposal$/ do
   @proposal.add_principal_investigator
   @proposal.set_valid_credit_splits
   @proposal.add_custom_data
-  #opts={document_id: @proposal.document_id}
-  #@proposal.kuali_u_questions = create KualiUniversityQuestionsObject, opts
-  #@proposal.proposal_questions = create ProposalQuestionsObject, opts
-  #@proposal.compliance_questions = create ComplianceQuestionsObject, opts
-  #@proposal.s2s_questionnaire = create S2SQuestionnaireObject, opts
 end
 
 When /^I add (.*) as (a|an) (.*) to the proposal permissions$/ do |username, x, role|

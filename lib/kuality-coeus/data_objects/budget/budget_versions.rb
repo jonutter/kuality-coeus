@@ -75,17 +75,17 @@ class BudgetVersionsObject
     bp = create BudgetPeriodObject, opts
     return if on(Parameters).errors.size > 0 # No need to continue the method if we have an error
     @budget_periods << bp
-    @budget_periods.re_sort! # This updates the number value of all periods, as necessary
+    @budget_periods.number! # This updates the number value of all periods, as necessary
   end
 
   def edit_period number, opts={}
     @budget_periods.period(number).edit opts
-    @budget_periods.re_sort!
+    @budget_periods.number!
   end
 
   def delete_period number
     @budget_periods.period(number).delete
-    @budget_periods.re_sort!
+    @budget_periods.number!
   end
 
   # Use for editing the Budget Version, but not the Periods
@@ -146,7 +146,6 @@ class BudgetVersionsObject
   def get_budget_periods
     on Parameters do |page|
       1.upto(page.period_count) do |number|
-        puts page.start_date_period(number).value
         period = make BudgetPeriodObject, document_id: @document_id,
                       budget_name: @name, start_date: page.start_date_period(number).value,
                       end_date: page.end_date_period(number).value, total_sponsor_cost: page.total_sponsor_cost_period(number).value,
@@ -159,6 +158,7 @@ class BudgetVersionsObject
         @budget_periods << period
       end
     end
+    @budget_periods.number!
   end
 
   # Nav Aids...

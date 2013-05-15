@@ -45,10 +45,12 @@ class BudgetPeriodObject
     on Parameters do |edit|
       edit.start_date_period(@number).fit opts[:start_date]
       edit.end_date_period(@number).fit opts[:end_date]
+      # TODO: At some point it may become critical for the data object to automatically "know" that the total sponsor cost
+      # is always the sum of the direct and f&a costs.
       edit.total_sponsor_cost_period(@number).fit opts[:total_sponsor_cost]
       edit.direct_cost_period(@number).fit opts[:direct_cost]
       edit.fa_cost_period(@number).fit opts[:f_and_a_cost]
-      edit.unrecoverd_fa_period(@number).fit opts[:unrecovered_f_and_a]
+      edit.unrecovered_fa_period(@number).fit opts[:unrecovered_f_and_a]
       edit.cost_sharing_period(@number).fit opts[:cost_sharing]
       edit.cost_limit_period(@number).fit opts[:cost_limit]
       edit.direct_cost_limit_period(@number).fit opts[:direct_cost_limit]
@@ -71,7 +73,7 @@ class BudgetPeriodObject
   # Nav Aids
 
   def navigate
-    open_document unless on_document?
+    open_budget
     unless on_page? && on_budget?
       on(Proposal).budget_versions
       on(BudgetVersions).open @budget_name
@@ -121,9 +123,9 @@ class BudgetPeriodsCollection < Array
 
   # This will update the number values of the budget periods,
   # based on their start date values.
-  def re_sort!
+  def number!
     self.sort_by! { |period| period.datified }
-    self.each_with_index { |period, index| period.store(:number, index+1) }
+    self.each_with_index { |period, index| period.number=index+1 }
   end
 
   def total_sponsor_cost
