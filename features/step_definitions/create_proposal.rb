@@ -7,9 +7,10 @@ Given /^I initiate a second proposal$/ do
 end
 
 Given /^I initiate a (\d+)-year project proposal$/ do |year_count|
+  @years=year_count.to_i
   @proposal =create ProposalDevelopmentObject,
                     project_start_date: "01/01/#{next_year[:year]}",
-                    project_end_date: "12/31/#{next_year[:year].to_i+(year_count.to_i-1)}"
+                    project_end_date: "12/31/#{next_year[:year].to_i+(@years-1)}"
 end
 
 When /^I initiate a proposal but miss a required field$/ do

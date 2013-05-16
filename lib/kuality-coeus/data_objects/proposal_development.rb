@@ -35,6 +35,12 @@ class ProposalDevelopmentObject
   end
     
   def create
+    on BasePage do |page|
+      if page.windows.size > 1
+        page.return_to_portal
+        page.close_children
+      end
+    end
     visit(Researcher).create_proposal
     on Proposal do |doc|
       @document_id=doc.document_id

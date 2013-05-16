@@ -13,13 +13,7 @@ class BudgetPeriodObject
     @browser = browser
 
     defaults = {
-      total_sponsor_cost:  '0.00',
-      direct_cost:         '0.00',
-      f_and_a_cost:        '0.00',
-      unrecovered_f_and_a: '0.00',
-      cost_sharing:        '0.00',
-      cost_limit:          '0.00',
-      direct_cost_limit:   '0.00'
+
     }
 
     set_options(defaults.merge(opts))
@@ -30,12 +24,12 @@ class BudgetPeriodObject
   def create
     navigate
     on Parameters do |create|
-      create.period_start_date.set @start_date
-      create.period_end_date.set @end_date
-      create.total_sponsor_cost.set @total_sponsor_cost
-      fill_out_form create, :direct_cost, :cost_sharing, :cost_limit, :direct_cost_limit
-      create.fa_cost.set @f_and_a_cost
-      create.unrecovered_fa_cost.set @unrecoverd_f_and_a
+      create.period_start_date.fit @start_date
+      create.period_end_date.fit @end_date
+      create.total_sponsor_cost.fit @total_sponsor_cost
+      fill_out create, :direct_cost, :cost_sharing, :cost_limit, :direct_cost_limit
+      create.fa_cost.fit @f_and_a_cost
+      create.unrecovered_fa_cost.fit @unrecoverd_f_and_a
       create.add_budget_period
     end
   end
@@ -64,6 +58,11 @@ class BudgetPeriodObject
   def delete
     navigate
     on(Parameters).delete_period @number
+  end
+
+  def dollar_fields
+    [:total_sponsor_cost, :direct_cost, :f_and_a_cost, :unrecovered_f_and_a,
+     :cost_sharing, :cost_limit, :direct_cost_limit]
   end
 
   # =======

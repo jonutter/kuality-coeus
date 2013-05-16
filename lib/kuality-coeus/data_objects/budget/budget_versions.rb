@@ -85,6 +85,7 @@ class BudgetVersionsObject
 
   def delete_period number
     @budget_periods.period(number).delete
+    @budget_periods.delete(@budget_periods.period(number))
     @budget_periods.number!
   end
 
@@ -129,6 +130,16 @@ class BudgetVersionsObject
     # pending resolution of a bug
   end
 
+  def default_periods
+    open_budget
+    on Parameters do |page|
+      page.parameters unless page.parameters_button.parent.class_name=='tabright tabcurrent'
+      page.default_periods
+    end
+    @budget_periods.clear
+    get_budget_periods
+  end
+
   # =======
   private
   # =======
@@ -148,13 +159,14 @@ class BudgetVersionsObject
       1.upto(page.period_count) do |number|
         period = make BudgetPeriodObject, document_id: @document_id,
                       budget_name: @name, start_date: page.start_date_period(number).value,
-                      end_date: page.end_date_period(number).value, total_sponsor_cost: page.total_sponsor_cost_period(number).value,
-                      direct_cost: page.direct_cost_period(number).value,
-                      f_and_a_cost: page.fa_cost_period(number).value,
-                      unrecovered_f_and_a: page.unrecovered_fa_period(number).value,
-                      cost_sharing: page.cost_sharing_period(number).value,
-                      cost_limit: page.cost_limit_period(number).value,
-                      direct_cost_limit: page.direct_cost_limit_period(number).value
+                      end_date: page.end_date_period(number).value,
+                      total_sponsor_cost: page.total_sponsor_cost_period(number).value.groom,
+                      direct_cost: page.direct_cost_period(number).value.groom,
+                      f_and_a_cost: page.fa_cost_period(number).value.groom,
+                      unrecovered_f_and_a: page.unrecovered_fa_period(number).value.groom,
+                      cost_sharing: page.cost_sharing_period(number).value.groom,
+                      cost_limit: page.cost_limit_period(number).value.groom,
+                      direct_cost_limit: page.direct_cost_limit_period(number).value.groom
         @budget_periods << period
       end
     end
