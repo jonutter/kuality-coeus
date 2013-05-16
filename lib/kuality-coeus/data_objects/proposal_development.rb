@@ -36,9 +36,12 @@ class ProposalDevelopmentObject
     
   def create
     on BasePage do |page|
-      if page.windows.size > 1
+      if page.windows.size > 1 && page.portal_window.exists?
         page.return_to_portal
         page.close_children
+      elsif page.windows.size > 1
+        page.use_new_tab
+        page.close_parents
       end
     end
     visit(Researcher).create_proposal

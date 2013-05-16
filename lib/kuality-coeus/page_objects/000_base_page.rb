@@ -3,6 +3,7 @@ class BasePage < PageFactory
   action(:use_new_tab) { |b| b.windows.last.use }
   action(:return_to_portal) { |b| b.portal_window.use }
   action(:close_children) { |b| b.windows[1..-1].each{ |w| w.close} }
+  action(:close_parents) { |b| b.windows[0..-2].each{ |w| w.close} }
   action(:loading) { |b| b.frm.image(alt: 'working...').wait_while_present }
   element(:logout_button) { |b| b.button(title: 'Click to logout.') }
   action(:logout) { |b| b.logout_button.click }
@@ -81,9 +82,17 @@ class BasePage < PageFactory
             errs << div.lis.collect{ |li| li.text }
           end
         end
+        b.left_errmsg.each do |div|
+          if div.div.div.exist?
+            errs << div.div.divs.collect{ |div| div.text }
+          elsif div.li.exist?
+            errs << div.lis.collect{ |li| li.text }
+          end
+        end
         errs.flatten
       end
       element(:left_errmsg_tabs) { |b| b.frm.divs(class: 'left-errmsg-tab') }
+      element(:left_errmsg) { |b| b.frm.divs(class: 'left-errmsg') }
       element(:error_messages_div) { |b| b.frm.div(class: 'error') }
     end
 

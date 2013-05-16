@@ -92,7 +92,11 @@ class BudgetVersionsObject
   # Use for editing the Budget Version, but not the Periods
   def edit opts={}
     navigate
-    # TODO!
+    on BudgetVersions do |edit|
+      edit.final(@name).fit opts[:final]
+      # TODO: More here as needed...
+      edit.save
+    end
     set_options(opts)
   end
 
@@ -176,6 +180,7 @@ class BudgetVersionsObject
   # Nav Aids...
 
   def navigate
+
     open_budget
     on(Proposal).budget_versions unless on_page?
   end
