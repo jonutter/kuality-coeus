@@ -86,6 +86,7 @@ end
 Then /^I finalize the budget version$/ do
   @budget_version.edit final: :set
 end
+
 Then /^I see an error that only one version can be final$/ do
   on(BudgetVersions).errors.should include 'Only one Budget Version can be marked "Final".'
 end

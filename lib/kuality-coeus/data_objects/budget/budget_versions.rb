@@ -7,7 +7,7 @@ class BudgetVersionsObject
 
   attr_accessor :name, :document_id, :status,
                 # Stuff on Budget Versions page...
-                :version, :direct_cost, :f_and_a,
+                :version, :direct_cost, :f_and_a, :on_off_campus,
                 :total, :final, :residual_funds, :cost_sharing, :unrecovered_fa,
                 :comments, :f_and_a_rate_type, :last_updated, :last_updated_by,
                 # Stuff on the Parameters page...
@@ -54,13 +54,15 @@ class BudgetVersionsObject
       @project_start_date=parameters.project_start_date
       @project_end_date=parameters.project_end_date
       parameters.total_direct_cost_limit.fit @total_direct_cost_limit
-      fill_out parameters, :on_off_campus, :comments, :modular_budget,
+      fill_out parameters, :comments, :modular_budget,
                :residual_funds, :total_cost_limit, :unrecovered_fa_rate_type,
                :f_and_a_rate_type, :submit_cost_sharing
-      # Add the default Budget Period to the collection.
-      # Note that this is only a make, since the item is already
-      # there on the page.
+      parameters.on_off_campus.fit @on_off_campus
+      parameters.alert.ok if parameters.alert.exists?
       parameters.save
+    end
+    on(Confirmation) do |conf|
+      conf.yes if conf.yes_button.present?
     end
     get_budget_periods
   end
