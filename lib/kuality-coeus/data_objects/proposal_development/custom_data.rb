@@ -35,7 +35,7 @@ class CustomDataObject
   # Nav Aids...
 
   def navigate
-    open_document unless on_document?
+    open_proposal unless on_proposal?
     on(Proposal).custom_data unless on_page?
   end
 

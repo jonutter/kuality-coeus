@@ -50,3 +50,8 @@ When /^I push the proposal's project start date ahead a year$/ do
   new_date="#{@proposal.project_start_date[/^\d+\/\d+/]}/#{new_year}"
   @proposal.edit project_start_date: new_date
 end
+
+Then /^I can recall the proposal$/ do
+  @proposal.view :proposal
+  on(Proposal).recall_button.should exist
+end

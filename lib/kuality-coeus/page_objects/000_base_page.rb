@@ -39,7 +39,9 @@ class BasePage < PageFactory
            'Submit To Sponsor', 'Send Notification', 'Delete Proposal',
            'Generate All Periods', 'Calculate All Periods', 'Default Periods',
            'Calculate Current Period'
-      action(:recall) { |b| b.frm.button(class: 'globalbuttons', title: 'Recall current document').click; b.loading }
+      # Explicitly defining the "recall" button to keep the method name at "recall" instead of "recall_current_document"...
+      element(:recall_button) { |b| b.frm.button(class: 'globalbuttons', title: 'Recall current document') }
+      action(:recall) { |b| b.recall_button.click; b.loading }
       action(:delete_selected) { |b| b.frm.button(class: 'globalbuttons', name: 'methodToCall.deletePerson').click; b.loading }
     end
 
