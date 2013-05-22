@@ -20,6 +20,10 @@ module Utilities
     StringFactory.damballa(string)
   end
 
+  def random_dollar_value(max)
+    "#{rand(max)}.#{rand(99)}".to_f
+  end
+
   private
 
   def snakify(item)

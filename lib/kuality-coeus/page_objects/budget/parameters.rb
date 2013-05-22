@@ -41,6 +41,8 @@ class Parameters < BudgetDocument
   action(:direct_cost_limit_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period-1}].directCostLimit") }
   action(:delete_period) { |period, b| b.frm.button(name: "methodToCall.deleteBudgetPeriod.line#{period-1}.anchor12").click }
 
+  value(:period_count) { |b| b.frm.text_fields(title: 'Period Start Date').size-1 }
+
   action(:recalculate) { |b| b.frm.button(name: 'methodToCall.recalculateBudgetPeriod.anchorBudgetPeriodsTotals').click }
 
   element(:warnings) do |b|

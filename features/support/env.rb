@@ -17,12 +17,14 @@ if @config[:browser]==:saucelabs
 end
 
 require "#{File.dirname(__FILE__)}/../../lib/kuality-coeus"
+require "#{File.dirname(__FILE__)}/verification"
 require 'rspec/matchers'
 
 World Foundry
 World StringFactory
 World DateFactory
 World Utilities
+World Verification
 
 kuality = Kuality.new @config[:browser]
 

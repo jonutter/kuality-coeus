@@ -35,6 +35,15 @@ class ProposalDevelopmentObject
   end
     
   def create
+    on BasePage do |page|
+      if page.windows.size > 1 && page.portal_window.exists?
+        page.return_to_portal
+        page.close_children
+      elsif page.windows.size > 1
+        page.use_new_tab
+        page.close_parents
+      end
+    end
     visit(Researcher).create_proposal
     on Proposal do |doc|
       @document_id=doc.document_id
@@ -113,6 +122,7 @@ class ProposalDevelopmentObject
   end
 
   def add_budget_version opts={}
+    opts[:version] ||= (@budget_versions.size+1).to_s
     merge_settings(opts)
     bvo = make BudgetVersionsObject, opts
     bvo.create

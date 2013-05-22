@@ -3,6 +3,7 @@ class BasePage < PageFactory
   action(:use_new_tab) { |b| b.windows.last.use }
   action(:return_to_portal) { |b| b.portal_window.use }
   action(:close_children) { |b| b.windows[1..-1].each{ |w| w.close} }
+  action(:close_parents) { |b| b.windows[0..-2].each{ |w| w.close} }
   action(:loading) { |b| b.frm.image(alt: 'working...').wait_while_present }
   element(:logout_button) { |b| b.button(title: 'Click to logout.') }
   action(:logout) { |b| b.logout_button.click }
@@ -36,8 +37,11 @@ class BasePage < PageFactory
     def global_buttons
       glbl 'submit', 'save', 'blanket approve', 'close', 'cancel', 'reload',
            'Submit To Sponsor', 'Send Notification', 'Delete Proposal',
-           'Generate All Periods', 'Calculate All Periods', 'Default Periods'
-      action(:recall) { |b| b.frm.button(class: 'globalbuttons', title: 'Recall current document').click; b.loading }
+           'Generate All Periods', 'Calculate All Periods', 'Default Periods',
+           'Calculate Current Period'
+      # Explicitly defining the "recall" button to keep the method name at "recall" instead of "recall_current_document"...
+      element(:recall_button) { |b| b.frm.button(class: 'globalbuttons', title: 'Recall current document') }
+      action(:recall) { |b| b.recall_button.click; b.loading }
       action(:delete_selected) { |b| b.frm.button(class: 'globalbuttons', name: 'methodToCall.deletePerson').click; b.loading }
     end
 
@@ -81,9 +85,17 @@ class BasePage < PageFactory
             errs << div.lis.collect{ |li| li.text }
           end
         end
+        b.left_errmsg.each do |div|
+          if div.div.div.exist?
+            errs << div.div.divs.collect{ |div| div.text }
+          elsif div.li.exist?
+            errs << div.lis.collect{ |li| li.text }
+          end
+        end
         errs.flatten
       end
       element(:left_errmsg_tabs) { |b| b.frm.divs(class: 'left-errmsg-tab') }
+      element(:left_errmsg) { |b| b.frm.divs(class: 'left-errmsg') }
       element(:error_messages_div) { |b| b.frm.div(class: 'error') }
     end
 
@@ -114,32 +126,3 @@ class BasePage < PageFactory
   end # self
 
 end # BasePage
-
-module Watir
-  module Container
-    # Included here because, in a sense, the frame element
-    # is a part of the "base page"
-    def frm
-      case
-        when frame(id: 'iframeportlet').exist?
-          frame(id: 'iframeportlet')
-        when frame(id: /easyXDM_default\d+_provider/).frame(id: 'iframeportlet').exist?
-          frame(id: /easyXDM_default\d+_provider/).frame(id: 'iframeportlet')
-        when frame(id: /easyXDM_default\d+_provider/).exist?
-          frame(id: /easyXDM_default\d+_provider/)
-        else
-          self
-      end
-    end
-  end
-
-  # Because of the unique way we
-  # set up radio buttons in Coeus,
-  # we can use this method in our
-  # radio button definitions.
-  class Radio
-    def fit answer
-      set unless answer==nil
-    end
-  end
-end
