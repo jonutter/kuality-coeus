@@ -10,7 +10,7 @@ class ProposalDevelopmentObject
                 :sponsor_code, :sponsor_type_code, :project_start_date, :project_end_date, :document_id,
                 :status, :initiator, :created, :sponsor_deadline_date, :key_personnel,
                 :special_review, :budget_versions, :permissions, :s2s_questionnaire,
-                :proposal_questions, :compliance_questions, :kuali_u_questions, :custom_data#, :description
+                :proposal_questions, :compliance_questions, :kuali_u_questions, :custom_data, :recall_reason
 
   def initialize(browser, opts={})
     @browser = browser
@@ -149,9 +149,14 @@ class ProposalDevelopmentObject
     end
   end
 
-  def recall
+  def recall(reason=random_alphanums)
+    @recall_reason=reason
     open_proposal
     on(Proposal).recall
+    on Confirmation do |conf|
+      conf.reason.set @recall_reason
+      conf.recall_to_action_list
+    end
   end
 
   def close
