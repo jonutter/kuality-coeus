@@ -18,9 +18,6 @@ class Permissions < ProposalDevelopmentDocument
 
   action(:user_row) { |user, b| b.user_roles_table.row(text: /#{user}/) }
 
-  element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
-  action(:save) { |b| b.save_button.click }
-
 end
 
 # This a child window that appears when you click the

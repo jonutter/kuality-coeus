@@ -12,9 +12,6 @@ class KeyPersonnel < ProposalDevelopmentDocument
 
   value(:person_name) { |b| b.frm.table(class: 'grid')[0][1].text }
 
-  element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
-  action(:save) { |b| b.save_button.click }
-
   # Use to check if there are errors present or not...
   element(:add_person_errors_div) { |b| b.frm.div(class: 'annotate-container').div(class: 'left-errmsg-tab').div }
 
