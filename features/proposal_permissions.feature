@@ -13,26 +13,26 @@ Feature: Permissions in a Proposal
     Then    admin is listed as an Aggregator for the proposal
 
   Scenario Outline: Adding various roles to proposals
-    Given   I have a user with the user name kctestuser7
-    And     I initiate a proposal
-    When    I assign kctestuser7 as a <Role> to the proposal permissions
-    Then    kctestuser7 can access the proposal
-    And     their proposal permissions allow them to <Permissions>
+    Given I have a user with a system role of 'Unassigned'
+    And   I initiate a proposal
+    When  I assign the Unassigned user as a <Role> to the proposal permissions
+    Then  the Unassigned user can access the proposal
+    And   their proposal permissions allow them to <Permissions>
 
     Examples:
     | Role                     | Permissions                                    |
     | Narrative Writer         | only update the Abstracts and Attachments page |
     | Aggregator               | edit all parts of the proposal                 |
     | Budget Creator           | only update the budget                         |
-    | Deleter                  | delete the proposal                            |
+    | Delete Proposal          | delete the proposal                            |
     | Viewer                   | only read the proposal                         |
 
   Scenario Outline: Permissions for one proposal do not extend to other proposals
-    Given I have a user with the user name unassigneduser
+    Given I have a user with a system role of 'Unassigned'
     And   I initiate a proposal
-    And   I add unassigneduser as a <Role> to the proposal permissions
+    And   I assign the Unassigned user as a <Role> to the proposal permissions
     When  I initiate a second proposal
-    Then  unassigneduser should not be listed as a <Role> in the second proposal
+    Then  the Unassigned user should not be listed as a <Role> in the second proposal
 
   Examples:
     | Role             |
@@ -44,16 +44,55 @@ Feature: Permissions in a Proposal
     | Delete Proposal  |
 
   Scenario: Error when Aggregator role is designated among others
-    Given I have a user with the user name kctestuser10
+    Given I have a user with a system role of 'Aggregator'
     And   I initiate a proposal
-    And   I assign kctestuser10 as an aggregator to the proposal permissions
-    When  I attempt to add an additional role to kctestuser10
+    And   I assign the Aggregator user as an aggregator to the proposal permissions
+    When  I attempt to add an additional role to the Aggegator user
     Then  I should see an error message that says not to select other roles alongside aggregator
 
-  Scenario: User with Proposal permission sees proposal in their action list
-    Given I have a user with a role of 'OSPApprover'
+  Scenario: User with Proposal Approver permission sees proposal in their action list
+    Given I have a user with a system role of 'OSPApprover'
     And   I initiate a proposal
     And   I complete the proposal
     When  I submit the proposal
-    Then  the proposal is in OSPApprover's action list
+    Then  the proposal is in the OSPApprover user's action list
 
+  Scenario: User with proposal Aggregator right can recall a proposal for revisions
+    Given I have a user with a system role of 'Proposal Creator'
+    And   I log in with the Proposal Creator user
+    And   I complete a valid simple proposal for a 'Private Profit' organization
+    And   I submit the proposal
+    When  I recall the proposal for revisions
+    Then  the proposal is in the Proposal Creator user's action list
+    And   when the proposal is opened the status should be 'Revisions Requested'
+
+  Scenario: User with proposal Aggregator right can recall a proposal for cancellation
+    Given I have a user with a system role of 'Proposal Creator'
+    And   I log in with the Proposal Creator user
+    And   I complete a valid simple proposal for a 'Private Profit' organization
+    And   I submit the proposal
+    When  I recall and cancel the proposal
+    Then  the proposal status should be 'Document Error Occurred'
+  @test
+  Scenario Outline: Users with Proposal rights can edit a proposal that has been recalled for revisions
+    Given I have a user with a system role of 'Unassigned'
+    And   I initiate a proposal
+    And   I assign the Unassigned user as a <Role> to the proposal permissions
+    And   I complete the proposal
+    And   I submit the proposal
+    When  I recall the proposal for revisions
+    Then  the Unassigned user can access the proposal
+    And   the proposal status should be 'Revisions Requested'
+    And   their proposal permissions allow them to <Permissions>
+
+  Examples:
+    | Role                     | Permissions                                    |
+#    | Narrative Writer         | only update the Abstracts and Attachments page |
+    | Aggregator               | edit all parts of the proposal                 |
+#    | Budget Creator           | only update the budget                         |
+#    | Delete Proposal          | delete the proposal                            |
+#    | Viewer                   | only read the proposal                         |
+
+  Scenario: Revisions made to a recalled proposal are successfully saved
+
+  Scenario: A cancelled proposal cannot be edited

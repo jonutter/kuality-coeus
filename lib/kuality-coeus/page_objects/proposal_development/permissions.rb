@@ -18,14 +18,19 @@ class Permissions < ProposalDevelopmentDocument
 
   action(:user_row) { |user, b| b.user_roles_table.row(text: /#{user}/) }
 
+  element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
+  action(:save) { |b| b.save_button.click }
+
 end
 
 # This a child window that appears when you click the
 # "edit role" button for an existing participant.
 class Roles < BasePage
 
-  global_buttons
   error_messages
+
+  element(:save_button) { |b| b.frm.button(name: 'methodToCall.setEditRoles') }
+  action(:save) { |b| b.save_button.click }
 
   def self.chkbx(name, number)
     element(name) { |b| b.frm.checkbox(name: "proposalUserEditRoles.roleStates[#{number}].state") }
@@ -35,5 +40,7 @@ class Roles < BasePage
   chkbx :budget_creator, 1
   chkbx :narrative_writer, 2
   chkbx :aggregator, 3
+  chkbx :delete_proposal, 7
+  chkbx :approver, 4
 
 end

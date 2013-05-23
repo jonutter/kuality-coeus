@@ -22,5 +22,6 @@ class ActionList < BasePage
 
   action(:action_requested) { |item_id, b| b.item(item_id).tds[ACTION_REQUESTED].text }
   action(:route_status) { |item_id, b| b.item(item_id).tds[ROUTE_STATUS].text }
+  action(:filter) { |b| b.frm.button(name: 'methodToCall.viewFilter').click; b.loading }
 
 end

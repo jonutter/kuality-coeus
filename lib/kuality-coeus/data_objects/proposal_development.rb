@@ -139,7 +139,7 @@ class ProposalDevelopmentObject
     open_proposal
     on(Proposal).proposal_actions
     on(ProposalActions).delete_proposal
-    on(ConfirmationPage).yes
+    on(Confirmation).yes
     # Have to update the data object's status value
     # in a valid way (getting it from the system)
     visit DocumentSearch do |search|

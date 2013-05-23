@@ -17,8 +17,8 @@ end
 #    based on the username
 # 3) Assumes that username user already exists in the system
 # 4) Logs that user in, if they're not already
-Given /^I log in with (.*)$/ do |username|
-  get(username).sign_in
+Given /^I log in with the (.*) user$/ do |system_role|
+  get(system_role).sign_in
 end
 
 # This step definition
@@ -34,7 +34,7 @@ end
 # the specified role. If there are multiple matching
 # users, it will select one of them randomly, and create
 # them if they don't exist in the system.
-Given /^I have a user with a role of '(.*)'$/ do |role|
+Given /^I have a user with a system role of '(.*)'$/ do |role|
   user = make_role role
   user.create unless user.exists?
 end
