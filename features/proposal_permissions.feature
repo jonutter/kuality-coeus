@@ -82,17 +82,22 @@ Feature: Permissions in a Proposal
     And   I submit the proposal
     When  I recall the proposal for revisions
     Then  the Unassigned user can access the proposal
-    And   the proposal status should be 'Revisions Requested'
     And   their proposal permissions allow them to <Permissions>
 
   Examples:
     | Role                     | Permissions                                    |
 #    | Narrative Writer         | only update the Abstracts and Attachments page |
-    | Aggregator               | edit all parts of the proposal                 |
+#    | Aggregator               | edit all parts of the proposal                 |
 #    | Budget Creator           | only update the budget                         |
-#    | Delete Proposal          | delete the proposal                            |
+    | Delete Proposal          | delete the proposal                            |
 #    | Viewer                   | only read the proposal                         |
 
   Scenario: Revisions made to a recalled proposal are successfully saved
+
+    Given I have a user with a system role of 'Aggregator'
+    And   I initiate a proposal
+    And   I assign the Aggregator user as an aggregator to the proposal permissions
+    When  I attempt to add an additional role to the Aggegator user
+    Then  I should see an error message that says not to select other roles alongside aggregator
 
   Scenario: A cancelled proposal cannot be edited

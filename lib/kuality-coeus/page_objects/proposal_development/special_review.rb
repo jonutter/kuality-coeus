@@ -10,8 +10,6 @@ class SpecialReview < ProposalDevelopmentDocument
   element(:add_approval_date) { |b| b.frm.text_field(id: 'specialReviewHelper.newSpecialReview.approvalDate') }
   element(:add_expiration_date) { |b| b.frm.text_field(id: 'specialReviewHelper.newSpecialReview.expirationDate') }
   element(:add_exemption_number) { |b| b.frm.select(id: 'specialReviewHelper.newSpecialReview.exemptionTypeCodes') }
-  element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
-  action(:save) { |b| b.save_button.click }
 
   action(:add) { |b| b.frm.button(name: 'methodToCall.addSpecialReview.anchorSpecialReview').click }
 
