@@ -35,10 +35,10 @@ class BasePage < PageFactory
     end
 
     def global_buttons
-      glbl 'submit', 'save', 'blanket approve', 'close', 'cancel', 'reload',
+      glbl 'save', 'blanket approve', 'close', 'cancel', 'reload',
            'Submit To Sponsor', 'Send Notification', 'Delete Proposal',
            'Generate All Periods', 'Calculate All Periods', 'Default Periods',
-           'Calculate Current Period'
+           'Calculate Current Period', 'submit'
       # Explicitly defining the "recall" button to keep the method name at "recall" instead of "recall_current_document"...
       element(:recall_button) { |b| b.frm.button(class: 'globalbuttons', title: 'Recall current document') }
       action(:recall) { |b| b.recall_button.click; b.loading }
