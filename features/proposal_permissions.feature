@@ -65,15 +65,15 @@ Feature: Permissions in a Proposal
     When  I recall the proposal for revisions
     Then  the proposal is in the Proposal Creator user's action list
     And   when the proposal is opened the status should be 'Revisions Requested'
-
+  @test
   Scenario: User with proposal Aggregator right can recall a proposal for cancellation
-    Given I have a user with a system role of 'Proposal Creator'
-    And   I log in with the Proposal Creator user
+    Given I have a user with a system role of 'OSPApprover'
+    And   I log in with the OSPApprover user
     And   I complete a valid simple proposal for a 'Private Profit' organization
     And   I submit the proposal
     When  I recall and cancel the proposal
     Then  the proposal status should be 'Document Error Occurred'
-  @test
+
   Scenario Outline: Users with Proposal rights can edit a proposal that has been recalled for revisions
     Given I have a user with a system role of 'Unassigned'
     And   I initiate a proposal
@@ -86,18 +86,15 @@ Feature: Permissions in a Proposal
 
   Examples:
     | Role                     | Permissions                                    |
-#    | Narrative Writer         | only update the Abstracts and Attachments page |
-#    | Aggregator               | edit all parts of the proposal                 |
-#    | Budget Creator           | only update the budget                         |
+    | Narrative Writer         | only update the Abstracts and Attachments page |
+    | Aggregator               | edit all parts of the proposal                 |
+    | Budget Creator           | only update the budget                         |
     | Delete Proposal          | delete the proposal                            |
-#    | Viewer                   | only read the proposal                         |
+    | Viewer                   | only read the proposal                         |
 
   Scenario: Revisions made to a recalled proposal are successfully saved
-
     Given I have a user with a system role of 'Aggregator'
     And   I initiate a proposal
     And   I assign the Aggregator user as an aggregator to the proposal permissions
     When  I attempt to add an additional role to the Aggegator user
     Then  I should see an error message that says not to select other roles alongside aggregator
-
-  Scenario: A cancelled proposal cannot be edited

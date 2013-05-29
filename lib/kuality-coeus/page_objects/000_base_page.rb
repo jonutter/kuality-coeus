@@ -35,7 +35,7 @@ class BasePage < PageFactory
     end
 
     def global_buttons
-      glbl 'save', 'blanket approve', 'close', 'cancel', 'reload',
+      glbl 'save', 'reject', 'blanket approve', 'close', 'cancel', 'reload',
            'Submit To Sponsor', 'Send Notification', 'Delete Proposal',
            'Generate All Periods', 'Calculate All Periods', 'Default Periods',
            'Calculate Current Period', 'submit'
@@ -64,6 +64,7 @@ class BasePage < PageFactory
       action(:return_value) { |match, p| p.results_table.row(text: /#{match}/).link(text: 'return value').click }
       action(:return_random) { |b| b.return_value_links[rand(b.return_value_links.length)].click }
       element(:return_value_links) { |b| b.results_table.links(text: 'return value') }
+      action(:view)
     end
 
     def budget_header_elements

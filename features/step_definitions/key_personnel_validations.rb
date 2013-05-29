@@ -1,4 +1,4 @@
-And /^I add (.*) as a (.*) to Key Personnel$/ do |user_name, proposal_role|
+And /^I add (.*) as a (.*) to the key personnel proposal roles$/ do |user_name, proposal_role|
   user = get(user_name)
   @proposal.add_key_person first_name: user.first_name, last_name: user.last_name, role: proposal_role
 end
@@ -43,4 +43,7 @@ end
 
 When /^I add a principal investigator$/ do
   @proposal.add_principal_investigator
+end
+Then /^there should be an error that says the (.*) user already holds investigator role$/ do |role|
+  on(KeyPersonnel).errors.should include "#{get(role).first_name} #{get(role).last_name} already holds Investigator role."
 end
