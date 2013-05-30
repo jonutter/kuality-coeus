@@ -112,13 +112,13 @@ class InstituteRateObject
       activity_type: 'Instruction',
       on_off_campus_flag: :set,
       rate_type: 'Salaries',
-      start_date: "01/01/#{right_now[:year]}",
       unit_number: '000001',
       rate: "#{rand(9)+1}.#{rand(100)}",
       active: :set
     }
 
     set_options(defaults.merge(opts))
+    @start_date ||= "01/01/#{@fiscal_year}"
     @activity_type_code = ACTIVITY_TYPES[@activity_type]
     @rate_class_code = RATE_TYPES[@rate_type][:class]
     @rate_type_code = RATE_TYPES[@rate_type][:type]
@@ -153,7 +153,6 @@ class InstituteRateObject
   def get_current_rate
     on(InstituteRatesLookup).edit_item "#{@activity_type}.#{@fiscal_year}.+#{@rate_type}"
     @rate=on(InstituteRatesMaintenance).rate.value
-    puts @rate
   end
 
   # This method...
@@ -163,7 +162,11 @@ class InstituteRateObject
   #   in very specific places
   def activate
     @active=:set
-    on(InstituteRatesMaintenance).active.send(@active)
+    on InstituteRatesMaintenance do |edit|
+      edit.active.send(@active)
+      fill_out edit, :description
+      edit.blanket_approve
+    end
   end
 
   def delete
