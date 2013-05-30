@@ -47,10 +47,10 @@ Feature: Permissions in a Proposal
     Given I have a user with a system role of 'Aggregator'
     And   I initiate a proposal
     And   I assign the Aggregator user as an aggregator to the proposal permissions
-    When  I attempt to add an additional role to the Aggegator user
+    When  I attempt to add an additional role to the Aggregator user
     Then  I should see an error message that says not to select other roles alongside aggregator
 
-  Scenario: User with Proposal Approver permission sees proposal in their action list
+  Scenario: User with OSP Approver permission sees proposal in their action list
     Given I have a user with a system role of 'OSPApprover'
     And   I initiate a proposal
     And   I complete the proposal
@@ -96,5 +96,5 @@ Feature: Permissions in a Proposal
     Given I have a user with a system role of 'Aggregator'
     And   I initiate a proposal
     And   I assign the Aggregator user as an aggregator to the proposal permissions
-    When  I attempt to add an additional role to the Aggegator user
+    When  I attempt to add an additional role to the Aggregator user
     Then  I should see an error message that says not to select other roles alongside aggregator

@@ -14,11 +14,11 @@ end
 # Whereas, this step def
 # 1) Assumes the user OBJECT already exists
 # 2) Assumes the user object is contained in a class instance variable
-#    based on the username
-# 3) Assumes that username user already exists in the system
+#    based on the role
+# 3) Assumes that role user already exists in the system
 # 4) Logs that user in, if they're not already
-Given /^I log in with the (.*) user$/ do |system_role|
-  get(system_role).sign_in
+Given /^I log in with the (.*) user$/ do |role|
+  get(role).sign_in
 end
 
 # This step definition
@@ -39,10 +39,8 @@ Given /^I have a user with a system role of '(.*)'$/ do |role|
   user.create unless user.exists?
 end
 
-#Given /^I log in with the (.*) user$/ do |role|
-#  get(role).sign_in
-#end
-
 Then /^(.*) is logged in$/ do |username|
   get(username).logged_in?
 end
+
+Given /^I have users with

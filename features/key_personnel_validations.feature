@@ -37,7 +37,7 @@ Feature: Key Personnel Validations
     And     I initiate a proposal
     When    I add a key person with an invalid unit type
     Then    a key personnel error should say to select a valid unit
-  @test
+
   Scenario: Attempt to add the same user as a PI and Co-Investigator
     And     I have a user with a system role of 'Unassigned'
     And     I initiate a proposal
@@ -46,3 +46,9 @@ Feature: Key Personnel Validations
     And     I add Unassigned as a Co-Investigator to the key personnel proposal roles
     Then    there should be an error that says the Unassigned user already holds investigator role
 
+  Scenario: A Principal Investigator can approve and reject a proposal when routed
+    And     I have a user with a system role of 'OSPApprover'
+    And     I have a user with a system role of 'Proposal Creator'
+    And     I have a user with a system role of 'Unassigned'
+    And     I log in with the  user
+    And     I initiate
