@@ -2,56 +2,61 @@ admin:
   :first_name: admin
   :last_name:  admin
 unassigneduser: # AKA: "Principal Name
-  :description:      creating user with 'unassigned' role
-  :affiliation_type: Student
-  :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      unassigneduser
-  :base_salary:      '180'
-  :first_name:       july
-  :last_name:        test
-  :address_type: Home
-  :line_1: 475 n scottsdale rd
-  :city: scottsdale
-  :state: ARIZONA
-  :country: United States
-  :phone_type: Home
-  :phone_number: 555-555-5555
+  :description:       creating user with 'unassigned' role
+  :affiliation_type:  Student
+  :campus_code:       'UN - UNIVERSITY'
+  :employee_id:       unassigneduser
+  :employee_status:
+  :employee_type:
+  :base_salary:       '180'
+  :primary_dept_code:
+  :first_name:        july
+  :last_name:         test
+  :address_type:      Home
+  :line_1:            475 n scottsdale rd
+  :city:              scottsdale
+  :state:             ARIZONA
+  :country:           United States
+  :phone_type:        Home
+  :phone_number:      555-555-5555
   :roles:
     - '106' # Unassigned
   :role_qualifiers:
     :106: '000001'
 ospapprover:  # AKA: "Principal Name"
-  :description:      creating osp approver
-  :affiliation_type: Faculty
-  :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      ospapprover
-  :employee_status:  Active
-  :employee_type:    Other
-  :base_salary:      '180'
-  :first_name:       gregor
-  :last_name:        test
-  :address_type: Home
-  :line_1: 475 n scottsdale rd
-  :city: scottsdale
-  :state: ARIZONA
-  :country: United States
-  :phone_type: Home
-  :phone_number: 555-555-5555
+  :description:       creating osp approver
+  :affiliation_type:  Faculty
+  :campus_code:       'UN - UNIVERSITY'
+  :employee_id:       ospapprover
+  :employee_status:   Active
+  :employee_type:     Other
+  :primary_dept_code:
+  :base_salary:       '180'
+  :first_name:        gregor
+  :last_name:         test
+  :address_type:      Home
+  :line_1:            475 n scottsdale rd
+  :city:              scottsdale
+  :state:             ARIZONA
+  :country:           United States
+  :phone_type:        Home
+  :phone_number:      555-555-5555
   :roles:
     - '100' # OSPApprover
 kctestuser9:  # AKA: "Principal Name"
-  :description:      creating test user with manager permissions
-  :affiliation_type: Other Academic Group
-  :campus_code:      'UN - UNIVERSITY'
-  :first_name:       newman
-  :last_name:        test
-  :address_type: Home
-  :line_1: 475 n scottsdale rd
-  :city: scottsdale
-  :state: ARIZONA
-  :country: United States
-  :phone_type: Home
-  :phone_number: 555-555-5555
+  :description:       creating test user with manager permissions
+  :affiliation_type:  Other Academic Group
+  :campus_code:       'UN - UNIVERSITY'
+  :first_name:        newman
+  :last_name:         test
+  :primary_dept_code:
+  :address_type:      Home
+  :line_1:            475 n scottsdale rd
+  :city:              scottsdale
+  :state:             ARIZONA
+  :country:           United States
+  :phone_type:        Home
+  :phone_number:      555-555-5555
   :roles:
     - '98'  # Manager
     - '110' # Aggregator
@@ -60,39 +65,41 @@ kctestuser9:  # AKA: "Principal Name"
     :111: '000001'
     :110: '000001'
 kctestuser10:  # AKA: "Principal Name"
-  :description:      creating test user with aggregator permissions
-  :affiliation_type: Other Academic Group
-  :campus_code:      'UN - UNIVERSITY'
-  :first_name:       truman
-  :last_name:        test
-  :address_type: Home
-  :line_1: 475 n scottsdale rd
-  :city: scottsdale
-  :state: ARIZONA
-  :country: United States
-  :phone_type: Home
-  :phone_number: 555-555-5555
+  :description:       creating test user with aggregator permissions
+  :affiliation_type:  Other Academic Group
+  :campus_code:       'UN - UNIVERSITY'
+  :primary_dept_code:
+  :first_name:        truman
+  :last_name:         test
+  :address_type:      Home
+  :line_1:            475 n scottsdale rd
+  :city:              scottsdale
+  :state:             ARIZONA
+  :country:           United States
+  :phone_type:        Home
+  :phone_number:      555-555-5555
   :roles:
     - '110' # Aggregator
   :role_qualifiers:
     :110: '000001'
 kctestirbapprover:  # AKA: "Principal Name"
-  :description:      creating test user with IRBApprover permissions
-  :affiliation_type: Staff
-  :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      ospapprover
-  :employee_status:  Active
-  :employee_type:    Other
-  :base_salary:      '180'
-  :first_name:       aimee
-  :last_name:        test
-  :address_type: Home
-  :line_1: 475 n scottsdale rd
-  :city: scottsdale
-  :state: ARIZONA
-  :country: United States
-  :phone_type: Home
-  :phone_number: 555-555-5555
+  :description:       creating test user with IRBApprover permissions
+  :affiliation_type:  Staff
+  :campus_code:       'UN - UNIVERSITY'
+  :employee_id:       kctestirbapprover
+  :employee_status:   Active
+  :employee_type:     Other
+  :base_salary:       '180'
+  :primary_dept_code: '000001'
+  :first_name:        aimee
+  :last_name:         test
+  :address_type:      Home
+  :line_1:            475 n scottsdale rd
+  :city:              scottsdale
+  :state:             ARIZONA
+  :country:           United States
+  :phone_type:        Home
+  :phone_number:      555-555-5555
   :groups:
     - '2001' # KcAdmin
     - '2003' # ProposalAdmin
@@ -107,7 +114,6 @@ kctestirbapprover:  # AKA: "Principal Name"
     - '1627' # IACUC Reviewer
     - '1668' # IACUCWorkflowApprover
     - '110'  # Aggregator
-
   :role_qualifiers:
     :111:  '000001'
     :111:  'BL-IIDC'
@@ -117,7 +123,62 @@ kctestirbapprover:  # AKA: "Principal Name"
     :127:  '000001'
     :1651: '000001'
     :110:  '000001'
-#
+oblood:  # AKA: "Principal Name"
+  :description:       oblood
+  :affiliation_type:  Research Staff
+  :campus_code:       'BL - BLOOMINGTON'
+  :employee_id:       oblood
+  :employee_status:   Active
+  :employee_type:     Professional
+  :base_salary:       '100000'
+  :primary_dept_code: 'BL-RCEN'
+  :first_name:        Opal
+  :last_name:         Blood
+  :address_type:      Work
+  :line_1:            1124 Kuali Drive
+  :city:              Coeus
+  :state:             MASSACHUSETTS
+  :country:           United States
+  :phone_type:        Work
+  :phone_number:      321-321-1203
+  :groups:
+    - '2001' # KcAdmin
+    - '2003' # ProposalAdmin
+    - '2004' # IRBAdmin
+  :roles:
+    - '99'   # IRBApprover
+    - '111'  # Proposal Creator
+    - '1651' # IACUCApprover
+    - '1627' # IACUC Reviewer
+    - '1668' # IACUCWorkflowApprover
+  :role_qualifiers:
+    :111:  '000001'
+cate:  # AKA: "Principal Name"
+  :description:       cate
+  :affiliation_type:  Medical Staff
+  :campus_code:       'IN - INDIANAPOLIS'
+  :employee_id:       cate
+  :employee_status:   Active
+  :employee_type:     Professional
+  :base_salary:       '100000'
+  :primary_dept_code: 'IN-MDEP'
+  :first_name:        Allyson
+  :last_name:         Cate
+  :address_type:      Work
+  :line_1:            1125 Kuali Drive
+  :city:              Coeus
+  :state:             MASSACHUSETTS
+  :country:           United States
+  :phone_type:        Work
+  :phone_number:      321-321-1204
+  :groups:
+    - '2001' # KcAdmin
+    - '2003' # ProposalAdmin
+    - '2004' # IRBAdmin
+  :roles:
+    - '111'  # Proposal Creator
+  :role_qualifiers:
+    :111:  'IN-MED'
 # Replace 'username' below with the login string for the user...
 #username:  # AKA: "Principal Name"
 #  :description:
