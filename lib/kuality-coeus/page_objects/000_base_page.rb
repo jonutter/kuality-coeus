@@ -58,12 +58,12 @@ class BasePage < PageFactory
     def search_results_table
       element(:results_table) { |b| b.frm.table(id: 'row') }
 
-      action(:edit_item) { |match, p| p.results_table.row(text: /#{match}/).link(text: 'edit').click }
+      action(:edit_item) { |match, p| p.results_table.row(text: /#{match}/m).link(text: 'edit').click }
       alias_method :edit_person, :edit_item
 
-      action(:delete_item) { |match, p| p.results_table.row(text: /#{match}/).link(text: 'delete').click }
+      action(:delete_item) { |match, p| p.results_table.row(text: /#{match}/m).link(text: 'delete').click }
 
-      action(:return_value) { |match, p| p.results_table.row(text: /#{match}/).link(text: 'return value').click }
+      action(:return_value) { |match, p| p.results_table.row(text: /#{match}/m).link(text: 'return value').click }
       action(:return_random) { |b| b.return_value_links[rand(b.return_value_links.length)].click }
       element(:return_value_links) { |b| b.results_table.links(text: 'return value') }
       action(:view)

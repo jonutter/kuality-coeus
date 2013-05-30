@@ -114,7 +114,7 @@ class InstituteRateObject
       rate_type: 'Salaries',
       start_date: "01/01/#{right_now[:year]}",
       unit_number: '000001',
-      rate: '4.5',
+      rate: "#{rand(9)+1}.#{rand(100)}",
       active: :set
     }
 
@@ -145,6 +145,27 @@ class InstituteRateObject
     end
   end
 
+  # This method...
+  # - Breaks the CRUD model and the design pattern, but is necessary because of how the system
+  #   restricts creation of rate records
+  # - Assumes it doesn't need to navigate because it's being used
+  #   in very specific places
+  def get_current_rate
+    on(InstituteRatesLookup).edit_item "#{@activity_type}.#{@fiscal_year}.+#{@rate_type}"
+    @rate=on(InstituteRatesMaintenance).rate.value
+    puts @rate
+  end
+
+  # This method...
+  # - Breaks the CRUD model and the design pattern, but is necessary because of how the system
+  #   restricts creation of rate records
+  # - Assumes it doesn't need to navigate  because it's being used
+  #   in very specific places
+  def activate
+    @active=:set
+    on(InstituteRatesMaintenance).active.send(@active)
+  end
+
   def delete
     navigate
     search
@@ -158,8 +179,9 @@ class InstituteRateObject
   def search
     on InstituteRatesLookup do |look|
       fill_out look, :activity_type_code, :fiscal_year, :rate_class_code,
-               :rate_type_code, :unit_number, :rate
+               :rate_type_code, :unit_number
       look.on_off_campus campus_lookup[@on_off_campus_flag]
+      look.active ''
       look.search
     end
   end
@@ -179,5 +201,6 @@ class InstituteRateObject
   def campus_lookup
     { :set=>'Y', :clear=>'N' }
   end
+  alias_method :active_lookup, :campus_lookup
 
 end

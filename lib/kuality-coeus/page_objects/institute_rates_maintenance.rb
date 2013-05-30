@@ -2,6 +2,7 @@ class InstituteRatesMaintenance < BasePage
 
   global_buttons
   document_header_elements
+  error_messages
 
   element(:description) { |b| b.frm.text_field(name: 'document.documentHeader.documentDescription') }
   element(:activity_type_code) { |b| b.frm.text_field(name: 'document.newMaintainableObject.activityTypeCode') }

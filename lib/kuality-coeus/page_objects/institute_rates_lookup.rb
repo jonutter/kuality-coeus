@@ -10,6 +10,7 @@ class InstituteRatesLookup < BasePage
   element(:rate_type_code) { |b| b.frm.text_field(name: 'rateTypeCode') }
   element(:rate) { |b| b.frm.text_field(name: 'instituteRate') }
   element(:unit_number) { |b| b.frm.text_field(name: 'unitNumber') }
+  action(:active) { |val, b| b.frm.radio(name: 'active', value: val).set }
   action(:create_new) { |b| b.frm.link(title: 'Create a new record').click; b.loading }
 
 end
