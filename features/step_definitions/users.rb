@@ -39,10 +39,6 @@ Given /^I have a user with a system role of '(.*)'$/ do |role|
   user.create unless user.exists?
 end
 
-#Given /^I log in with the (.*) user$/ do |role|
-#  get(role).sign_in
-#end
-
 Then /^(.*) is logged in$/ do |username|
   get(username).logged_in?
 end
