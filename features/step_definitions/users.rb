@@ -42,3 +42,10 @@ end
 Then /^(.*) is logged in$/ do |username|
   get(username).logged_in?
 end
+
+Given /^I have users with the system roles of '(.*)', '(.*)', and '(.*)'$/ do |role, role2, role3|
+  [role, role2, role3].each do |r|
+    user = make_role r
+    user.create unless user.exists?
+  end
+end

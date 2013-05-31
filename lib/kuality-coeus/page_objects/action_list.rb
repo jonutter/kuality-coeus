@@ -17,9 +17,6 @@ class ActionList < BasePage
   ACTIONS = 9
   LOG = 10
 
-  action(:item) { |item_id, b| b.results_table.row(text: /#{item_id}/) }
-  action(:open_item) { |item_id, b| b.results_table.link(text: item_id).click }
-
   action(:action_requested) { |item_id, b| b.item(item_id).tds[ACTION_REQUESTED].text }
   action(:route_status) { |item_id, b| b.item(item_id).tds[ROUTE_STATUS].text }
   action(:filter) { |b| b.frm.button(name: 'methodToCall.viewFilter').click; b.loading }

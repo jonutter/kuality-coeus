@@ -44,6 +44,3 @@ Feature: Proposal Actions Validations
       Then    a validation error should say the key person needs to be certified
       And     checking the key personnel page shows a proposal person certification error that says the investigator needs to be certified
 
-    Scenario: Principal Investigators have the ability to reject a proposal
-      Given   I have a user with a system role of 'IRBApprover'
-

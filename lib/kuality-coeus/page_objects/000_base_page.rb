@@ -38,7 +38,7 @@ class BasePage < PageFactory
       glbl 'save', 'reject', 'blanket approve', 'close', 'cancel', 'reload',
            'Submit To Sponsor', 'Send Notification', 'Delete Proposal',
            'Generate All Periods', 'Calculate All Periods', 'Default Periods',
-           'Calculate Current Period', 'submit'
+           'Calculate Current Period', 'submit', 'approve'
       # Explicitly defining the "recall" button to keep the method name at "recall" instead of "recall_current_document"...
       element(:recall_button) { |b| b.frm.button(class: 'globalbuttons', title: 'Recall current document') }
       action(:recall) { |b| b.recall_button.click; b.loading }
@@ -58,15 +58,16 @@ class BasePage < PageFactory
     def search_results_table
       element(:results_table) { |b| b.frm.table(id: 'row') }
 
-      action(:edit_item) { |match, p| p.results_table.row(text: /#{match}/m).link(text: 'edit').click }
+      action(:edit_item) { |match, p| p.results_table.row(text: /#{match}/m).link(text: 'edit').click; b.use_new_tab; b.close_parents }
       alias_method :edit_person, :edit_item
 
-      action(:delete_item) { |match, p| p.results_table.row(text: /#{match}/m).link(text: 'delete').click }
+      action(:item_row) { |match, b| b.results_table.row(text: /#{match}/) }
+      action(:open_item) { |match, b| b.results_table.row(text: /#{match}/m).link(text: /#{match}/).click; b.use_new_tab; b.close_parents }
+      action(:delete_item) { |match, p| p.results_table.row(text: /#{match}/m).link(text: 'delete').click; b.use_new_tab; b.close_parents }
 
       action(:return_value) { |match, p| p.results_table.row(text: /#{match}/m).link(text: 'return value').click }
       action(:return_random) { |b| b.return_value_links[rand(b.return_value_links.length)].click }
       element(:return_value_links) { |b| b.results_table.links(text: 'return value') }
-      action(:view)
     end
 
     def budget_header_elements

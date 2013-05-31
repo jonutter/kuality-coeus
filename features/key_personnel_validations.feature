@@ -45,10 +45,21 @@ Feature: Key Personnel Validations
     When    I add Unassigned as a Principal Investigator to the key personnel proposal roles
     And     I add Unassigned as a Co-Investigator to the key personnel proposal roles
     Then    there should be an error that says the Unassigned user already holds investigator role
-
+  @test
   Scenario: A Principal Investigator can approve and reject a proposal when routed
-    And     I have a user with a system role of 'OSPApprover'
-    And     I have a user with a system role of 'Proposal Creator'
-    And     I have a user with a system role of 'Unassigned'
-    And     I log in with the  user
-    And     I initiate
+    And     I have users with the system roles of 'OSPApprover', 'Proposal Creator', and 'Unassigned'
+    And     I log in with the Proposal Creator user
+    And     I initiate a proposal
+    And     I add Unassigned as a Principal Investigator to the key personnel proposal roles
+    And     I complete the proposal
+    And     I submit the proposal
+    When    I log in with the OSPApprover user and visit the proposal
+    And     I approve the proposal
+    #And     I log in with the Unassigned user
+    #Then    I can approve the proposal document
+
+  Scenario: A Principal Investigator can reject a proposal when routed
+
+  Scenario: An OSP Approver can reject a proposal that has been routed
+
+  Scenario: An OSP Approver can acknowledge and FYI
