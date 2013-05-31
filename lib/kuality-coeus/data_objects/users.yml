@@ -76,7 +76,6 @@ kctestuser10:  # AKA: "Principal Name"
     - '110' # Aggregator
   :role_qualifiers:
     :110: '000001'
-
 #
 # Replace 'username' below with the login string for the user...
 #username:  # AKA: "Principal Name"
