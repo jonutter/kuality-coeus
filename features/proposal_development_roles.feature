@@ -4,15 +4,9 @@ Feature: Proposal Development Permissions
   to my proposal and assign them varying roles and permissions
 
 
-  Scenario:
+  Background:
     Given I'm logged in with admin
-#    And I have a user with a role of 'OSPApprover'
 
-   
-#  Scenario:
-#    Given   I'm logged in with admin
-#    And     I have a user with a role of 'OSPApprover'
-#    And     I initiate a proposal
-#    And     I complete the proposal
-#    When    I submit the proposal
-#    Then    the proposal is in OSPApprover's action list
+  Scenario: Ad Hoc Notifications sent from a Proposal Development document appear as FYIs in an OSPApprover's Action List
+
+  Scenario:

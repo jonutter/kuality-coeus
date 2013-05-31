@@ -76,47 +76,7 @@ kctestuser10:  # AKA: "Principal Name"
     - '110' # Aggregator
   :role_qualifiers:
     :110: '000001'
-kctestirbapprover:  # AKA: "Principal Name"
-  :description:      creating test user with IRBApprover permissions
-  :affiliation_type: Staff
-  :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      ospapprover
-  :employee_status:  Active
-  :employee_type:    Other
-  :base_salary:      '180'
-  :first_name:       aimee
-  :last_name:        test
-  :address_type: Home
-  :line_1: 475 n scottsdale rd
-  :city: scottsdale
-  :state: ARIZONA
-  :country: United States
-  :phone_type: Home
-  :phone_number: 555-555-5555
-  :groups:
-    - '2001' # KcAdmin
-    - '2003' # ProposalAdmin
-    - '2004' # IRBAdmin
-  :roles:
-    - '99'   # IRBApprover
-    - '111'  # Proposal Creator
-    - '112'  # Award Budget Approver
-    - '127'  # IRB Reviewer
-    - '1399' # Negotiation Creator
-    - '1651' # IACUCApprover
-    - '1627' # IACUC Reviewer
-    - '1668' # IACUCWorkflowApprover
-    - '110'  # Aggregator
 
-  :role_qualifiers:
-    :111:  '000001'
-    :111:  'BL-IIDC'
-    :111:  'IN-CARD'
-    :111:  'IN-CARR'
-    :112:  '000001'
-    :127:  '000001'
-    :1651: '000001'
-    :110:  '000001'
 #
 # Replace 'username' below with the login string for the user...
 #username:  # AKA: "Principal Name"

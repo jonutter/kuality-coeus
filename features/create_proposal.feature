@@ -23,7 +23,7 @@ Feature: Creating proposals
       Then    The proposal should immediately have a status of 'Approval Pending'
       And     The proposal route log's 'Actions Taken' should include 'COMPLETED'
       And     The proposal's 'Future Action Requests' should include 'PENDING APPROVE' for the principal investigator
-
+    @test
     Scenario: Initiators have the option to recall submitted Proposals
       Given I initiate a proposal
       And   I complete the proposal
