@@ -49,3 +49,10 @@ Given /^I have users with the system roles of '(.*)', '(.*)', and '(.*)'$/ do |r
     user.create unless user.exists?
   end
 end
+
+Given /^I have users with the following roles: (.*)$/ do |roles|
+  roles.split(', ').each do |r|
+    user = make_role r
+    user.create unless user.exists?
+  end
+end
