@@ -42,7 +42,3 @@ end
 Then /^(.*) is logged in$/ do |username|
   get(username).logged_in?
 end
-
-Given /^I have users with$/ do
-
-end
