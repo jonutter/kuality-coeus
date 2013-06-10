@@ -43,8 +43,6 @@ module Navigation
   # Requirement: The field method name and the class instance variable
   # must be the same!
   #
-  # This method currently only supports text fields, selection lists,
-  # and radio buttons.
   def fill_out(page, *fields)
     methods={
         'Watir::TextField' => lambda{|p, f| p.send(f).fit(get f)},
