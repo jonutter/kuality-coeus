@@ -5,9 +5,13 @@ Feature: Special Review Validations
   before I submit the proposal
 
   Background: KC user is logged in as admin
-    Given   I'm logged in with admin
-    And     I initiate a proposal
-  @test
+    Given   I have users with the following roles: Proposal Creator, OSPApprover, Unassigned
+
+
   Scenario: The application date must be prior to the approval date
     When    I add a special review item that has an approval date earlier than the application date
     Then    I should see an error that the approval should occur later than the application
+  @test
+  Scenario: test
+    And   I log in with the OSPApprover user
+    And   I visit the action list outbox

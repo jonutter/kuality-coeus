@@ -20,5 +20,7 @@ class ActionList < BasePage
   action(:action_requested) { |item_id, b| b.item(item_id).tds[ACTION_REQUESTED].text }
   action(:route_status) { |item_id, b| b.item(item_id).tds[ROUTE_STATUS].text }
   action(:filter) { |b| b.frm.button(name: 'methodToCall.viewFilter').click; b.loading }
-
+  action(:take_actions) { |b| b.frm.button(id: 'takeMassActions').click; b.loading }
+  element(:actions) { |b| b.frm.select(name: 'actions[20].actionItemId') }
+  action(:outbox) { |b| b.frm.link(href: /viewOutbox/).click }
 end

@@ -5,7 +5,8 @@ Feature: Key Personnel Validations
   before I submit the proposal
 
   Background: KC user is logged in as admin
-    Given   I'm logged in with admin
+
+
 
   Scenario Outline: Unable to add Credit Split percentages above 100 or less than 0
     And     I initiate a proposal

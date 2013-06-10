@@ -1,6 +1,8 @@
 class ProposalActions < ProposalDevelopmentDocument
 
   proposal_header_elements
+  tiny_buttons
+
 
   # Data Validation
   element(:data_validation_header) { |b| b.frm.h2(text: 'Data Validation') }
@@ -63,7 +65,9 @@ class ProposalActions < ProposalDevelopmentDocument
   element(:future_actions_table) { |b| b.route_log_iframe.div(id: 'tab-FutureActionRequests-div').table }
 
   action(:requested_action_for) { |name, b| b.future_actions_table.tr(text: /#{name}/).td(index: 2).text }
-  
+
+  element(:rejection_reason) { |b| b.frm.text_field(id: 'proposalDevelopmentRejectionBean.rejectReason') }
+
   def validation_errors_and_warnings
     errs = []
       validation_err_war_fields.each { |field| errs << field.html[/(?<=>).*(?=<)/] }

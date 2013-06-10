@@ -109,8 +109,8 @@ Feature: Permissions in a Proposal
     And   I complete the proposal
     When  I submit the proposal
     Then  the proposal is in the OSPApprover user's action list
-  @test
-  Scenario: An Aggregator can approve a proposal that has been routed
+
+  Scenario: A proposal Aggregator user can approve a proposal that has been routed
     And     I have users with the system roles of 'OSPApprover', 'Proposal Creator', and 'Unassigned'
     And     I log in with the Proposal Creator user
     And     I initiate a proposal
@@ -121,9 +121,31 @@ Feature: Permissions in a Proposal
     And     I log in with the Unassigned user
     And     the Unassigned user approves the proposal
     Then    the Proposal Creator user can approve the proposal document
+  @test
+  Scenario Outline: An OSP Approver can reject a proposal that has been routed
+    Given I have users with the following roles: Proposal Creator, OSPApprover
+    And   I log in with the Proposal Creator user
+    And   I initiate a proposal
+    And   I complete the proposal
+    And   I submit the proposal
+    When  I log in with the OSPApprover user
+    Then  the OSPApprover user can <Action> the proposal document
+    And   the status of the proposal document should change to <Status>
 
-  Scenario: A proposal that has been approved appears in the OSP Approver Action List with Acknowledge requested status
-
-  Scenario: An OSP Approver can reject a proposal that has been routed
+  Examples:
+    | Action       | Status              |
+    | Approve      | Approval Pending    |
+    | Disapprove   | Disapproved         |
+    | Reject       | Revisions Requested |
 
   Scenario: An OSP Approver can acknowledge an FYI
+    Given I have users with the following roles: Proposal Creator, OSPApprover
+    And   I log in with the Proposal Creator user
+    And   I initiate a proposal
+    And   I complete the proposal
+    When  I send a notification
+    And   I log in with the OSPApprover user
+    Then  the proposal is in the OSPApprover user's action list
+    And   the OSPApprover user can acknowledge the requested action list item
+
+

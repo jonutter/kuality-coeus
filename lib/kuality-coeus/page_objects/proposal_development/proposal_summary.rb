@@ -1,8 +1,8 @@
-class ProposalSummary < BasePage
+class ProposalSummary < ProposalDevelopmentDocument
 
-  global_buttons
+  proposal_header_elements
 
-  #element(:approve_button) { |b| b.frm.button(name: 'methodToCall.approve') }
+  element(:approve_button) { |b| b.frm.button(name: 'methodToCall.approve') }
   element(:disapprove_button) { |b| b.frm.button(name: 'methodToCall.disapprove') }
 
 end
