@@ -30,6 +30,8 @@ class ProposalActions < ProposalDevelopmentDocument
   value(:unit_business_rules_errors) { |b| b.frm.td(text: 'Unit Business Rules Errors').parent.parent.td(class: 'datacell').text }
   value(:unit_business_rules_warnings) { |b| b.frm.td(text: 'Unit Business Rules Warnings').parent.parent.td(class: 'datacell').text }
 
+  element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
+
   # Proposal Hierarchy
 
   element(:link_child_proposal) { |b| b.frm.text_field(id: 'newHierarchyProposalNumber') }

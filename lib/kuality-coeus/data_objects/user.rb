@@ -21,6 +21,14 @@ class UserCollection < Hash
     self.find_all{|user| user[1][:affiliation_type]==type }.shuffle
   end
 
+  def with_employee_type(type)
+    self.find_all{|user| user[1][:employee_type]==type }.shuffle
+  end
+
+  def with_primary_dept_code(code)
+    self.find_all{|user| user[1][:primary_dept_code]==code }.shuffle
+  end
+
 end
 
 class UserObject

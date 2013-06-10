@@ -9,7 +9,6 @@ Given /^I have (.*)-Campus, (.*) type Institute Rates appropriate for the propos
                   activity_type: @proposal.activity_type,
                   rate_type: rate_type,
                   unit_number: @proposal.lead_unit[/^\w+-*\w+/]
-      # TODO: Need to code the setting of the rate in the data object if there is a matching record
       if rate_object.exist?
         rate_object.get_current_rate
         rate_object.activate

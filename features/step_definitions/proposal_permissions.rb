@@ -166,3 +166,7 @@ Then /^the proposal status should be (.*)$/ do |status|
   @proposal.open_proposal
   @proposal.status = status
 end
+
+Then(/^I can submit the proposal document$/) do
+  @proposal.submit
+end

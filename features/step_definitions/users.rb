@@ -44,12 +44,15 @@ Then /^(.*) is logged in$/ do |username|
 end
 
 Given /^I have users with the system roles of '(.*)', '(.*)', and '(.*)'$/ do |role, role2, role3|
-  user = make_role role
-  user.create unless user.exists?
+  [role, role2, role3].each do |r|
+    user = make_role r
+    user.create unless user.exists?
+  end
+end
 
-  user = make_role role2
-  user.create unless user.exists?
-
-  user = make_role role3
-  user.create unless user.exists?
+Given /^I have users with the following roles: (.*)$/ do |roles|
+  roles.split(', ').each do |r|
+    user = make_role r
+    user.create unless user.exists?
+  end
 end

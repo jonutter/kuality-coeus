@@ -13,4 +13,6 @@ class SpecialReview < ProposalDevelopmentDocument
 
   action(:add) { |b| b.frm.button(name: 'methodToCall.addSpecialReview.anchorSpecialReview').click }
 
+  element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
+
 end
