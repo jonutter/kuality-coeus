@@ -1,4 +1,4 @@
-And /^I add (.*) as a (.*) to the key personnel proposal roles$/ do |user_name, proposal_role|
+And /^I add the (.*) user as a (.*) to the key personnel proposal roles$/ do |user_name, proposal_role|
   user = get(user_name)
   @proposal.add_key_person first_name: user.first_name, last_name: user.last_name, role: proposal_role
 end
@@ -49,16 +49,8 @@ Then /^there should be an error that says the (.*) user already holds investigat
   on(KeyPersonnel).errors.should include "#{get(role).first_name} #{get(role).last_name} already holds Investigator role."
 end
 
-Then(/^I can approve the proposal document$/) do
-  pending
-end
-
-When(/^I approve the proposal$/) do
-  on(ProposalSummary).approve
-  on(Confirmation).yes
-end
-
-When /^I log in with the (.*) user and visit the proposal$/ do |role|
+#Note: This step exists to simply validate whether or not the approve option is present
+Then(/^the (.*) user can approve the proposal document$/) do |role|
   get(role).sign_in
   visit(ActionList).filter
   on ActionListFilter do |page|
@@ -66,4 +58,20 @@ When /^I log in with the (.*) user and visit the proposal$/ do |role|
     page.filter
   end
   on(ActionList).open_item(@proposal.document_id)
+  on(ProposalSummary).approve_button.should be_present
+end
+
+#Note: This step is validating that a user can go through with the action of approving a proposal
+When /^the (.*) user approves the proposal$/ do |role|
+  get(role).sign_in
+  visit(ActionList).filter
+  on ActionListFilter do |page|
+    page.document_title.set @proposal.project_title
+    page.filter
+  end
+  on(ActionList).open_item(@proposal.document_id)
+  on(ProposalSummary).approve
+  on(Confirmation).yes
+  #TODO: Revisit with Abe for alternative idea to get back to the login page
+  visit(Login)
 end
