@@ -4,4 +4,6 @@ class CentralAdmin < BasePage
 
   links 'Create Committee'
 
+  action(:create_award) { |b| b.frm.link(title: 'Award').click; b.loading }
+
 end
