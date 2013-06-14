@@ -10,6 +10,11 @@ class Award < KCAwards
   element(:award_type) { |b| b.frm.select(name: 'document.awardList[0].awardTypeCode') }
   element(:award_title) { |b| b.frm.text_field(name: 'document.awardList[0].title') }
   element(:sponsor_id) { |b| b.frm.text_field(name: 'document.awardList[0].sponsorCode') }
+  element(:project_start_date) { |b| b.frm.text_field(name: 'document.awardList[0].awardEffectiveDate') }
   element(:project_end_date) { |b| b.frm.text_field(name: 'document.awardList[0].awardAmountInfos[0].finalExpirationDate') }
-
+  element(:obligation_start_date) { |b| b.frm.text_field(name: 'document.awardList[0].awardAmountInfos[4].currentFundEffectiveDate') }
+  element(:obligation_end_date) { |b| b.frm.text_field(name: 'document.awardList[0].awardAmountInfos[4].obligationExpirationDate') }
+  element(:anticipated_amount) { |b| b.frm.text_field(name: 'document.awardList[0].awardAmountInfos[4].anticipatedTotalAmount') }
+  element(:obligated_amount) { |b| b.frm.text_field(name: 'document.awardList[0].awardAmountInfos[4].amountObligatedToDate') }
+  
 end

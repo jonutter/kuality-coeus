@@ -10,6 +10,7 @@ class KCAwards < BasePage
       buttons 'Award', 'Contacts', 'Commitments', 'Budget Versions',
               'Payment, Reports & Terms', 'Special Review', 'Custom Data',
               'Comments, Notes & Attachments', 'Award Actions', 'Medusa'
+      action(:time_and_money) { |b| b.frm.button(name: 'methodToCall.timeAndMoney').click; b.loading }
     end
 
   end

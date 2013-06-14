@@ -71,11 +71,39 @@ class BasePage < PageFactory
     end
 
     def budget_header_elements
-      action(:return_to_proposal) { |b| b.frm.button(name: 'methodToCall.returnToProposal').click }
+      action(:return_to_proposal) { |b| b.frm.button(name: 'methodToCall.returnToProposal').click; b.loading }
       buttons 'Budget Version', 'Parameters', 'Rates', 'Summary', 'Personnel', 'Non-Personnel',
               'Distribution & Income', 'Budget Actions'
       # Need the _tab suffix because of method collisions
       action(:modular_budget_tab) { |b| b.frm.button(value: 'Modular Budget').click }
+    end
+
+    def budget_versions_elements
+      element(:name) { |b| b.frm.text_field(name: 'newBudgetVersionName') }
+      action(:add) { |b| b.frm.button(name: 'methodToCall.addBudgetVersion').click }
+      action(:version) { |budget, p| p.budgetline(budget).td(class: 'tab-subhead', index: 2).text }
+      action(:direct_cost) { |budget, p| p.budgetline(budget).td(class: 'tab-subhead', index: 3).text }
+      action(:f_and_a) { |budget, p| p.budgetline(budget).td(class: 'tab-subhead', index: 4).text }
+      action(:total) { |budget, p| p.budgetline(budget).td(class: 'tab-subhead', index: 5).text }
+      # Called "budget status" to avoid method collision...
+      action(:budget_status) { |budget, p| p.budgetline(budget).select(title: 'Budget Status') }
+      action(:open) { |budget, p| p.budgetline(budget).button(alt: 'open budget').click }
+      action(:copy) { |budget, p| p.budgetline(budget).button(alt: 'copy budget').click }
+      action(:f_and_a_rate_type) { |budget, p| p.budget_table(budget)[0][3].text }
+      action(:cost_sharing) { |budget, p| p.budget_table(budget)[1][1].text }
+      action(:budget_last_updated) { |budget, p| p.budget_table(budget)[1][3].text }
+      action(:unrecovered_f_and_a) { |budget, p| p.budget_table(budget)[2][1].text }
+      action(:last_updated_by) { |budget, p| p.budget_table(budget)[2][3].text }
+      action(:comments) { |budget, p| p.budget_table(budget)[3][1].text }
+
+      private
+      element(:b_v_table) { |b| b.frm.table(id: 'budget-versions-table') }
+      action(:budgetline) { |budget, p| p.b_v_table.td(class: 'tab-subhead', text: budget).parent }
+      action(:budget_table) { |budget, p| p.b_v_table.tbodys[p.target_index(budget)].table }
+      action(:target_index) do |budget, p|
+        i=p.b_v_table.tbodys.find_index { |tbody| tbody.td(class: 'tab-subhead', index: 1).text==budget }
+        i+1
+      end
     end
 
     def special_review
@@ -90,6 +118,13 @@ class BasePage < PageFactory
       action(:add) { |b| b.frm.button(name: 'methodToCall.addSpecialReview.anchorSpecialReview').click }
 
       element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
+    end
+
+    def custom_data
+      element(:graduate_student_count) { |b| b.target_row('Graduate Student Count').text_field }
+      element(:billing_element) { |b| b.target_row('Billing Element').text_field }
+      element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
+      action(:target_row) { |text, b| b.frm.trs(class: 'datatable').find { |row| row.text.include? text } }
     end
 
     # Gathers all errors on the page and puts them in an array called "errors"
