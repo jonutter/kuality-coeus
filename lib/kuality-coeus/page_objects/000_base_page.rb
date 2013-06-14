@@ -127,6 +127,17 @@ class BasePage < PageFactory
       action(:target_row) { |text, b| b.frm.trs(class: 'datatable').find { |row| row.text.include? text } }
     end
 
+    def route_log
+      element(:route_log_iframe) { |b| b.frm.frame(name: 'routeLogIFrame') }
+      element(:actions_taken_table) { |b| b.route_log_iframe.div(id: 'tab-ActionsTaken-div').table }
+      value(:actions_taken) { |b| (b.actions_taken_table.rows.collect{ |row| row[1].text }.compact.uniq).reject{ |action| action==''} }
+      element(:pnd_act_req_table) { |b| b.route_log_iframe.div(id: 'tab-PendingActionRequests-div').table }
+      value(:action_requests) { |b| (b.pnd_act_req_table.rows.collect{ |row| row[1].text}).reject{ |action| action==''} }
+      action(:show_future_action_requests) { |b| b.route_log_iframe.h2(text: 'Future Action Requests').parent.parent.image(title: 'show').click }
+      element(:future_actions_table) { |b| b.route_log_iframe.div(id: 'tab-FutureActionRequests-div').table }
+      action(:requested_action_for) { |name, b| b.future_actions_table.tr(text: /#{name}/).td(index: 2).text }
+    end
+
     # Gathers all errors on the page and puts them in an array called "errors"
     def error_messages
       element(:errors) do |b|

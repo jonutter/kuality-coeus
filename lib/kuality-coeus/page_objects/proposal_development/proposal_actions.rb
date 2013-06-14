@@ -1,6 +1,7 @@
 class ProposalActions < ProposalDevelopmentDocument
 
   proposal_header_elements
+  route_log
 
   # Data Validation
   element(:data_validation_header) { |b| b.frm.h2(text: 'Data Validation') }
@@ -48,21 +49,6 @@ class ProposalActions < ProposalDevelopmentDocument
   element(:namespace_code) { |b| b.frm.text_field(name: 'newAdHocRouteWorkgroup.recipientNamespaceCode') }
   element(:name) { |b| b.frm.text_field(name: 'newAdHocRouteWorkgroup.recipientName') }
   action(:add_group_request) { |b| b.frm.button(name: 'methodToCall.insertAdHocRouteWorkgroup').click }
-
-  # Route Log
-  element(:route_log_iframe) { |b| b.frm.frame(name: 'routeLogIFrame') }
-  element(:actions_taken_table) { |b| b.route_log_iframe.div(id: 'tab-ActionsTaken-div').table }
-
-  value(:actions_taken) { |b| (b.actions_taken_table.rows.collect{ |row| row[1].text }.compact.uniq).reject{ |action| action==''} }
-
-  element(:pnd_act_req_table) { |b| b.route_log_iframe.div(id: 'tab-PendingActionRequests-div').table }
-
-  value(:action_requests) { |b| (b.pnd_act_req_table.rows.collect{ |row| row[1].text}).reject{ |action| action==''} }
-
-  action(:show_future_action_requests) { |b| b.route_log_iframe.h2(text: 'Future Action Requests').parent.parent.image(title: 'show').click }
-  element(:future_actions_table) { |b| b.route_log_iframe.div(id: 'tab-FutureActionRequests-div').table }
-
-  action(:requested_action_for) { |name, b| b.future_actions_table.tr(text: /#{name}/).td(index: 2).text }
   
   def validation_errors_and_warnings
     errs = []

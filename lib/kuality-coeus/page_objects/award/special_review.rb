@@ -1,4 +1,4 @@
-class SpecialReview < KCAwards
+class AwardsSpecialReview < KCAwards
 
   award_header_elements
   error_messages
