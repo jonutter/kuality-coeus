@@ -125,7 +125,6 @@ When(/^the status of the proposal document should change to (.*)$/) do |status|
   end
 end
 
-#Note: This step is validating that a user can go through with the action of approving a proposal
 When /^the (.*) user approves the proposal$/ do |role|
   get(role).sign_in
   visit(ActionList).filter
