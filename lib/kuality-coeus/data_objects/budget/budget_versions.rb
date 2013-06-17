@@ -182,7 +182,6 @@ class BudgetVersionsObject
   # Nav Aids...
 
   def navigate
-
     open_budget
     on(Proposal).budget_versions unless on_page?
   end
