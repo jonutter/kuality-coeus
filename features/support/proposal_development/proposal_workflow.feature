@@ -7,7 +7,7 @@ Feature: Proposal Workflows and Routing
   Background: KC user is logged in as admin
     Given   I'm logged in with admin
 
-  Scenario: An OSP Approver can acknowledge an FYI
+  Scenario: Notifications sent from proposal documents appear as FYIs for OSP Approver users
     Given I have users with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
     And   I initiate a proposal
@@ -17,7 +17,7 @@ Feature: Proposal Workflows and Routing
 #    Then  the proposal is in the OSPApprover user's action list
 #    And   the OSPApprover user can acknowledge the requested action list item
 
-  Scenario: Users with the OSP Approver role get submitted proposals routed to their action list
+  Scenario: Submitting a proposal routes the document to an OSP Approver user for approval
     Given I have a user with the system role: 'OSPApprover'
     And   I initiate a proposal
     And   I complete the proposal
@@ -36,7 +36,7 @@ Feature: Proposal Workflows and Routing
     And     the Unassigned user approves the proposal
     Then    the Proposal Creator user can approve the proposal document
 
-  Scenario Outline: An OSP Approver can reject a proposal that has been routed
+  Scenario Outline: An OSP Approver user can reject a proposal
     Given I have users with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
     And   I initiate a proposal
@@ -77,3 +77,14 @@ Feature: Proposal Workflows and Routing
     When  I recall the proposal for revisions
     Then  the proposal is in the Proposal Creator user's action list
     And   when the proposal is opened the status should be 'Revisions Requested'
+
+  Scenario: A Principal Investigator can approve a proposal when routed
+    And  I have users with the system roles of 'OSPApprover', 'Proposal Creator', and 'Unassigned'
+    And  I log in with the Proposal Creator user
+    And  I initiate a proposal
+    And  I add the Unassigned user as a Principal Investigator to the key personnel proposal roles
+    And  I complete the proposal
+    And  I submit the proposal
+    When the OSPApprover user approves the proposal
+    And  I log in with the Unassigned user
+    Then the Unassigned user can approve the proposal document

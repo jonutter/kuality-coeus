@@ -1,6 +1,6 @@
 Feature: Creating proposals
 
-  As a researcher I want to be able to create valid proposals, so that I can get funding for my research.
+  As a researcher I want to be able to create a proposal, so that I can get funding for my research.
 
   Background: Logged in as admin
       Given   I'm logged in with admin
