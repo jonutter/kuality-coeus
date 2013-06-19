@@ -22,33 +22,5 @@ class PaymentReportsTerms < KCAwards
   element(:end_date) { |b| b.frm.text_field(name: 'approvedForeignTravelBean.newApprovedForeignTravel.startDate') }
   element(:travel_amount) { |b| b.frm.text_field(name: 'approvedForeignTravelBean.newApprovedForeignTravel.amount') }
   action(:add_approved_travel) { |b| b.frm.button(name: 'methodToCall.addApprovedForeignTravel.anchorSpecialApproval:ApprovedForeignTravel').click; b.loading }
-  
-  # =======
-  private
-  # =======
-
-  class << self
-
-    def report_types *types
-      types.each_with_index do |type, index|
-        name=damballa(type)
-        tag=type.gsub(/([\s\/])/,'')
-        element("#{name}_report_type".to_sym) { |b| b.frm.select(name: "awardReportsBean.newAwardReportTerms[#{index}].reportCode") }
-        element("#{name}_frequency".to_sym) { |b| b.frm.select(name: "awardReportsBean.newAwardReportTerms[#{index}].frequencyCode") }
-        element("#{name}_frequency_base".to_sym) { |b| b.frm.select(name: "awardReportsBean.newAwardReportTerms[#{index}].frequencyBaseCode") }
-        action("add_#{name}_report_term".to_sym) { |b| b.(name: /anchorReportClasses:#{tag}/).click; b.loading }
-      end
-    end
-
-    def terms *terms
-      terms.each_with_index do |term, index|
-        name=damballa(term)
-        tag=type.gsub(/([\s\/])/,'')
-        element("#{name}_code".to_sym) { |b| b.frm.text_field(name: "sponsorTermFormHelper.newSponsorTerms[#{index}].sponsorTermCode") }
-        action("add_#{name}_term") { |b| b.frm.button(name: /anchorAwardTerms:#{tag}Terms/).click; b.loading }
-      end
-    end
-
-  end
 
 end
