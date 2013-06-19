@@ -1,8 +1,6 @@
 class TimeAndMoney < KCAwards
 
   award_header_elements
-  tab_buttons
-  global_buttons
   error_messages
 
   action(:return_to_award) { |b| b.frm.button(name: 'methodToCall.returnToAward').click; b.loading }
@@ -21,7 +19,12 @@ class TimeAndMoney < KCAwards
   element(:obligated_change) { |b| b.frm.text_field(name: 'transactionBean.newPendingTransaction.obligatedAmount') }
   element(:anticipated_change) { |b| b.frm.text_field(name: 'transactionBean.newPendingTransaction.anticipatedAmount') }
   action(:add_transaction) { |b| b.frm.button(name: /methodToCall.addTransaction.anchorTransactions\d+/).click; b.loading }
-  
+
+  action(:go_to) { |award_id, b| b.award_select.set(award_id); b.switch_award }
+
+  element(:award_select) { |b| b.frm.select(name: 'goToAwardNumber') }
+  action(:switch_award) { |b| b.frm.button(name: 'methodToCall.switchAward').click; b.loading }
+
   # ==========
   private
   # ==========
