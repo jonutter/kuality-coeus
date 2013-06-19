@@ -3,7 +3,7 @@ class TimeAndMoneyObject
   include Foundry
   include DataFactory
 
-  attr_accessor :description, :awards
+  attr_accessor :description
 
   def initialize(browser, opts={})
     @browser = browser
