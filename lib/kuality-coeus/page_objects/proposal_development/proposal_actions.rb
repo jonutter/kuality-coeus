@@ -2,6 +2,7 @@ class ProposalActions < ProposalDevelopmentDocument
 
   proposal_header_elements
   route_log
+  tiny_buttons
 
   # Data Validation
   element(:data_validation_header) { |b| b.frm.h2(text: 'Data Validation') }
@@ -61,5 +62,8 @@ class ProposalActions < ProposalDevelopmentDocument
   # =======
 
   element(:validation_err_war_fields) { |b| b.frm.tds(width: '94%') }
+
+  #Notifications: People look up
+  action(:employee_search) { |b| b.frm.button(name: /org.kuali.kra.bo.KcPerson/).click }
 
 end

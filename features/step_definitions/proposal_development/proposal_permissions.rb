@@ -7,11 +7,11 @@ When /^I visit the proposal's (.*) page$/ do |page|
   on(Proposal).send(snake_case(page))
 end
 
-Then /^(.*) is listed as (a|an) (.*) for the proposal$/ do |username, x, role|
+Then /^the (.*) user is listed as (a|an) (.*) in the proposal permissions$/ do |username, x, role|
   on(Permissions).assigned_role(get(username).user_name).should include role
 end
 
-When /^I assign the (.*) user as (a|an) (.*) to the proposal permissions$/ do |system_role, x, role|
+When /^I assign the (.*) user as (a|an) (.*) in the proposal permissions$/ do |system_role, x, role|
   set(system_role, (make UserObject, role: system_role))
   @proposal.permissions.send(snake_case(role+'s')) << get(system_role).user_name
   @proposal.permissions.assign
@@ -121,7 +121,7 @@ Then /^I should see an error message that says not to select other roles alongsi
    on(Roles).errors.should include 'Do not select other roles when Aggregator is selected.'
 end
 
-When /^I attempt to add an additional role to the (.*) user$/ do |system_role|
+When /^I attempt to add an additional proposal role to the (.*) user$/ do |system_role|
   role = [:viewer, :budget_creator, :narrative_writer, :aggregator].sample
   on(Permissions).edit_role.(get(system_role).user_name)
   on Roles do |page|
@@ -169,4 +169,17 @@ end
 
 Then(/^I can submit the proposal document$/) do
   @proposal.submit
+end
+
+When(/^I send a notification to the following users: (.*)$/) do |roles|
+  on(CustomData).proposal_actions
+  on ProposalActions do |page|
+    page.send_notification
+    page.employee_search
+  end
+  on PersonLookup
+end
+
+When(/^the OSPApprover user can acknowledge the requested action list item$/) do
+  pending
 end

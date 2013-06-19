@@ -74,3 +74,11 @@ When /^I save and close the proposal document$/ do
   @proposal.close
   on(Confirmation).yes
 end
+
+And /^I submit a new proposal$/ do
+  @proposal = create ProposalDevelopmentObject
+  @proposal.add_principal_investigator
+  @proposal.set_valid_credit_splits
+  @proposal.add_custom_data
+  @proposal.submit
+end

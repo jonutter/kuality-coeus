@@ -50,18 +50,81 @@ Then /^there should be an error that says the (.*) user already holds investigat
 end
 
 #Note: This step exists to simply validate whether or not the approve option is present
-Then(/^the (.*) user can approve the proposal document$/) do |role|
+Then(/^the (.*) user can (.*) the proposal document$/) do |role, action|
   get(role).sign_in
   visit(ActionList).filter
   on ActionListFilter do |page|
     page.document_title.set @proposal.project_title
     page.filter
   end
-  on(ActionList).open_item(@proposal.document_id)
-  on(ProposalSummary).approve_button.should be_present
+  case action
+    when 'Approve'
+      on(ActionList).open_item(@proposal.document_id)
+      on(ProposalSummary).approve
+      on(Confirmation).yes
+      visit(Researcher)
+
+    when 'Disapprove'
+      on(ActionList).open_item(@proposal.document_id)
+      on(ProposalSummary).disapprove
+      on Confirmation do |page|
+        page.reason.fit random_alphanums
+        page.yes
+      end
+      visit(Researcher)
+
+    when 'Reject'
+      on(ActionList).open_item(@proposal.document_id)
+      on(ProposalSummary).proposal_actions
+      on ProposalActions do |page|
+        page.reject
+        page.rejection_reason.fit random_alphanums
+        page.yes
+      end
+      visit(Researcher)
+  end
 end
 
-#Note: This step is validating that a user can go through with the action of approving a proposal
+When(/^the status of the proposal document should change to (.*)$/) do |status|
+  case status
+    when 'Approval Pending'
+      visit ActionList do |page|
+        page.outbox
+        page.filter
+      end
+      on ActionListFilter do |page|
+        page.document_title.set @proposal.project_title
+        page.filter
+      end
+      on(ActionList).open_item(@proposal.document_id)
+      @proposal.status = 'Approval Pending'
+
+    when 'Disapproved'
+      visit ActionList do |page|
+        page.outbox
+        page.filter
+      end
+      on ActionListFilter do |page|
+        page.document_title.set @proposal.project_title
+        page.filter
+      end
+      on(ActionList).open_item(@proposal.document_id)
+      @proposal.status = 'Disapproved'
+
+    when 'Revisions Requested'
+      visit ActionList do |page|
+        page.outbox
+        page.filter
+      end
+      on ActionListFilter do |page|
+        page.document_title.set @proposal.project_title
+        page.filter
+      end
+      on(ActionList).open_item(@proposal.document_id)
+      @proposal.status = 'Revisions Requested'
+  end
+end
+
 When /^the (.*) user approves the proposal$/ do |role|
   get(role).sign_in
   visit(ActionList).filter
@@ -72,6 +135,5 @@ When /^the (.*) user approves the proposal$/ do |role|
   on(ActionList).open_item(@proposal.document_id)
   on(ProposalSummary).approve
   on(Confirmation).yes
-  #TODO: Revisit with Abe for alternative idea to get back to the login page
   visit(Login)
 end
