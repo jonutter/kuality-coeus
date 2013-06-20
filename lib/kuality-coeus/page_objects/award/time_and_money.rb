@@ -3,7 +3,8 @@ class TimeAndMoney < KCAwards
   award_header_elements
   error_messages
 
-  action(:return_to_award) { |b| b.frm.button(name: 'methodToCall.returnToAward').click; b.loading }
+  action(:return_to_award) { |b| b.return_button.click; b.loading }
+  element(:return_button) { |b| b.frm.button(name: 'methodToCall.returnToAward') }
 
   element(:description) { |b| b.frm.text_field(name: 'document.documentHeader.documentDescription') }
   element(:transaction_type_code) { |b| b.frm.select(name: 'document.awardAmountTransactions[0].transactionTypeCode') }
@@ -14,6 +15,7 @@ class TimeAndMoney < KCAwards
   action(:obligated) { |award_id, b| b.hierarchy_table.row(text: /#{award_id}/).text_field(name: /amountObligatedToDate/) }
   action(:anticipated) { |award_id, b| b.hierarchy_table.row(text: /#{award_id}/).text_field(name: /anticipatedTotalAmount/) }
 
+  element(:transaction_comment) { |b| b.frm.text_field(name: 'transactionBean.newPendingTransaction.comments') }
   element(:source_award) { |b| b.frm.select(name: 'transactionBean.newPendingTransaction.sourceAwardNumber') }
   element(:destination_award) { |b| b.frm.select(name: 'transactionBean.newPendingTransaction.destinationAwardNumber') }
   element(:obligated_change) { |b| b.frm.text_field(name: 'transactionBean.newPendingTransaction.obligatedAmount') }

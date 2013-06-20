@@ -3,6 +3,8 @@ class Award < KCAwards
   award_header_elements
 
   element(:description) { |b| b.frm.text_field(name: 'document.documentHeader.documentDescription') }
+  element(:institutional_proposal_number) { |b| b.frm.text_field(name: 'fundingProposalBean.newFundingProposal.proposalNumber') }
+  action(:add_proposal) { |b| b.frm.button(name: 'methodToCall.addFundingProposal.anchorFundingProposals').click; b.loading }
   element(:transaction_type) { |b| b.frm.select(name: 'document.awardList[0].awardTransactionTypeCode') }
   element(:award_status) { |b| b.frm.select(name: 'document.awardList[0].statusCode') }
   element(:lead_unit_id) { |b| b.frm.text_field(name: 'document.awardList[0].unitNumber') }

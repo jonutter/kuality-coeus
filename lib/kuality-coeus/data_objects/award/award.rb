@@ -5,11 +5,11 @@ class AwardObject
   include Navigation
   include DateFactory
 
-  attr_accessor :description, :transaction_type, :award_id, :funding_proposals, :award_status,
+  attr_accessor :description, :transaction_type, :award_id, :funding_proposal, :award_status,
                 :award_title, :lead_unit, :activity_type, :award_type, :sponsor_id,
                 :project_start_date, :project_end_date, :obligation_start_date,
                 :obligation_end_date, :anticipated_amount, :obligated_amount, :document_id,
-                :creation_date
+                :creation_date, :transactions
 
   def initialize(browser, opts={})
     @browser = browser
@@ -22,7 +22,8 @@ class AwardObject
       activity_type:      '::random::',
       award_type:         '::random::',
       project_start_date: right_now,
-      project_end_date:   in_a_year
+      project_end_date:   in_a_year,
+      transactions:       TransactionCollection.new
     }
 
     set_options(defaults.merge(opts))
@@ -41,12 +42,31 @@ class AwardObject
       @document_id = create.header_document_id
       @award_id = create.header_award_id
     end
+    add_funding_proposal if @funding_proposal
   end
 
+  def add_funding_proposal # TODO: Add support for multiple funding proposals and merge types.
+    on Award do |page|
+      page.expand_all
+      page.institutional_proposal_number.set @funding_proposal
+      page.add_proposal
+    end
+  end
+
+  def add_transaction opts={}
+    defaults={award_id: @award_id}
+    trans = make AwardTransactionObject, defaults.merge(opts)
+    trans.create
+    @transactions << trans
+  end
+
+  # ========
   private
+  # ========
 
   def navigate
     doc_search unless on_award?
+    on(TimeAndMoney).return_to_award if on_tm?
   end
 
   def on_award?
@@ -55,6 +75,10 @@ class AwardObject
     else
       false
     end
+  end
+
+  def on_tm?
+    on(Award).t_m_button.exist? ? false : true
   end
 
 end
