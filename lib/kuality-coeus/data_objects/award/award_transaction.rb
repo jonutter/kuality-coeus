@@ -3,6 +3,7 @@ class AwardTransactionObject
   include Foundry
   include DataFactory
   include Navigation
+  include StringFactory
 
   attr_accessor :award_id, :comment, :source_award, :destination_award, :obligated_change,
                 :anticipated_change
@@ -13,8 +14,8 @@ class AwardTransactionObject
     defaults = {
       comment: random_string
     }
-    requires :award_id
     set_options(defaults.merge(opts))
+    requires :award_id
   end
 
   def create
@@ -37,7 +38,7 @@ class AwardTransactionObject
     on(Award).time_and_money unless on_tm?
   end
 
-  def on_tm?
+  def on_award?
     if on(Award).headerinfo_table.exist?
       on(Award).header_award_id==@award_id ? true : false
     else

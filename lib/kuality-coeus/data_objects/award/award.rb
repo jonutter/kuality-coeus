@@ -4,6 +4,7 @@ class AwardObject
   include DataFactory
   include Navigation
   include DateFactory
+  include StringFactory
 
   attr_accessor :description, :transaction_type, :award_id, :funding_proposal, :award_status,
                 :award_title, :lead_unit, :activity_type, :award_type, :sponsor_id,
@@ -15,14 +16,20 @@ class AwardObject
     @browser = browser
 
     defaults = {
-      description:        random_alphanums,
-      transaction_type:   '::random::',
-      award_status:       '::random::',
-      award_title:        random_alphanums,
-      activity_type:      '::random::',
-      award_type:         '::random::',
-      project_start_date: right_now,
-      project_end_date:   in_a_year,
+      description:           random_alphanums,
+      transaction_type:      '::random::',
+      award_status:          '::random::',
+      award_title:           random_alphanums,
+      activity_type:         '::random::',
+      award_type:            '::random::',
+      project_start_date:    right_now, # Note how this is the date hash, for increased flexibility of validations or tests, if necessary
+      project_end_date:      in_a_year, # Same goes for this variable. It's the entire date hash
+      sponsor_id:            '::random::',
+      lead_unit:             '::random::',
+      obligation_start_date: right_now, # Date hash, again
+      obligation_end_date:   in_a_year, # and again
+      anticipated_amount:    '1000000',
+      obligated_amount:      '1000000',
       transactions:       TransactionCollection.new
     }
 
@@ -35,9 +42,13 @@ class AwardObject
     on Award do |create|
       create.expand_all
       fill_out create, :description, :transaction_type, :award_status, :award_title,
-               :activity_type, :award_type
-      create.project_start_date.fit project_start_date[:date_w_slashes]
-      create.project_end_date.fit project_end_date[:date_w_slashes]
+               :activity_type, :award_type, :obligated_amount, :anticipated_amount
+      create.project_start_date.fit @project_start_date[:date_w_slashes]
+      create.project_end_date.fit @project_end_date[:date_w_slashes]
+      create.obligation_start_date.fit @obligation_start_date[:date_w_slashes]
+      create.obligation_end_date.fit @obligation_end_date[:date_w_slashes]
+      set_sponsor_id
+      set_lead_unit
       create.save
       @document_id = create.header_document_id
       @award_id = create.header_award_id
@@ -55,7 +66,8 @@ class AwardObject
 
   def add_transaction opts={}
     defaults={award_id: @award_id}
-    trans = make AwardTransactionObject, defaults.merge(opts)
+    options = defaults.merge(opts)
+    trans = make AwardTransactionObject, options
     trans.create
     @transactions << trans
   end
@@ -63,6 +75,36 @@ class AwardObject
   # ========
   private
   # ========
+
+  def set_sponsor_id
+    if @sponsor_id=='::random::'
+      on(Award).lookup_sponsor
+      on SponsorLookup do |look|
+        look.sponsor_type_code.pick! '::random::'
+        look.search
+        look.page_links[rand(look.page_links.length)].click if look.page_links.size > 0
+        look.return_random
+      end
+    else
+      on(Award).sponsor_id.fit @sponsor_id
+    end
+  end
+
+  def set_lead_unit
+    lu_edit = on(Award).lead_unit_id.present?
+    randomize = @lead_unit=='::random::'
+    if lu_edit && randomize
+      on(Award).lookup_lead_unit
+      on UnitLookup do |lk|
+        lk.search
+        lk.return_random
+      end
+    elsif lu_edit && !randomize
+      on(Award).lead_unit_id.fit @lead_unit
+    else
+      @lead_unit=on(Award).lead_unit_ro
+    end
+  end
 
   def navigate
     doc_search unless on_award?
