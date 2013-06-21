@@ -21,7 +21,7 @@ class CustomDataObject
 
   def create
     navigate
-    on CustomData do |create|
+    on PDCustomData do |create|
       create.expand_all
       fill_out create, :graduate_student_count, :billing_element
       create.save
@@ -45,7 +45,7 @@ class CustomDataObject
     # firefox elements gets fixed. This is
     # still broken in selenium-webdriver 2.29
     begin
-      on(CustomData).billing_element.exist?
+      on(PDCustomData).billing_element.exist?
     rescue
       false
     end

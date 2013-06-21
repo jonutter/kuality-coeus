@@ -1,4 +1,4 @@
-class Contacts < KCAwards
+class AwardContacts < KCAwards
 
   award_header_elements
 
