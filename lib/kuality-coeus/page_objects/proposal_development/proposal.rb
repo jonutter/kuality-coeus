@@ -1,7 +1,6 @@
 class Proposal < ProposalDevelopmentDocument
 
   proposal_header_elements
-  error_messages
 
   value(:feedback) { |b| b.frm.div(class: 'left-errmsg').text }
 

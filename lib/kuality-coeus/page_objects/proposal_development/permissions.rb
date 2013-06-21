@@ -1,7 +1,6 @@
 class Permissions < ProposalDevelopmentDocument
 
   proposal_header_elements
-  error_messages
 
   action(:assigned_to_role) { |role, b| b.frm.td(id: role).text }
 
