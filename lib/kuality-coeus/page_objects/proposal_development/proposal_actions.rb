@@ -65,5 +65,4 @@ class ProposalActions < ProposalDevelopmentDocument
 
   #Notifications: People look up
   action(:employee_search) { |b| b.frm.button(name: /org.kuali.kra.bo.KcPerson/).click }
-
 end
