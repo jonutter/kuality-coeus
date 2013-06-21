@@ -36,13 +36,15 @@ class BasePage < PageFactory
 
     def global_buttons
       glbl 'save', 'Reject', 'blanket approve', 'close', 'cancel', 'reload',
-           'Submit To Sponsor', 'Send Notification', 'Delete Proposal',
+           'Submit To Sponsor', 'Delete Proposal', 'approve', 'disapprove',
            'Generate All Periods', 'Calculate All Periods', 'Default Periods',
-           'Calculate Current Period', 'submit', 'approve', 'disapprove'
+           'Calculate Current Period', 'submit', 'Send Notification'
       # Explicitly defining the "recall" button to keep the method name at "recall" instead of "recall_current_document"...
       element(:recall_button) { |b| b.frm.button(class: 'globalbuttons', title: 'Recall current document') }
       action(:recall) { |b| b.recall_button.click; b.loading }
       action(:delete_selected) { |b| b.frm.button(class: 'globalbuttons', name: 'methodToCall.deletePerson').click; b.loading }
+      element(:send_button) { |b| b.frm.button(class: 'globalbuttons', name: 'methodToCall.sendNotification', title: 'send') }
+      action(:send_fyi) { |b| b.send_button.click; b.loading }
     end
 
     def tab_buttons
@@ -55,6 +57,7 @@ class BasePage < PageFactory
       action(:cancel_button) { |b| b.frm.link(title: 'cancel').click; b.loading }
       action(:yes) { |b| b.frm.button(name: 'methodToCall.rejectYes').click; b.loading }
       action(:no) {|b| b.frm.button(name: 'methodToCall.rejectNo').click; b.loading }
+      action(:add) { |b| b.frm.button(name: 'methodToCall.addNotificationRecipient.anchor').click; b.loading }
     end
 
     def search_results_table

@@ -6,16 +6,16 @@ Feature: Proposal Workflows and Routing
 
   Background: KC user is logged in as admin
     Given   I'm logged in with admin
-
+  @test
   Scenario: Notifications sent from proposal documents appear as FYIs for OSP Approver users
     Given I have users with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
     And   I initiate a proposal
     And   I complete the proposal
     When  I send a notification to the following users: OSPApprover
-#    And   I log in with the OSPApprover user
-#    Then  the proposal is in the OSPApprover user's action list
-#    And   the OSPApprover user can acknowledge the requested action list item
+    And   I log in with the OSPApprover user
+    Then  the proposal is in the OSPApprover user's action list as an FYI
+    And   the OSPApprover user can Acknowledge the requested action list item
 
   Scenario: Submitting a proposal routes the document to an OSP Approver user for approval
     Given I have a user with the system role: 'OSPApprover'

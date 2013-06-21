@@ -36,7 +36,7 @@ class KCAwards < BasePage
     def terms *terms
       terms.each_with_index do |term, index|
         name=damballa(term)
-        tag=type.gsub(/([\s\/])/,'')
+        tag=term.gsub(/([\s\/])/,'')
         element("#{name}_code".to_sym) { |b| b.frm.text_field(name: "sponsorTermFormHelper.newSponsorTerms[#{index}].sponsorTermCode") }
         action("add_#{name}_term") { |b| b.frm.button(name: /anchorAwardTerms:#{tag}Terms/).click; b.loading }
       end

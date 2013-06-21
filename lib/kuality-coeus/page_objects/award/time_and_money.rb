@@ -1,8 +1,6 @@
 class TimeAndMoney < KCAwards
 
   award_header_elements
-  tab_buttons
-  global_buttons
   error_messages
 
   action(:return_to_award) { |b| b.frm.button(name: 'methodToCall.returnToAward').click; b.loading }
