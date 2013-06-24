@@ -1,7 +1,6 @@
 class AbstractsAndAttachments < ProposalDevelopmentDocument
 
   proposal_header_elements
-  error_messages
 
   # Proposal Attachments
   element(:proposal_attachment_type) { |b| b.frm.select(id: 'newNarrative.narrativeTypeCode') }

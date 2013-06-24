@@ -3,14 +3,10 @@ class ProposalActions < ProposalDevelopmentDocument
   proposal_header_elements
   route_log
   tiny_buttons
+  validation_elements
 
   # Data Validation
   element(:data_validation_header) { |b| b.frm.h2(text: 'Data Validation') }
-
-  element(:validation_button) { |b| b.frm.button(name: 'methodToCall.activate') }
-  action(:show_data_validation) { |b| b.frm.button(id: 'tab-DataValidation-imageToggle').click; b.validation_button.wait_until_present }
-  action(:turn_on_validation) { |b| b.validation_button.click; b.key_personnel_button.wait_until_present }
-
   element(:key_personnel_errors_button) { |b| b.frm.button(name: 'methodToCall.toggleTab.tabKeyPersonnelInformationValidationErrors') }
   action(:show_key_personnel_errors) { |b| b.key_personnel_button.click }
   element(:key_personnel_errors) { |b| b.frm.tbody(id: 'tab-KeyPersonnelInformationValidationErrors-div').tds(width: '94%') }
@@ -50,19 +46,12 @@ class ProposalActions < ProposalDevelopmentDocument
   element(:namespace_code) { |b| b.frm.text_field(name: 'newAdHocRouteWorkgroup.recipientNamespaceCode') }
   element(:name) { |b| b.frm.text_field(name: 'newAdHocRouteWorkgroup.recipientName') }
   action(:add_group_request) { |b| b.frm.button(name: 'methodToCall.insertAdHocRouteWorkgroup').click }
-  
-  def validation_errors_and_warnings
-    errs = []
-      validation_err_war_fields.each { |field| errs << field.html[/(?<=>).*(?=<)/] }
-    errs
-  end
 
   # =======
   private
   # =======
 
-  element(:validation_err_war_fields) { |b| b.frm.tds(width: '94%') }
-
   #Notifications: People look up
   action(:employee_search) { |b| b.frm.button(name: /org.kuali.kra.bo.KcPerson/).click }
+
 end

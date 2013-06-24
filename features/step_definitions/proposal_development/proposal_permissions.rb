@@ -49,7 +49,7 @@ And /^their proposal permissions allow them to (.*)$/ do |permissions|
         page.save_button.should be_present
         page.custom_data
       end
-      on CustomData do |page|
+      on PDCustomData do |page|
         page.save_button.should be_present
         page.key_personnel
       end
@@ -87,7 +87,7 @@ And /^their proposal permissions allow them to (.*)$/ do |permissions|
         page.save_button.should_not be_present
         page.custom_data
       end
-      on CustomData do |page|
+      on PDCustomData do |page|
         page.save_button.should_not be_present
         page.key_personnel
       end

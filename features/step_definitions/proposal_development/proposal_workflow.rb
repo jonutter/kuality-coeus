@@ -1,7 +1,7 @@
 When(/^I send a notification to the following users: (.*)$/) do |roles|
   roles = roles.split(', ')
 
-  on(CustomData).proposal_actions
+  on(PDCustomData).proposal_actions
   roles.each do |role|
     user_name = get(role).user_name
 

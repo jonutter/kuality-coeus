@@ -1,7 +1,6 @@
 class BudgetVersions < ProposalDevelopmentDocument
 
   proposal_header_elements
-  error_messages
   budget_versions_elements
 
   element(:name_of_copy) { |b| b.frm.text_field(name: /budgetVersionOverview.documentDescription/) }
