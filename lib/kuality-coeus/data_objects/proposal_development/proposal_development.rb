@@ -58,8 +58,6 @@ class ProposalDevelopmentObject
       set_lead_unit
       doc.save
       @proposal_number=doc.proposal_number
-      # remove this debug code:
-      puts @proposal_number
       @permissions = make PermissionsObject, document_id: @document_id, aggregators: [@initiator]
     end
   end
