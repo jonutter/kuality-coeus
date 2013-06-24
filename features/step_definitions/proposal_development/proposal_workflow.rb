@@ -20,7 +20,6 @@ When(/^I send a notification to the following users: (.*)$/) do |roles|
 end
 
 When /^I recall the proposal for revisions$/ do
-  #TODO: Please fix the recall method
   @proposal.recall
   on Confirmation do |page|
     page.recall_reason.fit random_alphanums
@@ -51,22 +50,23 @@ Then(/^I can submit the proposal document$/) do
   @proposal.submit
 end
 
-Then(/^the proposal is in the OSPApprover user's action list as an (.*)$/) do |action_requested|
+Then(/^the proposal is in the OSPApprover user's action list as an (.*)$/) do |action|
   visit ActionList do |page|
     page.last
     x = 0
-    while x < 10 && page.item_row(@proposal.document_id.to_i + 1).exists?
+    until x == 3 && page.item_row(@proposal.document_id.to_i + 1).exists?
       sleep 1
       page.refresh
       page.last
       x += 1
     end
-    page.action_requested(@proposal.document_id.to_i + 1).should == action_requested
+    page.action_requested(@proposal.document_id.to_i + 1).should == action
   end
 end
 
 Then /^the OSPApprover user can Acknowledge the requested action list item$/ do
   on ActionList do |page|
-    page.actions.(@proposal.document_id.to_i + 1).select 'FYI'
+    page.action(@proposal.document_id.to_i + 1).select "FYI"
+    page.take_actions
   end
 end
