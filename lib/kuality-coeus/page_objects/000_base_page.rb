@@ -169,6 +169,18 @@ class BasePage < PageFactory
       element(:error_messages_div) { |b| b.frm.div(class: 'error') }
     end
 
+    def validation_elements
+      element(:validation_button) { |b| b.frm.button(name: 'methodToCall.activate') }
+      action(:show_data_validation) { |b| b.frm.button(id: 'tab-DataValidation-imageToggle').click; b.validation_button.wait_until_present }
+      action(:turn_on_validation) { |b| b.validation_button.click; b.special_review_button.wait_until_present }
+      def validation_errors_and_warnings
+        errs = []
+        validation_err_war_fields.each { |field| errs << field.html[/(?<=>).*(?=<)/] }
+        errs
+      end
+      element(:validation_err_war_fields) { |b| b.frm.tds(width: '94%') }
+    end
+
     def links(*links_text)
       links_text.each { |link| elementate(:link, link) }
     end
@@ -178,6 +190,7 @@ class BasePage < PageFactory
     end
 
     private
+
     # A helper method that converts the passed string into snake case. See the StringFactory
     # module for more info.
     #
