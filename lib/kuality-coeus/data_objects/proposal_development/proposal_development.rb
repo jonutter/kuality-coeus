@@ -143,7 +143,8 @@ class ProposalDevelopmentObject
          activity_type: @activity_type,
          project_title: @project_title,
          project_personnel: Marshal::load(Marshal.dump(@key_personnel)),
-         special_review: Marshal::load(Marshal.dump(@special_review))
+         special_review: Marshal::load(Marshal.dump(@special_review)),
+         custom_data: Marshal::load(Marshal.dump(@custom_data))
          # TODO: Add more here as needed...
   end
 
