@@ -6,7 +6,7 @@ class ProposalDevelopmentObject
   include DateFactory
   include Navigation
   
-  attr_accessor :proposal_type, :lead_unit, :activity_type, :project_title,
+  attr_accessor :proposal_type, :lead_unit, :activity_type, :project_title, :proposal_number,
                 :sponsor_code, :sponsor_type_code, :project_start_date, :project_end_date, :document_id,
                 :status, :initiator, :created, :sponsor_deadline_date, :key_personnel,
                 :special_review, :budget_versions, :permissions, :s2s_questionnaire,
@@ -23,7 +23,7 @@ class ProposalDevelopmentObject
       project_title:         random_alphanums,
       sponsor_code:          '::random::',
       sponsor_type_code:     '::random::',
-      project_start_date:    next_week[:date_w_slashes],
+      project_start_date:    next_week[:date_w_slashes], # TODO: Think about using the date object here, and not the string
       project_end_date:      next_year[:date_w_slashes],
       sponsor_deadline_date: next_week[:date_w_slashes],
       key_personnel:         KeyPersonnelCollection.new,
@@ -57,6 +57,9 @@ class ProposalDevelopmentObject
       set_sponsor_code
       set_lead_unit
       doc.save
+      @proposal_number=doc.proposal_number
+      # remove this debug code:
+      puts @proposal_number
       @permissions = make PermissionsObject, document_id: @document_id, aggregators: [@initiator]
     end
   end
