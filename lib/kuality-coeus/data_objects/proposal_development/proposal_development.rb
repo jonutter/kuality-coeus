@@ -136,6 +136,17 @@ class ProposalDevelopmentObject
     @custom_data.create
   end
 
+  def make_institutional_proposal
+    # TODO: Write any preparatory web site functional steps and page scraping code
+    ip = make InstitutionalProposalObject, dev_proposal_number: @proposal_number,
+         proposal_type: @proposal_type,
+         activity_type: @activity_type,
+         project_title: @project_title,
+         project_personnel: Marshal::load(Marshal.dump(@key_personnel)),
+         special_review: Marshal::load(Marshal.dump(@special_review))
+         # TODO: Add more here as needed...
+  end
+
   def delete
     open_proposal
     on(Proposal).proposal_actions
