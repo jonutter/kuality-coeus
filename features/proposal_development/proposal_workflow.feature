@@ -19,7 +19,7 @@ Feature: Proposal Workflows and Routing
     And  I log in with the Unassigned user
     Then the Unassigned user can approve the proposal document
 
-  Scenario: An Aggregator (e.g. Proposal Creator) receives their routed proposal back in their action list and approves it
+  Scenario: An Aggregator receives their routed proposal back in their action list and approves it
     And     I have users with the following roles: OSPApprover, Proposal Creator, Unassigned
     And     I log in with the Proposal Creator user
     And     I initiate a proposal
@@ -31,7 +31,7 @@ Feature: Proposal Workflows and Routing
     And     the Unassigned user approves the proposal
     Then    the Proposal Creator user can approve the proposal document
 
-  Scenario Outline: An OSP Approver takes an action against a routed proposal and the proposal's status is changed
+  Scenario Outline: An OSP Approver takes an action against a routed development proposal its status is changed
     Given I have users with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
     And   I initiate a proposal
@@ -46,19 +46,19 @@ Feature: Proposal Workflows and Routing
     | Approve      | Approval Pending    |
     | Disapprove   | Disapproved         |
     | Reject       | Revisions Requested |
-
-  Scenario: An Aggregator can submit a proposal once it has been completed
+  @test
+  Scenario: An Aggregator submits a proposal and the status is changed
     Given I have a user with the system role: 'Proposal Creator'
     And   I initiate a proposal
     And   I complete the proposal
     Then  I can submit the proposal document
     And   the proposal status should be Approval Pending
 
-  Scenario An OSP Approver takes the 'Submit to sponsor' action against a routed proposal and it's status changes
-  Scenario An OSP Approver takes the 'Submit to sponsor' action against a routed proposal and an institutional proposal is created
+  #Scenario An OSP Approver takes the 'Submit to sponsor' action against a routed proposal and it's status changes
+  #Scenario An OSP Approver takes the 'Submit to sponsor' action against a routed proposal and an institutional proposal is created
 
   # Proposal Recalls -- A Proposal development document is taken out of routing for revisions/cancellation.
-  Scenario: A proposal Aggregator recalls a proposal for cancellation
+  Scenario: A proposal Aggregator recalls a proposal for cancellation and the status is changed
     Given I have a user with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
     And   I initiate a proposal
@@ -67,7 +67,7 @@ Feature: Proposal Workflows and Routing
     When  I recall and cancel the proposal
     Then  the proposal status should be 'Document Error Occurred'
 
-  Scenario: A proposal Aggregator recalls a proposal to make revisions
+  Scenario: A development proposal Aggregator recalls a proposal to make revisions and the status is changed
     Given I have a user with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
     And   I initiate a proposal
@@ -76,6 +76,8 @@ Feature: Proposal Workflows and Routing
     When  I recall the proposal for revisions
     Then  the proposal is in the Proposal Creator user's action list
     And   when the proposal is opened the status should be 'Revisions Requested'
+
+  Scenario: A development proposal
 
   # Notifications -- Notifications are sent are FYIs to select users.
   Scenario: Notifications sent from proposal documents appear as FYIs for OSP Approver users
