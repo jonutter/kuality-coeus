@@ -24,7 +24,6 @@ World Foundry
 World StringFactory
 World DateFactory
 World Utilities
-World Verification
 
 kuality = Kuality.new @config[:browser]
 
