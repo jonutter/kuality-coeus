@@ -1,3 +1,5 @@
+# TODO: Examine whether or not this entire module belongs here or in Cucumber's support folder.
+# I don't believe that any of these methods are used at the Data Object level. They are all at the step definition level.
 module Utilities
 
   def get(item)
