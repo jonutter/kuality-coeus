@@ -1,5 +1,7 @@
 module Navigation
 
+  include Utilities
+
   def open_proposal
     doc_search unless on_proposal?
   end
