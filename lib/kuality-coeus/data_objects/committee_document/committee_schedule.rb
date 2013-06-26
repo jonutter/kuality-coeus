@@ -2,7 +2,6 @@ class CommitteeScheduleObject
 
   include Foundry
   include DataFactory
-  include StringFactory
 
   attr_accessor :document_id
 

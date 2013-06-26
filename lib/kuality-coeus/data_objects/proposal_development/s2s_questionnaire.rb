@@ -116,7 +116,7 @@ class S2SQuestionnaireObject
   # Nav Aids...
 
   def navigate
-    open_document unless on_document?
+    open_document 'Proposal Development Document'
     on(Proposal).questions unless on_page?
   end
 

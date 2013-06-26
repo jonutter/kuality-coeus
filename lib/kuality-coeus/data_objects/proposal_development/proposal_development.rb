@@ -200,9 +200,14 @@ class ProposalDevelopmentObject
   private
   # =======
 
+  def open_proposal
+    open_document 'Proposal Development Document'
+  end
+
   def merge_settings(opts)
     defaults = {
-        document_id: @document_id
+        document_id: @document_id,
+        doc_type: 'Proposal Development Document'
     }
     opts.merge!(defaults)
   end

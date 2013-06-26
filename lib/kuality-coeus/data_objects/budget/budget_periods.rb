@@ -72,7 +72,7 @@ class BudgetPeriodObject
   # Nav Aids
 
   def navigate
-    open_budget
+    open_document 'Budget Document'
     unless on_page? && on_budget?
       on(Proposal).budget_versions
       on(BudgetVersions).open @budget_name

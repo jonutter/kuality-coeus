@@ -7,7 +7,7 @@ class SpecialReviewObject
 
   attr_accessor :type, :approval_status, :document_id, :protocol_number,
                 :application_date, :approval_date, :expiration_date,
-                :exemption_number
+                :exemption_number, :doc_type
 
   def initialize(browser, opts={})
     @browser = browser
@@ -18,7 +18,7 @@ class SpecialReviewObject
     }
 
     set_options(defaults.merge(opts))
-    requires :document_id
+    requires :document_id, :doc_type
   end
 
   def create
@@ -52,7 +52,7 @@ class SpecialReviewObject
   # =======
 
   def navigate
-    open_document unless on_document?
+    open_document @doc_type
     on(Proposal).special_review unless on_page?
   end
 

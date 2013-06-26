@@ -5,7 +5,7 @@ class CustomDataObject
   include Navigation
   include StringFactory
 
-  attr_accessor :document_id, :graduate_student_count, :billing_element
+  attr_accessor :document_id, :graduate_student_count, :billing_element, :doc_type
 
   def initialize(browser, opts={})
     @browser = browser
@@ -15,7 +15,7 @@ class CustomDataObject
         billing_element:        random_alphanums(40)
     }
     set_options(defaults.merge(opts))
-    requires :document_id
+    requires :document_id, :doc_type
   end
 
   def create
@@ -34,7 +34,7 @@ class CustomDataObject
   # Nav Aids...
 
   def navigate
-    open_proposal unless on_proposal?
+    open_document @doc_type
     on(Proposal).custom_data unless on_page?
   end
 

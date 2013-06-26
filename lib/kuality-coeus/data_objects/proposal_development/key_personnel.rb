@@ -2,7 +2,6 @@ class KeyPersonObject
 
   include Foundry
   include DataFactory
-  include DateFactory
   include StringFactory
   include Navigation
 
@@ -20,10 +19,10 @@ class KeyPersonObject
     defaults = {
       role:                            'Principal Investigator',
       units:                           [],
-      space:                           rand_num,
-      responsibility:                  rand_num,
-      financial:                       rand_num,
-      recognition:                     rand_num,
+      space:                           random_dollar_value(10000),
+      responsibility:                  random_dollar_value(10000),
+      financial:                       random_dollar_value(10000),
+      recognition:                     random_dollar_value(10000),
       certified:                       true, # Set this to false if you do not want any Proposal Person Certification Questions answered
       certify_info_true:               'Y',
       potential_for_conflict:          'Y',
@@ -210,10 +209,6 @@ class KeyPersonObject
     rescue
       false
     end
-  end
-
-  def rand_num
-    "#{rand(100)}.#{rand(100)}"
   end
 
   def cert_questions

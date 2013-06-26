@@ -2,25 +2,13 @@ module Navigation
 
   include Utilities
 
-  def open_proposal
-    doc_search unless on_proposal?
+  def open_document doc_header
+    doc_search unless on_document?(doc_header)
   end
 
-  def on_proposal?
+  def on_document?(doc_header)
     begin
-      on(DocumentHeader).document_id==@document_id && @browser.title=='Kuali :: Proposal Development Document'
-    rescue
-      false
-    end
-  end
-
-  def open_budget
-    doc_search unless on_budget?
-  end
-
-  def on_budget?
-    begin
-      on(DocumentHeader).budget_name==@name
+      on(DocumentHeader).document_id==@document_id && @browser.frm.div(id: 'headerarea').h1.text==doc_header
     rescue
       false
     end

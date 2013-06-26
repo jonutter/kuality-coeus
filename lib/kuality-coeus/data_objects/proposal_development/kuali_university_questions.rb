@@ -2,8 +2,6 @@ class KualiUniversityQuestionsObject
 
   include Foundry
   include DataFactory
-  include StringFactory
-  include DateFactory
   include Navigation
 
   attr_accessor :document_id, :dual_dept_appointment, :dual_dept_review_date, :dual_dept_explanation,
@@ -53,7 +51,7 @@ class KualiUniversityQuestionsObject
   # Nav Aids...
 
   def navigate
-    open_document unless on_document?
+    open_document 'Proposal Development Document'
     on(Proposal).questions unless on_page?
   end
 

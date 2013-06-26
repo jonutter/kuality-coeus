@@ -56,7 +56,7 @@ class CommitteeDocumentObject
   # Nav Aids...
 
   def navigate
-    open_document unless on_document?
+    open_document 'Committee Document'
     on(Committee).committee unless on_page?
   end
 
