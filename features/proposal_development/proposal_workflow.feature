@@ -54,8 +54,20 @@ Feature: Proposal Workflows and Routing
     Then  I can submit the proposal document
     And   the proposal status should be Approval Pending
 
-  #Scenario An OSP Approver takes the 'Submit to sponsor' action against a routed proposal and it's status changes
-  #Scenario An OSP Approver takes the 'Submit to sponsor' action against a routed proposal and an institutional proposal is created
+  #Scenario: A proposal Aggregator takes the 'blanket approve' action against a routed proposal and its status changes
+  # Status == Approval Granted
+
+  Scenario An OSP Approver takes the 'Submit to sponsor' action against a routed proposal and it's status changes
+    Given I have users with the following roles: Proposal Creator, OSPApprover
+    And   I log in with the Proposal Creator user
+    And   I initiate a proposal
+    And   I complete the proposal
+    And   I submit the proposal
+    When  I log in with the OSPApprover user
+    And   I submit the routed proposal to a sponsor
+    Then  the proposal status should be Pending
+
+  #Scenario: An OSP Approver takes the 'Submit to sponsor' action against a routed proposal and an institutional proposal is created
 
   # Proposal Recalls -- A Proposal development document is taken out of routing for revisions/cancellation.
   Scenario: A proposal Aggregator recalls a proposal for cancellation and the status is changed
@@ -90,8 +102,7 @@ Feature: Proposal Workflows and Routing
     Then  the proposal is in the OSPApprover user's action list as an FYI
     And   the OSPApprover user can Acknowledge the requested action list item
 
-#   Note: This will be a test to evaluate whether a user can
-#   Scenario: An OSPApprover user can filter all of their FYIs and acknowledge them at once
+  #Scenario: An OSPApprover user can filter all of their FYIs and acknowledge them at once
 
   # Action List -- Routed proposals appear in select user's action lists with requested actions
   Scenario: An OSP Approver receives a routed proposal in their action list

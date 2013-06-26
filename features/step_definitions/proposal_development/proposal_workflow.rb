@@ -70,3 +70,6 @@ Then /^the OSPApprover user can Acknowledge the requested action list item$/ do
     page.take_actions
   end
 end
+When(/^I submit the routed proposal to a sponsor$/) do
+  pending
+end
