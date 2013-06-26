@@ -216,6 +216,7 @@ class ProposalDevelopmentObject
         look.page_links[rand(look.page_links.length)].click if look.page_links.size > 0
         look.return_random
       end
+      @sponsor_code=on(Proposal).sponsor_code.value
     else
       on(Proposal).sponsor_code.fit @sponsor_code
     end

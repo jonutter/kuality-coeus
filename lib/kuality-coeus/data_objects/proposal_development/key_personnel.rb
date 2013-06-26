@@ -5,7 +5,6 @@ class KeyPersonObject
   include DateFactory
   include StringFactory
   include Navigation
-  include Utilities
 
   attr_accessor :first_name, :last_name, :role, :document_id, :key_person_role,
                 :full_name, :user_name, :home_unit, :units, :responsibility,

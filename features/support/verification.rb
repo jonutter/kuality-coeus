@@ -1,3 +1,0 @@
-module Verification # Helper methods for verification steps...
-
-end

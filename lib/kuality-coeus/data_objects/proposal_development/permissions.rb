@@ -3,7 +3,6 @@ class PermissionsObject
   include Foundry
   include DataFactory
   include Navigation
-  include Utilities
 
   attr_accessor :document_id, :aggregators, :budget_creators, :narrative_writers,
                 :viewers, :approvers, :delete_proposals
