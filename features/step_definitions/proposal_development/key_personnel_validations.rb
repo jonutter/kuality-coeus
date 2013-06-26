@@ -49,6 +49,7 @@ Then /^there should be an error that says the (.*) user already holds investigat
   on(KeyPersonnel).errors.should include "#{get(role).first_name} #{get(role).last_name} already holds Investigator role."
 end
 
+# TODO: Rewrite this step def...
 #Note: This step exists to simply validate whether or not the approve option is present
 Then(/^the (.*) user can (.*) the proposal document$/) do |role, action|
   get(role).sign_in
@@ -85,6 +86,8 @@ Then(/^the (.*) user can (.*) the proposal document$/) do |role, action|
   end
 end
 
+# TODO: Rewrite in order to make it more explicitly action-list related
+# TODO: A case statement is not appropriate, here. Please refactor this code. It can be cleaned up significantly.
 When(/^the status of the proposal document should change to (.*)$/) do |status|
   case status
     when 'Approval Pending'
@@ -125,6 +128,7 @@ When(/^the status of the proposal document should change to (.*)$/) do |status|
   end
 end
 
+# TODO: Rewrite this step definition to make the Action List an explicit part of the text (if it's really necessary for the test).
 When /^the (.*) user approves the proposal$/ do |role|
   get(role).sign_in
   visit(ActionList).filter
