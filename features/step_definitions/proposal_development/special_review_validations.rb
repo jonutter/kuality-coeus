@@ -5,8 +5,8 @@ end
 Then /^I should see an error that the approval should occur later than the application$/ do
   on(SpecialReview).error_messages.should include 'Approval Date should be the same or later than Application Date.'
 end
-When(/^I visit the action list outbox$/) do
-  visit ActionList do |page|
-    page.outbox
-  end
+
+# TODO: Why is this step in special review validations?
+When /^I visit the action list outbox$/ do
+  visit(ActionList).outbox
 end

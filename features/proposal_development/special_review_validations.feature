@@ -4,7 +4,8 @@ Feature: Special Review Validations
   with my proposal's key personnel so that I can fix them
   before I submit the proposal
 
-  Background: KC user is logged in as admin
+  Background: Necessary users exist in the system
+    Given   I'm logged in with admin
     Given   I have users with the following roles: Proposal Creator, OSPApprover, Unassigned
 
 
