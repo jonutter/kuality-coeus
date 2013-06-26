@@ -3,7 +3,6 @@ class CustomDataObject
   include Foundry
   include DataFactory
   include Navigation
-  include Utilities
   include StringFactory
 
   attr_accessor :document_id, :graduate_student_count, :billing_element
