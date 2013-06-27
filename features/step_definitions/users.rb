@@ -43,6 +43,7 @@ Then /^(.*) is logged in$/ do |username|
   get(username).logged_in?
 end
 
+# TODO: This step def is redundant with the next one, which is more flexible. Remove this one...
 Given /^I have users with the system roles of '(.*)', '(.*)', and '(.*)'$/ do |role, role2, role3|
   [role, role2, role3].each do |r|
     user = make_role r
