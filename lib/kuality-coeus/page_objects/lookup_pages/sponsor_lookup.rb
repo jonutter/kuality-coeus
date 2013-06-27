@@ -7,4 +7,6 @@ class SponsorLookup < BasePage
   element(:sponsor_type_code) { |b| b.frm.select(id: 'sponsorTypeCode') }
   element(:page_links) { |b| b.frm.span(class: 'pagelinks').links }
 
+  action(:get_sponsor_code) { |name, b| b.item_row(name)[1].text }
+
 end

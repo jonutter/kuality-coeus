@@ -2,6 +2,6 @@ class Maintenance < BasePage
 
   page_url "#{$base_url}portal.do?selectedTab=portalMaintenanceBody"
 
-  links 'Institute Rate'
+  links 'Institute Rate', 'Sponsor'
 
 end

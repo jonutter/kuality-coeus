@@ -34,6 +34,19 @@ When /^I begin a proposal with a '(.*)' sponsor type$/ do |type|
   @proposal = create ProposalDevelopmentObject, sponsor_type_code: type
 end
 
+Given /^I initiate a proposal with (\D+) as the sponsor$/ do |sponsor_name|
+  # First, we have to get the sponsor ID based on the sponsor_name string...
+  visit(Maintenance).sponsor
+  sponsor_code=''
+  on SponsorLookup do |search|
+    search.sponsor_name.set sponsor_name
+    search.search
+    sponsor_code = search.get_sponsor_code(sponsor_name)
+  end
+  # Now we can create the proposal with the proper sponsor ID...
+  @proposal = create ProposalDevelopmentObject, sponsor_code: sponsor_code
+end
+
 Then /^I should see an error that says the field is required$/ do
   text="#{@name} is a required field."
   @name=='Description' ? error='Document '+text : error=text
