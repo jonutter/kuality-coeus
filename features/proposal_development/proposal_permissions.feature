@@ -70,9 +70,9 @@ Feature: Permissions in a Proposal
     And   their proposal permissions allow them to <Permissions>
 
   Examples:
-    | Role                     | Permissions                                    |
-    | Narrative Writer         | only update the Abstracts and Attachments page |
-    | Aggregator               | edit all parts of the proposal                 |
-    | Budget Creator           | only update the budget                         |
-    | Delete Proposal          | delete the proposal                            |
-    | Viewer                   | only read the proposal                         |
+    | Role                | Permissions                                    |
+    | Narrative Writer    | only update the Abstracts and Attachments page |
+    | Aggregator          | edit all parts of the proposal                 |
+    | Budget Creator      | only update the budget                         |
+    | Delete Proposal     | delete the proposal                            |
+    | Viewer              | only read the proposal                         |
