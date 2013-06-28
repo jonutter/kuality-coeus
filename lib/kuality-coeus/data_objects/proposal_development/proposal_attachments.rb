@@ -26,7 +26,6 @@ class ProposalAttachmentObject
   private
 
   def navigate
-    puts 'Attachment navigate...'
     open_document @doc_type
     on(Proposal).abstracts_and_attachments unless on_page?
   end

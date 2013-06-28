@@ -88,7 +88,7 @@ class PermissionsObject
   # Nav Aids...
 
   def navigate
-    open_document 'Proposal Development Document'
+    open_document @doc_type
     on(Proposal).permissions unless on_page?
   end
 
