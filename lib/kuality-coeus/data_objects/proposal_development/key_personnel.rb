@@ -19,10 +19,10 @@ class KeyPersonObject
     defaults = {
       role:                            'Principal Investigator',
       units:                           [],
-      space:                           random_dollar_value(10000),
-      responsibility:                  random_dollar_value(10000),
-      financial:                       random_dollar_value(10000),
-      recognition:                     random_dollar_value(10000),
+      space:                           random_dollar_value(100),
+      responsibility:                  random_dollar_value(100),
+      financial:                       random_dollar_value(100),
+      recognition:                     random_dollar_value(100),
       certified:                       true, # Set this to false if you do not want any Proposal Person Certification Questions answered
       certify_info_true:               'Y',
       potential_for_conflict:          'Y',
@@ -122,7 +122,6 @@ class KeyPersonObject
       person.save
     end
   end
-
   # IMPORTANT NOTE:
   # Currently this method only edits the person credit splits
   # for the data object!
@@ -145,7 +144,6 @@ class KeyPersonObject
     end
     update_options(opts)
   end
-
   # This method requires a parameter that is an Array
   # of Hashes. Though it defaults to the person object's
   # @units variable.
@@ -195,7 +193,7 @@ class KeyPersonObject
   # Nav Aids...
 
   def navigate
-    open_proposal unless on_proposal?
+    open_document 'Proposal Development Document'
     on(Proposal).key_personnel unless on_page?
   end
 

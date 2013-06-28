@@ -46,7 +46,6 @@ When /^I recall and cancel the proposal$/ do
 end
 
 Then /^the proposal status should be (.*)$/ do |status|
-  @proposal.view 'Proposal'
   @proposal.status.should==status
 end
 
