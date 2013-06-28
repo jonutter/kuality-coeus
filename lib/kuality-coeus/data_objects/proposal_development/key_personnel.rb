@@ -4,6 +4,7 @@ class KeyPersonObject
   include DataFactory
   include StringFactory
   include Navigation
+  include Utilities
 
   attr_accessor :first_name, :last_name, :role, :document_id, :key_person_role,
                 :full_name, :user_name, :home_unit, :units, :responsibility,
@@ -19,10 +20,10 @@ class KeyPersonObject
     defaults = {
       role:                            'Principal Investigator',
       units:                           [],
-      space:                           random_dollar_value(10000),
-      responsibility:                  random_dollar_value(10000),
-      financial:                       random_dollar_value(10000),
-      recognition:                     random_dollar_value(10000),
+      space:                           random_percentage,
+      responsibility:                  random_percentage,
+      financial:                       random_percentage,
+      recognition:                     random_percentage,
       certified:                       true, # Set this to false if you do not want any Proposal Person Certification Questions answered
       certify_info_true:               'Y',
       potential_for_conflict:          'Y',
@@ -195,7 +196,7 @@ class KeyPersonObject
   # Nav Aids...
 
   def navigate
-    open_proposal unless on_proposal?
+    open_document @doc_type
     on(Proposal).key_personnel unless on_page?
   end
 

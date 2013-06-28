@@ -8,8 +8,8 @@ class ProposalDevelopmentObject
   
   attr_accessor :proposal_type, :lead_unit, :activity_type, :project_title, :proposal_number,
                 :sponsor_code, :sponsor_type_code, :project_start_date, :project_end_date, :document_id,
-                :status, :initiator, :created, :sponsor_deadline_date, :key_personnel,
-                :special_review, :budget_versions, :permissions, :s2s_questionnaire,
+                :status, :initiator, :created, :sponsor_deadline_date, :key_personnel, :opportunity_id,
+                :special_review, :budget_versions, :permissions, :s2s_questionnaire, :proposal_attachments,
                 :proposal_questions, :compliance_questions, :kuali_u_questions, :custom_data, :recall_reason
 
   def initialize(browser, opts={})
@@ -28,7 +28,8 @@ class ProposalDevelopmentObject
       sponsor_deadline_date: next_week[:date_w_slashes],
       key_personnel:         KeyPersonnelCollection.new,
       special_review:        SpecialReviewCollection.new,
-      budget_versions:       BudgetVersionsCollection.new
+      budget_versions:       BudgetVersionsCollection.new,
+      proposal_attachments:  ProposalAttachmentsCollection.new
     }
 
     set_options(defaults.merge(opts))
@@ -46,6 +47,7 @@ class ProposalDevelopmentObject
     end
     visit(Researcher).create_proposal
     on Proposal do |doc|
+      @doc_header=doc.doc_title
       @document_id=doc.document_id
       @status=doc.document_status
       @initiator=doc.initiator
@@ -67,6 +69,7 @@ class ProposalDevelopmentObject
     on Proposal do |edit|
       edit.expand_all
       edit.project_start_date.fit opts[:project_start_date]
+      edit.opportunity_id.fit opts[:opportunity_id]
       # TODO: Add more stuff here as necessary
       edit.save
     end
@@ -136,6 +139,13 @@ class ProposalDevelopmentObject
     @custom_data.create
   end
 
+  def add_proposal_attachment opts={}
+    merge_settings(opts)
+    p_a = make ProposalAttachmentObject, opts
+    p_a.add
+    @proposal_attachments << p_a
+  end
+
   def make_institutional_proposal
     # TODO: Write any preparatory web site functional steps and page scraping code
     ip = make InstitutionalProposalObject, dev_proposal_number: @proposal_number,
@@ -201,13 +211,13 @@ class ProposalDevelopmentObject
   # =======
 
   def open_proposal
-    open_document 'Proposal Development Document'
+    open_document @doc_header
   end
 
   def merge_settings(opts)
     defaults = {
         document_id: @document_id,
-        doc_type: 'Proposal Development Document'
+        doc_type: @doc_header
     }
     opts.merge!(defaults)
   end
