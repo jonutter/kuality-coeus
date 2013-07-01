@@ -4,7 +4,7 @@ class ProposalAttachmentObject
   include DataFactory
   include Navigation
 
-  attr_accessor :type, :file_name, :status, :document_id, :doc_type
+  attr_accessor :type, :file_name, :status, :description, :document_id, :doc_type
 
   def initialize(browser, opts={})
     @browser = browser
@@ -17,9 +17,11 @@ class ProposalAttachmentObject
     on AbstractsAndAttachments do |attach|
       attach.expand_all
       attach.proposal_attachment_type.select @type
+      attach.proposal_attachment_description.fit @description
       attach.proposal_attachment_file_name.set($file_folder+@file_name)
       attach.attachment_status.fit @status
       attach.add_proposal_attachment
+      raise "Unexpected attachment error" if attach.errors.size > 0
     end
   end
 

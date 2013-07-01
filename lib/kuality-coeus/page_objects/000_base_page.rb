@@ -131,6 +131,7 @@ class BasePage < PageFactory
       element(:graduate_student_count) { |b| b.target_row('Graduate Student Count').text_field }
       element(:billing_element) { |b| b.target_row('Billing Element').text_field }
       element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
+      element(:asdf_tab) { |b| b.frm.div(id: 'tab-asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf-div') }
       action(:target_row) { |text, b| b.frm.trs(class: 'datatable').find { |row| row.text.include? text } }
     end
 

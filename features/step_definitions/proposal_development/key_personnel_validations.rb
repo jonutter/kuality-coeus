@@ -46,6 +46,11 @@ When /^I add a principal investigator$/ do
   @proposal.add_principal_investigator
 end
 
+When /^I add a principal investigator with valid credit splits$/ do
+  @proposal.add_principal_investigator
+  @proposal.set_valid_credit_splits
+end
+
 Then /^there should be an error that says the (.*) user already holds investigator role$/ do |role|
   on(KeyPersonnel).errors.should include "#{get(role).first_name} #{get(role).last_name} already holds Investigator role."
 end

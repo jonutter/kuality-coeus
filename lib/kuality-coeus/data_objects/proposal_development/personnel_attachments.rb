@@ -24,6 +24,7 @@ class PersonnelAttachmentObject
       attach.expand_all
       fill_out attach, :person
       attach.personnel_attachment_description.fit @description
+      attach.personnel_attachment_type.fit @type
       attach.personnel_attachment_file_name.set($file_folder+@file_name)
       attach.add_personnel_attachment
     end
