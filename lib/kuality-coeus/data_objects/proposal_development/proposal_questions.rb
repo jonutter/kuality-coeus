@@ -46,19 +46,7 @@ class ProposalQuestionsObject
 
   def navigate
     open_document @doc_type
-    on(Proposal).questions unless on_page?
-  end
-
-  def on_page?
-    # Note, the rescue clause should be
-    # removed when the Selenium bug with
-    # firefox elements gets fixed. This is
-    # still broken in selenium-webdriver 2.29
-    begin
-      on(Questions).questions_header.exist?
-    rescue
-      false
-    end
+    on(Proposal).questions unless on_page?(on(Questions).questions_header)
   end
 
 end

@@ -89,19 +89,7 @@ class PermissionsObject
 
   def navigate
     open_document @doc_type
-    on(Proposal).permissions unless on_page?
-  end
-
-  def on_page?
-    # Note, the rescue clause should be
-    # removed when the Selenium bug with
-    # firefox elements gets fixed. This is
-    # still broken in selenium-webdriver 2.29
-    begin
-      on(Permissions).user_name.exist?
-    rescue
-      false
-    end
+    on(Proposal).permissions unless on_page?(on(Permissions).user_name)
   end
 
   # Add/Remove roles here, as needed...

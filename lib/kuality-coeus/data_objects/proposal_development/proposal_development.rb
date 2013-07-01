@@ -10,7 +10,8 @@ class ProposalDevelopmentObject
                 :sponsor_code, :sponsor_type_code, :project_start_date, :project_end_date, :document_id,
                 :status, :initiator, :created, :sponsor_deadline_date, :key_personnel, :opportunity_id,
                 :special_review, :budget_versions, :permissions, :s2s_questionnaire, :proposal_attachments,
-                :proposal_questions, :compliance_questions, :kuali_u_questions, :custom_data, :recall_reason
+                :proposal_questions, :compliance_questions, :kuali_u_questions, :custom_data, :recall_reason,
+                :personnel_attachments
 
   def initialize(browser, opts={})
     @browser = browser
@@ -29,6 +30,7 @@ class ProposalDevelopmentObject
       key_personnel:         KeyPersonnelCollection.new,
       special_review:        SpecialReviewCollection.new,
       budget_versions:       BudgetVersionsCollection.new,
+      personnel_attachments: PersonnelAttachmentsCollection.new,
       proposal_attachments:  ProposalAttachmentsCollection.new
     }
 
@@ -144,6 +146,13 @@ class ProposalDevelopmentObject
     p_a = make ProposalAttachmentObject, opts
     p_a.add
     @proposal_attachments << p_a
+  end
+
+  def add_personnel_attachment opts={}
+    merge_settings(opts)
+    p_a = make PersonnelAttachmentObject, opts
+    p_a.add
+    @personnel_attachments << p_a
   end
 
   def make_institutional_proposal

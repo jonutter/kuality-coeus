@@ -186,19 +186,7 @@ class BudgetVersionsObject
 
   def navigate
     open_document @doc_header
-    on(Proposal).budget_versions unless on_page?
-  end
-
-  def on_page?
-    # Note, the rescue clause should be
-    # removed when the Selenium bug with
-    # firefox elements gets fixed. This is
-    # still broken in selenium-webdriver 2.29
-    begin
-      on(BudgetVersions).name.exist?
-    rescue
-      false
-    end
+    on(Proposal).budget_versions unless on_page?(on(BudgetVersions).name)
   end
 
 end # BudgetVersionsObject

@@ -73,32 +73,16 @@ class BudgetPeriodObject
 
   def navigate
     open_document @doc_type
-    unless on_page? && on_budget?
+    unless on_page?(on(Parameters).on_off_campus) && on_budget?
       on(Proposal).budget_versions
       on(BudgetVersions).open @budget_name
     end
   end
 
-  def on_page?
-    # Note, the rescue clause should be
-    # removed when the Selenium bug with
-    # firefox elements gets fixed. This is
-    # still broken in selenium-webdriver 2.29
-    begin
-      on(Parameters).on_off_campus.exist?
-    rescue
-      false
-    end
-  end
-
   def on_budget?
-    # Note, the rescue clause should be
-    # removed when the Selenium bug with
-    # firefox elements gets fixed. This is
-    # still broken in selenium-webdriver 2.29
     begin
       on(Parameters).budget_name==@budget_name
-    rescue
+    rescue Selenium::WebDriver::Error::StaleElementReferenceError
       false
     end
   end

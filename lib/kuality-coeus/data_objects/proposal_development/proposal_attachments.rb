@@ -27,11 +27,7 @@ class ProposalAttachmentObject
 
   def navigate
     open_document @doc_type
-    on(Proposal).abstracts_and_attachments unless on_page?
-  end
-
-  def on_page?
-    on(AbstractsAndAttachments).proposal_attachment_type.exist?
+    on(Proposal).abstracts_and_attachments unless on_page?(on(AbstractsAndAttachments).proposal_attachment_type)
   end
 
 end
