@@ -70,7 +70,8 @@ class BudgetVersionsObject
   def add_period opts={}
     defaults={
         document_id: @document_id,
-        budget_name: @name
+        budget_name: @name,
+        doc_type: @doc_header
     }
     opts.merge!(defaults)
 

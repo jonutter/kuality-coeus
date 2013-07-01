@@ -4,7 +4,6 @@ class KeyPersonObject
   include DataFactory
   include StringFactory
   include Navigation
-  include Utilities
 
   attr_accessor :first_name, :last_name, :role, :document_id, :key_person_role,
                 :full_name, :user_name, :home_unit, :units, :responsibility,
@@ -34,7 +33,7 @@ class KeyPersonObject
     }
 
     set_options(defaults.merge(opts))
-    requires :document_id, :doc_type
+    requires :document_id
     @full_name="#{@first_name} #{@last_name}"
   end
 
