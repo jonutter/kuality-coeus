@@ -53,15 +53,7 @@ class SpecialReviewObject
 
   def navigate
     open_document @doc_type
-    on(Proposal).special_review unless on_page?
-  end
-
-  def on_page?
-    begin
-      on(SpecialReview).type.exist?
-    rescue Selenium::WebDriver::Error::StaleElementReferenceError
-      false
-    end
+    on(Proposal).special_review unless on_page?(on(SpecialReview).type)
   end
 
 end # SpecialReviewObject

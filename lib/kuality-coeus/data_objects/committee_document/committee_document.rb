@@ -57,19 +57,7 @@ class CommitteeDocumentObject
 
   def navigate
     open_document 'Committee Document'
-    on(Committee).committee unless on_page?
-  end
-
-  def on_page?
-    # Note, the rescue clause should be
-    # removed when the Selenium bug with
-    # firefox elements gets fixed. This is
-    # still broken in selenium-webdriver 2.29
-    begin
-      on(Committee).committee_id_field.exist?
-    rescue
-      false
-    end
+    on(Committee).committee unless on_page?(on(Committee).committee_id_field)
   end
 
 end

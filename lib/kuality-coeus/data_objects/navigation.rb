@@ -19,6 +19,14 @@ module Navigation
     end
   end
 
+  def on_page? element
+    begin
+      element.exist?
+    rescue Selenium::WebDriver::Error::StaleElementReferenceError
+      false
+    end
+  end
+
   # Use in the #create method of your data objects for filling out
   # fields. This method eliminates the need to write repetitive
   # lines of code, with one line for every field needing to be

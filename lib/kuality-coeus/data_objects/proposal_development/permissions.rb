@@ -89,15 +89,7 @@ class PermissionsObject
 
   def navigate
     open_document @doc_type
-    on(Proposal).permissions unless on_page?
-  end
-
-  def on_page?
-    begin
-      on(Permissions).user_name.exist?
-    rescue Selenium::WebDriver::Error::StaleElementReferenceError
-      false
-    end
+    on(Proposal).permissions unless on_page?(on(Permissions).user_name)
   end
 
   # Add/Remove roles here, as needed...

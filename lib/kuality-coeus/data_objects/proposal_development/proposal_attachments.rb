@@ -27,15 +27,7 @@ class ProposalAttachmentObject
 
   def navigate
     open_document @doc_type
-    on(Proposal).abstracts_and_attachments unless on_page?
-  end
-
-  def on_page?
-    begin
-      on(AbstractsAndAttachments).proposal_attachment_type.exist?
-    rescue Selenium::WebDriver::Error::StaleElementReferenceError
-      false
-    end
+    on(Proposal).abstracts_and_attachments unless on_page?(on(AbstractsAndAttachments).proposal_attachment_type)
   end
 
 end

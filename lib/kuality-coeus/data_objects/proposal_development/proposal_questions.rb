@@ -46,15 +46,7 @@ class ProposalQuestionsObject
 
   def navigate
     open_document @doc_type
-    on(Proposal).questions unless on_page?
-  end
-
-  def on_page?
-    begin
-      on(Questions).questions_header.exist?
-    rescue Selenium::WebDriver::Error::StaleElementReferenceError
-      false
-    end
+    on(Proposal).questions unless on_page?(on(Questions).questions_header)
   end
 
 end

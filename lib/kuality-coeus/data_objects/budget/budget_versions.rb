@@ -186,15 +186,7 @@ class BudgetVersionsObject
 
   def navigate
     open_document @doc_header
-    on(Proposal).budget_versions unless on_page?
-  end
-
-  def on_page?
-    begin
-      on(BudgetVersions).name.exist?
-    rescue Selenium::WebDriver::Error::StaleElementReferenceError
-      false
-    end
+    on(Proposal).budget_versions unless on_page?(on(BudgetVersions).name)
   end
 
 end # BudgetVersionsObject
