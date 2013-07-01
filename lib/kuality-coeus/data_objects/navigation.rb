@@ -3,15 +3,16 @@ module Navigation
   include Utilities
 
   def open_document doc_header
+    puts doc_header.inspect
+    puts @browser.frm.div(id: 'headerarea').h1.text.inspect
+    puts doc_header==@browser.frm.div(id: 'headerarea').h1.text.inspect
+    puts @document_id
+    puts on_document?(doc_header)
     doc_search unless on_document?(doc_header)
   end
 
   def on_document?(doc_header)
-    begin
-      on(DocumentHeader).document_id==@document_id && @browser.frm.div(id: 'headerarea').h1.text==doc_header
-    rescue
-      false
-    end
+    on(DocumentHeader).document_id==@document_id && @browser.frm.div(id: 'headerarea').h1.text==doc_header
   end
 
   def doc_search

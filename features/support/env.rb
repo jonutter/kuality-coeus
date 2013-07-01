@@ -3,6 +3,7 @@ require 'yaml'
 @config = YAML.load_file("#{File.dirname(__FILE__)}/config.yml")[:basic]
 
 $base_url = @config[:url]
+$file_folder = @config[:files]
 
 if @config[:browser]==:saucelabs
   sauce = YAML.load_file("#{File.dirname(__FILE__)}/config.yml")[:saucelabs]

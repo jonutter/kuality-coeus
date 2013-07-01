@@ -6,6 +6,7 @@ class Parameters < BudgetDocument
   element(:total_direct_cost_limit) { |b| b.frm.text_field(name: 'document.budget.totalDirectCostLimit') }
   element(:on_off_campus) { |b| b.frm.select(name: 'document.budget.onOffCampusFlag') }
   element(:comments) { |b| b.frm.text_field(name: 'document.budget.comments') }
+  element(:budget_status) { |b| b.frm.select(name: 'document.budget.budgetStatus') }
   element(:final) { |b| b.frm.checkbox(name: 'document.budget.finalVersionFlag') }
   element(:modular_budget) { |b| b.frm.checkbox(name: 'document.budget.modularBudgetFlag') }
   element(:residual_funds) { |b| b.frm.text_field(name: 'document.budget.residualFunds') }

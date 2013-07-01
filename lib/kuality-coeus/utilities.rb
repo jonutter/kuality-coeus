@@ -1,5 +1,7 @@
 module Utilities
 
+  include StringFactory
+
   def get(item)
     instance_variable_get(snakify(item))
   end
@@ -18,6 +20,10 @@ module Utilities
 
   def snake_case(string)
     StringFactory.damballa(string)
+  end
+
+  def random_percentage
+    random_dollar_value(100)
   end
 
   private

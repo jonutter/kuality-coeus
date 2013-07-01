@@ -99,3 +99,23 @@ And /^I submit a new proposal$/ do
   @proposal.add_custom_data
   @proposal.submit
 end
+
+And /^I add the (Grants.Gov|Research.Gov) opportunity id of (.*) to the proposal$/ do |type, op_id|
+  @proposal.edit opportunity_id: op_id
+  on(Proposal).s2s
+  on s2s do |page|
+    page.expand_all
+    page.s2s_lookup
+  end
+  on OpportunityLookup do |look|
+    look.s2s_provider.select type
+    look.search
+    look.return_value
+  end
+  on(S2S).save
+end
+
+And /^I add all the required attachments for an NSF proposal$/ do
+  @proposal.add_proposal_attachment type: 'Equipment', file_name: 'Welcomekit-17.pdf', status: 'Complete'
+  sleep 15
+end

@@ -4,6 +4,7 @@ class KeyPersonObject
   include DataFactory
   include StringFactory
   include Navigation
+  include Utilities
 
   attr_accessor :first_name, :last_name, :role, :document_id, :key_person_role,
                 :full_name, :user_name, :home_unit, :units, :responsibility,
@@ -19,10 +20,10 @@ class KeyPersonObject
     defaults = {
       role:                            'Principal Investigator',
       units:                           [],
-      space:                           random_dollar_value(100),
-      responsibility:                  random_dollar_value(100),
-      financial:                       random_dollar_value(100),
-      recognition:                     random_dollar_value(100),
+      space:                           random_percentage,
+      responsibility:                  random_percentage,
+      financial:                       random_percentage,
+      recognition:                     random_percentage,
       certified:                       true, # Set this to false if you do not want any Proposal Person Certification Questions answered
       certify_info_true:               'Y',
       potential_for_conflict:          'Y',
@@ -33,7 +34,7 @@ class KeyPersonObject
     }
 
     set_options(defaults.merge(opts))
-    requires :document_id
+    requires :document_id, :doc_type
     @full_name="#{@first_name} #{@last_name}"
   end
 
@@ -122,6 +123,7 @@ class KeyPersonObject
       person.save
     end
   end
+
   # IMPORTANT NOTE:
   # Currently this method only edits the person credit splits
   # for the data object!
@@ -144,6 +146,7 @@ class KeyPersonObject
     end
     update_options(opts)
   end
+
   # This method requires a parameter that is an Array
   # of Hashes. Though it defaults to the person object's
   # @units variable.
@@ -193,7 +196,7 @@ class KeyPersonObject
   # Nav Aids...
 
   def navigate
-    open_document 'Proposal Development Document'
+    open_document @doc_type
     on(Proposal).key_personnel unless on_page?
   end
 

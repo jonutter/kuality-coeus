@@ -13,6 +13,10 @@ When /^correcting the Budget Version date will remove the warning$/ do
   on(Parameters).warnings.size.should be 0
 end
 
+Given /^I create, finalize, and mark complete a budget version for the proposal$/ do
+  @proposal.add_budget_version(status: 'Complete', final: :set)
+end
+
 When /^I copy the budget version \(all periods\)$/ do
   name_of_budget_copy=random_alphanums
   @proposal.budget_versions.copy_all_periods(@budget_version.name, name_of_budget_copy)
@@ -83,8 +87,12 @@ Then /^all budget periods get recreated, zeroed, and given default date ranges$/
   end
 end
 
-Then /^I finalize the budget version$/ do
+When /^I finalize the budget version$/ do
   @budget_version.edit final: :set
+end
+
+When /^I mark the budget version complete$/ do
+  @budget_version.edit budget_status: 'Complete'
 end
 
 Then /^I see an error that only one version can be final$/ do

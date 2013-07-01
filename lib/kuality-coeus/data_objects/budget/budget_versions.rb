@@ -23,7 +23,6 @@ class BudgetVersionsObject
       name:              random_alphanums_plus(40),
       cost_sharing:      '0.00',
       f_and_a:           '0.00',
-      f_and_a_rate_type: 'MTDC',
       budget_periods:    BudgetPeriodsCollection.new
     }
 
@@ -34,6 +33,7 @@ class BudgetVersionsObject
   def create
     navigate
     on BudgetVersions do |add|
+      @doc_header=add.doc_title
       add.name.set @name
       add.add
       add.final(@name).fit @final
@@ -91,11 +91,13 @@ class BudgetVersionsObject
     @budget_periods.number!
   end
 
-  # Use for editing the Budget Version, but not the Periods
+  # Please note, this method is for VERY basic editing...
+  # Use it for editing the Budget Version while on the Proposal, but not the Periods
   def edit opts={}
     navigate
     on BudgetVersions do |edit|
       edit.final(@name).fit opts[:final]
+      edit.budget_status(@name).fit opts[:budget_status]
       # TODO: More here as needed...
       edit.save
     end
@@ -182,7 +184,7 @@ class BudgetVersionsObject
   # Nav Aids...
 
   def navigate
-    open_document 'Budget Document'
+    open_document @doc_header
     on(Proposal).budget_versions unless on_page?
   end
 
