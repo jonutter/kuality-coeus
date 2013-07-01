@@ -8,8 +8,7 @@ Feature: Proposal Workflows and Routing
     Given   I'm logged in with admin
 
   # Proposal Actions -- User types assigned to routing will can approve, disapprove, reject, and recall development proposals
-  # TODO: Fix the scenario summary to describe what is being validated, why are we doing this? (Note, I already changed this one)...
-  Scenario: A PI who receives a routed proposal in their action list can approve it
+  Scenario Outline: A PI who receives a routed proposal in their action list can approve, disapprove, or reject it
     Given I have users with the following roles: OSPApprover, Proposal Creator, Unassigned
     And   I log in with the Proposal Creator user
     And   I initiate a proposal
@@ -18,23 +17,17 @@ Feature: Proposal Workflows and Routing
     And   I submit the proposal
     When  the OSPApprover user approves the proposal
     And   I log in with the Unassigned user
-    Then  the Unassigned user can approve the proposal document
+    Then  the Unassigned user can <Action> the proposal document
+    And   the status of the proposal document should change to <Status>
+
+  Examples:
+    | Action       | Status              |
+    | Approve      | Approval Pending    |
+#    | Disapprove   | Disapproved         |
+#    | Reject       | Revisions Requested |
 
 # TODO: Fix the scenario summary to describe what is being validated, why are we doing this?...
-  Scenario: An Aggregator receives their routed proposal back in their action list and approves it
-    Given I have users with the following roles: OSPApprover, Proposal Creator, Unassigned
-    And   I log in with the Proposal Creator user
-    And   I initiate a proposal
-    And   I add the Unassigned user as a principal investigator to the key personnel proposal roles
-    And   I complete the proposal
-    And   I submit the proposal
-    When  the OSPApprover user approves the proposal
-    And   I log in with the Unassigned user
-    And   the Unassigned user approves the proposal
-    Then  the Proposal Creator user can approve the proposal document
-
-# TODO: Fix the scenario summary to describe what is being validated, why are we doing this?...
-  Scenario Outline: An OSP Approver takes an action against a routed development proposal its status is changed
+  Scenario Outline: An OSP Approver who receives a routed proposal in their action list can approve, disapprove, or reject it
     Given I have users with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
     And   I initiate a proposal
@@ -49,19 +42,20 @@ Feature: Proposal Workflows and Routing
     | Approve      | Approval Pending    |
     | Disapprove   | Disapproved         |
     | Reject       | Revisions Requested |
-  @test
+
   # TODO: Fix the scenario summary to describe what is being validated, why are we doing this?...
-  Scenario: An Aggregator submits a proposal and the status is changed
+  @test
+  Scenario: A development proposal submitted by an Aggregator has a status of Approval Pending
     Given I have a user with the system role: 'Proposal Creator'
     And   I initiate a proposal
     And   I complete the proposal
     Then  I can submit the proposal document
     And   the proposal status should be Approval Pending
 
-#Scenario: A proposal Aggregator takes the 'blanket approve' action against a routed proposal and its status changes
+#Scenario: An Aggregator can blanket approve a routed proposal so its status changes to 'Approval Granted'
 
   # TODO: Fix the scenario summary to describe what is being validated, why are we doing this?...
-  Scenario An OSP Approver takes the 'Submit to sponsor' action against a routed proposal and its status changes
+  Scenario: An OSP Approver takes the Submit to sponsor action against a routed proposal and its status changes
     Given I have users with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
     And   I initiate a proposal

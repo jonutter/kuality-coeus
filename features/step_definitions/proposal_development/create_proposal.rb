@@ -78,6 +78,10 @@ When /^I complete the proposal$/ do
   @proposal.add_custom_data
 end
 
+When /^I complete the required fields on the proposal$/ do
+  @proposal.add_custom_data
+end
+
 When /^I add (.*) as (a|an) (.*) to the proposal permissions$/ do |username, x, role|
   @proposal.permissions.send("#{snake_case(role)}s") << username
   @proposal.permissions.assign
