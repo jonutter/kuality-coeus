@@ -1,6 +1,7 @@
 And /^I add the (.*) user as a (.*) to the key personnel proposal roles$/ do |user_name, proposal_role|
   user = get(user_name)
   @proposal.add_key_person first_name: user.first_name, last_name: user.last_name, role: proposal_role
+  @proposal.set_valid_credit_splits
 end
 
 When /^I add (.*) as a Key Person with a role of (.*)$/ do |user_name, kp_role|

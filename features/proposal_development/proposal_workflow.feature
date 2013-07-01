@@ -8,12 +8,13 @@ Feature: Proposal Workflows and Routing
     Given   I'm logged in with admin
 
   # Proposal Actions -- User types assigned to routing will can approve, disapprove, reject, and recall development proposals
+
   Scenario Outline: A PI who receives a routed proposal in their action list can approve, disapprove, or reject it
     Given I have users with the following roles: OSPApprover, Proposal Creator, Unassigned
     And   I log in with the Proposal Creator user
     And   I initiate a proposal
     And   I add the Unassigned user as a Principal Investigator to the key personnel proposal roles
-    And   I complete the proposal
+    And   I complete the required fields on the proposal
     And   I submit the proposal
     When  the OSPApprover user approves the proposal
     And   I log in with the Unassigned user
@@ -23,10 +24,9 @@ Feature: Proposal Workflows and Routing
   Examples:
     | Action       | Status              |
     | Approve      | Approval Pending    |
-#    | Disapprove   | Disapproved         |
-#    | Reject       | Revisions Requested |
+    #| Disapprove   | Disapproved         |
+    #| Reject       | Revisions Requested |
 
-# TODO: Fix the scenario summary to describe what is being validated, why are we doing this?...
   Scenario Outline: An OSP Approver who receives a routed proposal in their action list can approve, disapprove, or reject it
     Given I have users with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
