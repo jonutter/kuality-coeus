@@ -62,7 +62,7 @@ class KualiUniversityQuestionsObject
     # still broken in selenium-webdriver 2.29
     begin
       on(Questions).questions_header.exist?
-    rescue
+    rescue Selenium::WebDriver::Error::StaleElementReferenceError
       false
     end
   end

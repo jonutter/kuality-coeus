@@ -115,7 +115,12 @@ And /^I add the (Grants.Gov|Research.Gov) opportunity id of (.*) to the proposal
   on(S2S).save
 end
 
-And /^I add all the required attachments for an NSF proposal$/ do
-  @proposal.add_proposal_attachment type: 'Equipment', file_name: 'Welcomekit-17.pdf', status: 'Complete'
-  sleep 15
+And /^I add and mark complete all the required attachments for an NSF proposal$/ do
+  %w{Equipment Bibliography BudgetJustification ProjectSummary Narrative}.each do |type|
+    @proposal.add_proposal_attachment type: type, file_name: 'test.pdf', status: 'Complete'
+  end
+  @proposal.add_proposal_attachment type: 'Other', file_name: 'NSF_DATA_MANAGEMENT_PLAN.pdf', status: 'Complete'
+  @proposal.key_personnel.each do |person|
+    @proposal.add_personnel_attachment person: person.full_name, type: 'Biosketch', file_name: 'test.pdf'
+  end
 end

@@ -45,7 +45,7 @@ class CustomDataObject
     # still broken in selenium-webdriver 2.29
     begin
       on(PDCustomData).billing_element.exist?
-    rescue
+    rescue Selenium::WebDriver::Error::StaleElementReferenceError
       false
     end
   end

@@ -195,7 +195,7 @@ class KeyPersonObject
   # Nav Aids...
 
   def navigate
-    open_proposal unless on_proposal?
+    open_document @doc_type
     on(Proposal).key_personnel unless on_page?
   end
 
@@ -206,7 +206,7 @@ class KeyPersonObject
     # still broken in selenium-webdriver 2.29
     begin
       on(KeyPersonnel).proposal_role.exist?
-    rescue
+    rescue Selenium::WebDriver::Error::StaleElementReferenceError
       false
     end
   end

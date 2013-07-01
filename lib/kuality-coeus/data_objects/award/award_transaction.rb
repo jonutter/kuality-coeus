@@ -40,14 +40,14 @@ class AwardTransactionObject
 
   def on_award?
     if on(Award).headerinfo_table.exist?
-      on(Award).header_award_id==@award_id ? true : false
+      on(Award).header_award_id==@award_id
     else
       false
     end
   end
 
   def on_tm?
-    on(Award).t_m_button.exist? ? false : true
+    !(on(Award).t_m_button.exist?)
   end
 
 end # AwardTransactionObject

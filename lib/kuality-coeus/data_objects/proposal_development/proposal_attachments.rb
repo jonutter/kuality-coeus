@@ -31,7 +31,11 @@ class ProposalAttachmentObject
   end
 
   def on_page?
-    on(AbstractsAndAttachments).proposal_attachment_type.exist?
+    begin
+      on(AbstractsAndAttachments).proposal_attachment_type.exist?
+    rescue Selenium::WebDriver::Error::StaleElementReferenceError
+      false
+    end
   end
 
 end

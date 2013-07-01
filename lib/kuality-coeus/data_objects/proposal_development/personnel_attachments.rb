@@ -1,0 +1,53 @@
+class PersonnelAttachmentObject
+
+  include Foundry
+  include DataFactory
+  include StringFactory
+  include Navigation
+
+  attr_accessor :person, :type, :file_name, :description, :document_id, :doc_type
+
+  def initialize(browser, opts={})
+    @browser = browser
+    defaults = {
+        person:      '::random::',
+        type:        '::random::',
+        description: random_alphanums(30)
+    }
+    set_options defaults.merge(opts)
+    requires :document_id, :file_name
+  end
+
+  def add
+    navigate
+    on AbstractsAndAttachments do |attach|
+      attach.expand_all
+      fill_out attach, :person
+      attach.personnel_attachment_description.fit @description
+      attach.personnel_attachment_file_name.set($file_folder+@file_name)
+      attach.add_personnel_attachment
+    end
+  end
+
+  private
+
+  def navigate
+    open_document @doc_type
+    on(Proposal).abstracts_and_attachments unless on_page?
+  end
+
+  def on_page?
+    begin
+      on(AbstractsAndAttachments).proposal_attachment_type.exist?
+    rescue Selenium::WebDriver::Error::StaleElementReferenceError
+      false
+    end
+  end
+
+end
+
+class PersonnelAttachmentsCollection < Array
+
+
+
+end

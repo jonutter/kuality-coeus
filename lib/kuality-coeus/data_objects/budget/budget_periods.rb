@@ -92,13 +92,9 @@ class BudgetPeriodObject
   end
 
   def on_budget?
-    # Note, the rescue clause should be
-    # removed when the Selenium bug with
-    # firefox elements gets fixed. This is
-    # still broken in selenium-webdriver 2.29
     begin
       on(Parameters).budget_name==@budget_name
-    rescue
+    rescue Selenium::WebDriver::Error::StaleElementReferenceError
       false
     end
   end

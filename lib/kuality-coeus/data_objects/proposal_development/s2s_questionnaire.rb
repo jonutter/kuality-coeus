@@ -121,13 +121,9 @@ class S2SQuestionnaireObject
   end
 
   def on_page?
-    # Note, the rescue clause should be
-    # removed when the Selenium bug with
-    # firefox elements gets fixed. This is
-    # still broken in selenium-webdriver 2.29
     begin
       on(Questions).questions_header.exist?
-    rescue
+    rescue Selenium::WebDriver::Error::StaleElementReferenceError
       false
     end
   end
