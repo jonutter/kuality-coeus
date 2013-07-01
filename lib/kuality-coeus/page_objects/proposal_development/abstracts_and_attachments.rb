@@ -25,7 +25,7 @@ class AbstractsAndAttachments < ProposalDevelopmentDocument
   element(:personnel_attachment_type) { |b| b.frm.select(id: 'newPropPersonBio.documentTypeCode') }
   element(:personnel_attachment_description) { |b| b.frm.text_field(id: 'newPropPersonBio.description') }
   element(:personnel_attachment_file_name) { |b| b.frm.file_field(name: 'newPropPersonBio.personnelAttachmentFile') }
-  action(:add_personnel_attachment) { |b| b.frm.button(name: 'methodToCall.addPersonnelAttachment.anchorPersonnelAttachments0').click }
+  action(:add_personnel_attachment) { |b| b.frm.button(name: /methodToCall.addPersonnelAttachment.anchorPersonnelAttachments/).click }
 
   element(:personnel_attachment_table) { |b| b.frm.div(id: 'tab-PersonnelAttachments0-div').table }
 
@@ -33,7 +33,7 @@ class AbstractsAndAttachments < ProposalDevelopmentDocument
   element(:internal_attachment_type) { |b| b.frm.select(id: 'newInstituteAttachment.institutionalAttachmentTypeCode') }
   element(:internal_attachment_description) { |b| b.frm.text_field(id: 'newInstituteAttachment.moduleTitle') }
   element(:internal_attachment_file_name) { |b| b.frm.file_field(name: 'newInstituteAttachment.narrativeFile') }
-  action(:add_internal_attachment) { |b| b.frm.button(name: 'methodToCall.addInstitutionalAttachment.anchorInternalAttachments0').click }
+  action(:add_internal_attachment) { |b| b.frm.button(name: /methodToCall.addInstitutionalAttachment.anchorInternalAttachments/).click }
 
   element(:internal_attachments_table) { |b| b.frm.div(id: 'tab-InternalAttachments1-div').table }
 
