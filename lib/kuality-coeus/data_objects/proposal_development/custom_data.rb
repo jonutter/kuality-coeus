@@ -35,7 +35,7 @@ class CustomDataObject
 
   def navigate
     open_document @doc_type
-    on(Proposal).custom_data unless on_page?(on(PDCustomData).billing_element)
+    on(Proposal).custom_data unless on_page?(on(PDCustomData).asdf_tab)
   end
 
 end

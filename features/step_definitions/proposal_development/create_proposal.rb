@@ -103,14 +103,14 @@ end
 And /^I add the (Grants.Gov|Research.Gov) opportunity id of (.*) to the proposal$/ do |type, op_id|
   @proposal.edit opportunity_id: op_id
   on(Proposal).s2s
-  on s2s do |page|
+  on S2S do |page|
     page.expand_all
     page.s2s_lookup
   end
   on OpportunityLookup do |look|
     look.s2s_provider.select type
     look.search
-    look.return_value
+    look.return_value op_id
   end
   on(S2S).save
 end
@@ -119,7 +119,7 @@ And /^I add and mark complete all the required attachments for an NSF proposal$/
   %w{Equipment Bibliography BudgetJustification ProjectSummary Narrative}.each do |type|
     @proposal.add_proposal_attachment type: type, file_name: 'test.pdf', status: 'Complete'
   end
-  @proposal.add_proposal_attachment type: 'Other', file_name: 'NSF_DATA_MANAGEMENT_PLAN.pdf', status: 'Complete'
+  @proposal.add_proposal_attachment type: 'Other', file_name: 'NSF_DATA_MANAGEMENT_PLAN.pdf', status: 'Complete', description: random_alphanums
   @proposal.key_personnel.each do |person|
     @proposal.add_personnel_attachment person: person.full_name, type: 'Biosketch', file_name: 'test.pdf'
   end

@@ -23,7 +23,7 @@ class AbstractsAndAttachments < ProposalDevelopmentDocument
   # Personnel Attachments
   element(:person) { |b| b.frm.select(name: 'newPropPersonBio.proposalPersonNumber') }
   element(:personnel_attachment_type) { |b| b.frm.select(id: 'newPropPersonBio.documentTypeCode') }
-  element(:personnel_attachment_description) { |b| b.frm.text_field(id: 'newInstituteAttachment.moduleTitle') }
+  element(:personnel_attachment_description) { |b| b.frm.text_field(id: 'newPropPersonBio.description') }
   element(:personnel_attachment_file_name) { |b| b.frm.file_field(name: 'newPropPersonBio.personnelAttachmentFile') }
   action(:add_personnel_attachment) { |b| b.frm.button(name: 'methodToCall.addPersonnelAttachment.anchorPersonnelAttachments0').click }
 
