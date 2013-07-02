@@ -38,6 +38,7 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:role) { |full_name, p| p.person_div(full_name).select(name: /document.developmentProposalList[\d+].proposalPersons[\d+].proposalPersonRoleId/) }
   action(:user_name) { |full_name, p| p.person_div(full_name).table[1][3].text }
   action(:home_unit) { |full_name, p| p.person_div(full_name).table[8][1].text }
+  action(:era_commons_name) { |b| b.person_div(full_name).text_field(name: /eraCommonsUserName/) }
 
   # Unit Details...
   action(:unit_details_errors_div) { |full_name, p| p.unit_div(full_name).div(class: 'left-errmsg-tab').div }

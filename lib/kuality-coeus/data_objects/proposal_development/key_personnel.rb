@@ -19,10 +19,10 @@ class KeyPersonObject
     defaults = {
       role:                            'Principal Investigator',
       units:                           [],
-      space:                           random_dollar_value(100),
-      responsibility:                  random_dollar_value(100),
-      financial:                       random_dollar_value(100),
-      recognition:                     random_dollar_value(100),
+      space:                           random_percentage,
+      responsibility:                  random_percentage,
+      financial:                       random_percentage,
+      recognition:                     random_percentage,
       certified:                       true, # Set this to false if you do not want any Proposal Person Certification Questions answered
       certify_info_true:               'Y',
       potential_for_conflict:          'Y',
