@@ -121,6 +121,8 @@ And /^I add and mark complete all the required attachments for an NSF proposal$/
   end
   @proposal.add_proposal_attachment type: 'Other', file_name: 'NSF_DATA_MANAGEMENT_PLAN.pdf', status: 'Complete', description: random_alphanums
   @proposal.key_personnel.each do |person|
-    @proposal.add_personnel_attachment person: person.full_name, type: 'Biosketch', file_name: 'test.pdf'
+    %w{Biosketch Currentpending}.each do |type|
+      @proposal.add_personnel_attachment person: person.full_name, type: type, file_name: 'test.pdf'
+    end
   end
 end
