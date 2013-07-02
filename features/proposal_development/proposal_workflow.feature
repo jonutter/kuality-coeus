@@ -8,8 +8,7 @@ Feature: Proposal Workflows and Routing
     Given   I'm logged in with admin
 
   # Proposal Actions -- User types assigned to routing will can approve, disapprove, reject, and recall development proposals
-
-  Scenario Outline: A PI who receives a routed proposal in their action list can approve, disapprove, or reject it
+  Scenario Outline: A PI who receives a routed proposal in their action list has the options to approve, disapprove, or reject it
     Given I have users with the following roles: OSPApprover, Proposal Creator, Unassigned
     And   I log in with the Proposal Creator user
     And   I initiate a proposal
@@ -19,32 +18,31 @@ Feature: Proposal Workflows and Routing
     When  the OSPApprover user approves the proposal
     And   I log in with the Unassigned user
     Then  the Unassigned user can <Action> the proposal document
-    And   the status of the proposal document should change to <Status>
 
   Examples:
-    | Action       | Status              |
-    | Approve      | Approval Pending    |
-    #| Disapprove   | Disapproved         |
-    #| Reject       | Revisions Requested |
+    | Action       |
+    | Approve      |
+    | Disapprove   |
+    | Reject       |
 
-  Scenario Outline: An OSP Approver who receives a routed proposal in their action list can approve, disapprove, or reject it
+  Scenario Outline: An OSP Approver who receives a routed proposal in their action list has the options to approve, disapprove, or reject it
     Given I have users with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
     And   I initiate a proposal
     And   I complete the proposal
     And   I submit the proposal
     When  I log in with the OSPApprover user
-    Then  the OSPApprover user can <Action> the proposal document
-    And   the status of the proposal document should change to <Status>
+    Then  the OSPApprover user can access the proposal from their action list
+    And   the OSPApprover user can <Action> the proposal document
 
   Examples:
-    | Action       | Status              |
-    | Approve      | Approval Pending    |
-    | Disapprove   | Disapproved         |
-    | Reject       | Revisions Requested |
+    | Action     |
+    | Approve    |
+    #| Disapprove |
+    #| Reject     |
 
   # TODO: Fix the scenario summary to describe what is being validated, why are we doing this?...
-  @test
+
   Scenario: A development proposal submitted by an Aggregator has a status of Approval Pending
     Given I have a user with the system role: 'Proposal Creator'
     And   I initiate a proposal

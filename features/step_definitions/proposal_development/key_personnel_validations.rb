@@ -55,39 +55,31 @@ Then /^there should be an error that says the (.*) user already holds investigat
   on(KeyPersonnel).errors.should include "#{get(role).first_name} #{get(role).last_name} already holds Investigator role."
 end
 
-# TODO: Rewrite this step def...
-#Note: This step exists to simply validate whether or not the approve option is present
-Then(/^the (.*) user can (.*) the proposal document$/) do |role, action|
+Then(/^the (.*) user can access the proposal from their action list$/) do |role|
   get(role).sign_in
   visit(ActionList).filter
   on ActionListFilter do |page|
     page.document_title.set @proposal.project_title
     page.filter
   end
+
+# TODO: Rewrite this step def...
+#Note: This step exists to simply validate whether or not the approve option is present
+Then(/^the (.*) user can (.*) the proposal document$/) do |role, action|
+  get(role).logged_in?
   case action
     when 'Approve'
       on(ActionList).open_item(@proposal.document_id)
-      on(ProposalSummary).approve
-      on(Confirmation).yes
+      on(ProposalSummary).approve_button.should exist
       visit(Researcher)
-
     when 'Disapprove'
       on(ActionList).open_item(@proposal.document_id)
-      on(ProposalSummary).disapprove
-      on Confirmation do |page|
-        page.reason.fit random_alphanums
-        page.yes
-      end
+      on(ProposalSummary).disapprove_button.should exist
       visit(Researcher)
 
     when 'Reject'
       on(ActionList).open_item(@proposal.document_id)
-      on(ProposalSummary).proposal_actions
-      on ProposalActions do |page|
-        page.reject
-        page.rejection_reason.fit random_alphanums
-        page.yes
-      end
+      on(ProposalSummary).reject_button.should exist
       visit(Researcher)
   end
 end
@@ -146,4 +138,5 @@ When /^the (.*) user approves the proposal$/ do |role|
   on(ProposalSummary).approve
   on(Confirmation).yes
   visit(Login)
+  end
 end
