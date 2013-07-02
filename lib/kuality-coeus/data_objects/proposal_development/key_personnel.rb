@@ -10,7 +10,7 @@ class KeyPersonObject
                 :financial, :recognition, :certified, :certify_info_true,
                 :potential_for_conflicts, :submitted_financial_disclosures,
                 :lobbying_activities, :excluded_from_transactions, :familiar_with_pla,
-                :space, :other_key_persons
+                :space, :other_key_persons, :era_commons_name
 
   # Note that you must pass in both first and last names (or neither).
   def initialize(browser, opts={})
@@ -118,15 +118,13 @@ class KeyPersonObject
          cert_questions.each { |q| set(q, nil) }
       end
 
-      # Add gathering of more attributes here as needed
+      # Add gathering/setting of more attributes here as needed
+      person.era_commons_name(@full_name).fit @era_commons_name
       person.save
     end
   end
 
   # IMPORTANT NOTE:
-  # Currently this method only edits the person credit splits
-  # for the data object!
-  #
   # Add edit options to this method as needed.
   #
   # HOWEVER:
@@ -141,6 +139,7 @@ class KeyPersonObject
       update.responsibility(@full_name).fit opts[:responsibility]
       update.financial(@full_name).fit opts[:financial]
       update.recognition(@full_name).fit opts[:recognition]
+      update.era_commons_name(@full_name).fit opts[:era_commons_name]
       update.save
     end
     update_options(opts)

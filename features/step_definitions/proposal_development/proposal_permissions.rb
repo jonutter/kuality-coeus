@@ -7,11 +7,11 @@ When /^I visit the proposal's (.*) page$/ do |page|
   on(Proposal).send(snake_case(page))
 end
 
-Then /^the (.*) user is listed as (a|an) (.*) in the proposal permissions$/ do |username, x, role|
+Then /^the (.*) user is listed as an? (.*) in the proposal permissions$/ do |username, role|
   on(Permissions).assigned_role(get(username).user_name).should include role
 end
 
-When /^I assign the (.*) user as (a|an) (.*) in the proposal permissions$/ do |system_role, x, role|
+When /^I assign the (.*) user as an? (.*) in the proposal permissions$/ do |system_role, role|
   set(system_role, (make UserObject, role: system_role))
   @proposal.permissions.send(snake_case(role+'s')) << get(system_role).user_name
   @proposal.permissions.assign
@@ -131,7 +131,7 @@ When /^I attempt to add an additional proposal role to the (.*) user$/ do |syste
   end
 end
 
-Then /^the (.*) user should not be listed as (a|an) (.*) in the second proposal$/ do |system_role, x, role|
+Then /^the (.*) user should not be listed as an? (.*) in the second proposal$/ do |system_role, role|
   user = get(system_role)
   @proposal2.view :permissions
   on Permissions do |page|

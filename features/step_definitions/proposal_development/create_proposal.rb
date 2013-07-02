@@ -30,7 +30,7 @@ When /^I initiate a proposal but miss a required field$/ do
   @proposal = create ProposalDevelopmentObject, field=>value
 end
 
-When /^I begin a proposal with a '(.*)' sponsor type$/ do |type|
+When /^I begin a proposal with an? '(.*)' sponsor type$/ do |type|
   @proposal = create ProposalDevelopmentObject, sponsor_type_code: type
 end
 
@@ -82,7 +82,7 @@ When /^I complete the required fields on the proposal$/ do
   @proposal.add_custom_data
 end
 
-When /^I add (.*) as (a|an) (.*) to the proposal permissions$/ do |username, x, role|
+When /^I add (.*) as an? (.*) to the proposal permissions$/ do |username, role|
   @proposal.permissions.send("#{snake_case(role)}s") << username
   @proposal.permissions.assign
 end
@@ -124,5 +124,14 @@ And /^I add and mark complete all the required attachments for an NSF proposal$/
     %w{Biosketch Currentpending}.each do |type|
       @proposal.add_personnel_attachment person: person.full_name, type: type, file_name: 'test.pdf'
     end
+  end
+end
+
+When /^I add and mark complete all the required attachments for an NIH proposal$/ do
+  %w{Equipment Bibliography BudgetJustification ProjectSummary Narrative Facilities}.each do |type|
+    @proposal.add_proposal_attachment type: type, file_name: 'test.pdf', status: 'Complete'
+  end
+  @proposal.key_personnel.each do |person|
+    @proposal.add_personnel_attachment person: person.full_name, type: 'Biosketch', file_name: 'test.pdf'
   end
 end

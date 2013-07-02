@@ -1,4 +1,4 @@
-And /^I add the (.*) user as a (.*) to the key personnel proposal roles$/ do |user_name, proposal_role|
+And /^I add the (.*) user as an? (.*) to the key personnel proposal roles$/ do |user_name, proposal_role|
   user = get(user_name)
   @proposal.add_key_person first_name: user.first_name, last_name: user.last_name, role: proposal_role
 end
@@ -47,6 +47,11 @@ end
 
 When /^I add a principal investigator with valid credit splits$/ do
   @proposal.add_principal_investigator
+  @proposal.set_valid_credit_splits
+end
+
+When /^I add a principal investigator with valid credit splits and an eRA Commons name$/ do
+  @proposal.add_principal_investigator era_commons_name: random_alphanums(20)
   @proposal.set_valid_credit_splits
 end
 

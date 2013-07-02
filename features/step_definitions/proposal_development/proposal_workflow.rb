@@ -55,7 +55,7 @@ end
 
 # TODO: Fix this!
 # There is nothing in the code of this step definition that references the OSPApprover
-Then(/^the proposal is in the OSPApprover user's action list as an (.*)$/) do |action|
+Then(/^the proposal is in the OSPApprover user's action list as an? (.*)$/) do |action|
   visit ActionList do |page|
     page.last
     x = 0
