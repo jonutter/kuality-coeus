@@ -1,4 +1,4 @@
-Given /^I initiate a proposal$/ do
+Given /^I initiate a development proposal$/ do
   @proposal = create ProposalDevelopmentObject
 end
 
@@ -125,4 +125,12 @@ And /^I add and mark complete all the required attachments for an NSF proposal$/
       @proposal.add_personnel_attachment person: person.full_name, type: type, file_name: 'test.pdf'
     end
   end
+end
+
+And /^I submit a new development proposal into routing$/ do
+  @proposal = create ProposalDevelopmentObject
+  @proposal.add_principal_investigator
+  @proposal.set_valid_credit_splits
+  @proposal.add_custom_data
+  @proposal.submit
 end

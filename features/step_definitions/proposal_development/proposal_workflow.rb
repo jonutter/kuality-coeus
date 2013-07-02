@@ -55,7 +55,7 @@ end
 
 # TODO: Fix this!
 # There is nothing in the code of this step definition that references the OSPApprover
-Then(/^the proposal is in the OSPApprover user's action list as an (.*)$/) do |action|
+Then(/^the proposal is in my action list as an (.*)$/) do |action|
   visit ActionList do |page|
     page.last
     x = 0
@@ -70,15 +70,21 @@ Then(/^the proposal is in the OSPApprover user's action list as an (.*)$/) do |a
 end
 
 # TODO: Fix this!
-# There is nothing in the code of this step definition that references the OSPApprover,
-# and the code doesn't read like it's acknowledging anything.
-Then /^the OSPApprover user can Acknowledge the requested action list item$/ do
+# The code doesn't read like it's acknowledging anything.
+Then /^I can acknowledge the requested action list item$/ do
   on ActionList do |page|
     page.action(@proposal.document_id.to_i + 1).select 'FYI'
     page.take_actions
   end
 end
 
-When /^I submit the routed proposal to a sponsor$/ do
-  pending
+Then /^I submit the routed proposal to a sponsor$/ do
+  visit DocumentSearch do |page|
+    page.document_id.set @proposal.document_id
+    page.search
+    page.open_item(@proposal.document_id)
+  end
+  on(ProposalSummary).proposal_actions
+  on(ProposalActions).submit_to_sponsor
+  on(NotificationEditor).send_fyi
 end

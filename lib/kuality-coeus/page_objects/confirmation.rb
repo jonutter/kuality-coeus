@@ -2,7 +2,7 @@ class Confirmation < BasePage
 
   global_buttons
 
-  element(:yes_button) { |b| b.frm.button(class: 'confirm', name: 'methodToCall.processAnswer.button0') }
+  element(:yes_button) { |b| b.frm.button(name: 'methodToCall.processAnswer.button0', class: 'confirm') }
   element(:reason) { |b| b.frm.text_field(name: 'reason') }
   alias_method :recall_reason, :reason
   action(:yes) { |b| b.yes_button.click; b.loading }
