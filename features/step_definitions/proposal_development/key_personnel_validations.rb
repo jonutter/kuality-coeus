@@ -55,31 +55,39 @@ Then /^there should be an error that says the (.*) user already holds investigat
   on(KeyPersonnel).errors.should include "#{get(role).first_name} #{get(role).last_name} already holds Investigator role."
 end
 
-Then(/^the (.*) user can access the proposal from their action list$/) do |role|
-  get(role).sign_in
+Then(/^I can access the proposal from my action list$/) do
   visit(ActionList).filter
   on ActionListFilter do |page|
     page.document_title.set @proposal.project_title
     page.filter
   end
+  on(ActionList).open_item(@proposal.document_id)
+end
 
-# TODO: Rewrite this step def...
-#Note: This step exists to simply validate whether or not the approve option is present
-Then(/^the (.*) user can (.*) the proposal document$/) do |role, action|
-  get(role).logged_in?
+And(/^the (.*) button appears on the Proposal Summary and Proposal Action pages$/) do |action|
   case action
     when 'Approve'
-      on(ActionList).open_item(@proposal.document_id)
-      on(ProposalSummary).approve_button.should exist
+      on ProposalSummary do |page|
+        page.approve_button.should exist
+        page.proposal_actions
+      end
+      on(ProposalActions).approve_button.should exist
       visit(Researcher)
+
     when 'Disapprove'
-      on(ActionList).open_item(@proposal.document_id)
-      on(ProposalSummary).disapprove_button.should exist
+      on ProposalSummary do |page|
+        page.disapprove_button.should exist
+        page.proposal_actions
+      end
+      on(ProposalActions).disapprove_button.should exist
       visit(Researcher)
 
     when 'Reject'
-      on(ActionList).open_item(@proposal.document_id)
-      on(ProposalSummary).reject_button.should exist
+      on ProposalSummary do |page|
+        page.reject_button.should exist
+        page.proposal_actions
+      end
+      on(ProposalActions).reject_button.should exist
       visit(Researcher)
   end
 end
@@ -138,5 +146,4 @@ When /^the (.*) user approves the proposal$/ do |role|
   on(ProposalSummary).approve
   on(Confirmation).yes
   visit(Login)
-  end
 end
