@@ -5,7 +5,7 @@ class ProposalActions < ProposalDevelopmentDocument
   tiny_buttons
   validation_elements
 
-  glbl 'Submit to Sponsor', 'Submit to S2S', 'Send AdHoc Requests'
+  glbl 'Submit To Sponsor', 'Submit To S2S', 'Send AdHoc Requests'
 
   # Data Validation
   element(:data_validation_header) { |b| b.frm.h2(text: 'Data Validation') }

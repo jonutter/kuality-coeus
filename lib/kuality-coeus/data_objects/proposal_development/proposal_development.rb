@@ -231,6 +231,14 @@ class ProposalDevelopmentObject
     end
   end
 
+  def submit_to_s2s
+    submit
+    on ProposalActions do |page|
+      page.recall_button.wait_until_present
+      page.submit_to_s2s
+    end
+  end
+
   def open_proposal
     open_document @doc_header
   end
