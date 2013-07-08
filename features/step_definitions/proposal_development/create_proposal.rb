@@ -116,7 +116,7 @@ And /^I add the (Grants.Gov|Research.Gov) opportunity id of (.*) to the proposal
 end
 
 And /^I add and mark complete all the required attachments for an NSF proposal$/ do
-  %w{Equipment Bibliography BudgetJustification ProjectSummary Narrative}.each do |type|
+  %w{Equipment Bibliography BudgetJustification ProjectSummary Narrative}.shuffle.each do |type|
     @proposal.add_proposal_attachment type: type, file_name: 'test.pdf', status: 'Complete'
   end
   @proposal.add_proposal_attachment type: 'Other', file_name: 'NSF_DATA_MANAGEMENT_PLAN.pdf', status: 'Complete', description: random_alphanums
@@ -128,7 +128,7 @@ And /^I add and mark complete all the required attachments for an NSF proposal$/
 end
 
 When /^I add and mark complete all the required attachments for an NIH proposal$/ do
-  %w{Equipment Bibliography BudgetJustification ProjectSummary Narrative Facilities}.each do |type|
+  %w{Equipment Bibliography BudgetJustification ProjectSummary Narrative Facilities PHS_ResearchPlan_SpecificAims PHS_ResearchPlan_ResearchStrategy}.shuffle.each do |type|
     @proposal.add_proposal_attachment type: type, file_name: 'test.pdf', status: 'Complete'
   end
   @proposal.key_personnel.each do |person|

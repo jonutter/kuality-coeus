@@ -74,7 +74,7 @@ class S2SQuestionnaireObject
       # Answers all of the Yes/No questions first (in random order)
       yn_questions.shuffle.each do |q|
         var = get(q)
-        fat.send(q, var) unless var==nil
+        fat.send(q, var) if var != nil && fat.send("#{q}_element".to_sym, var).present?
       end
 
       # Next we answer the questions that are conditional, based on the above answers...
@@ -87,16 +87,10 @@ class S2SQuestionnaireObject
         var = get(yr)
         fat.send(yr, var) unless var==nil
       end
-      #fat.explain_potential_effects.fit @explain_potential_effects
       1.upto(5) do |n|
         sp = "support_provided_#{n}"
         fat.send(sp).pick! get(sp)
       end
-      #fat.explain_support.fit @explain_support
-      #fat.pis_us_govt_agency.pick! @pis_us_govt_agency
-      #fat.total_amount_requested.fit @total_amount_requested
-      #fat.former_pi.fit @former_pi
-      #fat.former_institution.fit @former_institution
       1.upto(20) do |n|
         scl = "stem_cell_line_#{n}"
         fat.send(scl).fit get(scl)

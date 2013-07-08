@@ -58,7 +58,15 @@ class KeyPersonObject
       end
     end
     on KeyPersonnel do |person|
-      person.proposal_role.pick! @role
+      # This conditional exists to deal with the fact that
+      # a Principal Investigator can also be called a "PI/Contact",
+      # in cases where it's an NIH proposal.
+      if person.proposal_role.include? @role
+        person.proposal_role.select @role
+      else
+        person.proposal_role.select_value role_value[@role]
+        @role = person.proposal_role.selected_options[0].text
+      end
       person.key_person_role.fit @key_person_role
       person.add_person
       break if person.add_person_errors_div.present? # ..we've thrown an error, so no need to continue this method...
@@ -205,6 +213,15 @@ class KeyPersonObject
      :lobbying_activities,
      :excluded_from_transactions,
      :familiar_with_pla]
+  end
+
+  def role_value
+    {
+        'Principal Investigator' => 'PI',
+        'PI/Contact' => 'PI',
+        'Co-Investigator' => 'COI',
+        'Key Person' => 'KP'
+    }
   end
 
 end # KeyPersonObject

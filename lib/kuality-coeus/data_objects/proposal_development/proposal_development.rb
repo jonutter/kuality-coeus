@@ -155,6 +155,12 @@ class ProposalDevelopmentObject
     @personnel_attachments << p_a
   end
 
+  def answer_s2s_questions opts={}
+    merge_settings(opts)
+    @s2s_questionnaire = make S2SQuestionnaireObject, opts
+    @s2s_questionnaire.create
+  end
+
   def make_institutional_proposal
     # TODO: Write any preparatory web site functional steps and page scraping code
     ip = make InstitutionalProposalObject, dev_proposal_number: @proposal_number,
