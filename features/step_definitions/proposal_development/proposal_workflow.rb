@@ -56,8 +56,6 @@ Then(/^the proposal is in my action list as an (.*)$/) do |action|
   end
 end
 
-# TODO: Fix this!
-# The code doesn't read like it's acknowledging anything.
 Then /^I can acknowledge the requested action list item$/ do
   on ActionList do |page|
     page.action(@proposal.document_id.to_i + 1).select 'FYI'
