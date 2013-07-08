@@ -30,7 +30,7 @@ Then /^the proposal is in the (.*) user's action list$/ do |username|
     page.document_title.set @proposal.project_title
     page.filter
   end
-  on(ActionList).item(@proposal.document_id).should exist
+  on(ActionList).item_row(@proposal.document_id).should exist
 end
 
 And /^their proposal permissions allow them to (.*)$/ do |permissions|

@@ -22,12 +22,7 @@ When /^I send a notification to the following users: (.*)$/ do |roles|
 end
 
 When /^I recall the proposal for revisions$/ do
-  @proposal.recall
-  # TODO: we might want to fold this confirmation into the recall method so that this step def is cleaner
-  on Confirmation do |page|
-    page.recall_reason.fit random_alphanums
-    page.recall_to_action_list
-  end
+  @proposal.recall_for_revisions
 end
 
 When /^when the proposal is opened the status should be (.*)$/ do |status|
@@ -36,13 +31,7 @@ When /^when the proposal is opened the status should be (.*)$/ do |status|
 end
 
 When /^I recall and cancel the proposal$/ do
-  #TODO: Please fix the recall method (see comment above)
-  # Probably just need a specific "recall_and_cancel" method
-  @proposal.recall
-  on Confirmation do |page|
-    page.recall_reason.fit random_alphanums
-    page.recall_and_cancel
-  end
+  @proposal.recall_for_cancellation
 end
 
 Then /^the proposal status should be (.*)$/ do |status|
@@ -53,8 +42,6 @@ Then /^I can submit the proposal document$/ do
   @proposal.submit
 end
 
-# TODO: Fix this!
-# There is nothing in the code of this step definition that references the OSPApprover
 Then(/^the proposal is in my action list as an (.*)$/) do |action|
   visit ActionList do |page|
     page.last

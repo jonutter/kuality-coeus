@@ -52,7 +52,7 @@ Feature: Proposal Workflows and Routing
     And   the proposal status should be Approval Pending
 
 #TODO: Scenario: An Aggregator can blanket approve a routed proposal so its status changes to 'Approval Granted'
-  @test
+
   Scenario: The status of a development proposal should change to 'Approval Pending - Submitted' upon submission to a sponsor
     Given I have users with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
@@ -66,21 +66,17 @@ Feature: Proposal Workflows and Routing
   Scenario: The status of a development proposal should change to 'Document Error Occurred' upon its being recalled and cancelled
     Given I have a user with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
-    And   I initiate a development proposal
-    And   I complete the proposal
-    And   I submit the proposal
+    And   I submit a new development proposal into routing
     When  I recall and cancel the proposal
     Then  the proposal status should be 'Document Error Occurred'
-
+  @test
   Scenario: The status of a development proposal should change to 'Revisions Requested' upon its being recalled for revisions
     Given I have a user with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
-    And   I initiate a development proposal
-    And   I complete the proposal
-    And   I submit the proposal
+    And   I submit a new development proposal into routing
     When  I recall the proposal for revisions
-    Then  the proposal is in the Proposal Creator user's action list
-    And   when the proposal is opened the status should be 'Revisions Requested'
+    Then  the proposal status should be Revisions Requested
+
 #=================
 # Notifications -- Notifications are sent are FYIs to select users.
 #=================

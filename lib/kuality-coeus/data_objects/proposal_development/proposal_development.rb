@@ -181,13 +181,23 @@ class ProposalDevelopmentObject
     end
   end
 
-  def recall(reason=random_alphanums)
+  def recall_for_revisions(reason=random_alphanums)
     @recall_reason=reason
     open_proposal
     on(Proposal).recall
     on Confirmation do |conf|
       conf.reason.set @recall_reason
       conf.recall_to_action_list
+    end
+  end
+
+  def recall_for_cancellation
+    @recall_reason=recall
+    open_proposal
+    on(Proposal).recall
+    on Confirmation do |conf|
+      conf.reason.set @recall_reason
+      conf.recall_and_cancel
     end
   end
 
