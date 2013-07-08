@@ -231,13 +231,13 @@ class ProposalDevelopmentObject
     end
   end
 
-  # =======
-  private
-  # =======
-
   def open_proposal
     open_document @doc_header
   end
+
+  # =======
+  private
+  # =======
 
   def merge_settings(opts)
     defaults = {

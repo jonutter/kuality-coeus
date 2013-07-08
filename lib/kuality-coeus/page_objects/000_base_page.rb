@@ -37,7 +37,7 @@ class BasePage < PageFactory
 
     def global_buttons
       glbl 'save', 'Reject', 'blanket approve', 'close', 'cancel', 'reload',
-           'Submit To Sponsor', 'Delete Proposal', 'approve', 'disapprove',
+           'Delete Proposal', 'approve', 'disapprove',
            'Generate All Periods', 'Calculate All Periods', 'Default Periods',
            'Calculate Current Period', 'submit', 'Send Notification'
       # Explicitly defining the "recall" button to keep the method name at "recall" instead of "recall_current_document"...

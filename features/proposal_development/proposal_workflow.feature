@@ -13,9 +13,9 @@ Feature: Proposal Workflows and Routing
   Scenario Outline: A PI who receives a routed proposal in their action list has the option to approve, disapprove, or reject it
     Given I have users with the following roles: OSPApprover, Proposal Creator, Unassigned
     And   I log in with the Proposal Creator user
-    And   I initiate a development proposal
+    And   I initiate a proposal
     And   I add the Unassigned user as a Principal Investigator to the key personnel proposal roles
-    And   I complete the required fields on the proposal
+    And   I complete the required custom fields on the proposal
     And   I submit the proposal
     When  the OSPApprover user approves the proposal
     And   I log in with the Unassigned user
@@ -31,7 +31,7 @@ Feature: Proposal Workflows and Routing
   Scenario Outline: An OSP Approver who receives a routed proposal in their action list has the option to approve, disapprove, or reject it
     Given I have users with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
-    And   I initiate a development proposal
+    And   I initiate a proposal
     And   I complete the proposal
     And   I submit the proposal
     When  I log in with the OSPApprover user
@@ -46,10 +46,10 @@ Feature: Proposal Workflows and Routing
 
   Scenario: The status of a development proposal should change to 'Approval Pending' upon submission into routing
     Given I have a user with the system role: 'Proposal Creator'
-    And   I initiate a development proposal
+    And   I initiate a proposal
     And   I complete the proposal
-    Then  I can submit the proposal document
-    And   the proposal status should be Approval Pending
+    When  I submit the proposal document
+    Then   the proposal status should be Approval Pending
 
 #TODO: Scenario: An Aggregator can blanket approve a routed proposal so its status changes to 'Approval Granted'
 
@@ -83,7 +83,7 @@ Feature: Proposal Workflows and Routing
   Scenario: Notifications sent from a development proposal should appear as FYIs in the recipient's Action List
     Given I have users with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
-    And   I initiate a development proposal
+    And   I initiate a proposal
     And   I complete the proposal
     When  I send a notification to the following users: OSPApprover
     And   I log in with the OSPApprover user
@@ -97,7 +97,7 @@ Feature: Proposal Workflows and Routing
 #=================
   Scenario: An OSP Approver should receive newly submitted proposals in their action list
     Given I have a user with the system role: 'OSPApprover'
-    And   I initiate a development proposal
+    And   I initiate a proposal
     And   I complete the proposal
     When  I submit the proposal
     Then  the proposal is in the OSPApprover user's action list

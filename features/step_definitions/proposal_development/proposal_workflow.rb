@@ -38,7 +38,7 @@ Then /^the proposal status should be (.*)$/ do |status|
   @proposal.status.should==status
 end
 
-Then /^I can submit the proposal document$/ do
+When /^I submit the proposal document$/ do
   @proposal.submit
 end
 
@@ -64,12 +64,8 @@ Then /^I can acknowledge the requested action list item$/ do
 end
 
 Then /^I submit the routed proposal to a sponsor$/ do
-  visit DocumentSearch do |page|
-    page.document_id.set @proposal.document_id
-    page.search
-    page.open_item(@proposal.document_id)
-  end
-  on(ProposalSummary).proposal_actions
+  @proposal.open_proposal
+  on(Proposal).proposal_actions
   on(ProposalActions).submit_to_sponsor
   on(NotificationEditor).send_fyi
 end
