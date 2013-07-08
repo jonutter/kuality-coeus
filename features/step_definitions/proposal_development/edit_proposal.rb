@@ -55,3 +55,7 @@ Then /^I can recall the proposal$/ do
   @proposal.view :proposal
   on(Proposal).recall_button.should exist
 end
+
+And /^I answer the S2S questions$/ do
+  @proposal.answer_s2s_questions
+end

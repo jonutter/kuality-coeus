@@ -78,7 +78,7 @@ When /^I complete the proposal$/ do
   @proposal.add_custom_data
 end
 
-When /^I complete the required fields on the proposal$/ do
+When /^I complete the required custom fields on the proposal$/ do
   @proposal.add_custom_data
 end
 

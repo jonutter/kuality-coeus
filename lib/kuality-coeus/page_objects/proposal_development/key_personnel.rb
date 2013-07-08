@@ -40,6 +40,13 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:home_unit) { |full_name, p| p.person_div(full_name).table[8][1].text }
   action(:era_commons_name) { |full_name, p| p.person_div(full_name).text_field(name: /eraCommonsUserName/) }
 
+  # Degrees...
+  action(:degree_type) { |full_name, p| p.degrees_div(full_name).select(name: 'newProposalPersonDegree[0].degreeCode') }
+  action(:degree_description) { |full_name, p| p.degrees_div(full_name).text_field(name: 'newProposalPersonDegree[0].degree') }
+  action(:graduation_year) { |full_name, p| p.degrees_div(full_name).text_field(name: 'newProposalPersonDegree[0].graduationYear') }
+  action(:school) { |full_name, p| p.degrees_div(full_name).text_field(name: 'newProposalPersonDegree[0].school') }
+  action(:add_degree) { |full_name, p| p.degrees_div(full_name).button(name: 'methodToCall.insertDegree.document.developmentProposalList[0].proposalPersons[0].line').click }
+
   # Unit Details...
   action(:unit_details_errors_div) { |full_name, p| p.unit_div(full_name).div(class: 'left-errmsg-tab').div }
   action(:unit_details_errors) { |full_name, p| p.unit_details_errors_div(full_name).divs.collect { |div| div.text } }
@@ -111,6 +118,7 @@ class KeyPersonnel < ProposalDevelopmentDocument
   end
 
   action(:person_div) { |full_name, b| b.frm.div(id: "tab-#{nsp(full_name)}:PersonDetails-div") }
+  action(:degrees_div) { |full_name, b| b.frm.div(id: "tab-#{nsp(full_name)}:Degrees-div") }
   action(:unit_div) { |full_name, b| b.frm.div(id: "tab-#{nsp(full_name)}:UnitDetails-div") }
   action(:questions_div) { |full_name, b| b.frm.span(class: 'subhead-left', text: full_name).parent.parent.div(class: 'questionnaireContent') }
   action(:certification_div) { |full_name, b| b.frm.div(id: "tab-#{nsp(full_name)}:Certify-div") }

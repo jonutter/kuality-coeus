@@ -10,7 +10,7 @@ class KeyPersonObject
                 :financial, :recognition, :certified, :certify_info_true,
                 :potential_for_conflicts, :submitted_financial_disclosures,
                 :lobbying_activities, :excluded_from_transactions, :familiar_with_pla,
-                :space, :other_key_persons, :era_commons_name
+                :space, :other_key_persons, :era_commons_name, :degrees
 
   # Note that you must pass in both first and last names (or neither).
   def initialize(browser, opts={})
@@ -19,6 +19,7 @@ class KeyPersonObject
     defaults = {
       role:                            'Principal Investigator',
       units:                           [],
+      degrees:                         DegreesCollection.new,
       space:                           random_percentage,
       responsibility:                  random_percentage,
       financial:                       random_percentage,
@@ -178,6 +179,14 @@ class KeyPersonObject
     end
   end
 
+  def add_degree_info opts={}
+    defaults = { document_id: @document_id,
+                 person: @full_name }
+    degree = make DegreeObject, defaults.merge(opts)
+    degree.create
+    @degrees << degree
+  end
+
   def delete
     navigate
     on KeyPersonnel do |person|
@@ -263,7 +272,7 @@ class KeyPersonnelCollection < Array
   end
 
   def principal_investigator
-    self.find { |person| person.role=='Principal Investigator' }
+    self.find { |person| person.role=='Principal Investigator' || person.role=='PI/Contact' }
   end
 
   def co_investigator
