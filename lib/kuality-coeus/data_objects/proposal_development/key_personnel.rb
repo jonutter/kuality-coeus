@@ -212,7 +212,19 @@ class KeyPersonObject
 
   def navigate
     open_document @doc_type
-    on(Proposal).key_personnel unless on_page?(on(KeyPersonnel).proposal_role)
+    on(Proposal).key_personnel unless on_page?
+  end
+
+  def on_page?
+    # Note, the rescue clause should be
+    # removed when the Selenium bug with
+    # firefox elements gets fixed. This is
+    # still broken in selenium-webdriver 2.29
+    begin
+      on(KeyPersonnel).proposal_role.exist?
+    rescue
+      false
+    end
   end
 
   def cert_questions

@@ -29,6 +29,9 @@ class ProposalActions < ProposalDevelopmentDocument
   value(:unit_business_rules_warnings) { |b| b.frm.td(text: 'Unit Business Rules Warnings').parent.parent.td(class: 'datacell').text }
 
   element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
+  element(:approve_button) { |b| b.frm.button(name: 'methodToCall.approve') }
+  element(:disapprove_button) { |b| b.frm.button(name: 'methodToCall.disapprove') }
+  element(:reject_button) { |b| b.frm.button(name: 'methodToCall.reject') }
 
   # Proposal Hierarchy
 

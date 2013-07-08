@@ -22,12 +22,7 @@ When /^I send a notification to the following users: (.*)$/ do |roles|
 end
 
 When /^I recall the proposal for revisions$/ do
-  @proposal.recall
-  # TODO: we might want to fold this confirmation into the recall method so that this step def is cleaner
-  on Confirmation do |page|
-    page.recall_reason.fit random_alphanums
-    page.recall_to_action_list
-  end
+  @proposal.recall_for_revisions
 end
 
 When /^when the proposal is opened the status should be (.*)$/ do |status|
@@ -36,13 +31,7 @@ When /^when the proposal is opened the status should be (.*)$/ do |status|
 end
 
 When /^I recall and cancel the proposal$/ do
-  #TODO: Please fix the recall method (see comment above)
-  # Probably just need a specific "recall_and_cancel" method
-  @proposal.recall
-  on Confirmation do |page|
-    page.recall_reason.fit random_alphanums
-    page.recall_and_cancel
-  end
+  @proposal.recall_for_cancellation
 end
 
 Then /^the proposal status should be (.*)$/ do |status|
@@ -53,9 +42,7 @@ Then /^I can submit the proposal document$/ do
   @proposal.submit
 end
 
-# TODO: Fix this!
-# There is nothing in the code of this step definition that references the OSPApprover
-Then(/^the proposal is in the OSPApprover user's action list as an? (.*)$/) do |action|
+Then(/^the proposal is in my action list as an (.*)$/) do |action|
   visit ActionList do |page|
     page.last
     x = 0
@@ -70,15 +57,21 @@ Then(/^the proposal is in the OSPApprover user's action list as an? (.*)$/) do |
 end
 
 # TODO: Fix this!
-# There is nothing in the code of this step definition that references the OSPApprover,
-# and the code doesn't read like it's acknowledging anything.
-Then /^the OSPApprover user can Acknowledge the requested action list item$/ do
+# The code doesn't read like it's acknowledging anything.
+Then /^I can acknowledge the requested action list item$/ do
   on ActionList do |page|
     page.action(@proposal.document_id.to_i + 1).select 'FYI'
     page.take_actions
   end
 end
 
-When /^I submit the routed proposal to a sponsor$/ do
-  pending
+Then /^I submit the routed proposal to a sponsor$/ do
+  visit DocumentSearch do |page|
+    page.document_id.set @proposal.document_id
+    page.search
+    page.open_item(@proposal.document_id)
+  end
+  on(ProposalSummary).proposal_actions
+  on(ProposalActions).submit_to_sponsor
+  on(NotificationEditor).send_fyi
 end
