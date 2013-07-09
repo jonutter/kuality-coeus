@@ -35,7 +35,7 @@ When /^I recall and cancel the proposal$/ do
 end
 
 Then /^the proposal status should be (.*)$/ do |status|
-  @proposal.status.should==status
+  @proposal.status.should == status
 end
 
 When /^I submit the proposal document$/ do

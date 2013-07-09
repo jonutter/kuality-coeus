@@ -235,7 +235,12 @@ class ProposalDevelopmentObject
     open_proposal
     on(Proposal).proposal_actions
     on(ProposalActions).submit_to_sponsor
-    on(NotificationEditor).send_fyi
+    on NotificationEditor do |page|
+      # A breaking of the design pattern, here,
+      # but we have no alternative...
+      @status=page.document_status
+      page.send_fyi
+    end
   end
 
   def submit_to_s2s
@@ -243,6 +248,9 @@ class ProposalDevelopmentObject
     on(Proposal).proposal_actions
     on ProposalActions do |page|
       page.submit_to_s2s
+      # A breaking of the design pattern, here,
+      # but we have no alternative...
+      @status=page.document_status
     end
   end
 

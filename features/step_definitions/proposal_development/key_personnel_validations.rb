@@ -138,7 +138,6 @@ When(/^the status of the proposal document should change to (.*)$/) do |status|
   end
 end
 
-# TODO: Rewrite this step definition to make the Action List an explicit part of the text (if it's really necessary for the test).
 When /^the (.*) user approves the proposal$/ do |role|
   get(role).sign_in
   @proposal.open_proposal

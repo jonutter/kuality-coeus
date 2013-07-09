@@ -10,7 +10,6 @@ Feature: Proposal Workflows and Routing
 #=================
 # Proposal Actions -- User types assigned to routing can approve, disapprove, reject, and recall development proposals
 #=================
-  @test
   Scenario Outline: A PI who receives a routed proposal in their action list has the option to approve, disapprove, or reject it
     Given I have users with the following roles: OSPApprover, Proposal Creator, Unassigned
     And   I log in with the Proposal Creator user
@@ -19,15 +18,15 @@ Feature: Proposal Workflows and Routing
     And   I complete the required custom fields on the proposal
     And   I submit the proposal
     When  the OSPApprover user approves the proposal
-    #And   I log in with the Unassigned user
-    #Then  I can access the proposal from my action list
-    #And   the <Action> button appears on the Proposal Summary and Proposal Action pages
+    And   I log in with the Unassigned user
+    Then  I can access the proposal from my action list
+    And   the <Action> button appears on the Proposal Summary and Proposal Action pages
 
   Examples:
     | Action     |
     | Approve    |
-    #| Disapprove |
-    #| Reject     |
+    | Disapprove |
+    | Reject     |
 
   Scenario Outline: An OSP Approver who receives a routed proposal in their action list has the option to approve, disapprove, or reject it
     Given I have users with the following roles: Proposal Creator, OSPApprover
@@ -69,7 +68,7 @@ Feature: Proposal Workflows and Routing
     And   I log in with the Proposal Creator user
     And   I submit a new development proposal into routing
     When  I recall and cancel the proposal
-    Then  the proposal status should be 'Document Error Occurred'
+    Then  the proposal status should be Document Error Occurred
 
   Scenario: The status of a development proposal should change to 'Revisions Requested' upon its being recalled for revisions
     Given I have a user with the system role: 'Proposal Creator'
