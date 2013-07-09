@@ -151,7 +151,7 @@ class UserObject
       unless @phones.nil?
         @phones.each do |phone|
           add.phone_type.fit phone[:type]
-          add.phone_default.set
+          add.phone_default.send(phone[:default])
           add.add_phone
         end
       end

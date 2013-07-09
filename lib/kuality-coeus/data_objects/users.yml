@@ -76,27 +76,27 @@ kctestuser9:  # AKA: "Principal Name"
   :first_name:       newman
   :last_name:        test
   :addresses:
-      - :type:    Home
-        :line_1:  475 n scottsdale rd
-        :city:    scottsdale
-        :state:   ARIZONA
-        :country: United States
-        :zip:     85257
-        :default: :set
-      - :type:    Work
-        :line_1:  475 n scottsdale rd
-        :city:    scottsdale
-        :state:   ARIZONA
-        :country: United States
-        :zip:     85257
-        :default: :clear
-    :phones:
-      - :type:    Home
-        :number:  602-228-3876
-        :default: :set
-      - :type:    Facsimile
-        :number:  602-597-5350
-        :default: :clear
+    - :type:    Home
+      :line_1:  475 n scottsdale rd
+      :city:    scottsdale
+      :state:   ARIZONA
+      :country: United States
+      :zip:     85257
+      :default: :set
+    - :type:    Work
+      :line_1:  475 n scottsdale rd
+      :city:    scottsdale
+      :state:   ARIZONA
+      :country: United States
+      :zip:     85257
+      :default: :clear
+  :phones:
+    - :type:    Home
+      :number:  602-228-3876
+      :default: :set
+    - :type:    Facsimile
+      :number:  602-597-5350
+      :default: :clear
   :roles:
     - '98'  # Manager
     - '110' # Aggregator
@@ -111,27 +111,27 @@ kctestuser10:  # AKA: "Principal Name"
   :first_name:       truman
   :last_name:        test
   :addresses:
-      - :type:    Home
-        :line_1:  475 n scottsdale rd
-        :city:    scottsdale
-        :state:   ARIZONA
-        :country: United States
-        :zip:     85257
-        :default: :set
-      - :type:    Work
-        :line_1:  475 n scottsdale rd
-        :city:    scottsdale
-        :state:   ARIZONA
-        :country: United States
-        :zip:     85257
-        :default: :clear
-    :phones:
-      - :type:    Home
-        :number:  602-228-3876
-        :default: :set
-      - :type:    Facsimile
-        :number:  602-597-5350
-        :default: :clear
+    - :type:    Home
+      :line_1:  475 n scottsdale rd
+      :city:    scottsdale
+      :state:   ARIZONA
+      :country: United States
+      :zip:     85257
+      :default: :set
+    - :type:    Work
+      :line_1:  475 n scottsdale rd
+      :city:    scottsdale
+      :state:   ARIZONA
+      :country: United States
+      :zip:     85257
+      :default: :clear
+  :phones:
+    - :type:    Home
+      :number:  602-228-3876
+      :default: :set
+    - :type:    Facsimile
+      :number:  602-597-5350
+      :default: :clear
   :roles:
     - '110' # Aggregator
   :role_qualifiers:
