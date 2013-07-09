@@ -41,9 +41,7 @@ class UserObject
                 :first_name, :last_name,
                 :description, :affiliation_type, :campus_code,
                 :employee_id, :employee_status, :employee_type, :base_salary, :primary_dept_code,
-                :groups, :roles, :role_qualifiers,
-                :address_type, :line_1, :city, :state, :country,
-                :phone_type, :phone_number
+                :groups, :roles, :role_qualifiers, :addresses, :phones
 
   USERS = UserCollection[YAML.load_file("#{File.dirname(__FILE__)}/users.yml")]
 
@@ -138,15 +136,24 @@ class UserObject
           add.add_group
         end
       end
-      unless @line_1.nil?
-        fill_out add, :address_type, :line_1, :line_2, :line_3, :city, :state, :country
-        add.address_default.set
-        add.add_address
+      unless @addresses.nil?
+        @addresses.each do |address|
+          add.address_type.fit address[:type]
+          add.line_1.fit address[:line_1]
+          add.city.fit address[:city]
+          add.state.pick! address[:state]
+          add.country.pick! address[:country]
+          add.zip.fit address[:zip]
+          add.address_default.send(address[:default])
+          add.add_address
+        end
       end
-      unless @phone_number.nil?
-        fill_out add, :phone_type, :phone_number
-        add.phone_default.set
-        add.add_phone
+      unless @phones.nil?
+        @phones.each do |phone|
+          add.phone_type.fit phone[:type]
+          add.phone_default.send(phone[:default])
+          add.add_phone
+        end
       end
       add.blanket_approve
     end

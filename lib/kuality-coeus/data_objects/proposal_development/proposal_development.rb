@@ -231,6 +231,14 @@ class ProposalDevelopmentObject
     end
   end
 
+  def submit_to_s2s
+    open_proposal
+    on(Proposal).proposal_actions
+    on ProposalActions do |page|
+      page.submit_to_s2s
+    end
+  end
+
   def open_proposal
     open_document @doc_header
   end

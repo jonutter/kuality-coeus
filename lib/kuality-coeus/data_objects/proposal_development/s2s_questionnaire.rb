@@ -100,6 +100,7 @@ class S2SQuestionnaireObject
                     :explain_environmental_impact, :explain_exemption, :explain_historic_designation,
                     :identify_countries, :explain_international_activities, :submitted_to_govt_agency,
                     :application_date, :program
+      fat.save
     end
   end
 

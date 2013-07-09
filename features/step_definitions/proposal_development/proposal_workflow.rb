@@ -63,9 +63,13 @@ Then /^I can acknowledge the requested action list item$/ do
   end
 end
 
-Then /^I submit the routed proposal to a sponsor$/ do
+When /^I submit the routed proposal to a sponsor$/ do
   @proposal.open_proposal
   on(Proposal).proposal_actions
   on(ProposalActions).submit_to_sponsor
   on(NotificationEditor).send_fyi
+end
+
+When /^I submit the proposal to S2S$/ do
+  @proposal.submit_to_s2s
 end
