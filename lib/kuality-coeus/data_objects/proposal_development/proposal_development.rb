@@ -231,6 +231,13 @@ class ProposalDevelopmentObject
     end
   end
 
+  def submit_to_sponsor
+    open_proposal
+    on(Proposal).proposal_actions
+    on(ProposalActions).submit_to_sponsor
+    on(NotificationEditor).send_fyi
+  end
+
   def submit_to_s2s
     open_proposal
     on(Proposal).proposal_actions
