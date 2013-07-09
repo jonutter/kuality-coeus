@@ -30,7 +30,7 @@ class Person < BasePage
   element(:zip) { |b| b.frm.text_field(id: 'newAddress.postalCode') }
   element(:country) { |b| b.frm.select(id: 'newAddress.countryCode') }
   element(:address_default) { |b| b.frm.checkbox(id: 'newAddress.dflt') }
-  action(:add_address) { |b| b.frm.button(name: 'methodToCall.addAddress.anchor').click }
+  action(:add_address) { |b| b.frm.button(name: 'methodToCall.addAddress.anchor').click; b.loading }
   element(:phone_type) { |b| b.frm.select(id: 'newPhone.phoneTypeCode') }
   element(:phone_number) { |b| b.frm.text_field(id: 'newPhone.phoneNumber') }
   element(:phone_default) { |b| b.frm.checkbox(id: 'newPhone.dflt') }

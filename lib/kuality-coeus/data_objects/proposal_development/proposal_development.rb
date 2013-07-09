@@ -232,9 +232,9 @@ class ProposalDevelopmentObject
   end
 
   def submit_to_s2s
-    submit
+    open_proposal
+    on(Proposal).proposal_actions
     on ProposalActions do |page|
-      page.recall_button.wait_until_present
       page.submit_to_s2s
     end
   end

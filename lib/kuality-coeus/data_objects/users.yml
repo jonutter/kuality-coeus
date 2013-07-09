@@ -9,13 +9,28 @@ unassigneduser: # AKA: "Principal Name
   :base_salary:      '180'
   :first_name:       july
   :last_name:        test
-  :address_type: Home
-  :line_1: 475 n scottsdale rd
-  :city: scottsdale
-  :state: ARIZONA
-  :country: United States
-  :phone_type: Home
-  :phone_number: 555-555-5555
+  :addresses:
+    - :type:    Home
+      :line_1:  475 n scottsdale rd
+      :city:    scottsdale
+      :state:   ARIZONA
+      :country: United States
+      :zip:     85257
+      :default: :set
+    - :type:    Work
+      :line_1:  475 n scottsdale rd
+      :city:    scottsdale
+      :state:   ARIZONA
+      :country: United States
+      :zip:     85257
+      :default: :clear
+  :phones:
+    - :type:    Home
+      :number:  602-228-3876
+      :default: :set
+    - :type:    Facsimile
+      :number:  602-597-5350
+      :default: :clear
   :roles:
     - '106' # Unassigned
   :role_qualifiers:
@@ -30,13 +45,28 @@ ospapprover:  # AKA: "Principal Name"
   :base_salary:      '180'
   :first_name:       gregor
   :last_name:        test
-  :address_type: Home
-  :line_1: 475 n scottsdale rd
-  :city: scottsdale
-  :state: ARIZONA
-  :country: United States
-  :phone_type: Home
-  :phone_number: 555-555-5555
+  :addresses:
+    - :type:    Home
+      :line_1:  475 n scottsdale rd
+      :city:    scottsdale
+      :state:   ARIZONA
+      :country: United States
+      :zip:     85257
+      :default: :set
+    - :type:    Work
+      :line_1:  475 n scottsdale rd
+      :city:    scottsdale
+      :state:   ARIZONA
+      :country: United States
+      :zip:     85257
+      :default: :clear
+  :phones:
+    - :type:    Home
+      :number:  602-228-3876
+      :default: :set
+    - :type:    Facsimile
+      :number:  602-597-5350
+      :default: :clear
   :roles:
     - '100' # OSPApprover
 kctestuser9:  # AKA: "Principal Name"
@@ -45,13 +75,28 @@ kctestuser9:  # AKA: "Principal Name"
   :campus_code:      'UN - UNIVERSITY'
   :first_name:       newman
   :last_name:        test
-  :address_type: Home
-  :line_1: 475 n scottsdale rd
-  :city: scottsdale
-  :state: ARIZONA
-  :country: United States
-  :phone_type: Home
-  :phone_number: 555-555-5555
+  :addresses:
+      - :type:    Home
+        :line_1:  475 n scottsdale rd
+        :city:    scottsdale
+        :state:   ARIZONA
+        :country: United States
+        :zip:     85257
+        :default: :set
+      - :type:    Work
+        :line_1:  475 n scottsdale rd
+        :city:    scottsdale
+        :state:   ARIZONA
+        :country: United States
+        :zip:     85257
+        :default: :clear
+    :phones:
+      - :type:    Home
+        :number:  602-228-3876
+        :default: :set
+      - :type:    Facsimile
+        :number:  602-597-5350
+        :default: :clear
   :roles:
     - '98'  # Manager
     - '110' # Aggregator
@@ -65,33 +110,29 @@ kctestuser10:  # AKA: "Principal Name"
   :campus_code:      'UN - UNIVERSITY'
   :first_name:       truman
   :last_name:        test
-  :address_type: Home
-  :line_1: 475 n scottsdale rd
-  :city: scottsdale
-  :state: ARIZONA
-  :country: United States
-  :phone_type: Home
-  :phone_number: 555-555-5555
+  :addresses:
+      - :type:    Home
+        :line_1:  475 n scottsdale rd
+        :city:    scottsdale
+        :state:   ARIZONA
+        :country: United States
+        :zip:     85257
+        :default: :set
+      - :type:    Work
+        :line_1:  475 n scottsdale rd
+        :city:    scottsdale
+        :state:   ARIZONA
+        :country: United States
+        :zip:     85257
+        :default: :clear
+    :phones:
+      - :type:    Home
+        :number:  602-228-3876
+        :default: :set
+      - :type:    Facsimile
+        :number:  602-597-5350
+        :default: :clear
   :roles:
     - '110' # Aggregator
   :role_qualifiers:
     :110: '000001'
-#
-# Replace 'username' below with the login string for the user...
-#username:  # AKA: "Principal Name"
-#  :description:
-#  :affiliation_type:
-#  :campus_code:
-#  :employee_id:
-#  :employee_status:
-#  :employee_type:
-#  :base_salary:
-#  :first_name:
-#  :last_name:
-#  :address_type:
-#  :line_1:
-#  :city:
-#  :state:
-#  :country:
-#  :phone_type:
-#  :phone_number:

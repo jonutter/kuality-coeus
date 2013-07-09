@@ -7,7 +7,11 @@ module Navigation
   end
 
   def on_document?(doc_header)
-    on(DocumentHeader).document_id==@document_id && @browser.frm.div(id: 'headerarea').h1.text==doc_header
+    begin
+      on(DocumentHeader).document_id==@document_id && @browser.frm.div(id: 'headerarea').h1.text==doc_header
+    rescue Watir::Exception::UnknownObjectException
+      false
+    end
   end
 
   def doc_search
