@@ -35,6 +35,40 @@ unassigneduser: # AKA: "Principal Name
     - '106' # Unassigned
   :role_qualifiers:
     :106: '000001'
+grantsgov: # AKA: "Principal Name
+  :description:      creating user with 'unassigned' role
+  :affiliation_type: Student
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      unassigneduser
+  :base_salary:      '180'
+  :first_name:       july
+  :last_name:        test
+  :addresses:
+    - :type:    Home
+      :line_1:  475 n scottsdale rd
+      :city:    scottsdale
+      :state:   ARIZONA
+      :country: United States
+      :zip:     85257
+      :default: :set
+    - :type:    Work
+      :line_1:  475 n scottsdale rd
+      :city:    scottsdale
+      :state:   ARIZONA
+      :country: United States
+      :zip:     85257
+      :default: :clear
+  :phones:
+    - :type:    Home
+      :number:  602-228-3876
+      :default: :set
+    - :type:    Facsimile
+      :number:  602-597-5350
+      :default: :clear
+  :roles:
+    - '106' # Unassigned
+  :role_qualifiers:
+    :106: '000001'
 ospapprover:  # AKA: "Principal Name"
   :description:      creating osp approver
   :affiliation_type: Faculty

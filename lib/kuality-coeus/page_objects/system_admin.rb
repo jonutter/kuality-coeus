@@ -2,6 +2,6 @@ class SystemAdmin < BasePage
 
   page_url "#{$base_url}portal.do?selectedTab=portalSystemAdminBody"
 
-  links 'Person'
+  links 'Person', 'Person Extended Attributes'
 
 end
