@@ -68,8 +68,8 @@ Feature: Proposal Workflows and Routing
     And   I log in with the Proposal Creator user
     And   I submit a new development proposal into routing
     When  I recall and cancel the proposal
-    Then  the proposal status should be 'Document Error Occurred'
-  @test
+    Then  the proposal status should be Document Error Occurred
+
   Scenario: The status of a development proposal should change to 'Revisions Requested' upon its being recalled for revisions
     Given I have a user with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user

@@ -138,15 +138,9 @@ When(/^the status of the proposal document should change to (.*)$/) do |status|
   end
 end
 
-# TODO: Rewrite this step definition to make the Action List an explicit part of the text (if it's really necessary for the test).
 When /^the (.*) user approves the proposal$/ do |role|
   get(role).sign_in
-  visit(ActionList).filter
-  on ActionListFilter do |page|
-    page.document_title.set @proposal.project_title
-    page.filter
-  end
-  on(ActionList).open_item(@proposal.document_id)
+  @proposal.open_proposal
   on(ProposalSummary).approve
   on(Confirmation).yes
   visit(Login)

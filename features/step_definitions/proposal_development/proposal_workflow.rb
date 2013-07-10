@@ -35,7 +35,7 @@ When /^when the proposal is opened the status should be (.*)$/ do |status|
 end
 
 Then /^the proposal status should be (.*)$/ do |status|
-  @proposal.status.should==status
+  @proposal.status.should == status
 end
 
 When /^I submit the proposal document$/ do
@@ -51,7 +51,11 @@ Then(/^the proposal is in my action list as an (.*)$/) do |action|
     while x < 4
       break if page.item_row(@proposal.document_id.to_i + 1).exists?
       sleep 1
+    # The page refresh is necessary because the proposal
+    # may reach the user's action list with delay
       page.refresh
+    # After a refresh, you'll need to visit the last page
+    # again to view most recent proposals
       page.last
       x += 1
     end
@@ -67,10 +71,7 @@ Then /^I can acknowledge the requested action list item$/ do
 end
 
 When /^I submit the routed proposal to a sponsor$/ do
-  @proposal.open_proposal
-  on(Proposal).proposal_actions
-  on(ProposalActions).submit_to_sponsor
-  on(NotificationEditor).send_fyi
+  @proposal.submit_to_sponsor
 end
 
 When /^I submit the proposal to S2S$/ do
