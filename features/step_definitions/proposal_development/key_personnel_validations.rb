@@ -95,48 +95,6 @@ And(/^the (.*) button appears on the Proposal Summary and Proposal Action pages$
   end
 end
 
-# TODO: Rewrite in order to make it more explicitly action-list related
-# TODO: A case statement is not appropriate, here. Please refactor this code. It can be cleaned up significantly.
-When(/^the status of the proposal document should change to (.*)$/) do |status|
-  case status
-    when 'Approval Pending'
-      visit ActionList do |page|
-        page.outbox
-        page.filter
-      end
-      on ActionListFilter do |page|
-        page.document_title.set @proposal.project_title
-        page.filter
-      end
-      on(ActionList).open_item(@proposal.document_id)
-      @proposal.status = 'Approval Pending'
-
-    when 'Disapproved'
-      visit ActionList do |page|
-        page.outbox
-        page.filter
-      end
-      on ActionListFilter do |page|
-        page.document_title.set @proposal.project_title
-        page.filter
-      end
-      on(ActionList).open_item(@proposal.document_id)
-      @proposal.status = 'Disapproved'
-
-    when 'Revisions Requested'
-      visit ActionList do |page|
-        page.outbox
-        page.filter
-      end
-      on ActionListFilter do |page|
-        page.document_title.set @proposal.project_title
-        page.filter
-      end
-      on(ActionList).open_item(@proposal.document_id)
-      @proposal.status = 'Revisions Requested'
-  end
-end
-
 When /^the (.*) user approves the proposal$/ do |role|
   get(role).sign_in
   @proposal.open_proposal
