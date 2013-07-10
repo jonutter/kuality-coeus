@@ -37,9 +37,7 @@ grantsgov: # AKA: "Principal Name
   :description:      creating user with 'unassigned' role
   :affiliation_type: Student
   :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      unassigneduser
-  :base_salary:      '180'
-  :first_name:       july
+  :first_name:       Grantsgov
   :last_name:        test
   :addresses:
     - :type:    Home
@@ -64,7 +62,6 @@ grantsgov: # AKA: "Principal Name
       :number:  602-597-5350
       :default: :clear
   :roles:
-    - '106' # Unassigned
     - '107' # Viewer
     - '110' # Aggregator
     - '109' # Narrative Writer
