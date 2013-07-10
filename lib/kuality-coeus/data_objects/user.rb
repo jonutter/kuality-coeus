@@ -37,11 +37,13 @@ class UserObject
   include DataFactory
   include Navigation
 
-  attr_accessor :user_name,
+  attr_accessor :user_name, :principal_id,
                 :first_name, :last_name,
                 :description, :affiliation_type, :campus_code,
                 :employee_id, :employee_status, :employee_type, :base_salary, :primary_dept_code,
-                :groups, :roles, :role_qualifiers, :addresses, :phones
+                :groups, :roles, :role_qualifiers, :addresses, :phones,
+                :primary_title, :directory_title, :citizenship_type,
+                :era_commons_user_name, :graduate_student_count, :billing_element
 
   USERS = UserCollection[YAML.load_file("#{File.dirname(__FILE__)}/users.yml")]
 
@@ -155,7 +157,18 @@ class UserObject
           add.add_phone
         end
       end
+      # A breaking of the design pattern, but there's no other
+      # way to obtain this number:
+      @principal_id = add.principal_id
       add.blanket_approve
+    end
+    visit(SystemAdmin).person_extended_attributes
+    on(PersonExtendedAttributesLookup).create
+    on PersonExtendedAttributes do |page|
+      page.expand_all
+      fill_out page, :description, :primary_title, :directory_title, :citizenship_type,
+               :era_commons_user_name, :graduate_student_count, :billing_element
+      page.blanket_approve
     end
   end
 
@@ -214,7 +227,20 @@ class UserObject
     on PersonLookup do |search|
       search.principal_name.set @user_name
       search.search
-      return search.results_table.present? #TODO: Make this a little more robust, as there's a slim chance for a false positive
+      begin
+        if search.item_row(@user_name).present?
+          # FIXME!
+          # This is a coding abomination to include
+          # this here, but it's here until I can come
+          # up with a better solution...
+          @principal_id = search.item_row(@user_name).link(title: /^Person Principal ID=\d+/).text
+          return true
+        else
+          return false
+        end
+      rescue
+        return false
+      end
     end
   end
   alias_method :exists?, :exist?

@@ -34,7 +34,7 @@ unassigneduser: # AKA: "Principal Name
   :role_qualifiers:
     :106: '000001'
 grantsgov: # AKA: "Principal Name
-  :description:      creating user with 'unassigned' role
+  :description:      User who can submit to grants.gov
   :affiliation_type: Student
   :campus_code:      'UN - UNIVERSITY'
   :employee_id:      unassigneduser
