@@ -4,7 +4,7 @@ Feature: Permissions in a Proposal
   to allow them to work on the proposal with me, and to control what actions
   they are capable of performing with it.
 
-  Background: The system administrator is signed in
+  Background: The admin creates a proposal
     Given   I'm logged in with admin
 
   Scenario: The proposal initiator is automatically an aggregator

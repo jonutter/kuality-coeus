@@ -45,8 +45,11 @@ end
 Then(/^the proposal is in my action list as an (.*)$/) do |action|
   visit ActionList do |page|
     page.last
+    # This code is needed because the list refresh
+    # may not happen immediately...
     x = 0
-    until x == 3 && page.item_row(@proposal.document_id.to_i + 1).exists?
+    while x < 4
+      break if page.item_row(@proposal.document_id.to_i + 1).exists?
       sleep 1
       page.refresh
       page.last
