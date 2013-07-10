@@ -8,7 +8,7 @@ Feature: Key Personnel Validations
     Given   I'm logged in with admin
     And     I initiate a proposal
 
-  Scenario Outline: Error when adding Credit Split percentages above 100 or less than 0
+  Scenario Outline: I should see an error when I add Credit Split percentages above 100 or less than 0
     When  I add a Principal Investigator with a <Type> credit split of <Value>
     Then  a key personnel error should say the credit split is not a valid percentage
 
@@ -18,7 +18,7 @@ Feature: Key Personnel Validations
     | Financial      | 1000   |
     | Recognition    | -0.01  |
 
-  Scenario: Error when adding key personnel without a proposal role specified
+  Scenario: I should see an error when I add a key person without a specified proposal role
     When  I add a key person without a key person role
     Then  a key personnel error should say a key person role is required
 
@@ -33,7 +33,8 @@ Feature: Key Personnel Validations
   Scenario: Error when adding a key person with an invalid unit
     When  I add a key person with an invalid unit type
     Then  a key personnel error should say to select a valid unit
-  @test
+
+  #TODO: Navigation between line 38 and 39 is broken. Fix this...
   Scenario: Error when adding the same user as a PI and Co-Investigator
     Given I have a user with the system role: 'Unassigned'
     When  I add the Unassigned user as a Principal Investigator to the key personnel proposal roles

@@ -65,6 +65,10 @@ grantsgov: # AKA: "Principal Name
       :default: :clear
   :roles:
     - '106' # Unassigned
+    - '107' # Viewer
+    - '110' # Aggregator
+    - '109' # Narrative Writer
+    - '108' # Budget Creator
   :role_qualifiers:
     :106: '000001'
 ospapprover:  # AKA: "Principal Name"
