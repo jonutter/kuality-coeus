@@ -25,13 +25,13 @@ When /^I recall the proposal for revisions$/ do
   @proposal.recall_for_revisions
 end
 
+When /^I recall and cancel the proposal$/ do
+  @proposal.recall_for_cancellation
+end
+
 When /^when the proposal is opened the status should be (.*)$/ do |status|
   on(ActionList).open_item(@proposal.document_id)
   @proposal.status = status
-end
-
-When /^I recall and cancel the proposal$/ do
-  @proposal.recall_for_cancellation
 end
 
 Then /^the proposal status should be (.*)$/ do |status|
@@ -45,8 +45,11 @@ end
 Then(/^the proposal is in my action list as an (.*)$/) do |action|
   visit ActionList do |page|
     page.last
+    # This code is needed because the list refresh
+    # may not happen immediately...
     x = 0
-    until x == 3 && page.item_row(@proposal.document_id.to_i + 1).exists?
+    while x < 4
+      break if page.item_row(@proposal.document_id.to_i + 1).exists?
       sleep 1
       page.refresh
       page.last
