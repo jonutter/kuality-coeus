@@ -34,7 +34,6 @@ Feature: Key Personnel Validations
     When  I add a key person with an invalid unit type
     Then  a key personnel error should say to select a valid unit
 
-  @test
   Scenario: Error when adding the same user as a PI and Co-Investigator
     Given I have a user with the system role: 'Unassigned'
     When  I add the Unassigned user as a Principal Investigator to the key personnel proposal roles

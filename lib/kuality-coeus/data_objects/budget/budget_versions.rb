@@ -105,7 +105,7 @@ class BudgetVersionsObject
     set_options(opts)
   end
 
-  def open
+  def open_budget
     navigate
     on BudgetVersions do |page|
       page.open @name
