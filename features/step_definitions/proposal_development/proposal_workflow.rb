@@ -25,13 +25,13 @@ When /^I recall the proposal for revisions$/ do
   @proposal.recall_for_revisions
 end
 
+When /^I recall and cancel the proposal$/ do
+  @proposal.recall_for_cancellation
+end
+
 When /^when the proposal is opened the status should be (.*)$/ do |status|
   on(ActionList).open_item(@proposal.document_id)
   @proposal.status = status
-end
-
-When /^I recall and cancel the proposal$/ do
-  @proposal.recall_for_cancellation
 end
 
 Then /^the proposal status should be (.*)$/ do |status|
