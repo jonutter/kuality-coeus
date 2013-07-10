@@ -41,6 +41,12 @@ grantsgov: # AKA: "Principal Name
   :base_salary:      '180'
   :first_name:       july
   :last_name:        test
+  :primary_title:    Director RSmart College of Science
+  :directory_title:  Principal Investigator
+  :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
+  :era_commons_user_name: grantsgov
+  :graduate_student_count: '0'
+  :billing_element:  bla bla bla
   :addresses:
     - :type:    Home
       :line_1:  475 n scottsdale rd
@@ -81,6 +87,12 @@ ospapprover:  # AKA: "Principal Name"
   :base_salary:      '180'
   :first_name:       gregor
   :last_name:        test
+  :primary_title:    Director RSmart College of Science
+  :directory_title:  Principal Investigator
+  :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
+  :era_commons_user_name: grantsgov
+  :graduate_student_count: '0'
+  :billing_element:  bla bla bla
   :addresses:
     - :type:    Home
       :line_1:  475 n scottsdale rd
@@ -111,6 +123,12 @@ kctestuser9:  # AKA: "Principal Name"
   :campus_code:      'UN - UNIVERSITY'
   :first_name:       newman
   :last_name:        test
+  :primary_title:    Director RSmart College of Science
+  :directory_title:  Principal Investigator
+  :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
+  :era_commons_user_name: grantsgov
+  :graduate_student_count: '0'
+  :billing_element:  bla bla bla
   :addresses:
     - :type:    Home
       :line_1:  475 n scottsdale rd
@@ -146,6 +164,12 @@ kctestuser10:  # AKA: "Principal Name"
   :campus_code:      'UN - UNIVERSITY'
   :first_name:       truman
   :last_name:        test
+  :primary_title:    Director RSmart College of Science
+  :directory_title:  Principal Investigator
+  :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
+  :era_commons_user_name: grantsgov
+  :graduate_student_count: '0'
+  :billing_element:  bla bla bla
   :addresses:
     - :type:    Home
       :line_1:  475 n scottsdale rd
