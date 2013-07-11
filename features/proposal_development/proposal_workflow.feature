@@ -97,7 +97,5 @@ Feature: Proposal Workflows and Routing
 #=================
   Scenario: An OSP Approver should receive newly submitted proposals in their action list
     Given I have a user with the system role: 'OSPApprover'
-    And   I initiate a proposal
-    And   I complete the proposal
-    When  I submit the proposal
+    When  I submit a new development proposal into routing
     Then  the proposal is in the OSPApprover user's action list

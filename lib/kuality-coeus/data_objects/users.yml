@@ -37,9 +37,7 @@ grantsgov: # AKA: "Principal Name
   :description:      User who can submit to grants.gov
   :affiliation_type: Student
   :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      unassigneduser
-  :base_salary:      '180'
-  :first_name:       july
+  :first_name:       Grantsgov
   :last_name:        test
   :primary_title:    Director RSmart College of Science
   :directory_title:  Principal Investigator
@@ -74,7 +72,6 @@ grantsgov: # AKA: "Principal Name
       :type:    Work
       :default: :set
   :roles:
-    - '106' # Unassigned
     - '107' # Viewer
     - '110' # Aggregator
     - '109' # Narrative Writer

@@ -4,7 +4,7 @@ Feature: Key Personnel Validations
   with my proposal's key personnel so that I can fix them
   before I submit the proposal
 
-  Background: KC user is logged in as admin
+  Background: The admin user initiates a proposal
     Given   I'm logged in with admin
     And     I initiate a proposal
 
@@ -34,7 +34,6 @@ Feature: Key Personnel Validations
     When  I add a key person with an invalid unit type
     Then  a key personnel error should say to select a valid unit
 
-  #TODO: Navigation between line 38 and 39 is broken. Fix this...
   Scenario: Error when adding the same user as a PI and Co-Investigator
     Given I have a user with the system role: 'Unassigned'
     When  I add the Unassigned user as a Principal Investigator to the key personnel proposal roles
