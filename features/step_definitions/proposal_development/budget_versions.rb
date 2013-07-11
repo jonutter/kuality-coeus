@@ -18,9 +18,7 @@ Given /^I create, finalize, and mark complete a budget version for the proposal$
 end
 
 When /^I copy the budget version \(all periods\)$/ do
-  name_of_budget_copy=random_alphanums
-  @proposal.budget_versions.copy_all_periods(@budget_version.name, name_of_budget_copy)
-  @copied_budget_version=@proposal.budget_versions.budget(name_of_budget_copy)
+  @copied_budget_version = @proposal.budget_versions.copy_all_periods(@budget_version.name, random_alphanums)
 end
 
 When /^I enter dollar amounts for all the budget periods$/ do
@@ -32,7 +30,7 @@ When /^I enter dollar amounts for all the budget periods$/ do
 end
 
 Then /^the copied budget's values are all as expected$/ do
-  @copied_budget_version.open
+  @copied_budget_version.open_budget
   @copied_budget_version.budget_periods.each do |period|
     on Parameters do |page|
       page.start_date_period(period.number).value.should==period.start_date
