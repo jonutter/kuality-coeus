@@ -10,6 +10,7 @@ Feature: Proposal Workflows and Routing
 #=================
 # Proposal Actions -- User types assigned to routing can approve, disapprove, reject, and recall development proposals
 #=================
+
   Scenario Outline: A PI who receives a routed proposal in their action list has the option to approve, disapprove, or reject it
     Given I have users with the following roles: OSPApprover, Proposal Creator, Unassigned
     And   I log in with the Proposal Creator user

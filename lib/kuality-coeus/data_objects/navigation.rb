@@ -3,6 +3,7 @@ module Navigation
   include Utilities
 
   def open_document doc_header
+    puts on_document?(doc_header)
     doc_search unless on_document?(doc_header)
   end
 
@@ -25,6 +26,8 @@ module Navigation
 
   def on_page? element
     begin
+      puts element
+      puts element.exists?
       element.exist?
     rescue Selenium::WebDriver::Error::StaleElementReferenceError
       false

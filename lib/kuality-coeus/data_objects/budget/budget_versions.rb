@@ -34,6 +34,7 @@ class BudgetVersionsObject
     navigate
     on BudgetVersions do |add|
       @doc_header=add.doc_title
+      puts @doc_header
       add.name.set @name
       add.add
       add.final(@name).fit @final
