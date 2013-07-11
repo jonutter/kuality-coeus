@@ -13,7 +13,7 @@ class BudgetPeriodObject
     @browser = browser
 
     defaults = {
-
+      doc_type: 'Budget Document ' # Note: the trailing space is not a typo!
     }
 
     set_options(defaults.merge(opts))

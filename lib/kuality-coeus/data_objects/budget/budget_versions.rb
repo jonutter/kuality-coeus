@@ -27,7 +27,7 @@ class BudgetVersionsObject
     }
 
     set_options(defaults.merge(opts))
-    requires :document_id
+    requires :document_id, :doc_type
   end
 
   def create
@@ -47,9 +47,7 @@ class BudgetVersionsObject
     # It's clear that we need to learn more about how to set up
     # sponsors better, so that we can predict when this dialog
     # will show up and when it won't...
-    if @browser.title=='Kuali :: Question Dialog Page'
-      on(Confirmation).yes
-    end
+    confirmation
     on Parameters do |parameters|
       @project_start_date=parameters.project_start_date
       @project_end_date=parameters.project_end_date
@@ -61,9 +59,7 @@ class BudgetVersionsObject
       parameters.alert.ok if parameters.alert.exists?
       parameters.save
     end
-    on(Confirmation) do |conf|
-      conf.yes if conf.yes_button.present?
-    end
+    confirmation
     get_budget_periods
   end
 
@@ -114,9 +110,7 @@ class BudgetVersionsObject
     # It's clear that we need to learn more about how to set up
     # sponsors better, so that we can predict when this dialog
     # will show up and when it won't...
-    if @browser.title=='Kuali :: Question Dialog Page'
-      on(Confirmation).yes
-    end
+    confirmation
   end
 
   def copy_all_periods(new_name)
@@ -185,8 +179,21 @@ class BudgetVersionsObject
   # Nav Aids...
 
   def navigate
+    @doc_header ||= @doc_type
     open_document @doc_header
     on(Proposal).budget_versions unless on_page?(on(BudgetVersions).name)
+  end
+
+  # Use this if the confirmation dialog may appear
+  # due to missing rates...
+  def confirmation
+    begin
+      on(Confirmation) do |conf|
+        conf.yes if conf.yes_button.present?
+      end
+    rescue
+      # do nothing because the dialog isn't there
+    end
   end
 
 end # BudgetVersionsObject
