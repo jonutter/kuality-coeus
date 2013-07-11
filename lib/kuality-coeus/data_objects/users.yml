@@ -69,6 +69,10 @@ grantsgov: # AKA: "Principal Name
     - :type:    Facsimile
       :number:  602-597-5350
       :default: :clear
+  :emails:
+    - :email:   kc-qa-notify@rsmart.com
+      :type:    Work
+      :default: :set
   :roles:
     - '106' # Unassigned
     - '107' # Viewer
@@ -115,6 +119,10 @@ ospapprover:  # AKA: "Principal Name"
     - :type:    Facsimile
       :number:  602-597-5350
       :default: :clear
+  :emails:
+    - :email:   kc-qa-notify@rsmart.com
+      :type:    Work
+      :default: :set
   :roles:
     - '100' # OSPApprover
 kctestuser9:  # AKA: "Principal Name"
@@ -151,6 +159,10 @@ kctestuser9:  # AKA: "Principal Name"
     - :type:    Facsimile
       :number:  602-597-5350
       :default: :clear
+  :emails:
+    - :email:   kc-qa-notify@rsmart.com
+      :type:    Work
+      :default: :set
   :roles:
     - '98'  # Manager
     - '110' # Aggregator
@@ -192,6 +204,10 @@ kctestuser10:  # AKA: "Principal Name"
     - :type:    Facsimile
       :number:  602-597-5350
       :default: :clear
+  :emails:
+    - :email:   kc-qa-notify@rsmart.com
+      :type:    Work
+      :default: :set
   :roles:
     - '110' # Aggregator
   :role_qualifiers:

@@ -36,6 +36,10 @@ class Person < BasePage
   element(:phone_number) { |b| b.frm.text_field(id: 'newPhone.phoneNumber') }
   element(:phone_default) { |b| b.frm.checkbox(id: 'newPhone.dflt') }
   action(:add_phone) { |b| b.frm.button(name: 'methodToCall.addPhone.anchor').click; b.loading }
+  element(:email) { |b| b.frm.text_field(name: 'newEmail.emailAddress') }
+  element(:email_type) { |b| b.frm.select(name: 'newEmail.emailTypeCode') }
+  element(:email_default) { |b| b.frm.checkbox(name: 'newEmail.dflt') }
+  action(:add_email) { |b| b.frm.button(name: 'methodToCall.addEmail.anchor').click; b.loading }
   element(:role_id) { |b| b.frm.text_field(id: 'newRole.roleId') }
   action(:add_role) { |b| b.frm.button(name: 'methodToCall.addRole.anchor').click; b.loading }
   element(:group_id) { |b| b.frm.text_field(id: 'newGroup.groupId') }

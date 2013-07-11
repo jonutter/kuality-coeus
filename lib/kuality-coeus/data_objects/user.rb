@@ -41,7 +41,7 @@ class UserObject
                 :first_name, :last_name,
                 :description, :affiliation_type, :campus_code,
                 :employee_id, :employee_status, :employee_type, :base_salary, :primary_dept_code,
-                :groups, :roles, :role_qualifiers, :addresses, :phones,
+                :groups, :roles, :role_qualifiers, :addresses, :phones, :emails,
                 :primary_title, :directory_title, :citizenship_type,
                 :era_commons_user_name, :graduate_student_count, :billing_element
 
@@ -146,15 +146,23 @@ class UserObject
           add.state.pick! address[:state]
           add.country.pick! address[:country]
           add.zip.fit address[:zip]
-          add.address_default.send(address[:default])
+          add.address_default.fit address[:default]
           add.add_address
         end
       end
       unless @phones.nil?
         @phones.each do |phone|
           add.phone_type.fit phone[:type]
-          add.phone_default.send(phone[:default])
+          add.phone_default.fit phone[:default]
           add.add_phone
+        end
+      end
+      unless @emails.nil?
+        @emails.each do |email|
+          add.email.fit email[:email]
+          add.email_type.pick! email[:type]
+          add.email_default.fit email[:default]
+          add.add_email
         end
       end
       # A breaking of the design pattern, but there's no other
