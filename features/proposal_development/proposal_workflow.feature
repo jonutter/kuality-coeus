@@ -50,7 +50,7 @@ Feature: Proposal Workflows and Routing
     And   I complete the proposal
     When  I submit the proposal document
     Then   the proposal status should be Approval Pending
-
+  @test
   Scenario: Aggregator successfully blanket approves a routed proposal
     Given I have a user with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
