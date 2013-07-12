@@ -45,13 +45,12 @@ When /^I add a principal investigator$/ do
   @proposal.add_principal_investigator
 end
 
-When /^I set valid credit splits for the proposal$/ do
-  @proposal.set_valid_credit_splits
+When /^I add the Grants.gov user as the proposal's PI$/ do
+  @proposal.add_principal_investigator last_name: @grants_gov_pi.last_name
 end
 
-When /^I add a principal investigator with an eRA Commons name and degree info$/ do
-  @proposal.add_principal_investigator era_commons_name: random_alphanums(20)
-  @proposal.key_personnel.principal_investigator.add_degree_info
+When /^I set valid credit splits for the proposal$/ do
+  @proposal.set_valid_credit_splits
 end
 
 Then /^there should be an error that says the (.*) user already holds investigator role$/ do |role|
