@@ -5,16 +5,16 @@ Feature: Creating proposals
   Background: Logged in as admin
       Given I'm logged in with admin
 
-    Scenario: Error when attempting to create a proposal while leaving a required field empty
+    Scenario: Attempt to save a proposal missing a required field
       When  I initiate a proposal but miss a required field
       Then  I should see an error that says the field is required
 
-    Scenario: Error when attempting to create a proposal with invalid sponsor code
-      When  I begin a proposal with an invalid sponsor code
+    Scenario: Attempt to save a proposal with an invalid sponsor code
+      When  I initiate a proposal with an invalid sponsor code
       Then  I should see an error that says a valid sponsor code is required
 
-    Scenario: Selecting a Federal Sponsor activates the S2S (e.g. Grants.gov) tab
-      When  I begin a proposal with a 'Federal' sponsor type
+    Scenario: Successful initiation of proposal with federal sponsor type
+      When  I initiate a proposal with a 'Federal' sponsor type
       Then  The S2S tab should become available
 
     Scenario: Successful submission of a Private Profit proposal document into routing
