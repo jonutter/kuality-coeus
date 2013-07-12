@@ -30,7 +30,7 @@ When /^I initiate a proposal but miss a required field$/ do
   @proposal = create ProposalDevelopmentObject, field=>value
 end
 
-When /^I begin a proposal with an? '(.*)' sponsor type$/ do |type|
+When /^I initiate a proposal with an? '(.*)' sponsor type$/ do |type|
   @proposal = create ProposalDevelopmentObject, sponsor_type_code: type
 end
 
@@ -56,7 +56,7 @@ Then /^I should see an error that says the field is required$/ do
   end
 end
 
-When /^I begin a proposal with an invalid sponsor code$/ do
+When /^I initiate a proposal with an invalid sponsor code$/ do
   @proposal = create ProposalDevelopmentObject, :sponsor_code=>'000000'
 end
 

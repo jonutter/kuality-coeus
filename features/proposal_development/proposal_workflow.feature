@@ -8,10 +8,9 @@ Feature: Proposal Workflows and Routing
     Given   I'm logged in with admin
 
 #=================
-# Proposal Actions -- User types assigned to routing can approve, disapprove, reject, and recall development proposals
+# Proposal Actions -- As proposals navigate through workflow, specific users are asked to take actions
 #=================
-
-  Scenario Outline: A PI who receives a routed proposal in their action list has the option to approve, disapprove, or reject it
+  Scenario Outline: Proposal is successfully routed to PI for action
     Given I have users with the following roles: OSPApprover, Proposal Creator, Unassigned
     And   I log in with the Proposal Creator user
     And   I initiate a proposal
@@ -29,7 +28,7 @@ Feature: Proposal Workflows and Routing
     | Disapprove |
     | Reject     |
 
-  Scenario Outline: An OSP Approver who receives a routed proposal in their action list has the option to approve, disapprove, or reject it
+  Scenario Outline: Proposal is successfully routed to OSP Approver for action
     Given I have users with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
     And   I initiate a proposal
@@ -45,16 +44,21 @@ Feature: Proposal Workflows and Routing
     | Disapprove |
     | Reject     |
 
-  Scenario: The status of a development proposal should change to 'Approval Pending' upon submission into routing
+  Scenario: Aggregator successfully submits a proposal into routing
     Given I have a user with the system role: 'Proposal Creator'
     And   I initiate a proposal
     And   I complete the proposal
     When  I submit the proposal document
     Then   the proposal status should be Approval Pending
 
-#TODO: Scenario: An Aggregator can blanket approve a routed proposal so its status changes to 'Approval Granted'
+  Scenario: Aggregator successfully blanket approves a routed proposal
+    Given I have a user with the system role: 'Proposal Creator'
+    And   I log in with the Proposal Creator user
+    And   I submit a new development proposal into routing
+    When  I blanket approve the proposal
+    Then  the proposal status should be Approval Granted
 
-  Scenario: The status of a development proposal should change to 'Approval Pending - Submitted' upon submission to a sponsor
+  Scenario: OSP Approver successfully submits a routed proposal to the sponsor
     Given I have users with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
     And   I submit a new development proposal into routing
@@ -64,14 +68,14 @@ Feature: Proposal Workflows and Routing
 
 #TODO: Scenario: An OSP Approver takes the 'Submit to sponsor' action against a routed proposal and an institutional proposal is created
 
-  Scenario: The status of a development proposal should change to 'Document Error Occurred' upon its being recalled and cancelled
+  Scenario: Aggregator successfully recalls a routed proposal for cancellation
     Given I have a user with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
     And   I submit a new development proposal into routing
     When  I recall and cancel the proposal
     Then  the proposal status should be Document Error Occurred
 
-  Scenario: The status of a development proposal should change to 'Revisions Requested' upon its being recalled for revisions
+  Scenario: Aggregator successfully recalls proposal for revisions
     Given I have a user with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
     And   I submit a new development proposal into routing
@@ -81,11 +85,11 @@ Feature: Proposal Workflows and Routing
 #=================
 # Notifications -- Notifications are sent are FYIs to select users.
 #=================
-  Scenario: Notifications sent from a development proposal should appear as FYIs in the recipient's Action List
+
+  Scenario: Successful delivery of an FYI from a development proposal
     Given I have users with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
     And   I initiate a proposal
-    And   I complete the proposal
     When  I send a notification to the following users: OSPApprover
     And   I log in with the OSPApprover user
     Then  the proposal is in my action list as an FYI
@@ -96,6 +100,8 @@ Feature: Proposal Workflows and Routing
 #=================
 # Action List -- Routed proposals appear in select user's action lists with requested actions
 #=================
+
+#TODO: Think about this scenario... Think of a new way to write this
   Scenario: An OSP Approver should receive newly submitted proposals in their action list
     Given I have a user with the system role: 'OSPApprover'
     When  I submit a new development proposal into routing
