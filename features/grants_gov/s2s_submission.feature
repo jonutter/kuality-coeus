@@ -16,7 +16,7 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   I answer the S2S questions
     And   I create, finalize, and mark complete a budget version for the proposal
     And   I complete the required custom fields on the proposal
-  @
+  @test
   Scenario: Can successfully submit a proposal with NIH as the sponsor
     Given I initiate a proposal with NIH as the sponsor
     And   I add the Grants.Gov opportunity id of RR-TEST-NIH-FORMS2 to the proposal
