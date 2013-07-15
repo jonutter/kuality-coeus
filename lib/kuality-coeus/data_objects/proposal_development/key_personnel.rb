@@ -20,10 +20,6 @@ class KeyPersonObject
       role:                            'Principal Investigator',
       units:                           [],
       degrees:                         DegreesCollection.new,
-      space:                           random_percentage,
-      responsibility:                  random_percentage,
-      financial:                       random_percentage,
-      recognition:                     random_percentage,
       certified:                       true, # Set this to false if you do not want any Proposal Person Certification Questions answered
       certify_info_true:               'Y',
       potential_for_conflict:          'Y',
@@ -113,10 +109,10 @@ class KeyPersonObject
       # If it's a key person without units then they won't have credit splits,
       # otherwise, the person will, so fill them out...
       if @key_person_role==nil || !@units.empty?
-        person.space(@full_name).set @space
-        person.responsibility(@full_name).set @responsibility
-        person.financial(@full_name).set @financial
-        person.recognition(@full_name).set @recognition
+        person.space(@full_name).fit @space
+        person.responsibility(@full_name).fit @responsibility
+        person.financial(@full_name).fit @financial
+        person.recognition(@full_name).fit @recognition
       end
 
       # Proposal Person Certification
