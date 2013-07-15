@@ -5,7 +5,8 @@ class PersonLookup < BasePage
 
   element(:kcperson_id) { |b| b.frm.text_field(name:'personId') }
 
-  action(:create) { |b| b.frm.link(title: 'Create a new record').click }
+  element(:create_button) { |b| b.frm.link(title: 'Create a new record') }
+  action(:create) { |p| p.create_button.click }
 
   element(:principal_name) { |b| b.frm.text_field(id: 'principalName') }
   element(:principal_id) { |b| b.frm.text_field(id: 'principalId') }

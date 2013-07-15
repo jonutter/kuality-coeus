@@ -36,22 +36,16 @@ end
 # them if they don't exist in the system.
 Given /^I have a user with the system role: '(.*)'$/ do |role|
   user = make_role role
-  # TODO: Need to make this more robust--because what happens if
-  # You're logged in with a user who doesn't have rights to
-  # create new users?
   user.create unless user.exists?
 end
 
 Then /^(.*) is logged in$/ do |username|
-  get(username).logged_in?
+  get(username).logged_in?.should be true
 end
 
 Given /^I have users with the following roles: (.*)$/ do |roles|
   roles.split(', ').each do |r|
     user = make_role r
-    # TODO: Need to make this more robust--because what happens if
-    # You're logged in with a user who doesn't have rights to
-    # create new users?
     user.create unless user.exists?
   end
 end

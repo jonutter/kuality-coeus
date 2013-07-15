@@ -99,7 +99,10 @@ class UserObject
 
   def create
     visit(SystemAdmin).person unless PersonLookup.new(@browser).principal_id.present?
-    on(PersonLookup).create
+    on PersonLookup do |page|
+      raise "You're trying to create a user record, but it looks like\nyou're logged in with a user lacking permission\nto do this.\n\nPlease modify your scenario steps\nto correct this problem." unless page.create_button.present?
+      page.create
+    end
     on Person do |add|
       add.expand_all
       add.principal_name.set @user_name

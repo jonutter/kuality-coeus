@@ -1,12 +1,12 @@
 Feature: Submitting Proposals via s2s to Grants.gov
 
-  #TODO: Rewrite this with further insight
   As a researcher, I want the ability to submit my completed proposals
   through to grants.gov
 
   Background: Logged in with a proposal creator; have other necessary user
     Given I'm logged in with kctestuser9
     And   I have a user that can be a PI for Grants.gov proposals
+    And   I have a user with the system role: 'OSPApprover'
 
   Scenario: Can successfully submit a proposal with NSF as the sponsor
     Given I initiate a proposal with NSF as the sponsor
