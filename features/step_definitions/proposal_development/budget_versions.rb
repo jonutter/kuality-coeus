@@ -90,7 +90,7 @@ When /^I finalize the budget version$/ do
 end
 
 When /^I mark the budget version complete$/ do
-  @budget_version.edit budget_status: 'Complete'
+  @budget_version.edit status: 'Complete'
 end
 
 Then /^I see an error that only one version can be final$/ do
