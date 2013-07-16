@@ -22,11 +22,14 @@ Given /^I initiate a (\d+)-year, '(.*)' proposal$/ do |year_count, activity_type
 end
 
 When /^I initiate a proposal but miss a required field$/ do
-  @name = ['Description', 'Proposal Type', 'Lead Unit', 'Activity Type',
+  # Pick a field at random for the test...
+  @required_field = ['Description', 'Proposal Type', 'Lead Unit', 'Activity Type',
            'Project Title', 'Sponsor Code', 'Project Start Date', 'Project End Date'
           ].sample
-  @name=~/Type/ || @name=='Lead Unit' ? value='select' : value=''
-  field = snake_case(@name)
+  # Properly set the nil value depending on the field type...
+  @required_field=~/Type/ || @required_field=='Lead Unit' ? value='select' : value=''
+  # Transform the field name to the appropriate symbol...
+  field = snake_case(@required_field)
   @proposal = create ProposalDevelopmentObject, field=>value
 end
 
@@ -48,8 +51,8 @@ Given /^I initiate a proposal with (\D+) as the sponsor$/ do |sponsor_name|
 end
 
 Then /^I should see an error that says the field is required$/ do
-  text="#{@name} is a required field."
-  @name=='Description' ? error='Document '+text : error=text
+  text="#{@required_field} is a required field."
+  @required_field=='Description' ? error='Document '+text : error=text
   on(Proposal) do |page|
     page.error_summary.wait_until_present(5)
     page.errors.should include error
