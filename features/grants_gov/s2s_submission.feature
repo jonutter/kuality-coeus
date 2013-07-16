@@ -14,9 +14,14 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   I add the Grants.gov user as the proposal's PI
     And   I set valid credit splits for the proposal
     And   I add and mark complete all the required attachments for an NSF proposal
-    And   I answer the S2S questions
     And   I create, finalize, and mark complete a budget version for the proposal
     And   I complete the required custom fields on the proposal
+    And   I answer the S2S questions
+    And   I submit the proposal
+    And   I log in with the quickstart user
+    When  I submit the proposal to S2S
+    Then  Submission details will be immediately available on the S2S tab
+    And   in 5 minutes the submission status will be updated
   @test
   Scenario: Can successfully submit a proposal with NIH as the sponsor
     Given I initiate a proposal with NIH as the sponsor
