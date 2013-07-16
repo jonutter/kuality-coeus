@@ -77,3 +77,6 @@ end
 When /^I submit the proposal to S2S$/ do
   @proposal.submit_to_s2s
 end
+When(/^I blanket approve the proposal$/) do
+  @proposal.blanket_approve
+end

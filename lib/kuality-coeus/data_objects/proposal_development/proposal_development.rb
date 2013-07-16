@@ -258,6 +258,19 @@ class ProposalDevelopmentObject
     open_document @doc_header
   end
 
+  def blanket_approve
+    open_proposal
+    on(Proposal).proposal_actions
+    on ProposalActions do |page|
+      page.blanket_approve
+      sleep 0.5
+      page.data_validation_header.wait_until_present
+      # A breaking of the design pattern, here,
+      # but we have no alternative...
+      @status=page.document_status
+    end
+  end
+
   # =======
   private
   # =======
