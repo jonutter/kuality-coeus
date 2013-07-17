@@ -2,13 +2,13 @@ class IPReview < KCInstitutionalProposal
 
   inst_prop_header_elements
   route_log
+  description_field
 
   glbl 'Edit IP Review'
 
   # TODO: Determine if this is the right structure for this class, given that to edit the page
   # results in taking the user out of the context of the Institutional Proposal
 
-  element(:description) { |b| b.frm.text_field(name: 'document.documentHeader.documentDescription') }
   element(:submitted_for_review) { |b| b.frm.text_field(name: 'document.newMaintainableObject.reviewSubmissionDate') }
   element(:reviewer) { |b| b.frm.text_field(name: 'document.newMaintainableObject.person.userName') }
   action(:find_reviewer) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.rice.kim.api.identity.Person!!).((())).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchor4').click }

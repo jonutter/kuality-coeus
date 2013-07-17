@@ -1,8 +1,8 @@
 class InstitutionalProposal < KCInstitutionalProposal
 
   inst_prop_header_elements
+  description_field
 
-  element(:description) { |b| b.frm.text_field(name: 'document.documentHeader.documentDescription') }
   value(:institutional_proposal_number) { |b| b.institutional_proposal_tab.table[0][1].text }
   value(:status_ro) { |b| b.institutional_proposal_tab.table[2][3].text }
   element(:status) { |b| b.frm.select(name: 'document.institutionalProposal.statusCode') }

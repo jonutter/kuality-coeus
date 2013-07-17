@@ -1,8 +1,8 @@
 class Award < KCAwards
 
   award_header_elements
+  description_field
 
-  element(:description) { |b| b.frm.text_field(name: 'document.documentHeader.documentDescription') }
   element(:institutional_proposal_number) { |b| b.frm.text_field(name: 'fundingProposalBean.newFundingProposal.proposalNumber') }
   action(:add_proposal) { |b| b.frm.button(name: 'methodToCall.addFundingProposal.anchorFundingProposals').click; b.loading }
   element(:transaction_type) { |b| b.frm.select(name: 'document.awardList[0].awardTransactionTypeCode') }

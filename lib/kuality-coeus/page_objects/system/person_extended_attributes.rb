@@ -2,8 +2,8 @@ class PersonExtendedAttributes < BasePage
 
   document_header_elements
   global_buttons
+  description_field
 
-  element(:description) { |b| b.frm.text_field(name: 'document.documentHeader.documentDescription') }
   element(:primary_title) { |b| b.frm.text_field(name: 'document.newMaintainableObject.primaryTitle') }
   element(:directory_title) { |b| b.frm.text_field(name: 'document.newMaintainableObject.directoryTitle') }
   element(:citizenship_type) { |b| b.frm.select(name: 'document.newMaintainableObject.citizenshipTypeCode') }

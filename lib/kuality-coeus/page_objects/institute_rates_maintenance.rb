@@ -3,8 +3,8 @@ class InstituteRatesMaintenance < BasePage
   global_buttons
   document_header_elements
   error_messages
+  description_field
 
-  element(:description) { |b| b.frm.text_field(name: 'document.documentHeader.documentDescription') }
   element(:activity_type_code) { |b| b.frm.text_field(name: 'document.newMaintainableObject.activityTypeCode') }
   element(:fiscal_year) { |b| b.frm.text_field(name: 'document.newMaintainableObject.fiscalYear') }
   element(:on_off_campus_flag) { |b| b.frm.checkbox(name: 'document.newMaintainableObject.onOffCampusFlag') }

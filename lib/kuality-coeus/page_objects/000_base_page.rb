@@ -34,6 +34,11 @@ class BasePage < PageFactory
       alias_method :pi, :committee_name
     end
 
+    # Included here because this is such a common field in KC
+    def description_field
+      element(:description) { |b| b.frm.text_field(name: 'document.documentHeader.documentDescription') }
+    end
+
     def global_buttons
       glbl 'save', 'Reject', 'blanket approve', 'close', 'cancel', 'reload',
            'Delete Proposal', 'approve', 'disapprove',

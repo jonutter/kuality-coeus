@@ -2,11 +2,11 @@ class TimeAndMoney < KCAwards
 
   award_header_elements
   error_messages
+  description_field
 
   action(:return_to_award) { |b| b.return_button.click; b.loading }
   element(:return_button) { |b| b.frm.button(name: 'methodToCall.returnToAward') }
 
-  element(:description) { |b| b.frm.text_field(name: 'document.documentHeader.documentDescription') }
   element(:transaction_type_code) { |b| b.frm.select(name: 'document.awardAmountTransactions[0].transactionTypeCode') }
 
   action(:obligation_start_date) { |award_id, b| b.hierarchy_table.row(text: /#{award_id}/).text_field(name: /currentFundEffectiveDate/) }

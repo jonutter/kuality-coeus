@@ -10,5 +10,6 @@ class NewFinancialEntity < FinancialEntities
   element(:type) { |b| b.frm.select(id: 'financialEntityHelper.newPersonFinancialEntity.entityTypeCode') }
   element(:status_code) { |b| b.frm.select(id: 'financialEntityHelper.newPersonFinancialEntity.statusCode') }
   element(:held) { |b| b.frm.select(id: 'financialEntityHelper.newPersonFinancialEntity.entityOwnershipType') }
+  element(:principal_activity) { |b| b.frm.text_field(name: 'financialEntityHelper.newPersonFinancialEntity.principalBusinessActivity') }
   
 end

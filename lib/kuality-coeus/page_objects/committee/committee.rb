@@ -2,8 +2,8 @@ class Committee < CommitteeDocument
 
   document_header_elements
   committee_header_elements
+  description_field
 
-  element(:description) { |b| b.frm.text_field(id: 'document.documentHeader.documentDescription') }
   element(:committee_id_field) { |b| b.frm.text_field(id: 'document.committeeList[0].committeeId') }
   element(:committee_name_field) { |b| b.frm.text_field(id: 'document.committeeList[0].committeeName') }
   element(:home_unit) { |b| b.frm.text_field(id: 'document.committeeList[0].homeUnitNumber') }
