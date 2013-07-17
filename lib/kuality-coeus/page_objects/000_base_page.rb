@@ -25,6 +25,7 @@ class BasePage < PageFactory
       alias_method :doc_nbr, :document_id
       value(:document_status) { |p| p.headerinfo_table[0][3].text }
       value(:initiator) { |p| p.headerinfo_table[1][1].text }
+      alias_method :disposition, :initiator
       value(:last_updated) {|p| p.headerinfo_table[1][3].text }
       alias_method :created, :last_updated
       value(:committee_id) { |p| p.headerinfo_table[2][1].text }
