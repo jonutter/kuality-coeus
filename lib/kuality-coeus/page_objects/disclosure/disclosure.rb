@@ -5,6 +5,8 @@ class Disclosure < BasePage
   tab_buttons
   description_field
 
+  action(:disclosure_actions) { |b| b.frm.button(value:  'Disclosure Actions').click }
+
   element(:unit_number) { |b| b.frm.text_field(name: 'disclosureHelper.newDisclosurePersonUnit.unitNumber') }
   element(:lead_unit) { |b| b.frm.checkbox(name: 'disclosureHelper.newDisclosurePersonUnit.leadUnitFlag') }
   action(:add_unit) { |b| b.frm.button(name: 'methodToCall.addDisclosurePersonUnit.line').click; b.loading }
