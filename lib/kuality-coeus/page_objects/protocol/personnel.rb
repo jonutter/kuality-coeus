@@ -1,4 +1,4 @@
-class Personnel < KCProtocol
+class ProtocolPersonnel < KCProtocol
 
   protocol_header_elements
 

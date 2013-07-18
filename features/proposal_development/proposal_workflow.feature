@@ -50,7 +50,7 @@ Feature: Proposal Workflows and Routing
     And   I complete the proposal
     When  I submit the proposal document
     Then   the proposal status should be Approval Pending
-  @test
+
   Scenario: Aggregator successfully blanket approves a routed proposal
     Given I have a user with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
@@ -74,7 +74,7 @@ Feature: Proposal Workflows and Routing
     And   I submit a new development proposal into routing
     When  I recall and cancel the proposal
     Then  the proposal status should be Document Error Occurred
-
+  @test
   Scenario: Aggregator successfully recalls proposal for revisions
     Given I have a user with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
@@ -85,14 +85,13 @@ Feature: Proposal Workflows and Routing
 #=================
 # Notifications -- Notifications are sent are FYIs to select users.
 #=================
-
   Scenario: Successful delivery of an FYI from a development proposal
     Given I have users with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
     And   I initiate a proposal
-    When  I send a notification to the following users: OSPApprover
+    When  I send a notification to the OSPApprover user
     And   I log in with the OSPApprover user
-    Then  the proposal is in my action list as an FYI
+    Then  I should receive an action list item with the requested action being: FYI
     And   I can acknowledge the requested action list item
 
 #TODO: Scenario: An OSPApprover user can filter all of their FYIs and acknowledge them at once
@@ -102,7 +101,7 @@ Feature: Proposal Workflows and Routing
 #=================
 
 #TODO: Think about this scenario... Think of a new way to write this
-  Scenario: An OSP Approver should receive newly submitted proposals in their action list
+  Scenario: Successful receipt of a routed proposal by an OSP Approver
     Given I have a user with the system role: 'OSPApprover'
     When  I submit a new development proposal into routing
     Then  the proposal is in the OSPApprover user's action list
