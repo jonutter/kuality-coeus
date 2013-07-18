@@ -140,11 +140,12 @@ class KeyPersonObject
     navigate
     on KeyPersonnel do |update|
       update.expand_all
-      update.space(@full_name).fit opts[:space]
-      update.responsibility(@full_name).fit opts[:responsibility]
-      update.financial(@full_name).fit opts[:financial]
-      update.recognition(@full_name).fit opts[:recognition]
-      update.era_commons_name(@full_name).fit opts[:era_commons_name]
+      # Note: This is a dangerous short cut, as it may not
+      # apply to every field that could be edited with this
+      # method...
+      opts.each do |field, value|
+        update.send(field, @full_name).fit value
+      end
       update.save
     end
     update_options(opts)

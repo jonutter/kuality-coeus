@@ -41,13 +41,9 @@ class BudgetPeriodObject
       edit.end_date_period(@number).fit opts[:end_date]
       # TODO: At some point it may become critical for the data object to automatically "know" that the total sponsor cost
       # is always the sum of the direct and f&a costs.
-      edit.total_sponsor_cost_period(@number).fit opts[:total_sponsor_cost]
-      edit.direct_cost_period(@number).fit opts[:direct_cost]
-      edit.fa_cost_period(@number).fit opts[:f_and_a_cost]
-      edit.unrecovered_fa_period(@number).fit opts[:unrecovered_f_and_a]
-      edit.cost_sharing_period(@number).fit opts[:cost_sharing]
-      edit.cost_limit_period(@number).fit opts[:cost_limit]
-      edit.direct_cost_limit_period(@number).fit opts[:direct_cost_limit]
+      dollar_fields.each do |field|
+        edit.send("#{field}_period", @number).fit opts[field]
+      end
       edit.save
       break if edit.errors.size > 0
     end
