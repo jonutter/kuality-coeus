@@ -1,7 +1,4 @@
-class SponsorLookup < BasePage
-
-  tiny_buttons
-  search_results_table
+class SponsorLookup < Lookups
 
   element(:sponsor_name) { |b| b.frm.text_field(id: 'sponsorName') }
   element(:sponsor_type_code) { |b| b.frm.select(id: 'sponsorTypeCode') }

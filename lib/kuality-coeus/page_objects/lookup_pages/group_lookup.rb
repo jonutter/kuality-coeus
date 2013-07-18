@@ -1,0 +1,3 @@
+class GroupLookup < Lookups
+
+end

@@ -22,11 +22,11 @@ When /^I send a notification to the following users: (.*)$/ do |roles|
 end
 
 When /^I recall the proposal for revisions$/ do
-  @proposal.recall_for_revisions
+  @proposal.recall :revisions
 end
 
 When /^I recall and cancel the proposal$/ do
-  @proposal.recall_for_cancellation
+  @proposal.recall :cancel
 end
 
 When /^when the proposal is opened the status should be (.*)$/ do |status|
@@ -71,11 +71,11 @@ Then /^I can acknowledge the requested action list item$/ do
 end
 
 When /^I submit the routed proposal to a sponsor$/ do
-  @proposal.submit_to_sponsor
+  @proposal.submit :to_sponsor
 end
 
 When /^I submit the proposal to S2S$/ do
-  @proposal.submit_to_s2s
+  @proposal.submit :to_s2s
 end
 When(/^I blanket approve the proposal$/) do
   @proposal.blanket_approve

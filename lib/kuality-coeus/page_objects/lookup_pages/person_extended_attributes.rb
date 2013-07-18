@@ -1,8 +1,5 @@
-class PersonExtendedAttributesLookup < BasePage
+class PersonExtendedAttributesLookup < Lookups
 
-  tiny_buttons
-  search_results_table
-
-  action(:create) { |b| b.frm.link(alt: 'create new').click }
+  element(:person_id) { |b| b.frm.text_field(name: 'personId') }
 
 end
