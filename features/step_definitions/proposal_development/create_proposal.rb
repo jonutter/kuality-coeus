@@ -95,16 +95,6 @@ When /^I save and close the proposal document$/ do
   on(Confirmation).yes
 end
 
-# TODO: This and the next step def are the same. Pick one.
-And /^I submit a new proposal$/ do
-  @proposal = create ProposalDevelopmentObject
-  @proposal.add_principal_investigator
-  @proposal.set_valid_credit_splits
-  @proposal.add_custom_data
-  @proposal.submit
-end
-
-# TODO: This and the previous step def are the same. Pick one.
 And /^I submit a new development proposal into routing$/ do
   @proposal = create ProposalDevelopmentObject
   @proposal.add_principal_investigator
