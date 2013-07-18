@@ -79,10 +79,7 @@ class ProposalDevelopmentObject
   end
 
   def add_key_person opts={}
-    merge_settings(opts)
-    kpo = make KeyPersonObject, opts
-    kpo.create
-    @key_personnel << kpo
+    @key_personnel << prep(KeyPersonObject, opts)
   end
   # This alias is recommended only for when
   # using this method with no options.
@@ -121,18 +118,12 @@ class ProposalDevelopmentObject
   end
 
   def add_special_review opts={}
-    merge_settings(opts)
-    sro = make SpecialReviewObject, opts
-    sro.create
-    @special_review << sro
+    @special_review << prep(SpecialReviewObject, opts)
   end
 
   def add_budget_version opts={}
     opts[:version] ||= (@budget_versions.size+1).to_s
-    merge_settings(opts)
-    bvo = make BudgetVersionsObject, opts
-    bvo.create
-    @budget_versions << bvo
+    @budget_versions << prep(BudgetVersionsObject, opts)
   end
 
   def add_custom_data opts={}
@@ -174,8 +165,7 @@ class ProposalDevelopmentObject
   end
 
   def delete
-    open_proposal
-    on(Proposal).proposal_actions
+    proposal_actions
     on(ProposalActions).delete_proposal
     on(Confirmation).yes
     # Have to update the data object's status value
@@ -187,23 +177,14 @@ class ProposalDevelopmentObject
     end
   end
 
-  def recall_for_revisions(reason=random_alphanums)
+  def recall(type, reason=random_alphanums)
+    types={:revision=>:recall_to_action_list, :cancel=>:recall_and_cancel}
     @recall_reason=reason
     open_proposal
     on(Proposal).recall
     on Confirmation do |conf|
       conf.reason.set @recall_reason
-      conf.recall_to_action_list
-    end
-  end
-
-  def recall_for_cancellation
-    @recall_reason=recall
-    open_proposal
-    on(Proposal).recall
-    on Confirmation do |conf|
-      conf.reason.set @recall_reason
-      conf.recall_and_cancel
+      conf.send(types[type])
     end
   end
 
@@ -219,38 +200,23 @@ class ProposalDevelopmentObject
     end
   end
 
-  def submit
-    open_proposal
-    on(Proposal).proposal_actions
-    on ProposalActions do |page|
-      page.submit
-      page.data_validation_header.wait_until_present
-      # A breaking of the design pattern, here,
-      # but we have no alternative...
-      @status=page.document_status
-    end
-  end
-
-  def submit_to_sponsor
-    open_proposal
-    on(Proposal).proposal_actions
-    on(ProposalActions).submit_to_sponsor
-    on NotificationEditor do |page|
-      # A breaking of the design pattern, here,
-      # but we have no alternative...
-      @status=page.document_status
-      page.send_fyi
-    end
-  end
-
-  def submit_to_s2s
-    open_proposal
-    on(Proposal).proposal_actions
-    on ProposalActions do |page|
-      page.submit_to_s2s
-      # A breaking of the design pattern, here,
-      # but we have no alternative...
-      @status=page.document_status
+  def submit(type=:s)
+    types={:s=>:submit, :ba=>:blanket_approve,
+           :to_sponsor=>:submit_to_sponsor, :to_s2s=>:submit_to_s2s}
+    proposal_actions
+    on(ProposalActions).send(types[type])
+    if type==:to_sponsor
+      on NotificationEditor do |page|
+        # A breaking of the design pattern, here,
+        # but we have no alternative...
+        @status=page.document_status
+        page.send_fyi
+      end
+    else
+      on ProposalActions do |page|
+        page.data_validation_header.wait_until_present
+        @status=page.document_status
+      end
     end
   end
 
@@ -259,16 +225,7 @@ class ProposalDevelopmentObject
   end
 
   def blanket_approve
-    open_proposal
-    on(Proposal).proposal_actions
-    on ProposalActions do |page|
-      page.blanket_approve
-      sleep 0.5
-      page.data_validation_header.wait_until_present
-      # A breaking of the design pattern, here,
-      # but we have no alternative...
-      @status=page.document_status
-    end
+    submit :ba
   end
 
   # =======
@@ -306,6 +263,18 @@ class ProposalDevelopmentObject
         @lead_unit=prop.lead_unit_ro
       end
     end
+  end
+
+  def proposal_actions
+    open_proposal
+    on(Proposal).proposal_actions
+  end
+
+  def prep(object_class, opts)
+    merge_settings(opts)
+    object = make object_class, opts
+    object.create
+    object
   end
 
 end
