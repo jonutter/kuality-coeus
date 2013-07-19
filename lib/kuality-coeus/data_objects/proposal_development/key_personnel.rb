@@ -251,23 +251,19 @@ class KeyPersonnelCollection < Array
   end
 
   def roles
-    rls = self.collect { |person| person.role }
-    rls.uniq
+    self.collect{ |person| person.role }.uniq
   end
 
   def unit_names
-    names = units.collect { |unit| unit[:name] }
-    names.uniq
+    units.collect{ |unit| unit[:name] }.uniq
   end
 
   def unit_numbers
-    nums = units.collect { |unit| unit[:number] }
-    nums.uniq
+    units.collect{ |unit| unit[:number] }.uniq
   end
 
   def units
-    units=self.collect { |person| person.units }
-    units.flatten
+    self.collect{ |person| person.units }.flatten
   end
 
   def person(full_name)

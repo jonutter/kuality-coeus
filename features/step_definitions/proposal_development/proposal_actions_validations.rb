@@ -28,7 +28,6 @@ end
 When /^I initiate a proposal with an un-certified (.*)$/ do |role|
   @role = role
   @proposal = create ProposalDevelopmentObject
-  on(Proposal).key_personnel
   @proposal.add_key_person role: @role, certified: false
 end
 
