@@ -17,7 +17,6 @@ class ProposalDevelopmentObject
     @browser = browser
 
     defaults = {
-      #description:           random_alphanums,
       proposal_type:         'New',
       lead_unit:             '::random::',
       activity_type:         '::random::',
