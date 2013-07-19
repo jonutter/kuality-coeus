@@ -1,10 +1,10 @@
-# TODO: It's not clear from the text of this step definition that you're sending to *roles*. Consider rewriting
-# because otherwise it reads as if you're sending to *usernames*
-When /^I send a notification to the following users: (.*)$/ do |roles|
-  roles = roles.split(', ')
+# This step mentions user roles because it best fits into the context of
+# our 'Given we have users with the roles' step
+When /^I send a notification to the (.*) users?$/ do |role|
+  role = role.split(', ')
 
   on(PDCustomData).proposal_actions
-  roles.each do |role|
+  role.each do |role|
     user_name = get(role).user_name
 
     on ProposalActions do |page|
@@ -42,7 +42,7 @@ When /^I submit the proposal document$/ do
   @proposal.submit
 end
 
-Then(/^the proposal is in my action list as an (.*)$/) do |action|
+Then(/^I should receive an action list item with the requested action being: (.*)$/) do |action|
   visit ActionList do |page|
     page.last
     # This code is needed because the list refresh
