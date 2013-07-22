@@ -21,7 +21,7 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   I log in with the quickstart user
     When  I submit the proposal to S2S
     Then  Submission details will be immediately available on the S2S tab
-    And   in 5 minutes the submission status will be updated
+    And   within a couple of minutes the submission status will be updated
   @test
   Scenario: Can successfully submit a proposal with NIH as the sponsor
     Given I initiate a proposal with NIH as the sponsor
@@ -36,4 +36,4 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   I log in with the quickstart user
     When  I submit the proposal to S2S
     Then  Submission details will be immediately available on the S2S tab
-    And   in 5 minutes the submission status will be updated
+    And   within a couple of minutes the submission status will be updated

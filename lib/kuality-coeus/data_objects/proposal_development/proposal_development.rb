@@ -207,6 +207,9 @@ class ProposalDevelopmentObject
         @status=page.document_status
         page.send_fyi
       end
+    elsif type == :to_s2s
+      # No need to do any navigating here
+      # since we're on the s2s page
     else
       on ProposalActions do |page|
         page.data_validation_header.wait_until_present
