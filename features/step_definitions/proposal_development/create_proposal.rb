@@ -131,10 +131,8 @@ And /^I add and mark complete all the required attachments for an NSF proposal$/
 end
 
 When /^I add and mark complete all the required attachments for an NIH proposal$/ do
-  %w{Equipment Bibliography BudgetJustification ProjectSummary Narrative Facilities PHS_ResearchPlan_SpecificAims PHS_ResearchPlan_ResearchStrategy}.shuffle.each do |type|
-    @proposal.add_proposal_attachment type: type, file_name: 'test.pdf', status: 'Complete'
-  end
-  @proposal.key_personnel.each do |person|
-    @proposal.add_personnel_attachment person: person.full_name, type: 'Biosketch', file_name: 'test.pdf'
-  end
+  %w{Equipment Bibliography BudgetJustification ProjectSummary Narrative Facilities
+     PHS_ResearchPlan_SpecificAims PHS_ResearchPlan_ResearchStrategy}
+  .shuffle.each { |type| @proposal.add_proposal_attachment type: type, file_name: 'test.pdf', status: 'Complete' }
+  @proposal.key_personnel.each { |person| @proposal.add_personnel_attachment person: person.full_name, type: 'Biosketch', file_name: 'test.pdf' }
 end
