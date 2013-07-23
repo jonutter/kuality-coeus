@@ -9,13 +9,13 @@ Feature: Permissions in a Proposal
     And   I initiate a proposal
 
   Scenario: The proposal initiator is automatically an aggregator
-    Given I have a user with the system role: 'Proposal Creator'
+    Given a user exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
     When  I visit the proposal's Permissions page
     Then  the Proposal Creator user is listed as an Aggregator in the proposal permissions
 
   Scenario Outline: A Proposal Aggregator can assign various roles to a proposal documents permissions
-    Given I have a user with the system role: 'Unassigned'
+    Given a user exists with the system role: 'Unassigned'
     When  I assign the Unassigned user as a <Role> in the proposal permissions
     Then  the Unassigned user can access the proposal
     And   their proposal permissions allow them to <Permissions>
@@ -29,7 +29,7 @@ Feature: Permissions in a Proposal
     | Viewer                   | only read the proposal                         |
 
   Scenario Outline: Proposal permissions are not passed onto future proposals initiated by the same creator
-    Given I have a user with the system role: 'Unassigned'
+    Given a user exists with the system role: 'Unassigned'
     And   I assign the Unassigned user as a <Role> in the proposal permissions
     When  I initiate a second proposal
     Then  the Unassigned user should not be listed as a <Role> in the second proposal
@@ -44,19 +44,19 @@ Feature: Permissions in a Proposal
     | Delete Proposal  |
 
   Scenario: Users who are assigned the Aggregator role cannot be assigned additional roles
-    Given I have a user with the system role: 'Unassigned'
+    Given a user exists with the system role: 'Unassigned'
     And   I assign the Unassigned user as an aggregator in the proposal permissions
     When  I attempt to add an additional proposal role to the Aggregator user
     Then  I should see an error message that says not to select other roles alongside aggregator
 
   Scenario: A proposal document cannot have multiple users assigned to the Aggregator role
-    Given I have a user with the system role: 'Proposal Creator'
+    Given a user exists with the system role: 'Proposal Creator'
     And   I assign the Proposal Creator user as an aggregator in the proposal permissions
     When  I attempt to add an additional proposal role to the Aggregator user
     Then  I should see an error message that says not to select other roles alongside aggregator
 
   Scenario Outline: Users with the appropriate permissions can edit proposals that have been recalled for revisions
-    Given I have a user with the system role: 'Unassigned'
+    Given a user exists with the system role: 'Unassigned'
     And   I assign the Unassigned user as a <Role> in the proposal permissions
     And   I complete the proposal
     And   I submit the proposal

@@ -12,12 +12,12 @@ Feature: Proposal Workflows and Routing
 #=================
   @test
   Scenario Outline: Proposal is successfully routed to PI for action
-    Given I have users with the following roles: OSPApprover, Proposal Creator, Unassigned
+    Given users exist with the following roles: OSPApprover, Proposal Creator, Unassigned
     And   I log in with the Proposal Creator user
     And   initiate a proposal
-    And   I add the Unassigned user as a Principal Investigator to the key personnel proposal roles
-    And   I complete the required custom fields on the proposal
-    And   I submit the proposal
+    And   add the Unassigned user as a Principal Investigator to the key personnel proposal roles
+    And   complete the required custom fields on the proposal
+    And   submit the proposal
     When  the OSPApprover user approves the proposal
     And   I log in with the Unassigned user
     Then  I can access the proposal from my action list
@@ -30,7 +30,7 @@ Feature: Proposal Workflows and Routing
     | Reject     |
 
   Scenario Outline: Proposal is successfully routed to OSP Approver for action
-    Given I have users with the following roles: Proposal Creator, OSPApprover
+    Given users exist with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
     And   I initiate a proposal
     And   I complete the proposal
@@ -60,7 +60,7 @@ Feature: Proposal Workflows and Routing
     Then  the proposal status should be Approval Granted
 
   Scenario: OSP Approver successfully submits a routed proposal to the sponsor
-    Given I have users with the following roles: Proposal Creator, OSPApprover
+    Given users exist with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
     And   I submit a new development proposal into routing
     When  I log in with the OSPApprover user
@@ -87,7 +87,7 @@ Feature: Proposal Workflows and Routing
 # Notifications -- Notifications are sent are FYIs to select users.
 #=================
   Scenario: Successful delivery of an FYI from a development proposal
-    Given I have users with the following roles: Proposal Creator, OSPApprover
+    Given users exist with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
     And   I initiate a proposal
     When  I send a notification to the OSPApprover user

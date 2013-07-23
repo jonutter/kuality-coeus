@@ -6,7 +6,7 @@ Feature: Creating/Editing Budget Versions in Proposal Documents
   Background: Create a Budget Version for a 5-year proposal
     Given I'm logged in with admin
     And   I initiate a 5-year project proposal
-    And   I create a budget version for the proposal
+    And   create a budget version for the proposal
 
   Scenario: System warns about budget periods when proposal dates change
     When  I push the proposal's project start date ahead a year
@@ -20,8 +20,8 @@ Feature: Creating/Editing Budget Versions in Proposal Documents
 
   Scenario: "Default Periods" returns budget periods to a zeroed state
     Given I delete one of the budget periods
-    And   I enter dollar amounts for all the budget periods
-    And   I change the date range for one of the periods
+    And   enter dollar amounts for all the budget periods
+    And   change the date range for one of the periods
     When  I select the default periods for the budget version
     Then  all budget periods get recreated, zeroed, and given default date ranges
 

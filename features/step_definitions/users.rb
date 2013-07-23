@@ -25,7 +25,7 @@ end
 # 1) Assumes you're already logged in with a user with admin privileges
 # 2) Creates the user object in a class instance variable based on the user name
 # 3) Creates the user in the system if they don't exist already
-Given /^I have a user with the user name (.*)$/ do |username|
+Given /^a user exists with the user name (.*)$/ do |username|
   user = make_user username
   user.create unless user.exists?
 end
@@ -34,7 +34,7 @@ end
 # the specified role. If there are multiple matching
 # users, it will select one of them randomly, and create
 # them if they don't exist in the system.
-Given /^I have a user with the system role: '(.*)'$/ do |role|
+Given /^a user exists with the system role: '(.*)'$/ do |role|
   user = make_role role
   user.create unless user.exists?
 end
@@ -43,21 +43,21 @@ Then /^(.*) is logged in$/ do |username|
   get(username).logged_in?.should be true
 end
 
-Given /^I have users with the following roles: (.*)$/ do |roles|
+Given /^users exist with the following roles: (.*)$/ do |roles|
   roles.split(', ').each do |r|
     user = make_role r
     user.create unless user.exists?
   end
 end
 
-Given /^there is a user that can be a PI for Grants.gov proposals$/ do
+Given /^a user exists that can be a PI for Grants.gov proposals$/ do
   # TODO: Make this more robust when we really know what it takes
   # to be a grants.gov PI...
   @grants_gov_pi = make_user 'grantsgov'
   @grants_gov_pi.create unless @grants_gov_pi.exists?
 end
 
-Given /^there is an AOR user$/ do
+Given /^an AOR user exists$/ do
   @aor = make_user 'quickstart'
   @aor.create unless @aor.exists?
 end
