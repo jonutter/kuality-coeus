@@ -57,41 +57,13 @@ Then /^there should be an error that says the (.*) user already holds investigat
   on(KeyPersonnel).errors.should include "#{get(role).first_name} #{get(role).last_name} already holds Investigator role."
 end
 
-Then(/^I can access the proposal from my action list$/) do
-  visit(ActionList).filter
-  on ActionListFilter do |page|
-    page.document_title.set @proposal.project_title
-    page.filter
-  end
-  on(ActionList).open_item(@proposal.document_id)
-end
-
 And(/^the (.*) button appears on the Proposal Summary and Proposal Action pages$/) do |action|
-  case action
-    when 'Approve'
-      on ProposalSummary do |page|
-        page.approve_button.should exist
-        page.proposal_actions
-      end
-      on(ProposalActions).approve_button.should exist
-      visit(Researcher)
-
-    when 'Disapprove'
-      on ProposalSummary do |page|
-        page.disapprove_button.should exist
-        page.proposal_actions
-      end
-      on(ProposalActions).disapprove_button.should exist
-      visit(Researcher)
-
-    when 'Reject'
-      on ProposalSummary do |page|
-        page.reject_button.should exist
-        page.proposal_actions
-      end
-      on(ProposalActions).reject_button.should exist
-      visit(Researcher)
+  button = "#{action.downcase}_button".to_sym
+  on ProposalSummary do |page|
+    page.send(button).should exist
+    page.proposal_actions
   end
+  on(ProposalActions).send(button).should exist
 end
 
 When /^the (.*) user approves the proposal$/ do |role|
@@ -99,5 +71,4 @@ When /^the (.*) user approves the proposal$/ do |role|
   @proposal.open_proposal
   on(ProposalSummary).approve
   on(Confirmation).yes
-  visit(Login)
 end
