@@ -1,32 +1,32 @@
-And /^I add the (.*) user as an? (.*) to the key personnel proposal roles$/ do |user_role, proposal_role|
+And /^I? ?add the (.*) user as an? (.*) to the key personnel proposal roles$/ do |user_role, proposal_role|
   user = get(user_role)
   @proposal.add_key_person first_name: user.first_name, last_name: user.last_name, role: proposal_role
 end
 
-When /^I add (.*) as a Key Person with a role of (.*)$/ do |user_name, kp_role|
+When /^I? ?add (.*) as a Key Person with a role of (.*)$/ do |user_name, kp_role|
   user = get(user_name)
   @proposal.add_key_person first_name: user.first_name, last_name: user.last_name, role: 'Key Person', key_person_role: kp_role
 end
 
-And /^I add a (.*) with a (.*) credit split of (.*)$/ do |role, cs_type, amount|
+And /^I? ?add a (.*) with a (.*) credit split of (.*)$/ do |role, cs_type, amount|
   @proposal.add_key_person cs_type.downcase.to_sym=>amount, role: role
 end
 
-When /^I try to add two Principal Investigators$/ do
+When /^I? ?try to add two Principal Investigators$/ do
   2.times { @proposal.add_principal_investigator }
 end
 
-When /^I add a key person without a key person role$/ do
+When /^I? ?add a key person without a key person role$/ do
   @proposal.add_key_person role: 'Key Person', key_person_role:''
 end
 
-When /^I add a co-investigator without a unit$/ do
+When /^I? ?add a co-investigator without a unit$/ do
   @proposal.add_key_person role: 'Co-Investigator'
   @proposal.key_personnel.co_investigator.delete_units
   on(KeyPersonnel).save
 end
 
-When /^I add a key person with an invalid unit type$/ do
+When /^I? ?add a key person with an invalid unit type$/ do
   @proposal.add_key_person role: 'Key Person', key_person_role: 'king', units: [{number: 'invalid'}]
 end
 
@@ -41,15 +41,15 @@ Then /^a key personnel error should say (.*)$/ do |error|
   on(KeyPersonnel).errors.should include errors[error]
 end
 
-When /^I add a principal investigator$/ do
+When /^I? ?add a principal investigator$/ do
   @proposal.add_principal_investigator
 end
 
-Given /^I add the Grants.gov user as the proposal's PI$/ do
+Given /^I? ?add the Grants.gov user as the proposal's PI$/ do
   @proposal.add_principal_investigator last_name: @grants_gov_pi.last_name, first_name: @grants_gov_pi.first_name
 end
 
-When /^I set valid credit splits for the proposal$/ do
+When /^I? ?set valid credit splits for the proposal$/ do
   @proposal.set_valid_credit_splits
 end
 

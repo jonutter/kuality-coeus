@@ -8,32 +8,32 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   there is a user that can be a PI for Grants.gov proposals
     And   there is an AOR user
 
-  Scenario: Can successfully submit a proposal with NSF as the sponsor
+  Scenario: Submit a proposal with NSF as the sponsor
     Given I initiate a proposal with NSF as the sponsor
-    And   I add the Grants.Gov opportunity id of PA-B2-R01 to the proposal
-    And   I add the Grants.gov user as the proposal's PI
-    And   I set valid credit splits for the proposal
-    And   I add and mark complete all the required attachments for an NSF proposal
-    And   I create, finalize, and mark complete a budget version for the proposal
-    And   I complete the required custom fields on the proposal
-    And   I answer the S2S questions
-    And   I submit the proposal
-    And   I log in with the AOR user
+    And   add the Grants.Gov opportunity id of PA-B2-R01 to the proposal
+    And   add the Grants.gov user as the proposal's PI
+    And   set valid credit splits for the proposal
+    And   add and mark complete all the required attachments for an NSF proposal
+    And   create, finalize, and mark complete a budget version for the proposal
+    And   complete the required custom fields on the proposal
+    And   answer the S2S questions
+    And   submit the proposal
+    And   log in with the AOR user
     When  I submit the proposal to S2S
     Then  Submission details will be immediately available on the S2S tab
     And   within a couple of minutes the submission status will be updated
 
-  Scenario: Can successfully submit a proposal with NIH as the sponsor
+  Scenario: Submit a proposal with NIH as the sponsor
     Given I initiate a proposal with NIH as the sponsor
-    And   I add the Grants.Gov opportunity id of RR-TEST-NIH-FORMS2 to the proposal
-    And   I add the Grants.gov user as the proposal's PI
-    And   I set valid credit splits for the proposal
-    And   I add and mark complete all the required attachments for an NIH proposal
-    And   I create, finalize, and mark complete a budget version for the proposal
-    And   I complete the required custom fields on the proposal
-    And   I answer the S2S questions
-    And   I submit the proposal
-    And   I log in with the AOR user
+    And   add the Grants.Gov opportunity id of RR-TEST-NIH-FORMS2 to the proposal
+    And   add the Grants.gov user as the proposal's PI
+    And   set valid credit splits for the proposal
+    And   add and mark complete all the required attachments for an NIH proposal
+    And   create, finalize, and mark complete a budget version for the proposal
+    And   complete the required custom fields on the proposal
+    And   answer the S2S questions
+    And   submit the proposal
+    And   log in with the AOR user
     When  I submit the proposal to S2S
     Then  Submission details will be immediately available on the S2S tab
     And   within a couple of minutes the submission status will be updated

@@ -1,8 +1,8 @@
-When /^I recall the proposal$/ do
+When /^I? ?recall the proposal$/ do
   @proposal.recall
 end
 
-When /^I complete a valid simple proposal for a '(.*)' organization$/ do |org|
+When /^I? ?complete a valid simple proposal for a '(.*)' organization$/ do |org|
   @proposal = create ProposalDevelopmentObject, sponsor_type_code: org
   @proposal.add_principal_investigator
   @proposal.set_valid_credit_splits
@@ -45,7 +45,7 @@ When /^The proposal's 'Future Action Requests' should include 'PENDING APPROVE' 
   end
 end
 
-When /^I push the proposal's project start date ahead a year$/ do
+When /^I? ?push the proposal's project start date ahead a year$/ do
   new_year=@proposal.project_start_date[/\d+$/].to_i+1
   new_date="#{@proposal.project_start_date[/^\d+\/\d+/]}/#{new_year}"
   @proposal.edit project_start_date: new_date
@@ -56,6 +56,6 @@ Then /^I can recall the proposal$/ do
   on(Proposal).recall_button.should exist
 end
 
-And /^I answer the S2S questions$/ do
+And /^I? ?answer the S2S questions$/ do
   @proposal.answer_s2s_questions
 end
