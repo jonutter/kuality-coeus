@@ -1,6 +1,6 @@
 # This step mentions user roles because it best fits into the context of
 # our 'Given we have users with the roles' step
-When /^I send a notification to the (.*) users?$/ do |role|
+When /^I? ?send a notification to the (.*) users?$/ do |role|
   role = role.split(', ')
 
   on(PDCustomData).proposal_actions
