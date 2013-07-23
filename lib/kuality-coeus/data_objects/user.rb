@@ -129,7 +129,6 @@ class UserObject
         end
       end
       unless @role_qualifiers.nil?
-        puts @role_qualifiers.inspect
         @role_qualifiers.each do |role, unit|
           add.unit_number(role).set unit
           add.add_role_qualifier role
