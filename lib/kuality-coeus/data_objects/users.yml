@@ -209,3 +209,47 @@ kctestuser10:  # AKA: "Principal Name"
     - '110' # Aggregator
   :role_qualifiers:
     :110: '000001'
+swarren:  # AKA: "Principal Name"
+  :description:      creating test aor user
+  :affiliation_type: Staff
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      '00001'
+  :employee_status:  Active
+  :employee_type:    Professional
+  :salary:           120,000.00
+  :primary_department_code: 'OSP'
+  :first_name:       sean
+  :last_name:        warren
+  :primary_title:    Director RSmart College of Science
+  :directory_title:  Principal Investigator
+  :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
+  :era_commons_user_name: grantsgov
+  :graduate_student_count: '0'
+  :billing_element:  bla bla bla
+  :addresses:
+    - :type:    Home
+      :line_1:  475 n scottsdale rd
+      :city:    scottsdale
+      :state:   ARIZONA
+      :country: United States
+      :zip:     85257
+      :default: :set
+    - :type:    Work
+  :phones:
+    - :type:    Facsimile
+      :number:  555-555-5555
+      :default: :set
+      :country: United States
+  :emails:
+    - :email:   sean.warren@rsmart.com
+      :type:    Work
+      :default: :set
+  :groups:
+    - '2002' # OSP Superuser
+    - '2003' # ProposalAdmin
+  :roles:
+    - '100' # OSPApprover
+    - '110' # Aggregator
+    - '131' # OSP Administrator
+  :role_qualifiers:
+    :110: '000001'

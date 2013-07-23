@@ -10,10 +10,11 @@ Feature: Proposal Workflows and Routing
 #=================
 # Proposal Actions -- As proposals navigate through workflow, specific users are asked to take actions
 #=================
+  @test
   Scenario Outline: Proposal is successfully routed to PI for action
     Given I have users with the following roles: OSPApprover, Proposal Creator, Unassigned
     And   I log in with the Proposal Creator user
-    And   I initiate a proposal
+    And   initiate a proposal
     And   I add the Unassigned user as a Principal Investigator to the key personnel proposal roles
     And   I complete the required custom fields on the proposal
     And   I submit the proposal
@@ -74,7 +75,7 @@ Feature: Proposal Workflows and Routing
     And   I submit a new development proposal into routing
     When  I recall and cancel the proposal
     Then  the proposal status should be Document Error Occurred
-  @test
+
   Scenario: Aggregator successfully recalls proposal for revisions
     Given I have a user with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user

@@ -1,4 +1,4 @@
-Given /^I initiate a proposal$/ do
+Given /^I? ?initiate a proposal$/ do
   @proposal = create ProposalDevelopmentObject
 end
 

@@ -6,7 +6,6 @@ Feature: Special Review Validations
 
   Background: Necessary users exist in the system
     Given   I'm logged in with admin
-    Given   I have users with the following roles: Proposal Creator, OSPApprover, Unassigned
 
 
   Scenario: The application date must be prior to the approval date

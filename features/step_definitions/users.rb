@@ -50,7 +50,7 @@ Given /^I have users with the following roles: (.*)$/ do |roles|
   end
 end
 
-Given /^I have a user that can be a PI for Grants.gov proposals$/ do
+Given /^there is a user that can be a PI for Grants.gov proposals$/ do
   # TODO: Make this more robust when we really know what it takes
   # to be a grants.gov PI...
   @grants_gov_pi = make_user 'grantsgov'
