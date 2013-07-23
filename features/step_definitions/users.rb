@@ -58,6 +58,6 @@ Given /^I have a user that can be a PI for Grants.gov proposals$/ do
 end
 
 Given /^there is an AOR user$/ do
-  @aor = make_user 'swarren'
+  @aor = make_user 'quickstart'
   @aor.create unless @aor.exists?
 end
