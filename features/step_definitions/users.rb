@@ -54,4 +54,10 @@ Given /^I have a user that can be a PI for Grants.gov proposals$/ do
   # TODO: Make this more robust when we really know what it takes
   # to be a grants.gov PI...
   @grants_gov_pi = make_user 'grantsgov'
+  @grants_gov_pi.create unless @grants_gov_pi.exists?
+end
+
+Given /^there is an AOR user$/ do
+  @aor = make_user 'swarren'
+  @aor.create unless @aor.exists?
 end

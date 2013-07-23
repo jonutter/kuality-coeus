@@ -1,4 +1,4 @@
-When /^I create a budget version for the proposal$/ do
+When /^I? ?create a budget version for the proposal$/ do
   @proposal.add_budget_version
   @budget_version = @proposal.budget_versions[0]
 end
@@ -13,15 +13,15 @@ When /^correcting the Budget Version date will remove the warning$/ do
   on(Parameters).warnings.size.should be 0
 end
 
-Given /^I create, finalize, and mark complete a budget version for the proposal$/ do
+Given /^I? ?create, finalize, and mark complete a budget version for the proposal$/ do
   @proposal.add_budget_version(status: 'Complete', final: :set)
 end
 
-When /^I copy the budget version \(all periods\)$/ do
+When /^I? ?copy the budget version \(all periods\)$/ do
   @copied_budget_version = @proposal.budget_versions.copy_all_periods(@budget_version.name, random_alphanums)
 end
 
-When /^I enter dollar amounts for all the budget periods$/ do
+When /^I? ?enter dollar amounts for all the budget periods$/ do
   @budget_version.budget_periods.each do |p|
     randomized_values = {}
     p.dollar_fields[1..-1].each { |f| randomized_values.store(f, random_dollar_value(500000)) }
@@ -46,11 +46,11 @@ Then /^the copied budget's values are all as expected$/ do
   end
 end
 
-When /^I delete one of the budget periods$/ do
+When /^I? ?delete one of the budget periods$/ do
   @budget_version.delete_period(rand(@budget_version.budget_periods.size)+1)
 end
 
-When /^I change the date range for one of the periods$/ do
+When /^I? ?change the date range for one of the periods$/ do
   period = @budget_version.budget_periods.sample
   new_start_date = '03'+period.start_date[/\/\d+\/\d+$/]
   new_end_date = '10'+period.end_date[/\/\d+\/\d+$/]
@@ -58,7 +58,7 @@ When /^I change the date range for one of the periods$/ do
   on(Confirmation).yes
 end
 
-When /^I select the default periods for the budget version$/ do
+When /^I? ?select the default periods for the budget version$/ do
   @budget_version.default_periods
 end
 
@@ -85,7 +85,7 @@ Then /^all budget periods get recreated, zeroed, and given default date ranges$/
   end
 end
 
-When /^I finalize the budget version$/ do
+When /^I? ?finalize the budget version$/ do
   @budget_version.edit final: :set
 end
 

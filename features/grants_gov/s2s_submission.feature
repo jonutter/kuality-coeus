@@ -6,7 +6,7 @@ Feature: Submitting Proposals via s2s to Grants.gov
   Background: Logged in with a proposal creator; have other necessary user
     Given I'm logged in with kctestuser9
     And   I have a user that can be a PI for Grants.gov proposals
-    And   I have a user with the user name quickstart
+    And   there is an AOR user
 
   Scenario: Can successfully submit a proposal with NSF as the sponsor
     Given I initiate a proposal with NSF as the sponsor
@@ -18,7 +18,7 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   I complete the required custom fields on the proposal
     And   I answer the S2S questions
     And   I submit the proposal
-    And   I log in with the quickstart user
+    And   I log in with the AOR user
     When  I submit the proposal to S2S
     Then  Submission details will be immediately available on the S2S tab
     And   within a couple of minutes the submission status will be updated
@@ -33,7 +33,7 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   I complete the required custom fields on the proposal
     And   I answer the S2S questions
     And   I submit the proposal
-    And   I log in with the quickstart user
+    And   I log in with the AOR user
     When  I submit the proposal to S2S
     Then  Submission details will be immediately available on the S2S tab
     And   within a couple of minutes the submission status will be updated
