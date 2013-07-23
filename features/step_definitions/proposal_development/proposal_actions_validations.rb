@@ -1,4 +1,4 @@
-And /^I activate a validation check$/ do
+And /^I? ?activate a validation check$/ do
   on(Proposal).proposal_actions
   on ProposalActions do |page|
     page.show_data_validation
@@ -21,17 +21,17 @@ Then /^a validation error should say (.*)$/ do |error|
   on(ProposalActions).validation_errors_and_warnings.should include errors[error]
 end
 
-When /^I do not answer my proposal questions$/ do
+When /^I? ?do not answer my proposal questions$/ do
   #nothing necessary for this step
 end
 
-When /^I initiate a proposal with an un-certified (.*)$/ do |role|
+When /^I? ?initiate a proposal with an un-certified (.*)$/ do |role|
   @role = role
   @proposal = create ProposalDevelopmentObject
   @proposal.add_key_person role: @role, certified: false
 end
 
-Given /^I initiate a proposal where the un-certified key person has certification questions$/ do
+Given /^I? ?initiate a proposal where the un-certified key person has certification questions$/ do
   @role = 'Key Person'
   @proposal = create ProposalDevelopmentObject
   @proposal.add_key_person role: @role, key_person_role: 'default', certified: false

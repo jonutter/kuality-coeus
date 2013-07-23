@@ -220,12 +220,9 @@ swarren:  # AKA: "Principal Name"
   :primary_department_code: 'OSP'
   :first_name:       sean
   :last_name:        warren
-  :primary_title:    Director RSmart College of Science
-  :directory_title:  Principal Investigator
+  :primary_title:    OSPApprover
+  :directory_title:  OSPApprover
   :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
-  :era_commons_user_name: grantsgov
-  :graduate_student_count: '0'
-  :billing_element:  bla bla bla
   :addresses:
     - :type:    Home
       :line_1:  475 n scottsdale rd
@@ -234,7 +231,6 @@ swarren:  # AKA: "Principal Name"
       :country: United States
       :zip:     85257
       :default: :set
-    - :type:    Work
   :phones:
     - :type:    Facsimile
       :number:  555-555-5555

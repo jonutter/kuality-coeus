@@ -89,7 +89,7 @@ When /^I? ?finalize the budget version$/ do
   @budget_version.edit final: :set
 end
 
-When /^I mark the budget version complete$/ do
+When /^I? ?mark the budget version complete$/ do
   @budget_version.edit status: 'Complete'
 end
 

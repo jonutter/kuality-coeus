@@ -17,7 +17,7 @@ end
 #    based on the role
 # 3) Assumes that role user already exists in the system
 # 4) Logs that user in, if they're not already
-Given /^I log in with the (.*) user$/ do |role|
+Given /^I? ?log in with the (.*) user$/ do |role|
   get(role).sign_in
 end
 
