@@ -1,0 +1,3 @@
+class UnitAdministratorLookup < Lookups
+
+end
