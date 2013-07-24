@@ -220,8 +220,8 @@ swarren:  # AKA: "Principal Name"
   :primary_department_code: 'OSP'
   :first_name:       sean
   :last_name:        warren
-  :primary_title:    Director RSmart College of Science
-  :directory_title:  Principal Investigator
+  :primary_title:    OSPApprover
+  :directory_title:  OSPApprover
   :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
   :era_commons_user_name: 987goigyu
   :graduate_student_count: '0'

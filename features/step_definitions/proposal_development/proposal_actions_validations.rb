@@ -1,4 +1,4 @@
-And /^I activate a validation check$/ do
+And /^I? ?activate a validation check$/ do
   on(Proposal).proposal_actions
   on ProposalActions do |page|
     page.show_data_validation
@@ -21,38 +21,38 @@ Then /^a validation error should say (.*)$/ do |error|
   on(ProposalActions).validation_errors_and_warnings.should include errors[error]
 end
 
-When /^I do not answer my proposal questions$/ do
+When /^I? ?do not answer my proposal questions$/ do
   #nothing necessary for this step
 end
 
-When /^I initiate a proposal with an un-certified (.*)$/ do |role|
+When /^I? ?initiate a proposal with an un-certified (.*)$/ do |role|
   @role = role
   @proposal = create ProposalDevelopmentObject
   @proposal.add_key_person role: @role, certified: false
 end
 
-Given /^I initiate a proposal where the un-certified key person has certification questions$/ do
+Given /^I? ?initiate a proposal where the un-certified key person has certification questions$/ do
   @role = 'Key Person'
   @proposal = create ProposalDevelopmentObject
   @proposal.add_key_person role: @role, key_person_role: 'default', certified: false
   on(KeyPersonnel).include_certification_questions @proposal.key_personnel.uncertified_key_person(@role).full_name
 end
 
-And /^checking the key personnel page shows an error that says (.*)$/ do |error|
+Then /^checking the key personnel page shows an error that says (.*)$/ do |error|
   on(ProposalActions).key_personnel
   errors = {'there is no principal investigator' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.'
   }
   on(KeyPersonnel).errors.should include errors[error]
 end
 
-When /^checking the proposal page shows an error that says (.*)$/ do |error|
+Then /^checking the proposal page shows an error that says (.*)$/ do |error|
   on(ProposalActions).proposal
   errors = {'sponsor deadline date not entered' => 'Sponsor deadline date has not been entered.'
   }
   on(Proposal).errors.should include errors[error]
 end
 
-And /^checking the questions page shows an error that says (.*)$/ do |error|
+Then /^checking the questions page shows an error that says (.*)$/ do |error|
   on(Proposal).questions
   errors = {'proposal questions were not answered' => 'Answer is required for Question 1 in group A. Proposal Questions.',
             'questionnaire must be completed' => %|You must complete the questionnaire "S2S FAT & Flat Questionnaire"|,
@@ -61,7 +61,7 @@ And /^checking the questions page shows an error that says (.*)$/ do |error|
   on(Questions).errors.should include errors[error]
 end
 
-When /^checking the key personnel page shows a proposal person certification error that says the investigator needs to be certified$/ do
+Then /^checking the key personnel page shows a proposal person certification error that says the investigator needs to be certified$/ do
   on(ProposalActions).key_personnel
   on(KeyPersonnel).errors.should include "The Investigators are not all certified. Please certify #{@proposal.key_personnel.uncertified_person(@role).full_name}."
 end
