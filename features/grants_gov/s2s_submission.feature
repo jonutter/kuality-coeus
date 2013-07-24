@@ -8,7 +8,7 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   a user exists that can be a PI for Grants.gov proposals
     And   an AOR user exists
 
-  Scenario: Submit a proposal with NSF as the sponsor
+  Scenario: Submit a proposal to Grants.gov with NSF as the sponsor
     Given I initiate a proposal with NSF as the sponsor
     And   add the Grants.Gov opportunity id of PA-B2-R01 to the proposal
     And   add the Grants.gov user as the proposal's PI
@@ -23,7 +23,7 @@ Feature: Submitting Proposals via s2s to Grants.gov
     Then  Submission details will be immediately available on the S2S tab
     And   within a couple of minutes the submission status will be updated
 
-  Scenario: Submit a proposal with NIH as the sponsor
+  Scenario: Submit a proposal to Grants.gov with NIH as the sponsor
     Given I initiate a proposal with NIH as the sponsor
     And   add the Grants.Gov opportunity id of RR-TEST-NIH-FORMS2 to the proposal
     And   add the Grants.gov user as the proposal's PI

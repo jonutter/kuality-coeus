@@ -98,11 +98,21 @@ class UserObject
   end
 
   def create
-    visit(SystemAdmin).person unless PersonLookup.new(@browser).principal_id.present?
-    on PersonLookup do |page|
-      raise "You're trying to create a user record, but it looks like\nyou're logged in with a user lacking permission\nto do this.\n\nPlease modify your scenario steps\nto correct this problem." unless page.create_button.present?
-      page.create
+    # First we have to make sure we're logged in with
+    # a user that has permissions to create other users...
+    if login_info_div.text =~ /admin$/
+      visit(SystemAdmin).person unless PersonLookup.new(@browser).principal_id.present?
+    else
+      @logged_in_user_name = login_info_div.text[/\w+$/]
+      s_o.click
+      on Login do |log_in|
+        log_in.username.set 'admin'
+        log_in.login
+      end
+      visit(SystemAdmin).person
     end
+    # Now we're certain the create button will be there, so...
+    on(PersonLookup).create
     on Person do |add|
       add.expand_all
       add.principal_name.set @user_name
@@ -179,6 +189,15 @@ class UserObject
       fill_out page, :description, :primary_title, :directory_title, :citizenship_type,
                :era_commons_user_name, :graduate_student_count, :billing_element
       page.blanket_approve
+    end
+    # Now that we're done with the user creation, we can log back in
+    # with the other user, if necessary...
+    unless @logged_in_user_name.nil?
+      s_o.click
+      on Login do |log_in|
+        log_in.username.set @logged_in_user_name
+        log_in.login
+      end
     end
   end
 
