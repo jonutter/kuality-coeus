@@ -1,4 +1,4 @@
-When /^I visit the proposal's (.*) page$/ do |page|
+When /^I? ?visit the proposal's (.*) page$/ do |page|
   # Ensure we're where we need to be in the system...
   @proposal.open_document
   # Be sure that the page name used in the scenario
@@ -11,7 +11,7 @@ Then /^the (.*) user is listed as an? (.*) in the proposal permissions$/ do |use
   on(Permissions).assigned_role(get(username).user_name).should include role
 end
 
-When /^I assign the (.*) user as an? (.*) in the proposal permissions$/ do |system_role, role|
+When /^I? ?assign the (.*) user as an? (.*) in the proposal permissions$/ do |system_role, role|
   set(system_role, (make UserObject, role: system_role))
   @proposal.permissions.send(snake_case(role+'s')) << get(system_role).user_name
   @proposal.permissions.assign
@@ -118,11 +118,11 @@ And /^their proposal permissions allow them to (.*)$/ do |permissions|
   end
 end
 
-Then /^I should see an error message that says not to select other roles alongside aggregator$/ do
+Then /^there should be an error message that says not to select other roles alongside aggregator$/ do
    on(Roles).errors.should include 'Do not select other roles when Aggregator is selected.'
 end
 
-When /^I attempt to add an additional proposal role to the (.*) user$/ do |system_role|
+When /^I? ?attempt to add an additional proposal role to the (.*) user$/ do |system_role|
   role = [:viewer, :budget_creator, :narrative_writer, :aggregator].sample
   on(Permissions).edit_role.(get(system_role).user_name)
   on Roles do |page|
