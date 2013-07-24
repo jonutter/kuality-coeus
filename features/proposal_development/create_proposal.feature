@@ -19,7 +19,7 @@ Feature: Creating proposals
 
     Scenario: Successful submission of a Private Profit proposal document into routing
       When  I complete a valid simple proposal for a 'Private Profit' organization
-      And   I submit the proposal
+      And   submit the proposal
       Then  The proposal should immediately have a status of 'Approval Pending'
       And   The proposal route log's 'Actions Taken' should include 'COMPLETED'
       And   The proposal's 'Future Action Requests' should include 'PENDING APPROVE' for the principal investigator

@@ -7,6 +7,8 @@ class Questions < ProposalDevelopmentDocument
                      :proprietary_info, :environmental_impact, :authorized_exemption, :site_historic,
                      :international_activities, :other_agencies, :subject_to_review, :novice_applicants]
 
+  PHS_398_NAMES   = [:budget_per1_funds, ]
+
   proposal_header_elements
 
   # Used strictly for navigation validation...
@@ -14,6 +16,12 @@ class Questions < ProposalDevelopmentDocument
 
   # S2S Questions...
   action(:show_s2s_questions) { |b| b.frm.button(name: 'methodToCall.toggleTab.tab0').click }
+
+  # PHS398 Training Budget V1-0 Questions
+  action(:show_phs398_questions) { |b| b.frm.button(name: 'methodToCall.toggleTab.tab1').click }
+
+  # PHS Fellowship Forms V1-2 Questions
+  action(:show_phsfellowship_questions) { |b| b.frm.button(name: 'methodToCall.toggleTab.tab2').click }
 
   # S2S Radio button questions...
   # PLEASE NOTE: These radio buttons are a

@@ -33,6 +33,7 @@ Then /^the proposal is in the (.*) user's action list$/ do |username|
   on(ActionList).item_row(@proposal.document_id).should exist
 end
 
+# TODO: Consider splitting this out into individual step defs...
 And /^their proposal permissions allow them to (.*)$/ do |permissions|
   case permissions
     when 'only update the Abstracts and Attachments page'

@@ -5,8 +5,8 @@ Feature: Submitting Proposals via s2s to Grants.gov
 
   Background: Logged in with a proposal creator; have other necessary user
     Given I'm logged in with kctestuser9
-    And   there is a user that can be a PI for Grants.gov proposals
-    And   there is an AOR user
+    And   a user exists that can be a PI for Grants.gov proposals
+    And   an AOR user exists
 
   Scenario: Submit a proposal with NSF as the sponsor
     Given I initiate a proposal with NSF as the sponsor
