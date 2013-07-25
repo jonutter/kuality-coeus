@@ -33,12 +33,12 @@ unassigneduser: # AKA: "Principal Name
     - '106' # Unassigned
   :role_qualifiers:
     :106: '000001'
-grantsgov: # AKA: "Principal Name
+gabrielp: # AKA: "Principal Name
   :description:      User who can submit to grants.gov
   :affiliation_type: Student
   :campus_code:      'UN - UNIVERSITY'
-  :first_name:       Grantsgov
-  :last_name:        Lannister
+  :first_name:       Peter
+  :last_name:        Gabriel
   :primary_title:    Director RSmart College of Science
   :directory_title:  Principal Investigator
   :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
@@ -77,7 +77,10 @@ grantsgov: # AKA: "Principal Name
     - '109' # Narrative Writer
     - '108' # Budget Creator
   :role_qualifiers:
-    :106: '000001'
+    :110: '000001'
+    :109: '000001'
+    :108: '000001'
+    :107: '000001'
 ospapprover:  # AKA: "Principal Name"
   :description:      creating osp approver
   :affiliation_type: Faculty
@@ -122,12 +125,12 @@ ospapprover:  # AKA: "Principal Name"
       :default: :set
   :roles:
     - '100' # OSPApprover
-kctestuser9:  # AKA: "Principal Name"
+singhtalvin:  # AKA: "Principal Name"
   :description:      creating test user with manager permissions
   :affiliation_type: Other Academic Group
   :campus_code:      'UN - UNIVERSITY'
-  :first_name:       newman
-  :last_name:        test
+  :first_name:       Talvin
+  :last_name:        Singh
   :primary_title:    Director RSmart College of Science
   :directory_title:  Principal Investigator
   :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
