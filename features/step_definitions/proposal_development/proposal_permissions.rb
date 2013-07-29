@@ -33,53 +33,53 @@ Then /^the proposal is in the (.*) user's action list$/ do |username|
   on(ActionList).item_row(@proposal.document_id).should exist
 end
 
-# TODO: Consider splitting this out into individual step defs...
-And /^their proposal permissions allow them to (.*)$/ do |permissions|
-  case permissions
-    when 'only update the Abstracts and Attachments page'
-      on(Proposal).abstracts_and_attachments
-      @proposal.close
-      on(Confirmation).yes
+And /^their proposal permissions allow them to only update the Abstracts and Attachments page$/ do
+  on(Proposal).abstracts_and_attachments
+  @proposal.close
+  on(Confirmation).yes
+end
 
-    when 'edit all parts of the proposal'
-      on Proposal do |page|
-        page.save_button.should be_present
-        page.abstracts_and_attachments
-      end
-      on AbstractsAndAttachments do |page|
-        page.save_button.should be_present
-        page.custom_data
-      end
-      on PDCustomData do |page|
-        page.save_button.should be_present
-        page.key_personnel
-      end
-      on KeyPersonnel do |page|
-        page.save_button.should be_present
-        page.permissions
-      end
-      on Permissions do |page|
-        page.save_button.should be_present
-        page.proposal_actions
-      end
-      on ProposalActions do |page|
-        page.save_button.should be_present
-        page.questions
-      end
-      on Questions do |page|
-        page.save_button.should be_present
-        page.special_review
-      end
-      on SpecialReview do |page|
-        page.save_button.should be_present
-      end
+And /^their proposal permissions allow them to edit all parts of the proposal$/ do
+  on Proposal do |page|
+    page.save_button.should be_present
+    page.abstracts_and_attachments
+  end
+  on AbstractsAndAttachments do |page|
+    page.save_button.should be_present
+    page.custom_data
+  end
+  on PDCustomData do |page|
+    page.save_button.should be_present
+    page.key_personnel
+  end
+  on KeyPersonnel do |page|
+    page.save_button.should be_present
+    page.permissions
+  end
+  on Permissions do |page|
+    page.save_button.should be_present
+    page.proposal_actions
+  end
+  on ProposalActions do |page|
+    page.save_button.should be_present
+    page.questions
+  end
+  on Questions do |page|
+    page.save_button.should be_present
+    page.special_review
+  end
+  on SpecialReview do |page|
+    page.save_button.should be_present
+  end
+end
 
-    when 'only update the budget'
+And /^their proposal permissions allow them to only update the budget$/ do
       on(Proposal).budget_versions
       @proposal.close
       on(Confirmation).yes
+end
 
-    when 'only read the proposal'
+And /^their proposal permissions allow them to only read the proposal$/ do
       on Proposal do |page|
         page.save_button.should_not be_present
         page.abstracts_and_attachments
@@ -111,11 +111,11 @@ And /^their proposal permissions allow them to (.*)$/ do |permissions|
       on SpecialReview do |page|
         page.save_button.should_not be_present
       end
+end
 
-    when 'delete the proposal'
+And /^their proposal permissions allow them to delete the proposal$/ do
       on(Proposal).proposal_actions
       @proposal.delete
-  end
 end
 
 Then /^there should be an error message that says not to select other roles alongside aggregator$/ do

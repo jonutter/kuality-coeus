@@ -6,7 +6,7 @@ Then /^Submission details will be immediately available on the S2S tab$/ do
    end
 end
 
-When /^within a couple of minutes the submission status will be updated$/ do
+Then /^within a couple of minutes the submission status will be updated$/ do
   on S2S do |page|
     x = 0
     while page.submission_status=='Submitted to S2S'

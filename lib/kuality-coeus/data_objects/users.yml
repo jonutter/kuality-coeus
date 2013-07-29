@@ -91,7 +91,7 @@ ospapprover:  # AKA: "Principal Name"
   :primary_title:    Director RSmart College of Science
   :directory_title:  Principal Investigator
   :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
-  :era_commons_user_name: grantsgov
+  :era_commons_user_name: qwperoiu
   :graduate_student_count: '0'
   :billing_element:  bla bla bla
   :addresses:
@@ -131,7 +131,7 @@ kctestuser9:  # AKA: "Principal Name"
   :primary_title:    Director RSmart College of Science
   :directory_title:  Principal Investigator
   :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
-  :era_commons_user_name: grantsgov
+  :era_commons_user_name: pqowiuth
   :graduate_student_count: '0'
   :billing_element:  bla bla bla
   :addresses:
@@ -176,7 +176,7 @@ kctestuser10:  # AKA: "Principal Name"
   :primary_title:    Director RSmart College of Science
   :directory_title:  Principal Investigator
   :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
-  :era_commons_user_name: grantsgov
+  :era_commons_user_name: 98ygwrgw
   :graduate_student_count: '0'
   :billing_element:  bla bla bla
   :addresses:
@@ -223,6 +223,9 @@ swarren:  # AKA: "Principal Name"
   :primary_title:    OSPApprover
   :directory_title:  OSPApprover
   :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
+  :era_commons_user_name: 987goigyu
+  :graduate_student_count: '0'
+  :billing_element:  bla bla bla
   :addresses:
     - :type:    Home
       :line_1:  475 n scottsdale rd
