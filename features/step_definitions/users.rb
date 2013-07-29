@@ -22,9 +22,9 @@ Given /^I? ?log in with the (.*) user$/ do |role|
 end
 
 # This step definition
-# 1) Assumes you're already logged in with a user with admin privileges
-# 2) Creates the user object in a class instance variable based on the user name
-# 3) Creates the user in the system if they don't exist already
+# 1) Creates the user object in a class instance variable based on the user name
+# 2) Creates the user in the system if they don't exist already,
+#    by first logging in with the admin user
 Given /^a user exists with the user name (.*)$/ do |username|
   user = make_user username
   user.create unless user.exists?
@@ -33,7 +33,8 @@ end
 # This step definition will return a user with
 # the specified role. If there are multiple matching
 # users, it will select one of them randomly, and create
-# them if they don't exist in the system.
+# them if they don't exist in the system (again by first
+# logging in with the admin user to do the creation).
 Given /^a user exists with the system role: '(.*)'$/ do |role|
   user = make_role role
   user.create unless user.exists?
@@ -58,6 +59,7 @@ Given /^a user exists that can be a PI for Grants.gov proposals$/ do
 end
 
 Given /^an AOR user exists$/ do
+  # TODO: Using the quickstart user here is cheating. Fix this.
   @aor = make_user 'quickstart'
   @aor.create unless @aor.exists?
 end
