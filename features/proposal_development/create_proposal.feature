@@ -8,7 +8,7 @@ Feature: Creating proposals
     Scenario: Attempt to save a proposal missing a required field
       When  I initiate a proposal but miss a required field
       Then  I should see an error that says the field is required
-
+    @test
     Scenario: Attempt to save a proposal with an invalid sponsor code
       When  I initiate a proposal with an invalid sponsor code
       Then  I should see an error that says a valid sponsor code is required
