@@ -29,6 +29,13 @@ class UserCollection < Hash
     self.find_all{|user| user[1][:primary_dept_code]==code }.shuffle
   end
 
+  # This is a short cut to "knowing" which user can be used as a PI for
+  # a Grants.gov proposal. At some point this should be eliminated--as in,
+  # when we know better what exactly a grants.gov PI requires.
+  def era_commons_user(username)
+    self.find{ |user| user[1][:era_commons_user_name]==username }[0]
+  end
+
 end
 
 class UserObject
@@ -104,8 +111,8 @@ class UserObject
       visit(SystemAdmin).person unless PersonLookup.new(@browser).principal_id.present?
     else
       @logged_in_user_name = login_info_div.text[/\w+$/]
-      s_o.click
-      on Login do |log_in|
+      visit Login do |log_in|
+        log_in.close_parents
         log_in.username.set 'admin'
         log_in.login
       end
@@ -165,6 +172,7 @@ class UserObject
       unless @phones.nil?
         @phones.each do |phone|
           add.phone_type.fit phone[:type]
+          add.phone_number.fit phone[:number]
           add.phone_default.fit phone[:default]
           add.add_phone
         end
@@ -187,7 +195,8 @@ class UserObject
     on PersonExtendedAttributes do |page|
       page.expand_all
       fill_out page, :description, :primary_title, :directory_title, :citizenship_type,
-               :era_commons_user_name, :graduate_student_count, :billing_element
+               :era_commons_user_name, :graduate_student_count, :billing_element,
+               :principal_id
       page.blanket_approve
     end
     # Now that we're done with the user creation, we can log back in
@@ -252,7 +261,12 @@ class UserObject
   alias_method :log_out, :sign_out
 
   def exist?
-    visit(SystemAdmin).person
+    visit SystemAdmin do |page|
+      if username_field.present?
+        UserObject.new(@browser).log_in
+      end
+      page.person
+    end
     on PersonLookup do |search|
       search.principal_name.set @user_name
       search.search
