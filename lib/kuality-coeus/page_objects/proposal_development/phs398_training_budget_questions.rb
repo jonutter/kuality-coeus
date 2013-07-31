@@ -2,6 +2,17 @@ class PHS398TrainingBudgetQuestions < ProposalDevelopmentDocument
 
   proposal_header_elements
 
+  def phs_398_training_names
+    array = []
+    1.upto(5) do |x|
+      %w{funds undergrad_trainees predoc_trainees postdoc_trainees nondegree_postdocs
+       short_nondegree_postdocs full_degree_postdocs short_degree_postdocs other_trainees}.each do |name|
+        array << "bp#{x}_#{name}".to_sym
+      end
+    end
+    array
+  end
+
   [0,1,8,13,14,23,32,41,50,55,56,63,68,69,78,87,96,105,110,111,118,123,124,133,142,151,
    160,165,166,173,178,179,188,197,206,215,220,221,228,233,234,243,252,261,270].each_with_index do |num, index|
     action("#{phs_398_training_names[index]}_element".to_sym) { |answer, b| b.frm.radio(name: "s2sQuestionnaireHelper.answerHeaders[0].answers[#{num}].answer", value: answer) }
@@ -23,21 +34,6 @@ class PHS398TrainingBudgetQuestions < ProposalDevelopmentDocument
       element("bp#{x+1}_full_term_degree_postdocs_#{x}".to_sym) { |b| b.frm.text_field(id: "s2sQuestionnaireHelper.answerHeaders[0].answers[#{(33+n)+(x*55)}].answer") }
       element("bp#{x+1}_short_term_degree_postdocs_#{x}".to_sym) { |b| b.frm.text_field(id: "s2sQuestionnaireHelper.answerHeaders[0].answers[#{(42+n)+(x*55)}].answer") }
     end
-  end
-
-  # ========
-  private
-  # ========
-
-  def phs_398_training_names
-    array = []
-    1.upto(5) do |x|
-      %w{funds undergrad_trainees predoc_trainees postdoc_trainees nondegree_postdocs
-       short_nondegree_postdocs full_degree_postdocs short_degree_postdocs other_trainees}.each do |name|
-        array << "bp#{x}_#{name}".to_sym
-      end
-    end
-    array
   end
 
 end
