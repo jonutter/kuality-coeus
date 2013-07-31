@@ -1,6 +1,6 @@
 class Questions < ProposalDevelopmentDocument
 
-  S2S_RADIO_NAMES = [:civil_service, :total_ftes, :year_2, :year_3, :year_4, :year_5, :year6, :potential_effects,
+  S2S_RADIO_NAMES = [:civil_service, :total_ftes, :year_2, :year_3, :year_4, :year_5, :year_6, :potential_effects,
                      :international_support, :pi_in_govt, :pi_foreign_employee, :change_in_pi, :change_in_institution,
                      :renewal_application, :inventions_conceived, :previously_reported, :disclose_title,
                      :clinical_trial, :phase_3_trial, :human_stem_cells, :specific_cell_line, :pi_new_investigator,
