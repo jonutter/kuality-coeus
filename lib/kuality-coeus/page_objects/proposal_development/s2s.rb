@@ -17,5 +17,7 @@ class S2S < ProposalDevelopmentDocument
   value(:comments) { |b| b.submission_details_table[4][1].text }
 
   # Forms
-  action(:phs_fellowship_supplemental_form) { |b| b.frm.checkbox(name: 'document.developmentProposalList[0].s2sOpportunity.s2sOppForms[10].include') }
+  element(:forms_table) { |b| b.frm.div(id: 'tab-OpportunitySearch:Forms-div').table }
+  action(:include_form) { |name, b| b.forms_table.row(text: /#{name}/).checkbox(title: 'Include') }
+
 end
