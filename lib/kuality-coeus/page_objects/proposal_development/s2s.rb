@@ -16,4 +16,6 @@ class S2S < ProposalDevelopmentDocument
   value(:agency_tracking_id) { |b| b.submission_details_table[3][1].text }
   value(:comments) { |b| b.submission_details_table[4][1].text }
 
+  # Forms
+
 end
