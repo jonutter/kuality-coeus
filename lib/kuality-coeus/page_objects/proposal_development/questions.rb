@@ -12,15 +12,6 @@ class Questions < ProposalDevelopmentDocument
   # Used strictly for navigation validation...
   element(:questions_header) { |b| b.frm.h2(text: 'A. Proposal Questions') }
 
-  # S2S Questions...
-  action(:show_s2s_questions) { |b| b.frm.button(name: 'methodToCall.toggleTab.tab0').click }
-
-  # PHS398 Training Budget V1-0 Questions
-  action(:show_phs398_questions) { |b| b.frm.button(name: 'methodToCall.toggleTab.tab1').click }
-
-  # PHS Fellowship Forms V1-2 Questions
-  action(:show_phsfellowship_questions) { |b| b.frm.button(name: 'methodToCall.toggleTab.tab2').click }
-
   # S2S Radio button questions...
   # PLEASE NOTE: These radio buttons are a
   # deviation from the typical radio button element definitions.
