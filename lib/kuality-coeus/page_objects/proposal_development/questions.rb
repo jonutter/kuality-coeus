@@ -1,6 +1,6 @@
 class Questions < ProposalDevelopmentDocument
 
-  S2S_RADIO_NAMES = [:civil_service, :total_ftes, :year_2, :year_3, :year_4, :year_5, :year6, :potential_effects,
+  S2S_RADIO_NAMES = [:civil_service, :total_ftes, :year_2, :year_3, :year_4, :year_5, :year_6, :potential_effects,
                      :international_support, :pi_in_govt, :pi_foreign_employee, :change_in_pi, :change_in_institution,
                      :renewal_application, :inventions_conceived, :previously_reported, :disclose_title,
                      :clinical_trial, :phase_3_trial, :human_stem_cells, :specific_cell_line, :pi_new_investigator,
@@ -11,15 +11,6 @@ class Questions < ProposalDevelopmentDocument
 
   # Used strictly for navigation validation...
   element(:questions_header) { |b| b.frm.h2(text: 'A. Proposal Questions') }
-
-  # S2S Questions...
-  action(:show_s2s_questions) { |b| b.frm.button(name: 'methodToCall.toggleTab.tab0').click }
-
-  # PHS398 Training Budget V1-0 Questions
-  action(:show_phs398_questions) { |b| b.frm.button(name: 'methodToCall.toggleTab.tab1').click }
-
-  # PHS Fellowship Forms V1-2 Questions
-  action(:show_phsfellowship_questions) { |b| b.frm.button(name: 'methodToCall.toggleTab.tab2').click }
 
   # S2S Radio button questions...
   # PLEASE NOTE: These radio buttons are a
@@ -41,7 +32,8 @@ class Questions < ProposalDevelopmentDocument
    36,37,38,39,
    40,41,42,43,64,
    65,66,68,70,
-   72,75,78,84].each_with_index do |num, index|
+   72,75,78,84
+  ].each_with_index do |num, index|
     action("#{S2S_RADIO_NAMES[index]}_element".to_sym) { |answer, b| b.frm.radio(name: "questionnaireHelper.answerHeaders[0].answers[#{num}].answer", value: answer) }
     action(S2S_RADIO_NAMES[index]) { |answer, b| b.frm.radio(name: "questionnaireHelper.answerHeaders[0].answers[#{num}].answer", value: answer).set }
   end
