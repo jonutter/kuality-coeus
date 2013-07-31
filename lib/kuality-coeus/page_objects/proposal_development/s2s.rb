@@ -16,4 +16,8 @@ class S2S < ProposalDevelopmentDocument
   value(:agency_tracking_id) { |b| b.submission_details_table[3][1].text }
   value(:comments) { |b| b.submission_details_table[4][1].text }
 
+  # Forms
+  element(:forms_table) { |b| b.frm.div(id: 'tab-OpportunitySearch:Forms-div').table }
+  action(:include_form) { |name, b| b.forms_table.row(text: /#{name}/).checkbox(title: 'Include') }
+
 end

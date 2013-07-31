@@ -2,19 +2,19 @@ class PHSFellowshipQuestions < ProposalDevelopmentDocument
 
   proposal_header_elements
 
-  FELLOWSHIP_NAMES = [:indefinite_human_subjects, :clinical_trial, :phase_3_trial, :indefinite_vertebrates,
-                          :human_stem_cells, :specific_cell_line, :seeking_degree_during_proposed_award,
-                          :kirchstein_nrsa_support, :support_period_start, :support_period_end, :nih_grant_number,
-                          :prior_support_award, :prior_support_start, :prior_support_end, :prior_nih_grant_number,
-                          :previous_submission, :senior_fellowship_application, :supplement_funding]
+  RADIO_NAMES = [:indefinite_human_subjects, :clinical_trial, :phase_3_trial, :indefinite_vertebrates,
+                    :human_stem_cells, :specific_cell_line, :seeking_degree_during_proposed_award,
+                    :kirchstein_nrsa_support, :support_period_start, :support_period_end, :nih_grant_number,
+                    :prior_support_award, :prior_support_start, :prior_support_end, :prior_nih_grant_number,
+                    :previous_submission, :senior_fellowship_application, :supplement_funding]
   [0,1,2,3,
    4,5,27,
    37,40,42,44,
    46,49,51,53,
    73,75,79
   ].each_with_index do |num, index|
-    action("#{FELLOWSHIP_NAMES[index]}_element".to_sym) { |answer, b| b.frm.radio(name: "s2sQuestionnaireHelper.answerHeaders[0].answers[#{num}].answer", value: answer) }
-    action(FELLOWSHIP_NAMES[index]) { |answer, b| b.frm.radio(name: "s2sQuestionnaireHelper.answerHeaders[0].answers[#{num}].answer", value: answer).set }
+    action("#{RADIO_NAMES[index]}_element".to_sym) { |answer, b| b.frm.radio(name: "s2sQuestionnaireHelper.answerHeaders[0].answers[#{num}].answer", value: answer) }
+    action(RADIO_NAMES[index]) { |answer, b| b.frm.radio(name: "s2sQuestionnaireHelper.answerHeaders[0].answers[#{num}].answer", value: answer).set }
   end
 
   # Stem cells...
