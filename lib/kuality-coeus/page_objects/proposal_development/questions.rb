@@ -32,7 +32,8 @@ class Questions < ProposalDevelopmentDocument
    36,37,38,39,
    40,41,42,43,64,
    65,66,68,70,
-   72,75,78,84].each_with_index do |num, index|
+   72,75,78,84
+  ].each_with_index do |num, index|
     action("#{S2S_RADIO_NAMES[index]}_element".to_sym) { |answer, b| b.frm.radio(name: "questionnaireHelper.answerHeaders[0].answers[#{num}].answer", value: answer) }
     action(S2S_RADIO_NAMES[index]) { |answer, b| b.frm.radio(name: "questionnaireHelper.answerHeaders[0].answers[#{num}].answer", value: answer).set }
   end
