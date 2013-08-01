@@ -18,6 +18,19 @@ Then /^within a couple of minutes the submission status will be updated$/ do
     page.submission_status.should_not == 'Submitted to S2S'
   end
 end
+
 When(/^I attach the PHS training and fellowship forms to the proposal$/) do
-  on(S2S).include_form("PHS_Fellowship_Supplemental_1_2-V1.2").set
+  on S2S do |page|
+    %w{PHS_Fellowship_Supplemental_1_2-V1.2
+     PHS398_TrainingBudget-V1.0}.each { |form| page.include_form(form).set }
+  end
+end
+
+Then(/^the PHS training and fellowship questionnaires should be appear in the proposal$/) do
+  on(S2S).questions
+  on(Questions) do |page|
+    page.expand_all
+    page.phs_398_training_Budget_questionnaire_title.should be_present
+  end
+  on(PHSFellowshipQuestions).phs_fellowship_questionnaire_title.should be_present
 end

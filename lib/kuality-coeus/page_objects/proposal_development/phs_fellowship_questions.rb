@@ -5,7 +5,7 @@ class PHSFellowshipQuestions < ProposalDevelopmentDocument
   RADIO_NAMES = [:indefinite_human_subjects, :clinical_trial, :phase_3_trial, :indefinite_vertebrates,
                     :human_stem_cells, :specific_cell_line, :seeking_degree_during_proposed_award,
                     :kirchstein_nrsa_support, :support_period_start, :support_period_end, :nih_grant_number,
-                    :prior_support_award, :prior_support_start, :prior_support_end, :prior_nih_grant_number,
+                    :prior_support_award, :prior_support_start, :prior_support_end, :have_prior_nih_grant_number,
                     :previous_submission, :senior_fellowship_application, :supplement_funding]
   [0,1,2,3,
    4,5,27,
@@ -31,7 +31,7 @@ class PHSFellowshipQuestions < ProposalDevelopmentDocument
   end
 
   TEXT_FIELD_NAMES = [:expected_degree_completion_date, :support_start_date, :support_end_date, :support_grant_number,
-                          :prior_support_end_date, :prior_support_end_date, :prior_nih_grant_number, :former_institution,
+                          :prior_support_start_date, :prior_support_end_date, :prior_nih_grant_number, :former_institution,
                           :present_base_salary, :salary_period, :salary_receipt_period, :supplemental_funding_amount,
                           :supplemental_funding_receipt_period, :supplemental_funding_type, :supplemental_funding_source]
   [29,41,43,45,
@@ -41,5 +41,7 @@ class PHSFellowshipQuestions < ProposalDevelopmentDocument
   ].each_with_index do |num, index|
     element(TEXT_FIELD_NAMES[index]) { |b| b.frm.text_field(id: "s2sQuestionnaireHelper.answerHeaders[0].answers[#{num}].answer") }
   end
+
+  element(:phs_fellowship_questionnaire_title) { |b| b.frm.h2(text: 'PHS Fellowship Form V1-2 (Incomplete) ') }
 
 end

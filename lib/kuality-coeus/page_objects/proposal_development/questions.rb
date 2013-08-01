@@ -69,13 +69,13 @@ class Questions < ProposalDevelopmentDocument
   element(:application_date) { |b| b.frm.text_field(id: 'questionnaireHelper.answerHeaders[0].answers[81].answer') }
   element(:program) { |b| b.frm.select(name: 'questionnaireHelper.answerHeaders[0].answers[82].answer') }
 
-  # Proposal Questions...
+  # Proposal Questionnaire...
   action(:show_proposal_questions) { |b| b.frm.button(name: 'methodToCall.toggleTab.tabAProposalQuestions').click }
 
   action(:agree_to_nih_policy) { |answer, b| b.frm.radio(name: 'document.developmentProposalList[0].proposalYnq[2].answer', value: answer).set }
   element(:policy_review_date) { |b| b.frm.text_field(id: 'document.developmentProposalList[0].proposalYnq[2].reviewDate') }
 
-  # Compliance...
+  # Compliance Questionnaire...
   action(:show_compliance_questions) { |b| b.frm.button(name: 'methodToCall.toggleTab.tabBCompliance').click }
 
   action(:agree_to_ethical_conduct) { |answer, b| b.frm.radio(name: 'document.developmentProposalList[0].proposalYnq[1].answer', value: answer).set }
