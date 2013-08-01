@@ -44,3 +44,10 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   add the Grants.Gov opportunity id of PA-B2-ALL to the proposal
     When  I attach the PHS training and fellowship forms to the proposal
     Then  the PHS training and fellowship questionnaires should be appear in the proposal
+
+  Scenario: Attach the PHS Fellowship and Training forms, and complete the questionnaires
+    Given I initiate a proposal with NIH as the sponsor
+    And   add the Grants.Gov opportunity id of PA-B2-ALL to the proposal
+    When  I attach the PHS training and fellowship forms to the proposal
+    And   complete their respective questionnaires
+    Then  the questionnaire titles should indicate that the questionnaires have been completed

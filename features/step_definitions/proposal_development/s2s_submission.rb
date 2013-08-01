@@ -28,9 +28,14 @@ end
 
 Then(/^the PHS training and fellowship questionnaires should be appear in the proposal$/) do
   on(S2S).questions
-  on(Questions) do |page|
-    page.expand_all
-    page.phs_398_training_Budget_questionnaire_title.should be_present
-  end
-  on(PHSFellowshipQuestions).phs_fellowship_questionnaire_title.should be_present
+  on(PHS398TrainingBudgetQuestions).form_tab("PHS398 Training Budget V1-0").should be_present
+  on(PHSFellowshipQuestions).form_tab("PHS Fellowship Form V1-2").should be_present
+end
+When(/^I? ?complete their respective questionnaires$/) do
+  on(PHS398TrainingBudgetQuestions).complete_phs_training_questionnaire
+  on(PHSFellowshipQuestions).complete_phs_fellowship_questionnaire
+end
+Then(/^the questionnaire titles should indicate that the questionnaires have been completed$/) do
+  on(PHS398TrainingBudgetQuestions).form_status("Complete").should be_present
+  on(PHSFellowshipQuestions).form_status("Complete").should be_present
 end

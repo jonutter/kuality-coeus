@@ -36,6 +36,10 @@ class PHS398TrainingBudgetQuestions < ProposalDevelopmentDocument
     end
   end
 
-  element(:phs_398_training_Budget_questionnaire_title) { |b| b.frm.h2(text: 'PHS398 Training Budget V1-0 (Incomplete) ') }
+  # Questionnaire Title Tab
+
+  action(:form_tab) { |name, b| b.frm.h2(text: /#{name}/) }
+
+  action(:form_status) { |name, b| b.form_tab(name).text[/(?<=\()\w+/] }
 
 end
