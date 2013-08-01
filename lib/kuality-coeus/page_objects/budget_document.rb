@@ -11,7 +11,7 @@ class BudgetDocument < BasePage
     def select_budget_period
       element(:budget_period) { |b| b.frm.select(name: 'viewBudgetPeriod') }
       element(:view) { |b| b.frm.select(name: 'viewBudgetView') }
-      action(:update_view) { |b| b.frm.button(title: 'Update View') }
+      action(:update_view) { |b| b.frm.button(title: 'Update View').click }
     end
 
   end
