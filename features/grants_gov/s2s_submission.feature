@@ -23,7 +23,7 @@ Feature: Submitting Proposals via s2s to Grants.gov
     When  I submit the proposal to S2S
     Then  Submission details will be immediately available on the S2S tab
     And   within a couple of minutes the submission status will be updated
-  @test
+
   Scenario: Submit a proposal to Grants.gov with NIH as the sponsor
     Given I initiate a proposal with NIH as the sponsor
     And   add the Grants.Gov opportunity id of RR-TEST-NIH-FORMS2 to the proposal
@@ -38,3 +38,9 @@ Feature: Submitting Proposals via s2s to Grants.gov
     When  I submit the proposal to S2S
     Then  Submission details will be immediately available on the S2S tab
     And   within a couple of minutes the submission status will be updated
+  @test
+  Scenario: Initiate a proposal with PHS forms attached
+    Given I initiate a proposal with NIH as the sponsor
+    And   add the Grants.Gov opportunity id of PA-B2-ALL to the proposal
+    When  I attach the PHS training and fellowship forms to the proposal
+    #Then  the PHS training and fellowship questionnaires should be appear in the proposal

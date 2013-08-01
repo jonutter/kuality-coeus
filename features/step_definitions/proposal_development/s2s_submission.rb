@@ -18,3 +18,6 @@ Then /^within a couple of minutes the submission status will be updated$/ do
     page.submission_status.should_not == 'Submitted to S2S'
   end
 end
+When(/^I attach the PHS training and fellowship forms to the proposal$/) do
+  on(S2S).include_form("PHS_Fellowship_Supplemental_1_2-V1.2").set
+end
