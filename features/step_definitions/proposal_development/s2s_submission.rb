@@ -38,6 +38,8 @@ When /^I? ?complete their respective questionnaires$/ do
 end
 
 Then /^the questionnaire titles should indicate that the questionnaires have been completed$/ do
-  on(PHS398TrainingBudgetQuestions).form_status("Complete").should be_present
-  on(PHSFellowshipQuestions).form_status("Complete").should be_present
+  on Questions do |page|
+    %w{PHS_Fellowship_Supplemental_1_2-V1.2
+     PHS398_TrainingBudget-V1.0}.each { |form| page.form_status(form).should=='Complete' }
+  end
 end

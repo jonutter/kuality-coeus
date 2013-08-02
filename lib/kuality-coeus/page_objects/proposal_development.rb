@@ -5,6 +5,9 @@ class ProposalDevelopmentDocument < BasePage
   global_buttons
   error_messages
 
+  action(:form_tab) { |name, b| b.frm.h2(text: /#{name}/) }
+  action(:form_status) { |name, b| b.form_tab(name).text[/(?<=\()\w+/] }
+
   class << self
 
     def proposal_header_elements
@@ -12,9 +15,6 @@ class ProposalDevelopmentDocument < BasePage
               'Abstracts and Attachments', 'Questions', 'Budget Versions', 'Permissions',
               'Proposal Summary', 'Proposal Actions', 'Medusa'
     end
-
-    action(:form_tab) { |name, b| b.frm.h2(text: /#{name}/) }
-    action(:form_status) { |name, b| b.form_tab(name).text[/(?<=\()\w+/] }
 
   end
 
