@@ -1,5 +1,16 @@
 class S2SQuestionnaireObject
 
+  # Convenient gathering of all Yes/No questions. Makes it possible to
+  # do simple iterations through them.
+  YN_QUESTIONS = [:civil_service, :total_ftes, :potential_effects, :international_support,
+                 :pi_in_govt, :pi_foreign_employee, :change_in_pi, :change_in_institution,
+                 :renewal_application, :inventions_conceived, :previously_reported,
+                 :disclose_title, :clinical_trial, :phase_3_trial, :human_stem_cells,
+                 :specific_cell_line, :pi_new_investigator, :proprietary_info,
+                 :environmental_impact, :authorized_exemption, :site_historic,
+                 :international_activities, :other_agencies, :subject_to_review,
+                 :novice_applicants]
+
   include Foundry
   include DataFactory
   include StringFactory
@@ -68,39 +79,39 @@ class S2SQuestionnaireObject
 
   def create
     navigate
-    on Questions do |fat|
-      fat.show_s2s_questions
+    on Questions do |s2s|
+      s2s.expand_all
 
       # Answers all of the Yes/No questions first (in random order)
-      yn_questions.shuffle.each do |q|
+      YN_QUESTIONS.shuffle.each do |q|
         var = get(q)
-        fat.send(q, var) if var != nil && fat.send("#{q}_element".to_sym, var).present?
+        s2s.send(q, var) if var != nil && s2s.send("#{q}_element".to_sym, var).present?
       end
 
       # Next we answer the questions that are conditional, based on the above answers...
       1.upto(6) do |n|
         fy = "fiscal_year_#{n}"
-        fat.send(fy).pick!(get(fy))
+        s2s.send(fy).pick!(get(fy))
         ftes = "ftes_for_fy_#{n}"
-        fat.send(ftes).fit get(ftes)
+        s2s.send(ftes).fit get(ftes)
         yr = "year_#{n+1}"
         var = get(yr)
-        fat.send(yr, var) unless var==nil
+        s2s.send(yr, var) unless var==nil
       end
       1.upto(5) do |n|
         sp = "support_provided_#{n}"
-        fat.send(sp).pick! get(sp)
+        s2s.send(sp).pick! get(sp)
       end
       1.upto(20) do |n|
         scl = "stem_cell_line_#{n}"
-        fat.send(scl).fit get(scl)
+        s2s.send(scl).fit get(scl)
       end
-      fill_out fat, :explain_potential_effects, :explain_support, :pis_us_govt_agency,
+      fill_out s2s, :explain_potential_effects, :explain_support, :pis_us_govt_agency,
                     :total_amount_requested, :former_pi, :former_institution,
                     :explain_environmental_impact, :explain_exemption, :explain_historic_designation,
                     :identify_countries, :explain_international_activities, :submitted_to_govt_agency,
                     :application_date, :program
-      fat.save
+      s2s.save
     end
   end
 
@@ -113,19 +124,6 @@ class S2SQuestionnaireObject
   def navigate
     open_document @doc_type
     on(Proposal).questions unless on_page?(on(Questions).questions_header)
-  end
-
-  # Convenient gathering of all Yes/No questions. Makes it possible to
-  # do simple iterations through them.
-  def yn_questions
-    [:civil_service, :total_ftes, :potential_effects, :international_support,
-     :pi_in_govt, :pi_foreign_employee, :change_in_pi, :change_in_institution,
-     :renewal_application, :inventions_conceived, :previously_reported,
-     :disclose_title, :clinical_trial, :phase_3_trial, :human_stem_cells,
-     :specific_cell_line, :pi_new_investigator, :proprietary_info,
-     :environmental_impact, :authorized_exemption, :site_historic,
-     :international_activities, :other_agencies, :subject_to_review,
-     :novice_applicants]
   end
 
 end
