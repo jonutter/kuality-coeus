@@ -11,5 +11,6 @@ class NewFinancialEntity < FinancialEntities
   element(:status_code) { |b| b.frm.select(id: 'financialEntityHelper.newPersonFinancialEntity.statusCode') }
   element(:held) { |b| b.frm.select(id: 'financialEntityHelper.newPersonFinancialEntity.entityOwnershipType') }
   element(:principal_activity) { |b| b.frm.text_field(name: 'financialEntityHelper.newPersonFinancialEntity.principalBusinessActivity') }
-  
+  action(:sponsor_research) { |answer, b| b.frm.radio(name: 'financialEntityHelper.newPersonFinancialEntity.entitySponsorsResearch', value: answer) }
+
 end

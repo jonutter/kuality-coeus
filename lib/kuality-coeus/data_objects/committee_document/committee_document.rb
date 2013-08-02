@@ -56,7 +56,7 @@ class CommitteeDocumentObject
   # Nav Aids...
 
   def navigate
-    open_document 'Committee Document'
+    open_document 'Committee Document' # TODO: Does this really need to be hard coded?
     on(Committee).committee unless on_page?(on(Committee).committee_id_field)
   end
 
