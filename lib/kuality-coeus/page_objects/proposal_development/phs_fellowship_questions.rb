@@ -42,6 +42,9 @@ class PHSFellowshipQuestions < ProposalDevelopmentDocument
     element(TEXT_FIELD_NAMES[index]) { |b| b.frm.text_field(id: "s2sQuestionnaireHelper.answerHeaders[0].answers[#{num}].answer") }
   end
 
-  element(:phs_fellowship_questionnaire_title) { |b| b.frm.h2(text: 'PHS Fellowship Form V1-2 (Incomplete) ') }
+  # Questionnaire Title Tab
 
+  action(:form_tab) { |name, b| b.frm.h2(text: /#{name}/) }
+
+  action(:form_status) { |name, b| b.form_tab(name).text[/(?<=\()\w+/] }
 end
