@@ -1,5 +1,16 @@
 class S2SQuestionnaireObject
 
+  # Convenient gathering of all Yes/No questions. Makes it possible to
+  # do simple iterations through them.
+  YN_QUESTIONS = [:civil_service, :total_ftes, :potential_effects, :international_support,
+                 :pi_in_govt, :pi_foreign_employee, :change_in_pi, :change_in_institution,
+                 :renewal_application, :inventions_conceived, :previously_reported,
+                 :disclose_title, :clinical_trial, :phase_3_trial, :human_stem_cells,
+                 :specific_cell_line, :pi_new_investigator, :proprietary_info,
+                 :environmental_impact, :authorized_exemption, :site_historic,
+                 :international_activities, :other_agencies, :subject_to_review,
+                 :novice_applicants]
+
   include Foundry
   include DataFactory
   include StringFactory
@@ -69,10 +80,10 @@ class S2SQuestionnaireObject
   def create
     navigate
     on Questions do |fat|
-      fat.show_s2s_questions
+      fat.expand_all
 
       # Answers all of the Yes/No questions first (in random order)
-      yn_questions.shuffle.each do |q|
+      YN_QUESTIONS.shuffle.each do |q|
         var = get(q)
         fat.send(q, var) if var != nil && fat.send("#{q}_element".to_sym, var).present?
       end
@@ -113,19 +124,6 @@ class S2SQuestionnaireObject
   def navigate
     open_document @doc_type
     on(Proposal).questions unless on_page?(on(Questions).questions_header)
-  end
-
-  # Convenient gathering of all Yes/No questions. Makes it possible to
-  # do simple iterations through them.
-  def yn_questions
-    [:civil_service, :total_ftes, :potential_effects, :international_support,
-     :pi_in_govt, :pi_foreign_employee, :change_in_pi, :change_in_institution,
-     :renewal_application, :inventions_conceived, :previously_reported,
-     :disclose_title, :clinical_trial, :phase_3_trial, :human_stem_cells,
-     :specific_cell_line, :pi_new_investigator, :proprietary_info,
-     :environmental_impact, :authorized_exemption, :site_historic,
-     :international_activities, :other_agencies, :subject_to_review,
-     :novice_applicants]
   end
 
 end
