@@ -33,16 +33,22 @@ unassigneduser: # AKA: "Principal Name
     - '106' # Unassigned
   :role_qualifiers:
     :106: '000001'
-gabrielp: # AKA: "Principal Name
+poolej: # AKA: "Principal Name
   :description:      User who can submit to grants.gov
-  :affiliation_type: Student
+  :affiliation_type: Staff
   :campus_code:      'UN - UNIVERSITY'
-  :first_name:       Peter
-  :last_name:        Gabriel
+  :employee_id:      poolej
+  :employee_status:  Active
+  :employee_type:    Professional
+  :primary_department_code: '000001'
+  :base_salary:      '180'
+  :first_name:       Jeyne
+  :last_name:        Poole
   :primary_title:    Director RSmart College of Science
   :directory_title:  Principal Investigator
   :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
   :era_commons_user_name: grantsgov
+  :directory_department:  Biology
   :graduate_student_count: '0'
   :billing_element:  bla bla bla
   :addresses:
@@ -61,7 +67,7 @@ gabrielp: # AKA: "Principal Name
       :zip:     85257
       :default: :clear
   :phones:
-    - :type:    Home
+    - :type:    Work
       :number:  602-228-3876
       :default: :set
     - :type:    Facsimile
@@ -81,7 +87,7 @@ gabrielp: # AKA: "Principal Name
     :109: '000001'
     :108: '000001'
     :107: '000001'
-ospapprover:  # AKA: "Principal Name"
+cleganeg:  # AKA: "Principal Name"
   :description:      creating osp approver
   :affiliation_type: Faculty
   :campus_code:      'UN - UNIVERSITY'
@@ -89,12 +95,13 @@ ospapprover:  # AKA: "Principal Name"
   :employee_status:  Active
   :employee_type:    Other
   :base_salary:      '180'
-  :first_name:       gregor
-  :last_name:        test
+  :first_name:       Gregor
+  :last_name:        Clegane
   :primary_title:    Director RSmart College of Science
   :directory_title:  Principal Investigator
   :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
   :era_commons_user_name: qwperoiu
+  :directory_department:  Chemistry
   :graduate_student_count: '0'
   :billing_element:  bla bla bla
   :addresses:
@@ -113,7 +120,7 @@ ospapprover:  # AKA: "Principal Name"
       :zip:     85257
       :default: :clear
   :phones:
-    - :type:    Home
+    - :type:    Work
       :number:  602-228-3876
       :default: :set
     - :type:    Facsimile
@@ -125,12 +132,12 @@ ospapprover:  # AKA: "Principal Name"
       :default: :set
   :roles:
     - '100' # OSPApprover
-singhtalvin:  # AKA: "Principal Name"
+starka:  # AKA: "Principal Name"
   :description:      creating test user with manager permissions
   :affiliation_type: Other Academic Group
   :campus_code:      'UN - UNIVERSITY'
-  :first_name:       Talvin
-  :last_name:        Singh
+  :first_name:       Arya
+  :last_name:        Stark
   :primary_title:    Director RSmart College of Science
   :directory_title:  Principal Investigator
   :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
@@ -153,7 +160,7 @@ singhtalvin:  # AKA: "Principal Name"
       :zip:     85257
       :default: :clear
   :phones:
-    - :type:    Home
+    - :type:    Work
       :number:  602-228-3876
       :default: :set
     - :type:    Facsimile
@@ -170,12 +177,12 @@ singhtalvin:  # AKA: "Principal Name"
   :role_qualifiers:
     :111: '000001'
     :110: '000001'
-kctestuser10:  # AKA: "Principal Name"
+martelld:  # AKA: "Principal Name"
   :description:      creating test user with aggregator permissions
   :affiliation_type: Other Academic Group
   :campus_code:      'UN - UNIVERSITY'
-  :first_name:       truman
-  :last_name:        test
+  :first_name:       Doran
+  :last_name:        Martell
   :primary_title:    Director RSmart College of Science
   :directory_title:  Principal Investigator
   :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
@@ -198,7 +205,7 @@ kctestuser10:  # AKA: "Principal Name"
       :zip:     85257
       :default: :clear
   :phones:
-    - :type:    Home
+    - :type:    Work
       :number:  602-228-3876
       :default: :set
     - :type:    Facsimile
@@ -221,12 +228,13 @@ swarren:  # AKA: "Principal Name"
   :employee_type:    Professional
   :salary:           120,000.00
   :primary_department_code: 'OSP'
-  :first_name:       sean
-  :last_name:        warren
+  :first_name:       Sean
+  :last_name:        Warren
   :primary_title:    OSPApprover
   :directory_title:  OSPApprover
   :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
   :era_commons_user_name: swarren
+  :directory_department:  Humanities
   :graduate_student_count: '0'
   :billing_element:  bla bla bla
   :addresses:

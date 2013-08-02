@@ -50,7 +50,8 @@ class UserObject
                 :employee_id, :employee_status, :employee_type, :base_salary, :primary_dept_code,
                 :groups, :roles, :role_qualifiers, :addresses, :phones, :emails,
                 :primary_title, :directory_title, :citizenship_type,
-                :era_commons_user_name, :graduate_student_count, :billing_element
+                :era_commons_user_name, :graduate_student_count, :billing_element,
+                :directory_department
 
   USERS = UserCollection[YAML.load_file("#{File.dirname(__FILE__)}/users.yml")]
 
@@ -196,7 +197,7 @@ class UserObject
       page.expand_all
       fill_out page, :description, :primary_title, :directory_title, :citizenship_type,
                :era_commons_user_name, :graduate_student_count, :billing_element,
-               :principal_id
+               :principal_id, :directory_department
       page.blanket_approve
     end
     # Now that we're done with the user creation, we can log back in
