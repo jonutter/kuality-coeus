@@ -26,7 +26,7 @@ When(/^I attach the PHS training and fellowship forms to the proposal$/) do
   end
 end
 
-Then /^the PHS training and fellowship questionnaires should be appear in the proposal$/ do
+Then /^the PHS training and fellowship questionnaires should appear in the proposal$/ do
   on(S2S).questions
   on(PHS398TrainingBudgetQuestions).form_tab("PHS398 Training Budget V1-0").should be_present
   on(PHSFellowshipQuestions).form_tab("PHS Fellowship Form V1-2").should be_present
