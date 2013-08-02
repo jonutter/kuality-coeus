@@ -13,6 +13,9 @@ class ProposalDevelopmentDocument < BasePage
               'Proposal Summary', 'Proposal Actions', 'Medusa'
     end
 
+    action(:form_tab) { |name, b| b.frm.h2(text: /#{name}/) }
+    action(:form_status) { |name, b| b.form_tab(name).text[/(?<=\()\w+/] }
+
   end
 
 end
