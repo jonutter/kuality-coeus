@@ -22,10 +22,6 @@ class PHSFellowshipQuestionnaireObject
                 :supplemental_funding_source
   # More instance variable definitions.
   # These make instance variables such as:
-  # @year_2 (up to year 6)
-  # @support_provided_1  (up to 5)
-  # @fiscal_year_1 (up to 6)
-  # @ftes_for_fy_1 (up to 6)
   # @stem_cell_line_1 (up to 20)
   1.upto(20) do |x|
     attr_accessor("stem_cell_line_#{x}".to_sym)
@@ -41,7 +37,7 @@ class PHSFellowshipQuestionnaireObject
         human_stem_cells:                     'N',
         field_of_training:                    '1110 Biological Chemistry',
         seeking_degree_during_proposed_award: 'N',
-        have_kirschstein_support:             'N',
+        have_kirchstein_support:              'N',
         previous_submission:                  'N',
         senior_fellowship_application:        'N'
     }
@@ -58,15 +54,17 @@ class PHSFellowshipQuestionnaireObject
 
     # Answers all of the Yes/No questions first (in random order)
     YN_QUESTIONS.shuffle.each do |q|
+      puts q.inspect
       var = get(q)
+      puts var.inspect
       phs_fellowship.send(q, var) if var != nil && phs_fellowship.send("#{q}_element".to_sym, var).present?
     end
 
     # Next we answer the questions that are conditional, based on the above answers...
-    #1.upto(20) do |n|
-    #  scl = "stem_cell_line_#{n}"
-    #  phs_fellowship.send(scl).fit get(scl)
-    #end
+    1.upto(20) do |n|
+      scl = "phs_stem_cell_line_#{n}"
+      phs_fellowship.send(scl).fit get(scl)
+    end
 
     fill_out phs_fellowship, :expected_degree_completion_date,
              :kirschstein_support_start_date, :kirschstein_support_end_date, :nih_grant_number, :former_institution,
