@@ -28,18 +28,20 @@ end
 
 Then /^the PHS training and fellowship questionnaires should appear in the proposal$/ do
   on(S2S).questions
-  on(PHS398TrainingBudgetQuestions).form_tab("PHS398 Training Budget V1-0").should be_present
-  on(PHSFellowshipQuestions).form_tab("PHS Fellowship Form V1-2").should be_present
+  on Questions do |page|
+    %w{PHS398 Training Budget V1-0
+     PHS Fellowship Form V1-2}.each { |title| page.form_tab(title).should be_present }
+  end
 end
 
 When /^I? ?complete their respective questionnaires$/ do
-  on(PHS398TrainingBudgetQuestions).complete_phs_training_questionnaire
-  on(PHSFellowshipQuestions).complete_phs_fellowship_questionnaire
+  #on(PHS398TrainingBudgetQuestionnaire).complete_phs_training_questionnaire
+  @proposal.complete_phs_fellowship_questionnaire
 end
 
 Then /^the questionnaire titles should indicate that the questionnaires have been completed$/ do
   on Questions do |page|
-    %w{PHS_Fellowship_Supplemental_1_2-V1.2
-     PHS398_TrainingBudget-V1.0}.each { |form| page.form_status(form).should=='Complete' }
+    %w{PHS398 Training Budget V1-0
+     PHS Fellowship Form V1-2}.each { |form_tab| page.form_status(form_tab).should=='Complete'}
   end
 end
