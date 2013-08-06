@@ -118,6 +118,21 @@ And /^I? ?add the (Grants.Gov|Research.Gov) opportunity id of (.*) to the propos
   on(S2S).save
 end
 
+And /^I? ?add the (Grants.Gov|Research.Gov) opportunity, id: (.*), competition id: (.*)$/ do |type, op_id, comp_id|
+  @proposal.edit opportunity_id: op_id
+  on(Proposal).s2s
+  on S2S do |page|
+    page.expand_all
+    page.s2s_lookup
+  end
+  on OpportunityLookup do |look|
+    look.s2s_provider.select type
+    look.search
+    look.return_value comp_id
+  end
+  on(S2S).save
+end
+
 And /^I? ?add and mark complete all the required attachments for an NSF proposal$/ do
   %w{Equipment Bibliography BudgetJustification ProjectSummary Narrative}.shuffle.each do |type|
     @proposal.add_proposal_attachment type: type, file_name: 'test.pdf', status: 'Complete'
