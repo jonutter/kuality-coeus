@@ -8,22 +8,20 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   a user exists that can be a PI for Grants.gov proposals
     And   an AOR user exists
     And   I log in with the Proposal Creator user
-
+  @test
   Scenario: Submit a proposal to Grants.gov with NSF as the sponsor
     Given I initiate a proposal with NSF as the sponsor
-    And   add the Grants.Gov opportunity id of PA-B2-R01 to the proposal
+    And   add and mark complete all the required attachments for an NSF proposal
+    And   add the Grants.Gov opportunity, id: CAL-A-TEST-1, competition id: CAL-A-TEST-SF424FAM
     And   add the Grants.gov user as the proposal's PI
     And   set valid credit splits for the proposal
-    And   add and mark complete all the required attachments for an NSF proposal
     And   create, finalize, and mark complete a budget version for the proposal
     And   complete the required custom fields on the proposal
-    And   answer the S2S questions
     And   submit the proposal
     And   log in with the AOR user
-    When  I submit the proposal to S2S
-    Then  Submission details will be immediately available on the S2S tab
-    And   within a couple minutes the submission status will be updated
-  @test
+    When  I submit the routed proposal to the sponsor
+    #Then  what important thing happens?
+
   Scenario: Submit a proposal to Grants.gov with NIH as the sponsor
     Given I initiate a proposal with NIH as the sponsor
     And   add the Grants.Gov opportunity id of RR-TEST-NIH-FORMS2 to the proposal

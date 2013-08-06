@@ -29,17 +29,8 @@ When /^I? ?recall and cancel the proposal$/ do
   @proposal.recall :cancel
 end
 
-When /^when the proposal is opened the status should be (.*)$/ do |status|
-  on(ActionList).open_item(@proposal.document_id)
-  @proposal.status = status
-end
-
 Then /^the proposal status should be (.*)$/ do |status|
   @proposal.status.should == status
-end
-
-When /^I? ?submit the proposal document$/ do
-  @proposal.submit
 end
 
 Then(/^I should receive an action list item with the requested action being: (.*)$/) do |action|
@@ -70,7 +61,7 @@ Then /^I can acknowledge the requested action list item$/ do
   end
 end
 
-When /^I? ?submit the routed proposal to a sponsor$/ do
+When /^I? ?submit the routed proposal to the sponsor$/ do
   @proposal.submit :to_sponsor
 end
 
