@@ -32,7 +32,9 @@ class Proposal < ProposalDevelopmentDocument
   # Other Organizations
 
   # Delivery Info
-
+  element(:mail_by) { |b| b.frm.select(name: 'document.developmentProposalList[0].mailBy') }
+  element(:mail_type) { |b| b.frm.select(name: 'document.developmentProposalList[0].mailType') }
+  
   # Keywords
 
   # When the proposal is deleted...

@@ -12,7 +12,7 @@ class ProposalDevelopmentObject
                 :opportunity_id, # Maybe add competition_id and other stuff here...
                 :special_review, :budget_versions, :permissions, :s2s_questionnaire, :proposal_attachments,
                 :proposal_questions, :compliance_questions, :kuali_u_questions, :custom_data, :recall_reason,
-                :personnel_attachments
+                :personnel_attachments, :mail_by, :mail_type
 
   def initialize(browser, opts={})
     @browser = browser
@@ -27,6 +27,8 @@ class ProposalDevelopmentObject
       project_start_date:    next_week[:date_w_slashes], # TODO: Think about using the date object here, and not the string
       project_end_date:      next_year[:date_w_slashes],
       sponsor_deadline_date: next_week[:date_w_slashes],
+      mail_by:               '::random::',
+      mail_type:             '::random::',
       key_personnel:         KeyPersonnelCollection.new,
       special_review:        SpecialReviewCollection.new,
       budget_versions:       BudgetVersionsCollection.new,
@@ -57,7 +59,7 @@ class ProposalDevelopmentObject
       doc.expand_all
       fill_out doc, :proposal_type, :activity_type,
                     :project_title, :project_start_date, :project_end_date,
-                    :sponsor_deadline_date#, :description
+                    :sponsor_deadline_date, :mail_by, :mail_type#, :description
       set_sponsor_code
       set_lead_unit
       doc.save
