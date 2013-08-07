@@ -5,9 +5,6 @@ class ProposalDevelopmentDocument < BasePage
   global_buttons
   error_messages
 
-  action(:form_tab) { |name, b| b.frm.h2(text: /#{name}/) }
-  action(:form_status) { |name, b| b.form_tab(name).text[/(?<=\()\w+/] }
-
   class << self
 
     def proposal_header_elements

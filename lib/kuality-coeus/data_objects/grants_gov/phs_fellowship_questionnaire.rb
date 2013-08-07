@@ -54,9 +54,7 @@ class PHSFellowshipQuestionnaireObject
 
     # Answers all of the Yes/No questions first (in random order)
     YN_QUESTIONS.shuffle.each do |q|
-      puts q.inspect
       var = get(q)
-      puts var.inspect
       phs_fellowship.send(q, var) if var != nil && phs_fellowship.send("#{q}_element".to_sym, var).present?
     end
 

@@ -50,4 +50,4 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   add the Grants.Gov opportunity id of PA-B2-ALL to the proposal
     When  I attach the PHS training and fellowship forms to the proposal
     And   complete their respective questionnaires
-    #Then  the questionnaire titles should indicate that the questionnaires have been completed
+    Then  the questionnaire titles should indicate that the questionnaires have been completed
