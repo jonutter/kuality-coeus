@@ -11,8 +11,8 @@ Feature: Submitting Proposals via s2s to Grants.gov
 
   Scenario Outline: Submit a proposal to Grants.gov with various sponsors and opportunities
     Given I initiate a proposal with <Sponsor> as the sponsor
-    And   add the Grants.Gov opportunity id of <Opportunity> to the proposal
-    And   add the Grants.gov user as the proposal's PI
+    And   add the <Provider> opportunity id of <Opportunity> to the proposal
+    And   add the <Provider> user as the proposal's PI
     And   set valid credit splits for the proposal
     And   add and mark complete all the required attachments for an <Sponsor> proposal
     And   create, finalize, and mark complete a budget version for the proposal
@@ -25,9 +25,9 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   within a couple minutes the submission status will be updated
 
   Examples:
-    | Sponsor | Opportunity        |
-    | NSF     | RR-FORMFAMILY-004  |
-    | NIH     | RR-TEST-NIH-FORMS2 |
+    | Provider   | Sponsor | Opportunity        |
+    | Grants.Gov | NSF     | RR-FORMFAMILY-004  |
+    | Grants.Gov | NIH     | RR-TEST-NIH-FORMS2 |
 
   Scenario: Initiate a proposal with PHS forms attached
     Given I initiate a proposal with NIH as the sponsor
