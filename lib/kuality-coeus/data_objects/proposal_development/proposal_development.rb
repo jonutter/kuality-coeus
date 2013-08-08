@@ -147,8 +147,16 @@ class ProposalDevelopmentObject
     @personnel_attachments << p_a
   end
 
-  def answer_s2s_questions opts={}
+  def complete_s2s_questionnaire opts={}
     @s2s_questionnaire = prep(S2SQuestionnaireObject, opts)
+  end
+
+  def complete_phs_fellowship_questionnaire opts={}
+    @phs_fellowship_questionnaire = prep(PHSFellowshipQuestionnaireObject, opts)
+  end
+
+  def complete_phs_training_questionnaire opts={}
+    @phs_training_questionnaire = prep(PHSTrainingQuestionnaireObject, opts)
   end
 
   def make_institutional_proposal

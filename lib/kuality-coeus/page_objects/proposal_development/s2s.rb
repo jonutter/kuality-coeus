@@ -25,5 +25,10 @@ class S2S < ProposalDevelopmentDocument
   # Forms
   element(:forms_table) { |b| b.frm.div(id: 'tab-OpportunitySearch:Forms-div').table }
   action(:include_form) { |name, b| b.forms_table.row(text: /#{name}/).checkbox(title: 'Include') }
+  action(:form_names) { |b|
+  array = []
+  b.forms_table.rows.each { |row| array << row[0].text }
+  array
+  }
 
 end

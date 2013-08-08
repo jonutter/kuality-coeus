@@ -57,5 +57,5 @@ Then /^I can recall the proposal$/ do
 end
 
 And /^I? ?answer the S2S questions$/ do
-  @proposal.answer_s2s_questions
+  @proposal.complete_s2s_questionnaire
 end

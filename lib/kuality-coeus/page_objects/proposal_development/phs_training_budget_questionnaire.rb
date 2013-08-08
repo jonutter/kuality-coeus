@@ -1,4 +1,4 @@
-class PHS398TrainingBudgetQuestions < ProposalDevelopmentDocument
+class PHS398TrainingBudgetQuestionnaire < ProposalDevelopmentDocument
 
   proposal_header_elements
 
