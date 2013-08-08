@@ -46,14 +46,14 @@ Feature: Proposal Workflows and Routing
     | Reject     |
 
   Scenario: Aggregator successfully submits a proposal into routing
-    Given I have a user with the system role: 'Proposal Creator'
+    Given a user exists with the system role: 'Proposal Creator'
     And   I initiate a proposal
     And   I complete the proposal
-    When  I submit the proposal document
+    When  I submit the proposal
     Then   the proposal status should be Approval Pending
 
   Scenario: Aggregator successfully blanket approves a routed proposal
-    Given I have a user with the system role: 'Proposal Creator'
+    Given a user exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
     And   I submit a new development proposal into routing
     When  I blanket approve the proposal
@@ -64,20 +64,20 @@ Feature: Proposal Workflows and Routing
     And   I log in with the Proposal Creator user
     And   I submit a new development proposal into routing
     When  I log in with the OSPApprover user
-    And   I submit the routed proposal to a sponsor
+    And   I submit the routed proposal to the sponsor
     Then  the proposal status should be Approval Pending - Submitted
 
 #TODO: Scenario: An OSP Approver takes the 'Submit to sponsor' action against a routed proposal and an institutional proposal is created
 
   Scenario: Aggregator successfully recalls a routed proposal for cancellation
-    Given I have a user with the system role: 'Proposal Creator'
+    Given a user exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
     And   I submit a new development proposal into routing
     When  I recall and cancel the proposal
     Then  the proposal status should be Document Error Occurred
 
   Scenario: Aggregator successfully recalls proposal for revisions
-    Given I have a user with the system role: 'Proposal Creator'
+    Given a user exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
     And   I submit a new development proposal into routing
     When  I recall the proposal for revisions
@@ -103,6 +103,6 @@ Feature: Proposal Workflows and Routing
 
 #TODO: Think about this scenario... Think of a new way to write this
   Scenario: Successful receipt of a routed proposal by an OSP Approver
-    Given I have a user with the system role: 'OSPApprover'
+    Given a user exists with the system role: 'OSPApprover'
     When  I submit a new development proposal into routing
     Then  the proposal is in the OSPApprover user's action list

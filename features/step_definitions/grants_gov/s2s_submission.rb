@@ -18,6 +18,7 @@ Then /^within a couple minutes the submission status will be updated$/ do
       x += 1
       break if x == 24
     end
+    # We don't care what it is. Only that it's updated...
     page.submission_status.should_not == 'Submitted to S2S'
   end
 end

@@ -8,7 +8,8 @@ class ProposalDevelopmentObject
   
   attr_accessor :proposal_type, :lead_unit, :activity_type, :project_title, :proposal_number,
                 :sponsor_code, :sponsor_type_code, :project_start_date, :project_end_date, :document_id,
-                :status, :initiator, :created, :sponsor_deadline_date, :key_personnel, :opportunity_id,
+                :status, :initiator, :created, :sponsor_deadline_date, :key_personnel,
+                :opportunity_id, # Maybe add competition_id and other stuff here...
                 :special_review, :budget_versions, :permissions, :s2s_questionnaire, :proposal_attachments,
                 :proposal_questions, :compliance_questions, :kuali_u_questions, :custom_data, :recall_reason,
                 :personnel_attachments
@@ -68,6 +69,7 @@ class ProposalDevelopmentObject
   def edit opts={}
     open_proposal
     on Proposal do |edit|
+      edit.proposal
       edit.expand_all
       edit.project_start_date.fit opts[:project_start_date]
       edit.opportunity_id.fit opts[:opportunity_id]
