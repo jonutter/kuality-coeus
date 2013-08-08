@@ -1,7 +1,6 @@
 class S2S < ProposalDevelopmentDocument
 
   proposal_header_elements
-  error_messages
 
   element(:s2s_header) { |b| b.frm.h2(text: 'S2S') }
   action(:s2s_lookup) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.s2s.bo.S2sOpportunity!!).(((opportunityId:newS2sOpportunity.opportunityId,cfdaNumber:newS2sOpportunity.cfdaNumber,opportunityTitle:newS2sOpportunity.opportunityTitle,s2sSubmissionTypeCode:newS2sOpportunity.s2sSubmissionTypeCode,revisionCode:newS2sOpportunity.revisionCode,competetionId:newS2sOpportunity.competetionId,openingDate:newS2sOpportunity.openingDate,closingDate:newS2sOpportunity.closingDate,instructionUrl:newS2sOpportunity.instructionUrl,schemaUrl:newS2sOpportunity.schemaUrl,providerCode:newS2sOpportunity.providerCode))).((`document.developmentProposalList[0].programAnnouncementNumber:opportunityId,document.developmentProposalList[0].cfdaNumber:cfdaNumber,document.developmentProposalList[0].s2sOpportunity.providerCode:providerCode`)).((<>)).(([])).((**)).((^^)).((&yes&)).((//)).((~no~)).(::::;;::::).anchor').click }
@@ -25,10 +24,6 @@ class S2S < ProposalDevelopmentDocument
   # Forms
   element(:forms_table) { |b| b.frm.div(id: 'tab-OpportunitySearch:Forms-div').table }
   action(:include_form) { |name, b| b.forms_table.row(text: /#{name}/).checkbox(title: 'Include') }
-  action(:form_names) { |b|
-  array = []
-  b.forms_table.rows.each { |row| array << row[0].text }
-  array
-  }
+  action(:form_names) { |b| array = []; b.forms_table.rows.each { |row| array << row[0].text }; array }
 
 end

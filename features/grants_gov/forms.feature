@@ -4,10 +4,8 @@ Feature: Appropriate forms per sponsor opportunity
   opportunities, and also to select the forms I wish to attach to my proposal development document
 
 
-  Background: Logged in with a proposal creator; have other necessary user
+  Background: Logged in with a proposal creator
     Given a user exists with the system role: 'Proposal Creator'
-    And   a user exists that can be a PI for Grants.gov proposals
-    And   an AOR user exists
     And   I log in with the Proposal Creator user
   @test
   Scenario Outline: Selecting the Opportunity ID: RR-FORMFAMILY-004-2010
@@ -17,7 +15,7 @@ Feature: Appropriate forms per sponsor opportunity
 
     Examples:
      | form name |
-     | RR_SF424_1_2-V1.2                               |
+     | RR_SF424_1_2-V1.2                              |
      | FaithBased_SurveyOnEEO-v1.2                    |
      | NASA_OtherProjectInformation-V1.0              |
      | NASA_PIandOARSSupplementalDataSheet-V1.0       |
