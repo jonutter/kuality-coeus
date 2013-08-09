@@ -45,7 +45,7 @@ When /^I? ?add a principal investigator$/ do
   @proposal.add_principal_investigator
 end
 
-Given /^I? ?add the Grants.gov user as the proposal's PI$/ do
+Given /^I? ?add the Grants.Gov user as the proposal's PI$/ do
   @proposal.add_principal_investigator last_name: @grants_gov_pi.last_name, first_name: @grants_gov_pi.first_name
 end
 

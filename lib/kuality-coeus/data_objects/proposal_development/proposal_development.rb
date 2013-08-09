@@ -75,6 +75,7 @@ class ProposalDevelopmentObject
       edit.expand_all
       edit.project_start_date.fit opts[:project_start_date]
       edit.opportunity_id.fit opts[:opportunity_id]
+      edit.proposal_type.fit opts[:proposal_type]
       # TODO: Add more stuff here as necessary
       edit.save
     end
@@ -229,6 +230,15 @@ class ProposalDevelopmentObject
         @status=page.document_status
       end
     end
+  end
+
+  # Note: This method does not navigate because
+  # the assumption is that the only time you need
+  # to save the proposal is when you are on the
+  # proposal. You will never need to open the
+  # proposal and then immediately save it.
+  def save
+    on(Proposal).save
   end
 
   def open_proposal
