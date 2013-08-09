@@ -16,8 +16,8 @@ Feature: Appropriate forms per sponsor opportunity
     Examples:
      | form name |
      | RR_SF424_1_2-V1.2                              |
-     | FaithBased_SurveyOnEEO-v1.2                    |
+     | FaithBased_SurveyOnEEO-V1.2                    |
      | NASA_OtherProjectInformation-V1.0              |
-     | NASA_PIandOARSSupplementalDataSheet-V1.0       |
+     | Nasa_PIandAORSupplementalDataSheet-V1.0       |
      | NASA_SeniorKeyPersonSupplementalDataSheet-V1.0 |
      | HHS_CheckList_2_1-V2.1                         |
