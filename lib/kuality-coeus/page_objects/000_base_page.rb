@@ -183,11 +183,7 @@ class BasePage < PageFactory
       element(:validation_button) { |b| b.frm.button(name: 'methodToCall.activate') }
       action(:show_data_validation) { |b| b.frm.button(id: 'tab-DataValidation-imageToggle').click; b.validation_button.wait_until_present }
       action(:turn_on_validation) { |b| b.validation_button.click; b.special_review_button.wait_until_present }
-      def validation_errors_and_warnings
-        errs = []
-        validation_err_war_fields.each { |field| errs << field.html[/(?<=>).*(?=<)/] }
-        errs
-      end
+      element(:validation_errors_and_warnings) { |b| errs = []; b.validation_err_war_fields.each { |field| errs << field.html[/(?<=>).*(?=<)/] }; errs }
       element(:validation_err_war_fields) { |b| b.frm.tds(width: '94%') }
     end
 

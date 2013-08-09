@@ -24,3 +24,7 @@ end
 When /^the 'remove opportunity' button should be present$/ do
   on(S2S).remove_opp_button.should be_present
 end
+
+Given /^I select a submission type of '(.*)'$/ do |type|
+  on(S2S).submission_type.select type
+end

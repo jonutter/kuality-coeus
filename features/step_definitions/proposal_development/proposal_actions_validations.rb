@@ -21,6 +21,10 @@ Then /^a validation error should say (.*)$/ do |error|
   on(ProposalActions).validation_errors_and_warnings.should include errors[error]
 end
 
+Then /^one of the validation errors should say that an original proposal ID is needed$/ do
+  puts on(ProposalActions).validation_errors_and_warnings.find { |error| error=~/Please provide an original institutional proposal ID that has been previously submitted to Grants.gov for a Change\/Corrected Application./ }
+end
+
 When /^I? ?do not answer my proposal questions$/ do
   #nothing necessary for this step
 end
