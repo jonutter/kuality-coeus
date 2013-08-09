@@ -59,3 +59,16 @@ end
 And /^I? ?answer the S2S questions$/ do
   @proposal.complete_s2s_questionnaire
 end
+
+Given /^I? ?set the proposal type to '(\w+)'$/ do |type|
+  @proposal.edit proposal_type: type
+end
+
+When /^I go to the proposal's (.*) page$/ do |page|
+  pages = { 'S2S'=>:s2s }
+  @proposal.view pages[page]
+end
+
+When /^I? ?save the proposal$/ do
+  @proposal.save
+end

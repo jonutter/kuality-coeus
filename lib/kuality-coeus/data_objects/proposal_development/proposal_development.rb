@@ -75,6 +75,7 @@ class ProposalDevelopmentObject
       edit.expand_all
       edit.project_start_date.fit opts[:project_start_date]
       edit.opportunity_id.fit opts[:opportunity_id]
+      edit.proposal_type.fit opts[:proposal_type]
       # TODO: Add more stuff here as necessary
       edit.save
     end
