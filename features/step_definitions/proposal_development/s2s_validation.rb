@@ -13,3 +13,14 @@ end
 Then /^an error message saying that I need to select the 'Other' revision type$/ do
   on(S2S).errors.should include %|The revision 'specify' field is only applicable when the revision type is "Other"|
 end
+
+Then /^the opportunity details should appear on the page$/ do
+  on S2S do |page|
+    %w{opportunity_title cfda_number competition_id
+    }.each { |item| page.send(item).should_not be '' }
+  end
+end
+
+When /^the 'remove opportunity' button should be present$/ do
+  on(S2S).remove_opp_button.should be_present
+end

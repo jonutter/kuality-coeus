@@ -6,11 +6,16 @@ Feature: Validating content of s2s proposals
   Background: Logged in with a proposal creator
     Given a user exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
-  @test
-  Scenario:
-    Given I initiate a proposal with a 'Federal' sponsor type
+    And   initiate a proposal with a 'Federal' sponsor type
     And   add the Grants.Gov opportunity id of PA-B2-ALL to the proposal
-    And   select a revision type of 'Increase Award'
+
+  Scenario:
+    Then  the opportunity details should appear on the page
+    And   the 'remove opportunity' button should be present
+
+  Scenario:
+    Given I select a revision type of 'Increase Award'
     And   enter a 'revision specify' description
     When  I save the proposal
     Then  an error message saying that I need to select the 'Other' revision type
+
