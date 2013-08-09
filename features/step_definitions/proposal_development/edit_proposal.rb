@@ -72,3 +72,8 @@ end
 When /^I? ?save the proposal$/ do
   @proposal.save
 end
+
+Given /^I? ?set the proposal type to either 'Resubmission', 'Renewal', or 'Continuation'$/ do
+  type = %w{Resubmission Renewal Continuation}.sample
+  @proposal.edit proposal_type: type
+end
