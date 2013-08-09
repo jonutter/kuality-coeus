@@ -231,6 +231,15 @@ class ProposalDevelopmentObject
     end
   end
 
+  # Note: This method does not navigate because
+  # the assumption is that the only time you need
+  # to save the proposal is when you are on the
+  # proposal. You will never need to open the
+  # proposal and then immediately save it.
+  def save
+    on(Proposal).save
+  end
+
   def open_proposal
     open_document @doc_header
   end

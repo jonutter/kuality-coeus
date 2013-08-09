@@ -10,7 +10,7 @@ Feature: Validating content of s2s proposals
   Scenario:
     Given I initiate a proposal with a 'Federal' sponsor type
     And   add the Grants.Gov opportunity id of PA-B2-ALL to the proposal
-    And   I select a revision type of 'Increase Award'
-    And   I enter a 'revision specify' description
+    And   select a revision type of 'Increase Award'
+    And   enter a 'revision specify' description
     When  I save the proposal
-    Then  I should see
+    Then  an error message saying that I need to select the 'Other' revision type
