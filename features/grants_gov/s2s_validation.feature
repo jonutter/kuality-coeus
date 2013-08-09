@@ -24,7 +24,7 @@ Feature: Validating content of s2s proposals
     When  I go to the proposal's S2S page
     And   save the proposal
     Then  an error message appears saying a revision type must be selected
-   @test
+   
    Scenario: Select 'Change' for a new S2S proposal
      Given I select a submission type of 'Change/Corrected Application'
      When  I activate a validation check
