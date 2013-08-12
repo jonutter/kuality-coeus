@@ -25,6 +25,7 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   within a couple minutes the submission status will be updated
 
   Examples:
-    | Provider   | Sponsor | Opportunity        |
-    | Grants.Gov | NSF     | RR-FORMFAMILY-004  |
-    | Grants.Gov | NIH     | RR-TEST-NIH-FORMS2 |
+    | Provider   | Sponsor | Opportunity                  |
+    | Grants.Gov | NSF     | RR-FORMFAMILY-004            |
+    | Grants.Gov | NIH     | RR-TEST-NIH-FORMS2           |
+    | Grants.Gov | NIH     | RR-TEST-NIH-FORMS2-With-CFDA |
