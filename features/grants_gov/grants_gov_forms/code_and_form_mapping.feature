@@ -11,14 +11,14 @@ Feature: Opportunity Code and S2S Form Mapping
     Given a user exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
     And   initiate a proposal with NIH as the sponsor
-
+  @test
   Scenario Outline: Selecting opportunities brings different forms
     Given I initiate a proposal with NIH as the sponsor
-    When  I add the Grants.Gov opportunity id of <Form Name> to the proposal
+    When  I add the Grants.Gov opportunity id of <Opportunity> to the proposal
     Then  the s2s form attachment options should be appropriate to the opportunity
 
     Examples:
-     | Form Name               |
+     | Opportunity               |
      | RR-FORMFAMILY-004-2010  |
      | RR-FORMFAMILY-009-2010  |
      | CSS-120809-SF424RR-V12  |
