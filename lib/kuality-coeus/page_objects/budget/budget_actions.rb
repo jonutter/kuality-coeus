@@ -11,12 +11,13 @@ class BudgetActions < BudgetDocument
   action(:add_subaward_budget) { |b| b.frm.button(name: 'methodToCall.addSubAward.anchorSubawardBudget').click; b.loading }
   action(:look_up_organization) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.Organization!!).(((organizationId:newSubAward.organizationId,organizationName:newSubAward.organizationName))).((`newSubAward.organizationId:organizationId`)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchorSubawardBudget').click }
 
-  # editing...                        #{target_subaward(name)}
+  # editing...
   action(:organization_id) { |name, b| b.frm.text_field(name: "document.budget.budgetSubAwards[#{target_subaward(name)}].organizationId") }
   action(:direct_cost) { |name, b| b.frm.text_field(name: "document.budget.budgetSubAwards[#{target_subaward(name)}].budgetSubAwardPeriodDetails[0].directCost") }
   action(:f_and_a_cost) { |name, b| b.frm.text_field(name: "document.budget.budgetSubAwards[#{target_subaward(name)}].budgetSubAwardPeriodDetails[0].indirectCost") }
   action(:cost_sharing) { |name, b| b.frm.text_field(name: "document.budget.budgetSubAwards[#{target_subaward(name)}].budgetSubAwardPeriodDetails[0].costShare") }
-
+  action(:total_cost) { |name, b| b.frm.span(class: 'totalCost', index: target_subaward(name).to_i) }
+  
   # ========
   private
   # ========
