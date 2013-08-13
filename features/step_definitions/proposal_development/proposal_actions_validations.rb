@@ -24,9 +24,6 @@ end
 Then /^one of the validation errors should say that (.*)$/ do |error|
   errors = { 'an original proposal ID is needed'=>'Please provide an original institutional proposal ID that has been previously submitted to Grants.gov for a Change\/Corrected Application.',
              'the prior award number is required'=>'require the sponsor\'s prior award number in the "sponsor proposal number."'}
-
-  puts on(ProposalActions).validation_errors_and_warnings.inspect
-
   on(ProposalActions).validation_errors_and_warnings.any? { |item| item=~/#{errors[error]}/ }.should be true
 end
 
