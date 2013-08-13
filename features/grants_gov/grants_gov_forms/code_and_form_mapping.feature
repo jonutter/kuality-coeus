@@ -18,7 +18,7 @@ Feature: Opportunity Code and S2S Form Mapping
     Then  the s2s form attachment options should be appropriate to the opportunity
 
     Examples:
-     | Opportunity               |
+     | Opportunity             |
      | RR-FORMFAMILY-004-2010  |
      | RR-FORMFAMILY-009-2010  |
      | CSS-120809-SF424RR-V12  |

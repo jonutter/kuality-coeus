@@ -1,9 +1,15 @@
 Feature: S2S Questionnaire Population and Functionality
 
   ##Consider a rewrite
-  As a Researcher, there are certain forms that I can attach to a proposal that will result in
+  As a researcher, there are certain forms that I can attach to a proposal which will result in
   the population of additional Questionnaires. I want the ability to complete these questionnaires,
-  and to manage each responses' effects on my proposal.
+  and to manage each responses' effects on my proposal
+
+  Background: Logged in with a proposal creator; have other necessary user
+    Given a user exists with the system role: 'Proposal Creator'
+    And   a user exists that can be a PI for Grants.gov proposals
+    And   an AOR user exists
+    And   I log in with the Proposal Creator user
 
   Scenario: Initiate a proposal with PHS forms attached
   Given I initiate a proposal with NIH as the sponsor
