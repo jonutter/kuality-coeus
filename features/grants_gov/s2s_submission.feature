@@ -21,7 +21,7 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   submit the proposal
     And   log in with the AOR user
     When  I submit the proposal to S2S
-    Then  Submission details will be immediately available on the S2S tab
+    Then  the S2S tab's submission details will say the proposal is submitted
     And   within a couple minutes the submission status will be updated
 
   Examples:

@@ -1,4 +1,4 @@
-Then /^Submission details will be immediately available on the S2S tab$/ do
+Then /^the S2S tab's submission details will say the proposal is submitted$/ do
   # Note that there's no navigation here currently because
   # this step def comes after the submission step, which
   # should automatically switch the user to the S2S page.
