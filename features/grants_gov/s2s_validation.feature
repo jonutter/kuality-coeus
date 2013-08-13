@@ -24,8 +24,13 @@ Feature: Validating content of s2s proposals
     When  I go to the proposal's S2S page
     And   save the proposal
     Then  an error message appears saying a revision type must be selected
-   
-   Scenario: Select 'Change' for a new S2S proposal
-     Given I select a submission type of 'Change/Corrected Application'
-     When  I activate a validation check
-     Then  one of the validation errors should say that an original proposal ID is needed
+
+  Scenario: Select 'Change' for a new S2S proposal
+    Given I select a submission type of 'Change/Corrected Application'
+    When  I activate a validation check
+    Then  one of the validation errors should say that an original proposal ID is needed
+
+  Scenario: Resubmission proposal type selected inappropriately
+    Given I set the proposal type to either 'Resubmission', 'Renewal', or 'Continuation'
+    When  I activate a validation check
+    Then  one of the validation errors should say that the prior award number is required
