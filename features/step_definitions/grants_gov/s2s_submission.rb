@@ -33,8 +33,8 @@ end
 Then /^the PHS training and fellowship questionnaires should appear in the proposal$/ do
   on(S2S).questions
   on Questions do |page|
-    %w{PHS398 Training Budget V1-0
-     PHS Fellowship Form V1-2}.each { |title| page.form_tab(title).should be_present }
+    %w{'PHS398 Training Budget V1-0',
+     'PHS Fellowship Form V1-2'}.each { |title| page.form_tab(title).should be_present }
   end
 end
 
