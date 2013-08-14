@@ -145,6 +145,14 @@ class BudgetVersionsObject
     get_budget_periods
   end
 
+  def add_subaward_budget(opts={})
+    open_budget
+    on(Parameters).budget_actions
+    sab = make SubawardBudgetObject, opts
+    sab.create
+    @subaward_budgets << sab
+  end
+
   # =======
   private
   # =======
