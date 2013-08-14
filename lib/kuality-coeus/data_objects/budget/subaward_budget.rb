@@ -52,6 +52,7 @@ class SubawardBudgetObject
       add.f_and_a_cost(@organization_name).fit @f_and_a_cost
       add.cost_sharing(@organization_name).fit @cost_sharing
       @total_cost=add.total_cost(@organization_name)
+      add.save
     end
   end
 
