@@ -1,7 +1,6 @@
 Feature: S2S Questionnaire Population and Functionality
 
-  ##Consider a rewrite
-  As a Researcher, there are certain forms that I can attach to a proposal that will result in
+  As a Researcher there are certain forms that I can attach to a proposal that will result in
   the population of additional Questionnaires. I want the ability to complete these questionnaires,
   and to manage each responses' effects on my proposal.
 
