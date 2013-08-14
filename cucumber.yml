@@ -1,2 +1,2 @@
-default: -r features --format pretty --tags ~@wip
-headless: HEADLESS=true --tags @nightly --tags ~@draft --tags ~@wip --tags ~@pending -r features
+default: -r features --format pretty --tags ~@draft, ~@wip, ~@pending
+headless: HEADLESS=true --tags ~@draft, ~@wip, ~@pending -r features
