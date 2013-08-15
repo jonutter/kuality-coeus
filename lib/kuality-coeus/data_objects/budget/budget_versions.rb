@@ -25,7 +25,8 @@ class BudgetVersionsObject
       cost_sharing:      '0.00',
       f_and_a:           '0.00',
       budget_periods:    BudgetPeriodsCollection.new,
-      subaward_budgets:  SubawardBudgetCollection.new
+      subaward_budgets:  SubawardBudgetCollection.new,
+      personnel:         BudgetPersonnelCollection.new
     }
 
     set_options(defaults.merge(opts))
@@ -67,7 +68,6 @@ class BudgetVersionsObject
 
   def add_period opts={}
     defaults={
-        document_id: @document_id,
         budget_name: @name,
         doc_type: @doc_header
     }

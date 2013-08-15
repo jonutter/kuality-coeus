@@ -1,0 +1,3 @@
+class NonOrgAddressBookLookup < Lookups
+
+end

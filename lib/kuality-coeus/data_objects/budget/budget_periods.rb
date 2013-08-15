@@ -5,9 +5,10 @@ class BudgetPeriodObject
   include StringFactory
   include Navigation
 
-  attr_accessor :document_id, :budget_name, :number, :start_date, :end_date,
-                :total_sponsor_cost, :direct_cost, :f_and_a_cost, :unrecovered_f_and_a,
-                :cost_sharing, :cost_limit, :direct_cost_limit, :datified
+  attr_accessor :number, :start_date, :end_date, :total_sponsor_cost,
+                :direct_cost, :f_and_a_cost, :unrecovered_f_and_a,
+                :cost_sharing, :cost_limit, :direct_cost_limit, :datified,
+                :budget_name
 
   def initialize(browser, opts={})
     @browser = browser
@@ -17,7 +18,7 @@ class BudgetPeriodObject
     }
 
     set_options(defaults.merge(opts))
-    requires :document_id, :budget_name, :start_date
+    requires :start_date, :budget_name
     datify
   end
 

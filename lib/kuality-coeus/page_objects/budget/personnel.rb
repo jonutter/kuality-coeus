@@ -3,7 +3,12 @@ class Personnel < BudgetDocument
   select_budget_period
   glbl 'View Personnel Salaries'
 
+  action(:employee_search) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.KcPerson!!).((``)).(:;newBudgetPersons;:).((%true%)).((~~)).anchor').click }
+  action(:non_employee_search) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.NonOrganizationalRolodex!!).((``)).(:;newBudgetRolodexes;:).((%true%)).((~~)).anchor').click }
+  action(:to_be_named_search) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.budget.personnel.TbnPerson!!).((``)).(:;newTbnPersons;:).((%true%)).((~~)).anchor').click }
+
   action(:job_code) { |person, b| b.pp_row(person).text_field(title: 'Job Code') }
+  action(:lookup_job_code) { |person, b| b.pp_row(person).button(name: 'methodToCall.performLookup.(!!org.kuali.kra.budget.personnel.JobCode!!).(((jobCode:document.budget.budgetPersons[0].jobCode,jobTitle:document.budget.budgetPersons[0].jobTitle))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchor').click }
   action(:appointment_type) { |person, b| b.pp_row(person).select(title: 'Appointment Type') }
   action(:base_salary) { |person, b| b.pp_row(person).text_field(title: '* Base Salary') }
   action(:salary_effective_date) { |person, b| b.pp_row(person).text_field(title: '* Salary Effective Date') }
