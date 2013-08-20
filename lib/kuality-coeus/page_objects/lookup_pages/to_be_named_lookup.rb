@@ -1,0 +1,3 @@
+class ToBeNamedPersonsLookup < Lookups
+
+end

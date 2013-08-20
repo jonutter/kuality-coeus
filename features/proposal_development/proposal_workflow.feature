@@ -4,13 +4,10 @@ Feature: Proposal Workflows and Routing
   take actions against a proposal that will navigate it through various routes
   in workflow.
 
-  Background: KC user is logged in as admin
-    Given   I'm logged in with admin
-
 #=================
 # Proposal Actions -- As proposals navigate through workflow, specific users are asked to take actions
 #=================
-  @test
+
   Scenario Outline: Proposal is successfully routed to PI for action
     Given users exist with the following roles: OSPApprover, Proposal Creator, Unassigned
     And   I log in with the Proposal Creator user

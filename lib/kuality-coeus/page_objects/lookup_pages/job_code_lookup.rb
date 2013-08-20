@@ -1,0 +1,3 @@
+class JobCodeLookup < Lookups
+
+end

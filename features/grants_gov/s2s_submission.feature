@@ -24,7 +24,7 @@ Feature: Submitting Proposals via s2s to Grants.gov
     When  I submit the proposal to S2S
     Then  the S2S tab's submission details will say the proposal is submitted
     And   within a couple minutes the submission status will be updated
-  @test
+
   Scenario: Submit the NIH opportunity ID: RR-FORMFAMILY-009-2010 to Grants.gov
     Given I initiate a proposal with NIH as the sponsor
     And   add the Grants.Gov opportunity id of RR-FORMFAMILY-009-2010 to the proposal
