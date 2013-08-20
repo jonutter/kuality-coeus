@@ -50,3 +50,29 @@ Then /^the questionnaire titles should indicate that the questionnaires have bee
      'PHS Fellowship Form V1-2'].each { |form_tab| page.form_status(form_tab).should=='Complete'}
   end
 end
+
+When /^I? ?add and mark complete all the required attachments$/ do
+  attachments = {
+      'RR-TEST-NIH-FORMS2' =>
+          %w{Equipment Bibliography BudgetJustification ProjectSummary Narrative Facilities
+          PHS_ResearchPlan_SpecificAims PHS_ResearchPlan_ResearchStrategy PHS_Cover_Letter},
+      'RR-FORMFAMILY-009-2010' =>
+          %w{BudgetJustification ProjectSummary Narrative},
+      'CAL-TEST-DOD2' =>
+          %w{BudgetJustification ProjectSummary Narrative},
+      'CAL-FDP-JAD' =>
+          %w{BudgetJustification},
+      'CSS-120809-SF424RR-V12' =>
+          %w{BudgetJustification ProjectSummary Narrative Budget_Justification_10YR
+          Budget_Justification_10YR_Fed_NonFed},
+      'RR-FORMFAMILY-004-2010' =>
+          %w{}
+
+  }
+  attachments[@proposal.opportunity_id].shuffle.each { |type| @proposal.add_proposal_attachment type: type, file_name: 'test.pdf', status: 'Complete' }
+  @proposal.key_personnel.each { |person| @proposal.add_personnel_attachment person: person.full_name, type: 'Biosketch', file_name: 'test.pdf' }
+end
+When(/^add a co-investigator$/) do
+  @proposal.add_key_person role: 'Co-Investigator'
+  on(KeyPersonnel).save
+end

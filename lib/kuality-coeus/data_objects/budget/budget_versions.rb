@@ -13,7 +13,8 @@ class BudgetVersionsObject
                 # Stuff on the Parameters page...
                 :project_start_date, :project_end_date, :total_direct_cost_limit,
                 :budget_periods, :unrecovered_fa_rate_type, :f_and_a_rate_type,
-                :submit_cost_sharing, :residual_funds, :total_cost_limit
+                :submit_cost_sharing, :residual_funds, :total_cost_limit,
+                :subaward_budgets
 
 
   def initialize(browser, opts={})
@@ -23,7 +24,8 @@ class BudgetVersionsObject
       name:              random_alphanums_plus(40),
       cost_sharing:      '0.00',
       f_and_a:           '0.00',
-      budget_periods:    BudgetPeriodsCollection.new
+      budget_periods:    BudgetPeriodsCollection.new,
+      subaward_budgets:  SubawardBudgetCollection.new
     }
 
     set_options(defaults.merge(opts))
