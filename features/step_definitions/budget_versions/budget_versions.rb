@@ -18,7 +18,7 @@ When /^correcting the Budget Version date will remove the warning$/ do
 end
 
 Given /^I? ?create, finalize, and mark complete a budget version for the proposal$/ do
-  @proposal.add_budget_version(status: 'Complete', final: :set)
+  @proposal.add_budget_version status: 'Complete', final: :set
 end
 
 When /^I? ?copy the budget version \(all periods\)$/ do
