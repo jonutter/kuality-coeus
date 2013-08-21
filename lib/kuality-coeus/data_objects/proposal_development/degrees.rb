@@ -25,8 +25,7 @@ class DegreeObject
       degrees.expand_all
       degrees.degree_type(@person).pick! @type
       degrees.degree_description(@person).fit @description
-      degrees.graduation_year(@person).fit @graduation_year
-      degrees.school(@person).fit @school
+      fill_out_item @person, degrees, :graduation_year, :school
       degrees.add_degree(@person)
     end
   end
