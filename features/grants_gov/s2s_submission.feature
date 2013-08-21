@@ -14,7 +14,7 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   add the <Provider> opportunity id of <Opportunity> to the proposal
     And   add the <Provider> user as the proposal's PI
     And   set valid credit splits for the proposal
-    And   add and mark complete all the required attachments for an <Sponsor> proposal
+    And   add and mark complete all the required attachments
     And   create, finalize, and mark complete a budget version for the proposal
     And   complete the required custom fields on the proposal
     And   answer the S2S questions
@@ -25,5 +25,9 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   within a couple minutes the submission status will be updated
 
   Examples:
-    | Provider   | Sponsor | Opportunity                  |
-    | Grants.Gov | NIH     | RR-TEST-NIH-FORMS2           |
+    | Provider   | Sponsor           | Opportunity              |
+    | Grants.Gov | NIH               | RR-TEST-NIH-FORMS2       |
+    | Grants.Gov | NIH               | RR-FORMFAMILY-009-2010   |
+    | Grants.Gov | DOD-Agency        | CAL-TEST-DOD2            |
+    | Grants.Gov | DOD-Agency        | CSS-120809-SF424RR-V12   |
+    | Grants.Gov | NASA - Washington | RR-FORMFAMILY-004-2010   |
