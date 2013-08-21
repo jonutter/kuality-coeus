@@ -8,7 +8,7 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   a user exists that can be a PI for Grants.gov proposals
     And   an AOR user exists
     And   I log in with the Proposal Creator user
-
+  @test
   Scenario: Submit the NIH opportunity ID: RR-TEST-NIH-FORMS2 to Grants.gov
     Given I initiate a proposal with NIH as the sponsor
     And   add the Grants.Gov opportunity id of RR-TEST-NIH-FORMS2 to the proposal
