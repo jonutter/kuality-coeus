@@ -14,7 +14,7 @@ class BudgetVersionsObject
                 :project_start_date, :project_end_date, :total_direct_cost_limit,
                 :budget_periods, :unrecovered_fa_rate_type, :f_and_a_rate_type,
                 :submit_cost_sharing, :residual_funds, :total_cost_limit,
-                :subaward_budgets
+                :subaward_budgets, :personnel
 
 
   def initialize(browser, opts={})
@@ -151,6 +151,14 @@ class BudgetVersionsObject
     sab = make SubawardBudgetObject, opts
     sab.create
     @subaward_budgets << sab
+  end
+
+  def add_project_personnel(opts={})
+    open_budget
+    on(Parameters).personnel
+    person = make BudgetPersonnelObject, opts
+    person.create
+    @personnel << person
   end
 
   # =======
