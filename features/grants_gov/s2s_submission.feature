@@ -27,4 +27,3 @@ Feature: Submitting Proposals via s2s to Grants.gov
   Examples:
     | Provider   | Sponsor | Opportunity                  |
     | Grants.Gov | NIH     | RR-TEST-NIH-FORMS2           |
-    | Grants.Gov | NIH     | RR-TEST-NIH-FORMS2-With-CFDA |
