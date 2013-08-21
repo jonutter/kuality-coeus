@@ -14,7 +14,7 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   add the <Provider> opportunity id of <Opportunity> to the proposal
     And   add the <Provider> user as the proposal's PI
     And   set valid credit splits for the proposal
-    And   add and mark complete all the required attachments
+    And   add and mark complete all the required attachments for an <Sponsor> proposal
     And   create, finalize, and mark complete a budget version for the proposal
     And   complete the required custom fields on the proposal
     And   answer the S2S questions
