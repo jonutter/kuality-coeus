@@ -109,10 +109,7 @@ class KeyPersonObject
       # If it's a key person without units then they won't have credit splits,
       # otherwise, the person will, so fill them out...
       if @key_person_role==nil || !@units.empty?
-        person.space(@full_name).fit @space
-        person.responsibility(@full_name).fit @responsibility
-        person.financial(@full_name).fit @financial
-        person.recognition(@full_name).fit @recognition
+        fill_out_item @full_name, person, :space, :responsibility, :financial, :recognition
       end
 
       # Proposal Person Certification
@@ -124,7 +121,7 @@ class KeyPersonObject
       end
 
       # Add gathering/setting of more attributes here as needed
-      person.era_commons_name(@full_name).fit @era_commons_name
+      fill_out_item @full_name, person, :era_commons_name
       person.save
     end
   end

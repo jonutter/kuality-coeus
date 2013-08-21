@@ -8,7 +8,7 @@ class Personnel < BudgetDocument
   action(:to_be_named_search) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.budget.personnel.TbnPerson!!).((``)).(:;newTbnPersons;:).((%true%)).((~~)).anchor').click }
 
   action(:job_code) { |person, b| b.pp_row(person).text_field(title: 'Job Code') }
-  action(:lookup_job_code) { |person, b| b.pp_row(person).button(name: 'methodToCall.performLookup.(!!org.kuali.kra.budget.personnel.JobCode!!).(((jobCode:document.budget.budgetPersons[0].jobCode,jobTitle:document.budget.budgetPersons[0].jobTitle))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchor').click }
+  action(:lookup_job_code) { |person, b| b.pp_row(person).button(name: /methodToCall.performLookup/).click }
   action(:appointment_type) { |person, b| b.pp_row(person).select(title: 'Appointment Type') }
   action(:base_salary) { |person, b| b.pp_row(person).text_field(title: '* Base Salary') }
   action(:salary_effective_date) { |person, b| b.pp_row(person).text_field(title: '* Salary Effective Date') }
@@ -17,18 +17,18 @@ class Personnel < BudgetDocument
   action(:sync_personnel) { |b| b.frm.button(name: 'methodToCall.synchToProposal').click; b.loading }
 
   element(:person) { |b| b.frm.select(name: 'newBudgetPersonnelDetails.personSequenceNumber') }
-  element(:object_code_name) { |b| b.frm.select(name: /newBudgetLineItems[\d+].costElement/) }
-  action(:add_person) { |b| b.frm.button(class: 'addButton').click; b.loading }
+  element(:object_code_name) { |b| b.frm.select(name: 'newBudgetLineItems[0].costElement') }
+  action(:add_details) { |b| b.frm.button(class: 'addButton').click; b.loading }
 
-  action(:start_date) { |person, b| b.start_date_fields[b.find_person_index(person)] }
-  action(:end_date) { |person, b| b.end_date_fields[b.find_person_index(person)] }
-  action(:percent_effort) { |person, b| b.effort_fields[b.find_person_index(person)] }
-  action(:percent_charged) { |person, b| b.charged_fields[b.find_person_index(person)] }
-  action(:period_type) { |person, b| b.period_type_fields[b.find_person_index(person)] }
-  action(:requested_salary) { |person, b| b.period_type(person).parent.parent.parent.td(index: 6).text }
-  action(:calculated_fringe) { |person, b| b.period_type(person).parent.parent.parent.td(index: 7).text }
-  action(:calculate) { |person, b| b.period_type(person).parent.parent.parent.button(name: /methodToCall.calculateSalary/).click; b.loading }
-  action(:delete) { |person, b| b.period_type(person).parent.parent.parent.button(name: /methodToCall.deleteBudgetPersonnelDetails/).click; b.loading }
+  action(:start_date) { |person, b| b.pd_row(person).text_field(title: '* Start Date') }
+  action(:end_date) { |person, b| b.pd_row(person).text_field(title: '* End Date') }
+  action(:percent_effort) { |person, b| b.pd_row(person).text_field(title: '% Effort') }
+  action(:percent_charged) { |person, b| b.pd_row(person).text_field(title: '% Charged') }
+  action(:period_type) { |person, b| b.pd_row(person).select(title: 'Period Type') }
+  action(:requested_salary) { |person, b| b.pd_row(person).td(index: 7).text }
+  action(:calculated_fringe) { |person, b| b.pd_row(person).td(index: 8).text }
+  action(:calculate) { |person, b| b.pd_row(person).button(name: /methodToCall.calculateSalary/).click; b.loading }
+  action(:delete) { |person, b| b.pd_row(person).button(name: /methodToCall.deleteBudgetPersonnelDetails/).click; b.loading }
 
   action(:budget_category) { |person, b| b.budget_category_fields[b.find_person_index(person)] }
   action(:number_of_persons) { |person, b| b.num_persons_fields[b.find_person_index(person)] }
@@ -43,19 +43,6 @@ class Personnel < BudgetDocument
   action(:pp_row) { |person, b| b.project_personnel_table.row(text: /#{person}/) }
   element(:budget_overview_table) { |b| b.frm.div(id: /tab-BudgetOverviewPeriod\d+-div/).div(class: 'tab-container').table }
   element(:personnel_detail_tab) { |b| b.frm.div(id: /tab-PersonnelDetailPeriod\d+-div/) }
-  element(:person_rows) { |b| b.personnel_detail_tab.divs(text: /\A\s*\d+\s*\z/, align: 'center') }
-  element(:start_date_fields) { |b| b.frm.text_fields(title: '* Start Date') }
-  element(:end_date_fields) { |b| b.frm.text_fields(title: '* End Date') }
-  element(:effort_fields) { |b| b.frm.text_fields(title: '% Effort') }
-  element(:charged_fields) { |b| b.frm.text_fields(title: '% Charged') }
-  element(:period_type_fields) { |b| b.frm.selects(class: 'Period Type') }
-  element(:budget_category_fields) { |b| b.frm.selects(title: 'Budget Category') }
-  element(:num_persons_fields) { |b| b.frm.text_fields(title: 'Quantity') }
-  element(:on_off_campus_fields) { |b| b.frm.checkboxes(title: 'On/Off Campus') }
-  element(:submit_cost_sharing_fields) { |b| b.frm.checkboxes(title: 'Submit Cost Sharing?') }
-
-  value(:persons_list) { |b| b.person_rows.collect{ |row| row.parent.parent.td.text} }
-
-  action(:find_person_index) { |person, b| b.persons_list.find_index{ |item| item.include? person } }
+  action(:pd_row) { |person, b| b.personnel_detail_tab.div(id: /tab-\d+-div/).tr(text: /#{person}/) }
 
 end

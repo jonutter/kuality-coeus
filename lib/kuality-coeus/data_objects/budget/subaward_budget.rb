@@ -48,9 +48,7 @@ class SubawardBudgetObject
       add.add_file_name.set($file_folder+@file_name)
       add.add_subaward_budget
       add.show_details @organization_name
-      add.direct_cost(@organization_name).fit @direct_cost
-      add.f_and_a_cost(@organization_name).fit @f_and_a_cost
-      add.cost_sharing(@organization_name).fit @cost_sharing
+      fill_out_item @organization_name, add, :direct_cost, :f_and_a_cost, :cost_sharing
       @total_cost=add.total_cost(@organization_name)
       add.save
     end
