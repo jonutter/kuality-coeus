@@ -51,10 +51,10 @@ class BudgetPersonnelObject
       page.add_details
       page.expand_all
       set_dates page
-      fill_out_item list_name, page, :percent_effort, :percent_charged, :period_type
-      page.calculate list_name
-      @requested_salary=page.requested_salary list_name
-      @calculated_fringe=page.calculated_fringe list_name
+      fill_out_item @name, page, :percent_effort, :percent_charged, :period_type
+      page.calculate @name
+      @requested_salary=page.requested_salary @name
+      @calculated_fringe=page.calculated_fringe @name
       page.save
     end
   end
@@ -102,19 +102,19 @@ class BudgetPersonnelObject
     end
   end
 
-  # TODO: WOW! This desperately needs to be dried up!
+  # TODO: WOW! This desperately needs to be dryed up!
   # It might be a good idea to make a new method in
   # TestFactory for this.
   def set_dates(page)
     if @start_date.nil?
-      @start_date=page.start_date(list_name).value
+      @start_date=page.start_date(@name).value
     else
-      page.start_date(list_name).set @start_date
+      page.start_date(@name).set @start_date
     end
     if @end_date.nil?
-      @end_date=page.end_date(list_name).value
+      @end_date=page.end_date(@name).value
     else
-      page.end_date(list_name).set @end_date
+      page.end_date(@name).set @end_date
     end
   end
 
@@ -124,10 +124,6 @@ class BudgetPersonnelObject
         non_employee: 'NonOrgAddressBookLookup',
         to_be_named:  'ToBeNamedPersonsLookup'
     }[@type.to_sym])
-  end
-
-  def list_name
-    "#{@name} - #{@job_code}  -  #{@job_code}"
   end
 
 end
