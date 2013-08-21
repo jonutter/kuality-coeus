@@ -140,13 +140,6 @@ And /^I? ?add and mark complete all the required attachments for an NSF proposal
   end
 end
 
-When /^I? ?add and mark complete all the required attachments for an NIH proposal$/ do
-  %w{Equipment Bibliography BudgetJustification ProjectSummary Narrative Facilities
-     PHS_ResearchPlan_SpecificAims PHS_ResearchPlan_ResearchStrategy}
-  .shuffle.each { |type| @proposal.add_proposal_attachment type: type, file_name: 'test.pdf', status: 'Complete' }
-  @proposal.key_personnel.each { |person| @proposal.add_personnel_attachment person: person.full_name, type: 'Biosketch', file_name: 'test.pdf' }
-end
-
 Then /^I should see an error that says the field is required$/ do
   text="#{@required_field} is a required field."
   @required_field=='Description' ? error='Document '+text : error=text
