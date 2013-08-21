@@ -39,7 +39,6 @@ Then /^the PHS training and fellowship questionnaires should appear in the propo
 end
 
 When /^I? ?complete their respective questionnaires$/ do
-  #on(PHS398TrainingBudgetQuestionnaire).complete_phs_training_questionnaire
   @proposal.complete_phs_fellowship_questionnaire
 end
 
@@ -67,7 +66,6 @@ When /^I? ?add and mark complete all the required attachments$/ do
           Budget_Justification_10YR_Fed_NonFed},
       'RR-FORMFAMILY-004-2010' =>
           %w{}
-
   }
   attachments[@proposal.opportunity_id].shuffle.each { |type| @proposal.add_proposal_attachment type: type, file_name: 'test.pdf', status: 'Complete' }
   @proposal.key_personnel.each { |person| @proposal.add_personnel_attachment person: person.full_name, type: 'Biosketch', file_name: 'test.pdf' }

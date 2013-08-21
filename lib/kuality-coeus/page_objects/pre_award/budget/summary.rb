@@ -1,5 +1,0 @@
-class Summary < BudgetDocument
-
-
-
-end
