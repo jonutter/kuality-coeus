@@ -1,10 +1,5 @@
 When /^I? ?visit the proposal's (.*) page$/ do |page|
-  # Ensure we're where we need to be in the system...
-  @proposal.open_document
-  # Be sure that the page name used in the scenario
-  # will be converted to the snake case value of
-  # the method that clicks on the proposal's page tab.
-  on(Proposal).send(snake_case(page))
+  @proposal.view page
 end
 
 Then /^the (.*) user is listed as an? (.*) in the proposal permissions$/ do |username, role|

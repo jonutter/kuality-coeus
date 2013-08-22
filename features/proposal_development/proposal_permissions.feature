@@ -5,15 +5,14 @@ Feature: Permissions in a Proposal
   they are capable of performing with it.
 
   Background: The admin user initiates a proposal
-    Given I'm logged in with admin
+    Given a user exists with the system role: 'Proposal Creator'
+    And   I log in with the Proposal Creator user
     And   I initiate a proposal
 
   Scenario: The proposal initiator is automatically an aggregator
-    Given a user exists with the system role: 'Proposal Creator'
-    And   I log in with the Proposal Creator user
     When  I visit the proposal's Permissions page
     Then  the Proposal Creator user is listed as an Aggregator in the proposal permissions
-
+  @test
   Scenario Outline: A Proposal Aggregator can assign various roles to a proposal documents permissions
     Given a user exists with the system role: 'Unassigned'
     When  I assign the Unassigned user as a <Role> in the proposal permissions
