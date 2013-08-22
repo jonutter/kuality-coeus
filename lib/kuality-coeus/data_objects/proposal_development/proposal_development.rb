@@ -203,8 +203,8 @@ class ProposalDevelopmentObject
 
   def view(tab)
     open_proposal
-    unless @status=='CANCELED' || on(Proposal).send((tab.to_s+'_button').to_sym).parent.class_name=~/tabcurrent$/
-      on(Proposal).send(tab)
+    unless @status=='CANCELED' || on(Proposal).send(StringFactory.damballa(tab+'_button')).parent.class_name=~/tabcurrent$/
+      on(Proposal).send(StringFactory.damballa(tab))
     end
   end
 

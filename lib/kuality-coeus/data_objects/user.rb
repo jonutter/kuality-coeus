@@ -108,16 +108,19 @@ class UserObject
   def create
     # First we have to make sure we're logged in with
     # a user that has permissions to create other users...
-    if login_info_div.text =~ /admin$/
-      visit(SystemAdmin).person unless PersonLookup.new(@browser).principal_id.present?
-    else
-      @logged_in_user_name = login_info_div.text[/\w+$/]
-      visit Login do |log_in|
-        log_in.close_parents
-        log_in.username.set 'admin'
-        log_in.login
+    @browser.windows[0].use
+    visit SystemAdmin do |page|
+      page.close_children
+      if @logged_in_user_name=='admin'
+        page.person
+      else
+        s_o.click
+        visit Login do |log_in|
+          log_in.username.set 'admin'
+          log_in.login
+        end
+        visit(SystemAdmin).person
       end
-      visit(SystemAdmin).person
     end
     # Now we're certain the create button will be there, so...
     on(PersonLookup).create
@@ -208,6 +211,7 @@ class UserObject
         log_in.username.set @logged_in_user_name
         log_in.login
       end
+      @logged_in_user_name=nil
     end
   end
 
@@ -265,6 +269,8 @@ class UserObject
     visit SystemAdmin do |page|
       if username_field.present?
         UserObject.new(@browser).log_in
+      else
+        @logged_in_user_name=login_info_div.text[/\w+$/]
       end
       page.person
     end
