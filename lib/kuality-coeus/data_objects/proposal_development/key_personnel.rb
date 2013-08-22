@@ -44,8 +44,8 @@ class KeyPersonObject
       end
       on KeyPersonnel do |person|
         @full_name=person.person_name
-        @first_name=@full_name[/^\w+/]
         @last_name=@full_name[/\w+$/]
+        @first_name=$~.pre_match.strip
       end
     else
       on PersonLookup do |look|

@@ -21,6 +21,7 @@ class Parameters < BudgetDocument
   element(:total_sponsor_cost) { |b| b.frm.text_field(name: 'newBudgetPeriod.totalCost') }
   element(:direct_cost) { |b| b.frm.text_field(name: 'newBudgetPeriod.totalDirectCost') }
   element(:fa_cost) { |b| b.frm.text_field(name: 'newBudgetPeriod.totalIndirectCost') }
+  alias_method :f_and_a_cost, :fa_cost
   element(:unrecovered_fa_cost) { |b| b.frm.text_field(name: 'newBudgetPeriod.underrecoveryAmount') }
   element(:cost_sharing) { |b| b.frm.text_field(name: 'newBudgetPeriod.costSharingAmount') }
   element(:cost_limit) { |b| b.frm.text_field(name: 'newBudgetPeriod.totalCostLimit') }
@@ -33,8 +34,10 @@ class Parameters < BudgetDocument
   action(:end_date_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period-1}].endDate") }
   action(:total_sponsor_cost_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period-1}].totalCost") }
   action(:direct_cost_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period-1}].totalDirectCost") }
-  action(:fa_cost_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period-1}].totalIndirectCost") }
+  action(:f_and_a_cost_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period-1}].totalIndirectCost") }
+  alias_method :fa_cost_period, :f_and_a_cost_period
   action(:unrecovered_fa_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period-1}].underrecoveryAmount") }
+  alias_method :unrecovered_f_and_a_period, :unrecovered_fa_period
   action(:cost_sharing_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period-1}].costSharingAmount") }
   action(:cost_limit_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period-1}].totalCostLimit") }
   action(:direct_cost_limit_period) { |period, b| b.frm.text_field(id: "document.budget.budgetPeriods[#{period-1}].directCostLimit") }

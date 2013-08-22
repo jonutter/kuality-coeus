@@ -23,11 +23,11 @@ end
 
 When /^I? ?initiate a proposal but miss a required field$/ do
   # Pick a field at random for the test...
-  @required_field = ['Description', 'Proposal Type', 'Lead Unit', 'Activity Type',
+  @required_field = ['Description', 'Proposal Type', 'Activity Type',
            'Project Title', 'Sponsor Code', 'Project Start Date', 'Project End Date'
           ].sample
   # Properly set the nil value depending on the field type...
-  @required_field=~/Type/ || @required_field=='Lead Unit' ? value='select' : value=''
+  @required_field=~/Type/ ? value='select' : value=''
   # Transform the field name to the appropriate symbol...
   field = snake_case(@required_field)
   @proposal = create ProposalDevelopmentObject, field=>value

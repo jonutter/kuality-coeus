@@ -4,7 +4,7 @@ Feature: Permissions in a Proposal
   to allow them to work on the proposal with me, and to control what actions
   they are capable of performing with it.
 
-  Background: The admin user initiates a proposal
+  Background: A proposal creator user initiates a proposal
     Given a user exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
     And   I initiate a proposal
