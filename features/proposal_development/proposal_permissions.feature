@@ -20,12 +20,18 @@ Feature: Permissions in a Proposal
     And   their proposal permissions allow them to <Permissions>
 
     Examples:
-    | Role                     | Permissions                                    |
-    | Narrative Writer         | only update the Abstracts and Attachments page |
-    | Aggregator               | edit all parts of the proposal                 |
-    | Budget Creator           | only update the budget                         |
-    | Delete Proposal          | delete the proposal                            |
-    | Viewer                   | only read the proposal                         |
+    | Role                     | Permissions                    |
+    | Aggregator               | edit all parts of the proposal |
+    | Budget Creator           | only update the budget         |
+    | Delete Proposal          | delete the proposal            |
+    | Viewer                   | only read the proposal         |
+  @test
+  Scenario: Narrative Writers can't see budget details
+    Given I create a budget version for the proposal
+    And   a user exists with the system role: 'Unassigned'
+    When  I assign the Unassigned user as a Narrative Writer in the proposal permissions
+    Then  the Unassigned user can access the proposal
+    And   their proposal permissions do not allow them to edit budget details
 
   Scenario Outline: Proposal permissions are not passed onto future proposals initiated by the same creator
     Given a user exists with the system role: 'Unassigned'
@@ -41,7 +47,7 @@ Feature: Permissions in a Proposal
     | Aggregator       |
     | approver         |
     | Delete Proposal  |
-  @test
+
   Scenario Outline: Users who are assigned the Aggregator role cannot be assigned additional roles
     Given a user exists with the system role: '<Role>'
     And   I assign the <Role> user as an aggregator in the proposal permissions
@@ -50,10 +56,9 @@ Feature: Permissions in a Proposal
 
   Examples:
     | Role             |
-    #| Unassigned       |
+    | Unassigned       |
     | Proposal Creator |
 
-  #@test
   Scenario Outline: Users with the appropriate permissions can edit proposals that have been recalled for revisions
     Given a user exists with the system role: 'Unassigned'
     And   assign the Unassigned user as a <Role> in the proposal permissions
