@@ -25,7 +25,7 @@ Feature: Permissions in a Proposal
     | Budget Creator           | only update the budget         |
     | Delete Proposal          | delete the proposal            |
     | Viewer                   | only read the proposal         |
-  @test
+
   Scenario: Narrative Writers can't see budget details
     Given I create a budget version for the proposal
     And   a user exists with the system role: 'Unassigned'
@@ -70,7 +70,6 @@ Feature: Permissions in a Proposal
 
   Examples:
     | Role                | Permissions                                    |
-    | Narrative Writer    | only update the Abstracts and Attachments page |
     | Aggregator          | edit all parts of the proposal                 |
     | Budget Creator      | only update the budget                         |
     | Delete Proposal     | delete the proposal                            |
