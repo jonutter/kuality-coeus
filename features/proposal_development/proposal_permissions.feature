@@ -64,7 +64,7 @@ Feature: Permissions in a Proposal
     And   assign the Unassigned user as a <Role> in the proposal permissions
     And   complete the proposal
     And   submit the proposal
-    When  I recall the proposal for revisions
+    When  I recall the proposal
     Then  the Unassigned user can access the proposal
     And   their proposal permissions allow them to <Permissions>
 

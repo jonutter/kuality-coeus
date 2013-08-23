@@ -186,15 +186,16 @@ class ProposalDevelopmentObject
     end
   end
 
-  def recall(type, reason=random_alphanums)
-    types={:revisions=>:recall_to_action_list, :cancel=>:recall_and_cancel}
+  def recall(reason=random_alphanums)
     @recall_reason=reason
     open_proposal
     on(Proposal).recall
     on Confirmation do |conf|
       conf.reason.set @recall_reason
-      conf.send(types[type])
+      conf.yes
     end
+    open_propsal
+    @status=on(Proposal).document_status
   end
 
   def close

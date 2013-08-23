@@ -21,14 +21,6 @@ When /^I? ?send a notification to the (.*) users?$/ do |role|
   on(NotificationEditor).send_fyi
 end
 
-When /^I? ?recall the proposal for revisions$/ do
-  @proposal.recall :revisions
-end
-
-When /^I? ?recall and cancel the proposal$/ do
-  @proposal.recall :cancel
-end
-
 Then /^the proposal status should be (.*)$/ do |status|
   @proposal.status.should == status
 end
