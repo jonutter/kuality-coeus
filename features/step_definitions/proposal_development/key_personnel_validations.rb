@@ -72,6 +72,11 @@ end
 When /^the (.*) user approves the proposal$/ do |role|
   get(role).sign_in
   @proposal.open_proposal
+
+
+sleep 20
+
+
   on(ProposalSummary).approve
   on(Confirmation).yes
 end

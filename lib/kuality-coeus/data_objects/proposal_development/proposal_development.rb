@@ -186,7 +186,7 @@ class ProposalDevelopmentObject
   end
 
   def recall(type, reason=random_alphanums)
-    types={:revision=>:recall_to_action_list, :cancel=>:recall_and_cancel}
+    types={:revisions=>:recall_to_action_list, :cancel=>:recall_and_cancel}
     @recall_reason=reason
     open_proposal
     on(Proposal).recall

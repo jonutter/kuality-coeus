@@ -18,16 +18,6 @@ Then /^the (.*) user can access the proposal$/ do |role|
   on(Researcher).error_table.should_not be_present
 end
 
-Then /^the proposal is in the (.*) user's action list$/ do |username|
-  get(username).sign_in
-  visit(ActionList).filter
-  on ActionListFilter do |page|
-    page.document_title.set @proposal.project_title
-    page.filter
-  end
-  on(ActionList).item_row(@proposal.document_id).should exist
-end
-
 And /^their proposal permissions allow them to only update the Abstracts and Attachments page$/ do
   on(Proposal).abstracts_and_attachments
   @proposal.close
