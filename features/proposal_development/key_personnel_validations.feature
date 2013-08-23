@@ -5,8 +5,9 @@ Feature: Key Personnel Validations
   before I submit the proposal
 
   Background: The admin user initiates a proposal
-    Given   I'm logged in with admin
-    And     I initiate a proposal
+    Given a user exists with the system role: 'Proposal Creator'
+    And   I log in with the Proposal Creator user
+    And   I initiate a proposal
 
   Scenario Outline: I should see an error when I add Credit Split percentages above 100 or less than 0
     When  I add a Principal Investigator with a <Type> credit split of <Value>
@@ -24,7 +25,7 @@ Feature: Key Personnel Validations
 
   Scenario: Error when adding a co-investigator without a unit
     When  I add a co-investigator without a unit
-    Then  a key personnel error should say the co-investigator requires at least one unit
+    Then  a key personnel error should appear, saying the co-investigator requires at least one unit
 
   Scenario: Error when adding multiple principle investigators
     When  I try to add two Principal Investigators

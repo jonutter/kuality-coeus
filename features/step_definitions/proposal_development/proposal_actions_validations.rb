@@ -12,13 +12,14 @@ end
 
 Then /^a validation error should say (.*)$/ do |error|
   errors = {'there is no principal investigator' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.',
-  'proposal questions were not answered' => 'Answer is required for Question 1 in group A. Proposal Questions.',
   'sponsor deadline date not entered' => 'Sponsor deadline date has not been entered.',
   'questionnaire must be completed' => %|You must complete the questionnaire "S2S FAT &amp; Flat Questionnaire"|,
-  'you must complete the compliance question' => 'Answer is required for Question 1 in group B. Compliance.',
-  'the investigator needs to be certified' => 'The Investigators are not all certified. Please certify Dick  COIAdmin.',
-  'the key person needs to be certified' => 'The Investigators are not all certified. Please certify Jeff  Covey.'}
+  'you must complete the compliance question' => 'Answer is required for Question 1 in group B. Compliance.'}
   on(ProposalActions).validation_errors_and_warnings.should include errors[error]
+end
+
+Then /^one of the errors should say the investigators aren't all certified$/ do
+  on(ProposalActions).validation_errors_and_warnings.should include "The Investigators are not all certified. Please certify #{@proposal.key_personnel[0].first_name}  #{@proposal.key_personnel[0].last_name}."
 end
 
 Then /^one of the validation errors should say that (.*)$/ do |error|
@@ -37,11 +38,11 @@ When /^I? ?initiate a proposal with an un-certified (.*)$/ do |role|
   @proposal.add_key_person role: @role, certified: false
 end
 
-Given /^I? ?initiate a proposal where the un-certified key person has certification questions$/ do
+Given /^I? ?initiate a proposal where the un-certified key person has included certification questions$/ do
   @role = 'Key Person'
   @proposal = create ProposalDevelopmentObject
   @proposal.add_key_person role: @role, key_person_role: 'default', certified: false
-  on(KeyPersonnel).include_certification_questions @proposal.key_personnel.uncertified_key_person(@role).full_name
+  on(KeyPersonnel).include_certification_questions @proposal.key_personnel.uncertified_person(@role).full_name
 end
 
 Then /^checking the key personnel page shows an error that says (.*)$/ do |error|

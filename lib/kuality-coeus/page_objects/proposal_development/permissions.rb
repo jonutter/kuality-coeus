@@ -2,17 +2,25 @@ class Permissions < ProposalDevelopmentDocument
 
   proposal_header_elements
 
+  USER_NAME = 1
+  FULL_NAME = 2
+  UNIT_NUM  = 3
+  UNIT_NAME = 4
+  ROLE      = 5
+
   action(:assigned_to_role) { |role, b| b.frm.td(id: role).text }
 
   element(:user_name) { |b| b.frm.text_field(id: 'newProposalUser.username') }
   element(:role) { |b| b.frm.select(id: 'newProposalUser.roleName') }
   action(:add) { |b| b.frm.button(name: 'methodToCall.addProposalUser.anchorUsers').click }
 
-  action(:assigned_role) { |user, b| b.user_row(user)[5].text }
+  action(:assigned_role) { |user, b| b.user_row(user)[ROLE].text }
   action(:edit_role) { |user, b| b.user_row(user).button(name: /methodToCall.editRoles.line\d+.anchorUsers/).click }
   action(:delete) { |user, b| b.user_row(user).button(name: /methodToCall.deleteProposalUser.line\d+.anchorUsers/).click }
 
   element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
+
+  value(:assigned_users) { |b| array=[]; b.user_roles_table.rows.each{ |row| array << row[USER_NAME].text}; 2.times{array.delete_at(0)}; array }
 
   # Note this is the table in the Users tab on the page...
   element(:user_roles_table) { |b| b.frm.table(id: 'user-roles') }

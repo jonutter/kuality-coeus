@@ -219,7 +219,7 @@ martelld:  # AKA: "Principal Name"
     - '110' # Aggregator
   :role_qualifiers:
     :110: '000001'
-swarren:  # AKA: "Principal Name"
+warrens:  # AKA: "Principal Name"
   :description:      creating test aor user
   :affiliation_type: Staff
   :campus_code:      'UN - UNIVERSITY'
@@ -251,7 +251,7 @@ swarren:  # AKA: "Principal Name"
       :default: :set
       :country: United States
   :emails:
-    - :email:   sean.warren@rsmart.com
+    - :email:   kc-qa-notify@rsmart.com
       :type:    Work
       :default: :set
   :groups:

@@ -186,7 +186,7 @@ class ProposalDevelopmentObject
   end
 
   def recall(type, reason=random_alphanums)
-    types={:revision=>:recall_to_action_list, :cancel=>:recall_and_cancel}
+    types={:revisions=>:recall_to_action_list, :cancel=>:recall_and_cancel}
     @recall_reason=reason
     open_proposal
     on(Proposal).recall
@@ -203,8 +203,8 @@ class ProposalDevelopmentObject
 
   def view(tab)
     open_proposal
-    unless @status=='CANCELED' || on(Proposal).send(StringFactory.damballa(tab+'_button')).parent.class_name=~/tabcurrent$/
-      on(Proposal).send(StringFactory.damballa(tab))
+    unless @status=='CANCELED' || on(Proposal).send(StringFactory.damballa("#{tab}_button")).parent.class_name=~/tabcurrent$/
+      on(Proposal).send(StringFactory.damballa(tab.to_s))
     end
   end
 

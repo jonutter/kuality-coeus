@@ -22,7 +22,7 @@ Given /^I? ?create, finalize, and mark complete a budget version for the proposa
 end
 
 When /^I? ?copy the budget version \(all periods\)$/ do
-  @copied_budget_version = @proposal.budget_versions.copy_all_periods(@budget_version.name, random_alphanums)
+  @copied_budget_version = @budget_version.copy_all_periods random_alphanums
 end
 
 When /^I? ?enter dollar amounts for all the budget periods$/ do
@@ -39,13 +39,13 @@ Then /^the copied budget's values are all as expected$/ do
     on Parameters do |page|
       page.start_date_period(period.number).value.should==period.start_date
       page.end_date_period(period.number).value.should==period.end_date
-      page.total_sponsor_cost_period(period.number).value.should==(period.direct_cost+period.f_and_a_cost).commas
-      page.direct_cost_period(period.number).value.should==period.direct_cost.commas
-      page.fa_cost_period(period.number).value.should==period.f_and_a_cost.commas
-      page.unrecovered_fa_period(period.number).value.should==period.unrecovered_f_and_a.commas
-      page.cost_sharing_period(period.number).value.should==period.cost_sharing.commas
-      page.cost_limit_period(period.number).value.should==period.cost_limit.commas
-      page.direct_cost_limit_period(period.number).value.should==period.direct_cost_limit.commas
+      page.total_sponsor_cost_period(period.number).value.should==(period.direct_cost.to_f+period.f_and_a_cost.to_f).commas
+      page.direct_cost_period(period.number).value.should==period.direct_cost.to_f.commas
+      page.fa_cost_period(period.number).value.should==period.f_and_a_cost.to_f.commas
+      page.unrecovered_fa_period(period.number).value.should==period.unrecovered_f_and_a.to_f.commas
+      page.cost_sharing_period(period.number).value.should==period.cost_sharing.to_f.commas
+      page.cost_limit_period(period.number).value.should==period.cost_limit.to_f.commas
+      page.direct_cost_limit_period(period.number).value.should==period.direct_cost_limit.to_f.commas
     end
   end
 end

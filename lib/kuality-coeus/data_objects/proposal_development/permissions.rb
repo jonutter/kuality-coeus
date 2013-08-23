@@ -26,23 +26,35 @@ class PermissionsObject
   # users to roles, but does not check who is already
   # assigned. You need to make sure that the values
   # used in the instantiation of the class are
-  # an accurate reflection of what exists in the site.
+  # an accurate reflection of what exists in the site,
+  # if that's important to the test.
   def assign
     navigate
     on Permissions do |add|
       # See the roles method defined below...
       roles.each do |inst_var, role|
         get(inst_var).each do |username|
-          unless add.user_row(username).present? && add.assigned_role(username).include?(role)
+          if add.assigned_users.include?(username)
+            unless add.assigned_role(username).include?(role)
+              add.edit_role username
+              on Roles do |roles|
+                roles.use_new_tab
+                roles.send(StringFactory.damballa(role)).set
+                roles.save
+                sleep 2 # Need to wait for the window to close
+                roles.use_new_tab
+              end
+              add.save
+            end
+          else
             add.user_name.set username
             add.role.select role
             add.add
             add.user_row(username).wait_until_present
+            add.save
           end
         end
       end
-      add.save
-      # TODO: Add some logic here to use in case the user is already added to the list (so use add_roles)
     end
   end
 

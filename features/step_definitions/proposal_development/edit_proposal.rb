@@ -30,7 +30,7 @@ Then /^The proposal route log's 'Pending Action Requests' should include '(.*)'$
 end
 
 Then /^The S2S tab should become available$/ do
-  @proposal.view :s2s
+  @proposal.view 'S2S'
   on(S2S).s2s_header.should be_present
 end
 
@@ -52,7 +52,7 @@ When /^I? ?push the proposal's project start date ahead a year$/ do
 end
 
 Then /^I can recall the proposal$/ do
-  @proposal.view :proposal
+  @proposal.view 'Proposal'
   on(Proposal).recall_button.should exist
 end
 
@@ -65,8 +65,7 @@ Given /^I? ?set the proposal type to '(\w+)'$/ do |type|
 end
 
 When /^I go to the proposal's (.*) page$/ do |page|
-  pages = { 'S2S'=>:s2s }
-  @proposal.view pages[page]
+  @proposal.view page
 end
 
 When /^I? ?save the proposal$/ do
