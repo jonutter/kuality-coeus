@@ -7,7 +7,7 @@ Feature: Permissions in a Proposal
   Background: A proposal creator user initiates a proposal
     Given a user exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
-    And   I initiate a proposal
+    And   initiate a proposal
 
   Scenario: The proposal initiator is automatically an aggregator
     When  I visit the proposal's Permissions page
