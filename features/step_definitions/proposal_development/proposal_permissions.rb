@@ -47,10 +47,6 @@ And /^their proposal permissions allow them to edit all parts of the proposal$/ 
   end
   on ProposalActions do |page|
     page.save_button.should be_present
-    page.questions
-  end
-  on Questions do |page|
-    page.save_button.should be_present
     page.special_review
   end
   on SpecialReview do |page|
@@ -87,10 +83,6 @@ And /^their proposal permissions allow them to only read the proposal$/ do
       end
       on ProposalActions do |page|
         page.save_button.should_not be_present
-        page.questions
-      end
-      on Questions do |page|
-        page.save_button.should_not be_present
         page.special_review
       end
       on SpecialReview do |page|
@@ -108,12 +100,20 @@ Then /^there should be an error message that says not to select other roles alon
 end
 
 When /^I? ?attempt to add an additional proposal role to the (.*) user$/ do |system_role|
-  role = [:viewer, :budget_creator, :narrative_writer, :aggregator].sample
-  on(Permissions).edit_role.(get(system_role).user_name)
+  if system_role=='Proposal Creator'
+    role='aggregator'
+  else
+    role=system_role
+  end
+  role_to_add = ([:viewer, :budget_creator, :narrative_writer, :aggregator]-[StringFactory.damballa(role)]).sample
+  on(Permissions).edit_role(get(system_role).user_name)
   on Roles do |page|
     page.use_new_tab
-    page.send(role).set
+    page.send(role_to_add).set
     page.save
+    # Note: This step def does not go beyond clicking the Save button here
+    # because the expectation is that the Roles window will not close,
+    # but will instead display an error message.
   end
 end
 

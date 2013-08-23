@@ -12,7 +12,7 @@ Feature: Permissions in a Proposal
   Scenario: The proposal initiator is automatically an aggregator
     When  I visit the proposal's Permissions page
     Then  the Proposal Creator user is listed as an Aggregator in the proposal permissions
-  @test
+
   Scenario Outline: A Proposal Aggregator can assign various roles to a proposal documents permissions
     Given a user exists with the system role: 'Unassigned'
     When  I assign the Unassigned user as a <Role> in the proposal permissions
@@ -41,19 +41,19 @@ Feature: Permissions in a Proposal
     | Aggregator       |
     | approver         |
     | Delete Proposal  |
-
-  Scenario: Users who are assigned the Aggregator role cannot be assigned additional roles
-    Given a user exists with the system role: 'Unassigned'
-    And   I assign the Unassigned user as an aggregator in the proposal permissions
-    When  I attempt to add an additional proposal role to the Aggregator user
+  @test
+  Scenario Outline: Users who are assigned the Aggregator role cannot be assigned additional roles
+    Given a user exists with the system role: '<Role>'
+    And   I assign the <Role> user as an aggregator in the proposal permissions
+    When  I attempt to add an additional proposal role to the <Role> user
     Then  there should be an error message that says not to select other roles alongside aggregator
 
-  Scenario: A proposal document cannot have multiple users assigned to the Aggregator role
-    Given a user exists with the system role: 'Proposal Creator'
-    And   I assign the Proposal Creator user as an aggregator in the proposal permissions
-    When  I attempt to add an additional proposal role to the Aggregator user
-    Then  there should be an error message that says not to select other roles alongside aggregator
+  Examples:
+    | Role             |
+    #| Unassigned       |
+    | Proposal Creator |
 
+  #@test
   Scenario Outline: Users with the appropriate permissions can edit proposals that have been recalled for revisions
     Given a user exists with the system role: 'Unassigned'
     And   assign the Unassigned user as a <Role> in the proposal permissions

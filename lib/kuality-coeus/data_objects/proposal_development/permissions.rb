@@ -41,7 +41,7 @@ class PermissionsObject
                 roles.use_new_tab
                 roles.send(StringFactory.damballa(role)).set
                 roles.save
-                sleep 2 # Need to wait for the window to close
+                sleep 1.2 # Need to wait for the window to close
                 roles.use_new_tab
               end
               add.save
