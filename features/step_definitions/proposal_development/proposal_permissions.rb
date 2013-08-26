@@ -54,9 +54,11 @@ And /^their proposal permissions allow them to edit all parts of the proposal$/ 
   end
 end
 
-And /^their proposal permissions allow them to only update the budget$/ do
-  lambda{@budget_version.edit(total_direct_cost_limit: '100')}.should_not raise_error(Watir::Exception::UnknownObjectException, /unable to locate element/)
-  lambda{@proposal.edit(project_title: 'edit')}.should raise_error
+And /^their proposal permissions allow them to update the budget, not the narrative$/ do
+  expect{
+    @proposal.add_proposal_attachment file_name: 'test.pdf', type: 'Narrative'
+  }.should raise_error
+  expect{@proposal.add_budget_version}.not_to raise_error
 end
 
 And /^their proposal permissions allow them to only read the proposal$/ do

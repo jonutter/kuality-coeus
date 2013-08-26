@@ -20,13 +20,13 @@ Feature: Permissions in a Proposal
     And   their proposal permissions allow them to <Permissions>
 
     Examples:
-    | Role                     | Permissions                    |
-    | Aggregator               | edit all parts of the proposal |
-    | Budget Creator           | only update the budget         |
-    | Delete Proposal          | delete the proposal            |
-    | Viewer                   | only read the proposal         |
+    | Role                 | Permissions                          |
+    | Aggregator           | edit all parts of the proposal       |
+    | Budget Creator       | update the budget, not the narrative |
+    | Delete Proposal      | delete the proposal                  |
+    | Viewer               | only read the proposal               |
 
-  Scenario: Narrative Writers can't see budget details
+  Scenario: Narrative Writers can't edit budget details
     Given I create a budget version for the proposal
     And   a user exists with the system role: 'Unassigned'
     When  I assign the Unassigned user as a Narrative Writer in the proposal permissions
