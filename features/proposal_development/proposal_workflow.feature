@@ -5,9 +5,8 @@ Feature: Proposal Workflows and Routing
   in workflow.
 
 #=================
-# Proposal Actions -- As proposals navigate through workflow, specific users are asked to take actions
+# Proposal Actions
 #=================
-  @broken
   Scenario Outline: Proposal is successfully routed to PI for action
     Given users exist with the following roles: OSPApprover, Proposal Creator, Unassigned
     And   I log in with the Proposal Creator user
@@ -56,35 +55,17 @@ Feature: Proposal Workflows and Routing
     And   I submit a new development proposal into routing
     When  I blanket approve the proposal
     Then  the proposal status should be Approval Granted
-  @broken
-  Scenario: OSP Approver successfully submits a routed proposal to the sponsor
-    Given users exist with the following roles: Proposal Creator, OSPApprover
-    And   I log in with the Proposal Creator user
-    And   I submit a new development proposal into routing
-    When  I log in with the OSPApprover user
-    And   I submit the routed proposal to the sponsor
-    Then  the proposal status should be Approval Pending - Submitted
-
-#TODO: Scenario: An OSP Approver takes the 'Submit to sponsor' action against a routed proposal and an institutional proposal is created
-  @broken
-  Scenario: Aggregator successfully recalls a routed proposal for cancellation
+  @test
+  Scenario: Aggregator successfully recalls a routed proposal
     Given a user exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
     And   I submit a new development proposal into routing
-    When  I recall and cancel the proposal
-    Then  the proposal status should be Document Error Occurred
-  @broken
-  Scenario: Aggregator successfully recalls proposal for revisions
-    Given a user exists with the system role: 'Proposal Creator'
-    And   I log in with the Proposal Creator user
-    And   I submit a new development proposal into routing
-    When  I recall the proposal for revisions
+    When  I recall the proposal
     Then  the proposal status should be Revisions Requested
 
 #=================
-# Notifications -- Notifications are sent are FYIs to select users.
+# Notifications
 #=================
-
   Scenario: Successful delivery of an FYI from a development proposal
     Given users exist with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
@@ -93,5 +74,3 @@ Feature: Proposal Workflows and Routing
     And   I log in with the OSPApprover user
     Then  I should receive an action list item with the requested action being: FYI
     And   I can acknowledge the requested action list item
-
-#TODO: Scenario: An OSPApprover user can filter all of their FYIs and acknowledge them at once

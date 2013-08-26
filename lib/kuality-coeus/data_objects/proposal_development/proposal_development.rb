@@ -194,7 +194,7 @@ class ProposalDevelopmentObject
       conf.reason.set @recall_reason
       conf.yes
     end
-    open_propsal
+    open_proposal
     @status=on(Proposal).document_status
   end
 
