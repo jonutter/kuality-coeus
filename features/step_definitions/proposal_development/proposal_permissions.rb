@@ -19,9 +19,9 @@ Then /^the (.*) user can access the proposal$/ do |role|
 end
 
 Then /^their proposal permissions do not allow them to edit budget details$/ do
-  lambda{@proposal.edit(project_title: 'edit')}.should_not raise_error
-  lambda{@budget_version.open_budget}.should_not raise_error
-  lambda{@budget_version.edit(total_direct_cost_limit: '100')}.should raise_error(Watir::Exception::UnknownObjectException, /unable to locate element/)
+  expect{@proposal.edit(project_title: 'edit')}.not_to raise_error
+  expect{@budget_version.open_budget}.not_to raise_error
+  expect{@budget_version.edit(total_direct_cost_limit: '100')}.should raise_error(Watir::Exception::UnknownObjectException, /unable to locate element/)
 end
 
 And /^their proposal permissions allow them to edit all parts of the proposal$/ do
