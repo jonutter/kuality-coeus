@@ -54,7 +54,7 @@ end
 Given /^a user exists that can be a PI for Grants.gov proposals$/ do
   # TODO: Make this more robust when we really know what it takes
   # to be a grants.gov PI...
-  @grants_gov_pi = make UserObject, user: UserObject::USERS.era_commons_user('grantsgov')
+  @grants_gov_pi = make_user user: UserObject::USERS.era_commons_user('grantsgov')
   @grants_gov_pi.create unless @grants_gov_pi.exists?
 end
 
