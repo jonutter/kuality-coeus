@@ -73,6 +73,7 @@ class ProposalDevelopmentObject
     on Proposal do |edit|
       edit.proposal
       edit.expand_all
+      edit.project_title.fit opts[:project_title]
       edit.project_start_date.fit opts[:project_start_date]
       edit.opportunity_id.fit opts[:opportunity_id]
       edit.proposal_type.fit opts[:proposal_type]

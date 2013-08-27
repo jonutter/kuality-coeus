@@ -94,10 +94,13 @@ class BudgetVersionsObject
   # Use it for editing the Budget Version while on the Proposal, but not the Periods
   def edit opts={}
     navigate
-    on BudgetVersions do |edit|
-      edit.final(@name).fit opts[:final]
-      edit.budget_status(@name).fit opts[:budget_status]
-      # TODO: More here as needed...
+    on(BudgetVersions).open @name
+    confirmation
+    on Parameters do |edit|
+      edit.final.fit opts[:final]
+      edit.budget_status.fit opts[:budget_status]
+      edit.total_direct_cost_limit.fit opts[:total_direct_cost_limit]
+      # TODO: More to add here...
       edit.save
     end
     set_options(opts)

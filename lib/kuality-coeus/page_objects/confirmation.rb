@@ -10,7 +10,5 @@ class Confirmation < BasePage
   action(:return_to_document) { |b| b.frm.button(class: 'confirm', name: 'methodToCall.processAnswer.button2').click; b.loading }
   alias_method :copy_all_periods, :yes
   alias_method :copy_one_period_only, :no
-  alias_method :recall_to_action_list, :yes
-  alias_method :recall_and_cancel, :no
 
 end

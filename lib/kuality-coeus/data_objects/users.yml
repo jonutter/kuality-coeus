@@ -5,8 +5,8 @@ unassigneduser: # AKA: "Principal Name
   :description:      creating user with 'unassigned' role
   :affiliation_type: Student
   :campus_code:      'UN - UNIVERSITY'
-  :first_name:       NoSpecificRole
-  :last_name:        test
+  :first_name:       PleaseDoNot
+  :last_name:        AddOrEditRoles
   :addresses:
     - :type:    Home
       :line_1:  475 n scottsdale rd
@@ -226,7 +226,7 @@ warrens:  # AKA: "Principal Name"
   :employee_id:      '00001'
   :employee_status:  Active
   :employee_type:    Professional
-  :salary:           120,000.00
+  :salary:           120000.00
   :primary_department_code: 'OSP'
   :first_name:       Sean
   :last_name:        Warren
@@ -263,3 +263,50 @@ warrens:  # AKA: "Principal Name"
     - '131' # OSP Administrator
   :role_qualifiers:
     :110: '000001'
+cate:
+  :description:      creating test aor user
+  :affiliation_type: Medical Staff
+  :campus_code:      'IN - INDIANAPOLIS'
+  :employee_id:      cate
+  :employee_status:  Active
+  :employee_type:    Professional
+  :salary:           120000.00
+  :primary_department_code: 'IN-MDEP'
+  :first_name:       Allyson
+  :last_name:        Cate
+  :primary_title:    Proposal Creator
+  :directory_title:  Proposal Creator
+  :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
+  :era_commons_user_name: aoiupowyvjn
+  :directory_department:  Humanities
+  :graduate_student_count: '0'
+  :billing_element:  bla bla bla
+  :addresses:
+    - :type:    Work
+      :line_1:  1125 Kuali Drive
+      :city:    Coeus
+      :state:   MASSACHUSETTS
+      :country: United States
+      :zip:     53421
+      :default: :set
+  :phones:
+    - :type:    Facsimile
+      :number:  321-321-1204
+      :default: :set
+      :country: United States
+    - :type:    Work
+      :number:  321-321-1265
+      :default: :clear
+      :country: United States
+  :emails:
+    - :email:   kc-qa-notify@rsmart.com
+      :type:    Work
+      :default: :set
+  :groups:
+    - '2001'
+    - '2003' # ProposalAdmin
+    - '2004'
+  :roles:
+    - '111' # OSPApprover
+  :role_qualifiers:
+    :111: 'IN-MED'

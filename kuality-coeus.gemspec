@@ -1,6 +1,6 @@
 spec = Gem::Specification.new do |s|
   s.name = 'kuality-coeus'
-  s.version = '0.0.3'
+  s.version = '0.0.4'
   s.summary = %q{rSmart's test framework for BDD testing of Kuali Coeus}
   s.description = %q{This gem is used for creating test scripts for Kuali Coeus.}
   s.files = Dir.glob("**/**/**")
