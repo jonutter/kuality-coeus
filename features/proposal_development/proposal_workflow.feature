@@ -7,6 +7,7 @@ Feature: Proposal Workflows and Routing
 #=================
 # Proposal Actions
 #=================
+  @test
   Scenario Outline: Proposal is successfully routed to PI for action
     Given users exist with the following roles: OSPApprover, Proposal Creator, Unassigned
     And   I log in with the Proposal Creator user
@@ -55,13 +56,20 @@ Feature: Proposal Workflows and Routing
     And   I submit a new development proposal into routing
     When  I blanket approve the proposal
     Then  the proposal status should be Approval Granted
-  @test
+
   Scenario: Aggregator successfully recalls a routed proposal
     Given a user exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
     And   I submit a new development proposal into routing
     When  I recall the proposal
     Then  the proposal status should be Revisions Requested
+
+  Scenario: Successful submission of a Private Profit proposal document into routing
+    When  I complete a valid simple proposal for a 'Private Profit' organization
+    And   submit the proposal
+    Then  The proposal should immediately have a status of 'Approval Pending'
+    And   The proposal route log's 'Actions Taken' should include 'COMPLETED'
+    And   The proposal's 'Future Action Requests' should include 'PENDING APPROVE' for the principal investigator
 
 #=================
 # Notifications
