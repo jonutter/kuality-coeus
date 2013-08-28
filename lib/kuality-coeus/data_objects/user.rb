@@ -36,6 +36,10 @@ class UserCollection < Hash
     self.find{ |user| user[1][:era_commons_user_name]==username }[0]
   end
 
+  def grants_gov_pi
+    self.find_all { |user| !user[1][:primary_department_code].nil? }.shuffle[0][0]
+  end
+
 end
 
 class UserObject
