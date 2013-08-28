@@ -223,6 +223,7 @@ class ProposalDevelopmentObject
         page.send_fyi
       end
     elsif type == :to_s2s
+      view :s2s
       on S2S do |page|
         @status=page.document_status
       end

@@ -52,7 +52,7 @@ Given /^users exist with the following roles: (.*)$/ do |roles|
 end
 
 Given /^a user exists that can be a PI for Grants.gov proposals$/ do
-  @grants_gov_pi = make_user(user: UserObject::USERS.grants_gov_pi)
+  @grants_gov_pi = make_user user: UserObject::USERS.grants_gov_pi
   @grants_gov_pi.create unless @grants_gov_pi.exists?
 end
 

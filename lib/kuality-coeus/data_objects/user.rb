@@ -29,15 +29,12 @@ class UserCollection < Hash
     self.find_all{|user| user[1][:primary_dept_code]==code }.shuffle
   end
 
-  # This is a short cut to "knowing" which user can be used as a PI for
-  # a Grants.gov proposal. At some point this should be eliminated--as in,
-  # when we know better what exactly a grants.gov PI requires.
-  def era_commons_user(username)
-    self.find{ |user| user[1][:era_commons_user_name]==username }[0]
-  end
-
   def grants_gov_pi
-    self.find_all { |user| !user[1][:primary_department_code].nil? }.shuffle[0][0]
+    self.find_all { |user| !user[1][:primary_department_code].nil? &&
+                           !user[1][:phones].find{|phone| phone[:type]=='Work'}.nil? &&
+                           !user[1][:emails].find{|email| email[:type]=='Work'}.nil? &&
+                           !user[1][:era_commons_user_name].nil?
+    }.shuffle[0][0]
   end
 
 end
