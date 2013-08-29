@@ -74,7 +74,7 @@ class BasePage < PageFactory
     def search_results_table
       element(:results_table) { |b| b.frm.table(id: 'row') }
 
-      action(:edit_item) { |match, p| p.results_table.row(text: /#{match}/m).link(text: 'edit').click; b.use_new_tab; b.close_parents }
+      action(:edit_item) { |match, p| p.results_table.row(text: /#{match}/m).link(text: 'edit').click; p.use_new_tab; p.close_parents }
       alias_method :edit_person, :edit_item
 
       action(:item_row) { |match, b| b.results_table.row(text: /#{match}/m) }
