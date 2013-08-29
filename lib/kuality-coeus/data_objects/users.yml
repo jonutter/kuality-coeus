@@ -2,6 +2,7 @@ admin:
   :first_name: admin
   :last_name:  admin
 unassigneduser: # AKA: "Principal Name
+  :user_name:        unassigneduser
   :description:      creating user with 'unassigned' role
   :affiliation_type: Student
   :campus_code:      'UN - UNIVERSITY'
@@ -34,6 +35,7 @@ unassigneduser: # AKA: "Principal Name
   :role_qualifiers:
     :106: '000001'
 poolej: # AKA: "Principal Name
+  :user_name:        poolej
   :description:      User who can submit to grants.gov
   :affiliation_type: Staff
   :campus_code:      'UN - UNIVERSITY'
@@ -88,6 +90,7 @@ poolej: # AKA: "Principal Name
     :108: '000001'
     :107: '000001'
 cleganeg:  # AKA: "Principal Name"
+  :user_name:        cleganeg
   :description:      creating osp approver
   :affiliation_type: Faculty
   :campus_code:      'UN - UNIVERSITY'
@@ -133,6 +136,7 @@ cleganeg:  # AKA: "Principal Name"
   :roles:
     - '100' # OSPApprover
 starka:  # AKA: "Principal Name"
+  :user_name:        starka
   :description:      creating test user with manager permissions
   :affiliation_type: Other Academic Group
   :campus_code:      'UN - UNIVERSITY'
@@ -178,6 +182,7 @@ starka:  # AKA: "Principal Name"
     :111: '000001'
     :110: '000001'
 martelld:  # AKA: "Principal Name"
+  :user_name:        martelld
   :description:      creating test user with aggregator permissions
   :affiliation_type: Other Academic Group
   :campus_code:      'UN - UNIVERSITY'
@@ -220,6 +225,7 @@ martelld:  # AKA: "Principal Name"
   :role_qualifiers:
     :110: '000001'
 warrens:  # AKA: "Principal Name"
+  :user_name:        warrens
   :description:      creating test aor user
   :affiliation_type: Staff
   :campus_code:      'UN - UNIVERSITY'

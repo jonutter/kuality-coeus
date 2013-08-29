@@ -100,9 +100,10 @@ class UserObject
                  opts[:user]
                when opts.key?(:role)
                  USERS.have_role(ROLES[opts[:role]])[0][0]
+               else
+                 :nil
                end
-    defaults = USERS[@user_name]
-    options = defaults.nil? ? opts : defaults.merge(opts)
+    options = USERS[@user_name].nil? ? opts : USERS[@user_name].merge(opts)
     set_options options
   end
 
