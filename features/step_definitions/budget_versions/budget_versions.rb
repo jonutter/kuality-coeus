@@ -100,3 +100,7 @@ end
 Then /^I see an error that only one version can be final$/ do
   on(BudgetVersions).errors.should include 'Only one Budget Version can be marked "Final".'
 end
+When /^I? ?create a budget version with cost sharing for the proposal$/ do
+  @proposal.add_budget_version cost_sharing: random_dollar_value(1000000)
+  @proposal.budget_versions[0].cost_sharing_distribution_list
+end

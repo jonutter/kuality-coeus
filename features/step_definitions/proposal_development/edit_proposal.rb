@@ -2,6 +2,10 @@ When /^I? ?recall the proposal$/ do
   @proposal.recall
 end
 
+When /^I? ?reject the proposal$/ do
+  @proposal.reject
+end
+
 When /^I? ?complete a valid simple proposal for a '(.*)' organization$/ do |org|
   @proposal = create ProposalDevelopmentObject, sponsor_type_code: org
   @proposal.add_principal_investigator

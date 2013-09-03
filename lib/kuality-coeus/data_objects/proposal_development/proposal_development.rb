@@ -198,6 +198,10 @@ class ProposalDevelopmentObject
     @status=on(Proposal).document_status
   end
 
+  def reject
+    # TODO - Coeus is buggy right now
+  end
+
   def close
     open_proposal
     on(Proposal).close
