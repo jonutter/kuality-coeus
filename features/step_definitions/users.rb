@@ -61,3 +61,7 @@ Given /^an AOR user exists$/ do
   @aor = make_user user: 'quickstart'
   @aor.create unless @aor.exists?
 end
+
+When /^I? ?create an unassigned user$/ do
+  @user = create UserObject, type: 'unassigned'
+end

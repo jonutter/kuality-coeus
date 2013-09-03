@@ -13,7 +13,7 @@ class GroupObject
 
     defaults = {
       type:        'Default',
-      namespace:   '::random::',
+      namespace:   'KC-UNT - Kuali Coeus - Department',
       name:        random_alphanums,
       assignees:   AssigneesCollection.new
     }
@@ -33,7 +33,7 @@ class GroupObject
   end
 
   def add_assignee(opts={})
-    assignee = make AssigneeObject, opts
+    assignee = make GroupAssigneeObject, opts
     view
     assignee.create
     @assignees << assignee
@@ -47,7 +47,6 @@ class GroupObject
       page.edit_item @name
     end
   end
-
 
   # =========
   private

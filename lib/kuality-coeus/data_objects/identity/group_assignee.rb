@@ -1,4 +1,4 @@
-class AssigneeObject
+class GroupAssigneeObject
 
   include Foundry
   include DataFactory
