@@ -57,8 +57,8 @@ Given /^a user exists that can be a PI for Grants.gov proposals$/ do
 end
 
 Given /^an AOR user exists$/ do
-  # TODO: Using the quickstart user here is cheating. Fix this.
-  @aor = make_user user: 'quickstart'
+  # TODO: Using the username here is cheating. Fix this.
+  @aor = make_user user: 'warrens'
   @aor.create unless @aor.exists?
 end
 

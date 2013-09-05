@@ -35,8 +35,8 @@ class GroupAssigneeObject
 
 end
 
-class AssigneesCollection < Array
+class GrAssigneesCollection < CollectionsFactory
 
-
+  contains GroupAssigneeObject
 
 end

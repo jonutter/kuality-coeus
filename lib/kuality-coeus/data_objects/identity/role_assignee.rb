@@ -33,3 +33,9 @@ class RoleAssigneeObject
   # =========
 
 end
+
+class RoleAssigneesCollection < CollectionsFactory
+
+  contains RoleAssigneeObject
+
+end

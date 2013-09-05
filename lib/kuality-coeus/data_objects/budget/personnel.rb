@@ -46,7 +46,7 @@ class BudgetPersonnelObject
       page.save
       page.expand_all
       page.person.select "#{@name} - #{@job_code}"
-      sleep 1 # this is required because the select list contents get updated when the person is selected.
+      sleep 1 # this is required because the select list contains get updated when the person is selected.
       page.object_code_name.pick! @object_code_name
       page.add_details
       page.expand_all
@@ -128,8 +128,8 @@ class BudgetPersonnelObject
 
 end
 
-class BudgetPersonnelCollection < Array
+class BudgetPersonnelCollection < CollectionsFactory
 
-
+  contains BudgetPersonnelObject
 
 end

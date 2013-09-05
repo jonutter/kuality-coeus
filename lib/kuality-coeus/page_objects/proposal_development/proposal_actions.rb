@@ -41,6 +41,15 @@ class ProposalActions < ProposalDevelopmentDocument
   element(:link_budget_type) { |b| b.frm.select(id: 'newHierarchyBudgetTypeCode') }
   action(:link_to_hierarchy) { |b| b.frm.button(name: 'methodToCall.linkToHierarchy.anchorProposalHierarchy').click }
 
+  # Budget Data Override
+
+  element(:budget_field) { |b| b.frm.select(name: 'newBudgetChangedData.columnName') }
+  element(:budget_old_display_value) { |b| b.frm.text_field(name: 'newBudgetChangedData.oldDisplayValue') }
+  element(:budget_display_value) { |b| b.frm.text_field(name: 'newBudgetChangedData.displayValue') }
+  element(:budget_changed_value) { |b| b.frm.text_field(name: 'newBudgetChangedData.changedValue') }
+  element(:budget_comment) { |b| b.frm.text_field(name: 'newBudgetChangedData.comments') }
+  action(:add_budget_change_data) { |b| b.frm.button(name: 'methodToCall.addProposalBudgetChangedData.anchorBudgetDataOverride').click; b.loading }
+
   # Ad Hoc Recipients
 
   element(:person_action_requested) { |b| b.frm.select(name: 'newAdHocRoutePerson.actionRequested') }

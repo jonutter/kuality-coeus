@@ -8,6 +8,6 @@ spec = Gem::Specification.new do |s|
   s.authors = ["Abraham Heward", "Jon Utter"]
   s.email = %w{"aheward@rsmart.com" "jutter@rsmart.com"}
   s.homepage = 'https://github.com/rSmart'
-  s.add_dependency 'test-factory', '>= 0.2.9'
+  s.add_dependency 'test-factory', '>= 0.3.1'
   s.required_ruby_version = '>= 1.9.3'
 end

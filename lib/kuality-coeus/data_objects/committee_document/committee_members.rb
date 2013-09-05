@@ -10,7 +10,7 @@ class CommitteeMemberObject
     @browser = browser
 
     defaults = {
-      roles: MemberRolesCollection.new
+      roles: MemberRolesCollection.new(@browser)
     }
 
     set_options(defaults.merge(opts))
@@ -25,6 +25,8 @@ class CommitteeMemberObject
 
 end # CommitteeMemberObject
 
-class CommitteeMemberCollection < Array
+class CommitteeMemberCollection < CollectionsFactory
+
+  contains CommitteeMemberObject
 
 end # CommitteeMemberCollection

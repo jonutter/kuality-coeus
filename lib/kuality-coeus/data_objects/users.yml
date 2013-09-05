@@ -232,12 +232,12 @@ warrens:  # AKA: "Principal Name"
   :employee_id:      '00001'
   :employee_status:  Active
   :employee_type:    Professional
-  :salary:           120000.00
+  :base_salary:      120000.00
   :primary_department_code: 'OSP'
   :first_name:       Sean
   :last_name:        Warren
-  :primary_title:    OSPApprover
-  :directory_title:  OSPApprover
+  :primary_title:    OSP Superuser
+  :directory_title:  OSP Superuser
   :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
   :era_commons_user_name: swarren
   :directory_department:  Humanities
@@ -268,3 +268,46 @@ warrens:  # AKA: "Principal Name"
     - '110' # Aggregator
   :role_qualifiers:
     :110: '000001'
+lannister:  # AKA: "Principal Name"
+  :user_name:        lannister
+  :description:      OSP Administrator
+  :affiliation_type: Staff
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      lannister
+  :employee_status:  Active
+  :employee_type:    Professional
+  :base_salary:      234567.89
+  :primary_department_code: '000001'
+  :first_name:       Tyrion
+  :last_name:        Lannister
+  :primary_title:    OSP Administrator
+  :directory_title:  OSP Administrator
+  :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
+  :era_commons_user_name: lannister
+  :directory_department:  Finance
+  :graduate_student_count: '0'
+  :billing_element:  bla bla bla
+  :addresses:
+    - :type:    Work
+      :line_1:  475 N scottsdale rd
+      :city:    scottsdale
+      :state:   ARIZONA
+      :country: United States
+      :zip:     85257
+      :default: :set
+  :phones:
+    - :type:    Work
+      :number:  602-228-3876
+      :default: :set
+    - :type:    Facsimile
+      :number:  555-555-5555
+      :default: :clear
+      :country: United States
+  :emails:
+    - :email:   kc-qa-notify@rsmart.com
+      :type:    Work
+      :default: :set
+  :roles:
+    - '131' # OSP Administrator
+  :role_qualifiers:
+    :131: '000001'

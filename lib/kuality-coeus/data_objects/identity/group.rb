@@ -15,7 +15,7 @@ class GroupObject
       type:        'Default',
       namespace:   'KC-UNT - Kuali Coeus - Department',
       name:        random_alphanums,
-      assignees:   AssigneesCollection.new
+      assignees:   GrAssigneesCollection.new(@browser)
     }
 
     set_options(defaults.merge(opts))
@@ -33,10 +33,8 @@ class GroupObject
   end
 
   def add_assignee(opts={})
-    assignee = make GroupAssigneeObject, opts
     view
-    assignee.create
-    @assignees << assignee
+    @assignees.add @browser, opts
   end
 
   def view

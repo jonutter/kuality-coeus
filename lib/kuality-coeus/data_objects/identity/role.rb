@@ -16,7 +16,7 @@ class RoleObject
         type:             'Unit',
         name:             random_alphanums,
         namespace:        'KC-UNT - Kuali Coeus - Department',
-        assignees:        AssigneesCollection.new,
+        assignees:        RoleAssigneesCollection.new(@browser),
         permissions:      [],
         responsibilities: [],
         # TODO: Add this when needed:
@@ -61,9 +61,7 @@ class RoleObject
 
   def add_assignee(opts)
     view # TODO: Add conditional navigation code here
-    assignee = make RoleAssigneeObject, opts
-    assignee.create
-    @assignees << assignee
+    @assignees.add @browser, opts
   end
 
   def view

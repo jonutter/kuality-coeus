@@ -32,8 +32,8 @@ class DegreeObject
 
 end
 
-class DegreesCollection < Array
+class DegreesCollection < CollectionsFactory
 
-
+  contains DegreeObject
 
 end

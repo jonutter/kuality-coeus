@@ -23,6 +23,8 @@ class MemberRolesObject
 
 end # MemberRolesObject
 
-class MemberRolesCollection < Array
+class MemberRolesCollection < CollectionsFactory
+
+  contains MemberRolesObject
 
 end # MemberRolesCollection

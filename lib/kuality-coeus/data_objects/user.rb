@@ -1,3 +1,4 @@
+# This is a special collection class that inherits from Hash!
 class UserCollection < Hash
 
   # Returns an array of all users with the specified role. Takes the role name as a string.
@@ -127,6 +128,7 @@ class UserObject
                  :nil
                end
     options = USERS[@user_name].nil? ? defaults : USERS[@user_name].merge(opts)
+
     set_options options
   end
 

@@ -4,9 +4,6 @@ Feature: Proposal Workflows and Routing
   take actions against a proposal that will navigate it through various routes
   in workflow.
 
-#=================
-# Proposal Actions
-#=================
   Scenario Outline: Proposal is successfully routed to PI for action
     Given users exist with the following roles: OSPApprover, Proposal Creator, Unassigned
     And   I log in with the Proposal Creator user
@@ -63,9 +60,6 @@ Feature: Proposal Workflows and Routing
     When  I recall the proposal
     Then  the proposal status should be Revisions Requested
 
-#=================
-# Notifications
-#=================
   Scenario: Successful delivery of an FYI from a development proposal
     Given users exist with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
@@ -74,3 +68,17 @@ Feature: Proposal Workflows and Routing
     And   I log in with the OSPApprover user
     Then  I should receive an action list item with the requested action being: FYI
     And   I can acknowledge the requested action list item
+  @test @wip @broken
+  Scenario: An OSP Admin overrides a budget cost sharing
+    Given users exist with the following roles: Proposal Creator, OSP Administrator
+    And   I log in with the Proposal Creator user
+    And   initiate a proposal
+    And   add a principal investigator
+    And   set valid credit splits for the proposal
+    And   create a budget version with cost sharing for the proposal
+    And   finalize the budget version
+    And   mark the budget version complete
+    And   complete the required custom fields on the proposal
+    And   submit the proposal
+    When  I log in with the OSP Administrator user
+    Then  I can override the cost sharing amount

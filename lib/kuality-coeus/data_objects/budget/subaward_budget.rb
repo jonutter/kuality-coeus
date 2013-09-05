@@ -56,8 +56,8 @@ class SubawardBudgetObject
 
 end
 
-class SubawardBudgetCollection < Array
+class SubawardBudgetCollection < CollectionsFactory
 
-
+  contains SubawardBudgetObject
 
 end

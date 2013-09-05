@@ -29,11 +29,11 @@ class ProposalDevelopmentObject
       sponsor_deadline_date: next_week[:date_w_slashes],
       mail_by:               '::random::',
       mail_type:             '::random::',
-      key_personnel:         KeyPersonnelCollection.new,
-      special_review:        SpecialReviewCollection.new,
-      budget_versions:       BudgetVersionsCollection.new,
-      personnel_attachments: PersonnelAttachmentsCollection.new,
-      proposal_attachments:  ProposalAttachmentsCollection.new
+      key_personnel:         KeyPersonnelCollection.new(@browser),
+      special_review:        SpecialReviewCollection.new(@browser),
+      budget_versions:       BudgetVersionsCollection.new(@browser),
+      personnel_attachments: PersonnelAttachmentsCollection.new(@browser),
+      proposal_attachments:  ProposalAttachmentsCollection.new(@browser)
     }
 
     set_options(defaults.merge(opts))
@@ -84,7 +84,7 @@ class ProposalDevelopmentObject
   end
 
   def add_key_person opts={}
-    @key_personnel << prep(KeyPersonObject, opts)
+    @key_personnel.add merge_settings(opts)
   end
   # This alias is recommended only for when
   # using this method with no options.
@@ -123,12 +123,12 @@ class ProposalDevelopmentObject
   end
 
   def add_special_review opts={}
-    @special_review << prep(SpecialReviewObject, opts)
+    @special_review.add merge_settings(opts)
   end
 
   def add_budget_version opts={}
     opts[:version] ||= (@budget_versions.size+1).to_s
-    @budget_versions << prep(BudgetVersionsObject, opts)
+    @budget_versions.add merge_settings(opts)
   end
 
   def add_custom_data opts={}
@@ -136,17 +136,11 @@ class ProposalDevelopmentObject
   end
 
   def add_proposal_attachment opts={}
-    merge_settings(opts)
-    p_a = make ProposalAttachmentObject, opts
-    p_a.add
-    @proposal_attachments << p_a
+    @proposal_attachments.add merge_settings(opts)
   end
 
   def add_personnel_attachment opts={}
-    merge_settings(opts)
-    p_a = make PersonnelAttachmentObject, opts
-    p_a.add
-    @personnel_attachments << p_a
+    @personnel_attachments.add merge_settings(opts)
   end
 
   def complete_s2s_questionnaire opts={}

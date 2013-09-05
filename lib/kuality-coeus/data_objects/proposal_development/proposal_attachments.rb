@@ -12,7 +12,7 @@ class ProposalAttachmentObject
     requires :document_id, :type, :file_name
   end
 
-  def add
+  def create
     navigate
     on AbstractsAndAttachments do |attach|
       attach.expand_all
@@ -34,8 +34,8 @@ class ProposalAttachmentObject
 
 end
 
-class ProposalAttachmentsCollection < Array
+class ProposalAttachmentsCollection < CollectionsFactory
 
-
+  contains ProposalAttachmentObject
 
 end

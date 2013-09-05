@@ -130,3 +130,13 @@ Then /^the user should be able to create a proposal$/ do
   @user.sign_in
   expect{create ProposalDevelopmentObject}.not_to raise_error
 end
+
+Then /^I? ?can override the cost sharing amount$/ do
+  @proposal.view 'Proposal Actions'
+  on ProposalActions do |page|
+    page.expand_all
+    expect{page.budget_field.set 'Cost Sharing Amount'}.not_to raise_error
+    page.budget_changed_value.set '100'
+    expect{page.add_budget_change_data}.not_to raise_error
+  end
+end
