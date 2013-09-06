@@ -67,15 +67,17 @@ class BudgetColumnObject
     on BudgetColumnsToAlterLookup do |look|
       look.column_name.select @name
       look.search
-    end
-    begin
-      if look.item_row(@name).present?
-        return true
-      else
+
+      begin
+        if look.results_table.present?
+          return true
+        else
+          return false
+        end
+      rescue
         return false
       end
-    rescue
-      return false
+
     end
   end
 
