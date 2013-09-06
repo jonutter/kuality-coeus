@@ -22,16 +22,9 @@ class BudgetColumnObject
 
   def create
     if exists?
-      # We need to validate that the existing settings match
-      # this
-      view(true)
-      on BudgetColumnToAlter do |edit|
-        edit.has_lookup.fit @has_lookup
-        edit.lookup_argument.pick! @lookup_argument
-        edit.lookup_return.pick! @lookup_return
-        edit.description.set random_alphanums
-        edit.blanket_approve
-      end
+      # TODO: Determine if this clause is even necessary...
+      edit has_lookup: @has_lookup, lookup_argument: @lookup_argument,
+           lookup_return: @lookup_return
     else
       on(BudgetColumnsToAlterLookup).create
       on BudgetColumnToAlter do |create|
@@ -47,12 +40,24 @@ class BudgetColumnObject
     end
   end
 
-  def view(in_create=false)
-    if in_create
+  def view(in_class=false)
+    if in_class
       # add navigation code here, because we're using this method outside
       # of the create method
     end
     on(BudgetColumnsToAlterLookup).edit_first_item
+  end
+
+  def edit opts={}
+    view(true)
+    on BudgetColumnToAlter do |edit|
+      edit.has_lookup.fit opts[:has_lookup]
+      edit.lookup_argument.pick! opts[:lookup_argument]
+      edit.lookup_return.pick! opts[:lookup_return]
+      edit.description.set random_alphanums
+      edit.blanket_approve
+    end
+    update_options opts
   end
 
   def exists?
