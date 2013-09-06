@@ -49,7 +49,7 @@ class UserObject
   attr_accessor :user_name, :principal_id,
                 :first_name, :last_name,
                 :description, :affiliation_type, :campus_code,
-                :employee_id, :employee_status, :employee_type, :base_salary, :primary_dept_code,
+                :employee_id, :employee_status, :employee_type, :base_salary, :primary_department_code,
                 :groups, :roles, :role_qualifiers, :addresses, :phones, :emails,
                 :primary_title, :directory_title, :citizenship_type,
                 :era_commons_user_name, :graduate_student_count, :billing_element,
@@ -166,7 +166,8 @@ class UserObject
       # TODO: Another thing that will need to be changed if ever there's a need to test multiple
       # lines of employment:
       unless @employee_id.nil?
-        fill_out add, :employee_id, :employee_status, :employee_type, :base_salary, :primary_dept_code
+        fill_out add, :employee_id, :employee_status, :employee_type, :base_salary,
+                 :primary_department_code
         add.primary_employment.set
         add.add_employment_information
       end

@@ -232,7 +232,7 @@ warrens:  # AKA: "Principal Name"
   :employee_id:      '00001'
   :employee_status:  Active
   :employee_type:    Professional
-  :base_salary:      120000.00
+  :base_salary:      123456.78
   :primary_department_code: 'OSP'
   :first_name:       Sean
   :last_name:        Warren
@@ -254,6 +254,10 @@ warrens:  # AKA: "Principal Name"
   :phones:
     - :type:    Facsimile
       :number:  555-555-5555
+      :default: :clear
+      :country: United States
+    - :type:    Work
+      :number:  480-555-1212
       :default: :set
       :country: United States
   :emails:
@@ -265,9 +269,11 @@ warrens:  # AKA: "Principal Name"
     - '2003' # ProposalAdmin
   :roles:
     - '100' # OSPApprover
+    - '131' # OSP Administrator
     - '110' # Aggregator
   :role_qualifiers:
     :110: '000001'
+    :131: '000001'
 lannister:  # AKA: "Principal Name"
   :user_name:        lannister
   :description:      OSP Administrator

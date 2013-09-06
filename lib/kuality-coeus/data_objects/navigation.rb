@@ -31,6 +31,18 @@ module Navigation
     end
   end
 
+  def window_cleanup
+    on BasePage do |page|
+      if page.windows.size > 1 && page.portal_window.exists?
+        page.return_to_portal
+        page.close_children
+      elsif page.windows.size > 1
+        page.use_new_tab
+        page.close_parents
+      end
+    end
+  end
+
   # Use in the #create method of your data objects for filling out
   # fields. This method eliminates the need to write repetitive
   # lines of code, with one line for every field needing to be

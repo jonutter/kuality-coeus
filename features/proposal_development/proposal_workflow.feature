@@ -68,9 +68,10 @@ Feature: Proposal Workflows and Routing
     And   I log in with the OSPApprover user
     Then  I should receive an action list item with the requested action being: FYI
     And   I can acknowledge the requested action list item
-  @test @wip @broken
-  Scenario: An OSP Admin overrides a budget cost sharing
-    Given users exist with the following roles: Proposal Creator, OSP Administrator
+
+  Scenario: An OSP Admin overrides a budget's cost sharing amount
+    Given the Budget Column's 'Cost Sharing Amount' has a lookup for 'Proposal Cost Share' that returns 'Amount'
+    And   users exist with the following roles: Proposal Creator, OSP Administrator
     And   I log in with the Proposal Creator user
     And   initiate a proposal
     And   add a principal investigator

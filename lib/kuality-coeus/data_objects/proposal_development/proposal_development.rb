@@ -40,15 +40,7 @@ class ProposalDevelopmentObject
   end
     
   def create
-    on BasePage do |page|
-      if page.windows.size > 1 && page.portal_window.exists?
-        page.return_to_portal
-        page.close_children
-      elsif page.windows.size > 1
-        page.use_new_tab
-        page.close_parents
-      end
-    end
+    window_cleanup
     visit(Researcher).create_proposal
     on Proposal do |doc|
       @doc_header=doc.doc_title
@@ -168,7 +160,7 @@ class ProposalDevelopmentObject
   end
 
   def delete
-    proposal_actions
+    view 'Proposal Actions'
     on(ProposalActions).delete_proposal
     on(Confirmation).yes
     # Have to update the data object's status value
@@ -211,7 +203,7 @@ class ProposalDevelopmentObject
   def submit(type=:s)
     types={:s=>:submit, :ba=>:blanket_approve,
            :to_sponsor=>:submit_to_sponsor, :to_s2s=>:submit_to_s2s}
-    proposal_actions
+    view 'Proposal Actions'
     on(ProposalActions).send(types[type])
     if type==:to_sponsor
       on NotificationEditor do |page|
@@ -285,11 +277,6 @@ class ProposalDevelopmentObject
         @lead_unit=prop.lead_unit_ro
       end
     end
-  end
-
-  def proposal_actions
-    open_proposal
-    on(Proposal).proposal_actions
   end
 
   def prep(object_class, opts)
