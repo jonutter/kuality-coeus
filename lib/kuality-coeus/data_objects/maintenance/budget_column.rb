@@ -43,7 +43,7 @@ class BudgetColumnObject
   def view(in_class=false)
     if in_class
       # add navigation code here, because we're using this method outside
-      # of the create method
+      # of the class methods
     end
     on(BudgetColumnsToAlterLookup).edit_first_item
   end
@@ -51,10 +51,10 @@ class BudgetColumnObject
   def edit opts={}
     view(true)
     on BudgetColumnToAlter do |edit|
+      edit.description.set random_alphanums
       edit.has_lookup.fit opts[:has_lookup]
       edit.lookup_argument.pick! opts[:lookup_argument]
       edit.lookup_return.pick! opts[:lookup_return]
-      edit.description.set random_alphanums
       edit.blanket_approve
     end
     update_options opts
