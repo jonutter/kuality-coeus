@@ -449,6 +449,12 @@ smalkmus: # AKA: "Principal Name"
      :type:    Work
      :default: :set
   :roles:
-   - '128' # IRB Administrator
+   - '99'   # IRB Approver
+   - '104'  # Protocol Viewer
+   - '105'  # Protocol Aggregator
+   - '128'  # IRB Administrator
+   - '129'  # Protocol Creator
+   - '149'  # Protocol Approver
+   - '1651' # IACUC Approver
   :role_qualifiers:
    :128: '000001'
