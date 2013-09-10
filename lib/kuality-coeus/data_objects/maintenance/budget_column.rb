@@ -22,7 +22,6 @@ class BudgetColumnObject
 
   def create
     if exists?
-      # TODO: Determine if this clause is even necessary...
       edit has_lookup: @has_lookup, lookup_argument: @lookup_argument,
            lookup_return: @lookup_return
     else
