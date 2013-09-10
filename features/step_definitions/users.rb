@@ -52,12 +52,16 @@ Given /^users exist with the following roles: (.*)$/ do |roles|
 end
 
 Given /^a user exists that can be a PI for Grants.gov proposals$/ do
-  @grants_gov_pi = make_user(user: UserObject::USERS.grants_gov_pi)
+  @grants_gov_pi = make_user user: UserObject::USERS.grants_gov_pi
   @grants_gov_pi.create unless @grants_gov_pi.exists?
 end
 
 Given /^an AOR user exists$/ do
-  # TODO: Using the quickstart user here is cheating. Fix this.
-  @aor = make_user user: 'quickstart'
+  # TODO: Using the username here is cheating. Fix this.
+  @aor = make_user user: 'warrens'
   @aor.create unless @aor.exists?
+end
+
+When /^I? ?create an unassigned user$/ do
+  @user = create UserObject, type: 'unassigned'
 end

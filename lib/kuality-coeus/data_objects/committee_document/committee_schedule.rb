@@ -22,6 +22,8 @@ class CommitteeScheduleObject
 
 end # CommitteeScheduleObject
 
-class CommitteeScheduleCollection < Array
+class CommitteeScheduleCollection < CollectionsFactory
+
+  contains CommitteeScheduleObject
 
 end

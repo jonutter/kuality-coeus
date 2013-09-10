@@ -10,3 +10,4 @@ test.feature
 *test_spec.rb
 Gemfile
 Gemfile.lock
+*.png

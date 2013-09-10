@@ -18,7 +18,7 @@ class PersonnelAttachmentObject
     requires :document_id, :file_name
   end
 
-  def add
+  def create
     navigate
     on AbstractsAndAttachments do |attach|
       attach.expand_all
@@ -39,8 +39,8 @@ class PersonnelAttachmentObject
 
 end
 
-class PersonnelAttachmentsCollection < Array
+class PersonnelAttachmentsCollection < CollectionsFactory
 
-
+  contains PersonnelAttachmentObject
 
 end

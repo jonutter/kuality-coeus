@@ -21,12 +21,10 @@ class BudgetVersionsObject
     @browser = browser
 
     defaults = {
-      name:              random_alphanums_plus(40),
-      cost_sharing:      '0.00',
-      f_and_a:           '0.00',
-      budget_periods:    BudgetPeriodsCollection.new,
-      subaward_budgets:  SubawardBudgetCollection.new,
-      personnel:         BudgetPersonnelCollection.new
+      name:                           random_alphanums_plus(40),
+      budget_periods:                 BudgetPeriodsCollection.new(@browser),
+      subaward_budgets:               SubawardBudgetCollection.new(@browser),
+      personnel:                      BudgetPersonnelCollection.new(@browser)
     }
 
     set_options(defaults.merge(opts))
@@ -71,11 +69,8 @@ class BudgetVersionsObject
         budget_name: @name,
         doc_type: @doc_header
     }
-    opts.merge!(defaults)
-
-    bp = create BudgetPeriodObject, opts
+    @budget_periods.add defaults.merge(opts)
     return if on(Parameters).errors.size > 0 # No need to continue the method if we have an error
-    @budget_periods << bp
     @budget_periods.number! # This updates the number value of all periods, as necessary
   end
 
@@ -98,7 +93,7 @@ class BudgetVersionsObject
     confirmation
     on Parameters do |edit|
       edit.final.fit opts[:final]
-      edit.budget_status.fit opts[:budget_status]
+      edit.budget_status.fit opts[:status]
       edit.total_direct_cost_limit.fit opts[:total_direct_cost_limit]
       # TODO: More to add here...
       edit.save
@@ -219,7 +214,9 @@ class BudgetVersionsObject
 
 end # BudgetVersionsObject
 
-class BudgetVersionsCollection < Array
+class BudgetVersionsCollection < CollectionsFactory
+
+  contains BudgetVersionsObject
 
   def budget(name)
     self.find { |budget| budget.name==name }

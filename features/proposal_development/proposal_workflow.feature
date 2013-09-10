@@ -4,11 +4,6 @@ Feature: Proposal Workflows and Routing
   take actions against a proposal that will navigate it through various routes
   in workflow.
 
-#=================
-# Proposal Actions
-
-#=================
-  @test
   Scenario Outline: Proposal is successfully routed to PI for action
     Given users exist with the following roles: OSPApprover, Proposal Creator, Unassigned
     And   I log in with the Proposal Creator user
@@ -57,7 +52,7 @@ Feature: Proposal Workflows and Routing
     And   I submit a new development proposal into routing
     When  I blanket approve the proposal
     Then  the proposal status should be Approval Granted
-
+  @test
   Scenario: Aggregator successfully recalls a routed proposal
     Given a user exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
@@ -65,16 +60,6 @@ Feature: Proposal Workflows and Routing
     When  I recall the proposal
     Then  the proposal status should be Revisions Requested
 
-  Scenario: Successful submission of a Private Profit proposal document into routing
-    When  I complete a valid simple proposal for a 'Private Profit' organization
-    And   submit the proposal
-    Then  The proposal should immediately have a status of 'Approval Pending'
-    And   The proposal route log's 'Actions Taken' should include 'COMPLETED'
-    And   The proposal's 'Future Action Requests' should include 'PENDING APPROVE' for the principal investigator
-
-#=================
-# Notifications
-#=================
   Scenario: Successful delivery of an FYI from a development proposal
     Given users exist with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
@@ -83,3 +68,18 @@ Feature: Proposal Workflows and Routing
     And   I log in with the OSPApprover user
     Then  I should receive an action list item with the requested action being: FYI
     And   I can acknowledge the requested action list item
+
+  Scenario: An OSP Admin overrides a budget's cost sharing amount
+    Given the Budget Column's 'Cost Sharing Amount' has a lookup for 'Proposal Cost Share' that returns 'Amount'
+    And   users exist with the following roles: Proposal Creator, OSP Administrator
+    And   I log in with the Proposal Creator user
+    And   initiate a proposal
+    And   add a principal investigator
+    And   set valid credit splits for the proposal
+    And   create a budget version with cost sharing for the proposal
+    And   finalize the budget version
+    And   mark the budget version complete
+    And   complete the required custom fields on the proposal
+    And   submit the proposal
+    When  I log in with the OSP Administrator user
+    Then  I can override the cost sharing amount

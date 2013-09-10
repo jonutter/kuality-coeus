@@ -52,6 +52,8 @@ class AwardTransactionObject
 
 end # AwardTransactionObject
 
-class TransactionCollection < Array
+class TransactionCollection < CollectionsFactory
+
+  contains AwardTransactionObject
 
 end # TransactionCollection

@@ -1,3 +1,4 @@
+# This is a special collection class that inherits from Hash!
 class UserCollection < Hash
 
   # Returns an array of all users with the specified role. Takes the role name as a string.
@@ -29,15 +30,12 @@ class UserCollection < Hash
     self.find_all{|user| user[1][:primary_dept_code]==code }.shuffle
   end
 
-  # This is a short cut to "knowing" which user can be used as a PI for
-  # a Grants.gov proposal. At some point this should be eliminated--as in,
-  # when we know better what exactly a grants.gov PI requires.
-  def era_commons_user(username)
-    self.find{ |user| user[1][:era_commons_user_name]==username }[0]
-  end
-
   def grants_gov_pi
-    self.find_all { |user| !user[1][:primary_department_code].nil? }.shuffle[0][0]
+    self.find_all { |user| !user[1][:primary_department_code].nil? &&
+                           !user[1][:phones].find{|phone| phone[:type]=='Work'}.nil? &&
+                           !user[1][:emails].find{|email| email[:type]=='Work'}.nil? &&
+                           !user[1][:era_commons_user_name].nil?
+    }.shuffle[0][0]
   end
 
 end
@@ -51,7 +49,7 @@ class UserObject
   attr_accessor :user_name, :principal_id,
                 :first_name, :last_name,
                 :description, :affiliation_type, :campus_code,
-                :employee_id, :employee_status, :employee_type, :base_salary, :primary_dept_code,
+                :employee_id, :employee_status, :employee_type, :base_salary, :primary_department_code,
                 :groups, :roles, :role_qualifiers, :addresses, :phones, :emails,
                 :primary_title, :directory_title, :citizenship_type,
                 :era_commons_user_name, :graduate_student_count, :billing_element,
@@ -96,6 +94,29 @@ class UserObject
 
   def initialize(browser, opts={})
     @browser = browser
+
+    defaults={
+        user_name:        random_letters(16),
+        description:      random_alphanums,
+        affiliation_type: 'Student',
+        campus_code:      'UN - UNIVERSITY',
+        first_name:       random_alphanums,
+        last_name:        random_alphanums,
+        addresses:        [{ type:    'Work',
+                            line_1:  '1375 N Scottsdale Rd',
+                            city:    'scottsdale',
+                            state:   'ARIZONA',
+                            country: 'United States',
+                            zip:     '85257',
+                            default: :set }],
+        phones:           [{ type:    'Work',
+                            number:  '602-840-7300',
+                            default: :set }],
+        roles:           ['106'],
+        role_qualifiers: { :"106"=> '000001' }
+    }
+    defaults.merge!(opts)
+
     @user_name=case
                when opts.empty?
                  'admin'
@@ -103,9 +124,11 @@ class UserObject
                  opts[:user]
                when opts.key?(:role)
                  USERS.have_role(ROLES[opts[:role]])[0][0]
+               else
+                 :nil
                end
-    defaults = USERS[@user_name]
-    options = defaults.nil? ? opts : defaults.merge(opts)
+    options = USERS[@user_name].nil? ? defaults : USERS[@user_name].merge(opts)
+
     set_options options
   end
 
@@ -143,7 +166,8 @@ class UserObject
       # TODO: Another thing that will need to be changed if ever there's a need to test multiple
       # lines of employment:
       unless @employee_id.nil?
-        fill_out add, :employee_id, :employee_status, :employee_type, :base_salary, :primary_dept_code
+        fill_out add, :employee_id, :employee_status, :employee_type, :base_salary,
+                 :primary_department_code
         add.primary_employment.set
         add.add_employment_information
       end
@@ -198,14 +222,16 @@ class UserObject
       @principal_id = add.principal_id
       add.blanket_approve
     end
-    visit(SystemAdmin).person_extended_attributes
-    on(PersonExtendedAttributesLookup).create
-    on PersonExtendedAttributes do |page|
-      page.expand_all
-      fill_out page, :description, :primary_title, :directory_title, :citizenship_type,
-               :era_commons_user_name, :graduate_student_count, :billing_element,
-               :principal_id, :directory_department
-      page.blanket_approve
+    unless extended_attributes.compact.length==0
+      visit(SystemAdmin).person_extended_attributes
+      on(PersonExtendedAttributesLookup).create
+      on PersonExtendedAttributes do |page|
+        page.expand_all
+        fill_out page, :description, :primary_title, :directory_title, :citizenship_type,
+                 :era_commons_user_name, :graduate_student_count, :billing_element,
+                 :principal_id, :directory_department
+        page.blanket_approve
+      end
     end
     # Now that we're done with the user creation, we can log back in
     # with the other user, if necessary...
@@ -343,6 +369,12 @@ class UserObject
 
   def username_field
     Login.new(@browser).username
+  end
+
+  def extended_attributes
+    [@primary_title, @directory_title, @citizenship_type,
+     @era_commons_user_name, @graduate_student_count, @billing_element,
+     @directory_department]
   end
 
 end

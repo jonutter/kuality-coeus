@@ -19,7 +19,7 @@ class KeyPersonObject
     defaults = {
       role:                            'Principal Investigator',
       units:                           [],
-      degrees:                         DegreesCollection.new,
+      degrees:                         DegreesCollection.new(@browser),
       certified:                       true, # Set this to false if you do not want any Proposal Person Certification Questions answered
       certify_info_true:               'Y',
       potential_for_conflict:          'Y',
@@ -176,9 +176,7 @@ class KeyPersonObject
   def add_degree_info opts={}
     defaults = { document_id: @document_id,
                  person: @full_name }
-    degree = make DegreeObject, defaults.merge(opts)
-    degree.create
-    @degrees << degree
+    @degrees.add defaults.merge(opts)
   end
 
   def delete
@@ -241,7 +239,9 @@ class KeyPersonObject
 
 end # KeyPersonObject
 
-class KeyPersonnelCollection < Array
+class KeyPersonnelCollection < CollectionsFactory
+
+  contains KeyPersonObject
 
   def names
     self.collect { |person| person.full_name }

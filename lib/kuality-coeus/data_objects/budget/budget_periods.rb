@@ -8,18 +8,20 @@ class BudgetPeriodObject
   attr_accessor :number, :start_date, :end_date, :total_sponsor_cost,
                 :direct_cost, :f_and_a_cost, :unrecovered_f_and_a,
                 :cost_sharing, :cost_limit, :direct_cost_limit, :datified,
-                :budget_name
+                :budget_name, :cost_sharing_distribution_list
 
   def initialize(browser, opts={})
     @browser = browser
 
     defaults = {
-      doc_type: 'Budget Document ' # Note: the trailing space is not a typo!
+      doc_type: 'Budget Document ', # Note: the trailing space is not a typo!
+      cost_sharing_distribution_list: CostSharingCollection.new(@browser)
     }
 
     set_options(defaults.merge(opts))
     requires :start_date, :budget_name
     datify
+    add_cost_sharing @cost_sharing
   end
 
   def create
@@ -50,6 +52,7 @@ class BudgetPeriodObject
     end
     set_options(opts)
     datify
+    add_cost_sharing opts[:cost_sharing]
   end
 
   def delete
@@ -93,9 +96,20 @@ class BudgetPeriodObject
     @datified=Date.parse(@start_date[/(?<=\/)\d+$/] + '/' + @start_date[/^\d+\/\d+/])
   end
 
+  def add_cost_sharing(cost_sharing)
+    if !cost_sharing.nil? && cost_sharing.to_f > 0
+      cs = make CostSharingObject, project_period: @number,
+                amount: cost_sharing, source_account: '',
+                index: @cost_sharing_distribution_list.length
+      @cost_sharing_distribution_list << cs
+    end
+  end
+
 end # BudgetPeriodObject
 
-class BudgetPeriodsCollection < Array
+class BudgetPeriodsCollection < CollectionsFactory
+
+  contains BudgetPeriodObject
 
   def period(number)
     self.find { |period| period.number==number }

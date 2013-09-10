@@ -31,5 +31,10 @@ Before do
   @browser = kuality.browser
 end
 
+After do |scenario|
+  @browser.screenshot.save 'screenshot.png'
+  embed 'screenshot.png', 'image/png'
+end
+
 # Comment out to help with debugging...
 # at_exit { kuality.browser.close }

@@ -30,7 +30,7 @@ class AwardObject
       obligation_end_date:   in_a_year, # and again
       anticipated_amount:    '1000000',
       obligated_amount:      '1000000',
-      transactions:       TransactionCollection.new
+      transactions:          TransactionCollection.new(@browser)
     }
 
     set_options(defaults.merge(opts))
@@ -66,10 +66,7 @@ class AwardObject
 
   def add_transaction opts={}
     defaults={award_id: @award_id}
-    options = defaults.merge(opts)
-    trans = make AwardTransactionObject, options
-    trans.create
-    @transactions << trans
+    @transactions.add defaults.merge(opts)
   end
 
   # ========

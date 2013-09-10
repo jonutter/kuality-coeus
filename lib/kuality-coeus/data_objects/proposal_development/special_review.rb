@@ -58,7 +58,9 @@ class SpecialReviewObject
 
 end # SpecialReviewObject
 
-class SpecialReviewCollection < Array
+class SpecialReviewCollection < CollectionsFactory
+
+  contains SpecialReviewObject
 
   def types
     self.collect { |s_r| s_r.type }

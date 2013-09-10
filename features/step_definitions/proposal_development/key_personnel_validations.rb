@@ -6,7 +6,10 @@ end
 
 When /^I? ?add (.*) as a Key Person with a role of (.*)$/ do |user_name, kp_role|
   user = get(user_name)
-  @proposal.add_key_person first_name: user.first_name, last_name: user.last_name, role: 'Key Person', key_person_role: kp_role
+  @proposal.add_key_person first_name: user.first_name,
+                           last_name: user.last_name,
+                           role: 'Key Person',
+                           key_person_role: kp_role
 end
 
 And /^I? ?add a (.*) with a (.*) credit split of (.*)$/ do |role, cs_type, amount|
@@ -28,7 +31,9 @@ When /^I? ?add a co-investigator without a unit$/ do
 end
 
 When /^I? ?add a key person with an invalid unit type$/ do
-  @proposal.add_key_person role: 'Key Person', key_person_role: 'king', units: [{number: 'invalid'}]
+  @proposal.add_key_person role: 'Key Person',
+                           key_person_role: 'king',
+                           units: [{number: 'invalid'}]
 end
 
 Then /^a key personnel error should say (.*)$/ do |error|

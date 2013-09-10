@@ -22,9 +22,9 @@ class CommitteeDocumentObject
       maximum_protocols:      rand(100).to_s,
       adv_submission_days:    rand(365).to_s,
       review_type:            'Full',
-      members:                CommitteeMemberCollection.new,
+      members:                CommitteeMemberCollection.new(@browser),
       areas_of_research:      [],
-      schedule:               CommitteeScheduleCollection.new
+      schedule:               CommitteeScheduleCollection.new(@browser)
     }
 
     set_options(defaults.merge(opts))
