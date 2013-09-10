@@ -17,6 +17,12 @@ module Utilities
     set(un, (make UserObject, opts))
   end
 
+  def make_role(opts={})
+    name = opts[:name]
+    name ||= 'role'
+    set(name, (make RoleObject, opts))
+  end
+
   def snake_case(string)
     StringFactory.damballa(string)
   end

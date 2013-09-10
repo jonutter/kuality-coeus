@@ -61,15 +61,25 @@ class RoleObject
 
   def add_assignee(opts)
     view # TODO: Add conditional navigation code here
-    @assignees.add @browser, opts
+    @assignees.add opts
   end
 
   def view
+    exists?
+    on(RoleLookup).edit_item @name
+  end
+
+  def exists?
     visit(SystemAdmin).role
     on RoleLookup do |look|
-      look.role_id.set @id
+      fill_out look, :name, :id
       look.search
-      look.edit_item @name
+      if look.results_table.present?
+        # TODO: May need to add code that grabs the id value of the Role.
+        return true
+      else
+        return false
+      end
     end
   end
 

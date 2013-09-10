@@ -34,7 +34,7 @@ class GroupObject
 
   def add_assignee(opts={})
     view
-    @assignees.add @browser, opts
+    @assignees.add opts
   end
 
   def view
