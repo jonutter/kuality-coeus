@@ -1,3 +1,4 @@
+require 'singleton'
 require 'test-factory'
 require 'date'
 require 'yaml'

@@ -1,14 +1,21 @@
+# We need this step def because of the special case of
+# the admin user. Its data object is already created
+# and added to the Users collection at the start of the
+# scripts.
+Given /^I'm( signed)? in as the admin$/ do |x|
+  $users.admin.sign_in
+end
+
 # Note the difference between the following three
 # step definitions...
 
-# This step definition
+# This step definition is a bit dangerous
 # 1) Assumes that the user already exists in the system
 # 2) Assumes the user object does not exist, so it creates it, sticking it into
 #    a class instance variable based on the username
 # 3) Logs that user in (if they're not already)...
 Given /^I'm logged in with (.*)$/ do |username|
-  user = make_user user: username
-  user.sign_in
+  make_user(user: username).sign_in
 end
 
 # Whereas, this step def
@@ -62,6 +69,6 @@ Given /^an AOR user exists$/ do
   @aor.create unless @aor.exists?
 end
 
-When /^I? ?create an unassigned user$/ do
-  @user = create UserObject, type: 'unassigned'
+When /^I? ?create an? '(.*)' user$/ do |type|
+  $users << create(UserObject, type: type)
 end

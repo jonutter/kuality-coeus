@@ -29,9 +29,12 @@ kuality = Kuality.new @config[:browser]
 
 Before do
   @browser = kuality.browser
+  $users = Users.instance
+  # Add the admin user to the Users...
+  $users << UserObject.new(@browser)
 end
 
-After do |scenario|
+After do
   @browser.screenshot.save 'screenshot.png'
   embed 'screenshot.png', 'image/png'
 end
