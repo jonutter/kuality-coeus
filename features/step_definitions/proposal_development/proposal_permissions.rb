@@ -7,7 +7,7 @@ Then /^the (.*) user is listed as an? (.*) in the proposal permissions$/ do |use
 end
 
 When /^I? ?assign the (.*) user as an? (.*) in the proposal permissions$/ do |system_role, role|
-  set(system_role, (make UserObject, role: system_role))
+  make_user role: system_role
   @proposal.permissions.send(snake_case(role+'s')) << get(system_role).user_name
   @proposal.permissions.assign
 end
@@ -127,7 +127,10 @@ Then /^the (.*) user should not be listed as an? (.*) in the second proposal$/ d
 end
 
 Then /^the user should be able to create a proposal$/ do
-  @user.sign_in
+  # Note that since this stepdef doesn't specify WHICH user, it's
+  # assuming that the one to use is the last one that was
+  # created/defined.
+  $users[-1].sign_in
   expect{create ProposalDevelopmentObject}.not_to raise_error
 end
 

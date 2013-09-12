@@ -14,7 +14,8 @@ module Utilities
     un=opts[:user]
     role=opts[:role]
     un ||= role
-    set(un, (make UserObject, opts))
+    $users << set(un, (make UserObject, opts))
+    $users[-1]
   end
 
   def make_role(opts={})

@@ -1,5 +1,30 @@
-# This is a special collection class that inherits from Hash!
-class UserCollection < Hash
+# This is a collection class for UserObjects.
+class Users < Array
+
+  include Singleton
+
+  def logged_in_user
+    self.find { |user| user.session_status=='logged in' }
+  end
+  alias_method :current_user, :logged_in_user
+
+  def user(username)
+    self.find { |user| user.user_name == username }
+  end
+
+  def type(type)
+    self.find { |user| user.type == type }
+  end
+
+  def admin
+    self.user('admin')
+  end
+
+end # Users
+
+# This is a special collection class that inherits from Hash and contains
+# the user information listed in the users.yml file.
+class UserYamlCollection < Hash
 
   # Returns an array of all users with the specified role. Takes the role name as a string.
   # The array is shuffled so that #have_role('role name')[0] will be a random selection
@@ -38,13 +63,14 @@ class UserCollection < Hash
     }.shuffle[0][0]
   end
 
-end
+end # UserYamlCollection
 
 class UserObject
 
   include Foundry
   include DataFactory
   include Navigation
+  include StringFactory
 
   attr_accessor :user_name, :principal_id,
                 :first_name, :last_name,
@@ -53,9 +79,10 @@ class UserObject
                 :groups, :roles, :role_qualifiers, :addresses, :phones, :emails,
                 :primary_title, :directory_title, :citizenship_type,
                 :era_commons_user_name, :graduate_student_count, :billing_element,
-                :directory_department
+                :directory_department,
+                :session_status, :type
 
-  USERS = UserCollection[YAML.load_file("#{File.dirname(__FILE__)}/users.yml")]
+  USERS = UserYamlCollection[YAML.load_file("#{File.dirname(__FILE__)}/users.yml")]
 
   ROLES = {
       # Add roles here as needed for testing...
@@ -106,18 +133,18 @@ class UserObject
         campus_code:      'UN - UNIVERSITY',
         first_name:       random_alphanums,
         last_name:        random_alphanums,
-        addresses:        [{ type:    'Work',
+        addresses:        [{ type:   'Work',
                             line_1:  '1375 N Scottsdale Rd',
                             city:    'scottsdale',
                             state:   'ARIZONA',
                             country: 'United States',
                             zip:     '85257',
                             default: :set }],
-        phones:           [{ type:    'Work',
+        phones:           [{ type:   'Work',
                             number:  '602-840-7300',
                             default: :set }],
         roles:           ['106'],
-        role_qualifiers: { :"106"=> '000001' }
+        role_qualifiers: { :"106"=> '000001' },
     }
     defaults.merge!(opts)
 
@@ -129,7 +156,7 @@ class UserObject
                when opts.key?(:role)
                  USERS.have_role(ROLES[opts[:role]])[0][0]
                else
-                 :nil
+                 :not_nil
                end
     options = USERS[@user_name].nil? ? defaults : USERS[@user_name].merge(opts)
 
@@ -137,23 +164,7 @@ class UserObject
   end
 
   def create
-    # First we have to make sure we're logged in with
-    # a user that has permissions to create other users...
-    @browser.windows[0].use
-    visit SystemAdmin do |page|
-      page.close_children
-      if @logged_in_user_name=='admin'
-        page.person
-      else
-        s_o.click
-        visit Login do |log_in|
-          log_in.username.set 'admin'
-          log_in.login
-        end
-        visit(SystemAdmin).person
-      end
-    end
-    # Now we're certain the create button will be there, so...
+    visit(SystemAdmin).person
     on(PersonLookup).create
     on Person do |add|
       add.expand_all
@@ -226,6 +237,7 @@ class UserObject
       @principal_id = add.principal_id
       add.blanket_approve
     end
+
     unless extended_attributes.compact.length==0
       visit(SystemAdmin).person_extended_attributes
       on(PersonExtendedAttributesLookup).create
@@ -237,77 +249,39 @@ class UserObject
         page.blanket_approve
       end
     end
-    # Now that we're done with the user creation, we can log back in
-    # with the other user, if necessary...
-    unless @logged_in_user_name.nil?
-      s_o.click
-      on Login do |log_in|
-        log_in.username.set @logged_in_user_name
-        log_in.login
-      end
-      @logged_in_user_name=nil
-    end
-  end
+
+  end # create
 
   # Keep in mind...
-  # - This method does nothing if the user
-  #   is already logged in
   # - If some other user is logged in, they
   #   will be automatically logged out
   # - This method will close all child
-  #   tabs/windows and return to the window
-  #   with the header frame, so it can see
-  #   who is currently logged in
+  #   tabs/windows and return to the
+  #   original window
   def sign_in
-    unless logged_in?
-      if username_field.present?
-        # Do nothing because we're already there
-      else
-        visit Researcher do |page|
-          page.return_to_portal
-          page.close_children
-          page.logout
-        end
-      end
-      on Login do |log_in|
-        log_in.username.set @user_name
-        log_in.login
-      end
-      on(Researcher).logout_button.wait_until_present
+    $users.logged_in_user.sign_out unless $users.current_user==nil
+    # This line is required because visiting the login page doesn't
+    # actually work when you're currently logged in.
+    #s_o.click if s_o.present?
+    visit Login do |log_in|
+      log_in.username.set @user_name
+      log_in.login
     end
+    on(Researcher).logout_button.wait_until_present
+    @session_status='logged in'
   end
   alias_method :log_in, :sign_in
 
   def sign_out
-  # This _might_ cause an infinite loop, but I'm
-  # hoping not...
-    on(Researcher) do |page|
-      page.return_to_portal
-      page.close_children
-    end
-    if s_o.present?
-      s_o.click
-    else
-      visit Login do |page|
-        if page.username.present?
-          # do nothing because we're already logged out...
-        else
-          sign_out
-        end
-      end
-    end
+    visit(Login).close_extra_windows
+    s_o.click if s_o.present?
+    @session_status='logged out'
   end
   alias_method :log_out, :sign_out
 
   def exist?
-    visit SystemAdmin do |page|
-      if username_field.present?
-        UserObject.new(@browser).log_in
-      else
-        @logged_in_user_name=login_info_div.text[/\w+$/]
-      end
-      page.person
-    end
+    $users.admin.log_in if $users.current_user==nil
+    visit(SystemAdmin).person
     on PersonLookup do |search|
       search.principal_name.set @user_name
       search.search
@@ -329,6 +303,8 @@ class UserObject
   end
   alias_method :exists?, :exist?
 
+  # TODO: This method needs a logic revamp in order to
+  # ensure it does not enter an infinite loop.
   def logged_in?
     # Are we on the login page already?
     if username_field.present?
@@ -341,11 +317,11 @@ class UserObject
     else # We're on some page that has no Kuali header, so...
       begin
         # We'll assume that the portal window exists, and go to it.
-        on(Researcher).return_to_portal
+        on(BasePage).return_to_portal
       # Oops. Apparently there's no portal window, so...
       rescue
         # We'll close any extra tabs/windows
-        visit(Login).close_children if @browser.windows.size > 1
+        on(BasePage).close_children if @browser.windows.size > 1
         # And make sure that we're using the "parent" window
         @browser.windows[0].use
       end
@@ -381,5 +357,5 @@ class UserObject
      @directory_department]
   end
 
-end
+end # UserObject
 

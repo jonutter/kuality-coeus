@@ -2,7 +2,8 @@ class BasePage < PageFactory
 
   action(:use_new_tab) { |b| b.windows.last.use }
   action(:return_to_portal) { |b| b.portal_window.use }
-  action(:close_children) { |b| b.windows[1..-1].each{ |w| w.close} }
+  action(:close_extra_windows) { |b| b.close_children if b.windows.length > 1 }
+  action(:close_children) { |b| b.windows[0].use; b.windows[1..-1].each{ |w| w.close} }
   action(:close_parents) { |b| b.windows[0..-2].each{ |w| w.close} }
   action(:loading) { |b| b.frm.image(alt: 'working...').wait_while_present }
   element(:logout_button) { |b| b.button(title: 'Click to logout.') }

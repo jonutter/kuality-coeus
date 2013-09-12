@@ -70,6 +70,7 @@ class RoleObject
   end
 
   def exists?
+    $users.admin.log_in if $users.current_user==nil
     visit(SystemAdmin).role
     on RoleLookup do |look|
       fill_out look, :name, :id

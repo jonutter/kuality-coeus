@@ -3,5 +3,7 @@ When /^I? ?create a group$/ do
 end
 
 When /^I? ?add the user to the group$/ do
-  @group.add_assignee member_identifier: @user.principal_id
+  # Note that this step is assuming you're adding the user that was
+  # last created in the scenario...
+  @group.add_assignee member_identifier: $users[-1].principal_id
 end
