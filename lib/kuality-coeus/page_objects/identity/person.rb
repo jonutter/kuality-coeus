@@ -19,7 +19,7 @@ class Person < BasePage
   element(:employee_type) { |b| b.frm.select(id: 'document.affiliations[0].newEmpInfo.employmentTypeCode') }
   element(:primary_employment) { |b| b.frm.checkbox(id: 'document.affiliations[0].newEmpInfo.primary') }
   element(:base_salary) { |b| b.frm.text_field(id: 'document.affiliations[0].newEmpInfo.baseSalaryAmount') }
-  element(:primary_dept_code) { |b| b.frm.text_field(name: 'document.affiliations[0].newEmpInfo.primaryDepartmentCode') }
+  element(:primary_department_code) { |b| b.frm.text_field(name: 'document.affiliations[0].newEmpInfo.primaryDepartmentCode') }
   action(:add_employment_information) { |b| b.frm.button(name: 'methodToCall.addEmpInfo.line0.anchor').click; b.loading }
   action(:add_name) { |b| b.frm.button(name: 'methodToCall.addName.anchor').click }
   element(:address_type) { |b| b.frm.select(id: 'newAddress.addressTypeCode') }

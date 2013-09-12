@@ -406,7 +406,7 @@ mlinkous: # AKA: "Principal Name"
   :roles:
    - '127' # IRB Reviewer
    - '99'  # IRB Approver
-   - '149' # IRBApprover-Nested
+   - '149' # Protocol Approver AKA: IRB Approver-Nested
   :role_qualifiers:
    :127: '000001'
 smalkmus: # AKA: "Principal Name"
@@ -454,7 +454,11 @@ smalkmus: # AKA: "Principal Name"
    - '105'  # Protocol Aggregator
    - '128'  # IRB Administrator
    - '129'  # Protocol Creator
-   - '149'  # Protocol Approver
+   - '149'  # Protocol Approver AKA: IRB Approver-Nested
    - '1651' # IACUC Approver
   :role_qualifiers:
-   :128: '000001'
+   :104:  '000001'
+   :105:  '000001'
+   :128:  '000001'
+   :129:  '000001'
+   :1651: '000001'
