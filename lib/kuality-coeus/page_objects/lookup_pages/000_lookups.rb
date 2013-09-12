@@ -8,7 +8,7 @@ class Lookups < BasePage
   element(:user_name) { |b| b.frm.text_field(id: 'userName') }
   element(:create_button) { |b| b.frm.link(title: 'Create a new record') }
   action(:create_new) { |b| b.create_button.click; b.loading }
-  alias_method :create, :create_new
+  alias_method :create
 
   action(:check_item) { |name, b| b.item_row(name).checkbox(name: /selectedObjId/).set }
   action(:return_selected) { |b| b.frm.button(title: 'Return selected results').click; b.loading }
