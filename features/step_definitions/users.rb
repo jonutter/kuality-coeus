@@ -56,6 +56,15 @@ Given /^users exist with the following roles: (.*)$/ do |roles|
     user = make_user role: r
     user.create unless user.exists?
   end
+
+
+
+
+puts "Users length: " + $users.length.to_s
+
+
+
+
 end
 
 Given /^a user exists that can be a PI for Grants.gov proposals$/ do

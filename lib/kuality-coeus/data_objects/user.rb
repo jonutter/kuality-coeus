@@ -249,55 +249,29 @@ class UserObject
   end # create
 
   # Keep in mind...
-  # - This method does nothing if the user
-  #   is already logged in
   # - If some other user is logged in, they
   #   will be automatically logged out
   # - This method will close all child
-  #   tabs/windows and return to the window
-  #   with the header frame, so it can see
-  #   who is currently logged in
+  #   tabs/windows and return to the
+  #   original window
   def sign_in
-    $users.logged_in_user.session_status='logged out' unless $users.current_user==nil
-    unless logged_in?
-      if username_field.present?
-        # Do nothing because we're already there
-      else
-        visit Researcher do |page|
-          page.return_to_portal
-          page.close_children
-          page.logout
-        end
-      end
-      on Login do |log_in|
-        log_in.username.set @user_name
-        log_in.login
-      end
-      on(Researcher).logout_button.wait_until_present
+    $users.logged_in_user.sign_out unless $users.current_user==nil
+    # This line is required because visiting the login page doesn't
+    # actually work when you're currently logged in.
+    #s_o.click if s_o.present?
+    visit Login do |log_in|
+      log_in.username.set @user_name
+      log_in.login
     end
+    on(Researcher).logout_button.wait_until_present
     @session_status='logged in'
   end
   alias_method :log_in, :sign_in
 
   def sign_out
+    visit(Login).close_extra_windows
+    s_o.click if s_o.present?
     @session_status='logged out'
-  # This _might_ cause an infinite loop, but I'm
-  # hoping not...
-    on(Researcher) do |page|
-      page.return_to_portal
-      page.close_children
-    end
-    if s_o.present?
-      s_o.click
-    else
-      visit Login do |page|
-        if page.username.present?
-          # do nothing because we're already logged out...
-        else
-          sign_out
-        end
-      end
-    end
   end
   alias_method :log_out, :sign_out
 
@@ -325,6 +299,8 @@ class UserObject
   end
   alias_method :exists?, :exist?
 
+  # TODO: This method needs a logic revamp in order to
+  # ensure it does not enter an infinite loop.
   def logged_in?
     # Are we on the login page already?
     if username_field.present?
@@ -337,11 +313,11 @@ class UserObject
     else # We're on some page that has no Kuali header, so...
       begin
         # We'll assume that the portal window exists, and go to it.
-        on(Researcher).return_to_portal
+        on(BasePage).return_to_portal
       # Oops. Apparently there's no portal window, so...
       rescue
         # We'll close any extra tabs/windows
-        visit(Login).close_children if @browser.windows.size > 1
+        on(BasePage).close_children if @browser.windows.size > 1
         # And make sure that we're using the "parent" window
         @browser.windows[0].use
       end
