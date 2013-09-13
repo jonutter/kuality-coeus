@@ -26,10 +26,10 @@ World DateFactory
 World Utilities
 
 kuality = Kuality.new @config[:browser]
+$users = Users.instance
 
 Before do
   @browser = kuality.browser
-  $users = Users.instance
   $users.clear
   # Add the admin user to the Users...
   $users << UserObject.new(@browser)
