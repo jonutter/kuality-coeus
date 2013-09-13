@@ -35,10 +35,12 @@ Before do
   $users << UserObject.new(@browser)
 end
 
-After do
-  $users.current_user.sign_out
-  @browser.screenshot.save 'screenshot.png'
-  embed 'screenshot.png', 'image/png'
+After do |scenario|
+  $users.current_user.sign_out unless $users.current_user==nil
+  if scenario.failed?
+    @browser.screenshot.save 'screenshot.png'
+    embed 'screenshot.png', 'image/png'
+  end
 end
 
 # Comment out to help with debugging...
