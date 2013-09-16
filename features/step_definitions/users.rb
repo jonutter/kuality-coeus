@@ -73,7 +73,11 @@ When /^I? ?create an? '(.*)' user$/ do |type|
   $users << create(UserObject, type: type)
 end
 
-Given /^I? ?create a user with a (.*) role in the (.*) unit$/ do |role, unit|
+Given /^I? ?create a user with an? (.*) role in the (.*) unit$/ do |role, unit|
   role_num = UserObject::ROLES[role]
-  $user << create(UserObject, roles: [role_num], role_qualifiers: { :"#{role_num}" => unit })
+  $users << create(UserObject, roles: [role_num], role_qualifiers: { :"#{role_num}" => unit })
+end
+
+Given /^I? ?log in as the user with the (.*) role in (.*)$/ do |role, unit|
+  $users.with_role_in_unit(role, unit).sign_in
 end

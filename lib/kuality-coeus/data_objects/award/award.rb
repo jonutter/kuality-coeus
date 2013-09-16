@@ -30,7 +30,7 @@ class AwardObject
       obligation_end_date:   in_a_year, # and again
       anticipated_amount:    '1000000',
       obligated_amount:      '1000000',
-      transactions:          TransactionCollection.new(@browser)
+      transactions:          collection('Transaction')
     }
 
     set_options(defaults.merge(opts))

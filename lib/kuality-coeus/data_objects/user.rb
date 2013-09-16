@@ -4,7 +4,7 @@ class Users < Array
   include Singleton
 
   def logged_in_user
-    self.find { |user| user.session_status=='logged in' }
+    self.find { |user| user.session_status == 'logged in' }
   end
   alias_method :current_user, :logged_in_user
 
@@ -14,6 +14,11 @@ class Users < Array
 
   def type(type)
     self.find { |user| user.type == type }
+  end
+
+  def with_role_in_unit(role, unit)
+    role_num = UserObject::ROLES[role]
+    self.find { |user| !user.roles.nil? && user.roles.include?(role_num) && user.role_qualifiers[:"#{role_num}"]==unit }
   end
 
   def admin

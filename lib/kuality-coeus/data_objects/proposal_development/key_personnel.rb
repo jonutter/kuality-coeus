@@ -19,7 +19,7 @@ class KeyPersonObject
     defaults = {
       role:                            'Principal Investigator',
       units:                           [],
-      degrees:                         DegreesCollection.new(@browser),
+      degrees:                         collection('Degrees'),
       certified:                       true, # Set this to false if you do not want any Proposal Person Certification Questions answered
       certify_info_true:               'Y',
       potential_for_conflict:          'Y',
