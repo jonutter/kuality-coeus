@@ -1,5 +1,5 @@
 When /^create a role with permission to create proposals$/ do
-  role = make_role permissions: ['842']
+  role = make_role permissions: %w{842}
   role.create
 end
 
