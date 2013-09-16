@@ -72,3 +72,8 @@ end
 When /^I? ?create an? '(.*)' user$/ do |type|
   $users << create(UserObject, type: type)
 end
+
+Given /^I? ?create a user with a (.*) role in the (.*) unit$/ do |role, unit|
+  role_num = UserObject::ROLES[role]
+  $user << create(UserObject, roles: [role_num], role_qualifiers: { :"#{role_num}" => unit })
+end
