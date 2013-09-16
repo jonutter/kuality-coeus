@@ -29,11 +29,11 @@ class ProposalDevelopmentObject
       sponsor_deadline_date: next_week[:date_w_slashes],
       mail_by:               '::random::',
       mail_type:             '::random::',
-      key_personnel:         KeyPersonnelCollection.new(@browser),
-      special_review:        SpecialReviewCollection.new(@browser),
-      budget_versions:       BudgetVersionsCollection.new(@browser),
-      personnel_attachments: PersonnelAttachmentsCollection.new(@browser),
-      proposal_attachments:  ProposalAttachmentsCollection.new(@browser)
+      key_personnel:         collection('KeyPersonnel'),
+      special_review:        collection('SpecialReview'),
+      budget_versions:       collection('BudgetVersions'),
+      personnel_attachments: collection('PersonnelAttachments'),
+      proposal_attachments:  collection('ProposalAttachments')
     }
 
     set_options(defaults.merge(opts))

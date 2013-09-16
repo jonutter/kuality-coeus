@@ -16,11 +16,11 @@ class RoleObject
         type:             'Unit',
         name:             random_alphanums,
         namespace:        'KC-UNT - Kuali Coeus - Department',
-        assignees:        RoleAssigneesCollection.new(@browser),
+        assignees:        collection('RoleAssignees'),
         permissions:      [],
         responsibilities: [],
         # TODO: Add this when needed:
-        #delegations:      DelegationCollection.new
+        #delegations:      collection('Delegation')
     }
 
     set_options(defaults.merge(opts))

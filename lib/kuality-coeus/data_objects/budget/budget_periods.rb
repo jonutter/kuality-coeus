@@ -15,7 +15,7 @@ class BudgetPeriodObject
 
     defaults = {
       doc_type: 'Budget Document ', # Note: the trailing space is not a typo!
-      cost_sharing_distribution_list: CostSharingCollection.new(@browser)
+      cost_sharing_distribution_list: collection('CostSharing')
     }
 
     set_options(defaults.merge(opts))

@@ -15,7 +15,7 @@ class GroupObject
       type:        'Default',
       namespace:   'KC-UNT - Kuali Coeus - Department',
       name:        random_alphanums,
-      assignees:   GrAssigneesCollection.new(@browser)
+      assignees:   collection('GrAssignees')
     }
 
     set_options(defaults.merge(opts))
