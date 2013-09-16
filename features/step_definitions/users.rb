@@ -69,6 +69,11 @@ Given /^an AOR user exists$/ do
   @aor.create unless @aor.exists?
 end
 
-When /^I? ?create an? '(.*)' user$/ do |type|
+Given /^I? ?create an? '(.*)' user$/ do |type|
   $users << create(UserObject, type: type)
+end
+
+Given /^I? ?create a user with a (.*) role in the (.*) unit$/ do |role, unit|
+  role_num = UserObject::ROLES[role]
+  $user << create(UserObject, roles: [role_num], role_qualifiers: { :"#{role_num}" => unit })
 end
