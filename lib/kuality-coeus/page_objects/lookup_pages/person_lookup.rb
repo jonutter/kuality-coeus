@@ -1,5 +1,4 @@
-class PersonLookup < Look
-  ups
+class PersonLookup < Lookups
 
   element(:kcperson_id) { |b| b.frm.text_field(name:'personId') }
 

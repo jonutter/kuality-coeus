@@ -32,11 +32,15 @@ class BasePage < PageFactory
       alias_method :disposition, :initiator
       value(:last_updated) {|p| p.headerinfo_table[1][3].text }
       alias_method :created, :last_updated
+      alias_method :submission_status, :last_updated
       value(:committee_id) { |p| p.headerinfo_table[2][1].text }
       alias_method :sponsor_name, :committee_id
       alias_method :budget_name, :committee_id
+      alias_method :protocol_number, :committee_id
       value(:committee_name) { |p| p.headerinfo_table[2][3].text }
       alias_method :pi, :committee_name
+      alias_method :expiration_date, :committee_name
+
     end
 
     # Included here because this is such a common field in KC

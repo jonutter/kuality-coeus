@@ -4,7 +4,6 @@ class Protocol < KCProtocol
   description_field
 
   # Document Overview
-  element(:description) { |b| b.frm.text_field(name: 'document.documentHeader.documentDescription') }
   element(:org_doc_number) { |b| b.frm.text_field(name: 'document.documentHeader.organizationDocumentNumber') }
   element(:explanation) { |b| b.frm.text_field(name: 'document.documentHeader.explanation') }
 

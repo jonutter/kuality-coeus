@@ -28,7 +28,6 @@ class IRBProtocolDevelopmentObject
     window_cleanup
     visit(Researcher).create_irb_protocol
     on Protocol do |doc|
-      #@doc_header=doc.doc_title
       @document_id=doc.document_id
       @status=doc.document_status
       @initiator=doc.initiator
@@ -38,6 +37,8 @@ class IRBProtocolDevelopmentObject
       fill_out doc, :description, :protocol_type, :title, :lead_unit
       doc_save
       @protocol_number=doc.protocol_number
+
+
     end
   end
 end

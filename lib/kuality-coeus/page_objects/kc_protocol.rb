@@ -1,5 +1,6 @@
 class KCProtocol < BasePage
 
+  document_header_elements
   tab_buttons
   global_buttons
 
