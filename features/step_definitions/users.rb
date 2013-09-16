@@ -69,7 +69,7 @@ Given /^an AOR user exists$/ do
   @aor.create unless @aor.exists?
 end
 
-Given /^I? ?create an? '(.*)' user$/ do |type|
+When /^I? ?create an? '(.*)' user$/ do |type|
   $users << create(UserObject, type: type)
 end
 
