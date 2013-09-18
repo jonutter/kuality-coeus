@@ -98,6 +98,7 @@ class UserObject
       'Award Budget Modifier'           => '102',
       'Award Budget Viewer'             => '101',
       'Award Viewer'                    => '123',
+      'Award Modifier'                  => '126',
       'Budget Creator'                  => '108',
       'Create Proposal Log'             => '140',
       'Departments Awards Viewer'       => '121',
@@ -138,14 +139,14 @@ class UserObject
         campus_code:      'UN - UNIVERSITY',
         first_name:       random_alphanums,
         last_name:        random_alphanums,
-        addresses:        [{ type:   'Work',
+        addresses:        [{type:   'Work',
                             line_1:  '1375 N Scottsdale Rd',
                             city:    'scottsdale',
                             state:   'ARIZONA',
                             country: 'United States',
                             zip:     '85257',
                             default: :set }],
-        phones:           [{ type:   'Work',
+        phones:           [{type:   'Work',
                             number:  '602-840-7300',
                             default: :set }],
         roles:           ['106'],
@@ -256,6 +257,22 @@ class UserObject
     end
 
   end # create
+
+  def edit(opts={})
+    on(BasePage).close_extra_windows
+    visit(SystemAdmin).person
+    on PersonLookup do |edit|
+      fill_out edit, :principal_id
+      edit.search
+      edit.edit_person
+    end
+    on Person do |edit|
+      edit.expand_all
+      edit.description.set random_alphanums
+      edit.test
+    end
+    update_options(opts)
+  end
 
   # Keep in mind...
   # - If some other user is logged in, they

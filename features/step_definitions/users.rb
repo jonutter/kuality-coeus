@@ -59,13 +59,13 @@ Given /^users exist with the following roles: (.*)$/ do |roles|
 end
 
 Given /^a user exists that can be a PI for Grants.gov proposals$/ do
-  @grants_gov_pi = make_user user: UserObject::USERS.grants_gov_pi
-  @grants_gov_pi.create unless @grants_gov_pi.exists?
+  make_user(user: UserObject::USERS.grants_gov_pi, type: 'Grants.gov PI')
+  $users[-1].create unless $users[-1].exists?
 end
 
 Given /^an AOR user exists$/ do
   # TODO: Using the username here is cheating. Fix this.
-  @aor = make_user user: 'warrens'
+  @aor = make_user(user: 'warrens', type: 'AOR')
   @aor.create unless @aor.exists?
 end
 
@@ -75,9 +75,14 @@ end
 
 Given /^I? ?create a user with an? (.*) role in the (.*) unit$/ do |role, unit|
   role_num = UserObject::ROLES[role]
-  $users << create(UserObject, roles: [role_num], role_qualifiers: { :"#{role_num}" => unit })
+  $users << create(UserObject, roles: [role_num],
+                   role_qualifiers: { :"#{role_num}" => unit } )
 end
 
 Given /^I? ?log in as the user with the (.*) role in (.*)$/ do |role, unit|
   $users.with_role_in_unit(role, unit).sign_in
+end
+
+When /^I? ?log in with that user$/ do
+  $users[-1].sign_in
 end
