@@ -12,14 +12,14 @@ end
 Then /^within a couple minutes the submission status will be updated$/ do
   on S2S do |page|
     x = 0
-    while page.submission_status=='Submitted to S2S'
+    while page.s2s_submission_status=='Submitted to S2S'
       sleep 5
       page.refresh_submission_details
       x += 1
       break if x == 24
     end
     # We don't care what it is. Only that it's updated...
-    page.submission_status.should_not == 'Submitted to S2S'
+    page.s2s_submission_status.should_not == 'Submitted to S2S'
   end
 end
 
