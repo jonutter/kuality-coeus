@@ -462,3 +462,89 @@ smalkmus: # AKA: "Principal Name"
    :128:  '000001'
    :129:  '000001'
    :1651: '000001'
+kwagner: # AKA: "Principal Name"
+   :user_name:        kwagner
+     :description:      Award Creator
+     :affiliation_type: Staff
+     :campus_code:      'UN - UNIVERSITY'
+     :employee_id:      kwagner
+     :employee_status:  Active
+     :employee_type:    Professional
+     :base_salary:      234567.89
+     :primary_department_code: '000001'
+     :first_name:       Kurt
+     :last_name:        Wagner
+     :primary_title:    Award Creator
+     :directory_title:  Award Creator
+     :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
+     :era_commons_user_name: kwagner
+     :directory_department:  Finance
+     :graduate_student_count: '0'
+     :billing_element:  bla bla bla
+     :addresses:
+      - :type:    Work
+        :line_1:  475 N scottsdale rd
+        :city:    scottsdale
+        :state:   ARIZONA
+        :country: United States
+        :zip:     85257
+        :default: :set
+     :phones:
+      - :type:    Work
+        :number:  602-228-3876
+        :default: :set
+      - :type:    Facsimile
+        :number:  555-555-5555
+        :default: :clear
+        :country: United States
+     :emails:
+      - :email:   kc-qa-notify@rsmart.com
+        :type:    Work
+        :default: :set
+     :roles:
+      - '126' # Award Modifier
+     :role_qualifiers:
+      :126:   '000001'
+vchesnutt: # AKA: "Principal Name"
+   :user_name:        vchesnutt
+     :description:      Award Budget Modifier
+     :affiliation_type: Staff
+     :campus_code:      'UN - UNIVERSITY'
+     :employee_id:      vchesnutt
+     :employee_status:  Active
+     :employee_type:    Professional
+     :base_salary:      234567.89
+     :primary_department_code: '000001'
+     :first_name:       Vic
+     :last_name:        Chesnutt
+     :primary_title:    Award Budget Modifier
+     :directory_title:  Award Budget Modifier
+     :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
+     :era_commons_user_name: vchesnutt
+     :directory_department:  Finance
+     :graduate_student_count: '0'
+     :billing_element:  bla bla bla
+     :addresses:
+      - :type:    Work
+        :line_1:  475 N scottsdale rd
+        :city:    scottsdale
+        :state:   ARIZONA
+        :country: United States
+        :zip:     85257
+        :default: :set
+     :phones:
+      - :type:    Work
+        :number:  602-228-3876
+        :default: :set
+      - :type:    Facsimile
+        :number:  555-555-5555
+        :default: :clear
+        :country: United States
+     :emails:
+      - :email:   kc-qa-notify@rsmart.com
+        :type:    Work
+        :default: :set
+     :roles:
+      - '102' # Award Budget Modifier
+     :role_qualifiers:
+      :102:   '000001'
