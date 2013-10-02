@@ -8,7 +8,7 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   a user exists that can be a PI for Grants.gov proposals
     And   an AOR user exists
     And   I log in with the Proposal Creator user
-  @test
+
   Scenario Outline: Submit a proposal to Grants.gov with various sponsors and opportunities
     Given I initiate a proposal with <Sponsor> as the sponsor
     And   add the <Provider> opportunity id of <Opportunity> to the proposal
