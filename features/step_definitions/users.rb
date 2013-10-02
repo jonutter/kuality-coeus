@@ -74,9 +74,8 @@ When /^I? ?create an? '(.*)' user$/ do |type|
 end
 
 Given /^I? ?create a user with an? (.*) role in the (.*) unit$/ do |role, unit|
-  role_num = UserObject::ROLES[role]
-  $users << create(UserObject, roles: [role_num],
-                   role_qualifiers: { :"#{role_num}" => unit } )
+  role_num = RoleObject::ROLES[role]
+  $users << create(UserObject, rolez: [{ id: role_num, name: role, qualifiers: [{:unit=>unit}] }] )
 end
 
 Given /^I? ?log in as the user with the (.*) role in (.*)$/ do |role, unit|
@@ -85,4 +84,15 @@ end
 
 When /^I? ?log in with that user$/ do
   $users[-1].sign_in
+end
+
+And /^I add the (.*) role in the (.*) unit to that user$/ do |role, unit|
+  role_num = RoleObject::ROLES[role]
+  $users[-1].add_role id: role_num, name: role, qualifiers: [{:unit=>unit}], user_name: $users[-1].user_name
+end
+
+# Use this step def when you know the role doesn't take a qualifier
+And /^I add the (.*) role to that user$/ do |role|
+  role_num = RoleObject::ROLES[role]
+  $users[-1].add_role id: role_num, name: role, qualifiers: [], user_name: $users[-1].user_name
 end

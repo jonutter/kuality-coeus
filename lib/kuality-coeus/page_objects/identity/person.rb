@@ -40,18 +40,22 @@ class Person < BasePage
   element(:email_type) { |b| b.frm.select(name: 'newEmail.emailTypeCode') }
   element(:email_default) { |b| b.frm.checkbox(name: 'newEmail.dflt') }
   action(:add_email) { |b| b.frm.button(name: 'methodToCall.addEmail.anchor').click; b.loading }
+
   element(:role_id) { |b| b.frm.text_field(id: 'newRole.roleId') }
   action(:add_role) { |b| b.frm.button(name: 'methodToCall.addRole.anchor').click; b.loading }
+
   element(:group_id) { |b| b.frm.text_field(id: 'newGroup.groupId') }
   action(:add_group) { |b| b.frm.button(name: 'methodToCall.addGroup.anchor').click; b.loading }
 
-  action(:unit_number) { |role, b| b.frm.div(id: 'tab-Roles-div').table(index: 0).rows[b.role_row(role)+1].text_field(title: '* Unit Number') }
-  action(:add_role_qualifier) { |role, b| b.frm.div(id: 'tab-Roles-div').table(index: 0).rows[b.role_row(role)+1].button(name: /methodToCall.addRoleQualifier.line\d+.anchor/).click; b.loading }
+  action(:unit_number) { |role, b| b.target_row(role).text_field(title: '* Unit Number') }
+  action(:descends_hierarchy) { |role, b| b.target_row(role).checkbox(title: 'Descends Hierarchy') }
+  action(:add_role_qualifier) { |role, b| b.target_row(role).button(name: /methodToCall.addRoleQualifier.line\d+.anchor/).click; b.loading }
 
   # =========
   private
   # =========
 
+  action(:target_row) { |role, b| b.frm.div(id: 'tab-Roles-div').table(index: 0).rows[b.role_row(role)+1] }
   action(:role_row) { |role, b| b.frm.div(id: 'tab-Roles-div').table(index: 0).rows.find_index{ |row| row.text.include?(role.to_s) } }
 
 end

@@ -30,10 +30,11 @@ unassigneduser: # AKA: "Principal Name
     - :type:    Facsimile
       :number:  602-597-5350
       :default: :clear
-  :roles:
-    - '106' # Unassigned
-  :role_qualifiers:
-    :106: '000001'
+  :rolez:
+    - :id:   '106'
+      :name: Unassigned
+      :qualifiers:
+        - :unit: '000001'
 poolej: # AKA: "Principal Name
   :user_name:        poolej
   :description:      User who can submit to grants.gov
@@ -79,16 +80,23 @@ poolej: # AKA: "Principal Name
     - :email:   kc-qa-notify@rsmart.com
       :type:    Work
       :default: :set
-  :roles:
-    - '107' # Viewer
-    - '110' # Aggregator
-    - '109' # Narrative Writer
-    - '108' # Budget Creator
-  :role_qualifiers:
-    :110: '000001'
-    :109: '000001'
-    :108: '000001'
-    :107: '000001'
+  :rolez:
+    - :id:   '107'
+      :name: Viewer
+      :qualifiers:
+        - :unit: '000001'
+    - :id:   '110'
+      :name: Aggregator
+      :qualifiers:
+        - '000001'
+    - :id:   '109'
+      :name: Narrative Writer
+      :qualifiers:
+        - :unit: '000001'
+    - :id:   '108'
+      :name: Budget Creator
+      :qualifiers:
+        - :unit: '000001'
 cleganeg:  # AKA: "Principal Name"
   :user_name:        cleganeg
   :description:      creating osp approver
@@ -133,8 +141,11 @@ cleganeg:  # AKA: "Principal Name"
     - :email:   kc-qa-notify@rsmart.com
       :type:    Work
       :default: :set
-  :roles:
-    - '100' # OSPApprover
+  :rolez:
+    - :id:   '100'
+      :name: OSPApprover
+      :qualifiers:
+        -
 starka:  # AKA: "Principal Name"
   :user_name:        starka
   :description:      creating test user with manager permissions
@@ -174,13 +185,19 @@ starka:  # AKA: "Principal Name"
     - :email:   kc-qa-notify@rsmart.com
       :type:    Work
       :default: :set
-  :roles:
-    - '98'  # Manager
-    - '110' # Aggregator
-    - '111' # Proposal Creator
-  :role_qualifiers:
-    :111: '000001'
-    :110: '000001'
+  :rolez:
+    - :id:   '98'
+      :name: Manager
+      :qualifiers:
+        -
+    - :id:   '110'
+      :name: Aggregator
+      :qualifiers:
+        - :unit: '000001'
+    - :id:   '111'
+      :name: Proposal Creator
+      :qualifiers:
+        - :unit: '000001'
 martelld:  # AKA: "Principal Name"
   :user_name:        martelld
   :description:      creating test user with aggregator permissions
@@ -220,10 +237,11 @@ martelld:  # AKA: "Principal Name"
     - :email:   kc-qa-notify@rsmart.com
       :type:    Work
       :default: :set
-  :roles:
-    - '110' # Aggregator
-  :role_qualifiers:
-    :110: '000001'
+  :rolez:
+    - :id:   '110'
+      :name: Aggregator
+      :qualifiers:
+        - :unit: '000001'
 warrens:  # AKA: "Principal Name"
   :user_name:        warrens
   :description:      creating test aor user
@@ -267,13 +285,20 @@ warrens:  # AKA: "Principal Name"
   :groups:
     - '2002' # OSP Superuser
     - '2003' # ProposalAdmin
-  :roles:
-    - '100' # OSPApprover
-    - '131' # OSP Administrator
-    - '110' # Aggregator
-  :role_qualifiers:
-    :110: '000001'
-    :131: '000001'
+  :rolez:
+    - :id:   '100'
+      :name: OSPApprover
+      :qualifiers:
+        -
+    - :id:   '131'
+      :name: OSP Administrator
+      :qualifiers:
+        - :unit: '000001'
+          :descends_hierarchy: :clear
+    - :id:   '110'
+      :name: Aggregator
+      :qualifiers:
+        - :unit: '000001'
 lannister:  # AKA: "Principal Name"
   :user_name:        lannister
   :description:      OSP Administrator
@@ -313,10 +338,12 @@ lannister:  # AKA: "Principal Name"
     - :email:   kc-qa-notify@rsmart.com
       :type:    Work
       :default: :set
-  :roles:
-    - '131' # OSP Administrator
-  :role_qualifiers:
-    :131: '000001'
+  :rolez:
+    - :id:  '131'
+      :name: OSP Administrator
+      :qualifiers:
+        - :unit: '000001'
+          :descends_hierarchy: :clear
 wcoyne: # AKA: "Principal Name"
   :user_name:        wcoyne
   :description:      IRB & IACUC Protocol Creator
@@ -356,14 +383,20 @@ wcoyne: # AKA: "Principal Name"
    - :email:   kc-qa-notify@rsmart.com
      :type:    Work
      :default: :set
-  :roles:
-   - '129' # Protocol Creator
-   - '104' # Protocol Viewer
-   - '105' # Protocol Aggregator
-  :role_qualifiers:
-   :129: '000001'
-   :104: '000001'
-   :105: '000001'
+  :rolez:
+   - :id:   '129'
+     :name: Protocol Creator
+     :qualifiers:
+       - :unit: '000001'
+         :descends_hierarchy: :clear
+   - :id:   '104'
+     :name: Protocol Viewer
+     :qualifiers:
+       - '000001'
+   - :id:   '105'
+     :name: Protocol Aggregator
+     :qualifiers:
+       - :unit: '000001'
 mlinkous: # AKA: "Principal Name"
   :user_name:        mlinkous
   :description:      IRB Protocol Reviewer/Approver
@@ -403,12 +436,20 @@ mlinkous: # AKA: "Principal Name"
    - :email:   kc-qa-notify@rsmart.com
      :type:    Work
      :default: :set
-  :roles:
-   - '127' # IRB Reviewer
-   - '99'  # IRB Approver
-   - '149' # Protocol Approver AKA: IRB Approver-Nested
-  :role_qualifiers:
-   :127: '000001'
+  :rolez:
+   - :id:   '127'
+     :name: IRB Reviewer
+     :qualifiers:
+       - :unit: '000001'
+         :descends_hierarchy: :clear
+   - :id:   '99'
+     :name: IRB Approver
+     :qualifiers:
+       -
+   - :id:   '149'
+     :name: IRBApprover-Nested
+     :qualifiers:
+       -
 smalkmus: # AKA: "Principal Name"
   :user_name:        smalkmus
   :description:      IRB Protocol Administrator
@@ -448,7 +489,38 @@ smalkmus: # AKA: "Principal Name"
    - :email:   kc-qa-notify@rsmart.com
      :type:    Work
      :default: :set
-  :roles:
+  :rolez:
+   - :id:   '99'
+     :name: IRB Approver
+     :qualifiers:
+       -
+   - :id:   '104'
+     :name: Protocol Viewer
+     :qualifiers:
+       - :unit: '000001'
+   - :id:   '105'
+     :name: Protocol Aggregator
+     :qualifiers:
+       - :unit: '000001'
+   - :id:   '128'
+     :name: IRB Administrator
+     :qualifiers:
+       - :unit: '000001'
+         :descends_hierarchy: :clear
+   - :id:   '129'
+     :name: Protocol Creator
+     :qualifiers:
+       - :unit: '000001'
+         :descends_hierarchy: :clear
+   - :id:   '149'
+     :name: Protocol Approver
+     :qualifiers:
+       -
+   - :id:   '1651'
+     :name: IACUC Approver
+     :qualifiers:
+       - :unit: '000001'
+         :descends_hierarchy: :clear  :roles:
    - '99'   # IRB Approver
    - '104'  # Protocol Viewer
    - '105'  # Protocol Aggregator

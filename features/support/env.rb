@@ -36,11 +36,14 @@ Before do
 end
 
 After do |scenario|
-  $users.current_user.sign_out unless $users.current_user==nil
+
   if scenario.failed?
     @browser.screenshot.save 'screenshot.png'
     embed 'screenshot.png', 'image/png'
   end
+
+  $users.current_user.sign_out unless $users.current_user==nil
+
 end
 
 # Comment out to help with debugging...

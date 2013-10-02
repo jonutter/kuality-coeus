@@ -16,9 +16,9 @@ class Users < Array
     self.find { |user| user.type == type }
   end
 
-  def with_role_in_unit(role, unit)
-    role_num = UserObject::ROLES[role]
-    self.find { |user| !user.roles.nil? && user.roles.include?(role_num) && user.role_qualifiers[:"#{role_num}"]==unit }
+  def with_role_in_unit(role_name, unit)
+    roles = self.map{ |user| user.roles }
+    self.user(roles.flatten!.find { |role| role.name==role_name && role.qualifiers.detect{ |q| q[:unit]==unit } }.user_name)
   end
 
   def admin
@@ -35,7 +35,7 @@ class UserYamlCollection < Hash
   # The array is shuffled so that #have_role('role name')[0] will be a random selection
   # from the list of matching users.
   def have_role(role)
-    self.find_all{|user| user[1][:roles] != nil && user[1][:roles].include?(role)}.shuffle
+    self.find_all{|user| user[1][:rolez] != nil && user[1][:rolez].include?(role)}.shuffle
   end
 
   # Returns an array of all users with the specified campus code. Takes the code as a string.
@@ -89,46 +89,6 @@ class UserObject
 
   USERS = UserYamlCollection[YAML.load_file("#{File.dirname(__FILE__)}/users.yml")]
 
-  ROLES = {
-      # Add roles here as needed for testing...
-      'Aggregator'                      => '110',
-      'approver'                        => '103',
-      'Award Budget Aggregator'         => '113',
-      'Award Budget Approver'           => '112',
-      'Award Budget Modifier'           => '102',
-      'Award Budget Viewer'             => '101',
-      'Award Viewer'                    => '123',
-      'Award Modifier'                  => '126',
-      'Budget Creator'                  => '108',
-      'Create Proposal Log'             => '140',
-      'Departments Awards Viewer'       => '121',
-      'IACUC Approver'                  => '1651',
-      'IACUC Protocol Aggregator'       => '1421',
-      'IACUC Protocol Approver'         => '1638',
-      'Institutional Proposal Viewer'   => '118',
-      'IRB Administrator'               => '128',
-      'IRB Approver'                    => '99',
-      'IRB Reviewer'                    => '127',
-      'KC Super User'                   => '177',
-      'Maintain IRB Questionnaire'      => '161',
-      'Maintain Proposal Questionnaire' => '162',
-      'Manager'                         =>  '98',
-      'Narrative Writer'                => '109',
-      'Negotiation Creator'             => '1382',
-      'OSP Administrator'               => '131',
-      'OSPApprover'                     => '100',
-      'Proposal Creator'                => '111',
-      'Protocol Aggregator'             => '105',
-      'Protocol Approver'               => '149',
-      'Protocol Creator'                => '129',
-      'Protocol Viewer'                 => '104',
-      'System User'                     => '90',
-      'Unassigned'                      => '106',
-      'Viewer'                          => '107',
-      'View Subaward'                   => '1409',
-      'View Proposal Log'               => '142'
-  }
-
   def initialize(browser, opts={})
     @browser = browser
 
@@ -149,10 +109,11 @@ class UserObject
         phones:           [{type:   'Work',
                             number:  '602-840-7300',
                             default: :set }],
-        roles:           ['106'],
-        role_qualifiers: { :"106"=> '000001' },
+        rolez:            [{id: '106', qualifiers: [{:unit=>'000001'}]}],
+        groups:           collection('UserGroups')
     }
     defaults.merge!(opts)
+    @roles = collection('UserRoles')
 
     @user_name=case
                when opts.empty?
@@ -160,13 +121,16 @@ class UserObject
                when opts.key?(:user)
                  opts[:user]
                when opts.key?(:role)
-                 USERS.have_role(ROLES[opts[:role]])[0][0]
+                 USERS.have_role(RoleObject::ROLES[opts[:role]])[0][0]
                else
                  :not_nil
                end
     options = USERS[@user_name].nil? ? defaults : USERS[@user_name].merge(opts)
 
     set_options options
+    @rolez.each { |role| role[:user_name]=@user_name; @roles << make(UserRoleObject, role) } unless @rolez.nil?
+    @rolez=nil
+
   end
 
   def create
@@ -192,24 +156,8 @@ class UserObject
         add.primary_employment.set
         add.add_employment_information
       end
-      unless @roles.nil?
-        @roles.each do |role|
-          add.role_id.set role
-          add.add_role
-        end
-      end
-      unless @role_qualifiers.nil?
-        @role_qualifiers.each do |role, unit|
-          add.unit_number(role).set unit
-          add.add_role_qualifier role
-        end
-      end
-      unless @groups.nil?
-        @groups.each do |group|
-          add.group_id.set group
-          add.add_group
-        end
-      end
+      @roles.each { |role| role.create }
+      # TODO: Support groups creation here. For now, use the add_group method.
       unless @addresses.nil?
         @addresses.each do |address|
           add.address_type.fit address[:type]
@@ -258,20 +206,33 @@ class UserObject
 
   end # create
 
-  def edit(opts={})
-    on(BasePage).close_extra_windows
-    visit(SystemAdmin).person
-    on PersonLookup do |edit|
-      fill_out edit, :principal_id
-      edit.search
-      edit.edit_person
-    end
+  def edit opts={}
+    navigate
     on Person do |edit|
-      edit.expand_all
       edit.description.set random_alphanums
-      edit.test
+      # TODO: Add more here, as necessary
     end
     update_options(opts)
+  end
+
+  def add_role opts={}
+    opts.merge!({user_name: @user_name})
+    navigate
+    @roles.add opts
+    on Person do |add|
+      add.description.set random_alphanums
+      add.blanket_approve
+    end
+  end
+
+  def add_group opts={}
+    opts.merge!({user_name: @user_name})
+    navigate
+    @groups.add opts
+    on Person do |add|
+      add.description.set random_alphanums
+      add.blanket_approve
+    end
   end
 
   # Keep in mind...
@@ -379,5 +340,15 @@ class UserObject
      @directory_department]
   end
 
-end # UserObject
+  def navigate
+    on(BasePage).close_extra_windows
+    visit(SystemAdmin).person
+    on PersonLookup do |look|
+      fill_out look, :principal_id
+      look.search
+      look.edit_person @user_name
+    end
+    on(Person).expand_all
+  end
 
+end # UserObject
