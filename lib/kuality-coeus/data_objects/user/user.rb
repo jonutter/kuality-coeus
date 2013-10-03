@@ -35,7 +35,7 @@ class UserYamlCollection < Hash
   # The array is shuffled so that #have_role('role name')[0] will be a random selection
   # from the list of matching users.
   def have_role(role)
-    self.find_all{|user| user[1][:rolez] != nil && user[1][:rolez].include?(role)}.shuffle
+    self.find_all{|user| user[1][:rolez] != nil && user[1][:rolez].detect{|r| r[:name]==role}}.shuffle
   end
 
   # Returns an array of all users with the specified campus code. Takes the code as a string.
@@ -121,7 +121,7 @@ class UserObject
                when opts.key?(:user)
                  opts[:user]
                when opts.key?(:role)
-                 USERS.have_role(RoleObject::ROLES[opts[:role]])[0][0]
+                 USERS.have_role(opts[:role])[0][0]
                else
                  :not_nil
                end

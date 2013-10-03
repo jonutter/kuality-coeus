@@ -101,6 +101,10 @@ class AwardObject
     end
   end
 
+  # ==========
+  private
+  # ==========
+
   def navigate
     doc_search unless on_award?
     on(TimeAndMoney).return_to_award if on_tm?
