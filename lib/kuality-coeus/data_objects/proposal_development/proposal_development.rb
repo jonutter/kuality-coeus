@@ -234,6 +234,7 @@ class ProposalDevelopmentObject
     on(Proposal).save
   end
 
+  # TODO: Make this private. Step defs should use #view!
   def open_proposal
     open_document @doc_header
   end
