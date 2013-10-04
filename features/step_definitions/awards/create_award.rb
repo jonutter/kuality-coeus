@@ -9,7 +9,7 @@ end
 When /^I ? ?initiate an award document with a missing required field$/ do
   @required_field = ['Description', 'Transaction Type', 'Award Status', 'Award Title',
                      'Activity Type', 'Award Type', 'Project Start Date', 'Project End Date',
-                     'Sponsor ID', 'Lead Unit', 'Obligation Start Date', 'Obligation End Date',
+                     'Lead Unit', 'Obligation Start Date', 'Obligation End Date',
                      'Anticipated Amount', 'Obligated Amount', 'Transactions'
   ].sample
   @required_field=~/Type/ ? value='select' : value=''

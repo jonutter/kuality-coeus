@@ -9,7 +9,7 @@ Then(/^I should see an error that says my lead unit code is invalid$/) do
 end
 
 # Note: I created this step, in addition to create_proposal.rb, Line: 143 because
-# the errors on this page a dumb and includes the name of the field twice.
+# the errors on this page are lame and include the name of the field twice.
 # ex. "Doc Description (Description) is required."
 Then /^an error should appear that says the field is required$/ do
   text="#{@required_field} (#{@required_field}) is a required field."
@@ -25,8 +25,4 @@ When(/^I? ?initiate an irb protocol but I miss a required field$/) do
   # Transform the field name to the appropriate symbol...
   field = snake_case(@required_field)
   @irb_protocol = create IRBProtocolDevelopmentObject, field=>value
-end
-Then(/^the protocol's route log should state that the proposal has been SAVED$/) do
-  on(ProtocolOverview).protocol_actions
-
 end

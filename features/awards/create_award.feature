@@ -8,9 +8,5 @@ Feature: Creating an award document
     Given a user exists with the system role: 'Award Modifier'
     And   I log in with the Award Modifier user
     When  I initiate an award document with a missing required field
-    Then  I should see an error that says the field is required
-
-  Scenario:
-    Given a user exists with the system role: 'Award Modifier'
-    And   I log in with the Award Modifier user
+    Then  an error should appear that says the field is required
 
