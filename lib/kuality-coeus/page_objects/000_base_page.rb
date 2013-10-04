@@ -195,15 +195,28 @@ class BasePage < PageFactory
       element(:validation_err_war_fields) { |b| b.frm.tds(width: '94%') }
     end
 
+    # ========
+    private
+    # ========
+
     def links(*links_text)
       links_text.each { |link| elementate(:link, link) }
     end
 
     def buttons(*buttons_text)
-     buttons_text.each { |button| elementate(:button, button) }
+      buttons_text.each { |button| elementate(:button, button) }
     end
 
-    private
+    # Use this to define methods to click on the green
+    # buttons on the page, all of which can be identified
+    # by the title tag. The method takes a hash, where the key
+    # will become the method name, and the value is the string
+    # that matches the green button's link title tag.
+    def green_buttons(links={})
+      links.each_pair do |name, title|
+        action(name) { |b| b.frm.link(title: title).click; b.loading }
+      end
+    end
 
     # A helper method that converts the passed string into snake case. See the StringFactory
     # module for more info.

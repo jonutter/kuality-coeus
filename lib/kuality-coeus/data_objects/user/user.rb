@@ -25,6 +25,15 @@ class Users < Array
     self.user('admin')
   end
 
+  def grants_gov_pi
+    self.find { |user|
+                  !user[:primary_department_code].nil? &&
+                  !user[:phones].find{|phone| phone[:type]=='Work'}.nil? &&
+                  !user[:emails].find{|email| email[:type]=='Work'}.nil? &&
+                  !user[:era_commons_user_name].nil?
+    }
+  end
+
 end # Users
 
 # This is a special collection class that inherits from Hash and contains
@@ -60,6 +69,8 @@ class UserYamlCollection < Hash
     self.find_all{|user| user[1][:primary_dept_code]==code }.shuffle
   end
 
+  # Note: This method returns the username of a matching user record. It does NOT
+  # return an array of all matching users.
   def grants_gov_pi
     self.find_all { |user| !user[1][:primary_department_code].nil? &&
                            !user[1][:phones].find{|phone| phone[:type]=='Work'}.nil? &&
