@@ -36,6 +36,7 @@ class KeyPersonObject
 
   def create
     navigate
+    # TODO: Add support for non-employee personnel...
     on(KeyPersonnel).employee_search
     if @last_name==nil
       on PersonLookup do |look|

@@ -153,10 +153,18 @@ class ProposalDevelopmentObject
          proposal_type: @proposal_type,
          activity_type: @activity_type,
          project_title: @project_title,
-         project_personnel: Marshal::load(Marshal.dump(@key_personnel)),
          special_review: Marshal::load(Marshal.dump(@special_review)),
          custom_data: Marshal::load(Marshal.dump(@custom_data))
-         # TODO: Add more here as needed...
+    @key_personnel.each do |person|
+      project_person = make ProjectPersonnelObject, full_name: person[:full_name],
+                            first_name: person[:first_name], last_name: person[:last_name],
+                            lead_unit: person[:home_unit], role: person[:role],
+                            project_role: person[:key_person_role], units: person[:units],
+                            responsibility: person[:responsibility], space: person[:space],
+                            financial: person[:financial], recognition: person[:recognition]
+      ip.project_personnel << project_person
+    end
+    # TODO: Add more here as needed...
   end
 
   def delete

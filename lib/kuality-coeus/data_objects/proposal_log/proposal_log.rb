@@ -6,7 +6,7 @@ class ProposalLogObject
   include Navigation
 
   attr_accessor :number, :log_type, :log_status, :proposal_type, :title,
-                :principal_investigator, :lead_unit
+                :principal_investigator, :lead_unit, :sponsor_id
 
   def initialize(browser, opts={})
     @browser= browser
@@ -24,10 +24,12 @@ class ProposalLogObject
     visit(CentralAdmin).create_proposal_log
     set_principal_investigator
     on ProposalLog do |create|
+      create.expand_all
       @number=create.proposal_number
       @log_status=create.proposal_log_status
       create.description.set random_alphanums
       create.proposal_log_type.pick! @log_type
+      create.sponsor.fit @sponsor_id
       fill_out create, :proposal_type, :title, :lead_unit
     end
     on(ProposalLog).blanket_approve
