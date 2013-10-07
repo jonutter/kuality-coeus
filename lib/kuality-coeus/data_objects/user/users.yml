@@ -604,8 +604,52 @@ vchesnutt: # AKA: "Principal Name"
    - :email:   kc-qa-notify@rsmart.com
      :type:    Work
      :default: :set
-#  :rolez:
-#   - :id: '102'
-#   :name: Award Budget Modifier
-#   :qualifiers:
-#     - :unit: '000001'
+  :rolez:
+   - :id:   '02'
+     :name: Award Budget Modifier
+     :qualifiers:
+       - :unit: '000001'
+dkensrue: # AKA: "Principal Name"
+  :user_name:        dkensrue
+  :description:      Proposal Log Creator
+  :affiliation_type: Staff
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      dkensrue
+  :employee_status:  Active
+  :employee_type:    Professional
+  :base_salary:      234567.89
+  :primary_department_code: '000001'
+  :first_name:       Dustin
+  :last_name:        Kensrue
+  :primary_title:    Proposal Log Creator
+  :directory_title:  Proposal Log Creator
+  :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
+  :era_commons_user_name: dkensrue
+  :directory_department:  Finance
+  :graduate_student_count: '0'
+  :billing_element:  bla bla bla
+  :addresses:
+   - :type:    Work
+     :line_1:  475 N scottsdale rd
+     :city:    scottsdale
+     :state:   ARIZONA
+     :country: United States
+     :zip:     85257
+     :default: :set
+  :phones:
+   - :type:    Work
+     :number:  602-228-3876
+     :default: :set
+   - :type:    Facsimile
+     :number:  555-555-5555
+     :default: :clear
+     :country: United States
+  :emails:
+   - :email:   kc-qa-notify@rsmart.com
+     :type:    Work
+     :default: :set
+  :rolez:
+   - :id:   '140'
+     :name: Create Proposal Log
+     :qualifiers:
+       - :unit: '000001'

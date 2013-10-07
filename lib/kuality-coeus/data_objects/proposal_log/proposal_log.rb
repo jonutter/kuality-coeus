@@ -30,7 +30,7 @@ class ProposalLogObject
       create.proposal_log_type.pick! @log_type
       fill_out create, :proposal_type, :title, :lead_unit
     end
-    on(ProposalLog).blanket_approve
+    on(ProposalLog).submit
   end
 
   # =========
