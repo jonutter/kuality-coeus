@@ -85,6 +85,7 @@ class BasePage < PageFactory
       action(:delete_item) { |match, p| p.item_row(match).link(text: 'delete').click; p.use_new_tab; p.close_parents }
 
       action(:return_value) { |match, p| p.item_row(match).link(text: 'return value').click }
+      action(:select_item) { |match, p| p.item_row(match).link(text: 'select').click }
       action(:return_random) { |b| b.return_value_links[rand(b.return_value_links.length)].click }
       element(:return_value_links) { |b| b.results_table.links(text: 'return value') }
     end

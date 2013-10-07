@@ -12,8 +12,9 @@ class ProposalLogObject
     @browser= browser
 
     defaults = {
-        log_type:               '::random::',
+        log_type:               'Permanent',
         proposal_type:          '::random::',
+        sponsor_id:             '::random::',
         title:                  random_alphanums,
         lead_unit:              '000001',
     }
@@ -25,13 +26,13 @@ class ProposalLogObject
     set_principal_investigator
     on ProposalLog do |create|
       create.expand_all
-      @number=create.proposal_number
-      @log_status=create.proposal_log_status
+      @number=create.proposal_number.strip
+      @log_status=create.proposal_log_status.strip
       create.description.set random_alphanums
       create.proposal_log_type.pick! @log_type
-      create.sponsor.fit @sponsor_id
       fill_out create, :proposal_type, :title, :lead_unit
     end
+    set_sponsor_code
     on(ProposalLog).blanket_approve
   end
 
@@ -54,5 +55,19 @@ class ProposalLogObject
     end
   end
 
+  def set_sponsor_code
+    if @sponsor_id=='::random::'
+      on(ProposalLog).find_sponsor_code
+      on SponsorLookup do |look|
+        look.sponsor_type_code.pick! '::random::'
+        look.search
+        look.page_links[rand(look.page_links.length)].click if look.page_links.size > 0
+        look.return_random
+      end
+      @sponsor_id=on(ProposalLog).sponsor.value
+    else
+      on(ProposalLog).sponsor.fit @sponsor_id
+    end
+  end
 
 end
