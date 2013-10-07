@@ -12,7 +12,22 @@ class InstitutionalProposalObject
 
   def initialize(browser, opts={})
     @browser = browser
-    set_options(opts)
+
+    defaults = {
+        proposal_status:   'Pending',
+        activity_type:     '::random::',
+        project_personnel: collection('ProjectPersonnel')
+    }
+    unless opts[:proposal_log].nil?
+      defaults[:proposal_type]=opts[:proposal_log][:proposal_type]
+      defaults[:project_title]=opts[:proposal_log][:title]
+      defaults[:sponsor_id]=opts[:proposal_log][:sponsor_id]
+      pi = make ProjectPersonnelObject, full_name: opts[:proposal_log][:full_name],
+                role: 'Principal Investigator'
+      defaults[:project_personnel] << pi
+    end
+
+    set_options(defaults.merge(opts))
   end
 
   # This method is appropriate only in the context of creating an
