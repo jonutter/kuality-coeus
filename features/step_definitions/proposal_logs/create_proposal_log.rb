@@ -8,3 +8,6 @@ When(/^I initiate a proposal log document but I miss a required field$/) do
   field =snake_case(@required_field)
   @proposal_log = create ProposalLogObject, field=>value
 end
+When(/^I create a proposal log document$/) do
+  @proposal_log = create ProposalLogObject
+end
