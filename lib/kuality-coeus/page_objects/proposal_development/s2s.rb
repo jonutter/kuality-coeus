@@ -22,7 +22,7 @@ class S2S < ProposalDevelopmentDocument
   action(:refresh_submission_details) { |b| b.refresh_submission_details_button.click; b.loading }
   value(:received_date) { |b| b.submission_details_table[0][1].text }
   value(:last_modified_date) { |b| b.submission_details_table[0][3].text }
-  value(:submission_status) { |b| b.submission_details_table[1][1].text }
+  value(:s2s_submission_status) { |b| b.submission_details_table[1][1].text }
   value(:s2s_tracking_id) { |b| b.submission_details_table[2][1].text }
   value(:agency_tracking_id) { |b| b.submission_details_table[3][1].text }
   value(:comments) { |b| b.submission_details_table[4][1].text }

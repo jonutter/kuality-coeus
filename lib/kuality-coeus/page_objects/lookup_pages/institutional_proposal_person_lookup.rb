@@ -1,0 +1,3 @@
+class InstitutionalProposalPersonLookup < Lookups
+
+end

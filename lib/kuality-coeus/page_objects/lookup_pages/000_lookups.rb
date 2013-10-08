@@ -5,6 +5,7 @@ class Lookups < BasePage
 
   element(:last_name) { |b| b.frm.text_field(id: 'lastName') }
   element(:first_name) { |b| b.frm.text_field(id: 'firstName') }
+  element(:full_name) { |b| b.frm.text_field(id: 'fullName') }
   element(:user_name) { |b| b.frm.text_field(id: 'userName') }
   element(:create_button) { |b| b.frm.link(title: 'Create a new record') }
   action(:create_new) { |b| b.create_button.click; b.loading }

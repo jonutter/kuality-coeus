@@ -1,4 +1,4 @@
-Feature: Creating proposals
+Feature: Creating a proposal development document
 
   As a researcher I want the ability to create a proposal,
   so that I can get funding for my research.
