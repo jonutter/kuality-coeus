@@ -33,6 +33,7 @@ class IPUnrecoveredFAObject
       page.add_fa_source_account.set @source_account
       page.add_fa_amount.set @amount
       page.add_unrecovered_f_a
+      page.save
     end
   end
 

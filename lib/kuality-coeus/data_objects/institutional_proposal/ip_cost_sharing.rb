@@ -12,7 +12,8 @@ class IPCostSharingObject
     @browser = browser
 
     defaults = {
-        percentage:     '0.00',
+        project_period: '1',
+        percentage:     '100.00',
         type:           '::random::',
         source_account: random_alphanums,
         amount:         random_dollar_value(1000)
