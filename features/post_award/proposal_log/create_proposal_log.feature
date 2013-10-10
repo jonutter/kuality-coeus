@@ -9,3 +9,5 @@ Feature: Creating Proposal Logs
     And   I log in with the Create Proposal Log user
     When  I initiate a proposal log document but I miss a required field
     Then  an error should appear that says the field is required
+
+  Scenario:
