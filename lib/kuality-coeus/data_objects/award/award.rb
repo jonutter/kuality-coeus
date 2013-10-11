@@ -6,7 +6,7 @@ class AwardObject
   include DateFactory
   include StringFactory
 
-  attr_accessor :description, :transaction_type, :award_id, :funding_proposal, :award_status,
+  attr_accessor :description, :transaction_type, :id, :funding_proposal, :award_status,
                 :award_title, :lead_unit, :activity_type, :award_type, :sponsor_id,
                 :project_start_date, :project_end_date, :obligation_start_date,
                 :obligation_end_date, :anticipated_amount, :obligated_amount, :document_id,
@@ -18,7 +18,7 @@ class AwardObject
     defaults = {
       description:           random_alphanums,
       transaction_type:      '::random::',
-      award_status:          '::random::',
+      award_status:          'Active', # Needs to be this way because we don't want it to pick a status of 'Closed'
       award_title:           random_alphanums,
       activity_type:         '::random::',
       award_type:            '::random::',
@@ -30,7 +30,8 @@ class AwardObject
       obligation_end_date:   in_a_year[:date_w_slashes],
       anticipated_amount:    '1000000',
       obligated_amount:      '1000000',
-      transactions:          collection('Transaction')
+      transactions:          collection('Transaction'),
+      key_personnel:         collection('AwardKeyPersonnel')
     }
 
     set_options(defaults.merge(opts))
@@ -49,7 +50,7 @@ class AwardObject
       set_lead_unit
       create.save
       @document_id = create.header_document_id
-      @award_id = create.header_award_id
+      @id = create.header_award_id
     end
     add_funding_proposal if @funding_proposal
   end
@@ -63,7 +64,7 @@ class AwardObject
   end
 
   def add_transaction opts={}
-    defaults={award_id: @award_id}
+    defaults={award_id: @id}
     @transactions.add defaults.merge(opts)
   end
 
@@ -112,7 +113,7 @@ class AwardObject
 
   def on_award?
     if on(Award).headerinfo_table.exist?
-      on(Award).header_award_id==@award_id
+      on(Award).header_award_id==@id
     else
       false
     end
