@@ -59,7 +59,7 @@ Feature: Permissions in a Proposal
     | Unassigned       |
     | Proposal Creator |
 
-  Scenario Outline: Users with the appropriate permissions can edit proposals that have been recalled for revisions
+  Scenario Outline: Visit a recalled proposal as users with the permissions necessary to edit the document in varying ways
     Given a user exists with the system role: 'Unassigned'
     And   assign the Unassigned user as a <Role> in the proposal permissions
     And   complete the proposal

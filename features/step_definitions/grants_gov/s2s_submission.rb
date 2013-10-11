@@ -23,10 +23,17 @@ Then /^within a couple minutes the submission status will be updated$/ do
   end
 end
 
+When(/^I attach the PHS fellowship form to the proposal$/) do
+  on S2S do |page|
+    %w{PHS_Fellowship_Supplemental_1_2-V1.2
+     }.each { |form| page.include_form(form).set }
+  end
+end
+
 When(/^I attach the PHS training and fellowship forms to the proposal$/) do
   on S2S do |page|
     %w{PHS_Fellowship_Supplemental_1_2-V1.2
-     PHS398_TrainingBudget-V1.0}.each { |form| page.include_form(form).set }
+     }.each { |form| page.include_form(form).set }
   end
 end
 
@@ -38,15 +45,14 @@ Then /^the PHS training and fellowship questionnaires should appear in the propo
   end
 end
 
-When /^I? ?complete their respective questionnaires$/ do
+When /^I? ?complete its questionnaire$/ do
   @proposal.complete_phs_fellowship_questionnaire
 end
 
-Then /^the questionnaire titles should indicate that the questionnaires have been completed$/ do
+Then /^the questionnaire's title should indicate that the questionnaire has been completed$/ do
   on(S2S).questions
   on Questions do |page|
-    ['PHS398 Training Budget V1-0',
-     'PHS Fellowship Form V1-2'].each { |form_tab| page.form_status(form_tab).should=='Complete'}
+    ['PHS Fellowship Form V1-2'].each { |form_tab| page.form_status(form_tab).should=='Complete'}
   end
 end
 

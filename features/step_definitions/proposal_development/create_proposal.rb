@@ -92,6 +92,7 @@ end
 
 And /^I? ?submit a new development proposal into routing$/ do
   @proposal = create ProposalDevelopmentObject
+  #The following are necessary for submission into routing
   @proposal.add_principal_investigator
   @proposal.set_valid_credit_splits
   @proposal.add_custom_data
