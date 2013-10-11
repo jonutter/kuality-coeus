@@ -53,7 +53,7 @@ class SpecialReviewObject
 
   def navigate
     open_document @doc_type
-    on(Proposal).special_review unless on_page?(on(SpecialReview).type)
+    on(Proposal).special_review unless on_page?(on(SpecialReview).add_type)
   end
 
 end # SpecialReviewObject

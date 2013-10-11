@@ -52,6 +52,11 @@ class BudgetColumnObject
     on BudgetColumnToAlter do |edit|
       edit.description.set random_alphanums
       edit.has_lookup.fit opts[:has_lookup]
+      # Note: The next two lines of code are here because the
+      # lookup return select list is blank
+      # until the lookup argument field gets updated.
+      edit.lookup_argument.select 'select'
+      opts[:lookup_argument] ||= @lookup_argument
       edit.lookup_argument.pick! opts[:lookup_argument]
       edit.lookup_return.pick! opts[:lookup_return]
       edit.blanket_approve

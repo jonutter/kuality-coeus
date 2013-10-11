@@ -1,7 +1,7 @@
 Feature: Validating content of s2s proposals
 
-  As someone who submits proposals to the federal government for grant money
-  I want to ensure the proposals are free of errors prior to submission
+  As a Proposal creator for federal grant money, I want to ensure my
+  proposals are free of errors, prior to submission
 
   Background: Logged in with a proposal creator; initiate a proposal for grants.gov
     Given a user exists with the system role: 'Proposal Creator'
