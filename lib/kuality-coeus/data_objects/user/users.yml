@@ -653,3 +653,47 @@ dkensrue: # AKA: "Principal Name"
      :name: Create Proposal Log
      :qualifiers:
        - :unit: '000001'
+mtwain: # AKA: "Principal Name"
+  :user_name:        mtwain
+  :description:      Award Budget Aggregator
+  :affiliation_type: Staff
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      mtwain
+  :employee_status:  Active
+  :employee_type:    Professional
+  :base_salary:      98765.43
+  :primary_department_code: '000001'
+  :first_name:       Mark
+  :last_name:        Twain
+  :primary_title:    Award Budget Aggregator
+  :directory_title:  Award Budget Aggregator
+  :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
+  :era_commons_user_name: mtwain
+  :directory_department:  Liberal Arts
+  :graduate_student_count: '0'
+  :billing_element:  bla bla bla
+  :addresses:
+   - :type:    Work
+     :line_1:  475 N scottsdale rd
+     :city:    scottsdale
+     :state:   ARIZONA
+     :country: United States
+     :zip:     85257
+     :default: :set
+  :phones:
+   - :type:    Work
+     :number:  602-228-3876
+     :default: :set
+   - :type:    Facsimile
+     :number:  543-525-1234
+     :default: :clear
+     :country: United States
+  :emails:
+   - :email:   kc-qa-notify@rsmart.com
+     :type:    Work
+     :default: :set
+  :rolez:
+   - :id:   '113'
+     :name: Award Budget Aggregator
+     :qualifiers:
+       - :unit: '000001'
