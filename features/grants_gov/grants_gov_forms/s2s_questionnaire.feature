@@ -12,9 +12,9 @@ Feature: S2S Questionnaire Population and Functionality
   When  I attach the PHS training and fellowship forms to the proposal
   Then  the PHS training and fellowship questionnaires should appear in the proposal
 
-  Scenario: Attach the PHS Fellowship and Training forms, and complete the questionnaires
+  Scenario: Attach the PHS Fellowship form and complete its questionnaire
   Given I initiate a proposal with NIH as the sponsor
   And   add the Grants.Gov opportunity id of PA-B2-ALL to the proposal
-  When  I attach the PHS training and fellowship forms to the proposal
-  And   complete their respective questionnaires
-  Then  the questionnaire titles should indicate that the questionnaires have been completed
+  When  I attach the PHS fellowship form to the proposal
+  And   complete its questionnaire
+  Then  the questionnaire's title should indicate that the questionnaire has been completed
