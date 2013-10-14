@@ -8,7 +8,8 @@ Feature: Creating Proposal Logs
     Given a user exists with the system role: 'Create Proposal Log'
     And   I log in with the Create Proposal Log user
     When  I initiate a new proposal log document
-    Then  the status of the proposal log document should be Pending
+    Then  the status of the proposal log document should be INITIATED
+    And   the proposal log status should be Pending
 
   Scenario: Attempt to initiate a proposal log with a missing required field
     Given a user exists with the system role: 'Create Proposal Log'

@@ -37,7 +37,9 @@ class ProposalLogObject
     on(ProposalLog).save
   end
 
+  def submit
 
+  end
 
   # =========
   private

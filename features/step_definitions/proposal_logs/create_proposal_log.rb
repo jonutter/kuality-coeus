@@ -13,6 +13,10 @@ When(/^I initiate a new proposal log document$/) do
   @proposal_log = create ProposalLogObject
 end
 
-Then(/^the status of the proposal log document should be (.*)$/) do |prop_log_status|
+Then(/^the status of the proposal log document should be (.*)$/) do |status|
+  @proposal_log.status.should == status
+end
+
+When(/^the proposal log status should be (.*)$/) do |prop_log_status|
   @proposal_log.log_status.should == prop_log_status
 end
