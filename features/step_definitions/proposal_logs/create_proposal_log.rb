@@ -9,7 +9,7 @@ When(/^I initiate a proposal log document but I miss a required field$/) do
   @proposal_log = create ProposalLogObject, field=>value
 end
 
-When(/^I initiate a new proposal log document$/) do
+When(/^I? ?initiate a new proposal log document$/) do
   @proposal_log = create ProposalLogObject
 end
 
@@ -19,4 +19,10 @@ end
 
 When(/^the proposal log status should be (.*)$/) do |prop_log_status|
   @proposal_log.log_status.should == prop_log_status
+end
+When(/^I initiate a second new proposal log document$/) do
+  @proposal_log2 = create ProposalLogObject
+end
+When(/^I combine the two proposal log documents$/) do
+
 end

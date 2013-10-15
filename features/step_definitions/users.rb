@@ -47,6 +47,12 @@ Given /^a user exists with the system role: '(.*)'$/ do |role|
   user.create unless user.exists?
 end
 
+# Use this step definition immediately after a step where you
+# have made/created a user. They'll be last in the collection.
+And /^I log in with that user$/ do
+  $users[-1].sign_in
+end
+
 Then /^(.*) is logged in$/ do |username|
   get(username).logged_in?.should be true
 end
@@ -80,10 +86,6 @@ end
 
 Given /^I? ?log in as the user with the (.*) role in (.*)$/ do |role, unit|
   $users.with_role_in_unit(role, unit).sign_in
-end
-
-When /^I? ?log in with that user$/ do
-  $users[-1].sign_in
 end
 
 And /^I add the (.*) role in the (.*) unit to that user$/ do |role, unit|

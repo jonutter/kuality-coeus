@@ -6,6 +6,10 @@ When /^I? ?initiate an award document$/ do
   @award = create AwardObject
 end
 
+Given /^I? ?initiate an Award with (.*) as the Lead Unit$/ do |lead_unit|
+  @award = create AwardObject, lead_unit: lead_unit
+end
+
 When /^I ? ?initiate an award document with a missing required field$/ do
   @required_field = ['Description', 'Transaction Type', 'Award Status', 'Award Title',
                      'Activity Type', 'Award Type', 'Project Start Date', 'Project End Date',

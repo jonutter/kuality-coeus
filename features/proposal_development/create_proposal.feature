@@ -6,7 +6,7 @@ Feature: Creating a proposal development document
   Background: Logged in with a proposal creator user
     Given a user exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
-  @test
+
   Scenario: Attempt to save a proposal missing a required field
     When  I initiate a proposal but miss a required field
     Then  I should see an error that says the field is required
