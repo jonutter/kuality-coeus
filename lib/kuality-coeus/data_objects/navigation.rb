@@ -43,6 +43,18 @@ module Navigation
     end
   end
 
+  # Use this if the confirmation dialog may appear.
+  # For example: due to missing rates...
+  def confirmation(answer='yes')
+    begin
+      on(Confirmation) do |conf|
+        conf.send(answer) if conf.yes_button.present?
+      end
+    rescue
+      # do nothing because the dialog isn't there
+    end
+  end
+
   # Use in the #create method of your data objects for filling out
   # fields. This method eliminates the need to write repetitive
   # lines of code, with one line for every field needing to be

@@ -75,6 +75,13 @@ class AwardObject
   end
   alias_method :add_pi, :add_key_person
 
+  def view(tab)
+    navigate
+    unless on(Award).send(StringFactory.damballa("#{tab}_button")).parent.class_name=~/tabcurrent$/
+      on(Award).send(StringFactory.damballa(tab.to_s))
+    end
+  end
+
   # ========
   private
   # ========
