@@ -96,19 +96,6 @@ class KeyPersonnel < ProposalDevelopmentDocument
   private
   # =======
 
-  class << self
-    # Used for getting rid of the space in the full name
-    def nsp(string)
-      string.gsub(' ', '')
-    end
-
-    # Used to add an extra space in the full name (because some
-    # elements in the page have that, annoyingly!)
-    def twospace(string)
-      string.gsub(' ', '  ')
-    end
-  end
-
   element(:credit_split_div_table) { |b| b.frm.div(id: 'tab-CombinedCreditSplit-div').table }
 
   action(:target_unit_row) do |full_name, unit_number, p|

@@ -47,6 +47,16 @@ Given /^a user exists with the system role: '(.*)'$/ do |role|
   user.create unless user.exists?
 end
 
+# This step definition will return a user with
+# the specified role for the specified unit. If there
+# are multiple matching users, it will select one
+# of them randomly, and create them if they don't exist in the system (again by first
+# logging in with the admin user to do the creation).
+Given /^a user exists with the role '(.*)' in unit '(.*)'$/ do |role, unit|
+  user = make_user role: role, unit: unit
+  user.create unless user.exists?
+end
+
 # Use this step definition immediately after a step where you
 # have made/created a user. They'll be last in the collection.
 And /^I log in with that user$/ do
