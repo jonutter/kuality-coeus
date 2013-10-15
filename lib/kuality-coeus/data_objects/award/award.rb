@@ -10,7 +10,7 @@ class AwardObject
                 :award_title, :lead_unit, :activity_type, :award_type, :sponsor_id,
                 :project_start_date, :project_end_date, :obligation_start_date,
                 :obligation_end_date, :anticipated_amount, :obligated_amount, :document_id,
-                :creation_date, :transactions
+                :creation_date, :transactions, :key_personnel
 
   def initialize(browser, opts={})
     @browser = browser
@@ -68,6 +68,13 @@ class AwardObject
     @transactions.add defaults.merge(opts)
   end
 
+  def add_key_person opts={}
+    navigate
+    on(Award).contacts
+    @key_personnel.add opts
+  end
+  alias_method :add_pi, :add_key_person
+
   # ========
   private
   # ========
@@ -81,6 +88,7 @@ class AwardObject
         look.page_links[rand(look.page_links.length)].click if look.page_links.size > 0
         look.return_random
       end
+      @sponsor_id=on(Award).sponsor_id.value
     else
       on(Award).sponsor_id.fit @sponsor_id
     end

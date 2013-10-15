@@ -1,0 +1,11 @@
+Feature: Modifying Award Properties
+
+  As an Award Modifier, I want to be able to make changes to Award documents,
+  so that I can set them up properly
+
+  Scenario: Award Modifier adds a PI to an Award
+    Given a user exists with the role 'Award Modifier' in unit 'BL-BL'
+    And   I log in with that user
+    And   I initiate an Award with BL-BL as the Lead Unit
+    When  I add a PI to the award
+    Then  The Award PI's Lead Unit is BL-BL

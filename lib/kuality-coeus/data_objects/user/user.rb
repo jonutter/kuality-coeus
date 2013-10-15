@@ -47,6 +47,17 @@ class UserYamlCollection < Hash
     self.find_all{|user| user[1][:rolez] != nil && user[1][:rolez].detect{|r| r[:name]==role}}.shuffle
   end
 
+  # Returns an array of all users with the specified role in the specified unit. Takes
+  # the role and unit names as strings.
+  # The array is shuffled so that #have_role_in_unit('role name', 'unit name')[0]
+  # will be a random selection from the list of matching users.
+  def have_role_in_unit(role, unit)
+    self.find_all{ |user|
+      user[1][:rolez] != nil &&
+      user[1][:rolez].find{ |r| r[:name]==role && r[:qualifiers].detect{ |q| q[:unit]==unit } }
+    }.shuffle
+  end
+
   # Returns an array of all users with the specified campus code. Takes the code as a string.
   # The array is shuffled so that #with_campus_code('code')[0] will be a random selection
   # from the list of matching users.
@@ -131,6 +142,8 @@ class UserObject
                  'admin'
                when opts.key?(:user)
                  opts[:user]
+               when opts.key?(:unit)
+                 USERS.have_role_in_unit(opts[:role], opts[:unit])[0][0]
                when opts.key?(:role)
                  USERS.have_role(opts[:role])[0][0]
                else
