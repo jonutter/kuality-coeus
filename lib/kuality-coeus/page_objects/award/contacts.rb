@@ -22,7 +22,11 @@ class AwardContacts < KCAwards
   action(:units) { |name, b| un=[]; b.person_units(name).to_a.each{ |row| un << row[3].strip }; 2.times{un.delete_at(0)}; un }
   action(:lead_unit_radio) { |name, unit, b| b.person_unit_row(name, unit).radio(name: 'selectedLeadUnit') }
   action(:delete_unit) { |name, unit, b| b.person_unit_row(name, unit).button(name: /methodToCall.deleteProjectPersonUnit/).click }
-  
+
+  # This button is only present in the context of a Key Person...
+  action(:add_unit_details) { |name, p| p.person_units(name).button(title: 'Add Unit Details').click }
+
+
   # Combined Credit Split
 
   # Unit Contacts

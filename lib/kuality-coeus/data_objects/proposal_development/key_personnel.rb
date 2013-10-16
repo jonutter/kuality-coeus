@@ -73,11 +73,11 @@ class KeyPersonObject
       @home_unit=person.home_unit @full_name
       if @units.empty? # No units in @units, so we're not setting units
         # ...so, get the units from the UI:
-        @units=person.units @full_name if @key_person_role==nil
+        @units=person.units @full_name if @key_person_role.nil?
 
       else # We have Units to add and update...
         # Temporarily store any existing units...
-        person.add_unit_details(@full_name) unless @key_person_role==nil
+        person.add_unit_details(@full_name) unless @key_person_role.nil?
 
         units=person.units @full_name
         # Note that this assumes we're adding

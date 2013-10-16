@@ -35,11 +35,25 @@ class AwardKeyPersonObject
       fill_out create, :key_person_role
       create.add_key_person
       create.expand_all
-      # TODO: This code is bad. Needs to allow for passing of unit values in creation step!
-      # Now we need to scrape the UI for the Units and the Lead Unit...
-      @units=create.units(@full_name)
-      @units.each do |unit|
-        @lead_unit = unit if create.lead_unit_radio(@full_name, unit).set?
+      if @units.empty?
+        # Now we need to scrape the UI for the Units and the Lead Unit...
+        @units=create.units(@full_name) if @key_person_role.nil?
+        @units.each do |unit|
+          @lead_unit = unit if create.lead_unit_radio(@full_name, unit).set?
+        end
+      else
+        create.add_unit_details(@full_name) unless @key_person_role.nil?
+        units=create.units @full_name
+        # Note that this assumes we're adding
+        # Unit(s) that aren't already present
+        # in the list, so be careful!
+        @units.each do |unit|
+          create.add_unit_number(@full_name).set unit
+          create.add_unit @full_name
+        end
+        # Now add the previously existing units to
+        # @units
+        units.each { |unit| @units << unit }
       end
       create.save
     end

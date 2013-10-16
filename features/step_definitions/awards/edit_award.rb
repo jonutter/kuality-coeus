@@ -17,3 +17,11 @@ end
 When /^I? ?set (.*) as the lead unit for the Award's PI$/ do |unit|
   @award.key_personnel.principal_investigator.set_lead_unit unit
 end
+
+Given /I? ?add a key person to the Award$/ do
+  @award.add_key_person
+
+  puts @award.inspect
+
+
+end
