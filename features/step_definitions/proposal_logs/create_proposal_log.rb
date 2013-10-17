@@ -26,3 +26,10 @@ end
 When(/^I combine the two proposal log documents$/) do
 
 end
+When(/^I initiate a new permanent proposal log document$/) do
+  @proposal_log = create ProposalLogObject
+end
+When(/^I? ?initiate a new temporary proposal log document$/) do
+  @proposal_log = create ProposalLogObject,
+                         log_type: 'Temporary'
+end
