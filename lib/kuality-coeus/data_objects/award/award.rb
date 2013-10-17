@@ -68,12 +68,23 @@ class AwardObject
     @transactions.add defaults.merge(opts)
   end
 
-  def add_key_person opts={}
+  def add_pi opts={}
     navigate
     on(Award).contacts
     @key_personnel.add opts
   end
-  alias_method :add_pi, :add_key_person
+
+  def add_key_person opts={}
+    defaults={project_role: 'Key Person', key_person_role: random_alphanums}
+    add_pi defaults.merge(opts)
+  end
+
+  def view(tab)
+    navigate
+    unless on(Award).send(StringFactory.damballa("#{tab}_button")).parent.class_name=~/tabcurrent$/
+      on(Award).send(StringFactory.damballa(tab.to_s))
+    end
+  end
 
   # ========
   private

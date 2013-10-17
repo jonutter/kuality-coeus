@@ -200,18 +200,6 @@ class BudgetVersionsObject
     on(Proposal).budget_versions unless on_page?(on(BudgetVersions).name)
   end
 
-  # Use this if the confirmation dialog may appear
-  # due to missing rates...
-  def confirmation
-    begin
-      on(Confirmation) do |conf|
-        conf.yes if conf.yes_button.present?
-      end
-    rescue
-      # do nothing because the dialog isn't there
-    end
-  end
-
 end # BudgetVersionsObject
 
 class BudgetVersionsCollection < CollectionsFactory

@@ -35,12 +35,62 @@ class AwardKeyPersonObject
       fill_out create, :key_person_role
       create.add_key_person
       create.expand_all
-      # Now we need to scrape the UI for the Lead Unit...
-      @units=create.units(@full_name)
-      @units.each do |unit|
-        @lead_unit = unit if create.lead_unit_radio(@full_name, unit).set?
+      if @units.empty?
+        # Now we need to scrape the UI for the Units and the Lead Unit...
+        @units=create.units(@full_name) if @key_person_role.nil?
+        @units.each do |unit|
+          @lead_unit = unit if create.lead_unit_radio(@full_name, unit).set?
+        end
+      else
+        create.add_unit_details(@full_name) unless @key_person_role.nil?
+        units=create.units @full_name
+        # Note that this assumes we're adding
+        # Unit(s) that aren't already present
+        # in the list, so be careful!
+        @units.each do |unit|
+          create.add_unit_number(@full_name).set unit
+          create.add_unit @full_name
+        end
+        # Now add the previously existing units to
+        # @units
+        units.each { |unit| @units << unit }
       end
+      create.save
     end
+  end
+
+  def add_unit(unit, lead=false)
+    # TODO: Add conditional navigation
+    on AwardContacts do |add_unit|
+      add_unit.add_lead_unit(@full_name) if lead
+      add_unit.add_unit_number(@full_name).set unit
+      add_unit.add_unit(@full_name)
+      confirmation 'no'
+      add_unit.save
+    end
+    @lead_unit=unit if lead
+    @units << unit
+  end
+
+  def add_lead_unit(unit)
+    add_unit(unit, true)
+  end
+
+  def set_lead_unit(unit)
+    # TODO: Add conditional navigation
+    on AwardContacts do |page|
+      page.lead_unit_radio(@full_name, unit).set
+      page.save
+    end
+  end
+
+  def delete_unit(unit)
+    # TODO: Add conditional navigation
+    on AwardContacts do |delete_unit|
+      delete_unit.delete_unit(@full_name, unit)
+      delete_unit.save
+    end
+    @units.delete(unit)
   end
 
   # ===========
