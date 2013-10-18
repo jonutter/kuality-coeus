@@ -4,6 +4,7 @@ class Award < KCAwards
   description_field
 
   element(:institutional_proposal_number) { |b| b.frm.text_field(name: 'fundingProposalBean.newFundingProposal.proposalNumber') }
+  element(:proposal_merge_type) { |b| b.frm.select(name: 'fundingProposalBean.mergeTypeCode') }
   action(:add_proposal) { |b| b.frm.button(name: 'methodToCall.addFundingProposal.anchorFundingProposals').click; b.loading }
   element(:transaction_type) { |b| b.frm.select(name: 'document.awardList[0].awardTransactionTypeCode') }
   element(:award_status) { |b| b.frm.select(name: 'document.awardList[0].statusCode') }
@@ -21,5 +22,9 @@ class Award < KCAwards
   element(:obligation_end_date) { |b| b.frm.text_field(name: /obligationExpirationDate/) }
   element(:anticipated_amount) { |b| b.frm.text_field(name: /anticipatedTotalAmount/) }
   element(:obligated_amount) { |b| b.frm.text_field(name: /amountObligatedToDate/) }
+  
+  element(:add_organization_name) { |b| b.frm.text_field(name: 'approvedSubawardFormHelper.newAwardApprovedSubaward.organizationName') }
+  element(:add_subaward_amount) { |b| b.frm.text_field(name: 'approvedSubawardFormHelper.newAwardApprovedSubaward.amount') }
+  action(:add_subaward) { |b| b.frm.button(name: 'methodToCall.addApprovedSubaward.anchorSubawards').click }
   
 end
