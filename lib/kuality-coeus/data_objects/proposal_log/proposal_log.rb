@@ -6,7 +6,7 @@ class ProposalLogObject
   include Navigation
 
   attr_accessor :number, :log_type, :log_status, :proposal_type, :title,
-                :principal_investigator, :lead_unit, :sponsor_id
+                :principal_investigator, :lead_unit, :sponsor_id, :status
 
   def initialize(browser, opts={})
     @browser= browser
@@ -28,13 +28,16 @@ class ProposalLogObject
       create.expand_all
       @number=create.proposal_number.strip
       @log_status=create.proposal_log_status.strip
+      @status=create.document_status
       create.description.set random_alphanums
       create.proposal_log_type.pick! @log_type
       fill_out create, :proposal_type, :title, :lead_unit
     end
     set_sponsor_code
-    on(ProposalLog).blanket_approve
+    on(ProposalLog).save
   end
+
+
 
   # =========
   private

@@ -80,6 +80,7 @@ When /^the (.*) user approves the proposal$/ do |role|
   on(ProposalSummary).approve
   on(Confirmation).yes
 end
+
 When(/^I try to add the (.*) user as a (.*) to the key personnel proposal roles$/) do |user_role, proposal_role|
   user = get(user_role)
   @proposal.add_key_person first_name: user.first_name, last_name: user.last_name, role: proposal_role

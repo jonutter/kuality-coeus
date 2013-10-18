@@ -8,6 +8,11 @@ When(/^I initiate a proposal log document but I miss a required field$/) do
   field =snake_case(@required_field)
   @proposal_log = create ProposalLogObject, field=>value
 end
-When(/^I create a proposal log document$/) do
+
+When(/^I initiate a new proposal log document$/) do
   @proposal_log = create ProposalLogObject
+end
+
+Then(/^the status of the proposal log document should be (.*)$/) do |prop_log_status|
+  @proposal_log.log_status.should == prop_log_status
 end
