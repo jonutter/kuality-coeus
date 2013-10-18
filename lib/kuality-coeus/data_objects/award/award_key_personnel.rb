@@ -3,14 +3,17 @@ class AwardKeyPersonObject
   include Foundry
   include DataFactory
   include Navigation
+  include Personnel
 
   attr_accessor :employee_user_name, :non_employee_id, :project_role,
                 :key_person_role, :units, :first_name, :last_name, :full_name,
-                :lead_unit
+                :lead_unit, :type, :responsibility, :financial, :recognition,
+                :space
 
   def initialize(browser, opts={})
     @browser=browser
     defaults = {
+        type:         'employee',
         project_role: 'Principal Investigator',
         units:        []
     }
@@ -19,9 +22,15 @@ class AwardKeyPersonObject
   end
 
   # Navigation done by parent object...
-  # TODO: This will need to support Non-employees at some point.
   def create
-    add_employee_name
+    on(AwardContacts).expand_all
+    if @employee_user_name.nil? && @non_employee_id.nil?
+      get_person
+      # TODO: Need to add code that sets the user name or id
+    else
+      # TODO: Need to add conditional code for
+      # if you have a user id but not a name
+    end
     on AwardContacts do |create|
       # This conditional exists to deal with the fact that
       # a Principal Investigator can also be called a "PI/Contact",
@@ -35,41 +44,41 @@ class AwardKeyPersonObject
       fill_out create, :key_person_role
       create.add_key_person
       create.expand_all
-      if @units.empty?
-        # Now we need to scrape the UI for the Units and the Lead Unit...
-        @units=create.units(@full_name) if @key_person_role.nil?
-        @units.each do |unit|
-          @lead_unit = unit if create.lead_unit_radio(@full_name, unit).set?
-        end
-      else
-        create.add_unit_details(@full_name) unless @key_person_role.nil?
-        units=create.units @full_name
-        # Note that this assumes we're adding
-        # Unit(s) that aren't already present
-        # in the list, so be careful!
-        @units.each do |unit|
-          create.add_unit_number(@full_name).set unit
-          create.add_unit @full_name
-        end
-        # Now add the previously existing units to
-        # @units
-        units.each { |unit| @units << unit }
-      end
+      set_up_units(create)
       create.save
     end
   end
 
+  def edit opts={}
+    # TODO: Add navigation
+    on AwardContacts do |update|
+      update.expand_all
+      # TODO: This will eventually need to be fixed...
+      # Note: This is a dangerous short cut, as it may not
+      # apply to every field that could be edited with this
+      # method...
+      opts.each do |field, value|
+        update.send(field, @full_name).fit value
+      end
+      update.save
+    end
+    update_options(opts)
+  end
+
+  # TODO: Some of this method should be moved to the Personnel
+  # module at some point, so it can be used by the KeyPersonObject.
   def add_unit(unit, lead=false)
     # TODO: Add conditional navigation
     on AwardContacts do |add_unit|
+      add_unit.expand_all
       add_unit.add_lead_unit(@full_name) if lead
       add_unit.add_unit_number(@full_name).set unit
       add_unit.add_unit(@full_name)
+      @units << {number: unit, name: add_unit.unit_name(@full_name, unit) }
       confirmation 'no'
       add_unit.save
     end
     @lead_unit=unit if lead
-    @units << unit
   end
 
   def add_lead_unit(unit)
@@ -97,43 +106,8 @@ class AwardKeyPersonObject
   private
   # ===========
 
-  # This method takes care of filling in the employee
-  # user name field...
-  def add_employee_name
-    on(AwardContacts).expand_all
-    if @employee_user_name.nil?
-      on(AwardContacts).kp_employee_search
-      if @last_name.nil?
-        on PersonLookup do |look|
-          look.search
-          look.return_random
-        end
-        on AwardContacts do |person|
-          div_full_name = person.kp_employee_full_name
-
-          @last_name=div_full_name[/\w+$/]
-          @first_name=$~.pre_match.strip
-          @full_name="#{@first_name} #{@last_name}"
-        end
-      else
-        on PersonLookup do |look|
-          look.last_name.set @last_name
-          look.search
-          look.return_value @full_name
-        end
-      end
-    else
-      on(AwardContacts).kp_employee_user_name.set @employee_user_name
-    end
-  end
-
-  def role_value
-    {
-        'Principal Investigator' => 'PI',
-        'PI/Contact' => 'PI',
-        'Co-Investigator' => 'COI',
-        'Key Person' => 'KP'
-    }
+  def page_class
+    AwardContacts
   end
 
 end
@@ -144,6 +118,10 @@ class AwardKeyPersonnelCollection < CollectionsFactory
 
   def principal_investigator
     self.find{ |person| person.project_role=='Principal Investigator' || person.project_role=='PI/Contact' }
+  end
+
+  def with_units
+    self.find_all { |person| person.units.size > 0 }
   end
 
 end

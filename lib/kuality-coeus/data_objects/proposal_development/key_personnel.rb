@@ -4,8 +4,9 @@ class KeyPersonObject
   include DataFactory
   include StringFactory
   include Navigation
+  include Personnel
 
-  attr_accessor :first_name, :last_name, :role, :document_id, :key_person_role,
+  attr_accessor :first_name, :last_name, :type, :role, :document_id, :key_person_role,
                 :full_name, :user_name, :home_unit, :units, :responsibility,
                 :financial, :recognition, :certified, :certify_info_true,
                 :potential_for_conflicts, :submitted_financial_disclosures,
@@ -17,6 +18,7 @@ class KeyPersonObject
     @browser = browser
 
     defaults = {
+      type:                            'employee',
       role:                            'Principal Investigator',
       units:                           [],
       degrees:                         collection('Degrees'),
@@ -36,25 +38,7 @@ class KeyPersonObject
 
   def create
     navigate
-    # TODO: Add support for non-employee personnel...
-    on(KeyPersonnel).employee_search
-    if @last_name==nil
-      on PersonLookup do |look|
-        look.search
-        look.return_random
-      end
-      on KeyPersonnel do |person|
-        @full_name=person.person_name
-        @last_name=@full_name[/\w+$/]
-        @first_name=$~.pre_match.strip
-      end
-    else
-      on PersonLookup do |look|
-        look.last_name.set @last_name
-        look.search
-        look.return_value @full_name
-      end
-    end
+    get_person
     on KeyPersonnel do |person|
       # This conditional exists to deal with the fact that
       # a Principal Investigator can also be called a "PI/Contact",
@@ -71,42 +55,8 @@ class KeyPersonObject
       person.expand_all
       @user_name=person.user_name @full_name
       @home_unit=person.home_unit @full_name
-      if @units.empty? # No units in @units, so we're not setting units
-        # ...so, get the units from the UI:
-        @units=person.units @full_name if @key_person_role.nil?
-
-      else # We have Units to add and update...
-        # Temporarily store any existing units...
-        person.add_unit_details(@full_name) unless @key_person_role.nil?
-
-        units=person.units @full_name
-        # Note that this assumes we're adding
-        # Unit(s) that aren't already present
-        # in the list, so be careful!
-        @units.each do |unit|
-          person.unit_number(@full_name).set unit[:number]
-          person.add_unit @full_name
-        end
-        break if person.unit_details_errors_div(@full_name).present?
-        # Now add the previously existing units to
-        # @units
-        units.each { |unit| @units << unit }
-      end
-
-      # Now we groom the Unit Hashes, to include
-      # the Combined Credit Split numbers...
-      #
-      # NOTE: Commenting out this code until we
-      # determine either we need it or else we come up with
-      # a better way to do this...
-      #@units.each do |unit|
-      #  [:space, :responsibility, :financial, :recognition].each do |item|
-      #    unit[item] ||= unit.store(item, rand_num)
-      #  # Then we update the UI with the values...
-      #    person.send("unit_#{item.to_s}".to_sym, @full_name, unit[:number]).set unit[item]
-      #  end
-      #end
-
+      set_up_units(person)
+      break if person.unit_details_errors_div(@full_name).present?
       # If it's a key person without units then they won't have credit splits,
       # otherwise, the person will, so fill them out...
       if @key_person_role==nil || !@units.empty?
@@ -138,6 +88,7 @@ class KeyPersonObject
     navigate
     on KeyPersonnel do |update|
       update.expand_all
+      # TODO: This will eventually need to be fixed...
       # Note: This is a dangerous short cut, as it may not
       # apply to every field that could be edited with this
       # method...
@@ -147,31 +98,6 @@ class KeyPersonObject
       update.save
     end
     update_options(opts)
-  end
-
-  # This method requires a parameter that is an Array
-  # of Hashes. Though it defaults to the person object's
-  # @units variable.
-  #
-  # Example:
-  # [{:number=>"UNIT NUMBER", :responsibility=>"33.33"}]
-  def update_unit_credit_splits(units=@units)
-    splits=[:responsibility, :financial, :recognition, :space]
-    units.each do |unit|
-      on KeyPersonnel do |update|
-        update.unit_space(@full_name, unit[:number]).fit unit[:space]
-        update.unit_responsibility(@full_name, unit[:number]).fit unit[:responsibility]
-        update.unit_financial(@full_name, unit[:number]).fit unit[:financial]
-        update.unit_recognition(@full_name, unit[:number]).fit unit[:recognition]
-        update.save
-      end
-      splits.each do |split|
-        unless unit[split]==nil
-          @units[@units.find_index{|u| u[:number]==unit[:number]}][split]=unit[split]
-        end
-      end
-
-    end
   end
 
   def add_degree_info opts={}
@@ -186,15 +112,6 @@ class KeyPersonObject
       person.check_person @full_name
       person.delete_selected
     end
-  end
-
-  def delete_units
-    @units.each do |unit|
-      on KeyPersonnel do |units|
-        units.delete_unit(@full_name, unit[:number])
-      end
-    end
-    @units=[]
   end
 
   # =======
@@ -229,13 +146,8 @@ class KeyPersonObject
      :familiar_with_pla]
   end
 
-  def role_value
-    {
-        'Principal Investigator' => 'PI',
-        'PI/Contact' => 'PI',
-        'Co-Investigator' => 'COI',
-        'Key Person' => 'KP'
-    }
+  def page_class
+    KeyPersonnel
   end
 
 end # KeyPersonObject

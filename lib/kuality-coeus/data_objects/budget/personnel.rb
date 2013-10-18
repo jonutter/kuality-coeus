@@ -6,7 +6,7 @@ class BudgetPersonnelObject
   include Navigation
   include Utilities
 
-  attr_accessor :type, :name, :job_code, :appointment_type, :base_salary,
+  attr_accessor :type, :full_name, :job_code, :appointment_type, :base_salary,
                 :salary_effective_date, :salary_anniversary_date,
                 # TODO: Some day we are going to have to allow for multiple codes and periods, here...
                 :object_code_name, :start_date, :end_date, :percent_effort, :percent_charged,
@@ -33,28 +33,28 @@ class BudgetPersonnelObject
 
   def create
     # Navigation is handled by the BudgetVersionsObject method
-    if on(Personnel).job_code(@name).present?
+    if on(BudgetPersonnel).job_code(@full_name).present?
       # The person is already listed so do nothing
     else
       get_person
     end
     set_job_code
-    on Personnel do |page|
-      @salary_effective_date ||= page.salary_effective_date(@name).value
-      fill_out_item @name, page, :appointment_type, :base_salary, :salary_effective_date,
+    on BudgetPersonnel do |page|
+      @salary_effective_date ||= page.salary_effective_date(@full_name).value
+      fill_out_item @full_name, page, :appointment_type, :base_salary, :salary_effective_date,
                     :salary_anniversary_date
       page.save
       page.expand_all
-      page.person.select "#{@name} - #{@job_code}"
+      page.person.select "#{@full_name} - #{@job_code}"
       sleep 1 # this is required because the select list contains get updated when the person is selected.
       page.object_code_name.pick! @object_code_name
       page.add_details
       page.expand_all
       set_dates page
-      fill_out_item @name, page, :percent_effort, :percent_charged, :period_type
-      page.calculate @name
-      @requested_salary=page.requested_salary @name
-      @calculated_fringe=page.calculated_fringe @name
+      fill_out_item @full_name, page, :percent_effort, :percent_charged, :period_type
+      page.calculate @full_name
+      @requested_salary=page.requested_salary @full_name
+      @calculated_fringe=page.calculated_fringe @full_name
       page.save
     end
   end
@@ -65,38 +65,38 @@ class BudgetPersonnelObject
 
   def set_job_code
     unless @job_code.nil?
-      on(Personnel).job_code(@name).set @job_code
+      on(BudgetPersonnel).job_code(@full_name).set @job_code
     else
-      on(Personnel).lookup_job_code(@name)
+      on(BudgetPersonnel).lookup_job_code(@full_name)
       on JobCodeLookup do |page|
         page.search
         page.return_random
       end
-      @job_code=on(Personnel).job_code(@name).value
+      @job_code=on(BudgetPersonnel).job_code(@full_name).value
     end
   end
 
   def get_person
-    on(Personnel).send("#{@type}_search")
-    if @name.nil?
+    on(BudgetPersonnel).send("#{@type}_search")
+    if @full_name.nil?
       on lookup_page do |page|
         page.search
-        @name=page.returned_full_names.sample
+        @full_name=page.returned_full_names.sample
       end
     end
     on lookup_page do |page|
       case(@type)
         when 'employee'
-          page.select_person @name
+          page.select_person @full_name
         when 'non_employee'
-          page.first_name.set @name[/^\S+/]
-          page.last_name.set @name[/\S+$/]
+          page.first_name.set @full_name[/^\S+/]
+          page.last_name.set @full_name[/\S+$/]
           page.search
-          page.select_person @name[/\S+$/]
+          page.select_person @full_name[/\S+$/]
         when 'to_be_named'
-          page.person_name.set @name
+          page.person_name.set @full_name
           page.search
-          page.select_person @name
+          page.select_person @full_name
       end
       page.return_selected
     end
@@ -107,23 +107,15 @@ class BudgetPersonnelObject
   # TestFactory for this.
   def set_dates(page)
     if @start_date.nil?
-      @start_date=page.start_date(@name).value
+      @start_date=page.start_date(@full_name).value
     else
-      page.start_date(@name).set @start_date
+      page.start_date(@full_name).set @start_date
     end
     if @end_date.nil?
-      @end_date=page.end_date(@name).value
+      @end_date=page.end_date(@full_name).value
     else
-      page.end_date(@name).set @end_date
+      page.end_date(@full_name).set @end_date
     end
-  end
-
-  def lookup_page
-    Kernel.const_get({
-        employee:     'PersonLookup',
-        non_employee: 'NonOrgAddressBookLookup',
-        to_be_named:  'ToBeNamedPersonsLookup'
-    }[@type.to_sym])
   end
 
 end

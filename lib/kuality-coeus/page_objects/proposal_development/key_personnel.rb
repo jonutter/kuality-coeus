@@ -1,6 +1,7 @@
 class KeyPersonnel < ProposalDevelopmentDocument
 
   proposal_header_elements
+  combined_credit_splits
 
   action(:employee_search) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.KcPerson!!).(((personId:newPersonId))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchor').click }
   action(:non_employee_search) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.NonOrganizationalRolodex!!).(((rolodexId:newRolodexId))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchor').click }
@@ -56,13 +57,9 @@ class KeyPersonnel < ProposalDevelopmentDocument
 
   action(:show_unit_details) { |full_name, b| b.frm.button(id: "tab-#{nsp(full_name)}:UnitDetails-imageToggle").click }
   action(:lookup_unit) { |full_name, p| p.unit_div(full_name).button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.Unit!!).(((unitNumber:newProposalPersonUnit[0].unitNumber,unitName:newProposalPersonUnit[0].unitName))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchor').click }
-  action(:unit_number) { |full_name, p| p.unit_div(full_name).text_field(id: /unitNumber/) }
+  action(:add_unit_number) { |full_name, p| p.unit_div(full_name).text_field(id: /unitNumber/) }
   action(:add_unit) { |full_name, p| p.unit_div(full_name).button(title: 'Add Unit').click }
   action(:delete_unit) { |full_name, unit_number, p| p.unit_div(full_name).table(class: 'tab').row(text: /#{unit_number}/).button(title: 'Remove Unit').click }
-
-  # This returns an array of hashes, like so:
-  # [{:name=>"Unit1 Name", :number=>"Unit1 Number"}, {:name=>"Unit2 Name", :number=>"Unit2 Number"}]
-  action(:units) { |full_name, p| units = []; p.unit_div(full_name).table.to_a[2..-1].each { |unit| units << {name: unit[1], number: unit[2]} }; units }
 
   # Proposal Person Certification
   action(:include_certification_questions) { |full_name, b| b.certification_div(full_name).button(title: 'Add Certification Question').click }
@@ -76,21 +73,6 @@ class KeyPersonnel < ProposalDevelopmentDocument
     :excluded_from_transactions=>4,
     :familiar_with_pla=>5
   }.each { |key, value| action(key) { |full_name, answer, p| p.questions_div(full_name).table(data_kc_questionindex: value.to_s).radio(value: answer).set } }
-
-  # Combined Credit Split
-  {
-    'recognition'=>1,
-    'responsibility'=>2,
-    'space'=>3,
-    'financial'=>4
-  }.each do |key, value|
-    # Makes methods for the person's 3 credit splits (doesn't have to take the full name of the person to work)
-    # Example: page.responsibility('Joe Schmoe').set '100.00'
-    action(key.to_sym) { |name, b| b.credit_split_div_table.row(text: /#{name}/)[value].text_field }
-    # Makes methods for the person's units' credit splits
-    # Example: page.unit_financial('Jane Schmoe', 'Unit').set '50.0'
-    action("unit_#{key}".to_sym) { |full_name, unit_name, p| p.target_unit_row(full_name, unit_name)[value].text_field }
-  end
 
   # =======
   private
