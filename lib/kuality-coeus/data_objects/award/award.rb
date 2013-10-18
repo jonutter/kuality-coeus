@@ -6,11 +6,14 @@ class AwardObject
   include DateFactory
   include StringFactory
 
-  attr_accessor :description, :transaction_type, :id, :funding_proposal, :award_status,
+  attr_accessor :description, :transaction_type, :id, :award_status,
                 :award_title, :lead_unit, :activity_type, :award_type, :sponsor_id,
                 :project_start_date, :project_end_date, :obligation_start_date,
                 :obligation_end_date, :anticipated_amount, :obligated_amount, :document_id,
-                :creation_date, :transactions, :key_personnel
+                :creation_date, :transactions, :key_personnel, :cost_sharing, :fa_rates,
+                :funding_proposals,
+
+                #TODO: Add Benefits rates...
 
   def initialize(browser, opts={})
     @browser = browser
@@ -30,8 +33,12 @@ class AwardObject
       obligation_end_date:   in_a_year[:date_w_slashes],
       anticipated_amount:    '1000000',
       obligated_amount:      '1000000',
+      funding_proposals:     [], # Contents MUST look like: {ip_number: '00001', merge_type: 'No Change'}, ...
+      subawards:             [], # Contents MUST look like: {org_name: 'Org Name', amount: '999.99'}, ...
       transactions:          collection('Transaction'),
-      key_personnel:         collection('AwardKeyPersonnel')
+      key_personnel:         collection('AwardKeyPersonnel'),
+      cost_sharing:          collection('AwardCostSharing'),
+      fa_rates:              collection('AwardFARates')
     }
 
     set_options(defaults.merge(opts))
@@ -48,19 +55,42 @@ class AwardObject
                :obligation_end_date
       set_sponsor_id
       set_lead_unit
+      @funding_proposals.each do |prop|
+        create.institutional_proposal_number.fit prop[:ip_number]
+        create.proposal_merge_type.pick prop[:merge_type]
+      end
+      @subawards.each do |sa|
+        create.add_organization_name.fit sa[:org_name]
+        create.add_subaward_amount.fit sa[:amount]
+        create.add_subaward
+      end
       create.save
       @document_id = create.header_document_id
       @id = create.header_award_id
     end
-    add_funding_proposal if @funding_proposal
+
   end
 
-  def add_funding_proposal # TODO: Add support for multiple funding proposals and merge types.
+  def add_funding_proposal(ip_number, merge_type)
+    navigate
     on Award do |page|
       page.expand_all
-      page.institutional_proposal_number.set @funding_proposal
-      page.add_proposal
+      page.institutional_proposal_number.fit ip_number
+      page.proposal_merge_type.pick merge_type
+      page.save
     end
+    @funding_proposals << {ip_number: ip_number, merge_type: merge_type}
+  end
+
+  def add_subaward(name, amount)
+    navigate
+    on Award do |page|
+      page.expand_all
+      page.add_organization_name.fit name
+      page.add_subaward_amount.fit amount
+      page.save
+    end
+    @subawards << {org_name: name, amount: amount}
   end
 
   def add_transaction opts={}
