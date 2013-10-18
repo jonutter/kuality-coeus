@@ -20,8 +20,4 @@ end
 
 Given /I? ?add a key person to the Award$/ do
   @award.add_key_person
-
-  puts @award.inspect
-
-
 end

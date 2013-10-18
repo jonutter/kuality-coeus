@@ -82,7 +82,8 @@ class ProposalDevelopmentObject
   # using this method with no options.
   alias_method :add_principal_investigator, :add_key_person
 
-
+  # TODO: Move this to a shared module. The same method is
+  # used in the Proposal Development Object
   # This method simply sets all the credit splits to
   # equal values based on how many persons and units
   # are attached to the Proposal. If more complicated
@@ -263,6 +264,8 @@ class ProposalDevelopmentObject
     opts.merge!(defaults)
   end
 
+  # TODO: Move this to a shared module, as the same
+  # method exists in the Award Object.
   def set_sponsor_code
     if @sponsor_code=='::random::'
       on(Proposal).find_sponsor_code

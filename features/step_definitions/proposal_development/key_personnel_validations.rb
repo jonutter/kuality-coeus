@@ -27,7 +27,6 @@ end
 When /^I? ?add a co-investigator without a unit$/ do
   @proposal.add_key_person role: 'Co-Investigator'
   @proposal.key_personnel.co_investigator.delete_units
-  on(KeyPersonnel).save
 end
 
 When /^I? ?add a key person with an invalid unit type$/ do

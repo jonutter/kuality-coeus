@@ -1,4 +1,4 @@
-class Personnel < BudgetDocument
+class BudgetPersonnel < BudgetDocument
 
   select_budget_period
   glbl 'View Personnel Salaries'
