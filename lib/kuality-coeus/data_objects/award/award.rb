@@ -11,7 +11,7 @@ class AwardObject
                 :project_start_date, :project_end_date, :obligation_start_date,
                 :obligation_end_date, :anticipated_amount, :obligated_amount, :document_id,
                 :creation_date, :transactions, :key_personnel, :cost_sharing, :fa_rates,
-                :funding_proposals,
+                :funding_proposals
 
                 #TODO: Add Benefits rates...
 

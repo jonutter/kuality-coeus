@@ -19,4 +19,9 @@ class ProposalLog < BasePage
   action(:employee_lookup) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.rice.kim.api.identity.Person!!).((())).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchor4').click }
   element(:principal_investigator_non_employee) { |b| b.frm.text_field(id: 'document.newMaintainableObject.rolodexId') }
 
+  #Table for temporary proposal logs to be merged
+  element(:temporary_proposal_log_table) { |b| b.frm.table(id: 'proposalLogMergeList') }
+  action(:proposal_number_row) { |number, b| b.temporary_proposal_log_table.row(text: /#{number}/) }
+  action(:merge_proposal_log) { |number, b| b.proposal_number_row(number).button(class: 'mergeLink').click }
+
 end
