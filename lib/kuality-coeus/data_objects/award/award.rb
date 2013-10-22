@@ -11,12 +11,13 @@ class AwardObject
                 :project_start_date, :project_end_date, :obligation_start_date,
                 :obligation_end_date, :anticipated_amount, :obligated_amount, :document_id,
                 :creation_date, :transactions, :key_personnel, :cost_sharing, :fa_rates,
-                :funding_proposals
-
-                #TODO: Add Benefits rates...
+                :funding_proposals, #TODO: Add Benefits rates and preaward auths...
+                :budget_versions, :sponsor_contacts, :payment_and_invoice, :terms, :reports
 
   def initialize(browser, opts={})
     @browser = browser
+
+    amount = random_dollar_value(1000000)
 
     defaults = {
       description:           random_alphanums,
@@ -31,14 +32,17 @@ class AwardObject
       lead_unit:             '::random::',
       obligation_start_date: right_now[:date_w_slashes],
       obligation_end_date:   in_a_year[:date_w_slashes],
-      anticipated_amount:    '1000000',
-      obligated_amount:      '1000000',
+      anticipated_amount:    amount,
+      obligated_amount:      amount,
       funding_proposals:     [], # Contents MUST look like: {ip_number: '00001', merge_type: 'No Change'}, ...
       subawards:             [], # Contents MUST look like: {org_name: 'Org Name', amount: '999.99'}, ...
+      sponsor_contacts:      [], # Contents MUST look like: {non_employee_id: '333', project_role: 'Close-out Contact'}, ...
       transactions:          collection('Transaction'),
       key_personnel:         collection('AwardKeyPersonnel'),
       cost_sharing:          collection('AwardCostSharing'),
-      fa_rates:              collection('AwardFARates')
+      fa_rates:              collection('AwardFARates'),
+      #budget_versions:       collection('BudgetVersions'), # This is not yet verified to work with Awards.
+
     }
 
     set_options(defaults.merge(opts))
@@ -68,7 +72,6 @@ class AwardObject
       @document_id = create.header_document_id
       @id = create.header_award_id
     end
-
   end
 
   def add_funding_proposal(ip_number, merge_type)
@@ -107,6 +110,41 @@ class AwardObject
   def add_key_person opts={}
     defaults={project_role: 'Key Person', key_person_role: random_alphanums}
     add_pi defaults.merge(opts)
+  end
+
+  def add_sponsor_contact opts={}
+    s_c = opts.empty? ? {non_employee_id: rand(4000..4103), project_role: '::random::'} : opts
+    navigate
+    on(Award).contacts
+    on AwardContacts do |page|
+      page.expand_all
+      page.sponsor_non_employee_id.set s_c[:non_employee_id]
+      page.sponsor_project_role.pick! s_c[:project_role]
+      page.add_sponsor_contact
+      page.save
+    end
+    @sponsor_contacts << s_c
+  end
+
+  def add_payment_and_invoice opts={}
+    raise "You already created a Payment & Invoice in your scenario.\nYou want to interact with that item directly, now." unless @payment_and_invoice.nil?
+    on(Award).payment_reports__terms
+    @payment_and_invoice = make PaymentInvoice, opts
+    @payment_and_invoice.create
+  end
+
+  def add_reports opts={}
+    raise "You already created a Reports item in your scenario.\nYou want to interact with it directly, now." unless @reports.nil?
+    on(Award).payment_reports__terms
+    @reports = make AwardReports, opts
+    @reports.create
+  end
+
+  def add_terms opts={}
+    raise "You already created terms in your scenario.\nYou want to interact with that object directly, now." unless @terms.nil?
+    on(Award).payment_reports__terms
+    @terms = make AwardTerms, opts
+    @terms.create
   end
 
   def view(tab)
