@@ -44,7 +44,7 @@ class AwardKeyPersonObject
       fill_out create, :key_person_role
       create.add_key_person
       create.expand_all
-      set_up_units(create)
+      set_up_units
       create.save
     end
   end

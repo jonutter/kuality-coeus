@@ -61,6 +61,10 @@ class KeyPersonnel < ProposalDevelopmentDocument
   action(:add_unit) { |full_name, p| p.unit_div(full_name).button(title: 'Add Unit').click }
   action(:delete_unit) { |full_name, unit_number, p| p.unit_div(full_name).table(class: 'tab').row(text: /#{unit_number}/).button(title: 'Remove Unit').click }
 
+  # This returns an array of hashes, like so:
+  # [{:name=>"Unit1 Name", :number=>"Unit1 Number"}, {:name=>"Unit2 Name", :number=>"Unit2 Number"}]
+  action(:units) { |full_name, p| units = []; p.unit_div(full_name).table.to_a[2..-1].each { |unit| units << {name: unit[1], number: unit[2]} }; units }
+
   # Proposal Person Certification
   action(:include_certification_questions) { |full_name, b| b.certification_div(full_name).button(title: 'Add Certification Question').click }
   action(:show_proposal_person_certification) {}

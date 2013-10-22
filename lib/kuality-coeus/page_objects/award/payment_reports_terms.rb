@@ -5,8 +5,13 @@ class PaymentReportsTerms < KCAwards
   element(:payment_basis) { |b| b.frm.select(name: 'document.awardList[0].basisOfPaymentCode') }
   element(:payment_method) { |b| b.frm.select(name: 'document.awardList[0].methodOfPaymentCode') }
   element(:payment_type) { |b| b.frm.select(name: 'awardReportsBean.newAwardReportTerms[2].reportCode') }
+  element(:frequency) { |b| b.frm.select(name: 'awardReportsBean.newAwardReportTerms[2].frequencyCode') }
+  element(:frequency_base) { |b| b.frm.select(name: 'awardReportsBean.newAwardReportTerms[2].frequencyBaseCode') }
+  element(:osp_file_copy) { |b| b.frm.select(name: 'awardReportsBean.newAwardReportTerms[2].ospDistributionCode') }
   action(:add_payment_type) { |b| b.frm.button(name: 'methodToCall.addAwardReportTerm.reportClass6.reportClassIndex2.anchorReportClasses:PaymentInvoiceRequirements').click; b.loading }
 
+  element(:invoice_instructions) { |b| b.frm.text_field(name: 'document.awardList[0].awardPaymentAndInvoiceRequirementsComments.comments') }
+  
   report_types 'Financial', 'Intellectual Property', 'Procurement', 'Property',
                'Proposals Due', 'Technical/Management'
   terms 'Equipment Approval', 'Invention', 'Prior Approval', 'Property', 'Publication',

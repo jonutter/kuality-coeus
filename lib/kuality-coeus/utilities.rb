@@ -35,11 +35,7 @@ module Utilities
   private
 
   def snakify(item)
-    if item.to_s[0]=='@'
-      item
-    else
-      "@#{snake_case(item.to_s)}"
-    end
+    item.to_s[0]=='@' ? item : "@#{snake_case(item.to_s)}"
   end
 
 end

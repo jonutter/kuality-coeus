@@ -7,7 +7,8 @@ class PaymentInvoice
   include StringFactory
 
   attr_accessor :payment_basis, :payment_method, #:document_funding_id,
-                :payment_and_invoice_requirements, :award_payment_schedule
+                :payment_and_invoice_requirements, :award_payment_schedule,
+                :invoice_instructions
 
   def initialize(browser, opts={})
     @browser = browser
@@ -16,8 +17,13 @@ class PaymentInvoice
         payment_basis:   '::random::',
         payment_method:  '::random::',
         payment_and_invoice_requirements: [
-            { payment_type: '::random::' } # TODO: Add This later: , frequency: '::random::', frequency_base: '::random::' }
-        ]
+            # Dangerously close to needing to be a Data Object proper...
+            { payment_type: '::random::',
+              frequency: '::random::',
+              frequency_base: '::random::',
+              osp_file_copy: '::random::' }
+        ],
+        invoice_instructions: random_multiline(50, 5, :ascii)
     }
     set_options(defaults.merge(opts))
   end
@@ -29,8 +35,12 @@ class PaymentInvoice
       page.payment_method.pick! @payment_method
       @payment_and_invoice_requirements.each do |pir|
         page.payment_type.pick! pir[:payment_type]
+        page.frequency.pick! pir[:frequency]
+        page.frequency_base.pick! pir[:frequency_base]
+        page.osp_file_copy.pick! pir[:osp_file_copy]
         page.add_payment_type
       end
+      fill_out page, :invoice_instructions
     page.save
     end
   end

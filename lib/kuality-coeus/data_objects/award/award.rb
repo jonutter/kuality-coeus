@@ -12,7 +12,8 @@ class AwardObject
                 :obligation_end_date, :anticipated_amount, :obligated_amount, :document_id,
                 :creation_date, :transactions, :key_personnel, :cost_sharing, :fa_rates,
                 :funding_proposals, #TODO: Add Benefits rates and preaward auths...
-                :budget_versions, :sponsor_contacts, :payment_and_invoice, :terms, :reports
+                :budget_versions, :sponsor_contacts, :payment_and_invoice, :terms, :reports,
+                :custom_data
 
   def initialize(browser, opts={})
     @browser = browser
@@ -53,6 +54,7 @@ class AwardObject
     visit(CentralAdmin).create_award
     on Award do |create|
       @doc_type=create.doc_title
+      @document_id=create.header_award_id
       create.expand_all
       fill_out create, :description, :transaction_type, :award_status, :award_title,
                :activity_type, :award_type, :obligated_amount, :anticipated_amount,
@@ -103,8 +105,7 @@ class AwardObject
   end
 
   def add_pi opts={}
-    navigate
-    on(Award).contacts
+    view :contacts
     @key_personnel.add opts
   end
 
@@ -115,8 +116,7 @@ class AwardObject
 
   def add_sponsor_contact opts={}
     s_c = opts.empty? ? {non_employee_id: rand(4000..4103), project_role: '::random::'} : opts
-    navigate
-    on(Award).contacts
+    view :contacts
     on AwardContacts do |page|
       page.expand_all
       page.sponsor_non_employee_id.set s_c[:non_employee_id]
@@ -129,27 +129,33 @@ class AwardObject
 
   def add_payment_and_invoice opts={}
     raise "You already created a Payment & Invoice in your scenario.\nYou want to interact with that item directly, now." unless @payment_and_invoice.nil?
-    on(Award).payment_reports__terms
+    view :payment_reports__terms
     @payment_and_invoice = make PaymentInvoice, opts
     @payment_and_invoice.create
   end
 
   def add_reports opts={}
     raise "You already created a Reports item in your scenario.\nYou want to interact with it directly, now." unless @reports.nil?
-    on(Award).payment_reports__terms
+    view :payment_reports__terms
     @reports = make AwardReports, opts
     @reports.create
   end
 
   def add_terms opts={}
     raise "You already created terms in your scenario.\nYou want to interact with that object directly, now." unless @terms.nil?
-    on(Award).payment_reports__terms
+    view :payment_reports__terms
     @terms = make AwardTerms, opts
     @terms.create
   end
 
-  def add_custom_data
-
+  def add_custom_data opts={}
+    view :contacts
+    defaults = {
+        document_id: @document_id,
+        doc_type: @doc_type
+    }
+    @custom_data = make CustomDataObject, defaults.merge(opts)
+    @custom_data.create
   end
 
   def view(tab)

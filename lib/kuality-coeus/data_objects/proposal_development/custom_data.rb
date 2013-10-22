@@ -4,6 +4,7 @@ class CustomDataObject
   include DataFactory
   include Navigation
   include StringFactory
+  include Utilities
 
   attr_accessor :document_id, :graduate_student_count, :billing_element, :doc_type
 
@@ -39,11 +40,10 @@ class CustomDataObject
   end
 
   def page_class
-    puts @doc_type.damballa.inspect
     Kernel.const_get({
-                         kc_award:     'PDCustomData',
-                         proposal_development_document: 'AwardCustomData'
-                     }[@doc_type.damballa])
+                           kc_award_: 'AwardCustomData',
+      proposal_development_document_: 'PDCustomData'
+                     }[snake_case(@doc_type)])
   end
 
 end
