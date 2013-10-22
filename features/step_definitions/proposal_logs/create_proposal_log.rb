@@ -13,6 +13,10 @@ When(/^I? ?initiate a new proposal log document$/) do
   @proposal_log = create ProposalLogObject
 end
 
+Then(/^the proposal log type of the proposal log document should be (.*)$/) do |status|
+  @proposal_log2.proposal_log_type.should == status
+end
+
 Then(/^the status of the proposal log document should be (.*)$/) do |status|
   @proposal_log.status.should == status
 end
@@ -20,20 +24,30 @@ end
 When(/^the proposal log status should be (.*)$/) do |prop_log_status|
   @proposal_log.log_status.should == prop_log_status
 end
-When(/^I initiate a new permanent proposal log document with the same PI$/) do
+When(/^I submit a new permanent proposal log document with the same PI into routing$/) do
   @proposal_log2 = create ProposalLogObject,
                           principal_investigator: @temp_proposal_log.principal_investigator
+  sleep 20
+  @proposal_log2.submit
+  sleep 10
 end
+
 When(/^I initiate a new permanent proposal log document$/) do
   @proposal_log = create ProposalLogObject
 end
-When(/^I? ?initiate a new temporary proposal log document$/) do
+
+When(/^I? ?submit a new temporary proposal log document$/) do
   @temp_proposal_log = create ProposalLogObject,
-                         log_type: 'Temporary'
+                         log_type: 'Temporary',
+                         principal_investigator: 'cjensen'
+  sleep 15
+  @temp_proposal_log.submit
 end
-Then(/^I should be able to merge my new proposal log with my previous temporary proposal log$/) do
+
+
+Then(/^I merge my new proposal log with my previous temporary proposal log$/) do
   on ProposalLog do |page|
     page.temporary_proposal_log_table
-    page.merge(@temp_proposal_log.proposal_number.to_i + 1)
+    page.merge(@temp_proposal_log.number.to_i + 1)
   end
 end

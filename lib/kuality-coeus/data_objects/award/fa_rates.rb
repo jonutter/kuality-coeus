@@ -22,8 +22,8 @@ class AwardFARates
 
 end
 
-class AwardFARatesCollection
-
-  contains AwardFARates
-
-end
+#class AwardFARatesCollection
+#
+#  contains AwardFARates
+#
+#end

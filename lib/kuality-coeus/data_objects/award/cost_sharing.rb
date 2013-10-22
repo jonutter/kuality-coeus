@@ -23,8 +23,8 @@ class AwardCostSharing
 
 end
 
-class AwardCostSharingCollection
-
-  contains AwardCostSharing
-
-end
+#class AwardCostSharingCollection
+#
+#  contains AwardCostSharing
+#
+#end
