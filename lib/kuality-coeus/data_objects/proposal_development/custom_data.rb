@@ -20,7 +20,7 @@ class CustomDataObject
 
   def create
     navigate
-    on PDCustomData do |create|
+    on page_class do |create|
       create.expand_all
       fill_out create, :graduate_student_count, :billing_element
       create.save
@@ -35,7 +35,15 @@ class CustomDataObject
 
   def navigate
     open_document @doc_type
-    on(Proposal).custom_data unless on_page?(on(PDCustomData).asdf_tab)
+    on(Proposal).custom_data unless on_page?(on(page_class).asdf_tab)
+  end
+
+  def page_class
+    puts @doc_type.damballa.inspect
+    Kernel.const_get({
+                         kc_award:     'PDCustomData',
+                         proposal_development_document: 'AwardCustomData'
+                     }[@doc_type.damballa])
   end
 
 end

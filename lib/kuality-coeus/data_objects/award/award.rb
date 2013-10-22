@@ -52,6 +52,7 @@ class AwardObject
     @creation_date = right_now[:date_w_slashes]
     visit(CentralAdmin).create_award
     on Award do |create|
+      @doc_type=create.doc_title
       create.expand_all
       fill_out create, :description, :transaction_type, :award_status, :award_title,
                :activity_type, :award_type, :obligated_amount, :anticipated_amount,
@@ -145,6 +146,10 @@ class AwardObject
     on(Award).payment_reports__terms
     @terms = make AwardTerms, opts
     @terms.create
+  end
+
+  def add_custom_data
+
   end
 
   def view(tab)

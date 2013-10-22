@@ -37,7 +37,7 @@ Feature: Proposal Workflows and Routing
     | Approve    |
     | Disapprove |
     | Reject     |
-
+  @test
   Scenario: Aggregator successfully submits a proposal into routing
     Given a user exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user

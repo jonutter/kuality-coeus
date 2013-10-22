@@ -34,26 +34,28 @@ module Personnel
     end
   end
 
-  def set_up_units(page)
-    if @units.empty? # No units in @units, so we're not setting units
-                     # ...so, get the units from the UI:
-      @units=page.units @full_name if @key_person_role.nil?
+  def set_up_units
+    on page_class do |page|
+      if @units.empty? # No units in @units, so we're not setting units
+                       # ...so, get the units from the UI:
+        @units=page.units @full_name if @key_person_role.nil?
 
-    else # We have Units to add and update...
-         # Temporarily store any existing units...
-      page.add_unit_details(@full_name) unless @key_person_role.nil?
+      else # We have Units to add and update...
+           # Temporarily store any existing units...
+        page.add_unit_details(@full_name) unless @key_person_role.nil?
 
-      units=page.units @full_name
-      # Note that this assumes we're adding
-      # Unit(s) that aren't already present
-      # in the list, so be careful!
-      @units.each do |unit|
-        page.unit_number(@full_name).set unit[:number]
-        page.add_unit @full_name
+        units=page.units @full_name
+        # Note that this assumes we're adding
+        # Unit(s) that aren't already present
+        # in the list, so be careful!
+        @units.each do |unit|
+          page.unit_number(@full_name).set unit[:number]
+          page.add_unit @full_name
+        end
+        # Now add the previously existing units to
+        # @units
+        units.each { |unit| @units << unit }
       end
-      # Now add the previously existing units to
-      # @units
-      units.each { |unit| @units << unit }
     end
   end
 
