@@ -22,7 +22,7 @@ class AwardFARates
 
 end
 
-class AwardFARatesCollection
+class AwardFARatesCollection < CollectionsFactory
 
   contains AwardFARates
 

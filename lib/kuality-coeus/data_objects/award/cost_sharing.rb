@@ -23,7 +23,7 @@ class AwardCostSharing
 
 end
 
-class AwardCostSharingCollection
+class AwardCostSharingCollection < CollectionsFactory
 
   contains AwardCostSharing
 

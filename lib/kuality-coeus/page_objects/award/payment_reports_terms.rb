@@ -23,4 +23,10 @@ class PaymentReportsTerms < KCAwards
   element(:travel_amount) { |b| b.frm.text_field(name: 'approvedForeignTravelBean.newApprovedForeignTravel.amount') }
   action(:add_approved_travel) { |b| b.frm.button(name: 'methodToCall.addApprovedForeignTravel.anchorSpecialApproval:ApprovedForeignTravel').click; b.loading }
 
+  # ========
+  private
+  # ========
+
+  element(:reports_div) { |b| b.frm.div(id: 'tab-Reports-div') }
+
 end

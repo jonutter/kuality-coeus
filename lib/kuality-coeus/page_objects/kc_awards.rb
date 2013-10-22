@@ -25,12 +25,14 @@ class KCAwards < BasePage
 
     def report_types *types
       types.each_with_index do |type, index|
+        # This line is here because the field values inexplicably skip the number 2.
+        i = index > 1 ? index+1 : index
         name=damballa(type)
         tag=type.gsub(/([\s\/])/,'')
-        element("#{name}_report_type".to_sym) { |b| b.frm.select(name: "awardReportsBean.newAwardReportTerms[#{index}].reportCode") }
-        element("#{name}_frequency".to_sym) { |b| b.frm.select(name: "awardReportsBean.newAwardReportTerms[#{index}].frequencyCode") }
-        element("#{name}_frequency_base".to_sym) { |b| b.frm.select(name: "awardReportsBean.newAwardReportTerms[#{index}].frequencyBaseCode") }
-        action("add_#{name}_report_term".to_sym) { |b| b.(name: /anchorReportClasses:#{tag}/).click; b.loading }
+        element("#{name}_report_type".to_sym) { |b| b.reports_div.select(name: "awardReportsBean.newAwardReportTerms[#{i}].reportCode") }
+        element("#{name}_frequency".to_sym) { |b| b.reports_div.select(name: "awardReportsBean.newAwardReportTerms[#{i}].frequencyCode") }
+        element("#{name}_frequency_base".to_sym) { |b| b.reports_div.select(name: "awardReportsBean.newAwardReportTerms[#{i}].frequencyBaseCode") }
+        action("add_#{name}_report".to_sym) { |b| b.reports_div.button(name: /anchorReportClasses:#{tag}$/).click; b.loading }
       end
     end
 
@@ -39,10 +41,10 @@ class KCAwards < BasePage
         name=damballa(term)
         tag=term.gsub(/([\s\/])/,'')
         element("#{name}_code".to_sym) { |b| b.frm.text_field(name: "sponsorTermFormHelper.newSponsorTerms[#{index}].sponsorTermCode") }
-        action("add_#{name}_term") { |b| b.frm.button(name: /anchorAwardTerms:#{tag}Terms/).click; b.loading }
+        action("add_#{name}_term") { |b| b.frm.button(name: /addAwardSponsorTerm.+anchorAwardTerms:#{tag}Terms/).click; b.loading }
       end
     end
-
+    
   end
 
 end
