@@ -26,9 +26,9 @@ Feature: Creating Proposal Logs
     Then  the proposal log type of the proposal log document should be Merged
 
   Scenario: Create a Temporary proposal log and convert it into a proposal development document
-    Given users exist with the following roles: Create Proposal Log
+    Given users exist with the following roles: Create Proposal Log, OSP Administrator
     And   I log in with the Create Proposal Log user
-    And   initiate a new proposal log document
+    And   I initiate a new institutional proposal document
 
   Scenario: Merge a Temporary Proposal Log with an Institutional Proposal
     Given users exist with the following roles: Create Proposal Log, OSP Administrator

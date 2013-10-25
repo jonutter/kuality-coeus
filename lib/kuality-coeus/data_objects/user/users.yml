@@ -654,6 +654,14 @@ dkensrue: # AKA: "Principal Name"
      :name: Create Proposal Log
      :qualifiers:
        - :unit: '000001'
+   - :id:   '131'
+     :name: OSP Administrator
+     :qualifiers:
+       - :unit: '000001'
+   - :id:   '117'
+     :name: Institutional Proposal Maintainer
+     :qualifiers:
+       - :unit: '000001'
 dbowie: # AKA: "Principal Name"
   :user_name:        dbowie
   :description:      Proposal Log PI

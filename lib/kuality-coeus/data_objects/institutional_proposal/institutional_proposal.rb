@@ -38,9 +38,9 @@ class InstitutionalProposalObject
   def create
     visit(CentralAdmin).create_institutional_proposal
     on ProposalLogLookup do |look|
-      look.proposal_number.set @proposal_log.number
+      look.proposal_number.set @proposal_number
       look.search
-      look.select_item @proposal_log.number
+      look.select_item @proposal_number
     end
     on InstitutionalProposal do |create|
       @doc_header=create.doc_title
