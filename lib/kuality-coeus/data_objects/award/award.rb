@@ -12,6 +12,7 @@ class AwardObject
                 :obligation_end_date, :anticipated_amount, :obligated_amount, :document_id,
                 :creation_date, :transactions, :key_personnel, :cost_sharing, :fa_rates,
                 :funding_proposals, #TODO: Add Benefits rates and preaward auths...
+                :time_and_money,
                 :budget_versions, :sponsor_contacts, :payment_and_invoice, :terms, :reports,
                 :custom_data
 
@@ -108,6 +109,7 @@ class AwardObject
     view :contacts
     @key_personnel.add opts
   end
+  alias_method :add_principal_investigator, :add_pi
 
   def add_key_person opts={}
     defaults={project_role: 'Key Person', key_person_role: random_alphanums}
@@ -156,6 +158,11 @@ class AwardObject
     }
     @custom_data = make CustomDataObject, defaults.merge(opts)
     @custom_data.create
+  end
+
+  def initialize_time_and_money
+    on(Award).time_and_money
+    @time_and_money = make TimeAndMoney, id: on(TimeAndMoney).header_document_id
   end
 
   def view(tab)
