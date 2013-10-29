@@ -161,8 +161,10 @@ class AwardObject
   end
 
   def initialize_time_and_money
+    navigate
     on(Award).time_and_money
-    @time_and_money = make TimeAndMoney, id: on(TimeAndMoney).header_document_id
+    # Set up to only create the instance variable if it doesn't exist, yet
+    @time_and_money ||= make TimeAndMoneyObject, id: on(TimeAndMoney).header_document_id
   end
 
   def view(tab)

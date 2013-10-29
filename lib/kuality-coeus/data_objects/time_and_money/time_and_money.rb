@@ -1,4 +1,4 @@
-class TimeAndMoney
+class TimeAndMoneyObject
 
   include Foundry
   include DataFactory
@@ -33,8 +33,12 @@ class TimeAndMoney
     set_options(defaults.merge(opts))
   end
 
-  def create
+  # No create method is needed because
+  # the object is "created" upon opening the page
 
+  def add_transaction opts={}
+    defaults = {}
+    @transactions << defaults.merge(opts)
   end
 
   # ==========

@@ -742,3 +742,53 @@ mtwain: # AKA: "Principal Name"
      :name: Award Budget Aggregator
      :qualifiers:
        - :unit: '000001'
+jamesr: # AKA: "Principal Name"
+  :user_name:        jamesr
+  :description:      Time and Money Modifier
+  :affiliation_type: Staff
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      jamesr
+  :employee_status:  Active
+  :employee_type:    Professional
+  :base_salary:      8765.43
+  :primary_department_code: '000001'
+  :first_name:       Richard
+  :last_name:        James
+  :primary_title:    Time and Money Modifier
+  :directory_title:  Time and Money Modifier
+  :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
+  :era_commons_user_name: jamesr
+  :directory_department:  Accounting
+  :graduate_student_count: '0'
+  :billing_element:  goo goo gah joob
+  :addresses:
+   - :type:    Work
+     :line_1:  475 N scottsdale rd
+     :city:    scottsdale
+     :state:   ARIZONA
+     :country: United States
+     :zip:     85257
+     :default: :set
+  :phones:
+   - :type:    Work
+     :number:  602-228-3476
+     :default: :set
+   - :type:    Facsimile
+     :number:  543-525-4321
+     :default: :clear
+     :country: United States
+  :emails:
+   - :email:   kc-qa-notify@rsmart.com
+     :type:    Work
+     :default: :set
+  :rolez:
+   - :id:   '154'
+     :name: Time And Money Modifier
+     :qualifiers:
+       - :unit: '000001'
+         :descends_hierarchy: :set
+   - :id:   '123'
+     :name: Award Viewer
+     :qualifiers:
+       - :unit: '000001'
+         :descends_hierarchy: :set
