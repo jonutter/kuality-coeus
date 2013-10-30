@@ -12,6 +12,8 @@ class PaymentReportsTerms < KCAwards
 
   element(:invoice_instructions) { |b| b.frm.text_field(name: 'document.awardList[0].awardPaymentAndInvoiceRequirementsComments.comments') }
   
+  action(:generate_schedule) { |b| b.frm.button(name: 'methodToCall.generatePaymentSchedules.anchorReportClasses:PaymentInvoiceRequirements').click; b.loading }
+  
   report_types 'Financial', 'Intellectual Property', 'Procurement', 'Property',
                'Proposals Due', 'Technical/Management'
   terms 'Equipment Approval', 'Invention', 'Prior Approval', 'Property', 'Publication',

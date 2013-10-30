@@ -64,47 +64,28 @@ module Navigation
   # must be the same!
   #
   def fill_out(page, *fields)
-    methods={
-        'Watir::TextField' => lambda{|p, f| p.send(f).fit(get f)},
-        'Watir::Select'    => lambda{|p, f| p.send(f).pick!(get f)},
-        'Watir::Radio'     => lambda{|p, f| p.send(f, get(f)) unless get(f)==nil },
-        'Watir::CheckBox'  => lambda{|p, f| p.send(f).fit(get f) }
-    }
-    fields.shuffle.each do |field|
-      # TODO: Someday see if there's a way to fix things so this rescue isn't necessary...
-      # It's here because the radio button "element" definitions are *actions* that
-      # require a parameter, so just sending the method to the page
-      # is not going to work.
-      begin
-        key = page.send(field).class.to_s
-      rescue NoMethodError
-        key = 'Watir::Radio'
-      end
-      methods[key].call(page, field)
-    end
+    fill_out_item(nil, page, *fields)
   end
   alias_method :fill_in, :fill_out
 
   # Same as the above method, but used with methods that take a
   # parameter to identify the target element...
   def fill_out_item(name, page, *fields)
-    methods={
-        'Watir::TextField' => lambda{|n, p, f| p.send(f, n).fit(get f)},
-        'Watir::Select'    => lambda{|n, p, f| p.send(f, n).pick!(get f)},
-        'Watir::Radio'     => lambda{|n, p, f| p.send(f, n, get(f)) unless get(f)==nil },
-        'Watir::CheckBox'  => lambda{|n, p, f| p.send(f, n).fit(get f) }
-    }
+    watir_methods=[ lambda{|n, p, f| p.send(*[f, n].compact).fit(get f) },
+                    lambda{|n, p, f| p.send(*[f, n].compact).pick!(get f) },
+                    lambda{|n, p, f| p.send(*[f, n].compact, get(f)) }
+    ]
     fields.shuffle.each do |field|
-      # TODO: Someday see if there's a way to fix things so this rescue isn't necessary...
-      # It's here because the radio button "element" definitions are *actions* that
+      # This rescue is here because the radio button
+      # "element" definitions are *actions* that
       # require a parameter, so just sending the method to the page
       # is not going to work.
       begin
-        key = page.send(field, name).class.to_s
+        x = page.send(*[field, name].compact).class.to_s=='Watir::Select' ? 1 : 0
       rescue NoMethodError
-        key = 'Watir::Radio'
+        x = 3
       end
-      methods[key].call(name, page, field)
+      watir_methods[x].call(name, page, field)
     end
   end
 
