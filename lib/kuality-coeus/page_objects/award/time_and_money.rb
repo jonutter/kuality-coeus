@@ -22,12 +22,16 @@ class TimeAndMoney < KCAwards
 
   # Transactions
 
-  element(:transaction_comment) { |b| b.frm.text_field(name: 'transactionBean.newPendingTransaction.comments') }
+  element(:comments) { |b| b.frm.text_field(name: 'transactionBean.newPendingTransaction.comments') }
   element(:source_award) { |b| b.frm.select(name: 'transactionBean.newPendingTransaction.sourceAwardNumber') }
   element(:destination_award) { |b| b.frm.select(name: 'transactionBean.newPendingTransaction.destinationAwardNumber') }
   element(:obligated_change) { |b| b.frm.text_field(name: 'transactionBean.newPendingTransaction.obligatedAmount') }
   element(:anticipated_change) { |b| b.frm.text_field(name: 'transactionBean.newPendingTransaction.anticipatedAmount') }
   action(:add_transaction) { |b| b.frm.button(name: /methodToCall.addTransaction.anchorTransactions\d+/).click; b.loading }
+
+  # Returns the last transaction number listed in the table...
+  value(:last_transaction_id) { |b| b.transaction_table.rows.last[1].text }
+  element(:transaction_table) { |b| b.frm.div(id: /tab-Transactions\d+-div/).table }
 
   action(:go_to) { |award_id, b| b.award_select.set(award_id); b.switch_award }
 

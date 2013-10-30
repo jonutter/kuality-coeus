@@ -3,6 +3,7 @@ class TimeAndMoneyObject
   include Foundry
   include DataFactory
   include Navigation
+  include StringFactory
 
   attr_accessor :id, :status, :transaction_type_code, :transactions,
                 :funds_distribution, :transaction_history
@@ -36,9 +37,25 @@ class TimeAndMoneyObject
   # No create method is needed because
   # the object is "created" upon opening the page
 
+  # TODO: Include some means of updating the transaction type code.
+
   def add_transaction opts={}
-    defaults = {}
-    @transactions << defaults.merge(opts)
+    defaults = {
+        comments: random_alphanums
+    }
+    trans = defaults.merge(opts)
+    on TimeAndMoney do |page|
+      page.expand_all
+      page.comments.fit trans[:comments]
+      page.source_award.pick! trans[:source_award]
+      page.destination_award.pick! trans[:destination_award]
+      page.obligated_change.fit trans[:obligated_change]
+      page.anticipated_change.fit trans[:anticipated_change]
+      page.add_transaction
+      page.save
+      trans[:transaction]=page.last_transaction_id
+    end
+    @transactions << trans
   end
 
   # ==========
