@@ -1,7 +1,4 @@
-class ProjectPersonnelObject
-
-  include Foundry
-  include DataFactory
+class ProjectPersonnelObject < DataObject
 
   attr_accessor :full_name, :first_name, :last_name, :role, :lead_unit,
                 :units, :faculty, :total_effort, :academic_year_effort,

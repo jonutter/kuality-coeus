@@ -1,7 +1,5 @@
-class AwardKeyPersonObject
+class AwardKeyPersonObject < DataObject
 
-  include Foundry
-  include DataFactory
   include Navigation
   include Personnel
 
@@ -11,12 +9,14 @@ class AwardKeyPersonObject
                 :space
 
   def initialize(browser, opts={})
-    @browser=browser
+    @browser = browser
+
     defaults = {
         type:         'employee',
         project_role: 'Principal Investigator',
         units:        []
     }
+
     set_options(defaults.merge(opts))
     @full_name="#{@first_name} #{@last_name}"
   end

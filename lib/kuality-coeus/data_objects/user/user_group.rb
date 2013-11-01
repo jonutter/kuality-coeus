@@ -1,7 +1,5 @@
-class UserGroupObject
+class UserGroupObject < DataObject
 
-  include Foundry
-  include DataFactory
   include StringFactory
 
   attr_accessor :id, :user_name

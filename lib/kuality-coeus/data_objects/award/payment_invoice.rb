@@ -1,7 +1,6 @@
-class PaymentInvoice
+# coding: UTF-8
+class PaymentInvoice < DataObject
 
-  include Foundry
-  include DataFactory
   include Navigation
   include DateFactory
   include StringFactory
@@ -23,7 +22,7 @@ class PaymentInvoice
               frequency_base: '::random::',
               osp_file_copy: '::random::' }
         ],
-        invoice_instructions: random_multiline(50, 5, :ascii)
+        invoice_instructions: random_multiline(50, 5, :string)
     }
     set_options(defaults.merge(opts))
   end

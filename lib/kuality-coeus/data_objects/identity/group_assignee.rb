@@ -1,7 +1,5 @@
-class GroupAssigneeObject
+class GroupAssigneeObject < DataObject
 
-  include Foundry
-  include DataFactory
   include Navigation
   include StringFactory
 

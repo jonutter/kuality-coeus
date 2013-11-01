@@ -1,7 +1,5 @@
-class IPCostSharingObject
+class IPCostSharingObject < DataObject
 
-  include Foundry
-  include DataFactory
   include StringFactory
   include Navigation
 

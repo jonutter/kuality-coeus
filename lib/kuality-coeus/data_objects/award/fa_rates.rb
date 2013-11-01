@@ -1,7 +1,5 @@
-class AwardFARates
+class AwardFARates < DataObject
 
-  include Foundry
-  include DataFactory
   include DateFactory
   include StringFactory
 

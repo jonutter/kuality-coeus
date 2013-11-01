@@ -1,4 +1,4 @@
-class PHSTrainingQuestionnaireObject
+class PHSTrainingQuestionnaireObject < DataObject
 
 
 

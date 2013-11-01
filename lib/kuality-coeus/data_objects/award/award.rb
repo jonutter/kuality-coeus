@@ -1,7 +1,5 @@
-class AwardObject
+class AwardObject < DataObject
 
-  include Foundry
-  include DataFactory
   include Navigation
   include DateFactory
   include StringFactory
@@ -10,15 +8,15 @@ class AwardObject
                 :award_title, :lead_unit, :activity_type, :award_type, :sponsor_id,
                 :project_start_date, :project_end_date, :obligation_start_date,
                 :obligation_end_date, :anticipated_amount, :obligated_amount, :document_id,
-                :creation_date, :transactions, :key_personnel, :cost_sharing, :fa_rates,
+                :creation_date, :key_personnel, :cost_sharing, :fa_rates,
                 :funding_proposals, #TODO: Add Benefits rates and preaward auths...
                 :time_and_money,
                 :budget_versions, :sponsor_contacts, :payment_and_invoice, :terms, :reports,
-                :custom_data
+                :custom_data,
+                :parent, :children
 
   def initialize(browser, opts={})
     @browser = browser
-
     amount = random_dollar_value(1000000)
 
     defaults = {
@@ -39,14 +37,13 @@ class AwardObject
       funding_proposals:     [], # Contents MUST look like: {ip_number: '00001', merge_type: 'No Change'}, ...
       subawards:             [], # Contents MUST look like: {org_name: 'Org Name', amount: '999.99'}, ...
       sponsor_contacts:      [], # Contents MUST look like: {non_employee_id: '333', project_role: 'Close-out Contact'}, ...
-      transactions:          collection('Transaction'),
       key_personnel:         collection('AwardKeyPersonnel'),
       cost_sharing:          collection('AwardCostSharing'),
       fa_rates:              collection('AwardFARates'),
+      children:              [], # Contains the ids of any child Awards.
       #budget_versions:       collection('BudgetVersions'), # This is not yet verified to work with Awards.
 
     }
-
     set_options(defaults.merge(opts))
   end
 
@@ -79,7 +76,7 @@ class AwardObject
   end
 
   def add_funding_proposal(ip_number, merge_type)
-    navigate
+    view :award
     on Award do |page|
       page.expand_all
       page.institutional_proposal_number.fit ip_number
@@ -90,7 +87,7 @@ class AwardObject
   end
 
   def add_subaward(name, amount)
-    navigate
+    view :award
     on Award do |page|
       page.expand_all
       page.add_organization_name.fit name
@@ -98,11 +95,6 @@ class AwardObject
       page.save
     end
     @subawards << {org_name: name, amount: amount}
-  end
-
-  def add_transaction opts={}
-    defaults={award_id: @id}
-    @transactions.add defaults.merge(opts)
   end
 
   def add_pi opts={}
@@ -171,6 +163,54 @@ class AwardObject
     navigate
     unless on(Award).send(StringFactory.damballa("#{tab}_button")).parent.class_name=~/tabcurrent$/
       on(Award).send(StringFactory.damballa(tab.to_s))
+    end
+  end
+
+  def copy(type='new', descendents=:clear, parent=nil)
+
+
+
+
+
+
+
+
+
+
+
+
+    goof = @key_personnel.copy
+    @key_personnel[0].units[0][:name]='bungholio'
+    puts @key_personnel.inspect
+    puts
+    puts goof.inspect
+exit
+
+
+
+
+
+
+
+
+
+
+
+    view :award_actions
+    on AwardActions do |page|
+      page.close_parents
+      page.expand_all
+      page.expand_tree
+      page.show_award_details_panel(@id) unless page.award_div(@id).visible?
+      page.copy_descendents(@id).send(descendents) if page.copy_descendents(@id).enabled?
+      page.send("copy_as_#{type}", @id).set
+      page.child_of_target_award(@id).pick! parent
+      page.copy_award @id
+    end
+    if type=='new'
+      award = make AwardObject
+    else
+
     end
   end
 
@@ -243,10 +283,6 @@ class AwardObject
       @lead_unit=on(Award).lead_unit_ro
     end
   end
-
-  # ==========
-  private
-  # ==========
 
   def navigate
     doc_search unless on_award?

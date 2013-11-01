@@ -1,7 +1,5 @@
-class ComplianceQuestionsObject
+class ComplianceQuestionsObject < DataObject
 
-  include Foundry
-  include DataFactory
   include DateFactory
   include Navigation
 

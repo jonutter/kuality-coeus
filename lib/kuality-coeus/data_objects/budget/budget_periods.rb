@@ -1,7 +1,5 @@
-class BudgetPeriodObject
+class BudgetPeriodObject < DataObject
 
-  include Foundry
-  include DataFactory
   include StringFactory
   include Navigation
 

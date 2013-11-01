@@ -1,7 +1,5 @@
-class PermissionsObject
+class PermissionsObject < DataObject
 
-  include Foundry
-  include DataFactory
   include Navigation
 
   attr_accessor :document_id, :aggregators, :budget_creators, :narrative_writers,

@@ -1,7 +1,5 @@
-class AwardCostSharing
+class AwardCostSharing < DataObject
 
-  include Foundry
-  include DataFactory
   include DateFactory
   include StringFactory
 

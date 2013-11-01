@@ -1,7 +1,5 @@
-class KualiUniversityQuestionsObject
+class KualiUniversityQuestionsObject < DataObject
 
-  include Foundry
-  include DataFactory
   include Navigation
 
   attr_accessor :document_id, :dual_dept_appointment, :dual_dept_review_date, :dual_dept_explanation,

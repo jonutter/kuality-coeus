@@ -31,18 +31,6 @@ module Navigation
     end
   end
 
-  def window_cleanup
-    on BasePage do |page|
-      if page.windows.size > 1 && page.portal_window.exists?
-        page.return_to_portal
-        page.close_children
-      elsif page.windows.size > 1
-        page.use_new_tab
-        page.close_parents
-      end
-    end
-  end
-
   # Use this if the confirmation dialog may appear.
   # For example: due to missing rates...
   def confirmation(answer='yes')

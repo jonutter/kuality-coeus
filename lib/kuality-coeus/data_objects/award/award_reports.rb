@@ -1,7 +1,4 @@
-class AwardReports
-
-  include Foundry
-  include DataFactory
+class AwardReports < DataObject
 
   attr_accessor :financial, :intellectual_property,
                 :procurement, :property

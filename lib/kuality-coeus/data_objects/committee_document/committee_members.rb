@@ -1,7 +1,4 @@
-class CommitteeMemberObject
-
-  include Foundry
-  include DataFactory
+class CommitteeMemberObject < DataObject
 
   attr_accessor :document_id, :name, :membership_type, :paid_member, :term_start_date, :term_end_date,
                 :roles

@@ -1,7 +1,5 @@
-class ProposalDevelopmentObject
+class ProposalDevelopmentObject < DataObject
 
-  include Foundry
-  include DataFactory
   include StringFactory
   include DateFactory
   include Navigation
@@ -165,6 +163,7 @@ class ProposalDevelopmentObject
                             financial: person[:financial], recognition: person[:recognition]
       ip.project_personnel << project_person
     end
+    ip
     # TODO: Add more here as needed...
   end
 

@@ -1,7 +1,5 @@
-class ProposalAttachmentObject
+class ProposalAttachmentObject < DataObject
 
-  include Foundry
-  include DataFactory
   include Navigation
 
   attr_accessor :type, :file_name, :status, :description, :document_id, :doc_type

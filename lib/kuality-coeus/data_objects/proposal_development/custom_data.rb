@@ -1,7 +1,5 @@
-class CustomDataObject
+class CustomDataObject < DataObject
 
-  include Foundry
-  include DataFactory
   include Navigation
   include StringFactory
   include Utilities

@@ -1,7 +1,5 @@
-class UserRoleObject
+class UserRoleObject < DataObject
 
-  include Foundry
-  include DataFactory
   include StringFactory
 
   attr_accessor :id, :namespace, :name, :type, :qualifiers,

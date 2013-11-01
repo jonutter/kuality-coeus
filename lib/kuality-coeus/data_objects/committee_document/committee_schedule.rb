@@ -1,7 +1,4 @@
-class CommitteeScheduleObject
-
-  include Foundry
-  include DataFactory
+class CommitteeScheduleObject < DataObject
 
   attr_accessor :document_id
 

@@ -1,7 +1,5 @@
-class CommitteeDocumentObject
+class CommitteeDocumentObject < DataObject
 
-  include Foundry
-  include DataFactory
   include StringFactory
   include Navigation
 

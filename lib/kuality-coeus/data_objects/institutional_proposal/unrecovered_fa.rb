@@ -1,7 +1,5 @@
-class IPUnrecoveredFAObject
+class IPUnrecoveredFAObject < DataObject
 
-  include Foundry
-  include DataFactory
   include StringFactory
   include DateFactory
   include Navigation

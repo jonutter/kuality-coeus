@@ -1,7 +1,5 @@
-class FinancialEntityObject
+class FinancialEntityObject < DataObject
 
-  include Foundry
-  include DataFactory
   include StringFactory
   include Navigation
 
