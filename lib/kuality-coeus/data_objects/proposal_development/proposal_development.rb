@@ -152,8 +152,8 @@ class ProposalDevelopmentObject < DataObject
          proposal_type: @proposal_type,
          activity_type: @activity_type,
          project_title: @project_title,
-         special_review: Marshal::load(Marshal.dump(@special_review)),
-         custom_data: Marshal::load(Marshal.dump(@custom_data))
+         special_review: @special_review.copy,
+         custom_data: @custom_data.data_object_copy
     @key_personnel.each do |person|
       project_person = make ProjectPersonnelObject, full_name: person[:full_name],
                             first_name: person[:first_name], last_name: person[:last_name],

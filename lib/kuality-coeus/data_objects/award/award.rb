@@ -169,33 +169,6 @@ class AwardObject < DataObject
   def copy(type='new', descendents=:clear, parent=nil)
 
 
-
-
-
-
-
-
-
-
-
-
-    goof = @key_personnel.copy
-    @key_personnel[0].units[0][:name]='bungholio'
-    puts @key_personnel.inspect
-    puts
-    puts goof.inspect
-exit
-
-
-
-
-
-
-
-
-
-
-
     view :award_actions
     on AwardActions do |page|
       page.close_parents
@@ -208,7 +181,8 @@ exit
       page.copy_award @id
     end
     if type=='new'
-      award = make AwardObject
+      award = data_object_copy
+      # TODO: Need to modify values for fields that don't copy or won't be the same...
     else
 
     end
