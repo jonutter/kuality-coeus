@@ -1,7 +1,5 @@
-class RoleObject
+class RoleObject < DataObject
 
-  include Foundry
-  include DataFactory
   include Navigation
   include StringFactory
 

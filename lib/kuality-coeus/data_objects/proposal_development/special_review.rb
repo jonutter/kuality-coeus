@@ -1,7 +1,5 @@
-class SpecialReviewObject
+class SpecialReviewObject < DataObject
 
-  include Foundry
-  include DataFactory
   include StringFactory
   include Navigation
 

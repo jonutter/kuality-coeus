@@ -1,7 +1,5 @@
-class TimeAndMoneyObject
+class TimeAndMoneyObject < DataObject
 
-  include Foundry
-  include DataFactory
   include Navigation
   include StringFactory
 

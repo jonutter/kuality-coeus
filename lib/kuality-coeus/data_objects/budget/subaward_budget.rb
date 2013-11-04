@@ -1,7 +1,5 @@
-class SubawardBudgetObject
+class SubawardBudgetObject < DataObject
 
-  include Foundry
-  include DataFactory
   include StringFactory
   include Navigation
 

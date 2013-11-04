@@ -1,7 +1,5 @@
-class KeyPersonObject
+class KeyPersonObject < DataObject
 
-  include Foundry
-  include DataFactory
   include StringFactory
   include Navigation
   include Personnel

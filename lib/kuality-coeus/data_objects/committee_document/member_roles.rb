@@ -1,7 +1,5 @@
-class MemberRolesObject
+class MemberRolesObject < DataObject
 
-  include Foundry
-  include DataFactory
   include StringFactory
 
   attr_accessor :document_id, :name, :role, :start_date, :end_date

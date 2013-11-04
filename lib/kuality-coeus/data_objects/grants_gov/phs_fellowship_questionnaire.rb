@@ -1,12 +1,11 @@
-class PHSFellowshipQuestionnaireObject
+class PHSFellowshipQuestionnaireObject < DataObject
 
   YN_QUESTIONS = [:indefinite_human_subjects, :clinical_trial, :phase_3_trial, :indefinite_vertebrates,
                   :human_stem_cells, :specific_cell_line, :seeking_degree_during_proposed_award,
                   :have_kirchstein_support, :have_kirschstein_support_start_date, :have_kirschstein_support_end_date,
                   :have_nih_grant_number, :have_additional_kirschstein_support, :previous_submission,
                   :senior_fellowship_application, :supplement_funding]
-  include Foundry
-  include DataFactory
+
   include StringFactory
   include Navigation
   include Utilities

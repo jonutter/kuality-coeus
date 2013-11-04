@@ -1,7 +1,5 @@
-class InstituteRateObject
+class InstituteRateObject < DataObject
 
-  include Foundry
-  include DataFactory
   include StringFactory
   include DateFactory
   include Navigation

@@ -1,7 +1,5 @@
-class ProposalDevelopmentObject
+class ProposalDevelopmentObject < DataObject
 
-  include Foundry
-  include DataFactory
   include StringFactory
   include DateFactory
   include Navigation
@@ -154,8 +152,8 @@ class ProposalDevelopmentObject
          proposal_type: @proposal_type,
          activity_type: @activity_type,
          project_title: @project_title,
-         special_review: Marshal::load(Marshal.dump(@special_review)),
-         custom_data: Marshal::load(Marshal.dump(@custom_data))
+         special_review: @special_review.copy,
+         custom_data: @custom_data.data_object_copy
     @key_personnel.each do |person|
       project_person = make ProjectPersonnelObject, full_name: person[:full_name],
                             first_name: person[:first_name], last_name: person[:last_name],
@@ -165,6 +163,7 @@ class ProposalDevelopmentObject
                             financial: person[:financial], recognition: person[:recognition]
       ip.project_personnel << project_person
     end
+    ip
     # TODO: Add more here as needed...
   end
 

@@ -1,7 +1,5 @@
-class GroupObject
+class GroupObject < DataObject
 
-  include Foundry
-  include DataFactory
   include Navigation
   include StringFactory
 

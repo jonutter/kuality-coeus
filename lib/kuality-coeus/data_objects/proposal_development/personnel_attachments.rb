@@ -1,7 +1,5 @@
-class PersonnelAttachmentObject
+class PersonnelAttachmentObject < DataObject
 
-  include Foundry
-  include DataFactory
   include StringFactory
   include Navigation
 

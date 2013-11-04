@@ -1,7 +1,5 @@
-class CostSharingObject
+class CostSharingObject < DataObject
 
-  include Foundry
-  include DataFactory
   include StringFactory
   include Navigation
 

@@ -1,7 +1,5 @@
-class ProposalLogObject
+class ProposalLogObject < DataObject
 
-  include Foundry
-  include DataFactory
   include StringFactory
   include Navigation
 

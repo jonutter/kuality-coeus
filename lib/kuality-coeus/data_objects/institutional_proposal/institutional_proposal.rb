@@ -1,7 +1,5 @@
-class InstitutionalProposalObject
+class InstitutionalProposalObject < DataObject
 
-  include Foundry
-  include DataFactory
   include StringFactory
   include DateFactory
   include Navigation

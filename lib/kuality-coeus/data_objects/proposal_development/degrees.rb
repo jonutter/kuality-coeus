@@ -1,7 +1,5 @@
-class DegreeObject
+class DegreeObject < DataObject
 
-  include Foundry
-  include DataFactory
   include StringFactory
 
   attr_accessor :type, :description, :graduation_year, :school,

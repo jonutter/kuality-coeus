@@ -1,7 +1,5 @@
-class BudgetPersonnelObject
+class BudgetPersonnelObject < DataObject
 
-  include Foundry
-  include DataFactory
   include StringFactory
   include Navigation
   include Utilities
