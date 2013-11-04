@@ -20,7 +20,7 @@ Feature: Creating Proposal Logs
   Scenario: Merge a new Proposal Log Document with an existing temporary proposal log
     Given users exist with the following roles: Create Proposal Log
     And   I log in with the Create Proposal Log user
-    And   submit a new temporary proposal log document
+    And   I submit a new temporary proposal log document
     When  I submit a new permanent proposal log document with the same PI into routing
     And   I merge my new proposal log with my previous temporary proposal log
     Then  the proposal log type of the proposal log document should be Merged
@@ -37,7 +37,6 @@ Feature: Creating Proposal Logs
     When  I log in with the OSP Administrator user
     And   I initiate a new institutional proposal document
     And   I merge the temporary proposal log with the institutional proposal
-
 
   Scenario: Attempt to merge a Permanent Proposal log with an Institutional Proposal
     Given users exist with the following roles: Create Proposal Log, OSP Administrator

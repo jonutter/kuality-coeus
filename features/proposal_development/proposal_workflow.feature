@@ -37,7 +37,7 @@ Feature: Proposal Workflows and Routing
     | Approve    |
     | Disapprove |
     | Reject     |
-  @test
+
   Scenario: Aggregator successfully submits a proposal into routing
     Given a user exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
@@ -68,7 +68,7 @@ Feature: Proposal Workflows and Routing
     And   I log in with the OSPApprover user
     Then  I should receive an action list item with the requested action being: FYI
     And   I can acknowledge the requested action list item
-
+  @test
   Scenario: An OSP Admin overrides a budget's cost sharing amount
     Given the Budget Column's 'Cost Sharing Amount' has a lookup for 'Proposal Cost Share' that returns 'Amount'
     And   users exist with the following roles: Proposal Creator, OSP Administrator
@@ -80,6 +80,6 @@ Feature: Proposal Workflows and Routing
     And   finalize the budget version
     And   mark the budget version complete
     And   complete the required custom fields on the proposal
-    And   submit the proposal
+   And   submit the proposal
     When  I log in with the OSP Administrator user
     Then  I can override the cost sharing amount

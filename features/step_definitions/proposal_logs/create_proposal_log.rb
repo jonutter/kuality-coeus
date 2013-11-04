@@ -34,11 +34,10 @@ When(/^I initiate a new permanent proposal log document$/) do
   @proposal_log = create ProposalLogObject
 end
 
-When(/^I? ?submit a new temporary proposal log document$/) do
+When(/^I? ?submit a new temporary proposal log document with the pi (.*)$/) do |pi_user_name|
   @temp_proposal_log = create ProposalLogObject,
                          log_type: 'Temporary',
-                         principal_investigator: 'cjensen'
-  sleep 15
+                         principal_investigator: pi_user_name
   @temp_proposal_log.submit
 end
 
@@ -52,4 +51,10 @@ end
 When(/^I submit a new proposal log$/) do
   @proposal_log = create ProposalLogObject
   @proposal_log.submit
+end
+
+When(/^I submit a new temporary proposal log document$/) do
+  @temp_proposal_log = create ProposalLogObject,
+                              log_type: 'Temporary'
+  @temp_proposal_log.submit
 end
