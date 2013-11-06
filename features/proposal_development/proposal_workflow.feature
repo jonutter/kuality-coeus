@@ -80,6 +80,6 @@ Feature: Proposal Workflows and Routing
     And   finalize the budget version
     And   mark the budget version complete
     And   complete the required custom fields on the proposal
-   And   submit the proposal
+    And   submit the proposal
     When  I log in with the OSP Administrator user
     Then  I can override the cost sharing amount

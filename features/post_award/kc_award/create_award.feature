@@ -10,12 +10,4 @@ Feature: Creating an award document
     When  I initiate an award document with a missing required field
     Then  an error should appear that says the field is required
 
-  Scenario: Linking an existing funding proposal to a KC Award document
-    Given users exist with the following roles: Award Modifier, Create Proposal Log, OSP Administrator
-    And   I log in with the Create Proposal Log user
-    And   initiate a new proposal log document
-    And   I log in with the OSP Administrator user
-    And   I create a funding proposal document with my proposal log document's number
-    When  I create
-
 

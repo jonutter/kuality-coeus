@@ -1,4 +1,4 @@
-Then(/^the s2s form attachment options should be appropriate to the opportunity$/) do
+Then(/^the S2S form attachment options should be appropriate to the opportunity$/) do
   forms = {
       'RR-FORMFAMILY-004-2010' =>
           %w{RR_SF424_1_2-V1.2
@@ -32,7 +32,7 @@ Then(/^the s2s form attachment options should be appropriate to the opportunity$
     forms[@proposal.opportunity_id].each { |form_name| page.form_names.should include form_name }
   end
 end
-When(/^add the s2s forms provided by (.*)$/) do |op_id|
+When(/^add the S2S forms provided by (.*)$/) do |op_id|
   forms = {
       'RR-FORMFAMILY-009-2010' =>
           %w{RR_Budget-V1.1 RR_FedNonFedBudget-V1.1 RR_FedNonFed_SubawardBudget-V1.2

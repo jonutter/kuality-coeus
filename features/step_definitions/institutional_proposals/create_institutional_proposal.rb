@@ -3,10 +3,11 @@ When(/^I submit a new institutional proposal document$/) do
   @proposal_log.submit
   @institutional_proposal = create InstitutionalProposalObject,
                                    proposal_number: @proposal_log.number
-  @institutional_proposal.add_custom_data
-  sleep 40
-  on(InstitutionalProposal).institutional_proposal_actions
-  on(InstitutionalProposalActions).submit
+  @institutional_proposal.add_project_personnel
+  #@institutional_proposal.add_custom_data
+  #@institutional_proposal.set_valid_credit_splits
+  #on(InstitutionalProposal).institutional_proposal_actions
+  #on(InstitutionalProposalActions).submit
 end
 
 When(/^I merge the temporary proposal log with the institutional proposal$/) do
@@ -19,7 +20,6 @@ When(/^I merge the temporary proposal log with the institutional proposal$/) do
   on InstitutionalProposalLookup do |page|
     page.institutional_proposal_number.set @institutional_proposal.proposal_number
     page.search
-    sleep 10
     page.select_item(@institutional_proposal.proposal_number)
   end
 end
