@@ -22,8 +22,7 @@ class ProjectPersonnelObject < DataObject
   # employees, not non-employees.
 
   def create
-    navigate
-    on(IPContacts).expand_all
+
   end
 
   # =======
@@ -34,7 +33,7 @@ class ProjectPersonnelObject < DataObject
 
   def navigate
     open_document @doc_type
-    on(InstitutionalProposal).contacts unless on_page?
+    on(InstitutionalProposal).contacts
   end
 
 end
@@ -43,6 +42,8 @@ class ProjectPersonnelCollection < CollectionsFactory
 
   contains ProjectPersonnelObject
 
-
+  def with_units
+    self.find_all { |person| person.units.size > 0 }
+  end
 
 end

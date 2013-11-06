@@ -68,15 +68,9 @@ class InstitutionalProposalObject < DataObject
     @project_personnel.add merge_settings(opts)
   end
 
-  # TODO: Move this to a shared module. The same method is
-  # used in the Proposal Development Object
-  # This method simply sets all the credit splits to
-  # equal values based on how many persons and units
-  # are attached to the Proposal. If more complicated
-  # credit splits are needed, these will have to be
-  # coded in the step def, accessing the key person
-  # objects directly.
   def set_valid_credit_splits
+    navigate
+    on(IPContacts).expand_all
     # calculate a "person" split value that will work
     # based on the number of people attached...
     split = (100.0/@project_personnel.with_units.size).round(2)
@@ -133,6 +127,11 @@ class InstitutionalProposalObject < DataObject
     object = make object_class, opts
     object.create
     object
+  end
+
+  def navigate
+    open_document @doc_type
+    on(InstitutionalProposal).contacts
   end
 
 end
