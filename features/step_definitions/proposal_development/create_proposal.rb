@@ -99,7 +99,7 @@ And /^I? ?submit a new development proposal into routing$/ do
   @proposal.submit
 end
 
-And /^I? ?add the (Grants.Gov|Research.Gov) opportunity id of (.*) to the proposal$/ do |type, op_id|
+And /^I? ?add the (Grants.Gov|Research.Gov) opportunity id of (.*) to the Proposal$/ do |type, op_id|
   @proposal.edit opportunity_id: op_id
   on(Proposal).s2s
   on S2S do |page|

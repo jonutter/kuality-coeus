@@ -3,11 +3,12 @@ class InstitutionalProposalObject < DataObject
   include StringFactory
   include DateFactory
   include Navigation
+  include DocumentUtilities
 
   attr_accessor :document_id, :proposal_number, :dev_proposal_number, :project_title,
                 :doc_status, :sponsor_id, :activity_type, :proposal_type, :proposal_status,
                 :project_personnel, :custom_data, :special_review, :cost_sharing,
-                :award_id, :initiator, :proposal_log, :doc_header, :unrecovered_fa
+                :award_id, :initiator, :proposal_log, :doc_header, :unrecovered_fa, :doc_type
 
   def initialize(browser, opts={})
     @browser = browser
@@ -36,9 +37,9 @@ class InstitutionalProposalObject < DataObject
   def create
     visit(CentralAdmin).create_institutional_proposal
     on ProposalLogLookup do |look|
-      look.proposal_number.set @proposal_log.number
+      look.proposal_number.set @proposal_number
       look.search
-      look.select_item @proposal_log.number
+      look.select_item @proposal_number
     end
     on InstitutionalProposal do |create|
       @doc_header=create.doc_title
@@ -62,6 +63,10 @@ class InstitutionalProposalObject < DataObject
 
   def add_unrecovered_fa opts={}
     @unrecovered_fa.add merge_settings(opts)
+  end
+
+  def add_project_personnel opts={}
+    @project_personnel.add merge_settings(opts)
   end
 
   # =========
@@ -97,5 +102,12 @@ class InstitutionalProposalObject < DataObject
     object.create
     object
   end
+
+  def navigate
+    open_document @doc_type
+    on(InstitutionalProposal).contacts
+  end
+
+  alias_method :key_personnel, :project_personnel
 
 end
