@@ -3,6 +3,8 @@ When(/^I submit a new institutional proposal document$/) do
   @proposal_log.submit
   @institutional_proposal = create InstitutionalProposalObject,
                                    proposal_number: @proposal_log.number
+  person = make ProjectPersonnelOjbect, full_name: @proposal_log.principal_investigator, units: ['???']
+  @institutional_proposal.project_personnel << person
   @institutional_proposal.add_custom_data
   @institutional_proposal.set_valid_credit_splits
   #on(InstitutionalProposal).institutional_proposal_actions

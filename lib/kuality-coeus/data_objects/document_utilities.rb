@@ -1,7 +1,5 @@
 module DocumentUtilities
 
-  # TODO: Move this to a shared module. The same method is
-  # used in the Proposal Development Object
   # This method simply sets all the credit splits to
   # equal values based on how many persons and units
   # are attached to the Proposal. If more complicated

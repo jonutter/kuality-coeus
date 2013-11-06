@@ -12,7 +12,8 @@ class ProjectPersonnelObject < DataObject
     @browser = browser
 
     defaults = {
-        units: []
+        units: [],
+        role: 'Prinicipal Investigator'
     }
 
     set_options(defaults.merge(opts))
@@ -34,6 +35,10 @@ class ProjectPersonnelObject < DataObject
   def navigate
     open_document @doc_type
     on(InstitutionalProposal).contacts
+  end
+
+  def page_class
+    IPContacts
   end
 
 end
