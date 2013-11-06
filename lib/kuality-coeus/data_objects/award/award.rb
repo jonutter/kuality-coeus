@@ -3,6 +3,7 @@ class AwardObject < DataObject
   include Navigation
   include DateFactory
   include StringFactory
+  include DocumentUtilities
 
   attr_accessor :description, :transaction_type, :id, :award_status,
                 :award_title, :lead_unit, :activity_type, :award_type, :sponsor_id,
