@@ -1,4 +1,4 @@
-Then /^the S2S tab's submission details will say the proposal is submitted$/ do
+Then /^the S2S tab's submission details will say the Proposal is submitted$/ do
   # Note that there's no navigation here currently because
   # this step def comes after the submission step, which
   # should automatically switch the user to the S2S page.
@@ -23,21 +23,21 @@ Then /^within a couple minutes the submission status will be updated$/ do
   end
 end
 
-When(/^I attach the PHS fellowship form to the proposal$/) do
+When(/^I attach the PHS Fellowship Form to the Proposal$/) do
   on S2S do |page|
     %w{PHS_Fellowship_Supplemental_1_2-V1.2
      }.each { |form| page.include_form(form).set }
   end
 end
 
-When(/^I attach the PHS training and fellowship forms to the proposal$/) do
+When(/^I attach the PHS Training and Fellowship Forms to the Proposal$/) do
   on S2S do |page|
     %w{PHS_Fellowship_Supplemental_1_2-V1.2
      }.each { |form| page.include_form(form).set }
   end
 end
 
-Then /^the PHS training and fellowship questionnaires should appear in the proposal$/ do
+Then /^the PHS Training and Fellowship Questionnaires should appear in the Proposal$/ do
   on(S2S).questions
   on Questions do |page|
     ['PHS398 Training Budget V1-0',
@@ -76,7 +76,7 @@ When /^I? ?add and mark complete all the required attachments$/ do
   attachments[@proposal.opportunity_id].shuffle.each { |type| @proposal.add_proposal_attachment type: type, file_name: 'test.pdf', status: 'Complete' }
   @proposal.key_personnel.each { |person| @proposal.add_personnel_attachment person: person.full_name, type: 'Biosketch', file_name: 'test.pdf' }
 end
-When(/^add a co-investigator$/) do
+When(/^add a Co-Investigator$/) do
   @proposal.add_key_person role: 'Co-Investigator'
   on(KeyPersonnel).save
 end

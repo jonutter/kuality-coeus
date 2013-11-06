@@ -40,7 +40,8 @@ class CustomDataObject < DataObject
   def page_class
     Kernel.const_get({
                            kc_award_: 'AwardCustomData',
-      proposal_development_document_: 'PDCustomData'
+      proposal_development_document_: 'PDCustomData',
+          kc_institutional_proposal_: 'IPCustomData'
                      }[snake_case(@doc_type)])
   end
 

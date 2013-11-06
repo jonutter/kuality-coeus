@@ -7,7 +7,7 @@ class InstitutionalProposalObject < DataObject
   attr_accessor :document_id, :proposal_number, :dev_proposal_number, :project_title,
                 :doc_status, :sponsor_id, :activity_type, :proposal_type, :proposal_status,
                 :project_personnel, :custom_data, :special_review, :cost_sharing,
-                :award_id, :initiator, :proposal_log, :doc_header, :unrecovered_fa
+                :award_id, :initiator, :proposal_log, :doc_header, :unrecovered_fa, :doc_type
 
   def initialize(browser, opts={})
     @browser = browser
@@ -36,9 +36,9 @@ class InstitutionalProposalObject < DataObject
   def create
     visit(CentralAdmin).create_institutional_proposal
     on ProposalLogLookup do |look|
-      look.proposal_number.set @proposal_log.number
+      look.proposal_number.set @proposal_number
       look.search
-      look.select_item @proposal_log.number
+      look.select_item @proposal_number
     end
     on InstitutionalProposal do |create|
       @doc_header=create.doc_title
@@ -62,6 +62,37 @@ class InstitutionalProposalObject < DataObject
 
   def add_unrecovered_fa opts={}
     @unrecovered_fa.add merge_settings(opts)
+  end
+
+  def add_project_personnel opts={}
+    @project_personnel.add merge_settings(opts)
+  end
+
+  def set_valid_credit_splits
+    navigate
+    on(IPContacts).expand_all
+    # calculate a "person" split value that will work
+    # based on the number of people attached...
+    split = (100.0/@project_personnel.with_units.size).round(2)
+
+    # Now make a hash to use for editing the person's splits...
+    splits = {responsibility: split, financial: split, recognition: split, space: split}
+
+    # Now we update the KeyPersonObjects' instance variables
+    # for their own splits as well as for their units
+    @project_personnel.with_units.each do |person|
+      person.edit splits
+      units_split = (100.0/person.units.size).round(2)
+      # Make a temp container for the units we're updating...
+      units = []
+      person.units.each { |unit| units << {:number=>unit[:number]} }
+      # Iterate through the units, updating their credit splits with the
+      # valid split amount...
+      units.each do |unit|
+        [:responsibility, :financial, :recognition, :space].each { |item| unit[item]=units_split }
+      end
+      person.update_unit_credit_splits units
+    end
   end
 
   # =========
@@ -96,6 +127,11 @@ class InstitutionalProposalObject < DataObject
     object = make object_class, opts
     object.create
     object
+  end
+
+  def navigate
+    open_document @doc_type
+    on(InstitutionalProposal).contacts
   end
 
 end
