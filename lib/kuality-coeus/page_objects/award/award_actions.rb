@@ -8,7 +8,6 @@ class AwardActions < KCAwards
   action(:expand_tree) { |b| b.frm.link(title: 'Expand the entire tree below').click }
   action(:show_award_details_panel) { |number, b| b.frm.link(class: 'awardHierarchy', text: /#{number}/).click }
 
-  
   action(:award_div) { |award, b| b.frm.div(id: "details#{award}") }
   action(:copy_descendents) { |award, b| b.award_div(award).checkbox(id: /copyDescendants/) }
   action(:copy_as_new) { |award, b| b.award_div(award).radio(name: /copyAwardRadio/, value: 'a') }

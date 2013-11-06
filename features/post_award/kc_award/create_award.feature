@@ -1,21 +1,19 @@
-Feature: Creating an award document
+Feature: Creating an Award
 
-  As a researcher I want the ability to create and modify an Award document (aka KC Award)
-  so that I can track and maintain my funded awards.
 
-  @test
-  Scenario: Attempt to initiate a KC Award document with a missing required field
+  Background:
     Given a user exists with the system role: 'Award Modifier'
-    And   I log in with the Award Modifier user
-    When  I initiate an award document with a missing required field
-    Then  an error should appear that says the field is required
+    And   I log in with that user
+    And   initiate an Award
+  @test
+  Scenario: Add a Payment & Invoice Req before adding a PI
+    When I add a Payment & Invoice item to the Award
+    Then a warning appears saying tracking details won't be added until there's a PI
 
-  Scenario: Linking an existing funding proposal to a KC Award document
-    Given users exist with the following roles: Award Modifier, Create Proposal Log, OSP Administrator
-    And   I log in with the Create Proposal Log user
-    And   initiate a new proposal log document
-    And   I log in with the OSP Administrator user
-    And   I create a funding proposal document with my proposal log document's number
-    When  I create
+  # TODO: Move this item to another feature file (it doesn't fit with the Background)
+  #@broken
+  #Scenario: Attempt to initiate a KC Award document with a missing required field
+  #  When  I initiate an award document with a missing required field
+  #  Then  an error should appear that says the field is required
 
 

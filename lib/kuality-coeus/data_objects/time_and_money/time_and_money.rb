@@ -56,6 +56,10 @@ class TimeAndMoneyObject < DataObject
     @transactions << trans
   end
 
+  def submit
+    on(TimeAndMoney).submit
+  end
+
   # ==========
   private
   # ==========

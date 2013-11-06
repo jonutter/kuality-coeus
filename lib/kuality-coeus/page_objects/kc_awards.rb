@@ -20,8 +20,8 @@ class KCAwards < BasePage
       value(:header_document_id) { |b| b.headerinfo_table[0][3].text[/\d+/] }
       value(:header_status) { |b| b.headerinfo_table[0][3].text[/(?<=:).*/] }
       value(:header_award_id) { |b| b.headerinfo_table[1][3].text[/.*(?=:)/] }
-      value(:header_account) { |b| b.headerinfo_table[][].text }
-      value(:header_last_update) { |b| b.headerinfo_table[][].text }
+      value(:header_account) { |b| b.headerinfo_table[1][3].text[/(?<=:).*/] }
+      value(:header_last_update) { |b| b.headerinfo_table[2][3].text }
     end
 
     def report_types *types

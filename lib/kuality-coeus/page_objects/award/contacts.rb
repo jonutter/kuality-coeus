@@ -43,6 +43,7 @@ class AwardContacts < KCAwards
 
   # Sponsor Contacts
   element(:sponsor_non_employee_id) { |b| b.frm.text_field(name: 'sponsorContactsBean.newAwardContact.rolodex.fullName') }
+  value(:org_name) { |b| b.frm.div(id: 'org.fullName.div').text }
   element(:sponsor_project_role) { |b| b.frm.select(name: 'sponsorContactsBean.contactRoleCode') }
   action(:add_sponsor_contact) { |b| b.frm.button(name: 'methodToCall.addSponsorContact').click; b.loading }
 

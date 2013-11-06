@@ -37,6 +37,20 @@ class PaymentInvoice < DataObject
         page.frequency.pick! pir[:frequency]
         page.frequency_base.pick! pir[:frequency_base]
         page.osp_file_copy.pick! pir[:osp_file_copy]
+
+
+
+
+
+
+
+puts 'We got here!'
+
+
+
+
+
+
         page.add_payment_type
       end
       fill_out page, :invoice_instructions

@@ -8,6 +8,7 @@ class AwardObject < DataObject
                 :award_title, :lead_unit, :activity_type, :award_type, :sponsor_id,
                 :project_start_date, :project_end_date, :obligation_start_date,
                 :obligation_end_date, :anticipated_amount, :obligated_amount, :document_id,
+                :document_status,
                 :creation_date, :key_personnel, :cost_sharing, :fa_rates,
                 :funding_proposals, #TODO: Add Benefits rates and preaward auths...
                 :time_and_money,
@@ -72,7 +73,13 @@ class AwardObject < DataObject
       create.save
       @document_id = create.header_document_id
       @id = create.header_award_id
+      @document_status = create.header_status
     end
+  end
+
+  def edit opts={}
+
+    set_options(opts)
   end
 
   def add_funding_proposal(ip_number, merge_type)
@@ -109,12 +116,16 @@ class AwardObject < DataObject
   end
 
   def add_sponsor_contact opts={}
-    s_c = opts.empty? ? {non_employee_id: rand(4000..4103), project_role: '::random::'} : opts
+    s_c = opts.empty? ? {non_employee_id: rand(4000..4103).to_s, project_role: '::random::'} : opts
     view :contacts
     on AwardContacts do |page|
       page.expand_all
-      page.sponsor_non_employee_id.set s_c[:non_employee_id]
-      page.sponsor_project_role.pick! s_c[:project_role]
+      while page.org_name==' '
+        page.sponsor_non_employee_id.set s_c[:non_employee_id]
+        page.sponsor_project_role.pick! s_c[:project_role]
+        page.unit_employee_user_name.focus
+        sleep 0.5
+      end
       page.add_sponsor_contact
       page.save
     end
@@ -166,26 +177,61 @@ class AwardObject < DataObject
     end
   end
 
-  def copy(type='new', descendents=:clear, parent=nil)
-
-
+  def submit
     view :award_actions
     on AwardActions do |page|
-      page.close_parents
-      page.expand_all
-      page.expand_tree
-      page.show_award_details_panel(@id) unless page.award_div(@id).visible?
-      page.copy_descendents(@id).send(descendents) if page.copy_descendents(@id).enabled?
-      page.send("copy_as_#{type}", @id).set
-      page.child_of_target_award(@id).pick! parent
-      page.copy_award @id
+      page.submit
+
+      # TODO: Code for intelligently handling the appearance of this
+      confirmation
+
+      page.t_m_button.wait_until_present
+
+      @document_status==page.header_status
     end
-    if type=='new'
-      award = data_object_copy
-      # TODO: Need to modify values for fields that don't copy or won't be the same...
-    else
+  end
+
+  def copy(type='new', descendents=:clear, parent=nil)
+    view :award_actions
+    on AwardActions do |copy|
+      copy.close_parents
+      copy.expand_all
+      copy.expand_tree
+      sleep 3 # FIXME!
+      copy.show_award_details_panel(@id) unless copy.award_div(@id).visible?
+      copy.copy_descendents(@id).send(descendents) if copy.copy_descendents(@id).enabled?
+      copy.send("copy_as_#{type}", @id).set
+      copy.child_of_target_award(@id).pick! parent
+      copy.copy_award @id
+    end
+    award = data_object_copy
+
+    # Need to do this because a deep copy is
+    # not appropriate here...
+    award.time_and_money = @time_and_money
+
+    case
+      when type=='new' && descendents==:clear
+        # Need to modify values for fields that don't copy or won't be the same...
+        on Award do |page|
+          award.id = page.header_award_id
+          award.document_id = page.header_document_id
+          award.description = page.description.value
+          award.project_start_date = page.project_start_date.value
+          award.project_end_date = page.project_end_date.value
+          award.obligation_start_date = page.obligation_start_date.value
+          award.obligation_end_date = page.obligation_end_date.value
+          award.anticipated_amount = page.anticipated_amount.value
+          award.obligated_amount = page.obligated_amount.value
+        end
+      when type=='child_of' && descendents==:clear
+
+      when type=='new' && descendents==:set
+
+      when type=='child_of' && descendents==:set
 
     end
+    award
   end
 
   # TODO: Move this to a shared module. The same method is

@@ -7,6 +7,7 @@ class Award < KCAwards
   element(:proposal_merge_type) { |b| b.frm.select(name: 'fundingProposalBean.mergeTypeCode') }
   action(:add_proposal) { |b| b.frm.button(name: 'methodToCall.addFundingProposal.anchorFundingProposals').click; b.loading }
   element(:transaction_type) { |b| b.frm.select(name: 'document.awardList[0].awardTransactionTypeCode') }
+  value(:award_id) { |b| b.frm.div(id: 'tab-DetailsDates:Institution-div').table[0][1].text }
   element(:award_status) { |b| b.frm.select(name: 'document.awardList[0].statusCode') }
   element(:lead_unit_id) { |b| b.frm.text_field(name: 'document.awardList[0].unitNumber') }
   value(:lead_unit_ro) { |b| b.frm.div(id: 'tab-DetailsDates:Institution-div').table[0][3].text }
@@ -16,8 +17,8 @@ class Award < KCAwards
   element(:award_title) { |b| b.frm.text_field(name: 'document.awardList[0].title') }
   element(:sponsor_id) { |b| b.frm.text_field(name: 'document.awardList[0].sponsorCode') }
   action(:lookup_sponsor) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.Sponsor!!).(((sponsorCode:document.awardList[0].sponsorCode,sponsorName:document.awardList[0].sponsor.sponsorName))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchorDetailsDates').click }
-  element(:project_start_date) { |b| b.frm.text_field(name: 'document.awardList[0].awardEffectiveDate') }
-  element(:project_end_date) { |b| b.frm.text_field(name: 'document.awardList[0].awardAmountInfos[0].finalExpirationDate') }
+  element(:project_start_date) { |b| b.frm.text_field(name: /awardEffectiveDate/) }
+  element(:project_end_date) { |b| b.frm.text_field(name: /finalExpirationDate/) }
   element(:obligation_start_date) { |b| b.frm.text_field(name: /currentFundEffectiveDate/) }
   element(:obligation_end_date) { |b| b.frm.text_field(name: /obligationExpirationDate/) }
   element(:anticipated_amount) { |b| b.frm.text_field(name: /anticipatedTotalAmount/) }

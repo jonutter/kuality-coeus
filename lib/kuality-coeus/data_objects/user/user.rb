@@ -104,7 +104,7 @@ class UserObject
                 :description, :affiliation_type, :campus_code,
                 :employee_id, :employee_status, :employee_type, :base_salary, :primary_department_code,
                 :groups, :roles, :role_qualifiers, :addresses, :phones, :emails,
-                :primary_title, :directory_title, :citizenship_type,
+                :primary_title, :directory_title, :citizenship_type, :role,
                 :era_commons_user_name, :graduate_student_count, :billing_element,
                 :directory_department,
                 :session_status, :type

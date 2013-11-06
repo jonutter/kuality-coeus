@@ -1,4 +1,4 @@
-Given /^I? ?add a PI to the award$/ do
+Given /^I? ?add a PI to the Award$/ do
   @award.add_pi
 end
 
@@ -39,7 +39,7 @@ Given /I? ?add a \$(.*) Subaward for (.*) to the Award$/ do |amount, organizatio
 end
 
 Given /I? ?add a Sponsor Contact to the Award$/ do
-  @award.add_sponsor_contact
+  @award.add_sponsor_contact #non_employee_id: '333', project_role: '::random::'
 end
 
 Given /I? ?add a Payment & Invoice item to the Award$/ do
@@ -63,4 +63,12 @@ When /I? ?copy the Award to a new Award$/ do
   puts @award.inspect
   puts
   puts @award_2.inspect
+end
+
+When /^I? ?give the Award valid credit splits$/ do
+  @award.set_valid_credit_splits
+end
+
+When /^I? ?submit the Award$/ do
+  @award.submit
 end

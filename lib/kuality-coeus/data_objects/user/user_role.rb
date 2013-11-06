@@ -38,6 +38,8 @@ class UserRolesCollection < CollectionsFactory
 
   contains UserRoleObject
 
-
+  def name role_name
+    self.find { |role| role.name==role_name }
+  end
 
 end
