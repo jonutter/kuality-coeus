@@ -31,4 +31,21 @@ module DocumentUtilities
     end
   end
 
+  private
+
+  def set_sponsor_id
+    if @sponsor_id=='::random::'
+      on(Award).lookup_sponsor
+      on SponsorLookup do |look|
+        look.sponsor_type_code.pick! '::random::'
+        look.search
+        look.page_links[rand(look.page_links.length)].click if look.page_links.size > 0
+        look.return_random
+      end
+      @sponsor_id=on(Award).sponsor_id.value
+    else
+      on(Award).sponsor_id.fit @sponsor_id
+    end
+  end
+
 end

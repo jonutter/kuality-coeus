@@ -39,7 +39,7 @@ Given /I? ?add a \$(.*) Subaward for (.*) to the Award$/ do |amount, organizatio
 end
 
 Given /I? ?add a Sponsor Contact to the Award$/ do
-  @award.add_sponsor_contact #non_employee_id: '333', project_role: '::random::'
+  @award.add_sponsor_contact
 end
 
 Given /I? ?add a Payment & Invoice item to the Award$/ do
@@ -58,11 +58,28 @@ And /I? ?add the required Custom Data to the Award$/ do
   @award.add_custom_data
 end
 
-When /I? ?copy the Award to a new Award$/ do
+When /I? ?copy the Award to a new parent Award$/ do
   @award_2 = @award.copy
-  puts @award.inspect
-  puts
-  puts @award_2.inspect
+
+
+
+
+
+
+
+
+
+puts @award.inspect
+puts
+puts @award_2.inspect
+
+
+
+
+
+
+
+
 end
 
 When /^I? ?give the Award valid credit splits$/ do

@@ -1,5 +1,6 @@
 class PaymentReportsTerms < KCAwards
 
+  error_messages
   award_header_elements
 
   element(:payment_basis) { |b| b.frm.select(name: 'document.awardList[0].basisOfPaymentCode') }
