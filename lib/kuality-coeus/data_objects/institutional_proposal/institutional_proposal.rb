@@ -8,7 +8,8 @@ class InstitutionalProposalObject < DataObject
   attr_accessor :document_id, :proposal_number, :dev_proposal_number, :project_title,
                 :doc_status, :sponsor_id, :activity_type, :proposal_type, :proposal_status,
                 :project_personnel, :custom_data, :special_review, :cost_sharing,
-                :award_id, :initiator, :proposal_log, :doc_header, :unrecovered_fa, :doc_type
+                :award_id, :initiator, :proposal_log, :unrecovered_fa, :doc_type,
+                :key_personnel
 
   def initialize(browser, opts={})
     @browser = browser
@@ -30,6 +31,7 @@ class InstitutionalProposalObject < DataObject
       defaults[:project_personnel] << pi
     end
     set_options(defaults.merge(opts))
+    @key_personnel = @project_personnel
   end
 
   # This method is appropriate only in the context of creating an
@@ -42,7 +44,7 @@ class InstitutionalProposalObject < DataObject
       look.select_item @proposal_number
     end
     on InstitutionalProposal do |create|
-      @doc_header=create.doc_title
+      @doc_type=create.doc_title
       @document_id=create.document_id
       create.expand_all
       @proposal_number=create.institutional_proposal_number
@@ -91,7 +93,7 @@ class InstitutionalProposalObject < DataObject
   def merge_settings(opts)
     defaults = {
         document_id: @document_id,
-        doc_type: @doc_header
+        doc_type: @doc_type
     }
     opts.merge!(defaults)
   end
@@ -107,7 +109,5 @@ class InstitutionalProposalObject < DataObject
     open_document @doc_type
     on(InstitutionalProposal).contacts
   end
-
-  alias_method :key_personnel, :project_personnel
 
 end

@@ -17,6 +17,7 @@ class ProjectPersonnelObject < DataObject
     }
 
     set_options(defaults.merge(opts))
+    requires :document_id
   end
 
   # Note: This currently only has support for adding
@@ -24,6 +25,23 @@ class ProjectPersonnelObject < DataObject
 
   def create
 
+  end
+
+  def edit opts={}
+    navigate
+    on IPContacts do |update|
+      update.expand_all
+      # TODO: This will eventually need to be fixed...
+      # Note: This is a dangerous short cut, as it may not
+      # apply to every field that could be edited with this
+      # method...
+
+      opts.each do |field, value|
+        update.send(field, @full_name).fit value
+      end
+      update.save
+    end
+    update_options(opts)
   end
 
   # =======
@@ -49,6 +67,10 @@ class ProjectPersonnelCollection < CollectionsFactory
 
   def with_units
     self.find_all { |person| person.units.size > 0 }
+  end
+
+  def units
+    self.collect{ |person| person.units }.flatten
   end
 
 end

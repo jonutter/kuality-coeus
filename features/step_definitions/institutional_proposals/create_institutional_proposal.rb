@@ -3,12 +3,14 @@ When(/^I submit a new institutional proposal document$/) do
   @proposal_log.submit
   @institutional_proposal = create InstitutionalProposalObject,
                                    proposal_number: @proposal_log.number
-  person = make ProjectPersonnelOjbect, full_name: @proposal_log.principal_investigator, units: ['???']
+  person = make ProjectPersonnelObject, full_name: @proposal_log.pi_full_name,
+                units: [{:number=>@proposal_log.lead_unit}], doc_type: @institutional_proposal.doc_type,
+                document_id: @institutional_proposal.document_id
   @institutional_proposal.project_personnel << person
   @institutional_proposal.add_custom_data
   @institutional_proposal.set_valid_credit_splits
-  #on(InstitutionalProposal).institutional_proposal_actions
-  #on(InstitutionalProposalActions).submit
+  on(IPContacts).institutional_proposal_actions
+  on(InstitutionalProposalActions).submit
 end
 
 When(/^I merge the temporary proposal log with the institutional proposal$/) do
