@@ -26,6 +26,7 @@ When(/^I merge the temporary proposal log with the institutional proposal$/) do
     page.select_item(@institutional_proposal.proposal_number)
   end
 end
+
 When(/^I merge the permanent proposal log with the institutional proposal$/) do
   pending
 end

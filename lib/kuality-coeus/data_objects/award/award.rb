@@ -217,6 +217,12 @@ class AwardObject < DataObject
         on Award do |page|
           award.id = page.header_award_id
           award.document_id = page.header_document_id
+          award.custom_data.document_id = page.header_document_id
+
+
+
+
+
           award.description = page.description.value
           award.project_start_date = page.project_start_date.value
           award.project_end_date = page.project_end_date.value
@@ -238,23 +244,6 @@ class AwardObject < DataObject
   # ========
   private
   # ========
-
-  # TODO: Move this to a shared module. The same method is
-  # used in the Proposal Development Object
-  def set_sponsor_id
-    if @sponsor_id=='::random::'
-      on(Award).lookup_sponsor
-      on SponsorLookup do |look|
-        look.sponsor_type_code.pick! '::random::'
-        look.search
-        look.page_links[rand(look.page_links.length)].click if look.page_links.size > 0
-        look.return_random
-      end
-      @sponsor_id=on(Award).sponsor_id.value
-    else
-      on(Award).sponsor_id.fit @sponsor_id
-    end
-  end
 
   def set_lead_unit
     lu_edit = on(Award).lead_unit_id.present?
