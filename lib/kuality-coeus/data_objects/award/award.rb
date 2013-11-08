@@ -94,11 +94,21 @@ class AwardObject < DataObject
     @funding_proposals << {ip_number: ip_number, merge_type: merge_type}
   end
 
-  def add_subaward(name, amount)
+  def add_subaward(name='random', amount=nil)
+    amount ||= random_dollar_value(10000000)
     view :award
     on Award do |page|
       page.expand_all
-      page.add_organization_name.fit name
+      if name=='random'
+        page.search_organization
+        on OrganizationLookup do |search|
+          search.search
+          search.return_random
+        end
+        name=page.add_organization_name.value
+      else
+        page.add_organization_name.fit name
+      end
       page.add_subaward_amount.fit amount
       page.add_subaward
       page.save

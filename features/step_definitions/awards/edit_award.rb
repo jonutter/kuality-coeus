@@ -36,6 +36,10 @@ Given /I? ?replace the current Institutional Proposal in the Award with (.*)$/ d
   @award.add_funding_proposal ip_number, 'Replace'
 end
 
+Given /^I? ?add a Subaward to the Award$/ do
+  @award.add_subaward
+end
+
 Given /I? ?add a \$(.*) Subaward for (.*) to the Award$/ do |amount, organization|
   @award.add_subaward organization, amount
 end
