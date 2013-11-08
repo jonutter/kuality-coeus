@@ -46,7 +46,7 @@ When /^I start adding a Payment & Invoice item to the Award$/ do
   end
 end
 
-When /^I complete the Award requirements$/ do
+When /^I? ?complete the Award requirements$/ do
   steps %{
     And add Reports to the Award
     And add Terms to the Award

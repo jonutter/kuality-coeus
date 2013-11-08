@@ -49,15 +49,17 @@ Given /I? ?add a Payment & Invoice item to the Award$/ do
 end
 
 And /I? ?add Reports to the Award$/ do
-  @award.add_reports
+  # Logic is here because of this step's nesting in
+  # "I complete the Award"
+  @award.add_reports if @award.reports.nil?
 end
 
 And /I? ?add Terms to the Award$/ do
-  @award.add_terms
+  @award.add_terms if @award.terms.nil?
 end
 
 And /I? ?add the required Custom Data to the Award$/ do
-  @award.add_custom_data
+  @award.add_custom_data if @award.custom_data.nil?
 end
 
 When /I? ?copy the Award to a new parent Award$/ do
