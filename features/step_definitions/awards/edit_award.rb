@@ -1,5 +1,7 @@
 Given /^I? ?add a PI to the Award$/ do
-  @award.add_pi
+  # Note: the logic is here because of the nesting of this
+  # step in "I complete the Award requirements"
+  @award.add_pi if @award.key_personnel.principal_investigator.nil?
 end
 
 When /^I? ?add the (.*) unit to the Award's PI$/ do |unit|

@@ -45,3 +45,15 @@ When /^I start adding a Payment & Invoice item to the Award$/ do
     page.add_payment_type
   end
 end
+
+When /^I complete the Award requirements$/ do
+  steps %{
+    And add Reports to the Award
+    And add Terms to the Award
+    And add the required Custom Data to the Award
+    And add a Payment & Invoice item to the Award
+    And add a Sponsor Contact to the Award
+    And add a PI to the Award
+    And give the Award valid credit splits
+  }
+end

@@ -11,7 +11,7 @@ class AwardObject < DataObject
                 :obligation_end_date, :anticipated_amount, :obligated_amount, :document_id,
                 :document_status,
                 :creation_date, :key_personnel, :cost_sharing, :fa_rates,
-                :funding_proposals, #TODO: Add Benefits rates and preaward auths...
+                :funding_proposals, :subawards, #TODO: Add Benefits rates and preaward auths...
                 :time_and_money,
                 :budget_versions, :sponsor_contacts, :payment_and_invoice, :terms, :reports,
                 :custom_data,
@@ -100,6 +100,7 @@ class AwardObject < DataObject
       page.expand_all
       page.add_organization_name.fit name
       page.add_subaward_amount.fit amount
+      page.add_subaward
       page.save
     end
     @subawards << {org_name: name, amount: amount}
@@ -125,7 +126,7 @@ class AwardObject < DataObject
         page.sponsor_non_employee_id.set s_c[:non_employee_id]
         page.sponsor_project_role.pick! s_c[:project_role]
         page.unit_employee_user_name.focus
-        sleep 0.5
+        sleep 0.5 # FIXME!
       end
       page.add_sponsor_contact
       page.save
@@ -188,7 +189,7 @@ class AwardObject < DataObject
 
       page.t_m_button.wait_until_present
 
-      @document_status==page.header_status
+      @document_status=page.header_status
     end
   end
 
@@ -205,15 +206,20 @@ class AwardObject < DataObject
       copy.child_of_target_award(@id).pick! parent
       copy.copy_award @id
     end
+
+    # Make the new data object...
     award = data_object_copy
 
-    # Need to do this because a deep copy is
-    # not appropriate here...
-    award.time_and_money = @time_and_money
-
+    # Modify the new data object according to the
+    # type of "copy" being done...
     case
       when type=='new' && descendents==:clear
-        # Need to modify values for fields that don't copy or won't be the same...
+        # Need to modify values for fields/subobjects
+        # that don't copy or won't be the same...
+
+        award.time_and_money=nil
+        award.subawards=nil
+
         on Award do |page|
           award.id = page.header_award_id
           award.document_id = page.header_document_id
@@ -223,13 +229,25 @@ class AwardObject < DataObject
 
 
 
-          award.description = page.description.value
-          award.project_start_date = page.project_start_date.value
-          award.project_end_date = page.project_end_date.value
-          award.obligation_start_date = page.obligation_start_date.value
-          award.obligation_end_date = page.obligation_end_date.value
-          award.anticipated_amount = page.anticipated_amount.value
-          award.obligated_amount = page.obligated_amount.value
+          page.description.set random_alphanums
+          page.project_end_date.set in_a_year[:date_w_slashes]
+
+
+          page.save
+          award.document_status=page.header_status
+
+
+
+
+
+
+          #award.description = page.description.value
+          #award.project_start_date = page.project_start_date.value
+          #award.project_end_date = page.project_end_date.value
+          #award.obligation_start_date = page.obligation_start_date.value
+          #award.obligation_end_date = page.obligation_end_date.value
+          #award.anticipated_amount = page.anticipated_amount.value
+          #award.obligated_amount = page.obligated_amount.value
         end
       when type=='child_of' && descendents==:clear
 

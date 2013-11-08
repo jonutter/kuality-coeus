@@ -57,7 +57,10 @@ class TimeAndMoneyObject < DataObject
   end
 
   def submit
-    on(TimeAndMoney).submit
+    on TimeAndMoney do |page|
+      page.submit
+      @status = page.header_status
+    end
   end
 
   # ==========
