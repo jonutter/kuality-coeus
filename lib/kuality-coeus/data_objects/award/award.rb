@@ -235,22 +235,14 @@ class AwardObject < DataObject
           award.document_id = page.header_document_id
           award.custom_data.document_id = page.header_document_id
 
-
-
-
-
+          # TODO: Determine if this is all we want, here...
           page.description.set random_alphanums
           page.project_end_date.set in_a_year[:date_w_slashes]
-
 
           page.save
           award.document_status=page.header_status
 
-
-
-
-
-
+          # TODO: Determine what should be done with these fields...
           #award.description = page.description.value
           #award.project_start_date = page.project_start_date.value
           #award.project_end_date = page.project_end_date.value

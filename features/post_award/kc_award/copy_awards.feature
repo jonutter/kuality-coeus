@@ -8,15 +8,12 @@ Feature: Copying Awards
     And   I log in with that user
     And   initiate an Award
 
-  @test
-  Scenario: Award Modifier adds a PI for another unit to an Award
+  Scenario: Award copied as new Parent
     Given I add a Subaward to the Award
-    And   add a PI to the Award
-    And   add a key person to the Award
     And   complete the Award requirements
-    And   I log in with the 'Time And Money Modifier' user
+    And   I log in with the Time And Money Modifier user
     And   submit the Award's T&M document
     And   I log in with the Award Modifier user
     And   submit the Award
     And   I copy the Award to a new parent Award
-    Then  the new Award should not have any Subawards
+    Then  the new Award should not have any Subawards or T&M document

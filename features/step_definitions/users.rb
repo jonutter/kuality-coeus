@@ -65,8 +65,10 @@ end
 # logging in with the admin user to do the creation).
 Given /^a user exists with the role '(.*)' in unit '(.*)' \(descends hierarchy\)$/ do |role, unit|
   user_name = UserObject::USERS.have_hierarchical_role_in_unit(role, unit, :set)[0][0]
-  user = make_user user: user_name
-  user.create unless user.exists?
+  # Be careful with this, as test cases with multiple users with the same role will cause
+  # instance variable collision...
+  $users << set(role, (make UserObject, user: user_name))
+  $users[-1].create unless $users[-1].exists?
 end
 
 # Use this step definition immediately after a step where you

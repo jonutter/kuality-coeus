@@ -68,26 +68,6 @@ end
 
 When /I? ?copy the Award to a new parent Award$/ do
   @award_2 = @award.copy
-
-
-
-
-
-
-
-
-
-puts @award.inspect
-puts
-puts @award_2.inspect
-
-
-
-
-
-
-
-
 end
 
 When /^I? ?give the Award valid credit splits$/ do
