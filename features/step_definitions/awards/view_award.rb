@@ -28,3 +28,17 @@ end
 When /^the child Award's project end date should be the same as the parent, and read-only$/ do
   on(Award).project_end_date_ro.should==@award.project_end_date
 end
+
+And /^the anticipated and obligated amounts are read-only and \$0.00$/ do
+  on Award do |page|
+    page.anticipated_amount_ro.should=='$0.00'
+    page.obligated_amount_ro.should=='$0.00'
+  end
+end
+
+And /^the anticipated and obligated amounts are zero$/ do
+  on Award do |page|
+    page.anticipated_amount.value.should=='0.00'
+    page.obligated_amount.value.should=='0.00'
+  end
+end

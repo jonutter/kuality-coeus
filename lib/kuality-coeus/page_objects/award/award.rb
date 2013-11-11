@@ -23,8 +23,10 @@ class Award < KCAwards
   element(:obligation_start_date) { |b| b.frm.text_field(name: /currentFundEffectiveDate/) }
   element(:obligation_end_date) { |b| b.frm.text_field(name: /obligationExpirationDate/) }
   element(:anticipated_amount) { |b| b.frm.text_field(name: /anticipatedTotalAmount/) }
+  value(:anticipated_amount_ro) { |b| b.tm_table[3][1].text }
   element(:obligated_amount) { |b| b.frm.text_field(name: /amountObligatedToDate/) }
-  
+  value(:obligated_amount_ro) { |b| b.tm_table[3][3].text }
+
   element(:add_organization_name) { |b| b.frm.text_field(name: 'approvedSubawardFormHelper.newAwardApprovedSubaward.organizationName') }
   action(:search_organization) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.Organization!!).(((organizationName:approvedSubawardFormHelper.newAwardApprovedSubaward.organizationName,organizationId:approvedSubawardFormHelper.newAwardApprovedSubaward.organizationId))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchorSubawards').click }
   element(:add_subaward_amount) { |b| b.frm.text_field(name: 'approvedSubawardFormHelper.newAwardApprovedSubaward.amount') }
