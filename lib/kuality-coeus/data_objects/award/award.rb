@@ -203,7 +203,7 @@ class AwardObject < DataObject
     end
   end
 
-  def copy(type='new', descendents=:clear, parent=nil)
+  def copy(type='new', parent=nil, descendents=:clear)
     view :award_actions
     on AwardActions do |copy|
       copy.close_parents
@@ -220,6 +220,27 @@ class AwardObject < DataObject
     # Make the new data object...
     award = data_object_copy
 
+    # Clean up the data to match...
+    award.subawards=nil
+    award.transaction_type='New'
+    award.anticipated_amount = '0.00'
+    award.obligated_amount = '0.00'
+
+    on Award do |page|
+      award.id = page.header_award_id
+      award.document_id = page.header_document_id
+      award.custom_data.document_id = page.header_document_id
+
+      # TODO: Determine if this is all we want, here...
+      page.description.set random_alphanums
+
+      page.project_end_date.set @project_end_date if page.project_end_date.present?
+
+      page.save
+      award.document_status=page.header_status
+
+    end
+
     # Modify the new data object according to the
     # type of "copy" being done...
     case
@@ -228,36 +249,23 @@ class AwardObject < DataObject
         # that don't copy or won't be the same...
 
         award.time_and_money=nil
-        award.subawards=nil
 
-        on Award do |page|
-          award.id = page.header_award_id
-          award.document_id = page.header_document_id
-          award.custom_data.document_id = page.header_document_id
+        award.project_start_date = ''
+        award.project_end_date = ''
+        award.obligation_start_date = ''
+        award.obligation_end_date = ''
 
-          # TODO: Determine if this is all we want, here...
-          page.description.set random_alphanums
-          page.project_end_date.set in_a_year[:date_w_slashes]
-
-          page.save
-          award.document_status=page.header_status
-
-          # TODO: Determine what should be done with these fields...
-          #award.description = page.description.value
-          #award.project_start_date = page.project_start_date.value
-          #award.project_end_date = page.project_end_date.value
-          #award.obligation_start_date = page.obligation_start_date.value
-          #award.obligation_end_date = page.obligation_end_date.value
-          #award.anticipated_amount = page.anticipated_amount.value
-          #award.obligated_amount = page.obligated_amount.value
-        end
       when type=='child_of' && descendents==:clear
+
+        award.time_and_money=@time_and_money
+        award.parent=@id
 
       when type=='new' && descendents==:set
 
       when type=='child_of' && descendents==:set
 
     end
+
     award
   end
 

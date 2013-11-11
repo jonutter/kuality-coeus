@@ -7,5 +7,5 @@ Feature: Modifying Award Properties
     Given a user exists with the role 'Award Modifier' in unit 'BL-BL'
     And   I log in with that user
     And   I initiate an Award with BL-BL as the Lead Unit
-    When  I add a PI to the award
+    When  I add a PI to the Award
     Then  The Award PI's Lead Unit is BL-BL

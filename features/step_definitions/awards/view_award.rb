@@ -20,3 +20,11 @@ Then /^the new Award should not have any Subawards or T&M document$/ do
     test.errors.should include 'Project Start Date is required when creating a Time And Money Document.'
   end
 end
+
+Then /^the new Award's transaction type is 'New'$/ do
+  on(Award).transaction_type.selected?('New').should be_true
+end
+
+When /^the child Award's project end date should be the same as the parent, and read-only$/ do
+  on(Award).project_end_date_ro.should==@award.project_end_date
+end

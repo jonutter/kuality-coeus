@@ -36,7 +36,7 @@ Given /I? ?replace the current Institutional Proposal in the Award with (.*)$/ d
   @award.add_funding_proposal ip_number, 'Replace'
 end
 
-Given /^I? ?add a Subaward to the Award$/ do
+Given /^I? ?add a subaward to the Award$/ do
   @award.add_subaward
 end
 
@@ -68,6 +68,10 @@ end
 
 When /I? ?copy the Award to a new parent Award$/ do
   @award_2 = @award.copy
+end
+
+When /^I? ?copy the Award as a child of itself$/ do
+  @award_2 = @award.copy 'child_of', @award.id
 end
 
 When /^I? ?give the Award valid credit splits$/ do
