@@ -1,5 +1,7 @@
 Given /^I? ?add a PI to the Award$/ do
-  @award.add_pi
+  # Note: the logic is here because of the nesting of this
+  # step in "I complete the Award requirements"
+  @award.add_pi if @award.key_personnel.principal_investigator.nil?
 end
 
 When /^I? ?add the (.*) unit to the Award's PI$/ do |unit|
@@ -34,6 +36,10 @@ Given /I? ?replace the current Institutional Proposal in the Award with (.*)$/ d
   @award.add_funding_proposal ip_number, 'Replace'
 end
 
+Given /^I? ?add a Subaward to the Award$/ do
+  @award.add_subaward
+end
+
 Given /I? ?add a \$(.*) Subaward for (.*) to the Award$/ do |amount, organization|
   @award.add_subaward organization, amount
 end
@@ -47,39 +53,21 @@ Given /I? ?add a Payment & Invoice item to the Award$/ do
 end
 
 And /I? ?add Reports to the Award$/ do
-  @award.add_reports
+  # Logic is here because of this step's nesting in
+  # "I complete the Award"
+  @award.add_reports if @award.reports.nil?
 end
 
 And /I? ?add Terms to the Award$/ do
-  @award.add_terms
+  @award.add_terms if @award.terms.nil?
 end
 
 And /I? ?add the required Custom Data to the Award$/ do
-  @award.add_custom_data
+  @award.add_custom_data if @award.custom_data.nil?
 end
 
 When /I? ?copy the Award to a new parent Award$/ do
   @award_2 = @award.copy
-
-
-
-
-
-
-
-
-
-puts @award.inspect
-puts
-puts @award_2.inspect
-
-
-
-
-
-
-
-
 end
 
 When /^I? ?give the Award valid credit splits$/ do

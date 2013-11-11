@@ -57,6 +57,20 @@ Given /^a user exists with the role '(.*)' in unit '(.*)'$/ do |role, unit|
   user.create unless user.exists?
 end
 
+# This step definition will return a user with
+# the specified role for the specified unit. The role
+# will descend the heirarchy. If there
+# are multiple matching users, it will select one
+# of them randomly, and create them if they don't exist in the system (again by first
+# logging in with the admin user to do the creation).
+Given /^a user exists with the role '(.*)' in unit '(.*)' \(descends hierarchy\)$/ do |role, unit|
+  user_name = UserObject::USERS.have_hierarchical_role_in_unit(role, unit, :set)[0][0]
+  # Be careful with this, as test cases with multiple users with the same role will cause
+  # instance variable collision...
+  $users << set(role, (make UserObject, user: user_name))
+  $users[-1].create unless $users[-1].exists?
+end
+
 # Use this step definition immediately after a step where you
 # have made/created a user. They'll be last in the collection.
 And /^I log in with that user$/ do
@@ -67,6 +81,7 @@ Then /^(.*) is logged in$/ do |username|
   get(username).logged_in?.should be true
 end
 
+# TODO: This will need to be changed to add "in the same unit" as a qualifier
 Given /^users exist with the following roles: (.*)$/ do |roles|
   roles.split(', ').each do |r|
     user = make_user role: r

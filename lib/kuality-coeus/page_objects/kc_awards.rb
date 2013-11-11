@@ -2,6 +2,7 @@ class KCAwards < BasePage
 
   tab_buttons
   global_buttons
+  error_messages
 
   class << self
 

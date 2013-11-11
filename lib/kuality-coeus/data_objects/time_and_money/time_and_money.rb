@@ -57,7 +57,11 @@ class TimeAndMoneyObject < DataObject
   end
 
   def submit
-    on(TimeAndMoney).submit
+    on TimeAndMoney do |page|
+      page.submit
+      page.hierarchy_table.wait_until_present
+      @status = page.header_status
+    end
   end
 
   # ==========

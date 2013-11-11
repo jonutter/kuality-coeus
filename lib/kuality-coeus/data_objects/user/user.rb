@@ -58,6 +58,18 @@ class UserYamlCollection < Hash
     }.shuffle
   end
 
+  # Returns an array of all users with the specified role in the specified unit,
+  # and that role descends the hierarchy. Takes
+  # the role and unit names as strings.
+  # The array is shuffled so that #have_role_in_unit('role name', 'unit name')[0]
+  # will be a random selection from the list of matching users.
+  def have_hierarchical_role_in_unit(role, unit, hier)
+    self.find_all{ |user|
+      user[1][:rolez] != nil &&
+          user[1][:rolez].find{ |r| r[:name]==role && r[:qualifiers].detect{ |q| q[:unit]==unit && q[:descends_hierarchy]==hier } }
+    }.shuffle
+  end
+
   # Returns an array of all users with the specified campus code. Takes the code as a string.
   # The array is shuffled so that #with_campus_code('code')[0] will be a random selection
   # from the list of matching users.

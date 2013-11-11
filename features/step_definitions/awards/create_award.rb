@@ -8,11 +8,7 @@ When /^I? ?initiate an Award$/ do
   # rights to. This is why this step specifies what the
   # Award's unit should be...
   lead_unit = $users.current_user.roles.name($users.current_user.role).qualifiers[0][:unit]
-  # A catch-all in case lead_unit is still nil. Not quite sure what
-  # to do in that case, though, so it will pick randomly, for now.
-  # I think it's likely that, instead, it should throw an error
-  # that your test case is mal-formed.
-  lead_unit ||= '::random::'
+  raise "Unable to determine a lead unit for the selected user. Please debug your scenario." if lead_unit.nil?
   @award = create AwardObject, lead_unit: lead_unit
 end
 
@@ -44,4 +40,16 @@ When /^I start adding a Payment & Invoice item to the Award$/ do
     page.osp_file_copy.pick r
     page.add_payment_type
   end
+end
+
+When /^I? ?complete the Award requirements$/ do
+  steps %{
+    And add Reports to the Award
+    And add Terms to the Award
+    And add the required Custom Data to the Award
+    And add a Payment & Invoice item to the Award
+    And add a Sponsor Contact to the Award
+    And add a PI to the Award
+    And give the Award valid credit splits
+  }
 end
