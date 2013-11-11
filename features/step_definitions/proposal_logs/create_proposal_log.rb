@@ -58,3 +58,7 @@ When(/^I submit a new temporary proposal log document$/) do
                               log_type: 'Temporary'
   @temp_proposal_log.submit
 end
+Then(/^the proposal log's status should reflect it has been merged$/) do
+  on(Researcher).search_proposal_log
+  on
+end

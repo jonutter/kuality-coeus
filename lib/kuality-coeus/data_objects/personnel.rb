@@ -94,4 +94,21 @@ module Personnel
     end
   end
 
+  def edit opts={}
+    navigate
+    on page_class do |update|
+      update.expand_all
+      # TODO: This will eventually need to be fixed...
+      # Note: This is a dangerous short cut, as it may not
+      # apply to every field that could be edited with this
+      # method...
+
+      opts.each do |field, value|
+        update.send(field, @full_name).fit value
+      end
+      update.save
+    end
+    update_options(opts)
+  end
+
 end
