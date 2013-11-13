@@ -17,7 +17,7 @@ Feature: Copying Awards
   Scenario: Award copied as new Parent
     When  I copy the Award to a new parent Award
     Then  the new Award's transaction type is 'New'
-    And   the new Award should not have any Subawards or T&M document
+    And   the new Award should not have any subawards or T&M document
     And   the anticipated and obligated amounts are zero
 
   Scenario: Award copied to a child of itself

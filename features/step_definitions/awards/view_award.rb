@@ -11,7 +11,7 @@ Then /^a warning appears saying tracking details won't be added until there's a 
   on(PaymentReportsTerms).errors.should include 'Report tracking details won\'t be added until a principal investigator is set.'
 end
 
-Then /^the new Award should not have any Subawards or T&M document$/ do
+Then /^the new Award should not have any subawards or T&M document$/ do
   on Award do |test|
     # If there are no Subawards, the table should only have 3 rows...
     test.approved_subaward_table.rows.size.should==3
@@ -29,10 +29,10 @@ When /^the child Award's project end date should be the same as the parent, and 
   on(Award).project_end_date_ro.should==@award.project_end_date
 end
 
-And /^the anticipated and obligated amounts are read-only and \$0.00$/ do
+And /^the anticipated and obligated amounts are read-only and (.*)$/ do |amount|
   on Award do |page|
-    page.anticipated_amount_ro.should=='$0.00'
-    page.obligated_amount_ro.should=='$0.00'
+    page.anticipated_amount_ro.should==amount
+    page.obligated_amount_ro.should==amount
   end
 end
 

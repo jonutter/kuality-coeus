@@ -53,11 +53,11 @@ When /^I? ?add a principal investigator$/ do
   @proposal.add_principal_investigator
 end
 
-Given /^I? ?add the Grants.Gov user as the proposal's PI$/ do
+Given /^I? ?add the Grants.Gov user as the Proposal's PI$/ do
   @proposal.add_principal_investigator last_name: $users.grants_gov_pi.last_name, first_name: $users.grants_gov_pi.first_name
 end
 
-When /^I? ?set valid credit splits for the proposal$/ do
+When /^I? ?set valid credit splits for the Proposal$/ do
   @proposal.set_valid_credit_splits
 end
 
@@ -74,14 +74,14 @@ And(/^the (.*) button appears on the Proposal Summary and Proposal Action pages$
   on(ProposalActions).send(button).should exist
 end
 
-When /^the (.*) user approves the proposal$/ do |role|
+When /^the (.*) user approves the Proposal$/ do |role|
   get(role).sign_in
   @proposal.open_proposal
   on(ProposalSummary).approve
   on(Confirmation).yes
 end
 
-When(/^I try to add the (.*) user as a (.*) to the key personnel proposal roles$/) do |user_role, proposal_role|
+When(/^I try to add the (.*) user as a (.*) to the key personnel Proposal roles$/) do |user_role, proposal_role|
   user = get(user_role)
   @proposal.add_key_person first_name: user.first_name, last_name: user.last_name, role: proposal_role
 end

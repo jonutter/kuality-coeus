@@ -1,4 +1,4 @@
-When /^I? ?visit the proposal's (.*) page$/ do |page|
+When /^I? ?visit the Proposal's (.*) page$/ do |page|
   @proposal.view page
 end
 
@@ -12,7 +12,7 @@ When /^I? ?assign the (.*) user as an? (.*) in the proposal permissions$/ do |sy
   @proposal.permissions.assign
 end
 
-Then /^the (.*) user can access the proposal$/ do |role|
+Then /^the (.*) user can access the Proposal$/ do |role|
   get(role).sign_in
   @proposal.open_proposal
   on(Researcher).error_table.should_not be_present
@@ -118,7 +118,7 @@ When /^I? ?attempt to add an additional proposal role to the (.*) user$/ do |sys
   end
 end
 
-Then /^the (.*) user should not be listed as an? (.*) in the second proposal$/ do |system_role, role|
+Then /^the (.*) user should not be listed as an? (.*) in the second Proposal$/ do |system_role, role|
   user = get(system_role)
   @proposal2.view :permissions
   on Permissions do |page|
@@ -126,7 +126,7 @@ Then /^the (.*) user should not be listed as an? (.*) in the second proposal$/ d
   end
 end
 
-Then /^the user should be able to create a proposal$/ do
+Then /^the user should be able to create a Proposal$/ do
   # Note that since this stepdef doesn't specify WHICH user, it's
   # assuming that the one to use is the last one that was
   # created/defined.

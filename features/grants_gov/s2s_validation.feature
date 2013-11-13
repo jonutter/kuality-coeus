@@ -6,7 +6,7 @@ Feature: Validating content of s2s proposals
   Background: Logged in with a proposal creator; initiate a proposal for grants.gov
     Given a user exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
-    And   initiate a proposal with a 'Federal' sponsor type
+    And   initiate a Proposal with a 'Federal' sponsor type
     And   add the Grants.Gov opportunity id of PA-B2-ALL to the Proposal
 
   Scenario: Adding the opportunity
@@ -16,13 +16,13 @@ Feature: Validating content of s2s proposals
   Scenario: Enter wrong revision type information
     Given I select a revision type of 'Increase Award'
     And   enter a 'revision specify' description
-    When  I save the proposal
+    When  I save the Proposal
     Then  an error message appears saying that I need to select the 'Other' revision type
 
   Scenario: Don't enter S2S Revision Type for a revision proposal
     Given I set the proposal type to 'Revision'
-    When  I go to the proposal's S2S page
-    And   save the proposal
+    When  I go to the Proposal's S2S page
+    And   save the Proposal
     Then  an error message appears saying a revision type must be selected
 
   Scenario: Select 'Change' for a new S2S proposal

@@ -1,4 +1,4 @@
-When /^I? ?create a budget version for the proposal$/ do
+When /^I? ?create a Budget Version for the Proposal$/ do
   @proposal.add_budget_version
   @budget_version = @proposal.budget_versions[0]
 end
@@ -17,7 +17,7 @@ When /^correcting the Budget Version date will remove the warning$/ do
   on(Parameters).warnings.size.should be 0
 end
 
-Given /^I? ?create a final and complete budget version for the proposal$/ do
+Given /^I? ?create a final and complete budget version for the Proposal$/ do
   @proposal.add_budget_version status: 'Complete', final: :set
 end
 
@@ -101,7 +101,7 @@ Then /^I see an error that only one version can be final$/ do
   on(BudgetVersions).errors.should include 'Only one Budget Version can be marked "Final".'
 end
 
-When /^I? ?create a budget version with cost sharing for the proposal$/ do
+When /^I? ?create a budget version with cost sharing for the Proposal$/ do
   @proposal.add_budget_version
   @budget_version = @proposal.budget_versions[0]
   @budget_version.edit_period(1, cost_sharing: random_dollar_value(1000000).to_f)
