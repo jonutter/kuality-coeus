@@ -43,6 +43,14 @@ class TimeAndMoneyObject < DataObject
     }
     trans = defaults.merge(opts)
     on TimeAndMoney do |page|
+      if page.edit_button.present?
+        # We're on a T&M document in final status
+        page.edit
+        # So now a new doc gets created, so
+        # we need to update the DataObject info
+        @id = page.header_document_id
+        @status = page.header_status
+      end
       page.expand_all
       page.comments.fit trans[:comments]
       page.source_award.pick! trans[:source_award]

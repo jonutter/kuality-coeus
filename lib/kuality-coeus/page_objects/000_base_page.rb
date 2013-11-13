@@ -57,7 +57,8 @@ class BasePage < PageFactory
       # Explicitly defining the "recall" button to keep the method name at "recall" instead of "recall_current_document"...
       element(:recall_button) { |b| b.frm.button(class: 'globalbuttons', title: 'Recall current document') }
       action(:recall) { |b| b.recall_button.click; b.loading }
-      action(:edit) { |b| b.frm.button(name: 'methodToCall.editOrVersion').click; b.loading }
+      action(:edit) { |b| b.edit_button.click; b.loading }
+      element(:edit_button) { |b| b.frm.button(name: 'methodToCall.editOrVersion') }
       action(:delete_selected) { |b| b.frm.button(class: 'globalbuttons', name: 'methodToCall.deletePerson').click; b.loading }
       element(:send_button) { |b| b.frm.button(class: 'globalbuttons', name: 'methodToCall.sendNotification', title: 'send') }
       action(:send_fyi) { |b| b.send_button.click; b.loading }
