@@ -1,4 +1,4 @@
-class AwardReports < DataObject
+class AwardReportsObject < DataObject
 
   attr_accessor :financial, :intellectual_property,
                 :procurement, :property

@@ -147,21 +147,21 @@ class AwardObject < DataObject
   def add_payment_and_invoice opts={}
     raise "You already created a Payment & Invoice in your scenario.\nYou want to interact with that item directly, now." unless @payment_and_invoice.nil?
     view :payment_reports__terms
-    @payment_and_invoice = make PaymentInvoice, opts
+    @payment_and_invoice = make PaymentInvoiceObject, opts
     @payment_and_invoice.create
   end
 
   def add_reports opts={}
     raise "You already created a Reports item in your scenario.\nYou want to interact with it directly, now." unless @reports.nil?
     view :payment_reports__terms
-    @reports = make AwardReports, opts
+    @reports = make AwardReportsObject, opts
     @reports.create
   end
 
   def add_terms opts={}
     raise "You already created terms in your scenario.\nYou want to interact with that object directly, now." unless @terms.nil?
     view :payment_reports__terms
-    @terms = make AwardTerms, opts
+    @terms = make AwardTermsObject, opts
     @terms.create
   end
 
@@ -221,8 +221,8 @@ class AwardObject < DataObject
     award = data_object_copy
 
     # Clean up the data to match...
-    award.subawards=nil
-    award.transaction_type='New'
+    award.subawards = nil
+    award.transaction_type = 'New'
     award.anticipated_amount = '0.00'
     award.obligated_amount = '0.00'
 
@@ -230,15 +230,6 @@ class AwardObject < DataObject
       award.id = page.header_award_id
       award.document_id = page.header_document_id
       award.custom_data.document_id = page.header_document_id
-
-      # TODO: Determine if this is all we want, here...
-      page.description.set random_alphanums
-
-      page.project_end_date.set @project_end_date if page.project_end_date.present?
-
-      page.save
-      award.document_status=page.header_status
-
     end
 
     # Modify the new data object according to the
@@ -248,6 +239,17 @@ class AwardObject < DataObject
         # Need to modify values for fields/subobjects
         # that don't copy or won't be the same...
 
+        on Award do |page|
+          # TODO: Determine if this is all we want, here...
+          award.description = random_alphanums
+          page.description.set award.description
+
+          page.project_end_date.set @project_end_date
+
+          page.save
+          award.document_status=page.header_status
+        end
+
         award.time_and_money=nil
 
         award.project_start_date = ''
@@ -256,13 +258,40 @@ class AwardObject < DataObject
         award.obligation_end_date = ''
 
       when type=='child_of' && descendents==:clear
+        @children << award.id
+        on Award do |page|
+          # TODO: Determine if this is all we want, here...
+          award.description = random_alphanums
+          page.description.set award.description
+          page.save
+          award.document_status=page.header_status
+        end
 
-        award.time_and_money=@time_and_money
-        award.parent=@id
+        award.time_and_money = @time_and_money
+        award.parent = parent
 
       when type=='new' && descendents==:set
 
+        on Award do |page|
+          award.document_status=page.header_status
+          page.award_actions
+        end
+        on AwardActions do |page|
+          page.expand_all
+          sleep 1 # FIXME!
+          page.expand_tree
+          sleep 2 # FIXME!
+          award.children = page.descendants(award.id)
+        end
+
+        award.time_and_money=nil
+        award.description = 'Copied Hierarchy' # FIXME!
+
       when type=='child_of' && descendents==:set
+        @children << award.id
+        award.description = 'Copied Hierarchy' # FIXME!
+        award.time_and_money = @time_and_money
+        award.parent = parent
 
     end
 

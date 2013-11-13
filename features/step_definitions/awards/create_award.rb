@@ -53,3 +53,11 @@ When /^I? ?complete the Award requirements$/ do
     And give the Award valid credit splits
   }
 end
+
+When /^I? ?submit the Award$/ do
+  @award.submit
+end
+
+And /^I? ?submit the copied Award$/ do
+  @award_2.submit
+end
