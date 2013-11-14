@@ -1,4 +1,4 @@
-When(/^I initiate a proposal log document but I miss a required field$/) do
+When /^I? ?initiate a Proposal Log but I miss a required field$/ do
   # Pick a field at random for the test...
   @required_field = ['Title', 'Proposal Type', 'Lead Unit'
           ].sample
@@ -9,7 +9,7 @@ When(/^I initiate a proposal log document but I miss a required field$/) do
   @proposal_log = create ProposalLogObject, field=>value
 end
 
-When(/^I? ?initiate a new proposal log document$/) do
+When /^I? ?initiate a Proposal Log$/ do
   @proposal_log = create ProposalLogObject
 end
 
@@ -17,21 +17,21 @@ Then(/^the proposal log type of the proposal log document should be (.*)$/) do |
   @proposal_log2.proposal_log_type.should == status
 end
 
-Then(/^the status of the proposal log document should be (.*)$/) do |status|
+Then /^the status of the Proposal Log should be (.*)$/ do |status|
   @proposal_log.status.should == status
 end
 
-When(/^the proposal log status should be (.*)$/) do |prop_log_status|
+When /^the Proposal Log status should be (.*)$/ do |prop_log_status|
   @proposal_log.log_status.should == prop_log_status
 end
 
-When(/^I submit a new permanent proposal log document with the same PI into routing$/) do
+When /^I submit a new permanent proposal log document with the same PI into routing$/ do
   @proposal_log2 = create ProposalLogObject,
                           principal_investigator: @temp_proposal_log.principal_investigator
   @proposal_log2.submit
 end
 
-When(/^I initiate a new permanent proposal log document$/) do
+When(/^I initiate a permanent Proposal Log$/) do
   @proposal_log = create ProposalLogObject
 end
 
