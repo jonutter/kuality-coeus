@@ -44,3 +44,13 @@ When /^I attempt to save an institutional proposal with a missing required field
   @institutional_proposal = create InstitutionalProposalObject, proposal_number: @proposal_log.number,
                                    field=>value
 end
+
+Given(/^I create and submit a Proposal to its sponsor with Proposal Creator and OSP Administrator users$/) do
+  steps %{
+    Given I log in with the Proposal Creator user
+    And   I submit a new Proposal into routing
+    And   I blanket approve the Proposal
+    When  I log in with the OSP Administrator user
+    And   I submit the Proposal to its sponsor
+}
+end

@@ -801,3 +801,57 @@ jamesr: # AKA: "Principal Name"
      :qualifiers:
        - :unit: '000001'
          :descends_hierarchy: :set
+dbyrne:  # AKA: "Principal Name"
+  :user_name:        dbyrne
+  :description:      creating user who can submit pd docs to sponsors
+  :affiliation_type: Staff
+  :campus_code:      'UN - UNIVERSITY'
+  :employee_id:      '00001'
+  :employee_status:  Active
+  :employee_type:    Professional
+  :base_salary:      123456.78
+  :primary_department_code: 'OSP'
+  :first_name:       David
+  :last_name:        Byrne
+  :primary_title:    OSP IP User
+  :directory_title:  OSP IP User
+  :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
+  :era_commons_user_name: dbyrne
+  :directory_department:  Humanities
+  :graduate_student_count: '0'
+  :billing_element:  bla bla bla
+  :addresses:
+    - :type:    Home
+      :line_1:  475 n scottsdale rd
+      :city:    scottsdale
+      :state:   ARIZONA
+      :country: United States
+      :zip:     85257
+      :default: :set
+  :phones:
+    - :type:    Facsimile
+      :number:  555-555-5555
+      :default: :clear
+      :country: United States
+    - :type:    Work
+      :number:  480-555-1212
+      :default: :set
+      :country: United States
+  :emails:
+    - :email:   kc-qa-notify@rsmart.com
+      :type:    Work
+      :default: :set
+  :rolez:
+    - :id:   '100'
+      :name: OSPApprover
+      :qualifiers:
+        -
+    - :id:   '131'
+      :name: OSP Administrator
+      :qualifiers:
+        - :unit: '000001'
+          :descends_hierarchy: :clear
+    - :id:   '117'
+      :name: Institutional Proposal Maintainer
+      :qualifiers:
+        - :unit: '000001'
