@@ -20,7 +20,7 @@ Feature: Creating Proposal Logs
   Scenario: Merge a new Proposal Log with an existing Temporary Proposal Log
     Given users exist with the following roles: Create Proposal Log
     And   I log in with the Create Proposal Log user
-    And   submit a new temporary proposal log document with the pi cjensen
+    And   submit a new temporary proposal log document with the PI cjensen
     When  I submit a new permanent proposal log document with the same PI into routing
     And   I merge my new proposal log with my previous temporary proposal log
     Then  the proposal log type of the proposal log document should be Merged
