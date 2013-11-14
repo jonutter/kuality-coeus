@@ -24,6 +24,7 @@ end
 When(/^the proposal log status should be (.*)$/) do |prop_log_status|
   @proposal_log.log_status.should == prop_log_status
 end
+
 When(/^I submit a new permanent proposal log document with the same PI into routing$/) do
   @proposal_log2 = create ProposalLogObject,
                           principal_investigator: @temp_proposal_log.principal_investigator
@@ -34,31 +35,32 @@ When(/^I initiate a new permanent proposal log document$/) do
   @proposal_log = create ProposalLogObject
 end
 
-When(/^I? ?submit a new temporary proposal log document with the pi (.*)$/) do |pi_user_name|
+When /^I? ?submit a new temporary proposal log document with the PI (.*)$/ do |pi_user_name|
   @temp_proposal_log = create ProposalLogObject,
                          log_type: 'Temporary',
                          principal_investigator: pi_user_name
   @temp_proposal_log.submit
 end
 
-Then(/^I merge my new proposal log with my previous temporary proposal log$/) do
+Then /^I merge my new proposal log with my previous temporary proposal log$/ do
   on ProposalLog do |page|
     page.temporary_proposal_log_table
     page.merge(@temp_proposal_log.number.to_i + 1)
   end
 end
 
-When(/^I submit a new proposal log$/) do
+When /^I submit a new proposal log$/ do
   @proposal_log = create ProposalLogObject
   @proposal_log.submit
 end
 
-When(/^I submit a new temporary proposal log document$/) do
+When /^I submit a new temporary proposal log document$/ do
   @temp_proposal_log = create ProposalLogObject,
                               log_type: 'Temporary'
   @temp_proposal_log.submit
 end
-Then(/^the proposal log's status should reflect it has been merged$/) do
+
+Then /^the proposal log's status should reflect it has been merged$/ do
   on(Researcher).search_proposal_log
   on
 end
