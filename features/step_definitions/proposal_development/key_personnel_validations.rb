@@ -4,7 +4,7 @@ And /^I? ?add the (.*) user as an? (.*) to the key personnel proposal roles$/ do
   @proposal.set_valid_credit_splits
 end
 
-When /^I? ?add (.*) as a Key Person with a role of (.*)$/ do |user_name, kp_role|
+When /^I? ?add (.*) as a key person with a role of (.*)$/ do |user_name, kp_role|
   user = get(user_name)
   @proposal.add_key_person first_name: user.first_name,
                            last_name: user.last_name,
@@ -16,7 +16,7 @@ And /^I? ?add a (.*) with a (.*) credit split of (.*)$/ do |role, cs_type, amoun
   @proposal.add_key_person cs_type.downcase.to_sym=>amount, role: role
 end
 
-When /^I? ?try to add two Principal Investigators$/ do
+When /^I? ?try to add two principal investigators$/ do
   2.times { @proposal.add_principal_investigator }
 end
 

@@ -6,9 +6,9 @@ Feature: Roles Administration
 
   Scenario: Adding an unassigned user to a Group in a Proposal Aggregator Role
     Given I'm in as the admin
-    And   I create a group
-    And   create an 'unassigned' user
-    And   create a role with permission to create proposals
-    And   add the group to the role
-    When  I add the user to the group
-    Then  the user should be able to create a proposal
+    And   I create a Group
+    And   create an 'unassigned' User
+    And   create a Role with permission to create proposals
+    And   add the Group to the Role
+    When  I add the User to the Group
+    Then  the User should be able to create a proposal

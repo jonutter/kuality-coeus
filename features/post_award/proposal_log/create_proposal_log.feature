@@ -5,7 +5,7 @@ Feature: Creating Proposal Logs
   from the KC Proposal Development and Budget modules.
 
   Background:
-    Given a user exists with the system role: 'Create Proposal Log'
+    Given a User exists with the system role: 'Create Proposal Log'
     And   I log in with the Create Proposal Log user
 
   Scenario: Attempt to initiate a new Proposal Log Document with a missing required field
@@ -19,6 +19,6 @@ Feature: Creating Proposal Logs
 
   Scenario: Merge a new Proposal Log with an existing Temporary Proposal Log
     And   submit a new temporary proposal log document with the PI cjensen
-    When  I submit a new permanent proposal log document with the same PI into routing
+    When  I submit a new permanent Proposal Log with the same PI into routing
     And   I merge my new proposal log with my previous temporary proposal log
-    Then  the proposal log type of the proposal log document should be Merged
+    Then  the proposal log type of the Proposal Log should be Merged

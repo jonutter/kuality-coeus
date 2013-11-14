@@ -129,7 +129,7 @@ And /^I? ?add the (Grants.Gov|Research.Gov) opportunity, id: (.*), competition i
   on(S2S).save
 end
 
-And /^I? ?add and mark complete all the required attachments for an NSF proposal$/ do
+And /^I? ?add and mark complete all the required attachments for an NSF Proposal$/ do
   %w{Equipment Bibliography BudgetJustification ProjectSummary Narrative}.shuffle.each do |type|
     @proposal.add_proposal_attachment type: type, file_name: 'test.pdf', status: 'Complete'
   end
