@@ -37,7 +37,10 @@ class ProposalLogObject < DataObject
   end
 
   def submit
-    on(ProposalLog).submit
+    on ProposalLog do |page|
+      page.submit
+      @proposal_number=page.proposal_number
+    end
   end
 
   # =========

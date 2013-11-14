@@ -39,7 +39,6 @@ class ProposalDevelopmentObject < DataObject
   end
     
   def create
-    window_cleanup
     visit(Researcher).create_proposal
     on Proposal do |doc|
       @doc_header=doc.doc_title

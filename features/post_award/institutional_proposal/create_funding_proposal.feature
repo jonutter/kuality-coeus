@@ -7,6 +7,10 @@ Feature: Creating an Institutional Proposal AKA Funding Proposal
 #Proposal Development document, or by promoting a Proposal Log document
 
   Scenario: Attempt to initiate a Funding Proposal document w/o a required field
+    Given I'm logged in with dkensrue
+    And   I submit a new proposal log
+    When  I attempt to save an institutional proposal with a missing required field
+    Then  an error should appear that says the field is required
 
   Scenario: Create a Temporary Proposal Log and merge it with an Institutional Proposal
     Given I'm logged in with dkensrue
