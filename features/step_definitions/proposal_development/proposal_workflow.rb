@@ -46,21 +46,21 @@ Then(/^I should receive an action list item with the requested action being: (.*
   end
 end
 
-Then /^I can acknowledge the requested action list item$/ do
+Then /^I can acknowledge the requested Action List item$/ do
   on ActionList do |page|
     page.action(@proposal.document_id.to_i + 1).select 'FYI'
     page.take_actions
   end
 end
 
-When /^I? ?submit the routed proposal to the sponsor$/ do
+When /^I? ?submit the Proposal to its sponsor$/ do
   @proposal.submit :to_sponsor
 end
 
-When /^I? ?submit the proposal to S2S$/ do
+When /^I? ?submit the Proposal to S2S$/ do
   @proposal.submit :to_s2s
 end
 
-When(/^I? ?blanket approve the proposal$/) do
+When(/^I? ?blanket approve the Proposal$/) do
   @proposal.blanket_approve
 end

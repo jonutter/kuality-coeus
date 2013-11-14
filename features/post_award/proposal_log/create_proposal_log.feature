@@ -24,5 +24,3 @@ Feature: Creating Proposal Logs
     When  I submit a new permanent proposal log document with the same PI into routing
     And   I merge my new proposal log with my previous temporary proposal log
     Then  the proposal log type of the proposal log document should be Merged
-
-  Scenario: Create a Temporary proposal log and convert it into a proposal development document
