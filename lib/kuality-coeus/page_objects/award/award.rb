@@ -19,15 +19,20 @@ class Award < KCAwards
   action(:lookup_sponsor) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.Sponsor!!).(((sponsorCode:document.awardList[0].sponsorCode,sponsorName:document.awardList[0].sponsor.sponsorName))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchorDetailsDates').click }
   element(:project_start_date) { |b| b.frm.text_field(name: /awardEffectiveDate/) }
   element(:project_end_date) { |b| b.frm.text_field(name: /finalExpirationDate/) }
+  value(:project_end_date_ro) { |b| b.tm_table[1][1].text }
   element(:obligation_start_date) { |b| b.frm.text_field(name: /currentFundEffectiveDate/) }
   element(:obligation_end_date) { |b| b.frm.text_field(name: /obligationExpirationDate/) }
   element(:anticipated_amount) { |b| b.frm.text_field(name: /anticipatedTotalAmount/) }
+  value(:anticipated_amount_ro) { |b| b.tm_table[3][1].text }
   element(:obligated_amount) { |b| b.frm.text_field(name: /amountObligatedToDate/) }
-  
+  value(:obligated_amount_ro) { |b| b.tm_table[3][3].text }
+
   element(:add_organization_name) { |b| b.frm.text_field(name: 'approvedSubawardFormHelper.newAwardApprovedSubaward.organizationName') }
   action(:search_organization) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.Organization!!).(((organizationName:approvedSubawardFormHelper.newAwardApprovedSubaward.organizationName,organizationId:approvedSubawardFormHelper.newAwardApprovedSubaward.organizationId))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchorSubawards').click }
   element(:add_subaward_amount) { |b| b.frm.text_field(name: 'approvedSubawardFormHelper.newAwardApprovedSubaward.amount') }
   action(:add_subaward) { |b| b.frm.button(name: 'methodToCall.addApprovedSubaward.anchorSubawards').click }
   element(:approved_subaward_table) { |b| b.frm.table(summary: 'Approved Subaward') }
+
+  element(:tm_table) { |b| b.frm.div(id: 'tab-DetailsDates:TimeMoney-div').table }
 
 end

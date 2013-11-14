@@ -7,16 +7,16 @@ Feature: Permissions in a Proposal
   Background: A proposal creator user initiates a proposal
     Given a user exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
-    And   initiate a proposal
+    And   initiate a Proposal
 
   Scenario: The proposal initiator is automatically an aggregator
-    When  I visit the proposal's Permissions page
+    When  I visit the Proposal's Permissions page
     Then  the Proposal Creator user is listed as an Aggregator in the proposal permissions
 
   Scenario Outline: A Proposal Aggregator can assign various roles to a proposal documents permissions
     Given a user exists with the system role: 'Unassigned'
     When  I assign the Unassigned user as a <Role> in the proposal permissions
-    Then  the Unassigned user can access the proposal
+    Then  the Unassigned user can access the Proposal
     And   their proposal permissions allow them to <Permissions>
 
     Examples:
@@ -27,17 +27,17 @@ Feature: Permissions in a Proposal
     | Viewer               | only read the proposal               |
 
   Scenario: Narrative Writers can't edit budget details
-    Given I create a budget version for the proposal
+    Given I create a Budget Version for the Proposal
     And   a user exists with the system role: 'Unassigned'
     When  I assign the Unassigned user as a Narrative Writer in the proposal permissions
-    Then  the Unassigned user can access the proposal
+    Then  the Unassigned user can access the Proposal
     And   their proposal permissions do not allow them to edit budget details
 
   Scenario Outline: Proposal permissions are not passed onto future proposals initiated by the same creator
     Given a user exists with the system role: 'Unassigned'
     And   I assign the Unassigned user as a <Role> in the proposal permissions
-    When  I initiate a second proposal
-    Then  the Unassigned user should not be listed as a <Role> in the second proposal
+    When  I initiate a second Proposal
+    Then  the Unassigned user should not be listed as a <Role> in the second Proposal
 
   Examples:
     | Role             |
@@ -62,10 +62,10 @@ Feature: Permissions in a Proposal
   Scenario Outline: Visit a recalled proposal as users with the permissions necessary to edit the document in varying ways
     Given a user exists with the system role: 'Unassigned'
     And   assign the Unassigned user as a <Role> in the proposal permissions
-    And   complete the proposal
-    And   submit the proposal
-    When  I recall the proposal
-    Then  the Unassigned user can access the proposal
+    And   complete the Proposal
+    And   submit the Proposal
+    When  I recall the Proposal
+    Then  the Unassigned user can access the Proposal
     And   their proposal permissions allow them to <Permissions>
 
   Examples:

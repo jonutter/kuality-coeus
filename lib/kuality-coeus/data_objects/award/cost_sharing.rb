@@ -1,4 +1,4 @@
-class AwardCostSharing < DataObject
+class AwardCostSharingObject < DataObject
 
   include DateFactory
   include StringFactory
@@ -23,6 +23,6 @@ end
 
 class AwardCostSharingCollection < CollectionsFactory
 
-  contains AwardCostSharing
+  contains AwardCostSharingObject
 
 end

@@ -10,18 +10,18 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   I log in with the Proposal Creator user
 
   Scenario Outline: Submit a proposal to Grants.gov with various sponsors and opportunities
-    Given I initiate a proposal with <Sponsor> as the sponsor
-    And   add the <Provider> opportunity id of <Opportunity> to the proposal
-    And   add the <Provider> user as the proposal's PI
-    And   set valid credit splits for the proposal
+    Given I initiate a Proposal with <Sponsor> as the sponsor
+    And   add the <Provider> opportunity id of <Opportunity> to the Proposal
+    And   add the <Provider> user as the Proposal's PI
+    And   set valid credit splits for the Proposal
     And   add and mark complete all the required attachments
-    And   create a final and complete budget version for the proposal
-    And   complete the required custom fields on the proposal
+    And   create a final and complete budget version for the Proposal
+    And   complete the required custom fields on the Proposal
     And   answer the S2S questions
-    And   submit the proposal
+    And   submit the Proposal
     When  I log in with the AOR user
     And   submit the proposal to S2S
-    Then  the S2S tab's submission details will say the proposal is submitted
+    Then  the S2S tab's submission details will say the Proposal is submitted
     And   within a couple minutes the submission status will be updated
 
   Examples:

@@ -1,19 +1,19 @@
-When /^I? ?recall the proposal$/ do
+When /^I? ?recall the Proposal$/ do
   @proposal.recall
 end
 
-When /^I? ?reject the proposal$/ do
+When /^I? ?reject the Proposal$/ do
   @proposal.reject
 end
 
-When /^I? ?complete a valid simple proposal for a '(.*)' organization$/ do |org|
+When /^I? ?complete a valid simple Proposal for a '(.*)' organization$/ do |org|
   @proposal = create ProposalDevelopmentObject, sponsor_type_code: org
   @proposal.add_principal_investigator
   @proposal.set_valid_credit_splits
   @proposal.add_custom_data
 end
 
-Then /^The proposal should immediately have a status of '(.*)'$/ do |status|
+Then /^The Proposal should immediately have a status of '(.*)'$/ do |status|
   @proposal.status.should==status
 end
 
@@ -38,7 +38,7 @@ Then /^The S2S tab should become available$/ do
   on(S2S).s2s_header.should be_present
 end
 
-When /^The proposal's 'Future Action Requests' should include 'PENDING APPROVE' for the principal investigator$/ do
+When /^The Proposal's 'Future Action Requests' should include 'PENDING APPROVE' for the principal investigator$/ do
   pi = @proposal.key_personnel.principal_investigator
   name = "#{pi.last_name}, #{pi.first_name}"
   @proposal.view :proposal_actions
@@ -49,13 +49,13 @@ When /^The proposal's 'Future Action Requests' should include 'PENDING APPROVE' 
   end
 end
 
-When /^I? ?push the proposal's project start date ahead a year$/ do
+When /^I? ?push the Proposal's project start date ahead a year$/ do
   new_year=@proposal.project_start_date[/\d+$/].to_i+1
   new_date="#{@proposal.project_start_date[/^\d+\/\d+/]}/#{new_year}"
   @proposal.edit project_start_date: new_date
 end
 
-Then /^I can recall the proposal$/ do
+Then /^I can recall the Proposal$/ do
   @proposal.view 'Proposal'
   on(Proposal).recall_button.should exist
 end
@@ -68,11 +68,11 @@ Given /^I? ?set the proposal type to '(\w+)'$/ do |type|
   @proposal.edit proposal_type: type
 end
 
-When /^I go to the proposal's (.*) page$/ do |page|
+When /^I go to the Proposal's (.*) page$/ do |page|
   @proposal.view page
 end
 
-When /^I? ?save the proposal$/ do
+When /^I? ?save the Proposal$/ do
   @proposal.save
 end
 

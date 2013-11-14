@@ -1,4 +1,4 @@
-class AwardFARates < DataObject
+class AwardFARatesObject < DataObject
 
   include DateFactory
   include StringFactory
@@ -22,6 +22,6 @@ end
 
 class AwardFARatesCollection < CollectionsFactory
 
-  contains AwardFARates
+  contains AwardFARatesObject
 
 end

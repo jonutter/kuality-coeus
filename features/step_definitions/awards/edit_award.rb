@@ -24,7 +24,11 @@ Given /I? ?add a key person to the Award$/ do
   @award.add_key_person
 end
 
-Given /I? ?add the (.*) Institutional Proposal with the Award$/ do |ip_number|
+When /^I? ?give the Award valid credit splits$/ do
+  @award.set_valid_credit_splits
+end
+
+Given /I? ?add the (.*) Institutional Proposal to the Award$/ do |ip_number|
   @award.add_funding_proposal ip_number, 'No Change'
 end
 
@@ -36,7 +40,7 @@ Given /I? ?replace the current Institutional Proposal in the Award with (.*)$/ d
   @award.add_funding_proposal ip_number, 'Replace'
 end
 
-Given /^I? ?add a Subaward to the Award$/ do
+Given /^I? ?add a subaward to the Award$/ do
   @award.add_subaward
 end
 
@@ -70,10 +74,16 @@ When /I? ?copy the Award to a new parent Award$/ do
   @award_2 = @award.copy
 end
 
-When /^I? ?give the Award valid credit splits$/ do
-  @award.set_valid_credit_splits
+When /^I? ?copy the Award as a child of itself$/ do
+  @award_2 = @award.copy 'child_of', @award.id
 end
 
-When /^I? ?submit the Award$/ do
-  @award.submit
+When /^I? ?copy the Award and its descend.nts? to a new parent Award$/ do
+  # TODO: Come up with a more robust naming scheme, here...
+  @new_parent_award = @award.copy 'new', nil, :set
+end
+
+When /^I? ?copy the Award and its descend.nts? as a child of itself$/ do
+  # TODO: Come up with a more robust naming scheme, here...
+  @new_child_award = @award.copy 'child_of', @award.id, :set
 end

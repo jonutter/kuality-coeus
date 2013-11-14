@@ -1,4 +1,4 @@
-class AwardTerms < DataObject
+class AwardTermsObject < DataObject
 
   attr_accessor :equipment_approval, :invention, :prior_approval, :property,
                 :publication, :referenced_document, :rights_in_data,

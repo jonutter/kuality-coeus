@@ -10,10 +10,10 @@ Feature: Opportunity Code and S2S Form Mapping
   Background: Log in and create a Proposal Development document
     Given a user exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
-    And   initiate a proposal with NIH as the sponsor
+    And   initiate a Proposal with NIH as the sponsor
   @test
   Scenario Outline: Select various Grants.Gov opportunities
-    Given I initiate a proposal with NIH as the sponsor
+    Given I initiate a Proposal with NIH as the sponsor
     When  I add the Grants.Gov opportunity id of <Opportunity> to the Proposal
     Then  the S2S form attachment options should be appropriate to the opportunity
 
