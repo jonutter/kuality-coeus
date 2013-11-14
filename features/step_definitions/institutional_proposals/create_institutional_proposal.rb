@@ -1,4 +1,4 @@
-When(/^I submit a new institutional proposal document$/) do
+When /^I submit a new institutional proposal created from a proposal log$/ do
   @proposal_log = create ProposalLogObject
   @proposal_log.submit
   @institutional_proposal = create InstitutionalProposalObject,
@@ -13,7 +13,7 @@ When(/^I submit a new institutional proposal document$/) do
   on(InstitutionalProposalActions).submit
 end
 
-When(/^I merge the temporary proposal log with the institutional proposal$/) do
+When /^I merge the temporary proposal log with the institutional proposal$/ do
   visit(Researcher).search_proposal_log
   on ProposalLogLookup do |page|
     page.proposal_number.set @temp_proposal_log.number
@@ -27,10 +27,11 @@ When(/^I merge the temporary proposal log with the institutional proposal$/) do
   end
 end
 
-When(/^I merge the permanent proposal log with the institutional proposal$/) do
+When /^I merge the permanent proposal log with the institutional proposal$/ do
   pending
 end
-When(/^I attempt to save an institutional proposal with a missing required field$/) do
+
+When /^I attempt to save an institutional proposal with a missing required field$/ do
   @proposal_log = create ProposalLogObject
   @proposal_log.submit
   # Pick a field at random for the test...
@@ -42,4 +43,14 @@ When(/^I attempt to save an institutional proposal with a missing required field
   field =snake_case(@required_field)
   @institutional_proposal = create InstitutionalProposalObject, proposal_number: @proposal_log.number,
                                    field=>value
+end
+
+Given(/^I create and submit a Proposal to its sponsor with Proposal Creator and OSP Administrator users$/) do
+  steps %{
+    Given I log in with the Proposal Creator user
+    And   submit a new Proposal into routing
+    And   blanket approve the Proposal
+    When  I log in with the OSP Administrator user
+    And   I submit the Proposal to its sponsor
+  }
 end

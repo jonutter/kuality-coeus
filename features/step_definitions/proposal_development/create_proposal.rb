@@ -90,7 +90,7 @@ When /^I? ?save and close the Proposal document$/ do
   on(Confirmation).yes
 end
 
-And /^I? ?submit a new Development Proposal into routing$/ do
+And /^I? ?submit a new Proposal into routing$/ do
   @proposal = create ProposalDevelopmentObject
   #The following are necessary for submission into routing
   @proposal.add_principal_investigator

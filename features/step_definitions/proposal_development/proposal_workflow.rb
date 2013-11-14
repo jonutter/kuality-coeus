@@ -21,7 +21,7 @@ When /^I? ?send a notification to the (.*) users?$/ do |role|
   on(NotificationEditor).send_fyi
 end
 
-Then /^the proposal status should be (.*)$/ do |status|
+Then /^the Proposal status should be (.*)$/ do |status|
   @proposal.status.should == status
 end
 
@@ -46,7 +46,7 @@ Then(/^I should receive an action list item with the requested action being: (.*
   end
 end
 
-Then /^I can acknowledge the requested Action List item$/ do
+Then /^I can acknowledge the requested action list item$/ do
   on ActionList do |page|
     page.action(@proposal.document_id.to_i + 1).select 'FYI'
     page.take_actions

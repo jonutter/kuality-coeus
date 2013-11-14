@@ -45,14 +45,14 @@ Feature: Proposal Workflows and Routing
   Scenario: Aggregator successfully blanket approves a routed proposal
     Given a user exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
-    And   I submit a new development Proposal into routing
-    When  I blanket approve the proposal
+    And   I submit a new Proposal into routing
+    When  I blanket approve the Proposal
     Then  the proposal status should be Approval Granted
 
   Scenario: Aggregator successfully recalls a routed proposal
     Given a user exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
-    And   I submit a new development Proposal into routing
+    And   I submit a new Proposal into routing
     When  I recall the Proposal
     Then  the proposal status should be Revisions Requested
 
@@ -64,7 +64,7 @@ Feature: Proposal Workflows and Routing
     And   I log in with the OSPApprover user
     Then  I should receive an action list item with the requested action being: FYI
     And   I can acknowledge the requested action list item
-  @test
+
   Scenario: An OSP Admin overrides a budget's cost sharing amount
     Given the Budget Column's 'Cost Sharing Amount' has a lookup for 'Proposal Cost Share' that returns 'Amount'
     And   users exist with the following roles: Proposal Creator, OSP Administrator
@@ -79,3 +79,12 @@ Feature: Proposal Workflows and Routing
     And   submit the Proposal
     When  I log in with the OSP Administrator user
     Then  I can override the cost sharing amount
+
+  Scenario: Submitting a Proposal to its sponsor
+    Given users exist with the following roles: Proposal Creator, OSP Administrator
+    And   I log in with the Proposal Creator user
+    And   submit a new Proposal into routing
+    And   blanket approve the Proposal
+    When  I log in with the OSP Administrator user
+    And   I submit the Proposal to its sponsor
+    Then  the proposal status should be Approved and Submitted
