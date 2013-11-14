@@ -3,7 +3,7 @@ When /^I? ?create a Budget Version for the Proposal$/ do
   @budget_version = @proposal.budget_versions[0]
 end
 
-When /^I? ?add a subaward budget to the budget version$/ do
+When /^I? ?add a subaward budget to the Budget Version$/ do
   @budget_version.add_subaward_budget
 end
 
@@ -17,11 +17,11 @@ When /^correcting the Budget Version date will remove the warning$/ do
   on(Parameters).warnings.size.should be 0
 end
 
-Given /^I? ?create a final and complete budget version for the Proposal$/ do
+Given /^I? ?create a final and complete Budget Version for the Proposal$/ do
   @proposal.add_budget_version status: 'Complete', final: :set
 end
 
-When /^I? ?copy the budget version \(all periods\)$/ do
+When /^I? ?copy the Budget Version \(all periods\)$/ do
   @copied_budget_version = @budget_version.copy_all_periods random_alphanums
 end
 
@@ -62,7 +62,7 @@ When /^I? ?change the date range for one of the periods$/ do
   on(Confirmation).yes
 end
 
-When /^I? ?select the default periods for the budget version$/ do
+When /^I? ?select the default periods for the Budget Version$/ do
   @budget_version.default_periods
 end
 
@@ -89,11 +89,11 @@ Then /^all budget periods get recreated, zeroed, and given default date ranges$/
   end
 end
 
-When /^I? ?finalize the budget version$/ do
+When /^I? ?finalize the Budget Version$/ do
   @budget_version.edit final: :set
 end
 
-When /^I? ?mark the budget version complete$/ do
+When /^I? ?mark the Budget Version complete$/ do
   @budget_version.edit status: 'Complete'
 end
 
@@ -101,7 +101,7 @@ Then /^I see an error that only one version can be final$/ do
   on(BudgetVersions).errors.should include 'Only one Budget Version can be marked "Final".'
 end
 
-When /^I? ?create a budget version with cost sharing for the Proposal$/ do
+When /^I? ?create a Budget Version with cost sharing for the Proposal$/ do
   @proposal.add_budget_version
   @budget_version = @proposal.budget_versions[0]
   @budget_version.edit_period(1, cost_sharing: random_dollar_value(1000000).to_f)

@@ -4,8 +4,8 @@ Feature: Basic Award Validations
   so that I can correct them.
 
   Background:
-    Given a user exists with the system role: 'Award Modifier'
-    And   I log in with that user
+    Given a User exists with the system role: 'Award Modifier'
+    And   I log in with that User
 
   Scenario: Add a Payment & Invoice Req before adding a PI
     Given I initiate an Award

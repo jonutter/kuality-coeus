@@ -3,9 +3,9 @@ Feature: Copying Awards
   Summary to be written
 
   Background:
-    Given a user exists with the role 'Time And Money Modifier' in unit '000001' (descends hierarchy)
-    And   a user exists with the role 'Award Modifier' in unit 'BL-BL'
-    And   I log in with that user
+    Given a User exists with the role 'Time And Money Modifier' in unit '000001' (descends hierarchy)
+    And   a User exists with the role 'Award Modifier' in unit 'BL-BL'
+    And   I log in with that User
     And   initiate an Award
     And   add a subaward to the Award
     And   complete the Award requirements

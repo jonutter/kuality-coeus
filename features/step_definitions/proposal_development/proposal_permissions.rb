@@ -61,7 +61,7 @@ And /^their proposal permissions allow them to update the budget, not the narrat
   expect{@proposal.add_budget_version}.not_to raise_error
 end
 
-And /^their proposal permissions allow them to only read the proposal$/ do
+And /^their proposal permissions allow them to only read the Proposal$/ do
   on Proposal do |page|
     page.save_button.should_not be_present
     page.abstracts_and_attachments
@@ -91,7 +91,7 @@ And /^their proposal permissions allow them to only read the proposal$/ do
   end
 end
 
-And /^their proposal permissions allow them to delete the proposal$/ do
+And /^their proposal permissions allow them to delete the Proposal$/ do
   on(Proposal).proposal_actions
   expect{@proposal.delete}.should_not raise_error
 end
@@ -126,7 +126,7 @@ Then /^the (.*) user should not be listed as an? (.*) in the second Proposal$/ d
   end
 end
 
-Then /^the user should be able to create a Proposal$/ do
+Then /^the User should be able to create a proposal$/ do
   # Note that since this stepdef doesn't specify WHICH user, it's
   # assuming that the one to use is the last one that was
   # created/defined.

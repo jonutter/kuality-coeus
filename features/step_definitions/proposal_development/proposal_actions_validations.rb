@@ -6,7 +6,7 @@ And /^I? ?activate a validation check$/ do
   end
 end
 
-When /^the proposal has no principal investigator$/ do
+When /^the Proposal has no principal investigator$/ do
   #nothing needed for this step
 end
 

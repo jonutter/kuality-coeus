@@ -8,7 +8,7 @@ Feature: Opportunity Code and S2S Form Mapping
   ##rSmart QA by Pat Slabach. Further investigation is necessary to ensure mapping accuracy.
 
   Background: Log in and create a Proposal Development document
-    Given a user exists with the system role: 'Proposal Creator'
+    Given a User exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
     And   initiate a Proposal with NIH as the sponsor
   @test

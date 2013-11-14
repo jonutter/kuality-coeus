@@ -1,4 +1,4 @@
-Given /^I? ?have (.*)-Campus, (.*) type Institute Rates appropriate for the proposal$/ do |campus, rate_type|
+Given /^I? ?have (.*)-Campus, (.*) type institute rates appropriate for the Proposal$/ do |campus, rate_type|
   campus_flags = {'On-and-off'=>[:set,:clear],'On'=>[:set],'Off'=>[:clear]}
   fiscal_years = (@proposal.project_start_date[/\d+$/]..@proposal.project_end_date[/\d+$/]).to_a
   campus_flags[campus].each do |camp|

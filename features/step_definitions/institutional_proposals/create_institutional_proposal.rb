@@ -1,4 +1,4 @@
-When /^I submit a new institutional proposal created from a proposal log$/ do
+When /^I submit a new institutional proposal document$/ do
   @proposal_log = create ProposalLogObject
   @proposal_log.submit
   @institutional_proposal = create InstitutionalProposalObject,
@@ -43,14 +43,4 @@ When /^I attempt to save an institutional proposal with a missing required field
   field =snake_case(@required_field)
   @institutional_proposal = create InstitutionalProposalObject, proposal_number: @proposal_log.number,
                                    field=>value
-end
-
-Given(/^I create and submit a Proposal to its sponsor with Proposal Creator and OSP Administrator users$/) do
-  steps %{
-    Given I log in with the Proposal Creator user
-    And   submit a new Proposal into routing
-    And   blanket approve the Proposal
-    When  I log in with the OSP Administrator user
-    And   I submit the Proposal to its sponsor
-  }
 end

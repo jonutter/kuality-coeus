@@ -4,7 +4,7 @@ Feature: Creating/Editing Budget Versions in Proposal Documents
   so that I can calculate how much the proposal should be for.
 
   Background: Create a Budget Version for a 5-year proposal
-    Given a user exists with the system role: 'Proposal Creator'
+    Given a User exists with the system role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
     And   I initiate a 5-year project Proposal
     And   create a Budget Version for the Proposal
@@ -16,17 +16,17 @@ Feature: Creating/Editing Budget Versions in Proposal Documents
 
   Scenario: Copied budget periods have expected values
     Given I enter dollar amounts for all the budget periods
-    When  I copy the budget version (all periods)
+    When  I copy the Budget Version (all periods)
     Then  the copied budget's values are all as expected
 
   Scenario: "Default Periods" returns budget periods to a zeroed state
     Given I delete one of the budget periods
     And   enter dollar amounts for all the budget periods
     And   change the date range for one of the periods
-    When  I select the default periods for the budget version
+    When  I select the default periods for the Budget Version
     Then  all budget periods get recreated, zeroed, and given default date ranges
 
   Scenario: Only one budget version can be 'final'
-    Given I finalize the budget version
-    When  I copy the budget version (all periods)
+    Given I finalize the Budget Version
+    When  I copy the Budget Version (all periods)
     Then  I see an error that only one version can be final

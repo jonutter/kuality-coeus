@@ -1,9 +1,9 @@
 Feature: S2S Questionnaire Population and Functionality
 
   Background: Logged in with a proposal creator; have other necessary user
-    Given a user exists with the system role: 'Proposal Creator'
-    And   a user exists that can be a PI for Grants.gov proposals
-    And   an AOR user exists
+    Given a User exists with the system role: 'Proposal Creator'
+    And   a User exists that can be a PI for Grants.gov proposals
+    And   an AOR User exists
     And   I log in with the Proposal Creator user
 
   Scenario: Initiate a proposal with PHS forms attached
