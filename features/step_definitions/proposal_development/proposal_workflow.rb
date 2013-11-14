@@ -25,7 +25,7 @@ Then /^the proposal status should be (.*)$/ do |status|
   @proposal.status.should == status
 end
 
-Then(/^I should receive an Action List item with the requested action being: (.*)$/) do |action|
+Then(/^I should receive an action list item with the requested action being: (.*)$/) do |action|
   visit ActionList do |page|
     page.last
     # This code is needed because the list refresh
@@ -53,7 +53,7 @@ Then /^I can acknowledge the requested Action List item$/ do
   end
 end
 
-When /^I? ?submit the routed Proposal to the Sponsor$/ do
+When /^I? ?submit the Proposal to its sponsor$/ do
   @proposal.submit :to_sponsor
 end
 
