@@ -4,7 +4,8 @@ class ProposalLogObject < DataObject
   include Navigation
 
   attr_accessor :number, :log_type, :log_status, :proposal_type, :title,
-                :principal_investigator, :lead_unit, :sponsor_id, :status
+                :principal_investigator, :lead_unit, :sponsor_id, :status,
+                :pi_full_name
 
   def initialize(browser, opts={})
     @browser= browser
@@ -36,7 +37,10 @@ class ProposalLogObject < DataObject
   end
 
   def submit
-    on(ProposalLog).submit
+    on ProposalLog do |page|
+      page.submit
+      @proposal_number=page.proposal_number
+    end
   end
 
   # =========
@@ -56,6 +60,7 @@ class ProposalLogObject < DataObject
     else
       on(ProposalLog).principal_investigator_employee.set @principal_investigator
     end
+    @pi_full_name=on(ProposalLog).pi_full_name
   end
 
   def set_sponsor_code

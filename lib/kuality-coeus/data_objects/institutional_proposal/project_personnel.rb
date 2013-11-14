@@ -17,6 +17,7 @@ class ProjectPersonnelObject < DataObject
     }
 
     set_options(defaults.merge(opts))
+    requires :document_id
   end
 
   # Note: This currently only has support for adding
@@ -25,6 +26,7 @@ class ProjectPersonnelObject < DataObject
   def create
 
   end
+
 
   # =======
   private
@@ -49,6 +51,10 @@ class ProjectPersonnelCollection < CollectionsFactory
 
   def with_units
     self.find_all { |person| person.units.size > 0 }
+  end
+
+  def units
+    self.collect{ |person| person.units }.flatten
   end
 
 end

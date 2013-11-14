@@ -3,12 +3,14 @@ When(/^I submit a new institutional proposal document$/) do
   @proposal_log.submit
   @institutional_proposal = create InstitutionalProposalObject,
                                    proposal_number: @proposal_log.number
-  person = make ProjectPersonnelOjbect, full_name: @proposal_log.principal_investigator, units: ['???']
+  person = make ProjectPersonnelObject, full_name: @proposal_log.pi_full_name,
+                units: [{:number=>@proposal_log.lead_unit}], doc_type: @institutional_proposal.doc_type,
+                document_id: @institutional_proposal.document_id
   @institutional_proposal.project_personnel << person
   @institutional_proposal.add_custom_data
   @institutional_proposal.set_valid_credit_splits
-  #on(InstitutionalProposal).institutional_proposal_actions
-  #on(InstitutionalProposalActions).submit
+  on(IPContacts).institutional_proposal_actions
+  on(InstitutionalProposalActions).submit
 end
 
 When(/^I merge the temporary proposal log with the institutional proposal$/) do
@@ -27,4 +29,17 @@ end
 
 When(/^I merge the permanent proposal log with the institutional proposal$/) do
   pending
+end
+When(/^I attempt to save an institutional proposal with a missing required field$/) do
+  @proposal_log = create ProposalLogObject
+  @proposal_log.submit
+  # Pick a field at random for the test...
+  @required_field = ['Description', 'Activity Type', 'Sponsor ID'
+  ].sample
+  # Properly set the nil value depending on the field type...
+  @required_field=~/Type/ ? value='select' : value=''
+  # Transform the field name to the appropriate symbol...
+  field =snake_case(@required_field)
+  @institutional_proposal = create InstitutionalProposalObject, proposal_number: @proposal_log.number,
+                                   field=>value
 end
