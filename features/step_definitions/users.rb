@@ -90,8 +90,7 @@ Given /^Users exist with the following roles: (.*)$/ do |roles|
 end
 
 Given /^a User exists that can be a PI for Grants.gov proposals$/ do
-  make_user(user: UserObject::USERS.grants_gov_pi, type: 'Grants.gov PI')
-  $users[-1].create unless $users[-1].exists?
+  make_user(user: UserObject::USERS.grants_gov_pi, type: 'Grants.gov PI').create unless $users[-1].exists?
 end
 
 Given /^an AOR User exists$/ do
@@ -123,6 +122,12 @@ And /^I add the (.*) role to that User$/ do |role|
   role_num = RoleObject::ROLES[role]
   $users[-1].add_role id: role_num, name: role, qualifiers: [], user_name: $users[-1].user_name
 end
-When(/^a single user exists with the system roles: (.*)$/) do |roles|
-  pending
+
+When /^a User exists with the roles: (.*) in the (.*) unit$/ do |roles, unit|
+  users = []
+  roles.split(', ').each do |role|
+    users << UserObject::USERS.have_role_in_unit(role, unit)
+  end
+  raise 'There are no matching users in the users.yml file. Please add one.' if users.empty?
+  (make_user user: users.inject(:&).shuffle[0][0]).create unless $users[-1].exists?
 end
