@@ -136,7 +136,8 @@ class ProposalDevelopmentObject < DataObject
                             lead_unit: person.home_unit, role: person.role,
                             project_role: person.key_person_role, units: person.units,
                             responsibility: person.responsibility, space: person.space,
-                            financial: person.financial, recognition: person.recognition
+                            financial: person.financial, recognition: person.recognition,
+                            document_id: doc_id
       ip.project_personnel << project_person
     end
     ip
