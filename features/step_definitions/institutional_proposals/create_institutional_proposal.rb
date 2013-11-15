@@ -50,7 +50,7 @@ Given(/^I create and submit a Proposal to its sponsor with Proposal Creator and 
     Given I log in with the Proposal Creator user
     And   I submit a new Proposal into routing
     And   I blanket approve the Proposal
-    When  I log in with the OSP Administrator user
+    When  I log in as the User with the OSP Administrator role in 000001
     And   I submit the Proposal to its sponsor
 }
 end

@@ -88,7 +88,7 @@ poolej: # AKA: "Principal Name
     - :id:   '110'
       :name: Aggregator
       :qualifiers:
-        - '000001'
+        - :unit: '000001'
     - :id:   '109'
       :name: Narrative Writer
       :qualifiers:
@@ -392,7 +392,7 @@ wcoyne: # AKA: "Principal Name"
    - :id:   '104'
      :name: Protocol Viewer
      :qualifiers:
-       - '000001'
+       - :unit: '000001'
    - :id:   '105'
      :name: Protocol Aggregator
      :qualifiers:
