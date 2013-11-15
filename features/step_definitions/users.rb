@@ -123,6 +123,7 @@ And /^I add the (.*) role to that User$/ do |role|
   role_num = RoleObject::ROLES[role]
   $users[-1].add_role id: role_num, name: role, qualifiers: [], user_name: $users[-1].user_name
 end
+
 When(/^a single user exists with the system roles: (.*)$/) do |roles|
   pending
 end
