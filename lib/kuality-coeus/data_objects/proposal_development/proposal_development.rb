@@ -115,34 +115,30 @@ class ProposalDevelopmentObject < DataObject
 
   def make_institutional_proposal
     # TODO: Write any preparatory web site functional steps and page scraping code
+
+
+
+sleep 120
+
+
+
+
     ip = make InstitutionalProposalObject, dev_proposal_number: @proposal_number,
          proposal_type: @proposal_type,
          activity_type: @activity_type,
          project_title: @project_title,
          special_review: @special_review.copy,
-         custom_data: @custom_data.data_object_copy
+         custom_data: @custom_data.data_object_copy,
+         document_id: TBD
     @key_personnel.each do |person|
-      project_person = make ProjectPersonnelObject, full_name: person[:full_name],
-                            first_name: person[:first_name], last_name: person[:last_name],
-                            lead_unit: person[:home_unit], role: person[:role],
-                            project_role: person[:key_person_role], units: person[:units],
-                            responsibility: person[:responsibility], space: person[:space],
-                            financial: person[:financial], recognition: person[:recognition]
+      project_person = make ProjectPersonnelObject, full_name: person.full_name,
+                            first_name: person.first_name, last_name: person.last_name,
+                            lead_unit: person.home_unit, role: person.role,
+                            project_role: person.key_person_role, units: person.units,
+                            responsibility: person.responsibility, space: person.space,
+                            financial: person.financial, recognition: person.recognition
       ip.project_personnel << project_person
     end
-
-
-
-
-
-
-    sleep 120
-
-
-
-
-
-
     ip
   end
 
@@ -197,6 +193,17 @@ class ProposalDevelopmentObject < DataObject
         # A breaking of the design pattern, here,
         # but we have no alternative...
         @status=page.document_status
+
+
+
+
+
+sleep 120
+
+
+
+
+
         page.send_fyi
       end
     elsif type == :to_s2s

@@ -4,7 +4,7 @@ Feature: Creating a proposal development document
   so that I can get funding for my research.
 
   Background: Logged in with a proposal creator user
-    Given a User exists with the system role: 'Proposal Creator'
+    Given a User exists with the role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
 
   Scenario: Attempt to save a proposal missing a required field
