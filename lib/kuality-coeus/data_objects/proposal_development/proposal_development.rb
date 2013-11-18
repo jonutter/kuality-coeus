@@ -11,7 +11,7 @@ class ProposalDevelopmentObject < DataObject
                 :opportunity_id, # Maybe add competition_id and other stuff here...
                 :special_review, :budget_versions, :permissions, :s2s_questionnaire, :proposal_attachments,
                 :proposal_questions, :compliance_questions, :kuali_u_questions, :custom_data, :recall_reason,
-                :personnel_attachments, :mail_by, :mail_type
+                :personnel_attachments, :mail_by, :mail_type, :institutional_proposal_number
 
   def initialize(browser, opts={})
     @browser = browser
@@ -115,34 +115,31 @@ class ProposalDevelopmentObject < DataObject
 
   def make_institutional_proposal
     # TODO: Write any preparatory web site functional steps and page scraping code
+    visit(Researcher).search_institutional_proposals
+    on InstitutionalProposalLookup do |look|
+      fill_out look, :institutional_proposal_number
+      look.search
+      look.open @institutional_proposal_number
+    end
+    doc_id = on(InstitutionalProposal).document_id
     ip = make InstitutionalProposalObject, dev_proposal_number: @proposal_number,
          proposal_type: @proposal_type,
          activity_type: @activity_type,
          project_title: @project_title,
          special_review: @special_review.copy,
-         custom_data: @custom_data.data_object_copy
+         custom_data: @custom_data.data_object_copy,
+         document_id: doc_id,
+         proposal_number: @institutional_proposal_number
     @key_personnel.each do |person|
-      project_person = make ProjectPersonnelObject, full_name: person[:full_name],
-                            first_name: person[:first_name], last_name: person[:last_name],
-                            lead_unit: person[:home_unit], role: person[:role],
-                            project_role: person[:key_person_role], units: person[:units],
-                            responsibility: person[:responsibility], space: person[:space],
-                            financial: person[:financial], recognition: person[:recognition]
+      project_person = make ProjectPersonnelObject, full_name: person.full_name,
+                            first_name: person.first_name, last_name: person.last_name,
+                            lead_unit: person.home_unit, role: person.role,
+                            project_role: person.key_person_role, units: person.units,
+                            responsibility: person.responsibility, space: person.space,
+                            financial: person.financial, recognition: person.recognition,
+                            document_id: doc_id
       ip.project_personnel << project_person
     end
-
-
-
-
-
-
-    sleep 120
-
-
-
-
-
-
     ip
   end
 
@@ -197,6 +194,7 @@ class ProposalDevelopmentObject < DataObject
         # A breaking of the design pattern, here,
         # but we have no alternative...
         @status=page.document_status
+        @institutional_proposal_number=page.institutional_proposal_number
         page.send_fyi
       end
     elsif type == :to_s2s

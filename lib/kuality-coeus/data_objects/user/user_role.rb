@@ -15,6 +15,8 @@ class UserRoleObject < DataObject
     }
     set_options defaults.merge(opts)
     requires :user_name
+    # Need to groom the nil(s) from the @qualifiers array
+    @qualifiers = @qualifiers.compact
   end
 
   # All navigation is done in the parent, UserObject.
