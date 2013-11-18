@@ -25,7 +25,7 @@ class UserRoleObject < DataObject
       create.role_id.set @id
       create.add_role
       @qualifiers.each do |unit|
-        create.unit_number(@id).set unit[:unit]
+        create.unit_number(@id).fit unit[:unit]
         create.descends_hierarchy(@id).fit unit[:descends_hierarchy]
         create.add_role_qualifier(@id)
       end
