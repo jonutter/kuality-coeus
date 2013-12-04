@@ -228,6 +228,10 @@ class ProposalDevelopmentObject < DataObject
     submit :ba
   end
 
+  def approve
+    on(ProposalSummary).approve
+  end
+
   # =======
   private
   # =======

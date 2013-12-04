@@ -73,3 +73,8 @@ And(/^the principal investigator approves the proposal$/) do
   end
   @proposal.approve
 end
+
+And(/^I approve the proposal without future approval requests$/) do
+  @proposal.approve
+  on(Confirmation).no
+end
