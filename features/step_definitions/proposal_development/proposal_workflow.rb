@@ -65,3 +65,11 @@ end
 When(/^I? ?blanket approve the Proposal$/) do
   @proposal.blanket_approve
 end
+
+And(/^the principal investigator approves the proposal$/) do
+  visit Login do |log_in|
+    log_in.username.set @proposal.key_personnel.principal_investigator.user_name
+    log_in.login
+  end
+  @proposal.approve
+end
