@@ -4,7 +4,7 @@ Feature: Validating content of s2s proposals
   proposals are free of errors, prior to submission
 
   Background: Logged in with a proposal creator; initiate a proposal for grants.gov
-    Given a User exists with the system role: 'Proposal Creator'
+    Given a User exists with the role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
     And   initiate a Proposal with a 'Federal' sponsor type
     And   add the Grants.Gov opportunity id of PA-B2-ALL to the Proposal

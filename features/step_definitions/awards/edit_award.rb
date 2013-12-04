@@ -4,28 +4,8 @@ Given /^I? ?add a PI to the Award$/ do
   @award.add_pi if @award.key_personnel.principal_investigator.nil?
 end
 
-When /^I? ?add the (.*) unit to the Award's PI$/ do |unit|
-  @award.key_personnel.principal_investigator.add_unit unit
-end
-
-When /^I? ?remove the (.*) unit from the Award's PI$/ do |unit|
-  @award.key_personnel.principal_investigator.delete_unit unit
-end
-
-When /^I? ?add (.*) as the lead unit to the Award's PI$/ do |unit|
-  @award.key_personnel.principal_investigator.add_lead_unit unit
-end
-
-When /^I? ?set (.*) as the lead unit for the Award's PI$/ do |unit|
-  @award.key_personnel.principal_investigator.set_lead_unit unit
-end
-
 Given /I? ?add a key person to the Award$/ do
   @award.add_key_person
-end
-
-When /^I? ?give the Award valid credit splits$/ do
-  @award.set_valid_credit_splits
 end
 
 Given /I? ?add the (.*) Institutional Proposal to the Award$/ do |ip_number|
@@ -56,17 +36,37 @@ Given /I? ?add a Payment & Invoice item to the Award$/ do
   @award.add_payment_and_invoice
 end
 
-And /I? ?add Reports to the Award$/ do
+When /^I? ?add the (.*) unit to the Award's PI$/ do |unit|
+  @award.key_personnel.principal_investigator.add_unit unit
+end
+
+When /^I? ?remove the (.*) unit from the Award's PI$/ do |unit|
+  @award.key_personnel.principal_investigator.delete_unit unit
+end
+
+When /^I? ?add (.*) as the lead unit to the Award's PI$/ do |unit|
+  @award.key_personnel.principal_investigator.add_lead_unit unit
+end
+
+When /^I? ?set (.*) as the lead unit for the Award's PI$/ do |unit|
+  @award.key_personnel.principal_investigator.set_lead_unit unit
+end
+
+When /^I? ?give the Award valid credit splits$/ do
+  @award.set_valid_credit_splits
+end
+
+When /I? ?add Reports to the Award$/ do
   # Logic is here because of this step's nesting in
   # "I complete the Award"
   @award.add_reports if @award.reports.nil?
 end
 
-And /I? ?add Terms to the Award$/ do
+When /I? ?add Terms to the Award$/ do
   @award.add_terms if @award.terms.nil?
 end
 
-And /I? ?add the required Custom Data to the Award$/ do
+When /I? ?add the required Custom Data to the Award$/ do
   @award.add_custom_data if @award.custom_data.nil?
 end
 

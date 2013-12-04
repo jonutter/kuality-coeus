@@ -1,3 +1,7 @@
+Given /^I? ?initiate an Award with (.*) as the Lead Unit$/ do |lead_unit|
+  @award = create AwardObject, lead_unit: lead_unit
+end
+
 When /^I? ?initiate an Award for the institutional_proposal$/ do
   @award = create AwardObject, funding_proposal: @institutional_proposal.proposal_number
 end
@@ -9,10 +13,6 @@ When /^I? ?initiate an Award$/ do
   # Award's unit should be...
   lead_unit = $users.current_user.roles.name($users.current_user.role).qualifiers[0][:unit]
   raise "Unable to determine a lead unit for the selected user. Please debug your scenario." if lead_unit.nil?
-  @award = create AwardObject, lead_unit: lead_unit
-end
-
-Given /^I? ?initiate an Award with (.*) as the Lead Unit$/ do |lead_unit|
   @award = create AwardObject, lead_unit: lead_unit
 end
 
@@ -58,6 +58,6 @@ When /^I? ?submit the Award$/ do
   @award.submit
 end
 
-And /^I? ?submit the copied Award$/ do
+When /^I? ?submit the copied Award$/ do
   @award_2.submit
 end
