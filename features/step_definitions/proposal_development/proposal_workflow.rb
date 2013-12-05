@@ -74,6 +74,9 @@ And(/^the principal investigator approves the proposal$/) do
   end
   @proposal.open_proposal
   on(ProposalSummary).approve
+  #Testing this to sign out PI user
+  visit(Login).logout
+  sleep 15
 end
 
 And(/^I approve the Proposal without future approval requests$/) do
@@ -86,4 +89,21 @@ And(/^I approve the Proposal with future approval requests$/) do
   @proposal.open_proposal
   on(ProposalSummary).approve
   on(Confirmation).yes
+end
+
+Then(/^I should only have the option to submit the proposal to its sponsor$/) do
+  @proposal.open_proposal
+  on(Proposal).proposal_actions
+  on ProposalActions do |page|
+    page.approve_button.should_not be_present
+    page.submit_to_sponsor_button.should be_present
+  end
+end
+
+Then(/^I should only have the option to approve the proposal$/) do
+  @proposal.open_proposal
+  on(Proposal).proposal_actions
+  on ProposalActions do |page|
+    page.approve_button.should be_present
+  end
 end

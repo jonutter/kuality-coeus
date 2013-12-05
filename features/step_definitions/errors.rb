@@ -5,5 +5,5 @@ Then /^an error should say (.*)$/ do |error|
             'the credit split is not a valid percentage' => 'Credit Split is not a valid percentage.',
             'only one PI is allowed' => 'Only one proposal role of Principal Investigator is allowed.'
   }
-  on($current_page).errors.should include errors[error]
+  $current_page.errors.should include errors[error]
 end
