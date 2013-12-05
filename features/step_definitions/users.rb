@@ -111,7 +111,6 @@ end
 
 Given /^I? ?log in as the User with the (.*) role in (.*)$/ do |role, unit|
   $users.with_role_in_unit(role, unit).sign_in
-  sleep 40
 end
 
 And /^I add the (.*) role in the (.*) unit to that User$/ do |role, unit|

@@ -67,14 +67,23 @@ When(/^I? ?blanket approve the Proposal$/) do
 end
 
 And(/^the principal investigator approves the proposal$/) do
+  $users.logged_in_user.sign_out unless $users.current_user==nil
   visit Login do |log_in|
     log_in.username.set @proposal.key_personnel.principal_investigator.user_name
     log_in.login
   end
-  @proposal.approve
+  @proposal.open_proposal
+  on(ProposalSummary).approve
 end
 
-And(/^I approve the proposal without future approval requests$/) do
-  @proposal.approve
+And(/^I approve the Proposal without future approval requests$/) do
+  @proposal.open_proposal
+  on(ProposalSummary).approve
   on(Confirmation).no
+end
+
+And(/^I approve the Proposal with future approval requests$/) do
+  @proposal.open_proposal
+  on(ProposalSummary).approve
+  on(Confirmation).yes
 end
