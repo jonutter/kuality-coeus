@@ -75,8 +75,7 @@ And(/^the principal investigator approves the proposal$/) do
   @proposal.open_proposal
   on(ProposalSummary).approve
   #Testing this to sign out PI user
-  visit(Login).logout
-  sleep 15
+  visit(Researcher).logout
 end
 
 And(/^I approve the Proposal without future approval requests$/) do
