@@ -37,20 +37,20 @@ Feature: Proposal Workflows and Routing
     | Reject     |
 
   Scenario: Aggregator successfully submits a proposal into routing
-    Given a User exists with the system role: 'Proposal Creator'
+    Given a User exists with the role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
     And   submit a new Proposal into routing
     Then  the Proposal status should be Approval Pending
 
   Scenario: Aggregator successfully blanket approves a routed proposal
-    Given a User exists with the system role: 'Proposal Creator'
+    Given a User exists with the role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
     And   I submit a new Proposal into routing
     When  I blanket approve the Proposal
     Then  the Proposal status should be Approval Granted
 
   Scenario: Aggregator successfully recalls a routed proposal
-    Given a User exists with the system role: 'Proposal Creator'
+    Given a User exists with the role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
     And   I submit a new Proposal into routing
     When  I recall the Proposal

@@ -52,18 +52,33 @@ module Navigation
   # must be the same!
   #
   def fill_out(page, *fields)
-    fill_out_item(nil, page, *fields)
+    f_o_i true, nil, page, *fields
   end
   alias_method :fill_in, :fill_out
 
+  def fill_out_item(name, page, *fields)
+    f_o_i true, name, page, *fields
+  end
+
+  def ordered_fill(page, *fields)
+    f_o_i false, nil, page, *fields
+  end
+
+  def ordered_item_fill(name, page, *fields)
+    f_o_i false, name, page, *fields
+  end
+
+  private
+
   # Same as the above method, but used with methods that take a
   # parameter to identify the target element...
-  def fill_out_item(name, page, *fields)
+  def f_o_i(shuffle, name, page, *fields)
+    shuffle ? fields.shuffle! : fields
     watir_methods=[ lambda{|n, p, f| p.send(*[f, n].compact).fit(get f) },
                     lambda{|n, p, f| p.send(*[f, n].compact).pick!(get f) },
                     lambda{|n, p, f| p.send(*[f, n].compact, get(f)) }
     ]
-    fields.shuffle.each do |field|
+    fields.each do |field|
       # This rescue is here because the radio button
       # "element" definitions are *actions* that
       # require a parameter, so just sending the method to the page

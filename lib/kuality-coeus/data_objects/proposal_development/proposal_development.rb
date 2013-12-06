@@ -25,7 +25,7 @@ class ProposalDevelopmentObject < DataObject
       sponsor_type_code:     '::random::',
       project_start_date:    next_week[:date_w_slashes], # TODO: Think about using the date object here, and not the string
       project_end_date:      next_year[:date_w_slashes],
-      sponsor_deadline_date: next_week[:date_w_slashes],
+      sponsor_deadline_date: next_year[:date_w_slashes],
       mail_by:               '::random::',
       mail_type:             '::random::',
       key_personnel:         collection('KeyPersonnel'),
@@ -208,6 +208,20 @@ class ProposalDevelopmentObject < DataObject
         @status=page.document_status
       end
     end
+
+
+
+
+
+
+puts @status
+
+
+
+
+
+
+
   end
 
   # Note: This method does not navigate because
