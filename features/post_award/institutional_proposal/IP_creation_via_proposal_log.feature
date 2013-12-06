@@ -14,3 +14,8 @@ Feature: Creating an Institutional Proposal from a Proposal Log
     When  I submit a new Temporary Proposal Log
     And   I merge the temporary proposal log with the institutional proposal
     Then  the Proposal Log's status should reflect it has been merged
+
+  Scenario: Approve a proposal without future approval requests
+
+
+  Scenario: Approve a proposal with future approval requests

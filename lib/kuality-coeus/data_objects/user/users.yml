@@ -186,10 +186,6 @@ starka:  # AKA: "Principal Name"
       :type:    Work
       :default: :set
   :rolez:
-    - :id:   '98'
-      :name: Manager
-      :qualifiers:
-        -
     - :id:   '110'
       :name: Aggregator
       :qualifiers:
@@ -663,6 +659,10 @@ dkensrue: # AKA: "Principal Name"
      :name: Institutional Proposal Maintainer
      :qualifiers:
        - :unit: '000001'
+   - :id:   '100'
+     :name: OSPApprover
+     :qualifiers:
+       -
 dbowie: # AKA: "Principal Name"
   :user_name:        dbowie
   :description:      Proposal Log PI

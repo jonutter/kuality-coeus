@@ -1,7 +1,7 @@
-When /^I? ?initiate an Award for the institutional_proposal$/ do
-  @award = create AwardObject, funding_proposal: @institutional_proposal.proposal_number
-end
-
+#----------------------#
+#Create and Save
+#Note: Units are specified to match the initiator's unit.
+#----------------------#
 When /^I? ?initiate an Award$/ do
   # Implicit in this step is that the Award creator
   # is creating the Award in the unit they have
@@ -25,6 +25,9 @@ Given /^I? ?initiate an Award with (.*) as the Lead Unit$/ do |lead_unit|
   @award = create AwardObject, lead_unit: lead_unit
 end
 
+#----------------------#
+#Award Validations Based on Errors During Creation
+#----------------------#
 When /^I ? ?initiate an Award with a missing required field$/ do
   @required_field = ['Description', 'Transaction Type', 'Award Status', 'Award Title',
                      'Activity Type', 'Award Type', 'Project Start Date', 'Project End Date',

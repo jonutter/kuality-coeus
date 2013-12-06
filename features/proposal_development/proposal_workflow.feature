@@ -80,10 +80,18 @@ Feature: Proposal Workflows and Routing
     When  I log in with the OSP Administrator user
     Then  I can override the cost sharing amount
 
-  Scenario: Submit proposal to sponsor
+  Scenario: Submit a proposal to its sponsor
     Given I log in with the Proposal Creator user
-    And   I submit a new Proposal into routing
-    And   I blanket approve the Proposal
+    And   submit a new Proposal into routing
     When  I log in with the OSP Administrator user
-    And   I submit the Proposal to its sponsor
+    And   I approve the proposal without future approval requests
     Then  the Proposal status should be Approved and Submitted
+
+  Scenario: Approve a proposal without future approval requests
+    Given a User exists with the role: 'Proposal Creator'
+    And   a User exists with the roles: OSP Administrator, Institutional Proposal Maintainer in the 000001 unit
+    And   I log in with the Proposal Creator user
+    And   submit a new Proposal into routing
+    When  I log in as the User with the OSP Administrator role in 000001
+    And   I approve the proposal without future approval requests
+    And

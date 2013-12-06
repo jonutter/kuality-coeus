@@ -18,7 +18,7 @@ Feature: Key Personnel Validations
     | Responsibility | 100.01 |
     | Financial      | 1000   |
     | Recognition    | -0.01  |
-
+  @test
   Scenario: I should see an error when I add a key person without a specified proposal role
     When  I add a key person without a key person role
     Then  an error should say a key person role is required

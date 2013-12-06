@@ -25,18 +25,18 @@ Then /^the new Award's transaction type is 'New'$/ do
   on(Award).transaction_type.selected?('New').should be_true
 end
 
-When /^the child Award's project end date should be the same as the parent, and read-only$/ do
+Then /^the child Award's project end date should be the same as the parent, and read-only$/ do
   on(Award).project_end_date_ro.should==@award.project_end_date
 end
 
-And /^the anticipated and obligated amounts are read-only and (.*)$/ do |amount|
+Then /^the anticipated and obligated amounts are read-only and (.*)$/ do |amount|
   on Award do |page|
     page.anticipated_amount_ro.should==amount
     page.obligated_amount_ro.should==amount
   end
 end
 
-And /^the anticipated and obligated amounts are zero$/ do
+Then /^the anticipated and obligated amounts are zero$/ do
   on Award do |page|
     page.anticipated_amount.value.should=='0.00'
     page.obligated_amount.value.should=='0.00'

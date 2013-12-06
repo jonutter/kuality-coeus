@@ -24,7 +24,7 @@ end
 #    based on the role
 # 3) Assumes that role user already exists in the system
 # 4) Logs that user in, if they're not already
-Given /^I? ?log in with the (.*) user$/ do |role|
+Given /^I? ?log in (?:again)? ?with the (.*) user$/ do |role|
   get(role).sign_in
 end
 
@@ -109,7 +109,7 @@ Given /^I? ?create a User with an? (.*) role in the (.*) unit$/ do |role, unit|
   $users << create(UserObject, rolez: [{ id: role_num, name: role, qualifiers: [{:unit=>unit}] }] )
 end
 
-Given /^I? ?log in as the User with the (.*) role in (.*)$/ do |role, unit|
+Given /^I? ?log in (?:again)? ?as the User with the (.*) role in (.*)$/ do |role, unit|
   $users.with_role_in_unit(role, unit).sign_in
 end
 
