@@ -80,18 +80,30 @@ Feature: Proposal Workflows and Routing
     When  I log in with the OSP Administrator user
     Then  I can override the cost sharing amount
 
-  Scenario: Submit a proposal to its sponsor
+  Scenario: Approve a proposal with future approval requests
     Given I log in with the Proposal Creator user
-    And   submit a new Proposal into routing
-    When  I log in with the OSP Administrator user
-    And   I approve the proposal without future approval requests
-    Then  the Proposal status should be Approved and Submitted
+    And   I submit a new Proposal into routing
+    When  I log in as the User with the OSP Administrator role in 000001
+    And   I approve the Proposal with future approval requests
+    And   the principal investigator approves the proposal
+    And   I log in again as the User with the OSP Administrator role in 000001
+    Then  I should only have the option to approve the proposal
 
   Scenario: Approve a proposal without future approval requests
-    Given a User exists with the role: 'Proposal Creator'
-    And   a User exists with the roles: OSP Administrator, Institutional Proposal Maintainer in the 000001 unit
-    And   I log in with the Proposal Creator user
-    And   submit a new Proposal into routing
+    Given I log in with the Proposal Creator user
+    And   I submit a new Proposal into routing
     When  I log in as the User with the OSP Administrator role in 000001
-    And   I approve the proposal without future approval requests
-    And
+    And   I approve the Proposal without future approval requests
+    And   the principal investigator approves the proposal
+    And   I log in again as the User with the OSP Administrator role in 000001
+    Then  I should only have the option to submit the proposal to its sponsor
+  @test
+  Scenario: Submit a proposal to its sponsor
+    Given I log in with the Proposal Creator user
+    And   I submit a new Proposal into routing
+    When  I log in as the User with the OSP Administrator role in 000001
+    And   I approve the Proposal without future approval requests
+    And   the principal investigator approves the proposal
+    And   I log in again as the User with the OSP Administrator role in 000001
+    And   I submit the Proposal to its sponsor
+    Then  the Proposal status should be Approved and Submitted

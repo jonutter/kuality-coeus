@@ -5,7 +5,7 @@ Feature: Creating Proposal Logs
   from the KC Proposal Development and Budget modules.
 
   Background:
-    Given a User exists with the system role: 'Create Proposal Log'
+    Given a User exists with the role: 'Create Proposal Log'
     And   I log in with the Create Proposal Log user
 
   Scenario: Attempt to initiate a new Proposal Log Document with a missing required field

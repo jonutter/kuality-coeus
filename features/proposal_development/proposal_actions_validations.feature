@@ -4,7 +4,7 @@ Feature: Proposal Actions Validations
   so that I can fix them prior to submitting my proposal
 
   Background: Logged in with a proposal creator user
-    Given a User exists with the system role: 'Proposal Creator'
+    Given a User exists with the role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
 
     Scenario: A PI has not been added to the proposal

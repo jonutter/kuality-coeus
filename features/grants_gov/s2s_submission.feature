@@ -4,7 +4,7 @@ Feature: Submitting Proposals via s2s to Grants.gov
   through to grants.gov
 
   Background: Logged in with a proposal creator; have other necessary user
-    Given a User exists with the system role: 'Proposal Creator'
+    Given a User exists with the role: 'Proposal Creator'
     And   a User exists that can be a PI for Grants.gov proposals
     And   an AOR User exists
     And   I log in with the Proposal Creator user

@@ -1,7 +1,10 @@
 Feature: S2S Questionnaire Population and Functionality
 
+  As an Investigator, I want to attach s2s forms to my proposal development docs
+  so that I may review and answer their corresponding questionnaires.
+
   Background: Logged in with a proposal creator; have other necessary user
-    Given a User exists with the system role: 'Proposal Creator'
+    Given a User exists with the role: 'Proposal Creator'
     And   a User exists that can be a PI for Grants.gov proposals
     And   an AOR User exists
     And   I log in with the Proposal Creator user
