@@ -1,6 +1,7 @@
 module Navigation
 
   include Utilities
+  include DataFactory
 
   def open_document doc_header
     doc_search unless on_document?(doc_header)
@@ -43,40 +44,15 @@ module Navigation
     end
   end
 
-  # Use in the #create method of your data objects for filling out
-  # fields. This method eliminates the need to write repetitive
-  # lines of code, with one line for every field needing to be
-  # filled in.
-  #
-  # Requirement: The field method name and the class instance variable
-  # must be the same!
-  #
-  def fill_out(page, *fields)
-    f_o_i true, nil, page, *fields
-  end
-  alias_method :fill_in, :fill_out
-
-  def fill_out_item(name, page, *fields)
-    f_o_i true, name, page, *fields
-  end
-
-  def ordered_fill(page, *fields)
-    f_o_i false, nil, page, *fields
-  end
-
-  def ordered_item_fill(name, page, *fields)
-    f_o_i false, name, page, *fields
-  end
-
   private
 
-  # Same as the above method, but used with methods that take a
-  # parameter to identify the target element...
-  def f_o_i(shuffle, name, page, *fields)
-    shuffle ? fields.shuffle! : fields
-    watir_methods=[ lambda{|n, p, f| p.send(*[f, n].compact).fit(get f) },
-                    lambda{|n, p, f| p.send(*[f, n].compact).pick!(get f) },
-                    lambda{|n, p, f| p.send(*[f, n].compact, get(f)) }
+  # This overrides the method in the TestFactory.
+  # We need this here because of the special way that
+  # KC defines radio buttons. See below...
+  def parse_fields(opts, name, page, *fields)
+    watir_methods=[ lambda{|n, p, f, v| p.send(*[f, n].compact).fit(v) }, # Text & Checkbox
+                    lambda{|n, p, f, v| p.send(*[f, n].compact).pick!(v) }, # Select
+                    lambda{|n, p, f, v| p.send(*[f, n].compact, v) } # Radio
     ]
     fields.each do |field|
       # This rescue is here because the radio button
@@ -86,9 +62,10 @@ module Navigation
       begin
         x = page.send(*[field, name].compact).class.to_s=='Watir::Select' ? 1 : 0
       rescue NoMethodError
-        x = 3
+        x = 2
       end
-      watir_methods[x].call(name, page, field)
+      val = opts.nil? ? get(field) : opts[field]
+      watir_methods[x].call(name, page, field, val)
     end
   end
 

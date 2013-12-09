@@ -8,7 +8,6 @@ Given /I? ?add a key person to the Award$/ do
   @award.add_key_person
 end
 
-
 #----------------------#
 #Add Funding Proposal (i.e. Institutional Proposal) ID Number
 #Note: This is typically to fund an Award.
@@ -91,31 +90,4 @@ end
 When /^I? ?copy the Award and its descend.nts? as a child of itself$/ do
   # TODO: Come up with a more robust naming scheme, here...
   @new_child_award = @award.copy 'child_of', @award.id, :set
-end
-
-When /^I start adding a Payment & Invoice item to the Award$/ do
-  @award.view :payment_reports__terms
-  on PaymentReportsTerms do |page|
-    r = '::random::'
-    page.expand_all
-    page.payment_basis.pick r
-    page.payment_method.pick r
-    page.payment_type.pick r
-    page.frequency.pick r
-    page.frequency_base.pick r
-    page.osp_file_copy.pick r
-    page.add_payment_type
-  end
-end
-
-When /^I? ?complete the Award requirements$/ do
-  steps %{
-    And add Reports to the Award
-    And add Terms to the Award
-    And add the required Custom Data to the Award
-    And add a Payment & Invoice item to the Award
-    And add a Sponsor Contact to the Award
-    And add a PI to the Award
-    And give the Award valid credit splits
-  }
 end
