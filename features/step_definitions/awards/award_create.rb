@@ -12,7 +12,16 @@ When /^I? ?initiate an Award$/ do
   @award = create AwardObject, lead_unit: lead_unit
 end
 
-When /^I? ?initiate an Award with (.*) as the Lead Unit$/ do |lead_unit|
+Given /^I begin an Award with the first institutional proposal number$/ do
+  visit(CentralAdmin).create_award
+  on Award do |page|
+    page.expand_all
+    page.institutional_proposal_number.set @ip_numbers[0]
+    page.add_proposal
+  end
+end
+
+Given /^I? ?initiate an Award with (.*) as the Lead Unit$/ do |lead_unit|
   @award = create AwardObject, lead_unit: lead_unit
 end
 

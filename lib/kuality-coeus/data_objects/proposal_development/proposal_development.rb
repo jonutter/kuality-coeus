@@ -25,7 +25,7 @@ class ProposalDevelopmentObject < DataObject
       sponsor_type_code:     '::random::',
       project_start_date:    next_week[:date_w_slashes], # TODO: Think about using the date object here, and not the string
       project_end_date:      next_year[:date_w_slashes],
-      sponsor_deadline_date: next_week[:date_w_slashes],
+      sponsor_deadline_date: next_year[:date_w_slashes],
       mail_by:               '::random::',
       mail_type:             '::random::',
       key_personnel:         collection('KeyPersonnel'),
@@ -63,10 +63,7 @@ class ProposalDevelopmentObject < DataObject
     on Proposal do |edit|
       edit.proposal
       edit.expand_all
-      edit.project_title.fit opts[:project_title]
-      edit.project_start_date.fit opts[:project_start_date]
-      edit.opportunity_id.fit opts[:opportunity_id]
-      edit.proposal_type.fit opts[:proposal_type]
+      edit_fields opts, edit, :project_title, :project_start_date, :opportunity_id, :proposal_type
       # TODO: Add more stuff here as necessary
       edit.save
     end
@@ -250,7 +247,7 @@ class ProposalDevelopmentObject < DataObject
     if @sponsor_code=='::random::'
       on(Proposal).find_sponsor_code
       on SponsorLookup do |look|
-        look.sponsor_type_code.pick! @sponsor_type_code
+        fill_out look, :sponsor_type_code
         look.search
         look.page_links[rand(look.page_links.length)].click if look.page_links.size > 0
         look.return_random

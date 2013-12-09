@@ -3,6 +3,7 @@ directory.yml
 /test.rb
 *test.rb
 test.feature
+.ruby-version
 .DS_Store
 .idea/
 *.gem

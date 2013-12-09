@@ -66,7 +66,7 @@ end
 
 When /^the (.*) user approves the Proposal$/ do |role|
   get(role).sign_in
-  @proposal.open_proposal
+  @proposal.view :proposal_summary
   on(ProposalSummary).approve
   on(Confirmation).yes
 end

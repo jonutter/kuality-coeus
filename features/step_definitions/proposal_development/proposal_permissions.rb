@@ -14,7 +14,7 @@ end
 
 Then /^the (.*) user can access the Proposal$/ do |role|
   get(role).sign_in
-  @proposal.open_proposal
+  @proposal.view
   on(Researcher).error_table.should_not be_present
 end
 

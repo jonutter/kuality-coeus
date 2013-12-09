@@ -72,27 +72,27 @@ And(/^the principal investigator approves the proposal$/) do
     log_in.username.set @proposal.key_personnel.principal_investigator.user_name
     log_in.login
   end
-  @proposal.open_proposal
+  @proposal.view :proposal_summary
   on(ProposalSummary).approve
   #Testing this to sign out PI user
   visit(Researcher).logout
 end
 
 And(/^I approve the Proposal without future approval requests$/) do
-  @proposal.open_proposal
+  @proposal.view :proposal_summary
   on(ProposalSummary).approve
   on(Confirmation).no
 end
 
 And(/^I approve the Proposal with future approval requests$/) do
-  @proposal.open_proposal
+  @proposal.view :proposal_summary
   on(ProposalSummary).approve
   on(Confirmation).yes
 end
 
+
 Then(/^I should only have the option to submit the proposal to its sponsor$/) do
-  @proposal.open_proposal
-  on(Proposal).proposal_actions
+  @proposal.view :proposal_actions
   on ProposalActions do |page|
     page.approve_button.should_not be_present
     page.submit_to_sponsor_button.should be_present
@@ -100,8 +100,7 @@ Then(/^I should only have the option to submit the proposal to its sponsor$/) do
 end
 
 Then(/^I should only have the option to approve the proposal$/) do
-  @proposal.open_proposal
-  on(Proposal).proposal_actions
+  @proposal.view :proposal_actions
   on ProposalActions do |page|
     page.approve_button.should be_present
   end

@@ -54,7 +54,6 @@ class AwardObject < DataObject
     visit(CentralAdmin).create_award
     on Award do |create|
       @doc_type=create.doc_title
-      @document_id=create.header_award_id
       create.expand_all
       fill_out create, :description, :transaction_type, :award_status, :award_title,
                :activity_type, :award_type, :obligated_amount, :anticipated_amount,

@@ -26,7 +26,7 @@ Feature: Key Personnel Validations
   Scenario: Error when adding a co-investigator without a unit
     When  I add a co-investigator without a unit
     Then  a key personnel error should appear, saying the co-investigator requires at least one unit
-
+  @test
   Scenario: Error when adding multiple principle investigators
     When  I try to add two principal investigators
     Then  an error should say only one PI is allowed
