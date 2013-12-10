@@ -16,6 +16,10 @@ class Users < Array
     self.find { |user| user.type == type }
   end
 
+  def with_role(role_name)
+    self.find { |user| user.roles.detect{|r| r.name==role_name} }
+  end
+
   def with_role_in_unit(role_name, unit)
     roles = self.map{ |user| user.roles }
     self.user(roles.flatten!.find { |role| role.name==role_name && role.qualifiers.detect{ |q| q[:unit]==unit } }.user_name)
