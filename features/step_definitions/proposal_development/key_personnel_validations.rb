@@ -35,21 +35,11 @@ When /^I? ?add a key person with an invalid unit type$/ do
                            units: [{number: 'invalid'}]
 end
 
-Then /^an error should say (.*)$/ do |error|
-  errors = {'at least one principal investigator is required' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.',
-            'to select a valid unit' => 'Please select a valid Unit.',
-            'a key person role is required' => 'Key Person Role is a required field.',
-            'the credit split is not a valid percentage' => 'Credit Split is not a valid percentage.',
-            'only one PI is allowed' => 'Only one proposal role of Principal Investigator is allowed.'
-  }
-  $current_page.errors.should include errors[error]
-end
-
 Then /^a key personnel error should appear, saying the co-investigator requires at least one unit$/ do
   on(KeyPersonnel).errors.should include "At least one Unit is required for #{@proposal.key_personnel.co_investigator.full_name}."
 end
 
-When /^I? ?add a principal investigator$/ do
+When /^I? ?adds? a principal investigator$/ do
   @proposal.add_principal_investigator
 end
 
@@ -57,7 +47,7 @@ Given /^I? ?add the Grants.Gov user as the Proposal's PI$/ do
   @proposal.add_principal_investigator last_name: $users.grants_gov_pi.last_name, first_name: $users.grants_gov_pi.first_name
 end
 
-When /^I? ?set valid credit splits for the Proposal$/ do
+When /^I? ?sets? valid credit splits for the Proposal$/ do
   @proposal.set_valid_credit_splits
 end
 

@@ -71,7 +71,7 @@ Then /^I should see an error that says a valid sponsor code is required$/ do
   on(Proposal).errors.should include 'A valid Sponsor Code (Sponsor) must be selected.'
 end
 
-When /^I? ?submit the Proposal$/ do
+When /^I? ?submits? the Proposal$/ do
   @proposal.submit
 end
 
@@ -81,7 +81,7 @@ When /^I? ?complete the Proposal$/ do
   @proposal.add_custom_data
 end
 
-When /^I? ?complete the required custom fields on the Proposal$/ do
+When /^I? ?completes? the required custom fields on the Proposal$/ do
   @proposal.add_custom_data
 end
 
