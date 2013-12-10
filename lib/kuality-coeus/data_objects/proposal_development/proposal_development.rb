@@ -216,11 +216,6 @@ class ProposalDevelopmentObject < DataObject
     on(Proposal).save
   end
 
-  # TODO: Make this private. Step defs should use #view!
-  def open_proposal
-    open_document @doc_header
-  end
-
   def blanket_approve
     submit :ba
   end
@@ -232,6 +227,11 @@ class ProposalDevelopmentObject < DataObject
   # =======
   private
   # =======
+
+  # Step defs should use #view!
+  def open_proposal
+    open_document @doc_header
+  end
 
   def merge_settings(opts)
     defaults = {

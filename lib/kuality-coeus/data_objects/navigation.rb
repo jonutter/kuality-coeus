@@ -1,7 +1,6 @@
 module Navigation
 
   include Utilities
-  include DataFactory
 
   def open_document doc_header
     doc_search unless on_document?(doc_header)
