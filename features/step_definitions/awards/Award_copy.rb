@@ -15,3 +15,5 @@ When /^I? ?copy the Award and its descend.nts? as a child of itself$/ do
   # TODO: Come up with a more robust naming scheme, here...
   @new_child_award = @award.copy 'child_of', @award.id, :set
 end
+
+Then
