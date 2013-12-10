@@ -59,8 +59,7 @@ When /^I? ?submit the Proposal to its sponsor$/ do
 end
 
 And /^the (.*) submits the Proposal to its sponsor$/ do |role_name|
-  $users.logged_in_user.sign_out unless $users.current_user==nil
-  $users.with_role(role_name).sign_in
+  steps %{ Given I log in with the #{role_name} user }
   @proposal.submit :to_sponsor
   @institutional_proposal = @proposal.make_institutional_proposal
 end
@@ -92,8 +91,7 @@ And /^I approve the Proposal without future approval requests$/ do
 end
 
 And /^the (.*) approves the Proposal without future approval requests$/ do |role_name|
-  $users.logged_in_user.sign_out unless $users.current_user==nil
-  $users.with_role(role_name).sign_in
+  steps %{ Given I log in with the #{role_name} user }
   @proposal.view :proposal_summary
   on(ProposalSummary).approve
   on(Confirmation).no

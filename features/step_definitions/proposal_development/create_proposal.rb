@@ -50,6 +50,11 @@ Given /^I? ?initiate a Proposal with (\D+) as the sponsor$/ do |sponsor_name|
   @proposal = create ProposalDevelopmentObject, sponsor_code: sponsor_code
 end
 
+Given /^the (.*) initiates a Proposal with (\D+) as the sponsor$/ do |role_name, sponsor_name|
+  steps %{ Given I log in with the #{role_name} user
+           And   initiate a Proposal with #{sponsor_name} as the sponsor }
+end
+
 Given /^I initiate a Proposal with a type of '(.*)'$/ do |type|
   @proposal = create ProposalDevelopmentObject, proposal_type: type
 end

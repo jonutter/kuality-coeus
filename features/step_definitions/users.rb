@@ -20,12 +20,10 @@ end
 
 # Whereas, this step def
 # 1) Assumes the user OBJECT already exists
-# 2) Assumes the user object is contained in a class instance variable
-#    based on the role
-# 3) Assumes that role user already exists in the system
-# 4) Logs that user in, if they're not already
+# 2) Assumes that role user already exists in the system
+# 3) Logs that user in, if they're not already
 Given /^I? ?log in (?:again)? ?with the (.*) user$/ do |role|
-  get(role).sign_in
+  $users.with_role(role).sign_in
 end
 
 # This step definition
