@@ -9,7 +9,7 @@ class InstitutionalProposalObject < DataObject
                 :doc_status, :sponsor_id, :activity_type, :proposal_type, :proposal_status,
                 :project_personnel, :custom_data, :special_review, :cost_sharing,
                 :award_id, :initiator, :proposal_log, :unrecovered_fa, :doc_type,
-                :key_personnel
+                :key_personnel, :nsf_science_code
 
   def initialize(browser, opts={})
     @browser = browser

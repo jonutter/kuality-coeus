@@ -11,7 +11,7 @@ class ProposalDevelopmentObject < DataObject
                 :opportunity_id, # Maybe add competition_id and other stuff here...
                 :special_review, :budget_versions, :permissions, :s2s_questionnaire, :proposal_attachments,
                 :proposal_questions, :compliance_questions, :kuali_u_questions, :custom_data, :recall_reason,
-                :personnel_attachments, :mail_by, :mail_type, :institutional_proposal_number
+                :personnel_attachments, :mail_by, :mail_type, :institutional_proposal_number, :nsf_science_code
 
   def initialize(browser, opts={})
     @browser = browser
@@ -23,6 +23,7 @@ class ProposalDevelopmentObject < DataObject
       project_title:         random_alphanums,
       sponsor_code:          '::random::',
       sponsor_type_code:     '::random::',
+      nsf_science_code:      '::random::',
       project_start_date:    next_week[:date_w_slashes], # TODO: Think about using the date object here, and not the string
       project_end_date:      next_year[:date_w_slashes],
       sponsor_deadline_date: next_year[:date_w_slashes],
@@ -49,7 +50,7 @@ class ProposalDevelopmentObject < DataObject
       doc.expand_all
       fill_out doc, :proposal_type, :activity_type,
                     :project_title, :project_start_date, :project_end_date,
-                    :sponsor_deadline_date, :mail_by, :mail_type#, :description
+                    :sponsor_deadline_date, :mail_by, :mail_type, :nsf_science_code
       set_sponsor_code
       set_lead_unit
       doc.save
@@ -126,7 +127,9 @@ class ProposalDevelopmentObject < DataObject
          special_review: @special_review.copy,
          custom_data: @custom_data.data_object_copy,
          document_id: doc_id,
-         proposal_number: @institutional_proposal_number
+         proposal_number: @institutional_proposal_number,
+         nsf_science_code: @nsf_science_code,
+         sponsor_id: @sponsor_code
     @key_personnel.each do |person|
       project_person = make ProjectPersonnelObject, full_name: person.full_name,
                             first_name: person.first_name, last_name: person.last_name,

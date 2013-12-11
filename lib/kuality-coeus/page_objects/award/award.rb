@@ -16,6 +16,7 @@ class Award < KCAwards
   element(:award_type) { |b| b.frm.select(name: 'document.awardList[0].awardTypeCode') }
   element(:award_title) { |b| b.frm.text_field(name: 'document.awardList[0].title') }
   element(:sponsor_id) { |b| b.frm.text_field(name: 'document.awardList[0].sponsorCode') }
+  element(:nsf_science_code) { |b| b.frm.select(name: 'document.awardList[0].nsfCode') }
   action(:lookup_sponsor) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.Sponsor!!).(((sponsorCode:document.awardList[0].sponsorCode,sponsorName:document.awardList[0].sponsor.sponsorName))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchorDetailsDates').click }
   element(:project_start_date) { |b| b.frm.text_field(name: /awardEffectiveDate/) }
   element(:project_end_date) { |b| b.frm.text_field(name: /finalExpirationDate/) }
