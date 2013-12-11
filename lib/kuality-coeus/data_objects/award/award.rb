@@ -7,6 +7,7 @@ class AwardObject < DataObject
 
   attr_accessor :description, :transaction_type, :id, :award_status,
                 :award_title, :lead_unit, :activity_type, :award_type, :sponsor_id,
+                :nsf_science_code,
                 :project_start_date, :project_end_date, :obligation_start_date,
                 :obligation_end_date, :anticipated_amount, :obligated_amount, :document_id,
                 :document_status,
@@ -58,12 +59,12 @@ class AwardObject < DataObject
       fill_out create, :description, :transaction_type, :award_status, :award_title,
                :activity_type, :award_type, :obligated_amount, :anticipated_amount,
                :project_start_date, :project_end_date, :obligation_start_date,
-               :obligation_end_date
+               :obligation_end_date, :nsf_science_code
       set_sponsor_id
       set_lead_unit
       @funding_proposals.each do |prop|
         create.institutional_proposal_number.fit prop[:ip_number]
-        create.proposal_merge_type.pick prop[:merge_type]
+        create.proposal_merge_type.pick! prop[:merge_type]
       end
       @subawards.each do |sa|
         create.add_organization_name.fit sa[:org_name]

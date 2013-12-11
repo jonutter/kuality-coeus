@@ -74,6 +74,7 @@ class BudgetPeriodObject < DataObject
     unless on_page?(on(Parameters).on_off_campus) && on_budget?
       on(Proposal).budget_versions
       on(BudgetVersions).open @budget_name
+      confirmation
     end
   end
 

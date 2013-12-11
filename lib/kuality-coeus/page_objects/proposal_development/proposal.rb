@@ -22,6 +22,7 @@ class Proposal < ProposalDevelopmentDocument
   # Sponsor and Program Information
   element(:sponsor_deadline_date) { |b| b.frm.text_field(id: 'document.developmentProposalList[0].deadlineDate') }
   element(:opportunity_id) { |b| b.frm.text_field(name: 'document.developmentProposalList[0].programAnnouncementNumber') }
+  element(:nsf_science_code) { |b| b.frm.select(name: 'document.developmentProposalList[0].nsfCode') }
 
   # Applicant Organization
 

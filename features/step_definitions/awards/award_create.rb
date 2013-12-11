@@ -8,15 +8,16 @@ When /^I? ?initiate an Award$/ do
   # rights to. This is why this step specifies what the
   # Award's unit should be...
   lead_unit = $users.current_user.roles.name($users.current_user.role).qualifiers[0][:unit]
-  raise "Unable to determine a lead unit for the selected user. Please debug your scenario." if lead_unit.nil?
+  raise 'Unable to determine a lead unit for the selected user. Please debug your scenario.' if lead_unit.nil?
   @award = create AwardObject, lead_unit: lead_unit
 end
 
-Given /^I begin an Award with the first institutional proposal number$/ do
+Given /^the Award Modifier starts an Award with the first institutional proposal number$/ do
+  steps 'Given I log in with the Award Modifier user'
   visit(CentralAdmin).create_award
   on Award do |page|
     page.expand_all
-    page.institutional_proposal_number.set @ip_numbers[0]
+    page.institutional_proposal_number.set @ips[0].proposal_number
     page.add_proposal
   end
 end

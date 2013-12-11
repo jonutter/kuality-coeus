@@ -10,6 +10,12 @@ When /I? ?replace the current Institutional Proposal in the Award with (.*)$/ do
   @award.add_funding_proposal ip_number, 'Replace'
 end
 
-When /^I? ?initiate an Award for the institutional_proposal$/ do
-  @award = create AwardObject, funding_proposal: @institutional_proposal.proposal_number
+When /^I? ?initiate an Award for the Institutional Proposal$/ do
+  @award = create AwardObject, funding_proposals: @institutional_proposal.proposal_number
+end
+
+When /^the (.*) tries to fund an Award with the new Institutional Proposal$/ do |role_name|
+  steps %{ Given I log in with the #{role_name} user }
+  @award = create AwardObject, funding_proposals: [{ip_number: @institutional_proposal.proposal_number}]
+  on(Award).add_proposal
 end

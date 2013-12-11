@@ -44,7 +44,6 @@ When /^I attempt to save an institutional proposal with a missing required field
   @institutional_proposal = create InstitutionalProposalObject, proposal_number: @proposal_log.number,
                                    field=>value
 end
-sleep 50
 
 Given(/^I create and submit a Proposal to its sponsor with Proposal Creator and OSP Administrator users$/) do
   steps %{

@@ -55,6 +55,11 @@ Given /^the (.*) initiates a Proposal with (\D+) as the sponsor$/ do |role_name,
            And   initiate a Proposal with #{sponsor_name} as the sponsor }
 end
 
+Given /^the (.*) initiates a Proposal$/ do |role_name|
+  steps %{ Given I log in with the #{role_name} user
+           And   initiate a Proposal }
+end
+
 Given /^I initiate a Proposal with a type of '(.*)'$/ do |type|
   @proposal = create ProposalDevelopmentObject, proposal_type: type
 end
