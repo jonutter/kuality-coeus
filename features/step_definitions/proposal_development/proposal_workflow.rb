@@ -58,40 +58,53 @@ When /^I? ?submit the Proposal to its sponsor$/ do
   @institutional_proposal = @proposal.make_institutional_proposal
 end
 
+And /^the (.*) submits the Proposal to its sponsor$/ do |role_name|
+  steps %{ Given I log in with the #{role_name} user }
+  @proposal.submit :to_sponsor
+  @institutional_proposal = @proposal.make_institutional_proposal
+end
+
 When /^I? ?submit the Proposal to S2S$/ do
   @proposal.submit :to_s2s
 end
 
-When(/^I? ?blanket approve the Proposal$/) do
+When /^I? ?blanket approve the Proposal$/ do
   @proposal.blanket_approve
 end
 
-And(/^the principal investigator approves the proposal$/) do
+And /^the principal investigator approves the Proposal$/ do
   $users.logged_in_user.sign_out unless $users.current_user==nil
   visit Login do |log_in|
     log_in.username.set @proposal.key_personnel.principal_investigator.user_name
     log_in.login
   end
   @proposal.view :proposal_summary
+  sleep 40
   on(ProposalSummary).approve
   #Testing this to sign out PI user
   visit(Researcher).logout
 end
 
-And(/^I approve the Proposal without future approval requests$/) do
+And /^I approve the Proposal without future approval requests$/ do
   @proposal.view :proposal_summary
   on(ProposalSummary).approve
   on(Confirmation).no
 end
 
-And(/^I approve the Proposal with future approval requests$/) do
+And /^the (.*) approves the Proposal without future approval requests$/ do |role_name|
+  steps %{ Given I log in with the #{role_name} user }
+  @proposal.view :proposal_summary
+  on(ProposalSummary).approve
+  on(Confirmation).no
+end
+
+And /^I approve the Proposal with future approval requests$/ do
   @proposal.view :proposal_summary
   on(ProposalSummary).approve
   on(Confirmation).yes
 end
 
-
-Then(/^I should only have the option to submit the proposal to its sponsor$/) do
+Then /^I should only have the option to submit the proposal to its sponsor$/ do
   @proposal.view :proposal_actions
   on ProposalActions do |page|
     page.approve_button.should_not be_present
@@ -99,7 +112,7 @@ Then(/^I should only have the option to submit the proposal to its sponsor$/) do
   end
 end
 
-Then(/^I should only have the option to approve the proposal$/) do
+Then /^I should only have the option to approve the proposal$/ do
   @proposal.view :proposal_actions
   on ProposalActions do |page|
     page.approve_button.should be_present

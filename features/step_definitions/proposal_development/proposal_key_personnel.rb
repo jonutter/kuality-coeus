@@ -39,7 +39,7 @@ Then /^a key personnel error should appear, saying the co-investigator requires 
   on(KeyPersonnel).errors.should include "At least one Unit is required for #{@proposal.key_personnel.co_investigator.full_name}."
 end
 
-When /^I? ?add a principal investigator$/ do
+When /^I? ?adds? a principal investigator$/ do
   @proposal.add_principal_investigator
 end
 
@@ -47,7 +47,7 @@ Given /^I? ?add the Grants.Gov user as the Proposal's PI$/ do
   @proposal.add_principal_investigator last_name: $users.grants_gov_pi.last_name, first_name: $users.grants_gov_pi.first_name
 end
 
-When /^I? ?set valid credit splits for the Proposal$/ do
+When /^I? ?sets? valid credit splits for the Proposal$/ do
   @proposal.set_valid_credit_splits
 end
 

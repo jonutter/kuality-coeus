@@ -50,11 +50,11 @@ Then /^the copied budget's values are all as expected$/ do
   end
 end
 
-When /^I? ?delete one of the budget periods$/ do
+When /^I? ?deletes? one of the budget periods$/ do
   @budget_version.delete_period(rand(@budget_version.budget_periods.size)+1)
 end
 
-When /^I? ?change the date range for one of the periods$/ do
+When /^I? ?changes? the date range for one of the periods$/ do
   period = @budget_version.budget_periods.sample
   new_start_date = '03'+period.start_date[/\/\d+\/\d+$/]
   new_end_date = '10'+period.end_date[/\/\d+\/\d+$/]
@@ -62,7 +62,7 @@ When /^I? ?change the date range for one of the periods$/ do
   on(Confirmation).yes
 end
 
-When /^I? ?select the default periods for the Budget Version$/ do
+When /^I? ?selects? the default periods for the Budget Version$/ do
   @budget_version.default_periods
 end
 
@@ -89,19 +89,19 @@ Then /^all budget periods get recreated, zeroed, and given default date ranges$/
   end
 end
 
-When /^I? ?finalize the Budget Version$/ do
+When /^I? ?finalizes? the Budget Version$/ do
   @budget_version.edit final: :set
 end
 
-When /^I? ?mark the Budget Version complete$/ do
+When /^I? ?marks? the Budget Version complete$/ do
   @budget_version.edit status: 'Complete'
 end
 
-Then /^I see an error that only one version can be final$/ do
+Then /^I? ?sees? an error that only one version can be final$/ do
   on(BudgetVersions).errors.should include 'Only one Budget Version can be marked "Final".'
 end
 
-When /^I? ?create a Budget Version with cost sharing for the Proposal$/ do
+When /^I? ?creates? a Budget Version with cost sharing for the Proposal$/ do
   @proposal.add_budget_version
   @budget_version = @proposal.budget_versions[0]
   @budget_version.edit_period(1, cost_sharing: random_dollar_value(1000000).to_f)

@@ -11,7 +11,7 @@ Feature: Basic Award Validations
     Given I initiate an Award
     When  I start adding a Payment & Invoice item to the Award
     Then  a warning appears saying tracking details won't be added until there's a PI
-
+  @test
   Scenario: Attempt to initiate a KC Award document with a missing required field
     When  I initiate an Award with a missing required field
     Then  an error should appear that says the field is required

@@ -16,6 +16,7 @@ Then /^an error should appear that says the field is required$/ do
   @required_field=='Description' ? error='Document '+text : error=text
   on(ProtocolOverview).errors.should include error
 end
+
 When(/^I? ?initiate an irb protocol but I miss a required field$/) do
   # Pick a field at random for the test...
   @required_field = ['Description', 'Title', 'Lead Unit'
