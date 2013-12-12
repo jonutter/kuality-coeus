@@ -60,3 +60,12 @@ Then /^the Title, Activity Type, NSF Science Code, and Sponsor remain the same$/
     page.award_title.value.should==@award.award_title
   end
 end
+
+Then /^the Title, Activity Type, NSF Science Code, and Sponsor still match the Proposal$/ do
+  on Award do |page|
+    page.activity_type.selected_options[0].text.should==$ips[0].activity_type
+    page.nsf_science_code.selected_options[0].text.should==$ips[0].nsf_science_code
+    page.sponsor_id.value.should==$ips[0].sponsor_id
+    page.award_title.value.should==$ips[0].project_title
+  end
+end

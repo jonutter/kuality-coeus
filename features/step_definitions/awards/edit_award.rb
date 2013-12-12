@@ -91,3 +91,21 @@ When /^the second institutional proposal number is added to the Award$/ do
     page.add_proposal
   end
 end
+
+When /^the Funding Proposal is removed from the Award$/ do
+  on Award do |page|
+    page.delete_funding_proposal($ips[0].key_personnel.principal_investigator.full_name)
+  end
+
+
+
+
+
+
+ sleep 60
+
+
+
+
+
+end
