@@ -7,7 +7,8 @@ class Award < KCAwards
   element(:proposal_merge_type) { |b| b.frm.select(name: 'fundingProposalBean.mergeTypeCode') }
   action(:add_proposal) { |b| b.frm.button(name: 'methodToCall.addFundingProposal.anchorFundingProposals').click; b.loading }
 
-  p_action(:delete_funding_proposal) { |match, b| b.target_funding_row(match).button(name: /methodToCall.deleteAwardFundingProposal.line\d+.anchor4/).click }
+  p_element(:delete_funding_proposal_button) { |match, b| b.target_funding_row(match).button(name: /methodToCall.deleteAwardFundingProposal.line\d+.anchor4/) }
+  p_action(:delete_funding_proposal) { |match, b| b.delete_funding_proposal_button(match).click }
 
   element(:transaction_type) { |b| b.frm.select(name: 'document.awardList[0].awardTransactionTypeCode') }
   value(:award_id) { |b| b.frm.div(id: 'tab-DetailsDates:Institution-div').table[0][1].text }

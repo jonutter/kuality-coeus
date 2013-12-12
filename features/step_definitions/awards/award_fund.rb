@@ -20,10 +20,6 @@ Given /^at least (\d+) Approved Institutional Proposals exist$/ do |count|
   }
 end
 
-When /^I? ?initiate an Award for the institutional_proposal$/ do
-  @award = create AwardObject, funding_proposal: @institutional_proposal.proposal_number
-end
-
 Given /^the Award Modifier starts an Award with the first institutional proposal number$/ do
   steps 'Given I log in with the Award Modifier user'
   visit(CentralAdmin).create_award
@@ -72,21 +68,21 @@ When /^the Funding Proposal is removed from the Award$/ do
   on Award do |page|
     page.delete_funding_proposal($ips[0].key_personnel.principal_investigator.full_name)
   end
-
-
-
-
-
-
-  sleep 260
-
-
-
-
-
 end
 
 And /^one of the Funding Proposals is added to the Award$/ do
   @ip = $ips[rand($ips.length)]
   @award.add_funding_proposal @ip.proposal_number, '::random::'
+end
+
+When /^the Award Modifier creates an Award with one of the Funding Proposals$/ do
+  steps 'Given I log in with the Award Modifier user'
+  @ip = $ips[rand($ips.length)]
+  @award = create AwardObject, funding_proposals: [{ip_number: @ip.proposal_number, merge_type: '::random::'}]
+end
+
+Then /^the Award Modifier cannot remove the Proposal from the Award$/ do
+  on Award do |page|
+    page.delete_funding_proposal_button(@ip.key_personnel.principal_investigator.full_name).should_not exist
+  end
 end
