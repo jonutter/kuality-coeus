@@ -85,3 +85,8 @@ When /^the Funding Proposal is removed from the Award$/ do
 
 
 end
+
+And /^one of the Funding Proposals is added to the Award$/ do
+  @ip = $ips[rand($ips.length)]
+  @award.add_funding_proposal @ip.proposal_number, '::random::'
+end
