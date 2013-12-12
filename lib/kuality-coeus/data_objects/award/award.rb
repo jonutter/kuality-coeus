@@ -64,7 +64,7 @@ class AwardObject < DataObject
       set_lead_unit
       @funding_proposals.each do |prop|
         create.institutional_proposal_number.fit prop[:ip_number]
-        create.proposal_merge_type.pick! prop[:merge_type]
+        create.proposal_merge_type.pick prop[:merge_type]
       end
       @subawards.each do |sa|
         create.add_organization_name.fit sa[:org_name]

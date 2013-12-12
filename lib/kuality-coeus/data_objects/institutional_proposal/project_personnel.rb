@@ -48,13 +48,6 @@ end
 class ProjectPersonnelCollection < CollectionsFactory
 
   contains ProjectPersonnelObject
-
-  def with_units
-    self.find_all { |person| person.units.size > 0 }
-  end
-
-  def units
-    self.collect{ |person| person.units }.flatten
-  end
+  include People
 
 end

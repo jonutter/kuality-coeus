@@ -6,6 +6,9 @@ class Award < KCAwards
   element(:institutional_proposal_number) { |b| b.frm.text_field(name: 'fundingProposalBean.newFundingProposal.proposalNumber') }
   element(:proposal_merge_type) { |b| b.frm.select(name: 'fundingProposalBean.mergeTypeCode') }
   action(:add_proposal) { |b| b.frm.button(name: 'methodToCall.addFundingProposal.anchorFundingProposals').click; b.loading }
+
+  p_action(:delete_funding_proposal) { |match, b| b.target_funding_row(match).button(name: /methodToCall.deleteAwardFundingProposal.line\d+.anchor4/).click }
+
   element(:transaction_type) { |b| b.frm.select(name: 'document.awardList[0].awardTransactionTypeCode') }
   value(:award_id) { |b| b.frm.div(id: 'tab-DetailsDates:Institution-div').table[0][1].text }
   element(:award_status) { |b| b.frm.select(name: 'document.awardList[0].statusCode') }
@@ -35,5 +38,11 @@ class Award < KCAwards
   element(:approved_subaward_table) { |b| b.frm.table(summary: 'Approved Subaward') }
 
   element(:tm_table) { |b| b.frm.div(id: 'tab-DetailsDates:TimeMoney-div').table }
+
+  element(:current_funding_proposals_table) { |b| b.frm.table(id: 'currentFundingProposalsTable') }
+
+  private
+
+  p_action(:target_funding_row) { |match, b| b.current_funding_proposals_table.row(text: /#{match}/) }
 
 end

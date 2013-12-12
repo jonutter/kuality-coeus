@@ -111,4 +111,59 @@ module Personnel
     update_options(opts)
   end
 
-end
+end # Personnel
+
+# Contains methods useful in Personnel Collection classes
+module People
+
+  def names
+    self.collect { |person| person.full_name }
+  end
+
+  def roles
+    self.collect{ |person| person.role }.uniq
+  end
+
+  def unit_names
+    units.collect{ |unit| unit[:name] }.uniq
+  end
+
+  def unit_numbers
+    units.collect{ |unit| unit[:number] }.uniq
+  end
+
+  def units
+    self.collect{ |person| person.units }.flatten
+  end
+
+  def person(full_name)
+    self.find { |person| person.full_name==full_name }
+  end
+
+  # returns an array of KeyPersonObjects who have associated
+  # units
+  def with_units
+    self.find_all { |person| person.units.size > 0 }
+  end
+
+  def principal_investigator
+    self.find { |person| person.role=='Principal Investigator' || person.role=='PI/Contact' }
+  end
+
+  def co_investigator
+    self.find { |person| person.role=='Co-Investigator' }
+  end
+
+  def key_person(role)
+    self.find { |person| person.key_person_role==role }
+  end
+
+  # IMPORTANT: This method returns a KeyPersonObject--meaning that if there
+  # are multiple key persons in the collection that match this search only
+  # the first one will be returned.  If you need a collection of multiple persons
+  # write the method for that.
+  def uncertified_person(role)
+    self.find { |person| person.certified==false && person.role==role }
+  end
+
+end # People

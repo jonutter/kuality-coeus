@@ -11,7 +11,8 @@ class ProposalDevelopmentObject < DataObject
                 :opportunity_id, # Maybe add competition_id and other stuff here...
                 :special_review, :budget_versions, :permissions, :s2s_questionnaire, :proposal_attachments,
                 :proposal_questions, :compliance_questions, :kuali_u_questions, :custom_data, :recall_reason,
-                :personnel_attachments, :mail_by, :mail_type, :institutional_proposal_number, :nsf_science_code
+                :personnel_attachments, :mail_by, :mail_type, :institutional_proposal_number, :nsf_science_code,
+                :performance_site_locations
 
   def initialize(browser, opts={})
     @browser = browser
@@ -29,6 +30,7 @@ class ProposalDevelopmentObject < DataObject
       sponsor_deadline_date: next_year[:date_w_slashes],
       mail_by:               '::random::',
       mail_type:             '::random::',
+      performance_site_locations: [],
       key_personnel:         collection('KeyPersonnel'),
       special_review:        collection('SpecialReview'),
       budget_versions:       collection('BudgetVersions'),
@@ -53,6 +55,10 @@ class ProposalDevelopmentObject < DataObject
                     :sponsor_deadline_date, :mail_by, :mail_type, :nsf_science_code
       set_sponsor_code
       set_lead_unit
+      @performance_site_locations.each do |name|
+        fill_out doc, :performance_site_locations
+        doc.add_performance_site_locations
+      end
       doc.save
       @proposal_number=doc.proposal_number
       @permissions = make PermissionsObject, document_id: @document_id, aggregators: [@initiator]
@@ -69,6 +75,11 @@ class ProposalDevelopmentObject < DataObject
       edit.save
     end
     update_options(opts)
+  end
+
+  def add_per_sit_loc(name)
+    on Prolpaps
+    @performance_site_locations << name
   end
 
   def add_key_person opts={}

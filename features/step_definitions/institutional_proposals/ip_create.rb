@@ -46,7 +46,7 @@ When /^I attempt to save an institutional proposal with a missing required field
 end
 
 Given(/^I create and submit a Proposal to its sponsor with Proposal Creator and OSP Administrator users$/) do
-  steps %{
+  steps %q{
     Given I log in with the Proposal Creator user
     And   I submit a new Proposal into routing
     And   I blanket approve the Proposal
