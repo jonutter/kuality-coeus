@@ -39,3 +39,11 @@ When /^I ? ?initiate an Award with a missing required field$/ do
   field = snake_case(@required_field)
   @proposal = create AwardObject, field=>value
 end
+
+Given /^the Award Modifier creates an Award$/ do
+  steps %q{
+Given I log in with the Award Modifier user
+And I initiate an Award
+}
+end
+
