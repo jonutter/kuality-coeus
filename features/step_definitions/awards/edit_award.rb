@@ -84,28 +84,3 @@ When /^I? ?copy the Award and its descend.nts? as a child of itself$/ do
   # TODO: Come up with a more robust naming scheme, here...
   @new_child_award = @award.copy 'child_of', @award.id, :set
 end
-
-When /^the second institutional proposal number is added to the Award$/ do
-  on Award do |page|
-    page.institutional_proposal_number.set $ips[1].proposal_number
-    page.add_proposal
-  end
-end
-
-When /^the Funding Proposal is removed from the Award$/ do
-  on Award do |page|
-    page.delete_funding_proposal($ips[0].key_personnel.principal_investigator.full_name)
-  end
-
-
-
-
-
-
- sleep 60
-
-
-
-
-
-end
