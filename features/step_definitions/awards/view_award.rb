@@ -42,3 +42,21 @@ Then /^the anticipated and obligated amounts are zero$/ do
     page.obligated_amount.value.should=='0.00'
   end
 end
+
+Then /^the Title, Activity Type, NSF Science Code, and Sponsor match the second Institutional Proposal$/ do
+  on Award do |page|
+    page.activity_type.selected_options[0].text.should==$ips[1].activity_type
+    page.nsf_science_code.selected_options[0].text.should==$ips[1].nsf_science_code
+    page.sponsor_id.value.should==$ips[1].sponsor_id
+    page.award_title.value.should==$ips[1].project_title
+  end
+end
+
+Then /^the Title, Activity Type, NSF Science Code, and Sponsor remain the same$/ do
+  on Award do |page|
+    page.activity_type.selected_options[0].text.should==@award.activity_type
+    page.nsf_science_code.selected_options[0].text.should==@award.nsf_science_code
+    page.sponsor_id.value.should==@award.sponsor_id
+    page.award_title.value.should==@award.award_title
+  end
+end

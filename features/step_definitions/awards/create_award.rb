@@ -12,12 +12,19 @@ When /^I? ?initiate an Award$/ do
   @award = create AwardObject, lead_unit: lead_unit
 end
 
+Given /^the Award Modifier creates an Award$/ do
+  steps %q{
+           Given I log in with the Award Modifier user
+           And   I initiate an Award
+         }
+end
+
 Given /^the Award Modifier starts an Award with the first institutional proposal number$/ do
   steps 'Given I log in with the Award Modifier user'
   visit(CentralAdmin).create_award
   on Award do |page|
     page.expand_all
-    page.institutional_proposal_number.set @ips[0].proposal_number
+    page.institutional_proposal_number.set $ips[0].proposal_number
     page.add_proposal
   end
 end
@@ -65,12 +72,4 @@ When /^I? ?complete the Award requirements$/ do
     And add a PI to the Award
     And give the Award valid credit splits
   }
-end
-
-When /^I? ?submit the Award$/ do
-  @award.submit
-end
-
-And /^I? ?submit the copied Award$/ do
-  @award_2.submit
 end

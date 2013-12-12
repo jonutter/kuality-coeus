@@ -283,9 +283,6 @@ class UserObject
   #   original window
   def sign_in
     $users.logged_in_user.sign_out unless $users.current_user==nil
-    # This line is required because visiting the login page doesn't
-    # actually work when you're currently logged in.
-    #s_o.click if s_o.present?
     visit Login do |log_in|
       log_in.username.set @user_name
       log_in.login

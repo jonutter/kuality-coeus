@@ -23,7 +23,7 @@ end
 # 2) Assumes that role user already exists in the system
 # 3) Logs that user in, if they're not already
 Given /^I? ?log in (?:again)? ?with the (.*) user$/ do |role|
-  $users.with_role(role).sign_in
+  $users.with_role(role).sign_in unless $users.with_role(role).session_status=='logged in'
 end
 
 # This step definition

@@ -32,6 +32,7 @@ class AwardObject < DataObject
       project_start_date:    right_now[:date_w_slashes],
       project_end_date:      in_a_year[:date_w_slashes],
       sponsor_id:            '::random::',
+      nsf_science_code:      '::random::',
       lead_unit:             '::random::',
       obligation_start_date: right_now[:date_w_slashes],
       obligation_end_date:   in_a_year[:date_w_slashes],
@@ -88,7 +89,8 @@ class AwardObject < DataObject
     on Award do |page|
       page.expand_all
       page.institutional_proposal_number.fit ip_number
-      page.proposal_merge_type.pick merge_type
+      page.proposal_merge_type.pick! merge_type
+      page.add_proposal
       page.save
     end
     @funding_proposals << {ip_number: ip_number, merge_type: merge_type}

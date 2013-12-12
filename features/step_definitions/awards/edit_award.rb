@@ -12,16 +12,9 @@ end
 #Add Funding Proposal (i.e. Institutional Proposal) ID Number
 #Note: This is typically to fund an Award.
 #----------------------#
-Given /I? ?add the (.*) Institutional Proposal to the Award$/ do |ip_number|
-  @award.add_funding_proposal ip_number, 'No Change'
-end
-
-Given /I? ?merge the (.*) Institutional Proposal with the Award$/ do |ip_number|
-  @award.add_funding_proposal ip_number, 'Merge'
-end
-
-Given /I? ?replace the current Institutional Proposal in the Award with (.*)$/ do |ip_number|
-  @award.add_funding_proposal ip_number, 'Replace'
+And /^one of the Funding Proposals is added to the Award$/ do
+  @ip = $ips[rand($ips.length)]
+  @award.add_funding_proposal @ip.proposal_number, '::random::'
 end
 
 Given /^I? ?add a subaward to the Award$/ do
@@ -90,4 +83,11 @@ end
 When /^I? ?copy the Award and its descend.nts? as a child of itself$/ do
   # TODO: Come up with a more robust naming scheme, here...
   @new_child_award = @award.copy 'child_of', @award.id, :set
+end
+
+When /^the second institutional proposal number is added to the Award$/ do
+  on Award do |page|
+    page.institutional_proposal_number.set $ips[1].proposal_number
+    page.add_proposal
+  end
 end

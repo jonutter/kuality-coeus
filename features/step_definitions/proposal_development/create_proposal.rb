@@ -159,3 +159,8 @@ Then /^I should see an error that says the field is required$/ do
     page.errors.should include error
   end
 end
+
+Given /^I create a Proposal with these Performance Site Locations: (.*)$/ do |psl|
+  locations = psl.split(',')
+  @proposal = create ProposalDevelopemntObject, performance_site_locations: locations
+end

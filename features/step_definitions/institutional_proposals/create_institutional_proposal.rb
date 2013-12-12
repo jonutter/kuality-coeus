@@ -46,11 +46,33 @@ When /^I attempt to save an institutional proposal with a missing required field
 end
 
 Given(/^I create and submit a Proposal to its sponsor with Proposal Creator and OSP Administrator users$/) do
-  steps %{
+  steps %q{
     Given I log in with the Proposal Creator user
     And   I submit a new Proposal into routing
     And   I blanket approve the Proposal
     When  I log in as the User with the OSP Administrator role in 000001
     And   I submit the Proposal to its sponsor
 }
+end
+
+Given /^at least (\d+) Approved Institutional Proposals exist$/ do |count|
+  $ips = [] if $ips.nil?
+  (count.to_i - $ips.size).times {
+    steps %{
+      Given a User exists with the role: 'Proposal Creator'
+      And   a User exists with the roles: OSP Administrator, Institutional Proposal Maintainer in the 000001 unit
+      And   the Proposal Creator initiates a Proposal
+      And   adds a principal investigator
+      And   sets valid credit splits for the Proposal
+      And   creates a Budget Version with cost sharing for the Proposal
+      And   finalizes the Budget Version
+      And   marks the Budget Version complete
+      And   completes the required custom fields on the Proposal
+      And   submits the Proposal
+      And   the OSP Administrator approves the Proposal without future approval requests
+      And   the principal investigator approves the Proposal
+      And   the OSP Administrator submits the Proposal to its sponsor
+    }
+    $ips << @institutional_proposal
+  }
 end
