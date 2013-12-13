@@ -13,11 +13,6 @@ Feature: Adding Funding Proposals to Awards
     When  the second institutional proposal number is added to the Award
     Then  the Title, Activity Type, NSF Science Code, and Sponsor match the second Institutional Proposal
 
-  Scenario: KC-TS-1154 Funding Proposal added to existing Award
-    Given the Award Modifier creates an Award
-    When  one of the Funding Proposals is added to the Award
-    Then  the Title, Activity Type, NSF Science Code, and Sponsor remain the same
-
   Scenario: KC-TS-1156 Removing a Proposal Prior to Saving Award
     Given the Award Modifier starts an Award with the first institutional proposal number
     When  the Funding Proposal is removed from the Award
@@ -26,3 +21,8 @@ Feature: Adding Funding Proposals to Awards
   Scenario: KC-TS-1160 Action Availability to Delete Link
     When the Award Modifier creates an Award with one of the Funding Proposals
     Then the Award Modifier cannot remove the Proposal from the Award
+  @test
+  Scenario: KC-TS-1154 Funding Proposal added to existing Award
+    Given the Award Modifier creates an Award including an Account ID, Account Type, Prime Sponsor, and CFDA Number
+    When  one of the Funding Proposals is added to the Award
+    Then  all of the Award's field values remain the same

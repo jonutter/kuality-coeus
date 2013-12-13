@@ -17,9 +17,13 @@ class Award < KCAwards
   value(:lead_unit_ro) { |b| b.frm.div(id: 'tab-DetailsDates:Institution-div').table[0][3].text }
   action(:lookup_lead_unit) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.Unit!!).(((unitNumber:document.awardList[0].unitNumber))).((`document.awardList[0].unitNumber:unitNumber`)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchorDetailsDates').click }
   element(:activity_type) { |b| b.frm.select(name: 'document.awardList[0].activityTypeCode') }
+  element(:account_id) { |b| b.frm.text_field(name: 'document.awardList[0].accountNumber') }
+  element(:account_type) { |b| b.frm.select(name: 'document.awardList[0].accountTypeCode') }
   element(:award_type) { |b| b.frm.select(name: 'document.awardList[0].awardTypeCode') }
   element(:award_title) { |b| b.frm.text_field(name: 'document.awardList[0].title') }
   element(:sponsor_id) { |b| b.frm.text_field(name: 'document.awardList[0].sponsorCode') }
+  element(:prime_sponsor) { |b| b.frm.text_field(name: 'document.awardList[0].primeSponsorCode') }
+  element(:cfda_number) { |b| b.fr.text_field(name: 'document.awardList[0].cfdaNumber') }
   element(:nsf_science_code) { |b| b.frm.select(name: 'document.awardList[0].nsfCode') }
   action(:lookup_sponsor) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.Sponsor!!).(((sponsorCode:document.awardList[0].sponsorCode,sponsorName:document.awardList[0].sponsor.sponsorName))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchorDetailsDates').click }
   element(:project_start_date) { |b| b.frm.text_field(name: /awardEffectiveDate/) }

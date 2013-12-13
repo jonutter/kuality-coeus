@@ -39,12 +39,16 @@ Then /^the Title, Activity Type, NSF Science Code, and Sponsor match the second 
   end
 end
 
-Then /^the Title, Activity Type, NSF Science Code, and Sponsor remain the same$/ do
+Then /^all of the Award.s field values remain the same$/ do
   on Award do |page|
     page.activity_type.selected_options[0].text.should==@award.activity_type
     page.nsf_science_code.selected_options[0].text.should==@award.nsf_science_code
     page.sponsor_id.value.should==@award.sponsor_id
     page.award_title.value.should==@award.award_title
+    page.account_id.value.should==@award.account_id
+    page.account_type.selected_options[0].text.should==@award.account_type
+    page.prime_sponsor.value.should==@award.prime_sponsor
+    page.cfda_number.value.should==@award.cfda_number
   end
 end
 

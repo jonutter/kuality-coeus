@@ -7,7 +7,7 @@ class AwardObject < DataObject
 
   attr_accessor :description, :transaction_type, :id, :award_status,
                 :award_title, :lead_unit, :activity_type, :award_type, :sponsor_id,
-                :nsf_science_code,
+                :nsf_science_code, :account_id, :account_type, :prime_sponsor, :cfda_number,
                 :project_start_date, :project_end_date, :obligation_start_date,
                 :obligation_end_date, :anticipated_amount, :obligated_amount, :document_id,
                 :document_status,
@@ -59,7 +59,8 @@ class AwardObject < DataObject
       fill_out create, :description, :transaction_type, :award_status, :award_title,
                :activity_type, :award_type, :obligated_amount, :anticipated_amount,
                :project_start_date, :project_end_date, :obligation_start_date,
-               :obligation_end_date, :nsf_science_code
+               :obligation_end_date, :nsf_science_code, :account_id, :account_type,
+               :prime_sponsor, :cfda_number
       set_sponsor_id
       set_lead_unit
       @funding_proposals.each do |prop|
