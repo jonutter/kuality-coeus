@@ -39,7 +39,7 @@ Then /^the Title, Activity Type, NSF Science Code, and Sponsor match the second 
   end
 end
 
-Then /^all of the Award.s field values remain the same$/ do
+Then /^all of the Award.s details remain the same$/ do
   on Award do |page|
     page.activity_type.selected_options[0].text.should==@award.activity_type
     page.nsf_science_code.selected_options[0].text.should==@award.nsf_science_code

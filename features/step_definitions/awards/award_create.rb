@@ -31,16 +31,6 @@ When /^I ? ?initiate an Award with a missing required field$/ do
 end
 
 Given /^the Award Modifier creates an Award$/ do
-  steps %q{
-Given I log in with the Award Modifier user
-And I initiate an Award
-}
-end
-
-Given /^the Award Modifier creates an Award including an Account ID, Account Type, Prime Sponsor, and CFDA Number$/ do
   steps 'Given I log in with the Award Modifier user'
-  @award = Create AwardObject, account_id: random_alphanums,
-                  account_type: '::random::',
-                  prime_sponsor: %w{000145 002007 002298 002657}.sample, # FIXME
-                  cfda_number: random_alphanums
+  @award = create AwardObject
 end

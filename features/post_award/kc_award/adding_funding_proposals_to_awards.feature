@@ -25,4 +25,4 @@ Feature: Adding Funding Proposals to Awards
   Scenario: KC-TS-1154 Funding Proposal added to existing Award
     Given the Award Modifier creates an Award including an Account ID, Account Type, Prime Sponsor, and CFDA Number
     When  one of the Funding Proposals is added to the Award
-    Then  all of the Award's field values remain the same
+    Then  all of the Award's details remain the same
