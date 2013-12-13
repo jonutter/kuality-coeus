@@ -6,7 +6,7 @@ class ProposalDevelopmentObject < DataObject
   include DocumentUtilities
   
   attr_accessor :proposal_type, :lead_unit, :activity_type, :project_title, :proposal_number,
-                :sponsor_code, :sponsor_type_code, :project_start_date, :project_end_date, :document_id,
+                :sponsor_id, :sponsor_type_code, :project_start_date, :project_end_date, :document_id,
                 :status, :initiator, :created, :sponsor_deadline_date, :key_personnel,
                 :opportunity_id, # Maybe add competition_id and other stuff here...
                 :special_review, :budget_versions, :permissions, :s2s_questionnaire, :proposal_attachments,
@@ -22,7 +22,7 @@ class ProposalDevelopmentObject < DataObject
       lead_unit:             '::random::',
       activity_type:         '::random::',
       project_title:         random_alphanums,
-      sponsor_code:          '::random::',
+      sponsor_id:            '::random::',
       sponsor_type_code:     '::random::',
       nsf_science_code:      '::random::',
       project_start_date:    next_week[:date_w_slashes], # TODO: Think about using the date object here, and not the string
@@ -50,10 +50,10 @@ class ProposalDevelopmentObject < DataObject
       @initiator=doc.initiator
       @created=doc.created
       doc.expand_all
+      set_sponsor_code
       fill_out doc, :proposal_type, :activity_type,
                     :project_title, :project_start_date, :project_end_date,
                     :sponsor_deadline_date, :mail_by, :mail_type, :nsf_science_code
-      set_sponsor_code
       set_lead_unit
       @performance_site_locations.each do |name|
         fill_out doc, :performance_site_locations
@@ -140,7 +140,7 @@ class ProposalDevelopmentObject < DataObject
          document_id: doc_id,
          proposal_number: @institutional_proposal_number,
          nsf_science_code: @nsf_science_code,
-         sponsor_id: @sponsor_code
+         sponsor_id: @sponsor_id
     @key_personnel.each do |person|
       project_person = make ProjectPersonnelObject, full_name: person.full_name,
                             first_name: person.first_name, last_name: person.last_name,
@@ -238,6 +238,8 @@ class ProposalDevelopmentObject < DataObject
     on(ProposalSummary).approve
   end
 
+  alias :sponsor_code :sponsor_id
+
   # =======
   private
   # =======
@@ -255,23 +257,6 @@ class ProposalDevelopmentObject < DataObject
     opts.merge!(defaults)
   end
 
-  # TODO: Move this to a shared module, as the same
-  # method exists in the Award Object.
-  def set_sponsor_code
-    if @sponsor_code=='::random::'
-      on(Proposal).find_sponsor_code
-      on SponsorLookup do |look|
-        fill_out look, :sponsor_type_code
-        look.search
-        look.page_links[rand(look.page_links.length)].click if look.page_links.size > 0
-        look.return_random
-      end
-      @sponsor_code=on(Proposal).sponsor_code.value
-    else
-      on(Proposal).sponsor_code.fit @sponsor_code
-    end
-  end
-
   def set_lead_unit
     on(Proposal)do |prop|
       if prop.lead_unit.present?
@@ -287,6 +272,10 @@ class ProposalDevelopmentObject < DataObject
     object = make object_class, opts
     object.create
     object
+  end
+
+  def page_class
+    Proposal
   end
 
 end

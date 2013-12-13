@@ -35,17 +35,18 @@ module DocumentUtilities
 
   def set_sponsor_id
     if @sponsor_id=='::random::'
-      on(Award).lookup_sponsor
+      on(page_class).lookup_sponsor
       on SponsorLookup do |look|
-        look.sponsor_type_code.pick! '::random::'
+        fill_out look, :sponsor_type_code
         look.search
         look.page_links[rand(look.page_links.length)].click if look.page_links.size > 0
         look.return_random
       end
-      @sponsor_id=on(Award).sponsor_id.value
+      @sponsor_id=on(page_class).sponsor_id.value
     else
-      on(Award).sponsor_id.fit @sponsor_id
+      on(page_class).sponsor_id.fit @sponsor_id
     end
   end
+  alias_method :set_sponsor_code, :set_sponsor_id
 
 end

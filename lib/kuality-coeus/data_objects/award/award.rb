@@ -6,7 +6,7 @@ class AwardObject < DataObject
   include DocumentUtilities
 
   attr_accessor :description, :transaction_type, :id, :award_status,
-                :award_title, :lead_unit, :activity_type, :award_type, :sponsor_id,
+                :award_title, :lead_unit, :activity_type, :award_type, :sponsor_id, :sponsor_type_code,
                 :nsf_science_code, :account_id, :account_type, :prime_sponsor, :cfda_number,
                 :project_start_date, :project_end_date, :obligation_start_date,
                 :obligation_end_date, :anticipated_amount, :obligated_amount, :document_id,
@@ -31,13 +31,14 @@ class AwardObject < DataObject
       award_type:            '::random::',
       project_start_date:    right_now[:date_w_slashes],
       project_end_date:      in_a_year[:date_w_slashes],
+      sponsor_type_code:     '::random::',
       sponsor_id:            '::random::',
       lead_unit:             '::random::',
       obligation_start_date: right_now[:date_w_slashes],
       obligation_end_date:   in_a_year[:date_w_slashes],
       account_id:            random_alphanums,
       account_type:          '::random::',
-      prime_sponsor:         %w{000145 002007 002298 002657}.sample, # FIXME
+      prime_sponsor:         '::random::',
       cfda_number:           random_alphanums,
       anticipated_amount:    amount,
       obligated_amount:      amount,
@@ -66,6 +67,7 @@ class AwardObject < DataObject
                :obligation_end_date, :nsf_science_code, :account_id, :account_type,
                :prime_sponsor, :cfda_number
       set_sponsor_id
+      set_prime_sponsor
       set_lead_unit
       @funding_proposals.each do |prop|
         create.institutional_proposal_number.fit prop[:ip_number]
@@ -309,6 +311,21 @@ class AwardObject < DataObject
   private
   # ========
 
+  def set_prime_sponsor
+    if @prime_sponsor=='::random::'
+      on(page_class).lookup_prime_sponsor
+      on SponsorLookup do |look|
+        fill_out look, :sponsor_type_code
+        look.search
+        look.page_links[rand(look.page_links.length)].click if look.page_links.size > 0
+        look.return_random
+      end
+      @prime_sponsor=on(page_class).prime_sponsor.value
+    else
+      on(page_class).prime_sponsor.fit @prime_sponsor
+    end
+  end
+
   def set_lead_unit
     lu_edit = on(Award).lead_unit_id.present?
     randomize = @lead_unit=='::random::'
@@ -340,6 +357,10 @@ class AwardObject < DataObject
 
   def on_tm?
     !(on(Award).t_m_button.exist?)
+  end
+
+  def page_class
+    Award
   end
 
 end
