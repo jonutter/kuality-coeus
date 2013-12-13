@@ -20,7 +20,7 @@ Given /^at least (\d+) Approved Institutional Proposals exist$/ do |count|
   }
 end
 
-Given /^the Award Modifier starts an Award with the first institutional proposal number$/ do
+Given /^the Award Modifier starts an Award with the first Funding Proposal$/ do
   steps 'Given I log in with the Award Modifier user'
   visit(CentralAdmin).create_award
   on Award do |page|
@@ -61,7 +61,7 @@ Then /^the Title, Activity Type, NSF Science Code, and Sponsor still match the P
   end
 end
 
-When /^the second institutional proposal number is added to the Award$/ do
+When /^the second Funding Proposal is added to the Award$/ do
   on Award do |page|
     page.institutional_proposal_number.set $ips[1].proposal_number
     page.add_proposal
@@ -74,15 +74,9 @@ When /^the Funding Proposal is removed from the Award$/ do
   end
 end
 
-And /^one of the Funding Proposals is added to the Award$/ do
-  @ip = $ips[rand($ips.length)]
-  @award.add_funding_proposal @ip.proposal_number, '::random::'
-end
-
-When /^the Award Modifier creates an Award with one of the Funding Proposals$/ do
+When /^the Award Modifier creates an Award with the first Funding Proposal$/ do
   steps 'Given I log in with the Award Modifier user'
-  @ip = $ips[rand($ips.length)]
-  @award = create AwardObject, funding_proposals: [{ip_number: @ip.proposal_number, merge_type: '::random::'}]
+  @award = create AwardObject, funding_proposals: [{ip_number: $ips[0].proposal_number, merge_type: '::random::'}]
 end
 
 Then /^the Award Modifier cannot remove the Proposal from the Award$/ do

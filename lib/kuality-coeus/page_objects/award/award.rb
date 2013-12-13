@@ -23,7 +23,7 @@ class Award < KCAwards
   element(:award_title) { |b| b.frm.text_field(name: 'document.awardList[0].title') }
   element(:sponsor_id) { |b| b.frm.text_field(name: 'document.awardList[0].sponsorCode') }
   element(:prime_sponsor) { |b| b.frm.text_field(name: 'document.awardList[0].primeSponsorCode') }
-  element(:cfda_number) { |b| b.fr.text_field(name: 'document.awardList[0].cfdaNumber') }
+  element(:cfda_number) { |b| b.frm.text_field(name: 'document.awardList[0].cfdaNumber') }
   element(:nsf_science_code) { |b| b.frm.select(name: 'document.awardList[0].nsfCode') }
   action(:lookup_sponsor) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.Sponsor!!).(((sponsorCode:document.awardList[0].sponsorCode,sponsorName:document.awardList[0].sponsor.sponsorName))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchorDetailsDates').click }
   element(:project_start_date) { |b| b.frm.text_field(name: /awardEffectiveDate/) }

@@ -79,9 +79,7 @@ And /^the principal investigator approves the Proposal$/ do
     log_in.login
   end
   @proposal.view :proposal_summary
-  sleep 40
   on(ProposalSummary).approve
-  #Testing this to sign out PI user
   visit(Researcher).logout
 end
 
