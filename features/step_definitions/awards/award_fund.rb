@@ -74,18 +74,26 @@ Then /^the Title, Activity Type, NSF Science Code, and Sponsor still match the P
   end
 end
 
-When /^the(.*) Funding Proposal is added to the Award$/ do |count|
-  # Note the space prefix in the key string...
-  index = { '' => 0, ' first' => 0, 'second' => 1 }
+# This is a specialty step that occurs prior to the saving of the Award,
+# so it cannot use the @award data object methods. The Award doesn't exist, yet.
+When /^adds the second Funding Proposal to the Award$/ do
   on Award do |page|
-    page.institutional_proposal_number.set @ips[index[count]].proposal_number
+    page.institutional_proposal_number.set @ips[1].proposal_number
     page.add_proposal
   end
 end
 
+When /^the(.*) Funding Proposal is added to the Award$/ do |count|
+  # Note the space prefix in the key string.
+  # IT IS ABSOLUTELY NECESSARY!
+  index = { '' => 0, ' first' => 0, ' second' => 1 }
+  @award.add_funding_proposal @ips[index[count]].proposal_number, '::random::'
+end
+
 When /^the(.*) Funding Proposal is removed from the Award$/ do |count|
-  # Note the space prefix in the key string...
-  index = { '' => 0, ' first' => 0, 'second' => 1 }
+  # Note the space prefix in the key string.
+  # IT IS ABSOLUTELY NECESSARY!
+  index = { '' => 0, ' first' => 0, ' second' => 1 }
   on Award do |page|
     page.delete_funding_proposal(@ips[index[count]].key_personnel.principal_investigator.full_name)
   end
