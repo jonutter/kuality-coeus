@@ -36,10 +36,10 @@ class AwardObject < DataObject
       lead_unit:             '::random::',
       obligation_start_date: right_now[:date_w_slashes],
       obligation_end_date:   in_a_year[:date_w_slashes],
-      account_id:            random_alphanums,
+      account_id:            random_alphanums(7),
       account_type:          '::random::',
       prime_sponsor:         '::random::',
-      cfda_number:           random_alphanums,
+      cfda_number:           "#{rand(99)}.#{rand(999)}",
       anticipated_amount:    amount,
       obligated_amount:      amount,
       funding_proposals:     [], # Contents MUST look like: {ip_number: '00001', merge_type: 'No Change'}, ...
