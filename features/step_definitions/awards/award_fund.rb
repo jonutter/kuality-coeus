@@ -76,7 +76,7 @@ end
 
 # This is a specialty step that occurs prior to the saving of the Award,
 # so it cannot use the @award data object methods. The Award doesn't exist, yet.
-When /^adds the second Funding Proposal to the Award$/ do
+When /^adds the second Funding Proposal to the unsaved Award$/ do
   on Award do |page|
     page.institutional_proposal_number.set @ips[1].proposal_number
     page.add_proposal

@@ -89,7 +89,7 @@ When /I? ?add the required Custom Data to the Award$/ do
 end
 
 When /^I? ?complete the Award requirements$/ do
-  steps %{
+  steps %q{
     And add Reports to the Award
     And add Terms to the Award
     And add the required Custom Data to the Award
@@ -109,4 +109,11 @@ When /^the (.*) tries to fund an Award with the new Institutional Proposal$/ do 
   steps %{ Given I log in with the #{role_name} user }
   @award = create AwardObject
   @award.add_funding_proposal @institutional_proposal.proposal_number, '::random::'
+end
+
+And /^the Institutional Proposal Maintainer can unlink the proposal$/ do
+  steps 'Given I log in with the Institutional Proposal Maintainer user'
+  expect{
+    @institutional_proposal
+  }.not_to raise_error
 end

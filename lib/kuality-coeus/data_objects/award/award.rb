@@ -65,7 +65,7 @@ class AwardObject < DataObject
                :activity_type, :award_type, :obligated_amount, :anticipated_amount,
                :project_start_date, :project_end_date, :obligation_start_date,
                :obligation_end_date, :nsf_science_code, :account_id, :account_type,
-               :prime_sponsor, :cfda_number
+               :cfda_number
       set_sponsor_id
       set_prime_sponsor
       set_lead_unit
@@ -87,7 +87,7 @@ class AwardObject < DataObject
   end
 
   def edit opts={}
-
+    #TODO
     set_options(opts)
   end
 
@@ -101,6 +101,16 @@ class AwardObject < DataObject
       page.save
     end
     @funding_proposals << {ip_number: ip_number, merge_type: merge_type}
+  end
+
+  def remove_funding_proposal(ip_number)
+    view :award
+    on Award do |page|
+      page.expand_all
+      page.delete_funding_proposal ip_number
+      page.save
+    end
+    @funding_proposals.reject! { |item| item[:ip_number]==ip_number }
   end
 
   def add_subaward(name='random', amount=nil)

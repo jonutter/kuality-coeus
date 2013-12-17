@@ -55,6 +55,11 @@ class InstitutionalProposalObject < DataObject
     end
   end
 
+  def view(tab)
+    navigate
+    on(InstitutionalProposal).send(StringFactory.damballa(tab.to_s))
+  end
+
   def add_custom_data opts={}
     @custom_data = prep(CustomDataObject, opts)
   end
@@ -69,6 +74,15 @@ class InstitutionalProposalObject < DataObject
 
   def add_project_personnel opts={}
     @project_personnel.add merge_settings(opts)
+  end
+
+  def unlock_award(award_id)
+    view :institutional_proposal
+    on(InstitutionalProposal).edit # TODO: IMPORTANT!!! Code update to document number because of this edit!!!
+    on InstitutionalProposalActions do |page|
+      page.expand_all
+
+    end
   end
 
   # =========
@@ -107,7 +121,6 @@ class InstitutionalProposalObject < DataObject
 
   def navigate
     open_document @doc_type
-    on(InstitutionalProposal).contacts
   end
 
 end
