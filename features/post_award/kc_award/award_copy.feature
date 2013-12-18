@@ -6,7 +6,7 @@ Feature: Copying Awards
     Given a User exists with the role 'Time And Money Modifier' in unit '000001' (descends hierarchy)
     And   a User exists with the role 'Award Modifier' in unit 'BL-BL'
     And   I log in with that User
-    And   initiate an Award
+    And   create an Award
     And   add a subaward to the Award
     And   complete the Award requirements
     And   I log in with the Time And Money Modifier user

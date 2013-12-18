@@ -10,7 +10,7 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   I log in with the Proposal Creator user
 
   Scenario Outline: Submit a proposal to Grants.gov with various sponsors and opportunities
-    Given I initiate a Proposal with <Sponsor> as the sponsor
+    Given I create a Proposal with <Sponsor> as the sponsor
     And   add the <Provider> opportunity id of <Opportunity> to the Proposal
     And   add the <Provider> user as the Proposal's PI
     And   set valid credit splits for the Proposal

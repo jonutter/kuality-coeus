@@ -4,12 +4,12 @@ Feature: Permissions in a Proposal
   to allow them to work on the proposal with me, and to control what actions
   they are capable of performing with it.
 
-  Background: A proposal creator user initiates a proposal
+  Background: A proposal creator user creates a proposal
     Given a User exists with the role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
-    And   initiate a Proposal
+    And   create a Proposal
 
-  Scenario: The proposal initiator is automatically an aggregator
+  Scenario: The proposal creator is automatically an aggregator
     When  I visit the Proposal's Permissions page
     Then  the Proposal Creator user is listed as an Aggregator in the proposal permissions
 
@@ -33,10 +33,10 @@ Feature: Permissions in a Proposal
     Then  the Unassigned user can access the Proposal
     And   their proposal permissions do not allow them to edit budget details
 
-  Scenario Outline: Proposal permissions are not passed onto future proposals initiated by the same creator
+  Scenario Outline: Proposal permissions are not passed onto future proposals created by the same creator
     Given a User exists with the role: 'Unassigned'
     And   I assign the Unassigned user as a <Role> in the proposal permissions
-    When  I initiate a second Proposal
+    When  I create a second Proposal
     Then  the Unassigned user should not be listed as a <Role> in the second Proposal
 
   Examples:

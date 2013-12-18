@@ -54,3 +54,18 @@ Given(/^I create and submit a Proposal to its sponsor with Proposal Creator and 
     And   I submit the Proposal to its sponsor
 }
 end
+
+
+Given(/^I create a Funding Proposal$/) do
+  #There's no significance here regarding the PD >> IP process.
+  #The purpose of this step is simply to produce a Funding Proposal.
+  steps %q{
+    Given I log in with the Proposal Creator user
+    And   I submit a new Proposal into routing
+    And   I log in as the User with the OSP Administrator role in 000001
+    And   I approve the Proposal without future approval requests
+    And   the principal investigator approves the Proposal
+    And   I log in again as the User with the OSP Administrator role in 000001
+    And   I submit the Proposal to its sponsor
+  }
+end
