@@ -9,7 +9,7 @@ Feature: Creating an Institutional Proposal from a Proposal Log
   Background:
     Given a User exists with the role: 'Create Proposal Log'
 
-  Scenario: Attempt to initiate a Funding Proposal document w/o a required field
+  Scenario: Attempt to create a Funding Proposal document w/o a required field
     Given I log in with the Create Proposal Log user
     And   I submit a new Proposal Log
     When  I attempt to save an institutional proposal with a missing required field

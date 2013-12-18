@@ -4,10 +4,10 @@ Feature: Key Personnel Validations
   with my proposal's key personnel so that I can fix them
   before I submit the proposal
 
-  Background: The admin user initiates a proposal
+  Background: The admin user creates a proposal
     Given a User exists with the role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
-    And   I initiate a Proposal
+    And   I create a Proposal
 
   Scenario Outline: I should see an error when I add Credit Split percentages above 100 or less than 0
     When  I add a Principal Investigator with a <Type> credit split of <Value>

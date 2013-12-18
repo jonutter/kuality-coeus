@@ -32,13 +32,13 @@ When /^I? ?do not answer my proposal questions$/ do
   #nothing necessary for this step
 end
 
-When /^I? ?initiate a Proposal with an un-certified (.*)$/ do |role|
+When /^I? ?creates? a Proposal with an un-certified (.*)$/ do |role|
   @role = role
   @proposal = create ProposalDevelopmentObject
   @proposal.add_key_person role: @role, certified: false
 end
 
-Given /^I? ?initiate a Proposal where the un-certified key person has included certification questions$/ do
+Given /^I? ?creates? a Proposal where the un-certified key person has included certification questions$/ do
   @role = 'Key Person'
   @proposal = create ProposalDevelopmentObject
   @proposal.add_key_person role: @role, key_person_role: 'default', certified: false

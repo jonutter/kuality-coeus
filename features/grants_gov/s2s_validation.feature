@@ -3,10 +3,10 @@ Feature: Validating content of s2s proposals
   As a Proposal creator for federal grant money, I want to ensure my
   proposals are free of errors, prior to submission
 
-  Background: Logged in with a proposal creator; initiate a proposal for grants.gov
+  Background: Logged in with a proposal creator; create a proposal for grants.gov
     Given a User exists with the role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
-    And   initiate a Proposal with a 'Federal' sponsor type
+    And   create a Proposal with a 'Federal' sponsor type
     And   add the Grants.Gov opportunity id of PA-B2-ALL to the Proposal
 
   Scenario: Adding the opportunity

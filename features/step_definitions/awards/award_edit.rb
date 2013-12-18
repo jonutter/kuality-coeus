@@ -100,7 +100,7 @@ When /^I? ?complete the Award requirements$/ do
   }
 end
 
-When /^I? ?initiate an Award for the Institutional Proposal$/ do
+When /^I? ?(?:creates? an Award for the Funding Proposal)|(?:links? the Funding Proposal to an Award)$/ do
   @award = create AwardObject
   @award.add_funding_proposal @institutional_proposal.proposal_number, '::random::'
 end

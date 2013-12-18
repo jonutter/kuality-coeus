@@ -1,7 +1,7 @@
-When(/^I initiate an irb protocol$/) do
+When(/^I? ?creates? an irb protocol$/) do
   @irb_protocol = create IRBProtocolDevelopmentObject
 end
-When(/^I initiate a proposal with an invalid lead unit code$/) do
+When(/^I? ?creates? a proposal with an invalid lead unit code$/) do
   @irb_protocol = create IRBProtocolDevelopmentObject, :lead_unit=>'000000'
 end
 Then(/^I should see an error that says my lead unit code is invalid$/) do
@@ -17,7 +17,7 @@ Then /^an error should appear that says the field is required$/ do
   on(ProtocolOverview).errors.should include error
 end
 
-When(/^I? ?initiate an irb protocol but I miss a required field$/) do
+When(/^I? ?create? an irb protocol but I miss a required field$/) do
   # Pick a field at random for the test...
   @required_field = ['Description', 'Title', 'Lead Unit'
           ].sample

@@ -7,7 +7,7 @@ Feature: Proposal Workflows and Routing
   Scenario Outline: Proposal is successfully routed to PI for action
     Given Users exist with the following roles: OSPApprover, Proposal Creator, Unassigned
     And   I log in with the Proposal Creator user
-    And   initiate a Proposal
+    And   create a Proposal
     And   add the Unassigned user as a Principal Investigator to the key personnel proposal roles
     And   complete the required custom fields on the Proposal
     And   submit the Proposal
@@ -59,7 +59,7 @@ Feature: Proposal Workflows and Routing
   Scenario: Successful delivery of an FYI from a development proposal
     Given Users exist with the following roles: Proposal Creator, OSPApprover
     And   I log in with the Proposal Creator user
-    And   I initiate a Proposal
+    And   I create a Proposal
     When  I send a notification to the OSPApprover user
     And   I log in with the OSPApprover user
     Then  I should receive an action list item with the requested action being: FYI
@@ -69,7 +69,7 @@ Feature: Proposal Workflows and Routing
     Given the Budget Column's 'Cost Sharing Amount' has a lookup for 'Proposal Cost Share' that returns 'Amount'
     And   Users exist with the following roles: Proposal Creator, OSP Administrator
     And   I log in with the Proposal Creator user
-    And   initiate a Proposal
+    And   create a Proposal
     And   add a principal investigator
     And   set valid credit splits for the Proposal
     And   create a Budget Version with cost sharing for the Proposal
