@@ -1,5 +1,7 @@
 class PersonLookup < Lookups
 
+  url_info 'Person','rice.kim.api.identity.Person'
+
   element(:kcperson_id) { |b| b.frm.text_field(name:'personId') }
 
   element(:principal_name) { |b| b.frm.text_field(id: 'principalName') }

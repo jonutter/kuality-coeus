@@ -1,6 +1,6 @@
 class InstitutionalProposalLookup < Lookups
 
-  object_class_name "https://qa.research.rsmart.com/kc-dev/portal.do?channelTitle=Institutional%20Proposal&channelUrl=https://qa.research.rsmart.com:/kc-dev/kr/lookup.do?methodToCall=start&businessObjectClassName=org.kuali.kra.institutionalproposal.home.InstitutionalProposal&docFormKey=88888888&includeCustomActionUrls=true&returnLocation=https://qa.research.rsmart.com:/kc-dev/portal.do&hideReturnLink=true"
+  url_info 'Institutional%20Proposal','kra.institutionalproposal.home.InstitutionalProposal'
 
   STATUS = 4
 

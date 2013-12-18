@@ -1,5 +1,7 @@
 class CampusLookup < Lookups
 
+  url_info 'Campus','rice.location.impl.campus.CampusBo'
+
   element(:campus_code) { |b| b.frm.text_field(name: 'code') }
   element(:campus_name) { |b| b.frm.text_field(name: 'name') }
   element(:campus_short_name) { |b| b.frm.text_field(name: 'shortName') }
