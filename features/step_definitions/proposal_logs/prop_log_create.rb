@@ -1,4 +1,4 @@
-When /^I? ?create a Proposal Log but I miss a required field$/ do
+When /^I? ?creates? a Proposal Log but I miss a required field$/ do
   # Pick a field at random for the test...
   @required_field = ['Title', 'Proposal Type', 'Lead Unit'
           ].sample
@@ -9,7 +9,7 @@ When /^I? ?create a Proposal Log but I miss a required field$/ do
   @proposal_log = create ProposalLogObject, field=>value
 end
 
-When /^I? ?create a Proposal Log$/ do
+When /^I? ?creates? a Proposal Log$/ do
   @proposal_log = create ProposalLogObject
 end
 
@@ -31,7 +31,7 @@ When /^I submit a new permanent Proposal Log with the same PI into routing$/ do
   @proposal_log2.submit
 end
 
-When /^I create a permanent Proposal Log$/ do
+When /^I? ?creates? a permanent Proposal Log$/ do
   @proposal_log = create ProposalLogObject
 end
 

@@ -1,4 +1,4 @@
-When /^I? ?create a Budget Version for the Proposal$/ do
+When /^I? ?creates? a Budget Version for the Proposal$/ do
   @proposal.add_budget_version
   @budget_version = @proposal.budget_versions[0]
 end
@@ -17,7 +17,7 @@ When /^correcting the Budget Version date will remove the warning$/ do
   on(Parameters).warnings.size.should be 0
 end
 
-Given /^I? ?create a final and complete Budget Version for the Proposal$/ do
+Given /^I? ?creates? a final and complete Budget Version for the Proposal$/ do
   @proposal.add_budget_version status: 'Complete', final: :set
 end
 

@@ -56,7 +56,7 @@ Given(/^I create and submit a Proposal to its sponsor with Proposal Creator and 
 end
 
 
-Given(/^I create a Funding Proposal$/) do
+Given(/^I creates a Funding Proposal$/) do
   #There's no significance here regarding the PD >> IP process.
   #The purpose of this step is simply to produce a Funding Proposal.
   steps %q{

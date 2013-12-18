@@ -106,7 +106,7 @@ Then /^the Award Modifier cannot remove the Proposal from the Award$/ do
 end
 
 
-Then(/^the status of the Funding Proposal should change to (.*)$/) do |status|
+Then /^the status of the Funding Proposal should change to (.*)$/  do |status|
   visit(Researcher).search_institutional_proposals
   on InstitutionalProposalLookup do |look|
     look.institutional_proposal_number.set @institutional_proposal.proposal_number
