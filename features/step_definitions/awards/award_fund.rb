@@ -4,7 +4,7 @@ Given /^(\d+) Approved Institutional Proposals? exists?$/ do |count|
     steps %{
       * a User exists with the role: 'Proposal Creator'
       * a User exists with the roles: OSP Administrator, Institutional Proposal Maintainer in the 000001 unit
-      * the Proposal Creator initiates a Proposal
+      * the Proposal Creator creates a Proposal
       * adds a principal investigator
       * sets valid credit splits for the Proposal
       * creates a Budget Version with cost sharing for the Proposal
@@ -103,4 +103,13 @@ Then /^the Award Modifier cannot remove the Proposal from the Award$/ do
   on Award do |page|
     page.delete_funding_proposal_button(@ips[0].key_personnel.principal_investigator.full_name).should_not exist
   end
+end
+
+Then(/^the status of the Funding Proposal should change to (.*)$/) do |status|
+  visit(Researcher).search_institutional_proposals
+  on InstitutionalProposalLookup do |look|
+    look.institutional_proposal_number.set @institutional_proposal.proposal_number
+    look.search
+  end
+  on(InstitutionalProposalLookup).ip_status(@institutional_proposal.proposal_number)==status
 end

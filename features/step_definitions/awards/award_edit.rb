@@ -88,7 +88,7 @@ When /I? ?add the required Custom Data to the Award$/ do
   @award.add_custom_data if @award.custom_data.nil?
 end
 
-When /^I? ?complete the Award requirements$/ do
+When /^I? ?completes? the Award requirements$/ do
   steps %q{
     And add Reports to the Award
     And add Terms to the Award
@@ -100,7 +100,7 @@ When /^I? ?complete the Award requirements$/ do
   }
 end
 
-When /^I? ?initiate an Award for the Institutional Proposal$/ do
+When /^I? ?(?:create an Award for the Funding Proposal)|(?:link the Funding Proposal to an Award)$/ do
   @award = create AwardObject
   @award.add_funding_proposal @institutional_proposal.proposal_number, '::random::'
 end
@@ -114,6 +114,6 @@ end
 And /^the Institutional Proposal Maintainer can unlink the proposal$/ do
   steps 'Given I log in with the Institutional Proposal Maintainer user'
   expect{
-    @institutional_proposal
+    @institutional_proposal.unlock_award(@award.id)
   }.not_to raise_error
 end

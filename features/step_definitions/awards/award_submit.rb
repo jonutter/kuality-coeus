@@ -1,4 +1,4 @@
-When /^I? ?submit the Award$/ do
+When /^I? ?submits? the Award$/ do
   @award.submit
 end
 

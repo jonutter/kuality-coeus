@@ -9,14 +9,14 @@ Feature: S2S Questionnaire Population and Functionality
     And   an AOR User exists
     And   I log in with the Proposal Creator user
 
-  Scenario: Initiate a proposal with PHS forms attached
-  Given I initiate a Proposal with NIH as the sponsor
+  Scenario: Create a proposal with PHS forms attached
+  Given I create a Proposal with NIH as the sponsor
   And   add the Grants.Gov opportunity id of PA-B2-ALL to the Proposal
   When  I attach the PHS Training and Fellowship Forms to the Proposal
   Then  the PHS Training and Fellowship Questionnaires should appear in the Proposal
 
   Scenario: Attach the PHS Fellowship form and complete its questionnaire
-  Given I initiate a Proposal with NIH as the sponsor
+  Given I create a Proposal with NIH as the sponsor
   And   add the Grants.Gov opportunity id of PA-B2-ALL to the Proposal
   When  I attach the PHS Fellowship Form to the Proposal
   And   complete its questionnaire

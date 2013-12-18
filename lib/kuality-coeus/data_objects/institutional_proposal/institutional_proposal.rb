@@ -81,6 +81,24 @@ class InstitutionalProposalObject < DataObject
     on(InstitutionalProposal).edit # TODO: IMPORTANT!!! Code update to document number because of this edit!!!
     on InstitutionalProposalActions do |page|
       page.expand_all
+      page.funded_award(award_id).set
+      page.unlock_selected
+
+
+
+
+
+
+
+sleep 45
+
+
+
+
+
+
+
+
 
     end
   end
