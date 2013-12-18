@@ -2,7 +2,7 @@
 #Create and Save
 #Note: Units are specified to match the initiator's unit.
 #----------------------#
-When /^I? ?create an Award$/ do
+When /^I? ?creates? an Award$/ do
   # Implicit in this step is that the Award creator
   # is creating the Award in the unit they have
   # rights to. This is why this step specifies what the
@@ -12,14 +12,14 @@ When /^I? ?create an Award$/ do
   @award = create AwardObject, lead_unit: lead_unit
 end
 
-Given /^I? ?create an Award with (.*) as the Lead Unit$/ do |lead_unit|
+Given /^I? ?creates? an Award with (.*) as the Lead Unit$/ do |lead_unit|
   @award = create AwardObject, lead_unit: lead_unit
 end
 
 #----------------------#
 #Award Validations Based on Errors During Creation
 #----------------------#
-When /^I ? ?create an Award with a missing required field$/ do
+When /^I ? ?creates? an Award with a missing required field$/ do
   @required_field = ['Description', 'Transaction Type', 'Award Status', 'Award Title',
                      'Activity Type', 'Award Type', 'Project Start Date', 'Project End Date',
                      'Lead Unit', 'Obligation Start Date', 'Obligation End Date',
@@ -40,4 +40,8 @@ end
 Given /^the Award Modifier creates an Award including an Account ID, Account Type, Prime Sponsor, and CFDA Number$/ do
   steps 'Given I log in with the Award Modifier user'
   @award = create AwardObject
+end
+
+Then(/^a new Institutional Proposal should be generated$/) do
+  pending
 end

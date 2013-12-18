@@ -1,19 +1,19 @@
-Given /^I? ?create a Proposal$/ do
+Given /^I? ?creates? a Proposal$/ do
   @proposal = create ProposalDevelopmentObject
 end
 
-Given /^I? ?create a second Proposal$/ do
+Given /^I? ?creates? a second Proposal$/ do
   @proposal2 = create ProposalDevelopmentObject
 end
 
-Given /^I? ?create a (\d+)-year project Proposal$/ do |year_count|
+Given /^I? ?creates? a (\d+)-year project Proposal$/ do |year_count|
   @years=year_count.to_i
   @proposal =create ProposalDevelopmentObject,
                     project_start_date: "01/01/#{next_year[:year]}",
                     project_end_date: "12/31/#{next_year[:year].to_i+(@years-1)}"
 end
 
-Given /^I? ?create a (\d+)-year, '(.*)' Proposal$/ do |year_count, activity_type|
+Given /^I? ?creates? a (\d+)-year, '(.*)' Proposal$/ do |year_count, activity_type|
   @years=year_count.to_i
   @proposal =create ProposalDevelopmentObject,
                     project_start_date: "01/01/#{next_year[:year]}",
@@ -21,7 +21,7 @@ Given /^I? ?create a (\d+)-year, '(.*)' Proposal$/ do |year_count, activity_type
                     activity_type: activity_type
 end
 
-When /^I? ?create a Proposal but miss a required field$/ do
+When /^I? ?creates? a Proposal but miss a required field$/ do
   # Pick a field at random for the test...
   @required_field = ['Description', 'Proposal Type', 'Activity Type',
            'Project Title', 'Sponsor Code', 'Project Start Date', 'Project End Date'
@@ -33,11 +33,11 @@ When /^I? ?create a Proposal but miss a required field$/ do
   @proposal = create ProposalDevelopmentObject, field=>value
 end
 
-When /^I? ?create a Proposal with an? '(.*)' sponsor type$/ do |type|
+When /^I? ?creates? a Proposal with an? '(.*)' sponsor type$/ do |type|
   @proposal = create ProposalDevelopmentObject, sponsor_type_code: type
 end
 
-Given /^I? ?create a Proposal with (\D+) as the sponsor$/ do |sponsor_name|
+Given /^I? ?creates? a Proposal with (\D+) as the sponsor$/ do |sponsor_name|
   # First, we have to get the sponsor ID based on the sponsor_name string...
   visit(Maintenance).sponsor
   sponsor_code=''
@@ -64,11 +64,11 @@ Given /^I? ?creates? a Proposal with a type of '(.*)'$/ do |type|
   @proposal = create ProposalDevelopmentObject, proposal_type: type
 end
 
-When /^I? ?create a Proposal with an invalid sponsor code$/ do
+When /^I? ?creates? a Proposal with an invalid sponsor code$/ do
   @proposal = create ProposalDevelopmentObject, :sponsor_code=>'000000'
 end
 
-Given /^I? ?create a Proposal without a sponsor deadline date$/ do
+Given /^I? ?creates? a Proposal without a sponsor deadline date$/ do
   @proposal = create ProposalDevelopmentObject, sponsor_deadline_date: ''
 end
 
@@ -80,7 +80,7 @@ When /^I? ?submits? the Proposal$/ do
   @proposal.submit
 end
 
-When /^I? ?completes? the Proposal$/ do
+When /^I? ?complete the Proposal$/ do
   @proposal.add_principal_investigator
   @proposal.set_valid_credit_splits
   @proposal.add_custom_data
@@ -160,7 +160,7 @@ Then /^I should see an error that says the field is required$/ do
   end
 end
 
-Given /^I create a Proposal with these Performance Site Locations: (.*)$/ do |psl|
+Given /^I? ?creates? a Proposal with these Performance Site Locations: (.*)$/ do |psl|
   locations = psl.split(',')
   @proposal = create ProposalDevelopemntObject, performance_site_locations: locations
 end

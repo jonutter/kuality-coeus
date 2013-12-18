@@ -1,4 +1,4 @@
-When /^create a Role with permission to create proposals$/ do
+And /^creates? a Role with permission to create proposals$/ do
   role = make_role permissions: %w{842}
   role.create
 end

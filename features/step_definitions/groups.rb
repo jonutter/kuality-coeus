@@ -1,4 +1,4 @@
-When /^I? ?create a Group$/ do
+When /^I? ?creates? a Group$/ do
   @group = create GroupObject
 end
 
