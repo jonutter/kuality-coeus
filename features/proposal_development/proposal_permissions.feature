@@ -8,7 +8,7 @@ Feature: Permissions in a Proposal
     Given a User exists with the role: 'Proposal Creator'
     And   I log in with the Proposal Creator user
     And   create a Proposal
-
+  @test
   Scenario: The proposal creator is automatically an aggregator
     When  I visit the Proposal's Permissions page
     Then  the Proposal Creator user is listed as an Aggregator in the proposal permissions
