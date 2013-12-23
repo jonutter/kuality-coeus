@@ -5,17 +5,10 @@ Feature: Permissions in a Proposal
   they are capable of performing with it.
 
   Background: A proposal creator user creates a proposal
-<<<<<<< HEAD
-    Given a User exists with the role: 'Proposal Creator'
-    And   I log in with the Proposal Creator user
-    And   create a Proposal
-  @test
-=======
     * Users exist with the following roles: Proposal Creator, Unassigned
     * I log in with the Proposal Creator user
     * create a Proposal
 
->>>>>>> test
   Scenario: The proposal creator is automatically an aggregator
     When  I visit the Proposal's Permissions page
     Then  the Proposal Creator user is listed as an Aggregator in the proposal permissions
