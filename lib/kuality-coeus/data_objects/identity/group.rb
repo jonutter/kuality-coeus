@@ -1,6 +1,5 @@
 class GroupObject < DataObject
 
-  include Navigation
   include StringFactory
 
   attr_accessor :id, :namespace, :name, :type,

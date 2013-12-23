@@ -35,7 +35,7 @@ class KeyPersonObject < DataObject
   end
 
   def create
-    navigate
+    open_page
     get_person
     on KeyPersonnel do |person|
       # This conditional exists to deal with the fact that
@@ -83,7 +83,7 @@ class KeyPersonObject < DataObject
   # Those require special handling and
   # thus have their own method: #update_unit_credit_splits
   def edit opts={}
-    navigate
+    open_page
     on KeyPersonnel do |update|
       update.expand_all
       # TODO: This will eventually need to be fixed...
@@ -105,7 +105,7 @@ class KeyPersonObject < DataObject
   end
 
   def delete
-    navigate
+    open_page
     on KeyPersonnel do |person|
       person.check_person @full_name
       person.delete_selected
@@ -118,21 +118,9 @@ class KeyPersonObject < DataObject
 
   # Nav Aids...
 
-  def navigate
-    open_document @doc_type
-    on(Proposal).key_personnel unless on_page?
-  end
-
-  def on_page?
-    # Note, the rescue clause should be
-    # removed when the Selenium bug with
-    # firefox elements gets fixed. This is
-    # still broken in selenium-webdriver 2.29
-    begin
-      on(KeyPersonnel).proposal_role.exist?
-    rescue
-      false
-    end
+  def open_page
+    open_document
+    on(Proposal).key_personnel unless on_page?(on(KeyPersonnel).proposal_role)
   end
 
   def cert_questions

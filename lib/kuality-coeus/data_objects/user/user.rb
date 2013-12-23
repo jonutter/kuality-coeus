@@ -307,7 +307,7 @@ class UserObject
       search.search
       begin
         if search.item_row(@user_name).present?
-          # FIXME!
+          # TODO!
           # This is a coding abomination to include
           # this here, but it's here until I can come
           # up with a better solution...

@@ -2,24 +2,64 @@ module Navigation
 
   include Utilities
 
-  def open_document doc_header
-    doc_search unless on_document?(doc_header)
+  # Determine if right document type...
+  # look at the header element...
+  #
+  # Determine if target document...
+  # look at document id
+  #
+  # Navigate...
+  # do not use doc id for navigation
+  # update document id after navigation
+  #
+  # To accomplish the above, the Data Object class
+  # must have the following instance variables defined...
+  # - @doc_header containing the text of the relevant page title
+  # - @document_id containing the "document number" from the header table
+  # - @lookup_class containing the lookup page class for the document
+  # - @search_key containing a hash with the key being the name of the
+  #               search parameter to use, and the value what gets searched
+
+  def open_document
+    if on_document?
+      puts 'true'
+    else
+      puts 'false'
+
+
+
+
+#sleep 15
+
+
+
+
+
+
+
+      navigate
+    end
+    #navigate unless on_document?
   end
 
-  def on_document?(doc_header)
+  def navigate
+    visit @lookup_class do |page|
+      page.send(@search_key.keys[0]).set @search_key.values[0]
+      page.search
+      page.medusa
+    end
+    # Must update the document id, now:
+    @document_id=on(DocumentHeader).document_id
+  end
+
+  def on_document?
     begin
-      on(DocumentHeader).document_id==@document_id && @browser.frm.div(id: 'headerarea').h1.text==doc_header
+      puts @document_id.inspect
+      puts @doc_header.inspect
+      puts @browser.frm.div(id: 'headerarea').h1.text.inspect
+      on(DocumentHeader).document_id==@document_id && @browser.frm.div(id: 'headerarea').h1.text==@doc_header
     rescue Watir::Exception::UnknownObjectException, Selenium::WebDriver::Error::StaleElementReferenceError
       false
-    end
-  end
-
-  def doc_search
-    visit DocumentSearch do |search|
-      search.close_parents
-      search.document_id.set @document_id
-      search.search
-      search.open_doc @document_id
     end
   end
 

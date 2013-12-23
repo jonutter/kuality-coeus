@@ -21,11 +21,12 @@ class FinancialEntityObject < DataObject
       postal_code:        '85028',
       principal_activity: random_multiline
     }
+    # TODO: Needs a @lookup_class and @search_key defined
     set_options(defaults.merge(opts))
   end
 
   def create
-    navigate
+    #navigate
     on NewFinancialEntity do |page|
       fill_out page, :entity_name, :type, :address_line_1, :sponsor_research,
                :status_code, :city, :postal_code, :principal_activity, :held,
@@ -38,9 +39,5 @@ class FinancialEntityObject < DataObject
   # =========
   private
   # =========
-
-  def navigate
-
-  end
 
 end

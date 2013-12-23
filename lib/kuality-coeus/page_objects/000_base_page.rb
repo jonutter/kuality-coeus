@@ -89,13 +89,19 @@ class BasePage < PageFactory
       # Note: Use this when you need to click the "open" link on the target row
       action(:open) { |match, p| p.results_table.row(text: /#{match}/m).link(text: 'open').click; p.use_new_tab; p.close_parents }
       # Note: Use this when the link itself is the text you want to match
-      action(:open_item) { |match, b| b.item_row(match).link(text: /#{match}/).click; b.use_new_tab; b.close_parents }
+      action(:open_item) { |match, b| b.frm.link(text: /#{match}/).click; b.use_new_tab; b.close_parents }
       action(:delete_item) { |match, p| p.item_row(match).link(text: 'delete').click; p.use_new_tab; p.close_parents }
 
       action(:return_value) { |match, p| p.item_row(match).link(text: 'return value').click }
       action(:select_item) { |match, p| p.item_row(match).link(text: 'select').click }
       action(:return_random) { |b| b.return_value_links[rand(b.return_value_links.length)].click }
       element(:return_value_links) { |b| b.results_table.links(text: 'return value') }
+
+      # Used as the catch-all "document opening" method for conditional navigation,
+      # when we can't know whether the current user will have edit permissions.
+      # Note: The assumption is that there is only one item returned in the search,
+      # so the method needs no identifying parameter...
+      action(:medusa) { |b| b.frm.link(text: /medusa|edit|view/).click; b.use_new_tab; b.close_parents }
     end
 
     def budget_header_elements

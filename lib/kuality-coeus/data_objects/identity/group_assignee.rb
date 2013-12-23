@@ -1,6 +1,5 @@
 class GroupAssigneeObject < DataObject
 
-  include Navigation
   include StringFactory
 
   attr_accessor :type_code, :member_identifier

@@ -1,5 +1,7 @@
 class ProposalActions < ProposalDevelopmentDocument
 
+  expected_element :data_validation_header
+
   proposal_header_elements
   route_log
   tiny_buttons
