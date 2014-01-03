@@ -4,10 +4,10 @@ Feature: Creating/Editing Budget Versions in Proposal Documents
   so that I can calculate how much the proposal should be for.
 
   Background: Create a Budget Version for a 5-year proposal
-    Given a User exists with the role: 'Proposal Creator'
-    And   I log in with the Proposal Creator user
-    And   I create a 5-year project Proposal
-    And   create a Budget Version for the Proposal
+    * a User exists with the role: 'Proposal Creator'
+    * I log in with the Proposal Creator user
+    * I create a 5-year project Proposal
+    * create a Budget Version for the Proposal
 
   Scenario: System warns about budget periods when proposal dates change
     When  I push the Proposal's project start date ahead a year

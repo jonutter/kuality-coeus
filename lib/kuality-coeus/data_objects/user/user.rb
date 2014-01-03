@@ -31,10 +31,10 @@ class Users < Array
 
   def grants_gov_pi
     self.find { |user|
-                  !user[:primary_department_code].nil? &&
-                  !user[:phones].find{|phone| phone[:type]=='Work'}.nil? &&
-                  !user[:emails].find{|email| email[:type]=='Work'}.nil? &&
-                  !user[:era_commons_user_name].nil?
+                  !user.primary_department_code.nil? &&
+                  !user.phones.find{|phone| phone[:type]=='Work'}.nil? &&
+                  !user.emails.find{|email| email[:type]=='Work'}.nil? &&
+                  !user.era_commons_user_name.nil?
     }
   end
 

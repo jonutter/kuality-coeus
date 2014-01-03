@@ -47,7 +47,7 @@ Given /^I? ?creates? a Proposal with (\D+) as the sponsor$/ do |sponsor_name|
     sponsor_code = search.get_sponsor_code(sponsor_name)
   end
   # Now we can create the proposal with the proper sponsor ID...
-  @proposal = create ProposalDevelopmentObject, sponsor_code: sponsor_code
+  @proposal = create ProposalDevelopmentObject, sponsor_id: sponsor_code
 end
 
 Given /^the (.*) creates a Proposal with (\D+) as the sponsor$/ do |role_name, sponsor_name|
@@ -65,7 +65,7 @@ Given /^I? ?creates? a Proposal with a type of '(.*)'$/ do |type|
 end
 
 When /^I? ?creates? a Proposal with an invalid sponsor code$/ do
-  @proposal = create ProposalDevelopmentObject, :sponsor_code=>'000000'
+  @proposal = create ProposalDevelopmentObject, :sponsor_id=>'000000'
 end
 
 Given /^I? ?creates? a Proposal without a sponsor deadline date$/ do
@@ -86,7 +86,7 @@ When /^I? ?complete the Proposal$/ do
   @proposal.add_custom_data
 end
 
-When /^I? ?completes? the required custom fields on the Proposal$/ do
+When /completes? the required custom fields on the Proposal$/ do
   @proposal.add_custom_data
 end
 
