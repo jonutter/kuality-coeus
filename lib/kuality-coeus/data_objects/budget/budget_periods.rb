@@ -12,18 +12,17 @@ class BudgetPeriodObject < DataObject
     @browser = browser
 
     defaults = {
-      doc_type: 'Budget Document ', # Note: the trailing space is not a typo!
       cost_sharing_distribution_list: collection('CostSharing')
     }
 
     set_options(defaults.merge(opts))
-    requires :start_date, :budget_name
+    requires :start_date, :budget_name, :lookup_class, :doc_header
     datify
     add_cost_sharing @cost_sharing
   end
 
   def create
-    navigate
+    open_budget
     on Parameters do |create|
       create.period_start_date.fit @start_date
       create.period_end_date.fit @end_date
@@ -36,7 +35,7 @@ class BudgetPeriodObject < DataObject
   end
 
   def edit opts={}
-    navigate
+    open_budget
     on Parameters do |edit|
       edit.start_date_period(@number).fit opts[:start_date]
       edit.end_date_period(@number).fit opts[:end_date]
@@ -54,7 +53,7 @@ class BudgetPeriodObject < DataObject
   end
 
   def delete
-    navigate
+    open_budget
     on(Parameters).delete_period @number
   end
 
@@ -69,8 +68,8 @@ class BudgetPeriodObject < DataObject
 
   # Nav Aids
 
-  def navigate
-    open_document @doc_type
+  def open_budget
+    open_document
     unless on_page?(on(Parameters).on_off_campus) && on_budget?
       on(Proposal).budget_versions
       on(BudgetVersions).open @budget_name

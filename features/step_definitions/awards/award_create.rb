@@ -42,6 +42,7 @@ Given /^the Award Modifier creates an Award including an Account ID, Account Typ
   @award = create AwardObject
 end
 
-Then(/^a new Institutional Proposal should be generated$/) do
-  pending
+Then /^a new Institutional Proposal should be generated$/ do
+  #TODO: Finish this step
+  raise "This is not a finished step!!!"
 end

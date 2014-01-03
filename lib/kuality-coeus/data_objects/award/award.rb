@@ -52,6 +52,7 @@ class AwardObject < DataObject
       #budget_versions:       collection('BudgetVersions'), # This is not yet verified to work with Awards.
 
     }
+    @lookup_class=AwardLookup
     set_options(defaults.merge(opts))
   end
 
@@ -59,7 +60,7 @@ class AwardObject < DataObject
     @creation_date = right_now[:date_w_slashes]
     visit(CentralAdmin).create_award
     on Award do |create|
-      @doc_type=create.doc_title
+      @doc_header=create.doc_title
       create.expand_all
       fill_out create, :description, :transaction_type, :award_status, :award_title,
                :activity_type, :award_type, :obligated_amount, :anticipated_amount,
@@ -81,7 +82,8 @@ class AwardObject < DataObject
       end
       create.save
       @document_id = create.header_document_id
-      @id = create.header_award_id
+      @id = create.header_award_id.strip
+      @search_key = { award_id: @id }
       @document_status = create.header_status
     end
   end
@@ -185,24 +187,25 @@ class AwardObject < DataObject
   end
 
   def add_custom_data opts={}
-    view :contacts
+    view :custom_data
     defaults = {
         document_id: @document_id,
-        doc_type: @doc_type
+        doc_header: @doc_header,
+        lookup_class: @lookup_class
     }
     @custom_data = make CustomDataObject, defaults.merge(opts)
     @custom_data.create
   end
 
   def initialize_time_and_money
-    navigate
+    open_document
     on(Award).time_and_money
     # Set up to only create the instance variable if it doesn't exist, yet
     @time_and_money ||= make TimeAndMoneyObject, id: on(TimeAndMoney).header_document_id
   end
 
   def view(tab)
-    navigate
+    open_document
     unless on(Award).send(StringFactory.damballa("#{tab}_button")).parent.class_name=~/tabcurrent$/
       on(Award).send(StringFactory.damballa(tab.to_s))
     end
@@ -352,9 +355,19 @@ class AwardObject < DataObject
     end
   end
 
-  def navigate
-    doc_search unless on_award?
+  def open_document
+    navigate unless on_award?
     on(TimeAndMoney).return_to_award if on_tm?
+  end
+
+  def navigate
+    visit @lookup_class do |page|
+      page.award_id.set @id
+      page.search
+      page.medusa
+    end
+    # Must update the document id, now:
+    @document_id=on(Award).header_document_id
   end
 
   def on_award?

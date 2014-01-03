@@ -7,6 +7,11 @@ Given /^I? ?add a PI to the Award$/ do
   @award.add_pi if @award.key_personnel.principal_investigator.nil?
 end
 
+Given /adds the Funding Proposal's PI as the Award's PI/ do
+  p_i = @institutional_proposal.key_personnel.principal_investigator
+  @award.add_pi first_name: p_i.first_name, last_name: p_i.last_name
+end
+
 Given /I? ?add a key person to the Award$/ do
   @award.add_key_person
 end
@@ -88,7 +93,7 @@ When /I? ?add the required Custom Data to the Award$/ do
   @award.add_custom_data if @award.custom_data.nil?
 end
 
-When /^I? ?completes? the Award requirements$/ do
+When /completes? the Award requirements$/ do
   steps %q{
     And add Reports to the Award
     And add Terms to the Award
@@ -116,4 +121,11 @@ And /^the Institutional Proposal Maintainer can unlink the proposal$/ do
   expect{
     @institutional_proposal.unlock_award(@award.id)
   }.not_to raise_error
+  on(InstitutionalProposalActions).errors.size.should == 0
+end
+
+Then /^the Institutional Proposal Maintainer cannot unlink the proposal$/ do
+  steps 'Given I log in with the Institutional Proposal Maintainer user'
+  @institutional_proposal.unlock_award(@award.id)
+  on(InstitutionalProposalActions).errors.size.should > 0
 end

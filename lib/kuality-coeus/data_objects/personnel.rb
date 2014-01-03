@@ -56,6 +56,7 @@ module Personnel
         # @units
         units.each { |unit| @units << unit }
       end
+      @units.uniq!
     end
   end
 

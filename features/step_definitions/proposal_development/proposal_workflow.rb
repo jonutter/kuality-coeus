@@ -60,6 +60,19 @@ end
 
 And /^the (.*) submits the Proposal to its sponsor$/ do |role_name|
   steps %{ Given I log in with the #{role_name} user }
+
+
+
+  # TODO: Remove this code when https://jira.kuali.org/browse/KRAFDBCK-10358 is fixed:
+  # ========
+  visit DocumentSearch do |page|
+    page.document_id.set @proposal.document_id
+    page.search
+    page.open_doc @proposal.document_id
+  end
+  # ========
+
+
   @proposal.submit :to_sponsor
   @institutional_proposal = @proposal.make_institutional_proposal
 end
@@ -78,7 +91,7 @@ And /^the principal investigator approves the Proposal$/ do
     log_in.username.set @proposal.key_personnel.principal_investigator.user_name
     log_in.login
   end
-  @proposal.view :proposal_summary
+  steps '* I can access the proposal from my action list'
   on(ProposalSummary).approve
   visit(Researcher).logout
 end

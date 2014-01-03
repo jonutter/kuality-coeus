@@ -42,11 +42,11 @@ class PHSFellowshipQuestionnaireObject < DataObject
     }
 
     set_options(defaults.merge(opts))
-    requires :document_id, :doc_type
+    requires :document_id, :doc_header
   end
 
   def create
-    navigate
+    open_s2s
     on(S2S).questions
     on(Questions).expand_all
     on PHSFellowshipQuestionnaire do |phs_fellowship|
@@ -79,10 +79,11 @@ class PHSFellowshipQuestionnaireObject < DataObject
 
   # Nav Aids...
 
-  def navigate
-    open_document @doc_type
+  def open_s2s
+    open_document
     on(Proposal).questions unless on_page?(on(Questions).questions_header)
   end
+
 end
 
 

@@ -8,7 +8,7 @@ class InstitutionalProposalObject < DataObject
   attr_accessor :document_id, :proposal_number, :dev_proposal_number, :project_title,
                 :doc_status, :sponsor_id, :activity_type, :proposal_type, :proposal_status,
                 :project_personnel, :custom_data, :special_review, :cost_sharing,
-                :award_id, :initiator, :proposal_log, :unrecovered_fa, :doc_type,
+                :award_id, :initiator, :proposal_log, :unrecovered_fa,
                 :key_personnel, :nsf_science_code
 
   def initialize(browser, opts={})
@@ -32,6 +32,12 @@ class InstitutionalProposalObject < DataObject
     end
     set_options(defaults.merge(opts))
     @key_personnel = @project_personnel
+    @lookup_class=InstitutionalProposalLookup
+    # Unfortunately this has to be hard-coded because
+    # most of the time this object's #make will not also
+    # run the #create
+    @doc_header='KC Institutional Proposal '
+    @search_key={ institutional_proposal_number: @proposal_number }
   end
 
   # This method is appropriate only in the context of creating an
@@ -44,9 +50,9 @@ class InstitutionalProposalObject < DataObject
       look.select_item @proposal_number
     end
     on InstitutionalProposal do |create|
-      @doc_type=create.doc_title
-      @document_id=create.document_id
       create.expand_all
+      @document_id=create.document_id
+      @doc_header=create.doc_title
       @proposal_number=create.institutional_proposal_number
       create.description.set random_alphanums
       fill_out create, :proposal_type, :award_id, :activity_type, :project_title
@@ -56,7 +62,7 @@ class InstitutionalProposalObject < DataObject
   end
 
   def view(tab)
-    navigate
+    open_document
     on(InstitutionalProposal).send(StringFactory.damballa(tab.to_s))
   end
 
@@ -78,28 +84,15 @@ class InstitutionalProposalObject < DataObject
 
   def unlock_award(award_id)
     view :institutional_proposal
-    on(InstitutionalProposal).edit # TODO: IMPORTANT!!! Code update to document number because of this edit!!!
+    on InstitutionalProposal do |page|
+      page.edit
+      page.institutional_proposal_actions
+    end
     on InstitutionalProposalActions do |page|
       page.expand_all
       page.funded_award(award_id).set
       page.unlock_selected
-
-
-
-
-
-
-
-sleep 45
-
-
-
-
-
-
-
-
-
+      confirmation
     end
   end
 
@@ -124,8 +117,8 @@ sleep 45
 
   def merge_settings(opts)
     defaults = {
-        document_id: @document_id,
-        doc_type: @doc_type
+        proposal_number: @proposal_number,
+        doc_header: @doc_header
     }
     opts.merge!(defaults)
   end
@@ -135,10 +128,6 @@ sleep 45
     object = make object_class, opts
     object.create
     object
-  end
-
-  def navigate
-    open_document @doc_type
   end
 
 end

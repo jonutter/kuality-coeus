@@ -12,7 +12,7 @@ Feature: Linking an Institutional Proposal to a KC Award
       And   I link the Funding Proposal to an Award
       Then  the status of the Funding Proposal should change to Funded
 
-    Scenario: KC-TS-104 Edit a 'Funded' Institutional Proposal
+    Scenario: Edit a 'Funded' Institutional Proposal
       Given I add an Institutional Proposal to an Award
       When  I attempt to edit the Institutional Proposal
       Then  a new Institutional Proposal should be generated

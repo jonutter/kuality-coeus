@@ -1,6 +1,5 @@
 class RoleObject < DataObject
 
-  include Navigation
   include StringFactory
 
   attr_accessor :id, :name, :type, :namespace, :description,
