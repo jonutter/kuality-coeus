@@ -2,7 +2,6 @@ class CustomDataObject < DataObject
 
   include Navigation
   include StringFactory
-  include Utilities
 
   attr_accessor :document_id, :graduate_student_count, :billing_element
 
@@ -34,6 +33,7 @@ class CustomDataObject < DataObject
 
   def open_custom_data
     open_document
+    # Note: Proposal is used because it's going to work in any case...
     on(Proposal).custom_data unless on_page?(on(page_class).asdf_tab)
   end
 

@@ -62,11 +62,14 @@ class KeyPersonObject < DataObject
       end
 
       # Proposal Person Certification
+      unless @key_person_role==nil
+        person.include_certification_questions(@full_name)
+        person.show_proposal_person_certification(@full_name) if person.show_prop_pers_cert_button(@full_name).present?
+      end
       if @certified
-        person.include_certification_questions(@full_name) unless @key_person_role==nil
         cert_questions.each { |q| person.send(q, full_name, get(q)) }
       else
-         cert_questions.each { |q| set(q, nil) }
+        cert_questions.each { |q| set(q, nil) }
       end
 
       # Add gathering/setting of more attributes here as needed

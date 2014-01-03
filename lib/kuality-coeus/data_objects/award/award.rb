@@ -187,10 +187,11 @@ class AwardObject < DataObject
   end
 
   def add_custom_data opts={}
-    view :contacts
+    view :custom_data
     defaults = {
         document_id: @document_id,
-        doc_type: @doc_type
+        doc_header: @doc_header,
+        lookup_class: @lookup_class
     }
     @custom_data = make CustomDataObject, defaults.merge(opts)
     @custom_data.create

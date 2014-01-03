@@ -84,28 +84,15 @@ class InstitutionalProposalObject < DataObject
 
   def unlock_award(award_id)
     view :institutional_proposal
-    on(InstitutionalProposal).edit # TODO: IMPORTANT!!! Code update to document number because of this edit!!!
+    on InstitutionalProposal do |page|
+      page.edit
+      page.institutional_proposal_actions
+    end
     on InstitutionalProposalActions do |page|
       page.expand_all
       page.funded_award(award_id).set
       page.unlock_selected
-
-
-
-
-
-
-
-sleep 45
-
-
-
-
-
-
-
-
-
+      confirmation
     end
   end
 

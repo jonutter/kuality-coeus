@@ -5,7 +5,7 @@ Given /^(\d+) Approved Institutional Proposals? exists?$/ do |count|
       * a User exists with the role: 'Proposal Creator'
       * a User exists with the roles: OSP Administrator, Institutional Proposal Maintainer in the 000001 unit
       * the Proposal Creator creates a Proposal
-      * adds a principal investigator
+      * adds a principal investigator to the Proposal
       * sets valid credit splits for the Proposal
       * creates a Budget Version with cost sharing for the Proposal
       * finalizes the Budget Version

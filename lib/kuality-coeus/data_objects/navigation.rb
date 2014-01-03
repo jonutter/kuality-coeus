@@ -19,27 +19,9 @@ module Navigation
   # - @lookup_class containing the lookup page class for the document
   # - @search_key containing a hash with the key being the name of the
   #               search parameter to use, and the value what gets searched
-
+  #
   def open_document
-    if on_document?
-      puts 'true'
-    else
-      puts 'false'
-
-
-
-
-#sleep 15
-
-
-
-
-
-
-
-      navigate
-    end
-    #navigate unless on_document?
+    navigate unless on_document?
   end
 
   def navigate
@@ -54,9 +36,6 @@ module Navigation
 
   def on_document?
     begin
-      puts @document_id.inspect
-      puts @doc_header.inspect
-      puts @browser.frm.div(id: 'headerarea').h1.text.inspect
       on(DocumentHeader).document_id==@document_id && @browser.frm.div(id: 'headerarea').h1.text==@doc_header
     rescue Watir::Exception::UnknownObjectException, Selenium::WebDriver::Error::StaleElementReferenceError
       false
