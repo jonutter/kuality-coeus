@@ -23,7 +23,8 @@ class ActionList < BasePage
   action(:take_actions) { |b| b.frm.link(id: 'takeMassActions').click; b.loading }
   p_element(:action) { |item_id, b| b.item_row(item_id).select(name: /actionTakenCd/) }
   action(:outbox) { |b| b.frm.link(href: /viewOutbox/).click }
-  action(:last) { |b| b.frm.link(text: 'Last').click }
+  element(:last_button) { |b| b.frm.link(text: 'Last') }
+  action(:last) { |b| b.last_button.click }
   action(:refresh) { |b| b.frm.button(name: 'methodToCall.refresh').click; b.loading }
 
   #Default action select list for FYIs

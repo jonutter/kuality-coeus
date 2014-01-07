@@ -1,6 +1,3 @@
-admin:
-  :first_name: admin
-  :last_name:  admin
 unassigneduser: # AKA: "Principal Name
   :user_name:        unassigneduser
   :description:      creating user with 'unassigned' role
@@ -145,7 +142,7 @@ cleganeg:  # AKA: "Principal Name"
     - :id:   '100'
       :name: OSPApprover
       :qualifiers:
-        -
+        - :unit:
 starka:  # AKA: "Principal Name"
   :user_name:        starka
   :description:      creating test user with manager permissions
@@ -285,7 +282,7 @@ warrens:  # AKA: "Principal Name"
     - :id:   '100'
       :name: OSPApprover
       :qualifiers:
-        -
+        - :unit:
     - :id:   '131'
       :name: OSP Administrator
       :qualifiers:
@@ -441,11 +438,11 @@ mlinkous: # AKA: "Principal Name"
    - :id:   '99'
      :name: IRB Approver
      :qualifiers:
-       -
+       - :unit:
    - :id:   '149'
      :name: IRBApprover-Nested
      :qualifiers:
-       -
+       - :unit:
 smalkmus: # AKA: "Principal Name"
   :user_name:        smalkmus
   :description:      IRB Protocol Administrator
@@ -511,7 +508,7 @@ smalkmus: # AKA: "Principal Name"
    - :id:   '149'
      :name: Protocol Approver
      :qualifiers:
-       -
+       - :unit:
    - :id:   '1651'
      :name: IACUC Approver
      :qualifiers:
@@ -662,7 +659,7 @@ dkensrue: # AKA: "Principal Name"
    - :id:   '100'
      :name: OSPApprover
      :qualifiers:
-       -
+       - :unit:
 dbowie: # AKA: "Principal Name"
   :user_name:        dbowie
   :description:      Proposal Log PI
@@ -845,7 +842,7 @@ dbyrne:  # AKA: "Principal Name"
     - :id:   '100'
       :name: OSPApprover
       :qualifiers:
-        -
+        - :unit:
     - :id:   '131'
       :name: OSP Administrator
       :qualifiers:

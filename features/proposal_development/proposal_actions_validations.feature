@@ -4,8 +4,8 @@ Feature: Proposal Actions Validations
   so that I can fix them prior to submitting my proposal
 
   Background: Logged in with a proposal creator user
-    Given a User exists with the role: 'Proposal Creator'
-    And   I log in with the Proposal Creator user
+    * a User exists with the role: 'Proposal Creator'
+    * I log in with the Proposal Creator user
 
     Scenario: A PI has not been added to the proposal
       Given I create a Proposal
@@ -27,9 +27,9 @@ Feature: Proposal Actions Validations
       And   checking the key personnel page shows a proposal person certification error that says the investigator needs to be certified
 
     Examples:
-      | Person                                  |
-      | Co-Investigator                         |
-      | Principal Investigator                  |
+      | Person                  |
+      | Co-Investigator         |
+      | Principal Investigator  |
 
     Scenario: A Key Person is added but not certified
       Given I create a Proposal where the un-certified key person has included certification questions

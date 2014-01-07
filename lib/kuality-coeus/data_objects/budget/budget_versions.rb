@@ -92,6 +92,7 @@ class BudgetVersionsObject < DataObject
   def edit opts={}
     open_budget
     on Parameters do |edit|
+      edit.parameters unless edit.parameters_button.parent.class_name=='tabright tabcurrent'
       edit_fields opts, edit, :final, :total_direct_cost_limit
       edit.budget_status.fit opts[:status]
       # TODO: More to add here...

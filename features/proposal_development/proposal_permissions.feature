@@ -20,11 +20,11 @@ Feature: Permissions in a Proposal
 
     Examples:
     | Role                 | Permissions                          |
-    | Aggregator           | edit all parts of the proposal       |
-    | Budget Creator       | update the budget, not the narrative |
-    | Delete Proposal      | delete the proposal                  |
-    | Viewer               | only read the proposal               |
-  @test
+    | Aggregator           | edit all parts of the Proposal       |
+    | Budget Creator       | update the Budget, not the narrative |
+    | Delete Proposal      | delete the Proposal                  |
+    | Viewer               | only read the Proposal               |
+
   Scenario: Narrative Writers can't edit budget details
     Given I create a Budget Version for the Proposal
     When  I assign the Unassigned user as a Narrative Writer in the proposal permissions
@@ -54,7 +54,7 @@ Feature: Permissions in a Proposal
     | Role             |
     | Unassigned       |
     | Proposal Creator |
-
+  @test
   Scenario Outline: Visit a recalled proposal as users with the permissions necessary to edit the document in varying ways
     Given I assign the Unassigned user as a <Role> in the proposal permissions
     And   complete the Proposal
@@ -65,7 +65,7 @@ Feature: Permissions in a Proposal
 
   Examples:
     | Role                | Permissions                                    |
-    | Aggregator          | edit all parts of the proposal                 |
-    | Budget Creator      | only update the budget                         |
-    | Delete Proposal     | delete the proposal                            |
-    | Viewer              | only read the proposal                         |
+    | Aggregator          | edit all parts of the Proposal                 |
+    | Budget Creator      | update the Budget, not the narrative           |
+    | Delete Proposal     | delete the Proposal                            |
+    | Viewer              | only read the Proposal                         |

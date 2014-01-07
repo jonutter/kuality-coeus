@@ -1,11 +1,11 @@
 Feature: Creating a proposal development document
 
-  As a researcher I want the ability to create a proposal,
+  As a researcher I want the ability to create a proposal
   so that I can get funding for my research.
 
   Background: Logged in with a proposal creator user
-    Given a User exists with the role: 'Proposal Creator'
-    And   I log in with the Proposal Creator user
+    * a User exists with the role: 'Proposal Creator'
+    * I log in with the Proposal Creator user
 
   Scenario: Attempt to save a proposal missing a required field
     When  I create a Proposal but miss a required field

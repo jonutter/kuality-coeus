@@ -42,7 +42,6 @@ Given /^I? ?creates? a Proposal where the un-certified key person has included c
   @role = 'Key Person'
   @proposal = create ProposalDevelopmentObject
   @proposal.add_key_person role: @role, key_person_role: 'default', certified: false
-  on(KeyPersonnel).include_certification_questions @proposal.key_personnel.uncertified_person(@role).full_name
 end
 
 Then /^checking the key personnel page shows an error that says (.*)$/ do |error|

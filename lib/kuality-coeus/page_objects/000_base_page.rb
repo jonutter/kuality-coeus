@@ -27,7 +27,7 @@ class BasePage < PageFactory
       element(:headerinfo_table) { |b| b.frm.div(id: 'headerarea').table(class: 'headerinfo') }
       value(:document_id) { |p| p.headerinfo_table[0].text[/\d{4}/] }
       alias_method :doc_nbr, :document_id
-      value(:document_status) { |p| p.headerinfo_table[0][3].text[/(?<=:).+$/] }
+      value(:document_status) { |p| p.headerinfo_table[0][3].text[/(?<=:)?.+$/] }
       value(:initiator) { |p| p.headerinfo_table[1][1].text }
       alias_method :disposition, :initiator
       value(:last_updated) {|p| p.headerinfo_table[1][3].text }

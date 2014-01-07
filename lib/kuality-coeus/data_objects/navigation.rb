@@ -28,6 +28,7 @@ module Navigation
     visit @lookup_class do |page|
       page.send(@search_key.keys[0]).set @search_key.values[0]
       page.search
+      page.results_table.wait_until_present
       page.medusa
     end
     # Must update the document id, now:
