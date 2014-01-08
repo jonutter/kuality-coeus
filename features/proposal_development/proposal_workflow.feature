@@ -66,10 +66,11 @@ Feature: Proposal Workflows and Routing
     And   I log in with the OSPApprover user
     Then  I should receive an action list item with the requested action being: FYI
     And   I can acknowledge the requested action list item
-
+  #FIXME
+  @fixme
   Scenario: An OSP Admin overrides a budget's cost sharing amount
     Given the Budget Column's 'Cost Sharing Amount' has a lookup for 'Proposal Cost Share' that returns 'Amount'
-    And   a User exists with the role: 'OSPApprover'
+    And   a User exists with the role: 'OSP Administrator'
     And   I log in with the Proposal Creator user
     And   create a Proposal
     And   add a principal investigator to the Proposal
@@ -86,29 +87,29 @@ Feature: Proposal Workflows and Routing
     Given a User exists with the role: 'OSPApprover'
     And   I log in with the Proposal Creator user
     And   I submit a new Proposal into routing
-    And   I log in with the OSP Administrator user
+    And   I log in with the OSPApprover user
     And   I approve the Proposal with future approval requests
     And   the principal investigator approves the Proposal
-    When  I log in again with the OSP Administrator user
+    When  I log in again with the OSPApprover user
     Then  I should only have the option to approve the proposal
   @test
   Scenario: Approve a proposal without future approval requests
     Given a User exists with the role: 'OSPApprover'
     And   I log in with the Proposal Creator user
     And   I submit a new Proposal into routing
-    And   I log in with the OSP Administrator user
+    And   I log in with the OSPApprover user
     And   I approve the Proposal without future approval requests
     And   the principal investigator approves the Proposal
-    When  I log in again with the OSP Administrator user
+    When  I log in again with the OSPApprover user
     Then  I should only have the option to submit the proposal to its sponsor
   #@test
   Scenario: Submit a proposal to its sponsor
     Given a User exists with the role: 'OSPApprover'
     And   I log in with the Proposal Creator user
     And   I submit a new Proposal into routing
-    And   I log in with the OSP Administrator user
+    And   I log in with the OSPApprover user
     And   I approve the Proposal without future approval requests
     And   the principal investigator approves the Proposal
-    And   I log in again with the OSP Administrator user
+    And   I log in again with the OSPApprover user
     When  I submit the Proposal to its sponsor
     Then  the Proposal status should be Approved and Submitted
