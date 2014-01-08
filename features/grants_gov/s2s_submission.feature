@@ -3,7 +3,7 @@ Feature: Submitting Proposals via s2s to Grants.gov
 
   As a researcher, I want the ability to submit my completed proposals
   through to grants.gov so that I can get funding for them
-
+  @failing
   Scenario Outline: Submit a proposal to Grants.gov with various sponsors and opportunities
     Given a User exists with the role: 'Proposal Creator'
     And   a User exists that can be a PI for Grants.gov proposals
@@ -25,7 +25,7 @@ Feature: Submitting Proposals via s2s to Grants.gov
   Examples:
     | Provider   | Sponsor           | Opportunity              |
     | Grants.Gov | NIH               | RR-TEST-NIH-FORMS2       |
-    #| Grants.Gov | NIH               | RR-FORMFAMILY-009-2010   |
-    #| Grants.Gov | DOD-Agency        | CAL-TEST-DOD2            |
-    #| Grants.Gov | DOD-Agency        | CSS-120809-SF424RR-V12   |
-    #| Grants.Gov | NASA - Washington | RR-FORMFAMILY-004-2010   |
+    | Grants.Gov | NIH               | RR-FORMFAMILY-009-2010   |
+    | Grants.Gov | DOD-Agency        | CAL-TEST-DOD2            |
+    | Grants.Gov | DOD-Agency        | CSS-120809-SF424RR-V12   |
+    | Grants.Gov | NASA - Washington | RR-FORMFAMILY-004-2010   |

@@ -48,7 +48,9 @@ class UserYamlCollection < Hash
   # The array is shuffled so that #have_role('role name')[0] will be a random selection
   # from the list of matching users.
   def have_role(role)
-    self.find_all{|user| user[1][:rolez].detect{|r| r[:name]==role}}.shuffle
+    users = self.find_all{|user| user[1][:rolez].detect{|r| r[:name]==role}}.shuffle
+    raise "No users have the role #{role}. Please add one or fix your parameter." if users.empty?
+    users
   end
 
   # Returns an array of all users with the specified role in the specified unit. Takes
@@ -56,24 +58,24 @@ class UserYamlCollection < Hash
   # The array is shuffled so that #have_role_in_unit('role name', 'unit name')[0]
   # will be a random selection from the list of matching users.
   def have_role_in_unit(role, unit)
-    self.find_all{ |user|
+    users = self.find_all{ |user|
       user[1][:rolez].detect{ |r|
                              r[:name]==role &&
                              r[:qualifiers].detect{ |q|
                                                      q[:unit]==unit }
                                                       }
     }.shuffle
+    raise "No users have the role #{role} in the unit #{unit}. Please add one or fix your parameter(s)." if users.empty?
+    users
   end
 
-  # Returns an array of all users with the specified role in the specified unit,
-  # and that role descends the hierarchy. Takes
-  # the role and unit names as strings.
-  # The array is shuffled so that #have_role_in_unit('role name', 'unit name')[0]
-  # will be a random selection from the list of matching users.
+  # TODO: Does this need the third parameter?  Maybe we just look for "yes" and make another method for "no"...
   def have_hierarchical_role_in_unit(role, unit, hier)
-    self.find_all{ |user|
+    users = self.find_all{ |user|
       user[1][:rolez].find{ |r| r[:name]==role && r[:qualifiers].detect{ |q| q[:unit]==unit && q[:descends_hierarchy]==hier } }
     }.shuffle
+    raise "No users have a hierarchical role #{role} in the unit #{unit}. Please add one or fix your parameter(s)." if users.empty?
+    users
   end
 
   # Returns an array of all users with the specified campus code. Takes the code as a string.
@@ -162,8 +164,6 @@ class UserObject
                  when opts.key?(:user)
                    opts[:user]
                  when opts.key?(:unit)
-                   puts USERS.have_role_in_unit(opts[:role], opts[:unit]).inspect
-                   exit
                    USERS.have_role_in_unit(opts[:role], opts[:unit])[0][0]
                  when opts.key?(:role)
                    USERS.have_role(opts[:role])[0][0]

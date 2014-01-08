@@ -87,8 +87,6 @@ class BudgetVersionsObject < DataObject
     @budget_periods.number!
   end
 
-  # Please note, this method is for VERY basic editing...
-  # Use it for editing the Budget Version while on the Proposal, but not the Periods
   def edit opts={}
     open_budget
     on Parameters do |edit|
