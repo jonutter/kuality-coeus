@@ -1,6 +1,7 @@
 class GroupObject < DataObject
 
   include StringFactory
+  include Navigation
 
   attr_accessor :id, :namespace, :name, :type,
                 :principal_name, :assignees
@@ -42,11 +43,5 @@ class GroupObject < DataObject
       page.edit_item @name
     end
   end
-
-  # =========
-  private
-  # =========
-
-
 
 end
