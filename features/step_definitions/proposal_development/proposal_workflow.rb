@@ -22,7 +22,7 @@ Then /^the Proposal status should be (.*)$/ do |status|
   @proposal.status.should == status
 end
 
-Then(/^I should receive an action list item with the requested action being: (.*)$/) do |action|
+Then /^I should receive an action list item with the requested action being: (.*)$/ do |action|
   visit ActionList do |page|
     page.last if page.last_button.present?
     # This code is needed because the list refresh

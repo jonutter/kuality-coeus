@@ -7,8 +7,10 @@ Feature: Creating an Institutional Proposal from a Proposal Log
   an Institutional Proposal (e.g. Funding Proposal)
 
   Background:
-    * a User exists with the role: 'Create Proposal Log'
+    * a User exists with the roles: Create Proposal Log, Institutional Proposal Maintainer in the 000001 unit
   @failing
+    ##NOTE: Fix the logic for error message checking. The error messages are inconsistent
+    ##between required fields
   Scenario: Attempt to create a Funding Proposal document w/o a required field
     Given I log in with the Create Proposal Log user
     And   I submit a new Proposal Log

@@ -6,7 +6,7 @@ Feature: Proposal Workflows and Routing
 
   Background:
     * a User exists with the role: 'Proposal Creator'
-  @test
+
   Scenario Outline: Proposal is successfully routed to PI for action
     Given Users exist with the following roles: OSPApprover, Unassigned
     And   I log in with the Proposal Creator user
@@ -44,13 +44,6 @@ Feature: Proposal Workflows and Routing
     Given I log in with the Proposal Creator user
     And   submit a new Proposal into routing
     Then  the Proposal status should be Approval Pending
-  #FIXME!
-  @fixme
-  Scenario: Aggregator successfully blanket approves a routed proposal
-    Given I log in with the Proposal Creator user
-    And   I submit a new Proposal into routing
-    When  I blanket approve the Proposal
-    Then  the Proposal status should be Approval Granted
 
   Scenario: Aggregator successfully recalls a routed proposal
     Given I log in with the Proposal Creator user
