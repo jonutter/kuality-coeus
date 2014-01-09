@@ -89,8 +89,8 @@ When(/^I add the same person to the Proposal as a PI and Co-Investigator$/) do
     names = page.returned_full_names
     index = rand(names.size)
     @user_name = page.returned_principal_names[index]
-    @last_name = names[index][/^\w+/]
-    @first_name = names[index][/\w+$/]
+    @last_name = names[index][/^.+(?=,)/]
+    @first_name = names[index][/(?<=, ).+$/]
   end
   @proposal.add_principal_investigator last_name: @last_name, first_name: @first_name
   @proposal.add_key_person role: 'Co-Investigator', last_name: @last_name, first_name: @first_name

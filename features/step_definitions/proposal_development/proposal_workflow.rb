@@ -57,19 +57,6 @@ end
 
 And /^the (.*) submits the Proposal to its sponsor$/ do |role_name|
   steps %{ Given I log in with the #{role_name} user }
-
-
-
-  # TODO: Remove this code when https://jira.kuali.org/browse/KRAFDBCK-10358 is fixed:
-  # ========
-  visit DocumentSearch do |page|
-    page.document_id.set @proposal.document_id
-    page.search
-    page.open_doc @proposal.document_id
-  end
-  # ========
-
-
   @proposal.submit :to_sponsor
   @institutional_proposal = @proposal.make_institutional_proposal
 end
