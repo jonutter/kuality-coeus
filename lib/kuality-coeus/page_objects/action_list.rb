@@ -4,19 +4,6 @@ class ActionList < BasePage
 
   search_results_table
 
-  # TD Count for Columns in results table
-  SHOW_BUTTON = 0
-  ITEM_ID = 1
-  TYPE = 2
-  TITLE = 3
-  ROUTE_STATUS = 4
-  ACTION_REQUESTED = 5
-  DELEGATOR = 6
-  DATE_CREATED = 7
-  GROUP_REQUEST = 8
-  ACTIONS = 9
-  LOG = 10
-
   p_value(:action_requested) { |item_id, b| b.item_row(item_id).tds[ACTION_REQUESTED].text }
   p_value(:route_status) { |item_id, b| b.item_row(item_id).tds[ROUTE_STATUS].text }
   action(:filter) { |b| b.frm.button(name: 'methodToCall.viewFilter').click; b.loading }

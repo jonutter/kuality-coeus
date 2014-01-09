@@ -24,7 +24,7 @@ Feature: Permissions in a Proposal
     | Budget Creator       | update the budget, not the narrative |
     | Delete Proposal      | delete the proposal                  |
     | Viewer               | only read the proposal               |
-  @test
+
   Scenario: Narrative Writers can't edit budget details
     Given I create a Budget Version for the Proposal
     When  I assign the Unassigned user as a Narrative Writer in the proposal permissions
