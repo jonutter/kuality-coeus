@@ -2,8 +2,6 @@ require 'yaml'
 
 @config = YAML.load_file("#{File.dirname(__FILE__)}/config.yml")[:basic]
 
-$base_url = @config[:url]
-
 require "#{File.dirname(__FILE__)}/../../lib/kuality-coeus"
 require 'rspec/matchers'
 
@@ -12,7 +10,7 @@ World StringFactory
 World DateFactory
 World Utilities
 
-kuality = Kuality.new @config[:browser]
+kuality = Kuality.new @config[:browser], @config[:url]
 
 Before do
   @browser = kuality.browser
