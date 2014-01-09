@@ -5,7 +5,7 @@ Feature: Proposal Key Personnel Validations
   before I submit the Proposal
 
   Background: The admin user creates a proposal
-    * Users exist with the following roles: Proposal Creator, Unassigned
+    * a User exists with the role: 'Proposal Creator'
     * the Proposal Creator creates a Proposal
 
   Scenario Outline: I should see an error when I add Credit Split percentages above 100 or less than 0
@@ -33,8 +33,7 @@ Feature: Proposal Key Personnel Validations
   Scenario: Error when adding a key person with an invalid unit
     When I add a key person with an invalid unit type
     Then an error should say to select a valid unit
-  # TODO: Move this to its own feature file to get rid of "unassigned" from the above Background...
+
   Scenario: Error when adding the same user as a PI and Co-Investigator
-    When I add the Unassigned user as a Principal Investigator to the key personnel proposal roles
-    And  I add the Unassigned user as a Co-Investigator to the key personnel proposal roles
-    Then there should be an error that says the Unassigned user already holds investigator role
+    When I add the same person to the Proposal as a PI and Co-Investigator
+    Then there should be an error that says the user already holds investigator role

@@ -58,8 +58,8 @@ When /^I? ?sets? valid credit splits for the Proposal$/ do
   @proposal.set_valid_credit_splits
 end
 
-Then /^there should be an error that says the (.*) user already holds investigator role$/ do |role|
-  on(KeyPersonnel).errors.should include "#{get(role).first_name} #{get(role).last_name} already holds Investigator role."
+Then /^there should be an error that says the user already holds investigator role$/ do
+  on(KeyPersonnel).errors.should include "#{@first_name} #{@last_name} already holds Investigator role."
 end
 
 And(/^the (.*) button appears on the Proposal Summary and Proposal Action pages$/) do |action|
@@ -81,4 +81,17 @@ end
 When(/^I try to add the (.*) user as a (.*) to the key personnel Proposal roles$/) do |user_role, proposal_role|
   user = get(user_role)
   @proposal.add_key_person first_name: user.first_name, last_name: user.last_name, role: proposal_role
+end
+
+When(/^I add the same person to the Proposal as a PI and Co-Investigator$/) do
+  visit PersonLookup do |page|
+    page.search
+    names = page.returned_full_names
+    index = rand(names.size)
+    @user_name = page.returned_principal_names[index]
+    @last_name = names[index][/^\w+/]
+    @first_name = names[index][/\w+$/]
+  end
+  @proposal.add_principal_investigator last_name: @last_name, first_name: @first_name
+  @proposal.add_key_person role: 'Co-Investigator', last_name: @last_name, first_name: @first_name
 end

@@ -18,4 +18,13 @@ class PersonLookup < Lookups
     names
   }
 
+  value(:returned_principal_names) { |b|
+    names=[]
+    b.results_table.tbody.trs.each { |row|
+      names << row[1].text.strip
+    }
+    names.delete_if { |name| name=='' }
+    names
+  }
+
 end

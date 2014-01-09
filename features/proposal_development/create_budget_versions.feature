@@ -8,7 +8,7 @@ Feature: Creating/Editing Budget Versions in Proposal Documents
     * I log in with the Proposal Creator user
     * I create a 5-year project Proposal
     * create a Budget Version for the Proposal
-  @failing
+
   Scenario: System warns about budget periods when proposal dates change
     When  I push the Proposal's project start date ahead a year
     Then  opening the Budget Version will display a warning about the date change
