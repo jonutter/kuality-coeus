@@ -6,7 +6,7 @@ Feature: Proposal Workflows and Routing
 
   Background:
     * a User exists with the role: 'Proposal Creator'
-
+  @test
   Scenario Outline: Proposal is successfully routed to PI for action
     Given Users exist with the following roles: OSPApprover, Unassigned
     And   I log in with the Proposal Creator user
@@ -92,7 +92,7 @@ Feature: Proposal Workflows and Routing
     And   the principal investigator approves the Proposal
     When  I log in again with the OSPApprover user
     Then  I should only have the option to approve the proposal
-  @test
+  #@test
   Scenario: Approve a proposal without future approval requests
     Given a User exists with the role: 'OSPApprover'
     And   I log in with the Proposal Creator user

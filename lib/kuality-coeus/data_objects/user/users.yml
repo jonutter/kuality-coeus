@@ -34,7 +34,7 @@ unassigneduser: # AKA: "Principal Name
         - :unit: '000001'
 poolej: # AKA: "Principal Name
   :user_name:        poolej
-  :description:      User who can submit to grants.gov
+  :description:      Basic Prop Dev Aggregator With Additional Helper Roles
   :affiliation_type: Staff
   :campus_code:      'UN - UNIVERSITY'
   :employee_id:      poolej
@@ -96,7 +96,7 @@ poolej: # AKA: "Principal Name
         - :unit: '000001'
 cleganeg:  # AKA: "Principal Name"
   :user_name:        cleganeg
-  :description:      creating osp approver
+  :description:      OSP Approver User Who Can Only Approve A Proposal
   :affiliation_type: Faculty
   :campus_code:      'UN - UNIVERSITY'
   :employee_id:      ospapprover
@@ -145,7 +145,7 @@ cleganeg:  # AKA: "Principal Name"
         - :unit:
 starka:  # AKA: "Principal Name"
   :user_name:        starka
-  :description:      creating test user with manager permissions
+  :description:      Proposal Creator User
   :affiliation_type: Other Academic Group
   :campus_code:      'UN - UNIVERSITY'
   :first_name:       Arya
@@ -193,7 +193,7 @@ starka:  # AKA: "Principal Name"
         - :unit: '000001'
 martelld:  # AKA: "Principal Name"
   :user_name:        martelld
-  :description:      creating test user with aggregator permissions
+  :description:      Proposal Aggregator User
   :affiliation_type: Other Academic Group
   :campus_code:      'UN - UNIVERSITY'
   :first_name:       Doran
@@ -237,7 +237,7 @@ martelld:  # AKA: "Principal Name"
         - :unit: '000001'
 warrens:  # AKA: "Principal Name"
   :user_name:        warrens
-  :description:      creating test aor user
+  :description:      AOR User Capable Of Submitting To Grants.Gov
   :affiliation_type: Staff
   :campus_code:      'UN - UNIVERSITY'
   :employee_id:      '00001'
@@ -288,10 +288,19 @@ warrens:  # AKA: "Principal Name"
       :qualifiers:
         - :unit: '000001'
           :descends_hierarchy: :clear
+    - :id:   '130'
+      :name: Proposal Submission
+      :qualifiers:
+        - :unit: '000001'
+          :descends_hierarchy: :clear
     - :id:   '110'
       :name: Aggregator
       :qualifiers:
         - :unit: '000001'
+
+#Note: Lannister is ONLY an OSP Admin. This means, he will not be
+#in any proposal's workflow.
+
 lannister:  # AKA: "Principal Name"
   :user_name:        lannister
   :description:      OSP Administrator
@@ -516,7 +525,7 @@ smalkmus: # AKA: "Principal Name"
          :descends_hierarchy: :clear
 kwagner: # AKA: "Principal Name"
   :user_name:        kwagner
-  :description:      Award Creator
+  :description:      Award Modifier Who Can Create Awards
   :affiliation_type: Staff
   :campus_code:      'UN - UNIVERSITY'
   :employee_id:      kwagner
@@ -644,64 +653,24 @@ dkensrue: # AKA: "Principal Name"
      :type:    Work
      :default: :set
   :rolez:
-   - :id:   '140'
-     :name: Create Proposal Log
+   - :id:   '100'
+     :name: OSPApprover
      :qualifiers:
-       - :unit: '000001'
+       - :unit:
    - :id:   '131'
      :name: OSP Administrator
      :qualifiers:
        - :unit: '000001'
+   - :id:   '130'
+     :name: Proposal Submission
+     :qualifiers:
+       - :unit: '000001'
+   - :id:   '140'
+     :name: Create Proposal Log
+     :qualifiers:
+       - :unit: '000001'
    - :id:   '117'
      :name: Institutional Proposal Maintainer
-     :qualifiers:
-       - :unit: '000001'
-   - :id:   '100'
-     :name: OSPApprover
-     :qualifiers:
-       - :unit: '000001'
-dbowie: # AKA: "Principal Name"
-  :user_name:        dbowie
-  :description:      Proposal Log PI
-  :affiliation_type: Staff
-  :campus_code:      'UN - UNIVERSITY'
-  :employee_id:      dbowie
-  :employee_status:  Active
-  :employee_type:    Professional
-  :base_salary:      98765.43
-  :primary_department_code: '000001'
-  :first_name:       David
-  :last_name:        Bowie
-  :primary_title:    Proposal Log PI
-  :directory_title:  Proposal Log PI
-  :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
-  :era_commons_user_name: dbowie
-  :directory_department:  Liberal Arts
-  :graduate_student_count: '0'
-  :billing_element:  bla bla bla
-  :addresses:
-   - :type:    Work
-     :line_1:  475 N scottsdale rd
-     :city:    scottsdale
-     :state:   ARIZONA
-     :country: United States
-     :zip:     85257
-     :default: :set
-  :phones:
-   - :type:    Work
-     :number:  602-228-3876
-     :default: :set
-   - :type:    Facsimile
-     :number:  543-525-1234
-     :default: :clear
-     :country: United States
-  :emails:
-   - :email:   kc-qa-notify@rsmart.com
-     :type:    Work
-     :default: :set
-  :rolez:
-   - :id:   '137'
-     :name: Proposal Log PI
      :qualifiers:
        - :unit: '000001'
 mtwain: # AKA: "Principal Name"
@@ -800,7 +769,7 @@ jamesr: # AKA: "Principal Name"
          :descends_hierarchy: :set
 dbyrne:  # AKA: "Principal Name"
   :user_name:        dbyrne
-  :description:      creating user who can submit pd docs to sponsors
+  :description:      OSP Admin And IP Proposal Initiator
   :affiliation_type: Staff
   :campus_code:      'UN - UNIVERSITY'
   :employee_id:      '00001'
@@ -845,6 +814,11 @@ dbyrne:  # AKA: "Principal Name"
         - :unit:
     - :id:   '131'
       :name: OSP Administrator
+      :qualifiers:
+        - :unit: '000001'
+          :descends_hierarchy: :clear
+    - :id:   '130'
+      :name: Proposal Submission
       :qualifiers:
         - :unit: '000001'
           :descends_hierarchy: :clear
