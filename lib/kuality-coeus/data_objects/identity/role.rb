@@ -1,6 +1,7 @@
 class RoleObject < DataObject
 
   include StringFactory
+  include Navigation
 
   attr_accessor :id, :name, :type, :namespace, :description,
                 :permissions
@@ -84,7 +85,7 @@ class RoleObject < DataObject
   end
 
   def add_permission(id)
-    view # TODO: Add conditional navigation code here
+    view
     on Role do |page|
       page.add_permission_id.set id
       page.add_permission
@@ -94,16 +95,22 @@ class RoleObject < DataObject
   end
 
   def add_assignee(opts)
-    view # TODO: Add conditional navigation code here
+    view
     @assignees.add opts
   end
 
   def view
     exists?
+    # TODO: Add conditional navigation code here
     on(RoleLookup).edit_item @name
   end
 
   def exists?
+    # Note: This is dangerous!
+    # The working assumption is that either there is no current user
+    # or else the current user is capable of editing Roles. This must be
+    # kept in mind in construction test scenarios. Otherwise, more robust
+    # code is needed, here.
     $users.admin.log_in if $users.current_user==nil
     visit(SystemAdmin).role
     on RoleLookup do |look|

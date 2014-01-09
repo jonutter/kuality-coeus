@@ -12,18 +12,18 @@ Feature: Adding Funding Proposals to Awards
     And   the Award Modifier starts an Award with the first Funding Proposal
     When  adds the second Funding Proposal to the unsaved Award
     Then  the Title, Activity Type, NSF Science Code, and Sponsor match the second Institutional Proposal
-
+  @failing
   Scenario: KC-TS-1156 Removing a Proposal Prior to Saving Award
     Given 1 Approved Institutional Proposal exists
     Given the Award Modifier starts an Award with the Funding Proposal
     When  the Funding Proposal is removed from the Award
     Then  the Title, Activity Type, NSF Science Code, and Sponsor still match the Proposal
-
+  @failing
   Scenario: KC-TS-1160 Action Availability to Delete Link
     Given 1 Approved Institutional Proposal exists
     When the Award Modifier creates an Award with the first Funding Proposal
     Then the Award Modifier cannot remove the Proposal from the Award
-
+  @failing
   Scenario: KC-TS-1154 Funding Proposal added to existing Award
     Given 1 Approved Institutional Proposal exists
     Given the Award Modifier creates an Award

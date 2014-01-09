@@ -87,14 +87,12 @@ class BudgetVersionsObject < DataObject
     @budget_periods.number!
   end
 
-  # Please note, this method is for VERY basic editing...
-  # Use it for editing the Budget Version while on the Proposal, but not the Periods
   def edit opts={}
     open_budget
     on Parameters do |edit|
-      edit.final.fit opts[:final]
+      edit.parameters unless edit.parameters_button.parent.class_name=='tabright tabcurrent'
+      edit_fields opts, edit, :final, :total_direct_cost_limit
       edit.budget_status.fit opts[:status]
-      edit.total_direct_cost_limit.fit opts[:total_direct_cost_limit]
       # TODO: More to add here...
       edit.save
     end
@@ -102,14 +100,16 @@ class BudgetVersionsObject < DataObject
   end
 
   def open_budget
-    open_document
-    on(Proposal).budget_versions unless on_page?(on(BudgetVersions).name)
-    on(BudgetVersions).open @name
-    #TODO: This needs to be dealt with more intelligently.
-    # It's clear that we need to learn more about how to set up
-    # sponsors better, so that we can predict when this dialog
-    # will show up and when it won't...
-    confirmation
+    unless on(DocumentHeader).budget_name==@name
+      open_document
+      on(Proposal).budget_versions unless on_page?(on(BudgetVersions).name)
+      on(BudgetVersions).open(@name) unless on(DocumentHeader).budget_name==@name
+      #TODO: This needs to be dealt with more intelligently.
+      # It's clear that we need to learn more about how to set up
+      # sponsors better, so that we can predict when this dialog
+      # will show up and when it won't...
+      confirmation
+    end
   end
 
   def copy_all_periods(new_name)

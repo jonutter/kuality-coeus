@@ -24,7 +24,7 @@ Then /^their proposal permissions do not allow them to edit budget details$/ do
   expect{@budget_version.edit(total_direct_cost_limit: '100')}.should raise_error(Watir::Exception::UnknownObjectException, /unable to locate element/)
 end
 
-And /^their proposal permissions allow them to (.*)$/ do |permissions|
+And /^their proposal permissions allow them to edit all parts of the Proposal$/ do
   on Proposal do |page|
     page.save_button.should be_present
     page.abstracts_and_attachments
@@ -54,7 +54,7 @@ And /^their proposal permissions allow them to (.*)$/ do |permissions|
   end
 end
 
-And /^their proposal permissions allow them to update the budget, not the narrative$/ do
+And /^their proposal permissions allow them to update the Budget, not the narrative$/ do
   expect{
     @proposal.add_proposal_attachment file_name: 'test.pdf', type: 'Narrative'
   }.should raise_error

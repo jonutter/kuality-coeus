@@ -12,5 +12,4 @@ Then /^an error should say (.*)$/ do |error|
             'the IP can not be added because it was not been properly approved' => 'Cannot add this funding proposal. The associated Development Proposal has "Approval Pending - Submitted" status.'
   }
   $current_page.errors.should include errors[error]
-  sleep 60
 end

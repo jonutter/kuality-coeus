@@ -49,7 +49,10 @@ module Personnel
         # Unit(s) that aren't already present
         # in the list, so be careful!
         @units.each do |unit|
-          page.unit_number(@full_name).set unit[:number]
+          # Note: #add_unit_number is current verified
+          # as the method name for KeyPersonnel. The equivalent
+          # methods in the related page classes may need to be updated.
+          page.add_unit_number(@full_name).set unit[:number]
           page.add_unit @full_name
         end
         # Now add the previously existing units to

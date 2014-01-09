@@ -11,7 +11,7 @@ class ProposalAttachmentObject < DataObject
   end
 
   def create
-    navigate
+    view
     on AbstractsAndAttachments do |attach|
       attach.expand_all
       attach.proposal_attachment_type.select @type
@@ -23,10 +23,8 @@ class ProposalAttachmentObject < DataObject
     end
   end
 
-  private
-
-  def navigate
-    open_document @doc_type
+  def view
+    open_document
     on(Proposal).abstracts_and_attachments unless on_page?(on(AbstractsAndAttachments).proposal_attachment_type)
   end
 

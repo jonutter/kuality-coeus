@@ -20,10 +20,17 @@ Feature: Permissions in a Proposal
 
     Examples:
     | Role                 | Permissions                          |
+<<<<<<< HEAD
     | Aggregator           | edit all parts of the proposal       |
     | Budget Creator       | update the budget, not the narrative |
     | Delete Proposal      | delete the proposal                  |
     | Viewer               | only read the proposal               |
+=======
+    | Aggregator           | edit all parts of the Proposal       |
+    | Budget Creator       | update the Budget, not the narrative |
+    | Delete Proposal      | delete the Proposal                  |
+    | Viewer               | only read the Proposal               |
+>>>>>>> b5d9b1517f265fb3eb5aa91416c8909b6f85e9be
 
   Scenario: Narrative Writers can't edit budget details
     Given I create a Budget Version for the Proposal
@@ -65,7 +72,7 @@ Feature: Permissions in a Proposal
 
   Examples:
     | Role                | Permissions                                    |
-    | Aggregator          | edit all parts of the proposal                 |
-    | Budget Creator      | only update the budget                         |
-    | Delete Proposal     | delete the proposal                            |
-    | Viewer              | only read the proposal                         |
+    | Aggregator          | edit all parts of the Proposal                 |
+    | Budget Creator      | update the Budget, not the narrative           |
+    | Delete Proposal     | delete the Proposal                            |
+    | Viewer              | only read the Proposal                         |

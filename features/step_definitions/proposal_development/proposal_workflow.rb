@@ -4,19 +4,16 @@ When /^I? ?send a notification to the (.*) users?$/ do |role|
   role = role.split(', ')
 
   on(PDCustomData).proposal_actions
+  on(ProposalActions).send_notification
   role.each do |role|
     user_name = get(role).user_name
-
-    on ProposalActions do |page|
-      page.send_notification
-      page.employee_search
-    end
+    on(NotificationEditor).employee_search
     on PersonLookup do |page|
       page.user_name.set user_name
       page.search
       page.return_value user_name
     end
-    on(ProposalActions).add
+    on(NotificationEditor).add
   end
   on(NotificationEditor).send_fyi
 end
@@ -27,7 +24,7 @@ end
 
 Then(/^I should receive an action list item with the requested action being: (.*)$/) do |action|
   visit ActionList do |page|
-    page.last
+    page.last if page.last_button.present?
     # This code is needed because the list refresh
     # may not happen immediately...
     x = 0
@@ -117,6 +114,18 @@ end
 
 Then /^I should only have the option to submit the proposal to its sponsor$/ do
   @proposal.view :proposal_actions
+
+
+
+
+
+sleep 60
+
+
+
+
+
+
   on ProposalActions do |page|
     page.approve_button.should_not be_present
     page.submit_to_sponsor_button.should be_present

@@ -7,7 +7,7 @@ Feature: Creating Proposal Logs
   Background:
     Given a User exists with the role: 'Create Proposal Log'
     And   I log in with the Create Proposal Log user
-
+  @failing
   Scenario: Attempt to create a new Proposal Log Document with a missing required field
     When  I create a Proposal Log but I miss a required field
     Then  an error should appear that says the field is required
@@ -16,7 +16,7 @@ Feature: Creating Proposal Logs
     When  I create a Proposal Log
     Then  the status of the Proposal Log should be INITIATED
     And   the Proposal Log status should be Pending
-
+  @failing
   Scenario: Merge a new Proposal Log with an existing Temporary Proposal Log
     And   submit a new temporary proposal log document with the PI cjensen
     When  I submit a new permanent Proposal Log with the same PI into routing

@@ -31,10 +31,10 @@ class Users < Array
 
   def grants_gov_pi
     self.find { |user|
-                  !user[:primary_department_code].nil? &&
-                  !user[:phones].find{|phone| phone[:type]=='Work'}.nil? &&
-                  !user[:emails].find{|email| email[:type]=='Work'}.nil? &&
-                  !user[:era_commons_user_name].nil?
+                  !user.primary_department_code.nil? &&
+                  !user.phones.find{|phone| phone[:type]=='Work'}.nil? &&
+                  !user.emails.find{|email| email[:type]=='Work'}.nil? &&
+                  !user.era_commons_user_name.nil?
     }
   end
 
@@ -48,7 +48,9 @@ class UserYamlCollection < Hash
   # The array is shuffled so that #have_role('role name')[0] will be a random selection
   # from the list of matching users.
   def have_role(role)
-    self.find_all{|user| user[1][:rolez] != nil && user[1][:rolez].detect{|r| r[:name]==role}}.shuffle
+    users = self.find_all{|user| user[1][:rolez].detect{|r| r[:name]==role}}.shuffle
+    raise "No users have the role #{role}. Please add one or fix your parameter." if users.empty?
+    users
   end
 
   # Returns an array of all users with the specified role in the specified unit. Takes
@@ -56,22 +58,24 @@ class UserYamlCollection < Hash
   # The array is shuffled so that #have_role_in_unit('role name', 'unit name')[0]
   # will be a random selection from the list of matching users.
   def have_role_in_unit(role, unit)
-    self.find_all{ |user|
-      user[1][:rolez] != nil &&
-      user[1][:rolez].find{ |r| r[:name]==role && r[:qualifiers].detect{ |q| q[:unit]==unit } }
+    users = self.find_all{ |user|
+      user[1][:rolez].detect{ |r|
+                             r[:name]==role &&
+                             r[:qualifiers].detect{ |q|
+                                                     q[:unit]==unit }
+                                                      }
     }.shuffle
+    raise "No users have the role #{role} in the unit #{unit}. Please add one or fix your parameter(s)." if users.empty?
+    users
   end
 
-  # Returns an array of all users with the specified role in the specified unit,
-  # and that role descends the hierarchy. Takes
-  # the role and unit names as strings.
-  # The array is shuffled so that #have_role_in_unit('role name', 'unit name')[0]
-  # will be a random selection from the list of matching users.
+  # TODO: Does this need the third parameter?  Maybe we just look for "yes" and make another method for "no"...
   def have_hierarchical_role_in_unit(role, unit, hier)
-    self.find_all{ |user|
-      user[1][:rolez] != nil &&
-          user[1][:rolez].find{ |r| r[:name]==role && r[:qualifiers].detect{ |q| q[:unit]==unit && q[:descends_hierarchy]==hier } }
+    users = self.find_all{ |user|
+      user[1][:rolez].find{ |r| r[:name]==role && r[:qualifiers].detect{ |q| q[:unit]==unit && q[:descends_hierarchy]==hier } }
     }.shuffle
+    raise "No users have a hierarchical role #{role} in the unit #{unit}. Please add one or fix your parameter(s)." if users.empty?
+    users
   end
 
   # Returns an array of all users with the specified campus code. Takes the code as a string.
@@ -153,19 +157,21 @@ class UserObject
     defaults.merge!(opts)
     @roles = collection('UserRoles')
 
-    @user_name=case
-               when opts.empty?
-                 'admin'
-               when opts.key?(:user)
-                 opts[:user]
-               when opts.key?(:unit)
-                 USERS.have_role_in_unit(opts[:role], opts[:unit])[0][0]
-               when opts.key?(:role)
-                 USERS.have_role(opts[:role])[0][0]
-               else
-                 :not_nil
-               end
-    options = USERS[@user_name].nil? ? defaults : USERS[@user_name].merge(opts)
+    if opts.empty? # then we want to make the admin user...
+      options = {user_name: 'admin', first_name: 'admin', last_name: 'admin'}
+    else # if we're passing options then we want to make a particular user...
+      @user_name=case
+                 when opts.key?(:user)
+                   opts[:user]
+                 when opts.key?(:unit)
+                   USERS.have_role_in_unit(opts[:role], opts[:unit])[0][0]
+                 when opts.key?(:role)
+                   USERS.have_role(opts[:role])[0][0]
+                 else
+                   :not_nil
+                 end
+      options = USERS[@user_name].nil? ? defaults : USERS[@user_name].merge(opts)
+    end
 
     set_options options
     @rolez.each { |role| role[:user_name]=@user_name; @roles << make(UserRoleObject, role) } unless @rolez.nil?

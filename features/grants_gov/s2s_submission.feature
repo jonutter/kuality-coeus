@@ -1,16 +1,15 @@
+#TODO: Fix problem with AOR user submitting to S2S
 Feature: Submitting Proposals via s2s to Grants.gov
 
   As a researcher, I want the ability to submit my completed proposals
-  through to grants.gov
-
-  Background: Logged in with a proposal creator; have other necessary user
+  through to grants.gov so that I can get funding for them
+  @failing
+  Scenario Outline: Submit a proposal to Grants.gov with various sponsors and opportunities
     Given a User exists with the role: 'Proposal Creator'
     And   a User exists that can be a PI for Grants.gov proposals
     And   an AOR User exists
     And   I log in with the Proposal Creator user
-
-  Scenario Outline: Submit a proposal to Grants.gov with various sponsors and opportunities
-    Given I create a Proposal with <Sponsor> as the sponsor
+    And   I create a Proposal with <Sponsor> as the sponsor
     And   add the <Provider> opportunity id of <Opportunity> to the Proposal
     And   add the <Provider> user as the Proposal's PI
     And   set valid credit splits for the Proposal
@@ -19,8 +18,7 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   complete the required custom fields on the Proposal
     And   answer the S2S questions
     And   submit the Proposal
-    When  I log in with the AOR user
-    And   submit the Proposal to S2S
+    When  the AOR user submits the Proposal to S2S
     Then  the S2S tab's submission details will say the Proposal is submitted
     And   within a couple minutes the submission status will be updated
 

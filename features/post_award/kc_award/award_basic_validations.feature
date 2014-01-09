@@ -8,14 +8,15 @@ Feature: Basic Award Validations
     And   a User exists with the roles: OSP Administrator, Institutional Proposal Maintainer in the 000001 unit
 
   Scenario: Add a Payment & Invoice Req before adding a PI
-    Given I create an Award
+    Given the Award Modifier creates an Award
     When  I start adding a Payment & Invoice item to the Award
     Then  a warning appears saying tracking details won't be added until there's a PI
-
+  @failing
   Scenario: Attempt to create a KC Award document with a missing required field
+    Given I log in with the Award Modifier user
     When  I create an Award with a missing required field
     Then  an error should appear that says the field is required
-  @test
+  @failing
   Scenario: Attempt to link an IP that has not been approved
     Given I log in with the Proposal Creator user
     And   I submit a new Proposal into routing
