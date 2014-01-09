@@ -13,8 +13,12 @@ When /^I? ?creates? a Proposal Log$/ do
   @proposal_log = create ProposalLogObject
 end
 
-Then(/^the proposal log type of the Proposal Log should be (.*)$/) do |status|
-  @proposal_log2.proposal_log_type.should == status
+Then(/^the Proposal Log type should be (.*)$/) do |status|
+  # TODO: Ensure this step and the previous one in the scenario are written properly
+  # Note: This step def will not work if the previous step
+  # def is not written to ensure the data object's @proposal_log_type
+  # value gets updated properly.
+  @proposal_log.proposal_log_type.should == status
 end
 
 Then /^the status of the Proposal Log should be (.*)$/ do |status|
@@ -26,27 +30,28 @@ When /^the Proposal Log status should be (.*)$/ do |prop_log_status|
 end
 
 When /^I submit a new permanent Proposal Log with the same PI into routing$/ do
-  @proposal_log2 = create ProposalLogObject,
+  @proposal_log = create ProposalLogObject,
                           principal_investigator: @temp_proposal_log.principal_investigator
-  @proposal_log2.submit
+  @proposal_log.submit
 end
 
 When /^I? ?creates? a permanent Proposal Log$/ do
   @proposal_log = create ProposalLogObject
 end
 
-When /^I? ?submit a new temporary proposal log document with the PI (.*)$/ do |pi_user_name|
+When /^I? ?submit a new temporary Proposal Log with a particular PI$/ do
+  visit PersonLookup do |page|
+    page.search
+    @pi = page.returned_principal_names[rand(page.returned_principal_names.size)]
+  end
   @temp_proposal_log = create ProposalLogObject,
                          log_type: 'Temporary',
-                         principal_investigator: pi_user_name
+                         principal_investigator: @pi
   @temp_proposal_log.submit
 end
 
 Then /^I merge my new proposal log with my previous temporary proposal log$/ do
-  on ProposalLog do |page|
-    page.temporary_proposal_log_table
-    page.merge(@temp_proposal_log.number.to_i + 1)
-  end
+  raise "This step needs to be done!!!"
 end
 
 When /^I submit a new Proposal Log$/ do
@@ -62,7 +67,7 @@ end
 
 Then /^the Proposal Log's status should reflect it has been merged$/ do
   on(Researcher).search_proposal_log
-  on
+  raise "This step ain't done!!!"
 end
 
 Then /^upon submission of the Proposal Log, an error should appear saying the field is required$/ do
