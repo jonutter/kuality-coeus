@@ -26,7 +26,6 @@ World DateFactory
 World Utilities
 
 kuality = Kuality.new @config[:browser]
-$users = Users.instance
 
 Before do
   @browser = kuality.browser
@@ -45,6 +44,3 @@ After do |scenario|
   $users.current_user.sign_out unless $users.current_user==nil
 
 end
-
-# Comment out to help with debugging...
-# at_exit { kuality.browser.close }

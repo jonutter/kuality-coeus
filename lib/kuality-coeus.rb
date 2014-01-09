@@ -12,7 +12,8 @@ Dir["#{File.dirname(__FILE__)}/kuality-coeus/data_objects/*/*.rb"].alphabetize.e
 # open the specified test browser at the specified welcome page URL.
 #
 # The initialization will
-# create the browser object that can be used throughout the page classes
+# - Create the browser object that can be used throughout the page classes
+# - Create the $users collection for storing User objects needed for scenarios
 class Kuality
 
   attr_reader :browser
@@ -29,6 +30,9 @@ class Kuality
       @browser.window.resize_to(1400,900)
     end
     @browser.goto $base_url
+
+    $users = Users.instance
+
   end
 
 end
