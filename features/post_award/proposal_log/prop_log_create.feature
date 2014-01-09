@@ -7,10 +7,10 @@ Feature: Creating Proposal Logs
   Background:
     Given a User exists with the role: 'Create Proposal Log'
     And   I log in with the Create Proposal Log user
-  @failing
+
   Scenario: Attempt to create a new Proposal Log Document with a missing required field
     When  I create a Proposal Log but I miss a required field
-    Then  an error should appear that says the field is required
+    Then  upon submission of the Proposal Log, an error should appear saying the field is required
 
   Scenario: Create a new Proposal Log Document
     When  I create a Proposal Log

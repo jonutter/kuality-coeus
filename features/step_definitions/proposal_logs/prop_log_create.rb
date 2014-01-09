@@ -64,3 +64,10 @@ Then /^the Proposal Log's status should reflect it has been merged$/ do
   on(Researcher).search_proposal_log
   on
 end
+
+Then /^upon submission of the Proposal Log, an error should appear saying the field is required$/ do
+  on(ProposalLog).submit
+  text="#{@required_field} (#{@required_field}) is a required field."
+  @required_field=='Description' ? error='Document '+text : error=text
+  on(ProposalLog).errors.should include error
+end
