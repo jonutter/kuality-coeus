@@ -21,8 +21,9 @@ class Kuality
   attr_reader :browser
 
   def initialize(web_browser, base_url)
-    $base_url = base_url
-    $users = Users.instance
+
+    $base_url    = base_url
+    $users       = Users.instance
     $file_folder = "#{File.dirname(__FILE__)}/resources/"
 
     @browser = Watir::Browser.new web_browser
