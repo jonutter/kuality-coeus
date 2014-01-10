@@ -111,7 +111,7 @@ class RoleObject < DataObject
     # or else the current user is capable of editing Roles. This must be
     # kept in mind in construction test scenarios. Otherwise, more robust
     # code is needed, here.
-    $admin.log_in if $users.current_user==nil
+    $users.admin.log_in if $users.current_user==nil
     visit(SystemAdmin).role
     on RoleLookup do |look|
       fill_out look, :name, :id

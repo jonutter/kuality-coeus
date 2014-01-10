@@ -19,6 +19,8 @@ Before do
   @browser = kuality.browser
   # Clean out any users that might exist
   $users.clear
+  # Add the admin user to the Users...
+  $users << UserObject.new(@browser)
 end
 
 After do |scenario|

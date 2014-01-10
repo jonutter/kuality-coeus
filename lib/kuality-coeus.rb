@@ -14,7 +14,6 @@ Dir["#{File.dirname(__FILE__)}/kuality-coeus/data_objects/*/*.rb"].alphabetize.e
 # The initialization will
 # - Create the @browser object that will be used throughout the page classes
 # - Create the $users collection for storing User objects needed for scenarios
-# - Create the $admin user global variable, used in several data objects
 # - Set the $file_folder location, where files are stored for tests that require uploading of files
 class Kuality
 
@@ -27,7 +26,6 @@ class Kuality
     @browser.goto $base_url
 
     $users       = Users.instance
-    $admin       = UserObject.new(@browser)
     $file_folder = "#{File.dirname(__FILE__)}/resources/"
 
   end
