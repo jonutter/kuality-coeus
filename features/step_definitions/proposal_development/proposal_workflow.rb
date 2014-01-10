@@ -132,9 +132,14 @@ sleep 60
   end
 end
 
-Then /^I should only have the option to approve the proposal$/ do
+Then /^I should see the option to approve the Proposal$/ do
   @proposal.view :proposal_actions
   on ProposalActions do |page|
     page.approve_button.should be_present
   end
+end
+
+And(/^I approve the Proposal$/) do
+  @proposal.view :proposal_summary
+  on(ProposalSummary).approve
 end

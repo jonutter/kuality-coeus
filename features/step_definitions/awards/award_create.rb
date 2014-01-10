@@ -32,8 +32,8 @@ end
 
 Given /^the Award Modifier creates an Award$/ do
   steps %q{
-Given I log in with the Award Modifier user
-And I create an Award
+  * I log in with the Award Modifier user
+  * I create an Award
 }
 end
 
