@@ -32,14 +32,9 @@ end
 
 Given /^the Award Modifier creates an Award$/ do
   steps %q{
-Given I log in with the Award Modifier user
-And I create an Award
-}
-end
-
-Given /^the Award Modifier creates an Award including an Account ID, Account Type, Prime Sponsor, and CFDA Number$/ do
-  steps 'Given I log in with the Award Modifier user'
-  @award = create AwardObject
+    Given I log in with the Award Modifier user
+    And I create an Award
+  }
 end
 
 Then /^a new Institutional Proposal should be generated$/ do
