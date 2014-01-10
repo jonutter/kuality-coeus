@@ -59,12 +59,12 @@ class UserYamlCollection < Hash
   # will be a random selection from the list of matching users.
   def have_role_in_unit(role, unit)
     users = self.find_all{ |user|
-      user[1][:rolez].detect{ |r|
-                             r[:name]==role &&
-                             r[:qualifiers].detect{ |q|
-                                                     q[:unit]==unit }
-                                                      }
-    }.shuffle
+                            user[1][:rolez].detect{ |r|
+                                                     r[:name]==role &&
+                                                     r[:qualifiers].detect{ |q|
+                                                                             q[:unit]==unit }
+                                                  }
+                         }.shuffle
     raise "No users have the role #{role} in the unit #{unit}. Please add one or fix your parameter(s)." if users.empty?
     users
   end

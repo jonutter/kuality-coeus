@@ -22,7 +22,7 @@ class ProposalLog < BasePage
 
   #Table for temporary proposal logs to be merged
   element(:temporary_proposal_log_table) { |b| b.frm.table(id: 'proposalLogMergeList') }
-  action(:proposal_number_row) { |number, b| b.temporary_proposal_log_table.row(text: /#{number}/) }
-  action(:merge_proposal_log) { |number, b| b.proposal_number_row(number).button(class: 'mergeLink').click }
+  p_action(:proposal_number_row) { |number, b| b.temporary_proposal_log_table.row(text: /#{number}/) }
+  p_action(:merge_proposal_log) { |number, b| b.proposal_number_row(number).button(class: 'mergeLink').click }
 
 end

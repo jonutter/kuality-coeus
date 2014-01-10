@@ -12,23 +12,22 @@ Dir["#{File.dirname(__FILE__)}/kuality-coeus/data_objects/*/*.rb"].alphabetize.e
 # open the specified test browser at the specified welcome page URL.
 #
 # The initialization will
-# create the browser object that can be used throughout the page classes
+# - Create the @browser object that will be used throughout the page classes
+# - Create the $users collection for storing User objects needed for scenarios
+# - Set the $file_folder location, where files are stored for tests that require uploading of files
 class Kuality
 
   attr_reader :browser
 
   def initialize(web_browser)
-    if web_browser == :saucelabs
-      @browser = Watir::Browser.new(
-          :remote,
-          :url => "http://#{ENV['username']}:#{ENV['api_key']}@ondemand.saucelabs.com:80/wd/hub",
-          :desired_capabilities => $environment
-      )
-    else
-      @browser = Watir::Browser.new web_browser
-      @browser.window.resize_to(1400,900)
-    end
+
+    @browser = Watir::Browser.new web_browser
+    @browser.window.resize_to(1400,900)
     @browser.goto $base_url
+
+    $users       = Users.instance
+    $file_folder = "#{File.dirname(__FILE__)}/resources/"
+
   end
 
 end
