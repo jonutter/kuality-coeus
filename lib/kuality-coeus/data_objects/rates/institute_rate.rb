@@ -134,7 +134,7 @@ class InstituteRateObject < DataObject
   end
 
   def exist?
-    $users.admin.log_in if $users.current_user==nil
+    $admin.log_in if $users.current_user==nil
     navigate
     search
     if on(InstituteRatesLookup).results_table.present?
