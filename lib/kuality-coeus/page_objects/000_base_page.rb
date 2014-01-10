@@ -14,6 +14,7 @@ class BasePage < PageFactory
   action(:form_tab) { |name, b| b.frm.h2(text: /#{name}/) }
   action(:form_status) { |name, b| b.form_tab(name).text[/(?<=\()\w+/] }
   element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
+  value(:html) { |b| b.frm.html }
 
   class << self
 
@@ -101,7 +102,8 @@ class BasePage < PageFactory
       # Used as the catch-all "document opening" method for conditional navigation,
       # when we can't know whether the current user will have edit permissions.
       # Note: The assumption is that there is only one item returned in the search,
-      # so the method needs no identifying parameter...
+      # so the method needs no identifying parameter. If more items are returned hopefully
+      # you want the automation to click on the first item listed...
       action(:medusa) { |b| b.frm.link(text: /medusa|edit|view/).click; b.use_new_tab; b.close_parents }
     end
 
