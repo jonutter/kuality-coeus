@@ -25,10 +25,6 @@ class Users < Array
     self.user(roles.flatten!.find { |role| role.name==role_name && role.qualifiers.detect{ |q| q[:unit]==unit } }.user_name)
   end
 
-  def admin
-    self.user('admin')
-  end
-
   def grants_gov_pi
     self.find { |user|
                   !user.primary_department_code.nil? &&
@@ -59,12 +55,12 @@ class UserYamlCollection < Hash
   # will be a random selection from the list of matching users.
   def have_role_in_unit(role, unit)
     users = self.find_all{ |user|
-      user[1][:rolez].detect{ |r|
-                             r[:name]==role &&
-                             r[:qualifiers].detect{ |q|
-                                                     q[:unit]==unit }
-                                                      }
-    }.shuffle
+                            user[1][:rolez].detect{ |r|
+                                                     r[:name]==role &&
+                                                     r[:qualifiers].detect{ |q|
+                                                                             q[:unit]==unit }
+                                                  }
+                         }.shuffle
     raise "No users have the role #{role} in the unit #{unit}. Please add one or fix your parameter(s)." if users.empty?
     users
   end
@@ -306,7 +302,7 @@ class UserObject
   alias_method :log_out, :sign_out
 
   def exist?
-    $users.admin.log_in if $users.current_user==nil
+    $admin.log_in if $users.current_user==nil
     visit(SystemAdmin).person
     on PersonLookup do |search|
       search.principal_name.set @user_name

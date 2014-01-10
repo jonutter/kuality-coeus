@@ -2,6 +2,8 @@ require 'yaml'
 
 @config = YAML.load_file("#{File.dirname(__FILE__)}/config.yml")[:basic]
 
+$base_url = @config[:url]
+
 require "#{File.dirname(__FILE__)}/../../lib/kuality-coeus"
 require 'rspec/matchers'
 
@@ -10,15 +12,13 @@ World StringFactory
 World DateFactory
 World Utilities
 
-kuality = Kuality.new @config[:browser], @config[:url]
+kuality = Kuality.new @config[:browser]
 
 Before do
   # Get the browser object
   @browser = kuality.browser
   # Clean out any users that might exist
   $users.clear
-  # Add the admin user to the Users...
-  $users << UserObject.new(@browser)
 end
 
 After do |scenario|

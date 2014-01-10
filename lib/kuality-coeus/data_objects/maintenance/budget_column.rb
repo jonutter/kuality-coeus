@@ -65,7 +65,7 @@ class BudgetColumnObject < DataObject
   def exists?
     # TODO: This will need to be made more robust at some point because not every user will have permissions
     # To keep it simple for now, just be sure this code is run very early in scenarios.
-    $users.admin.log_in if $users.current_user==nil
+    $admin.log_in if $users.current_user==nil
     visit Maintenance do |page|
       if Login.new(@browser).username.present?
         UserObject.new(@browser).log_in
