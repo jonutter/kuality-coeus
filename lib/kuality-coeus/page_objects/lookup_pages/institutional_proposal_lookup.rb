@@ -13,10 +13,11 @@ class InstitutionalProposalLookup < Lookups
 
   # This returns an array containing whatever institutional proposal
   # numbers were returned in the search...
-  value(:institutional_proposal_numbers) { |b|
-        array = []
-        b.results_table.rows.each { |row| array << row[1].text }
-        array[1..-1]
-    }
+  value(:institutional_proposal_numbers) { |b| b.target_column(2).map{ |td| td.text } }
+  # Remove this when IP tests are validated working...
+       # array = []
+       # b.results_table.rows.each { |row| array << row[1].text }
+      #  array[1..-1]
+    #}
 
 end

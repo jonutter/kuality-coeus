@@ -15,6 +15,7 @@ class BasePage < PageFactory
   action(:form_status) { |name, b| b.form_tab(name).text[/(?<=\()\w+/] }
   element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
   value(:html) { |b| b.frm.html }
+  value(:noko) { |b| Nokogiri::HTML(b.html) }
 
   class << self
 
