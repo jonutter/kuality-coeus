@@ -1,16 +1,16 @@
 module Watir
   module Container
     def frm
-      case
-        when frame(id: 'iframeportlet').exist?
-          frame(id: 'iframeportlet')
-        when frame(id: /easyXDM_default\d+_provider/).frame(id: 'iframeportlet').exist?
-          frame(id: /easyXDM_default\d+_provider/).frame(id: 'iframeportlet')
-        when frame(id: /easyXDM_default\d+_provider/).exist?
-          frame(id: /easyXDM_default\d+_provider/)
-        else
-          self
+      frames = [
+          frame(id: 'iframeportlet'),
+          frame(id: /easyXDM_default\d+_provider/).frame(id: 'iframeportlet'),
+          frame(id: /easyXDM_default\d+_provider/),
+          self ]
+      i = 0
+      until frames[i].exists? do
+        i=i+1
       end
+      frames[i]
     end
   end
 
