@@ -100,13 +100,15 @@ When /^I? ?save and close the Proposal document$/ do
   on(Confirmation).yes
 end
 
-And /^I? ?submit a new Proposal into routing$/ do
-  @proposal = create ProposalDevelopmentObject
-  #The following are necessary for submission into routing
-  @proposal.add_principal_investigator
-  @proposal.set_valid_credit_splits
-  @proposal.add_custom_data
-  @proposal.submit
+And /^the Proposal Creator submits a new Proposal into routing$/ do
+  steps %{
+    *   I log in with the Proposal Creator user
+    *   create a Proposal
+    *   add the Unassigned user as a Principal Investigator to the key personnel proposal roles
+    *   set valid credit splits for the Proposal
+    *   complete the required custom fields on the Proposal
+    *   submit the Proposal
+        }
 end
 
 And /^I? ?add the (Grants.Gov|Research.Gov) opportunity id of (.*) to the Proposal$/ do |type, op_id|
