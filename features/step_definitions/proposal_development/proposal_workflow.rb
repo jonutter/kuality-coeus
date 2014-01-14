@@ -22,7 +22,7 @@ Then /^the Proposal status should be (.*)$/ do |status|
   @proposal.status.should == status
 end
 
-Then(/^I should receive an action list item with the requested action being: (.*)$/) do |action|
+Then /^I should receive an action list item with the requested action being: (.*)$/ do |action|
   visit ActionList do |page|
     page.last if page.last_button.present?
     # This code is needed because the list refresh
@@ -119,9 +119,14 @@ sleep 60
   end
 end
 
-Then /^I should only have the option to approve the proposal$/ do
+Then /^I should see the option to approve the Proposal$/ do
   @proposal.view :proposal_actions
   on ProposalActions do |page|
     page.approve_button.should be_present
   end
+end
+
+And(/^I approve the Proposal$/) do
+  @proposal.view :proposal_summary
+  on(ProposalSummary).approve
 end

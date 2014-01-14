@@ -115,5 +115,9 @@ Then /^the status of the Funding Proposal should change to (.*)$/  do |status|
 end
 
 Given(/^I add an Institutional Proposal to an Award$/) do
-  pending
+  steps %{
+    Given I create a Funding Proposal
+    And   I log in with the Award Modifier userF
+    And   I link the Funding Proposal to an Award
+        }
 end
