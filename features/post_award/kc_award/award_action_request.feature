@@ -6,10 +6,9 @@ Feature: Requesting an action from an Award
   Background:
     * Users exist with the following roles: Award Modifier
 
-  @test
+  #@Fixme
   Scenario: Request the action of an Approver
-    Given I log in with the Award Modifier user
-    And   I create an Award
+    Given I create an Award as the Award Modifier user
     When  I filter the Award from my action list
     Then  I should see my Award listed with the action requested status: COMPLETE
 

@@ -2,7 +2,8 @@
 #Create and Save
 #Note: Units are specified to match the initiator's unit.
 #----------------------#
-When /^I? ?creates? an Award$/ do
+When /^I? ?creates? an Award as the (.*) user$/ do |role_name|
+  steps %{ Given I log in with the #{role_name} user }
   # Implicit in this step is that the Award creator
   # is creating the Award in the unit they have
   # rights to. This is why this step specifies what the
