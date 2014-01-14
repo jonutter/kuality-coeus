@@ -18,6 +18,4 @@ class Lookups < BasePage
   action(:check_item) { |name, b| b.item_row(name).checkbox(name: /selectedObjId/).set }
   action(:return_selected) { |b| b.frm.button(title: 'Return selected results').click; b.loading }
 
-  p_element(:target_column) { |number, b| b.noko.css("table[@id='row'] > tbody > tr > td[#{number}]") }
-
 end

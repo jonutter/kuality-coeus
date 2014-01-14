@@ -14,8 +14,8 @@ class BasePage < PageFactory
   action(:form_tab) { |name, b| b.frm.h2(text: /#{name}/) }
   action(:form_status) { |name, b| b.form_tab(name).text[/(?<=\()\w+/] }
   element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
-  value(:html) { |b| b.frm.html }
-  value(:noko) { |b| Nokogiri::HTML(b.html) }
+  value(:htm) { |b| b.frm.html }
+  value(:noko) { |b| WatirNokogiri::Document.new(b.htm) }
 
   class << self
 
@@ -26,8 +26,8 @@ class BasePage < PageFactory
     end
 
     def document_header_elements
-      value(:doc_title) { |b| b.frm.div(id: 'headerarea').h1.text }
-      element(:headerinfo_table) { |b| b.frm.div(id: 'headerarea').table(class: 'headerinfo') }
+      value(:doc_title) { |b| b.noko.div(id: 'headerarea').h1.text }
+      element(:headerinfo_table) { |b| b.noko.div(id: 'headerarea').table(class: 'headerinfo') }
       value(:document_id) { |p| p.headerinfo_table[0].text[/\d{4}/] }
       alias_method :doc_nbr, :document_id
       value(:document_status) { |p| p.headerinfo_table[0][3].text[/(?<=:)?.+$/] }
@@ -194,9 +194,9 @@ class BasePage < PageFactory
         end
         errs.flatten
       end
-      element(:left_errmsg_tabs) { |b| b.frm.divs(class: 'left-errmsg-tab') }
-      element(:left_errmsg) { |b| b.frm.divs(class: 'left-errmsg') }
-      element(:error_messages_div) { |b| b.frm.div(class: 'error') }
+      element(:left_errmsg_tabs) { |b| b.noko.divs(class: 'left-errmsg-tab') }
+      element(:left_errmsg) { |b| b.noko.divs(class: 'left-errmsg') }
+      element(:error_messages_div) { |b| b.noko.div(class: 'error') }
     end
 
     def validation_elements

@@ -8,8 +8,10 @@ class PersonLookup < Lookups
 
   alias_method :select_person, :check_item
 
-  value(:returned_full_names) { |b| b.target_column(4).map{ |a| a.text }.delete_if{ |name| name==" " } }
-
-  value(:returned_principal_names) { |b| b.target_column(3).map { |a| a.text } }
+  # Please note the 'space' in the .delete_if clause is NOT a space. It's some
+  # unknown whitespace character. Don't screw with it or else this method will
+  # stop working properly.
+  value(:returned_full_names) { |b| b.noko.table(id: 'row').rows.collect{ |row| row[3].text }.tap(&:shift).delete_if{ |name| name==" " } }
+  value(:returned_principal_names) { |b| b.noko.table(id: 'row').rows.collect{ |row| row[2].text }.tap(&:shift) }
 
 end

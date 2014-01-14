@@ -2,7 +2,7 @@ require 'singleton'
 require 'test-factory'
 require 'date'
 require 'yaml'
-require 'nokogiri'
+require 'watir-nokogiri'
 require 'open-uri'
 Dir["#{File.dirname(__FILE__)}/kuality-coeus/*.rb"].alphabetize.each {|f| require f }
 Dir["#{File.dirname(__FILE__)}/kuality-coeus/page_objects/*.rb"].alphabetize.each {|f| require f }

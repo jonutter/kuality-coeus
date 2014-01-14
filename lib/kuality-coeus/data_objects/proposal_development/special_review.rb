@@ -1,7 +1,7 @@
 class SpecialReviewObject < DataObject
 
   include StringFactory
-  include Navigation
+  include PropDevNavigation
 
   attr_accessor :type, :approval_status, :document_id, :protocol_number,
                 :application_date, :approval_date, :expiration_date,

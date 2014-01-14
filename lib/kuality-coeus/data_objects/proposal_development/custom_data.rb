@@ -1,6 +1,6 @@
 class CustomDataObject < DataObject
 
-  include Navigation
+  include PropDevNavigation
   include StringFactory
 
   attr_accessor :document_id, :graduate_student_count, :billing_element
