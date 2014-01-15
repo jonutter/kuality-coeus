@@ -14,4 +14,5 @@ class PersonLookup < Lookups
   value(:returned_full_names) { |b| b.noko.table(id: 'row').rows.collect{ |row| row[3].text }.tap(&:shift).delete_if{ |name| name==" " } }
   value(:returned_principal_names) { |b| b.noko.table(id: 'row').rows.collect{ |row| row[2].text }.tap(&:shift) }
 
+
 end

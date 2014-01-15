@@ -25,11 +25,16 @@ module Navigation
   end
 
   def navigate
+    on(BasePage).close_extra_windows
     visit @lookup_class do |page|
       page.send(@search_key.keys[0]).set @search_key.values[0]
       page.search
       page.results_table.wait_until_present
-      page.medusa
+      if @lookup_class==DocumentSearch
+        page.open_doc @search_key.values[0]
+      else
+        page.medusa
+      end
     end
     # Must update the document id, now:
     @document_id=on(DocumentHeader).document_id

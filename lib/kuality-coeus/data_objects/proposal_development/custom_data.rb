@@ -1,3 +1,4 @@
+# coding: UTF-8
 class CustomDataObject < DataObject
 
   include PropDevNavigation
@@ -37,12 +38,13 @@ class CustomDataObject < DataObject
     on(Proposal).custom_data unless on_page?(on(page_class).asdf_tab)
   end
 
+
   def page_class
     Kernel.const_get({
-                           kc_award_: 'AwardCustomData',
-      proposal_development_document_: 'PDCustomData',
-          kc_institutional_proposal_: 'IPCustomData'
-                     }[snake_case(@doc_header)])
+        kc_award: 'AwardCustomData',
+        proposal_development_document: 'PDCustomData',
+        kc_institutional_proposal: 'IPCustomData'
+    }[snake_case(@doc_header.chop)])
   end
 
 end
