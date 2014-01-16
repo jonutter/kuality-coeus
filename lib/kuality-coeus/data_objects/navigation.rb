@@ -43,7 +43,7 @@ module Navigation
   def on_document?
     begin
       on(DocumentHeader).document_id==@document_id && @browser.frm.div(id: 'headerarea').h1.text==@doc_header
-    rescue Watir::Exception::UnknownObjectException, Selenium::WebDriver::Error::StaleElementReferenceError
+    rescue Watir::Exception::UnknownObjectException, Selenium::WebDriver::Error::StaleElementReferenceError, WatirNokogiri::Exception::UnknownObjectException
       false
     end
   end

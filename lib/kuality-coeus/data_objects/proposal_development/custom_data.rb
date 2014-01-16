@@ -1,7 +1,7 @@
 # coding: UTF-8
 class CustomDataObject < DataObject
 
-  include PropDevNavigation
+  include Navigation
   include StringFactory
 
   attr_accessor :document_id, :graduate_student_count, :billing_element
