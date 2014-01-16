@@ -102,14 +102,12 @@ end
 
 And /^the Proposal Creator submits a new Proposal into routing$/ do
   steps %{
-    * the Proposal Creator submits a new Proposal into routing
-    * adds a principal investigator to the Proposal
-    * sets valid credit splits for the Proposal
-    * creates a Budget Version with cost sharing for the Proposal
-    * finalizes the Budget Version
-    * marks the Budget Version complete
-    * completes the required custom fields on the Proposal
-    * submits the Proposal
+    * I log in with the Proposal Creator user
+    * create a Proposal
+    * add a principal investigator to the Proposal
+    * set valid credit splits for the Proposal
+    * complete the required custom fields on the Proposal
+    * submit the Proposal
 }
 end
 
