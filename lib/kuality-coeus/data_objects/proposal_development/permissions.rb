@@ -1,6 +1,6 @@
 class PermissionsObject < DataObject
 
-  include PropDevNavigation
+  include Navigation
 
   attr_accessor :document_id, :aggregators, :budget_creators, :narrative_writers,
                 :viewers, :approvers, :delete_proposals

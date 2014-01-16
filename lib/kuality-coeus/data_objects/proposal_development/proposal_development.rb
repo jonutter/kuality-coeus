@@ -2,7 +2,7 @@ class ProposalDevelopmentObject < DataObject
 
   include StringFactory
   include DateFactory
-  include PropDevNavigation
+  include Navigation
   include DocumentUtilities
   
   attr_accessor :proposal_type, :lead_unit, :activity_type, :project_title, :proposal_number,

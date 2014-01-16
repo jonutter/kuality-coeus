@@ -1,7 +1,7 @@
 class PersonnelAttachmentObject < DataObject
 
   include StringFactory
-  include PropDevNavigation
+  include Navigation
 
   attr_accessor :person, :type, :file_name, :description, :document_id, :doc_type
 
