@@ -13,9 +13,9 @@ module Personnel
 
   def lookup_page
     Kernel.const_get({
-                         employee:     'KcPersonLookup',
-                         non_employee: 'NonOrgAddressBookLookup',
-                         to_be_named:  'ToBeNamedPersonsLookup'
+                      employee:     'KcPersonLookup',
+                      non_employee: 'NonOrgAddressBookLookup',
+                      to_be_named:  'ToBeNamedPersonsLookup'
                      }[@type.to_sym])
   end
 
@@ -24,7 +24,8 @@ module Personnel
     on lookup_page do |page|
       if @last_name.nil?
         page.search
-        @last_name=page.returned_full_names.sample[/\w+$/]
+        names = page.returned_full_names - $users.full_names
+        @last_name=names.sample[/\w+$/]
         @first_name=$~.pre_match.strip
         @full_name="#{@first_name} #{@last_name}"
       else
