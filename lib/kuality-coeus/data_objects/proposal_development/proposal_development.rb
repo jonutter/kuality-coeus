@@ -2,7 +2,7 @@ class ProposalDevelopmentObject < DataObject
 
   include StringFactory
   include DateFactory
-  include Navigation
+  include PropDevNavigation
   include DocumentUtilities
   
   attr_accessor :proposal_type, :lead_unit, :activity_type, :project_title, :proposal_number,
@@ -35,7 +35,7 @@ class ProposalDevelopmentObject < DataObject
       personnel_attachments: collection('PersonnelAttachments'),
       proposal_attachments:  collection('ProposalAttachments')
     }
-    @lookup_class=ProposalDevelopmentDocumentLookup
+    @lookup_class=DocumentSearch
     set_options(defaults.merge(opts))
   end
     
@@ -55,7 +55,7 @@ class ProposalDevelopmentObject < DataObject
       set_lead_unit
       doc.save
       @proposal_number=doc.proposal_number.strip
-      @search_key={ proposal_number: @proposal_number }
+      @search_key={ document_id: @document_id }
       @permissions = make PermissionsObject, merge_settings(aggregators: [@initiator])
     end
   end
@@ -234,6 +234,15 @@ class ProposalDevelopmentObject < DataObject
   private
   # =======
 
+  def navigate
+    visit DocumentSearch do |search|
+      search.close_parents
+      search.document_id.set @document_id
+      search.search
+      search.open_doc @document_id
+    end
+  end
+
   def merge_settings(opts)
     defaults = {
         document_id: @document_id,
@@ -262,9 +271,6 @@ class ProposalDevelopmentObject < DataObject
     object
   end
 
-  # TODO: Consider changing this to a
-  # class instance variable created in the
-  # initialize
   def page_class
     Proposal
   end

@@ -1,6 +1,6 @@
 class ProposalAttachmentObject < DataObject
 
-  include Navigation
+  include PropDevNavigation
 
   attr_accessor :type, :file_name, :status, :description, :document_id, :doc_type
 

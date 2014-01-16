@@ -16,7 +16,7 @@ class BudgetPeriodObject < DataObject
     }
 
     set_options(defaults.merge(opts))
-    requires :start_date, :budget_name, :lookup_class, :doc_header
+    requires :start_date, :budget_name, :lookup_class, :doc_header, :search_key
     datify
     add_cost_sharing @cost_sharing
   end

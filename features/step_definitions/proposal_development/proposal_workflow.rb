@@ -50,7 +50,7 @@ Then /^I can acknowledge the requested action list item$/ do
   end
 end
 
-When /^I submit the Proposal to its sponsor$/ do
+When /^I? ?submit the Proposal to its sponsor$/ do
   @proposal.submit :to_sponsor
   @institutional_proposal = @proposal.make_institutional_proposal
 end

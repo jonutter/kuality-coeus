@@ -1,7 +1,7 @@
 class KeyPersonObject < DataObject
 
   include StringFactory
-  include Navigation
+  include PropDevNavigation
   include Personnel
 
   attr_accessor :first_name, :last_name, :type, :role, :document_id, :key_person_role,

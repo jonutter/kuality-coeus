@@ -188,7 +188,8 @@ class BudgetVersionsObject < DataObject
                       cost_limit: page.cost_limit_period(number).value.groom,
                       direct_cost_limit: page.direct_cost_limit_period(number).value.groom,
                       lookup_class: @lookup_class,
-                      doc_header: @doc_header
+                      doc_header: @doc_header,
+                      search_key: @search_key
         @budget_periods << period
       end
     end

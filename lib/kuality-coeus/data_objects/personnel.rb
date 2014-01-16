@@ -1,3 +1,4 @@
+# coding: UTF-8
 # Contains methods useful across various Personnel classes.
 module Personnel
 
@@ -12,7 +13,7 @@ module Personnel
 
   def lookup_page
     Kernel.const_get({
-                         employee:     'PersonLookup',
+                         employee:     'KcPersonLookup',
                          non_employee: 'NonOrgAddressBookLookup',
                          to_be_named:  'ToBeNamedPersonsLookup'
                      }[@type.to_sym])
@@ -23,9 +24,9 @@ module Personnel
     on lookup_page do |page|
       if @last_name.nil?
         page.search
-        @full_name=page.returned_full_names.sample
-        @last_name=@full_name[/\w+$/]
+        @last_name=page.returned_full_names.sample[/\w+$/]
         @first_name=$~.pre_match.strip
+        @full_name="#{@first_name} #{@last_name}"
       else
         fill_out page, :first_name, :last_name
         page.search

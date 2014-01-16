@@ -12,7 +12,7 @@ class S2SQuestionnaireObject < DataObject
                  :novice_applicants]
 
   include StringFactory
-  include Navigation
+  include PropDevNavigation
   include Utilities
 
   attr_accessor :document_id, :civil_service, :total_ftes, :potential_effects, :explain_potential_effects,

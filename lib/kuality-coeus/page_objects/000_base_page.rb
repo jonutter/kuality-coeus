@@ -14,6 +14,8 @@ class BasePage < PageFactory
   action(:form_tab) { |name, b| b.frm.h2(text: /#{name}/) }
   action(:form_status) { |name, b| b.form_tab(name).text[/(?<=\()\w+/] }
   element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
+  value(:htm) { |b| b.frm.html }
+  value(:noko) { |b| WatirNokogiri::Document.new(b.htm) }
 
   class << self
 
@@ -24,7 +26,7 @@ class BasePage < PageFactory
     end
 
     def document_header_elements
-      value(:doc_title) { |b| b.frm.div(id: 'headerarea').h1.text }
+      value(:doc_title) { |b| b.noko.div(id: 'headerarea').h1.text }
       element(:headerinfo_table) { |b| b.frm.div(id: 'headerarea').table(class: 'headerinfo') }
       value(:document_id) { |p| p.headerinfo_table[0].text[/\d{4}/] }
       alias_method :doc_nbr, :document_id
@@ -101,7 +103,8 @@ class BasePage < PageFactory
       # Used as the catch-all "document opening" method for conditional navigation,
       # when we can't know whether the current user will have edit permissions.
       # Note: The assumption is that there is only one item returned in the search,
-      # so the method needs no identifying parameter...
+      # so the method needs no identifying parameter. If more items are returned hopefully
+      # you want the automation to click on the first item listed...
       action(:medusa) { |b| b.frm.link(text: /medusa|edit|view/).click; b.use_new_tab; b.close_parents }
     end
 

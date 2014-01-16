@@ -1,43 +1,18 @@
-module Navigation
+module PropDevNavigation
 
   include Utilities
 
-  # Determine if right document type...
-  # look at the header element...
-  #
-  # Determine if target document...
-  # look at document id
-  #
-  # Navigate...
-  # do not use doc id for navigation
-  # update document id after navigation
-  #
-  # To accomplish the above, the Data Object class
-  # must have the following instance variables defined...
-  # - @doc_header containing the text of the relevant page title
-  # - @document_id containing the "document number" from the header table
-  # - @lookup_class containing the lookup page class for the document
-  # - @search_key containing a hash with the key being the name of the
-  #               search parameter to use, and the value what gets searched
-  #
   def open_document
     navigate unless on_document?
   end
 
   def navigate
-    on(BasePage).close_extra_windows
-    visit @lookup_class do |page|
-      page.send(@search_key.keys[0]).set @search_key.values[0]
+    visit DocumentSearch do |page|
+      page.document_id.set @document_id
       page.search
       page.results_table.wait_until_present
-      if @lookup_class==DocumentSearch
-        page.open_doc @search_key.values[0]
-      else
-        page.medusa
-      end
+      page.open_doc @document_id
     end
-    # Must update the document id, now:
-    @document_id=on(DocumentHeader).document_id
   end
 
   def on_document?
