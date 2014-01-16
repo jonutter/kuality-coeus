@@ -27,7 +27,7 @@ class BasePage < PageFactory
 
     def document_header_elements
       value(:doc_title) { |b| b.noko.div(id: 'headerarea').h1.text }
-      element(:headerinfo_table) { |b| b.frm.div(id: 'headerarea').table(class: 'headerinfo') }
+      value(:headerinfo_table) { |b| b.noko.div(id: 'headerarea').table(class: 'headerinfo') }
       value(:document_id) { |p| p.headerinfo_table[0].text[/\d{4}/] }
       alias_method :doc_nbr, :document_id
       value(:document_status) { |p| p.headerinfo_table[0][3].text[/(?<=:)?.+$/] }
@@ -194,9 +194,9 @@ class BasePage < PageFactory
         end
         errs.flatten
       end
-      element(:left_errmsg_tabs) { |b| b.frm.divs(class: 'left-errmsg-tab') }
-      element(:left_errmsg) { |b| b.frm.divs(class: 'left-errmsg') }
-      element(:error_messages_div) { |b| b.frm.div(class: 'error') }
+      value(:left_errmsg_tabs) { |b| b.noko.divs(class: 'left-errmsg-tab') }
+      value(:left_errmsg) { |b| b.noko.divs(class: 'left-errmsg') }
+      value(:error_messages_div) { |b| b.noko.div(class: 'error') }
     end
 
     def validation_elements
