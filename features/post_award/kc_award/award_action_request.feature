@@ -6,7 +6,6 @@ Feature: Requesting an action from an Award
   Background:
     * Users exist with the following roles: Award Modifier
 
-  @test
   Scenario: Request the action of an Approver
     Given I log in with the Award Modifier user
     And   I create an Award

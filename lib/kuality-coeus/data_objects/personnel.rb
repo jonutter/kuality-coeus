@@ -24,6 +24,8 @@ module Personnel
     on lookup_page do |page|
       if @last_name.nil?
         page.search
+        # We need to exclude the set of test users from the list
+        # of names we'll randomly select from...
         names = page.returned_full_names - $users.full_names
         @last_name=names.sample[/\w+$/]
         @first_name=$~.pre_match.strip
@@ -51,9 +53,6 @@ module Personnel
         # Unit(s) that aren't already present
         # in the list, so be careful!
         @units.each do |unit|
-          # Note: #add_unit_number is current verified
-          # as the method name for KeyPersonnel. The equivalent
-          # methods in the related page classes may need to be updated.
           page.add_unit_number(@full_name).set unit[:number]
           page.add_unit @full_name
         end
@@ -62,6 +61,11 @@ module Personnel
         units.each { |unit| @units << unit }
       end
       @units.uniq!
+      if @units.size==1
+        @lead_unit = @units[0][:number]
+      else
+        @lead_unit = @units.find { |unit| page.lead_unit_radio(@full_name, unit[:number]).set? == true }[:number]
+      end
     end
   end
 

@@ -1,28 +1,13 @@
 Then /^the S2S tab's submission details will say the Proposal is submitted$/ do
 
 
-
-
-
-
-
-
-sleep 60
-
-
-
-
-
-
-
-
   # Note that there's no navigation here currently because
   # this step def comes after the submission step, which
   # should automatically switch the user to the S2S page.
   on S2S do |page|
     page.expand_all
     page.submission_details_table.should be_present
-    page.submission_status.should=='Submitted to S2S'
+    page.s2s_submission_status.should=='Submitted to S2S'
   end
 end
 
