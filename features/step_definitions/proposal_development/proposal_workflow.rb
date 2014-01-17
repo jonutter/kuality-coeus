@@ -57,6 +57,7 @@ end
 
 And /^the (.*) submits the Proposal to its sponsor$/ do |role_name|
   steps %{ Given I log in with the #{role_name} user }
+  @proposal.view :proposal_actions
   @proposal.submit :to_sponsor
   @institutional_proposal = @proposal.make_institutional_proposal
 end
@@ -80,39 +81,16 @@ And /^the principal investigator approves the Proposal$/ do
   visit(Researcher).logout
 end
 
-And /^I approve the Proposal without future approval requests$/ do
-  @proposal.view :proposal_summary
-  on(ProposalSummary).approve
-  on(Confirmation).no
-end
-
-And /^the (.*) approves the Proposal without future approval requests$/ do |role_name|
+And /^the (.*) approves the Proposal (with|without) future approval requests$/ do |role_name, future_requests|
   steps %{ Given I log in with the #{role_name} user }
-  @proposal.view :proposal_summary
+  conf = {'with' => :yes, 'without' => :no}
+  steps '* I can access the proposal from my action list'
   on(ProposalSummary).approve
-  on(Confirmation).no
-end
-
-And /^I approve the Proposal with future approval requests$/ do
-  @proposal.view :proposal_summary
-  on(ProposalSummary).approve
-  on(Confirmation).yes
+  on(Confirmation).send(conf[future_requests])
 end
 
 Then /^I should only have the option to submit the proposal to its sponsor$/ do
   @proposal.view :proposal_actions
-
-
-
-
-
-sleep 60
-
-
-
-
-
-
   on ProposalActions do |page|
     page.approve_button.should_not be_present
     page.submit_to_sponsor_button.should be_present
@@ -126,7 +104,14 @@ Then /^I should see the option to approve the Proposal$/ do
   end
 end
 
-And(/^I approve the Proposal$/) do
-  @proposal.view :proposal_summary
-  on(ProposalSummary).approve
+Then /^I should not see the option to approve the Proposal$/ do
+  @proposal.view :proposal_actions
+  on ProposalActions do |page|
+    page.approve_button.should_not be_present
+  end
+end
+
+And(/^the (.*) approves the Proposal again$/) do |role_name|
+  steps %{ * I log in with the #{role_name} user }
+  @proposal.approve
 end
