@@ -47,6 +47,8 @@ class Award < KCAwards
 
   element(:current_funding_proposals_table) { |b| b.frm.table(id: 'currentFundingProposalsTable') }
 
+  element(:error_summary) { |b| b.frm.div(class: 'error') }
+
   private
 
   p_action(:target_funding_row) { |match, b| b.current_funding_proposals_table.row(text: /#{match}/) }

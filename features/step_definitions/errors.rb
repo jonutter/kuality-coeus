@@ -13,3 +13,10 @@ Then /^an error should say (.*)$/ do |error|
   }
   $current_page.errors.should include errors[error]
 end
+
+Then /^I should see an error that says the field is required$/ do
+  text="#{@required_field} is a required field."
+  @required_field=='Description' ? error='Document '+text : error=text
+  $current_page.error_summary.wait_until_present(5)
+  $current_page.errors.should include error
+end

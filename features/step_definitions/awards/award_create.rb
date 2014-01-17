@@ -27,7 +27,7 @@ When /^I ? ?creates? an Award with a missing required field$/ do
   ].sample
   @required_field=~/Type/ ? value='select' : value=''
   field = snake_case(@required_field)
-  @proposal = create AwardObject, field=>value
+  @award = create AwardObject, field=>value
 end
 
 Given /^the Award Modifier creates an Award$/ do
