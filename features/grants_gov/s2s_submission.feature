@@ -15,14 +15,14 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   I submits the Proposal into routing
     And   the OSPApprover approves the Proposal without future approval requests
     And   the principal investigator approves the Proposal
-#    When  the AOR user submits the Proposal to S2S
-#    Then  the S2S tab's submission details will say the Proposal is submitted
-#    And   within a couple minutes the submission status will be updated
+    When  the AOR user submits the Proposal to S2S
+    Then  the S2S tab's submission details will say the Proposal is submitted
+    And   within a couple minutes the submission status will be updated
 
   Examples:
     | Provider   | Sponsor           | Opportunity              |
     | Grants.Gov | NIH               | RR-TEST-NIH-FORMS2       |
-#    | Grants.Gov | NIH               | RR-FORMFAMILY-009-2010   |
-#    | Grants.Gov | DOD-Agency        | CAL-TEST-DOD2            |
-#    | Grants.Gov | DOD-Agency        | CSS-120809-SF424RR-V12   |
-#    | Grants.Gov | NASA - Washington | RR-FORMFAMILY-004-2010   |
+    | Grants.Gov | NIH               | RR-FORMFAMILY-009-2010   |
+    | Grants.Gov | DOD-Agency        | CAL-TEST-DOD2            |
+    | Grants.Gov | DOD-Agency        | CSS-120809-SF424RR-V12   |
+    | Grants.Gov | NASA - Washington | RR-FORMFAMILY-004-2010   |

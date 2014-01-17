@@ -164,18 +164,6 @@ And /^I? ?add and mark complete all the required attachments for an NSF Proposal
   end
 end
 
-<<<<<<< HEAD
-=======
-Then /^I should see an error that says the field is required$/ do
-  text="#{@required_field} is a required field."
-  @required_field=='Description' ? error='Document '+text : error=text
-  on(Proposal) do |page|
-    page.error_summary.wait_until_present(5)
-    page.errors.should include error
-  end
-end
->>>>>>> development
-
 Given /^I? ?creates? a Proposal with these Performance Site Locations: (.*)$/ do |psl|
   locations = psl.split(',')
   @proposal = create ProposalDevelopemntObject, performance_site_locations: locations
