@@ -2,17 +2,10 @@ Given /^(\d+) Approved Institutional Proposals? exists?$/ do |count|
   @ips = []
   count.to_i.times {
     steps %{
-      * a User exists with the role: 'Proposal Creator'
-      * a User exists with the roles: OSP Administrator, Institutional Proposal Maintainer in the 000001 unit
-      * the Proposal Creator creates a Proposal
-      * completes the required custom fields on the Proposal
-      * adds a principal investigator to the Proposal
-      * sets valid credit splits for the Proposal
-      * creates a Budget Version with cost sharing for the Proposal
-      * finalizes the Budget Version
-      * marks the Budget Version complete
-      * submits the Proposal
-      * the OSP Administrator approves the Proposal without future approval requests
+      * Users exist with the following roles: OSPApprover, Proposal Creator
+      * a User exists with the roles: OSP Administrator, Proposal Submission in the 000001 unit
+      * the Proposal Creator submits a new Proposal into routing
+      * the OSP Approver approves the Proposal without future approval requests
       * the principal investigator approves the Proposal
       * the OSP Administrator submits the Proposal to its sponsor
     }

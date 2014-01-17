@@ -279,10 +279,6 @@ warrens:  # AKA: "Principal Name"
     - '2002' # OSP Superuser
     - '2003' # ProposalAdmin
   :rolez:
-    - :id:   '100'
-      :name: OSPApprover
-      :qualifiers:
-        - :unit:
     - :id:   '131'
       :name: OSP Administrator
       :qualifiers:
@@ -653,16 +649,8 @@ dkensrue: # AKA: "Principal Name"
      :type:    Work
      :default: :set
   :rolez:
-   - :id:   '100'
-     :name: OSPApprover
-     :qualifiers:
-       - :unit:
    - :id:   '131'
      :name: OSP Administrator
-     :qualifiers:
-       - :unit: '000001'
-   - :id:   '130'
-     :name: Proposal Submission
      :qualifiers:
        - :unit: '000001'
    - :id:   '140'
@@ -808,10 +796,6 @@ dbyrne:  # AKA: "Principal Name"
       :type:    Work
       :default: :set
   :rolez:
-    - :id:   '100'
-      :name: OSPApprover
-      :qualifiers:
-        - :unit:
     - :id:   '131'
       :name: OSP Administrator
       :qualifiers:
