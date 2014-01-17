@@ -225,7 +225,14 @@ class ProposalDevelopmentObject < DataObject
   end
 
   def approve
-    on(ProposalSummary).approve
+    view 'Proposal Summary'
+    on ProposalSummary do |page|
+      page.approve
+    end
+    view 'Proposal Summary'
+    on ProposalSummary do |page|
+    @status=page.document_status
+    end
   end
 
   alias :sponsor_code :sponsor_id

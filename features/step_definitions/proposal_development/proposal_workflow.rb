@@ -81,18 +81,12 @@ And /^the principal investigator approves the Proposal$/ do
   visit(Researcher).logout
 end
 
-And /^the OSP Approver approves the Proposal (with|without) future approval requests$/ do |future_requests|
-  steps %{ Given I log in with the OSPApprover user }
+And /^the (.*) approves the Proposal (with|without) future approval requests$/ do |role_name, future_requests|
+  steps %{ Given I log in with the #{role_name} user }
   conf = {'with' => :yes, 'without' => :no}
   steps '* I can access the proposal from my action list'
   on(ProposalSummary).approve
   on(Confirmation).send(conf[future_requests])
-end
-
-And /^I approve the Proposal with future approval requests$/ do
-  @proposal.view :proposal_summary
-  on(ProposalSummary).approve
-  on(Confirmation).yes
 end
 
 Then /^I should only have the option to submit the proposal to its sponsor$/ do
@@ -117,7 +111,7 @@ Then /^I should not see the option to approve the Proposal$/ do
   end
 end
 
-And(/^I approve the Proposal$/) do
-  @proposal.view :proposal_summary
-  on(ProposalSummary).approve
+And(/^the (.*) approves the Proposal again$/) do |role_name|
+  steps %{ * I log in with the #{role_name} user }
+  @proposal.approve
 end

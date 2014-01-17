@@ -5,14 +5,14 @@ Feature: Proposal Workflows and Routing
   in workflow.
 
   Background:
-    * a User exists with the role: 'Proposal Creator'
+    * Users exist with the following roles: Proposal Creator, Unassigned
 
   Scenario: Approval Requests for a Proposal are sent
     Given the Proposal Creator submits a new Proposal into routing
     Then  the Proposal status should be Approval Pending
-  @test
+
   Scenario Outline: Approval Request is sent to the Proposal's PI
-    Given Users exist with the following roles: OSPApprover, Unassigned
+    Given a User exists with the role: 'OSPApprover'
     And   the Proposal Creator submits a new Proposal into routing
     And   the OSPApprover user approves the Proposal
     And   I log in with the Unassigned user
@@ -68,37 +68,35 @@ Feature: Proposal Workflows and Routing
     When  I log in with the OSP Administrator user
     Then  I can override the cost sharing amount
 
-  #@bug KRAFDBCK-10406
   Scenario: An OSP representative grants the final approval of a Proposal's workflow
-    Given Users exist with the following roles: OSPApprover, Unassigned
+    Given a User exists with the role: 'OSPApprover'
     And   the Proposal Creator submits a new Proposal into routing
-    And   the OSP Approver approves the Proposal with future approval requests
+    And   the OSPApprover approves the Proposal with future approval requests
     And   the principal investigator approves the Proposal
-    When  I log in again with the OSPApprover user
-    And   I approve the Proposal
+    When  the OSPApprover approves the Proposal again
     Then  the Proposal status should be Approval Granted
-  #@bug KRAFDBCK-10406
+
   Scenario: An OSP representative approves a proposal and requests future approval requests
-    Given Users exist with the following roles: OSPApprover, Unassigned
+    Given a User exists with the role: 'OSPApprover'
     And   the Proposal Creator submits a new Proposal into routing
-    When  the OSP Approver approves the Proposal with future approval requests
+    When  the OSPApprover approves the Proposal with future approval requests
     And   the principal investigator approves the Proposal
     And   I log in again with the OSPApprover user
     Then  I should see the option to approve the Proposal
-  #@bug KRAFDBCK-10406
+
   Scenario: An OSP representative approves a proposal and declines future approval requests
-    Given Users exist with the following roles: OSPApprover, Unassigned
+    Given a User exists with the role: 'OSPApprover'
     And   the Proposal Creator submits a new Proposal into routing
-    And   the OSP Approver approves the Proposal without future approval requests
+    And   the OSPApprover approves the Proposal without future approval requests
     And   the principal investigator approves the Proposal
     When  I log in again with the OSPApprover user
     Then  I should not see the option to approve the Proposal
-
+  @test
   Scenario: Approval has been granted so an OSP Admin submits the Proposal to its sponsor
     Given a User exists with the roles: OSP Administrator, Proposal Submission in the 000001 unit
     And   Users exist with the following roles: OSPApprover, Unassigned
     And   the Proposal Creator submits a new Proposal into routing
-    And   the OSP Approver approves the Proposal without future approval requests
+    And   the OSPApprover approves the Proposal without future approval requests
     And   the principal investigator approves the Proposal
     When  the OSP Administrator submits the Proposal to its sponsor
     Then  the Proposal status should be Approved and Submitted
