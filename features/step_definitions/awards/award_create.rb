@@ -31,13 +31,6 @@ When /^I ? ?creates? an Award with a missing required field$/ do
   @proposal = create AwardObject, field=>value
 end
 
-Given /^the Award Modifier creates an Award$/ do
-  steps %q{
-  * I log in with the Award Modifier user
-  * I create an Award
-}
-end
-
 Given /^the Award Modifier creates an Award including an Account ID, Account Type, Prime Sponsor, and CFDA Number$/ do
   steps 'Given I log in with the Award Modifier user'
   @award = create AwardObject

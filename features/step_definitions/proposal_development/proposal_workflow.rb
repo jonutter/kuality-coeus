@@ -66,6 +66,10 @@ When /^I? ?submit the Proposal to S2S$/ do
   @proposal.submit :to_s2s
 end
 
+When /^I? ?submit the Proposal$/ do
+  @proposal.submit
+end
+
 When /^I? ?blanket approve the Proposal$/ do
   @proposal.blanket_approve
 end
