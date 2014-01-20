@@ -104,7 +104,7 @@ And /^the (.*) submits a new Proposal into routing$/ do |role_name|
   steps %{
     * I log in with the #{role_name} user
     * create a Proposal
-    * add the Unassigned user as a Principal Investigator to the key personnel proposal roles
+    * add a principal investigator to the Proposal
     * set valid credit splits for the Proposal
     * complete the required custom fields on the Proposal
     * submit the Proposal
