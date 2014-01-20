@@ -6,10 +6,7 @@ Feature: Requesting an action from an Award
   Background:
     * Users exist with the following roles: Award Modifier
 
-<<<<<<< HEAD
-=======
   #@Fixme
->>>>>>> development
   Scenario: Request the action of an Approver
     Given I create an Award as the Award Modifier user
     When  I filter the Award from my action list

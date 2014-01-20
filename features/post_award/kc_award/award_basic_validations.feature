@@ -11,11 +11,11 @@ Feature: Basic Award Validations
     Given the Award Modifier creates an Award
     When  I start adding a Payment & Invoice item to the Award
     Then  a warning appears saying tracking details won't be added until there's a PI
-
+  
   Scenario: Attempt to create a KC Award document with a missing required field
     Given I log in with the Award Modifier user
     When  I create an Award with a missing required field
-    Then  I should see an error that says the field is required
+    Then  an error should appear that says the field is required
   @test
   Scenario: Attempt to link an IP that has not been approved
     Given the Proposal Creator submits a new Proposal into routing

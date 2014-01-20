@@ -76,11 +76,11 @@ Then /^I should see an error that says a valid sponsor code is required$/ do
   on(Proposal).errors.should include 'A valid Sponsor Code (Sponsor) must be selected.'
 end
 
-When /^I? ?submits? the Proposal into routing$/ do
+When /^I? ?submits? the Proposal$/ do
   @proposal.submit
 end
 
-When /^I? ?completes? ?the Proposal$/ do
+When /^I? ?complete the Proposal$/ do
   @proposal.add_principal_investigator
   @proposal.set_valid_credit_splits
   @proposal.add_custom_data
@@ -100,29 +100,18 @@ When /^I? ?save and close the Proposal document$/ do
   on(Confirmation).yes
 end
 
-And /^the (.*) submits a new Proposal into routing$/ do |role_name|
+And /^the Proposal Creator submits a new Proposal into routing$/ do
   steps %{
-    * I log in with the #{role_name} user
-    * create a Proposal
-    * add the Unassigned user as a Principal Investigator to the key personnel proposal roles
-    * set valid credit splits for the Proposal
-    * complete the required custom fields on the Proposal
-    * submit the Proposal
-}
-end
-
-And /^the (.*) completes the remaining required actions for an S2S submission$/ do |role_name|
-  steps %{
-    * I log in with the #{role_name} user
-    * sets valid credit splits for the Proposal
-    * add and mark complete all the required attachments
-    * create a final and complete Budget Version for the Proposal
-    * complete the required custom fields on the Proposal
-    * answer the S2S questions
+    *   I log in with the Proposal Creator user
+    *   create a Proposal
+    *   add the Unassigned user as a Principal Investigator to the key personnel proposal roles
+    *   set valid credit splits for the Proposal
+    *   complete the required custom fields on the Proposal
+    *   submit the Proposal
         }
 end
 
-And /^I? ?adds? the (Grants.Gov|Research.Gov) opportunity id of (.*) to the Proposal$/ do |type, op_id|
+And /^I? ?add the (Grants.Gov|Research.Gov) opportunity id of (.*) to the Proposal$/ do |type, op_id|
   @proposal.edit opportunity_id: op_id
   on(Proposal).s2s
   on S2S do |page|
@@ -161,6 +150,24 @@ And /^I? ?add and mark complete all the required attachments for an NSF Proposal
     %w{Biosketch Currentpending}.each do |type|
       @proposal.add_personnel_attachment person: person.full_name, type: type, file_name: 'test.pdf'
     end
+  end
+end
+
+Then /^I should see an error that says the field is required$/ do
+
+
+
+
+sleep 5
+
+
+
+
+  text="#{@required_field} is a required field."
+  @required_field=='Description' ? error='Document '+text : error=text
+  on(Proposal) do |page|
+    page.error_summary.wait_until_present(5)
+    page.errors.should include error
   end
 end
 
