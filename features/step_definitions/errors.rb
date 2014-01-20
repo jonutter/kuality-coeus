@@ -33,3 +33,19 @@ Then /^I should see an error that says the field is required$/ do
   $current_page.error_summary.wait_until_present(5)
   $current_page.errors.should include error
 end
+
+Then(/^an error should appear that says the field is required$/) do
+  error = case @required_field
+            when 'Description'
+              "Document #{@required_field} is a required field."
+            when 'Proposal Type'
+              'Proposal Type (Proposal Type Code) is a required field.'
+            when 'Activity Type'
+              'Activity Type (Activity) is a required field.'
+            when 'Project Title'
+              "#{@required_field} (Title) is a required field."
+            when 'Sponsor ID'
+              'Sponsor ID (Sponsor ID) is a required field.'
+          end
+  $current_page.errors.should include error
+end

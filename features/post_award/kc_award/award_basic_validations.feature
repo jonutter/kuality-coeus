@@ -16,7 +16,7 @@ Feature: Basic Award Validations
     Given I log in with the Award Modifier user
     When  I create an Award with a missing required field
     Then  I should see an error that says the field is required
-  @failing
+  @test
   Scenario: Attempt to link an IP that has not been approved
     Given the Proposal Creator submits a new Proposal into routing
     And   the OSP Administrator submits the Proposal to its sponsor

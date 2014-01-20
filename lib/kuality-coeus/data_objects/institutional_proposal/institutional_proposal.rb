@@ -20,7 +20,8 @@ class InstitutionalProposalObject < DataObject
         project_personnel: collection('ProjectPersonnel'),
         special_review:    collection('SpecialReview'),
         cost_sharing:      collection('IPCostSharing'),
-        unrecovered_fa:    collection('IPUnrecoveredFA')
+        unrecovered_fa:    collection('IPUnrecoveredFA'),
+        description:       random_alphanums
     }
     unless opts[:proposal_log].nil?
       defaults[:proposal_type]=opts[:proposal_log].proposal_type
@@ -54,8 +55,7 @@ class InstitutionalProposalObject < DataObject
       @document_id=create.document_id
       @doc_header=create.doc_title
       @proposal_number=create.institutional_proposal_number
-      create.description.set random_alphanums
-      fill_out create, :proposal_type, :award_id, :activity_type, :project_title
+      fill_out create, :proposal_type, :award_id, :activity_type, :project_title, :description
       set_sponsor_code
       create.save
     end
