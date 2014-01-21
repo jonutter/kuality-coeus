@@ -1,11 +1,11 @@
 Given /^(\d+) Approved Institutional Proposals? exists?$/ do |count|
   @ips = []
   count.to_i.times {
-    steps %{
+    steps %q{
       * Users exist with the following roles: OSPApprover, Proposal Creator
       * a User exists with the roles: OSP Administrator, Proposal Submission in the 000001 unit
       * the Proposal Creator submits a new Proposal into routing
-      * the OSP Approver approves the Proposal without future approval requests
+      * the OSPApprover approves the Proposal without future approval requests
       * the principal investigator approves the Proposal
       * the OSP Administrator submits the Proposal to its sponsor
     }
@@ -108,9 +108,9 @@ Then /^the status of the Funding Proposal should change to (.*)$/  do |status|
 end
 
 Given(/^I add an Institutional Proposal to an Award$/) do
-  steps %{
-    Given I create a Funding Proposal
-    And   I log in with the Award Modifier userF
-    And   I link the Funding Proposal to an Award
+  steps %q{
+    * I create a Funding Proposal
+    * I log in with the Award Modifier user
+    * I link the Funding Proposal to an Award
         }
 end
