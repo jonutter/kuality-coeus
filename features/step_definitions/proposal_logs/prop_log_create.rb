@@ -1,4 +1,5 @@
-When /^I? ?creates? a Proposal Log but I miss a required field$/ do
+When /^the (.*) user creates a Proposal Log but misses a required field$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   # Pick a field at random for the test...
   @required_field = ['Title', 'Proposal Type', 'Lead Unit'
           ].sample
@@ -9,8 +10,15 @@ When /^I? ?creates? a Proposal Log but I miss a required field$/ do
   @proposal_log = create ProposalLogObject, field=>value
 end
 
-When /^I? ?creates? a Proposal Log$/ do
+When /^the (.*) user creates a Proposal Log$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   @proposal_log = create ProposalLogObject
+end
+
+When /^the (.*) user has submitted a new Proposal Log$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
+  @proposal_log = create ProposalLogObject
+  @proposal_log.submit
 end
 
 Then(/^the Proposal Log type should be (.*)$/) do |status|
@@ -52,11 +60,6 @@ end
 
 Then /^I merge my new proposal log with my previous temporary proposal log$/ do
   raise "This step needs to be done!!!"
-end
-
-When /^I submit a new Proposal Log$/ do
-  @proposal_log = create ProposalLogObject
-  @proposal_log.submit
 end
 
 When /^I submit a new Temporary Proposal Log$/ do

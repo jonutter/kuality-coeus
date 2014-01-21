@@ -110,7 +110,7 @@ end
 Given(/^I add an Institutional Proposal to an Award$/) do
   steps %{
     Given I create a Funding Proposal
-    And   I log in with the Award Modifier userF
+    And   I log in with the Award Modifier user
     And   I link the Funding Proposal to an Award
         }
 end

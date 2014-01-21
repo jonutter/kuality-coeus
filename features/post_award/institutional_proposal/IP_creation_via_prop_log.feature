@@ -8,13 +8,12 @@ Feature: Creating an Institutional Proposal from a Proposal Log
 
   Background:
     * a User exists with the roles: Create Proposal Log, Institutional Proposal Maintainer in the 000001 unit
-
+  @test
   Scenario: Attempt to create a Funding Proposal document w/o a required field
-    Given I log in with the Create Proposal Log user
-    And   I submit a new Proposal Log
-    When  I attempt to save an institutional proposal with a missing required field
-    Then  an error should appear that says the field is required
-  @failing
+    Given the Create Proposal Log user has submitted a new Proposal Log
+    When  the Create Proposal Log user attempts to create an institutional proposal with a missing required field
+    #Then  an error should appear that says the field is required
+
   Scenario: Create a Temporary Proposal Log and merge it with an Institutional Proposal
     Given I log in with the Create Proposal Log user
     And   I submit a new institutional proposal document

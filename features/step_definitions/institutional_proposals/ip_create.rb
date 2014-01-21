@@ -31,9 +31,8 @@ When /^I merge the permanent proposal log with the institutional proposal$/ do
   pending
 end
 
-When /^I attempt to save an institutional proposal with a missing required field$/ do
-  @proposal_log = create ProposalLogObject
-  @proposal_log.submit
+When /^the (.*) user attempts to create an institutional proposal with a missing required field$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   # Pick a field at random for the test...
   @required_field = ['Description','Activity Type','Sponsor ID','Project Title','Proposal Type'
   ].sample
@@ -45,22 +44,10 @@ When /^I attempt to save an institutional proposal with a missing required field
                                    field=>value
 end
 
-Given(/^I create and submit a Proposal to its sponsor with Proposal Creator and OSP Administrator users$/) do
-  steps %q{
-    Given I log in with the Proposal Creator user
-    And   I submit a new Proposal into routing
-    And   I blanket approve the Proposal
-    When  I log in as the User with the OSP Administrator role in 000001
-    And   I submit the Proposal to its sponsor
-}
-end
-
 Given(/^I? ?creates? a Funding Proposal$/) do
   #There's no significance here regarding the PD >> IP process.
   #The purpose of this step is simply to produce a Funding Proposal.
   steps %q{
-    Given I log in with the Proposal Creator user
-    And   I submit a new Proposal into routing
     And   I log in as the User with the OSP Administrator role in 000001
     And   I approve the Proposal without future approval requests
     And   the principal investigator approves the Proposal

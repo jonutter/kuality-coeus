@@ -6,7 +6,7 @@ Feature: Validating content of s2s proposals
   Background: Logged in with a proposal creator; create a proposal for grants.gov
     * a User exists with the role: 'Proposal Creator'
     * the Proposal Creator creates a Proposal with a 'Federal' sponsor type
-    * add the Grants.Gov opportunity id of PA-B2-ALL to the Proposal
+    * adds the Grants.Gov opportunity id of PA-B2-ALL to the Proposal
 
   Scenario: Adding the opportunity
     Then  the opportunity details should appear on the page

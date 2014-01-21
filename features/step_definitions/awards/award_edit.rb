@@ -105,7 +105,8 @@ When /completes? the Award requirements$/ do
   }
 end
 
-When /^I? ?(?:creates? an Award for the Funding Proposal)|(?:links? the Funding Proposal to an Award)$/ do
+When /^the (.*) user links the Funding Proposal to a new Award$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   @award = create AwardObject
   @award.add_funding_proposal @institutional_proposal.proposal_number, '::random::'
 end
