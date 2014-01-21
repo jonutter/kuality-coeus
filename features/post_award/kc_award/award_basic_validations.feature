@@ -16,9 +16,9 @@ Feature: Basic Award Validations
     Given I log in with the Award Modifier user
     When  I create an Award with a missing required field
     Then  an error should appear that says the field is required
-  @test
+
   Scenario: KC-TS-1146 Attempt to link an IP that has not been approved
     Given the Proposal Creator submits a new Proposal into routing
     And   the OSP Administrator submits the Proposal to its sponsor
     When  the Award Modifier adds the Institutional Proposal to the Award
-    Then  an error should say the IP can not be added because it was not been properly approved
+    Then  an error should say the IP can not be added because it's not fully approved
