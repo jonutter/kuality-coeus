@@ -67,9 +67,11 @@ class AwardObject < DataObject
                :project_start_date, :project_end_date, :obligation_start_date,
                :obligation_end_date, :nsf_science_code, :account_id, :account_type,
                :cfda_number
-      set_sponsor_id
-      set_prime_sponsor
-      set_lead_unit
+    end
+    set_sponsor_id
+    set_prime_sponsor
+    set_lead_unit
+    on Award do |create|
       @funding_proposals.each do |prop|
         create.institutional_proposal_number.fit prop[:ip_number]
         create.proposal_merge_type.pick prop[:merge_type]

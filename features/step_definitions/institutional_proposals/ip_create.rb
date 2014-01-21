@@ -35,10 +35,10 @@ When /^I attempt to save an institutional proposal with a missing required field
   @proposal_log = create ProposalLogObject
   @proposal_log.submit
   # Pick a field at random for the test...
-  @required_field = ['Description', 'Activity Type', 'Sponsor ID'
+  @required_field = ['Description','Activity Type','Sponsor ID','Project Title','Proposal Type'
   ].sample
   # Properly set the nil value depending on the field type...
-  @required_field=~/Type/ ? value='select' : value=''
+  @required_field=~/Type/ ? value='select' : value=' '
   # Transform the field name to the appropriate symbol...
   field =snake_case(@required_field)
   @institutional_proposal = create InstitutionalProposalObject, proposal_number: @proposal_log.number,

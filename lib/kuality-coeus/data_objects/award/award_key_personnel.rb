@@ -67,39 +67,39 @@ class AwardKeyPersonObject < DataObject
 
   # TODO: Some of this method should be moved to the Personnel
   # module at some point, so it can be used by the KeyPersonObject.
-  def add_unit(unit, lead=false)
+  def add_unit(unit_number, lead=false)
     # TODO: Add conditional navigation
     on AwardContacts do |add_unit|
       add_unit.expand_all
       add_unit.add_lead_unit(@full_name) if lead
-      add_unit.add_unit_number(@full_name).set unit
+      add_unit.add_unit_number(@full_name).set unit_number
       add_unit.add_unit(@full_name)
-      @units << {number: unit, name: add_unit.unit_name(@full_name, unit) }
+      @units << {number: unit_number, name: add_unit.unit_name(@full_name, unit_number) }
       confirmation 'no'
       add_unit.save
     end
-    @lead_unit=unit if lead
+    @lead_unit=unit_number if lead
   end
 
-  def add_lead_unit(unit)
-    add_unit(unit, true)
+  def add_lead_unit(unit_number)
+    add_unit(unit_number, true)
   end
 
-  def set_lead_unit(unit)
+  def set_lead_unit(unit_number)
     # TODO: Add conditional navigation
     on AwardContacts do |page|
-      page.lead_unit_radio(@full_name, unit).set
+      page.lead_unit_radio(@full_name, unit_number).set
       page.save
     end
   end
 
-  def delete_unit(unit)
+  def delete_unit(unit_number)
     # TODO: Add conditional navigation
     on AwardContacts do |delete_unit|
-      delete_unit.delete_unit(@full_name, unit)
+      delete_unit.delete_unit(@full_name, unit_number)
       delete_unit.save
     end
-    @units.delete(unit)
+    @units.delete(unit_number)
   end
 
   # ===========

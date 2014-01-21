@@ -1,5 +1,0 @@
-class PHSTrainingQuestionnaireObject < DataObject
-
-
-
-end

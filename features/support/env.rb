@@ -32,3 +32,5 @@ After do |scenario|
   # Log out if not already
   $users.current_user.sign_out unless $users.current_user==nil
 end
+
+at_exit { kuality.browser.close }

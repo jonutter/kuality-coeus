@@ -19,10 +19,10 @@ class BudgetVersionsObject < DataObject
     @browser = browser
 
     defaults = {
-      name:                           random_alphanums_plus(40),
-      budget_periods:                 collection('BudgetPeriods'),
-      subaward_budgets:               collection('SubawardBudget'),
-      personnel:                      collection('BudgetPersonnel')
+      name:              random_alphanums_plus(40),
+      budget_periods:    collection('BudgetPeriods'),
+      subaward_budgets:  collection('SubawardBudget'),
+      personnel:         collection('BudgetPersonnel')
     }
 
     set_options(defaults.merge(opts))

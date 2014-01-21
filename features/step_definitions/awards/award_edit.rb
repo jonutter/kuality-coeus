@@ -36,7 +36,7 @@ end
 #----------------------#
 #Subawards
 #----------------------#
-Given /^I? ?add a subaward to the Award$/ do
+Given /^I? ?adds? a subaward to the Award$/ do
   @award.add_subaward
 end
 
@@ -110,7 +110,7 @@ When /^I? ?(?:creates? an Award for the Funding Proposal)|(?:links? the Funding 
   @award.add_funding_proposal @institutional_proposal.proposal_number, '::random::'
 end
 
-When /^the (.*) tries to fund an Award with the new Institutional Proposal$/ do |role_name|
+When /^the (.*) adds the Institutional Proposal to the Award$/ do |role_name|
   steps %{ Given I log in with the #{role_name} user }
   @award = create AwardObject
   @award.add_funding_proposal @institutional_proposal.proposal_number, '::random::'
@@ -128,4 +128,8 @@ Then /^the Institutional Proposal Maintainer cannot unlink the proposal$/ do
   steps 'Given I log in with the Institutional Proposal Maintainer user'
   @institutional_proposal.unlock_award(@award.id)
   on(InstitutionalProposalActions).errors.size.should > 0
+end
+
+Then /^the Institutional Proposal cannot be added to the Award$/ do
+  pending
 end
