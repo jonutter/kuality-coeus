@@ -33,7 +33,8 @@ When /^I? ?creates? a Proposal but miss a required field$/ do
   @proposal = create ProposalDevelopmentObject, field=>value
 end
 
-When /^I? ?creates? a Proposal with an? '(.*)' sponsor type$/ do |type|
+When /^the (.*) creates a Proposal with an? '(.*)' sponsor type$/ do |role_name, type|
+  steps %{ * I log in with the #{role_name} user }
   @proposal = create ProposalDevelopmentObject, sponsor_type_code: type
 end
 
