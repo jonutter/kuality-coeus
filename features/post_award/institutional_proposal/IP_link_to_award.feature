@@ -6,7 +6,7 @@ Feature: Linking an Institutional Proposal to a KC Award
     * Users exist with the following roles: Proposal Creator, Award Modifier
     * a User exists with the roles: OSP Administrator, Proposal Submission, Institutional Proposal Maintainer in the 000001 unit
     @test
-    Scenario: KC-TS-104 Unlock an Institutional Proposal
+    Scenario: KC-TS-1171 Inst Proposal 'Funded' When Linked to an Award
       Given I create a Funding Proposal
       When  I log in with the Award Modifier user
       And   I link the Funding Proposal to an Award
