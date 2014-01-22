@@ -62,7 +62,8 @@ Then /^I merge my new proposal log with my previous temporary proposal log$/ do
   raise "This step needs to be done!!!"
 end
 
-When /^I submit a new Temporary Proposal Log$/ do
+When /^the (.*) user submits a new Temporary Proposal Log$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   @temp_proposal_log = create ProposalLogObject,
                               log_type: 'Temporary'
   @temp_proposal_log.submit

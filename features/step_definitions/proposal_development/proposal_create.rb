@@ -1,19 +1,23 @@
-Given /^I? ?creates? a Proposal$/ do
+Given /^the (.*) creates a Proposal$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   @proposal = create ProposalDevelopmentObject
 end
 
-Given /^I? ?creates? a second Proposal$/ do
+Given /^the (.*) creates a second Proposal$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   @proposal2 = create ProposalDevelopmentObject
 end
 
-Given /^I? ?creates? a (\d+)-year project Proposal$/ do |year_count|
+Given /^the (.*) creates a (\d+)-year project Proposal$/ do |role_name, year_count|
+  steps %{ * I log in with the #{role_name} user }
   @years=year_count.to_i
   @proposal =create ProposalDevelopmentObject,
                     project_start_date: "01/01/#{next_year[:year]}",
                     project_end_date: "12/31/#{next_year[:year].to_i+(@years-1)}"
 end
 
-Given /^I? ?creates? a (\d+)-year, '(.*)' Proposal$/ do |year_count, activity_type|
+Given /^the (.*) creates a (\d+)-year, '(.*)' Proposal$/ do |role_name, year_count, activity_type|
+  steps %{ * I log in with the #{role_name} user }
   @years=year_count.to_i
   @proposal =create ProposalDevelopmentObject,
                     project_start_date: "01/01/#{next_year[:year]}",
@@ -21,7 +25,8 @@ Given /^I? ?creates? a (\d+)-year, '(.*)' Proposal$/ do |year_count, activity_ty
                     activity_type: activity_type
 end
 
-When /^I? ?creates? a Proposal but miss a required field$/ do
+When /^the (.*) attempts to create a Proposal while missing a required field$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   # Pick a field at random for the test...
   @required_field = ['Description', 'Proposal Type', 'Activity Type',
            'Project Title', 'Sponsor Code', 'Project Start Date', 'Project End Date'
@@ -38,7 +43,8 @@ When /^the (.*) creates a Proposal with an? '(.*)' sponsor type$/ do |role_name,
   @proposal = create ProposalDevelopmentObject, sponsor_type_code: type
 end
 
-Given /^I? ?create a Proposal with (\D+) as the sponsor$/ do |sponsor_name|
+Given /^the (.*) creates a Proposal with (\D+) as the sponsor$/ do |role_name, sponsor_name|
+  steps %{ * I log in with the #{role_name} user }
   # First, we have to get the sponsor ID based on the sponsor_name string...
   visit(Maintenance).sponsor
   sponsor_code=''
@@ -51,25 +57,18 @@ Given /^I? ?create a Proposal with (\D+) as the sponsor$/ do |sponsor_name|
   @proposal = create ProposalDevelopmentObject, sponsor_id: sponsor_code
 end
 
-Given /^the (.*) creates a Proposal with (\D+) as the sponsor$/ do |role_name, sponsor_name|
-  steps %{ * I log in with the #{role_name} user
-           * create a Proposal with #{sponsor_name} as the sponsor }
-end
-
-Given /^the (.*) creates a Proposal$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user
-           * create a Proposal }
-end
-
-Given /^I? ?creates? a Proposal with a type of '(.*)'$/ do |type|
+Given /^the (.*) creates a Proposal with a type of '(.*)'$/ do |role_name, type|
+  steps %{ * I log in with the #{role_name} user }
   @proposal = create ProposalDevelopmentObject, proposal_type: type
 end
 
-When /^I? ?creates? a Proposal with an invalid sponsor code$/ do
+When /^the (.*) creates a Proposal with an invalid sponsor code$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   @proposal = create ProposalDevelopmentObject, :sponsor_id=>'000000'
 end
 
-Given /^I? ?creates? a Proposal without a sponsor deadline date$/ do
+Given /^the (.*) creates a Proposal without a sponsor deadline date$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   @proposal = create ProposalDevelopmentObject, sponsor_deadline_date: ''
 end
 
@@ -77,7 +76,8 @@ Then /^I should see an error that says a valid sponsor code is required$/ do
   on(Proposal).errors.should include 'A valid Sponsor Code (Sponsor) must be selected.'
 end
 
-When /^I? ?submits? the Proposal into routing$/ do
+When /^the (.*) submits the Proposal into routing$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   @proposal.submit
 end
 
@@ -91,12 +91,12 @@ When /completes? the required custom fields on the Proposal$/ do
   @proposal.add_custom_data
 end
 
-When /^I? ?add (.*) as an? (.*) to the proposal permissions$/ do |username, role|
+When /^adds? (.*) as an? (.*) to the proposal permissions$/ do |username, role|
   @proposal.permissions.send("#{snake_case(role)}s") << username
   @proposal.permissions.assign
 end
 
-When /^I? ?save and close the Proposal document$/ do
+When /^saves? and close the Proposal document$/ do
   @proposal.close
   on(Confirmation).yes
 end
@@ -138,7 +138,7 @@ And /^I? ?adds? the (Grants.Gov|Research.Gov) opportunity id of (.*) to the Prop
   on(S2S).save
 end
 
-And /^I? ?add the (Grants.Gov|Research.Gov) opportunity, id: (.*), competition id: (.*)$/ do |type, op_id, comp_id|
+And /^I? ?adds? the (Grants.Gov|Research.Gov) opportunity, id: (.*), competition id: (.*)$/ do |type, op_id, comp_id|
   @proposal.edit opportunity_id: op_id
   on(Proposal).s2s
   on S2S do |page|
@@ -153,7 +153,7 @@ And /^I? ?add the (Grants.Gov|Research.Gov) opportunity, id: (.*), competition i
   on(S2S).save
 end
 
-And /^I? ?add and mark complete all the required attachments for an NSF Proposal$/ do
+And /^I? ?adds? and marks? complete all the required attachments for an NSF Proposal$/ do
   %w{Equipment Bibliography BudgetJustification ProjectSummary Narrative}.shuffle.each do |type|
     @proposal.add_proposal_attachment type: type, file_name: 'test.pdf', status: 'Complete'
   end
@@ -174,7 +174,8 @@ Then /^I should see an error that says the field is required$/ do
   end
 end
 
-Given /^I? ?creates? a Proposal with these Performance Site Locations: (.*)$/ do |psl|
+Given /^the (.*) user creates? a Proposal with these Performance Site Locations: (.*)$/ do |role_name, psl|
+  steps %{ * I log in with the #{role_name} user }
   locations = psl.split(',')
   @proposal = create ProposalDevelopemntObject, performance_site_locations: locations
 end

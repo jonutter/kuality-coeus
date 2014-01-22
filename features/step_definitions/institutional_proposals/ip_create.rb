@@ -1,4 +1,5 @@
-When /^I submit a new institutional proposal document$/ do
+Given /^the (.*) user submits a new Funding Proposal$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   @proposal_log = create ProposalLogObject
   @proposal_log.submit
   @institutional_proposal = create InstitutionalProposalObject,
@@ -13,7 +14,7 @@ When /^I submit a new institutional proposal document$/ do
   on(InstitutionalProposalActions).submit
 end
 
-When /^I merge the temporary proposal log with the institutional proposal$/ do
+When /^I? ?attempts? to merge the temporary proposal log with the Funding Proposal$/ do
   visit(Researcher).search_proposal_log
   on ProposalLogLookup do |page|
     page.proposal_number.set @temp_proposal_log.number

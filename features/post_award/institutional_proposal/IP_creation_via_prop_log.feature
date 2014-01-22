@@ -12,11 +12,10 @@ Feature: Creating an Institutional Proposal from a Proposal Log
   Scenario: Attempt to create a Funding Proposal document w/o a required field
     Given the Create Proposal Log user has submitted a new Proposal Log
     When  the Create Proposal Log user attempts to create an institutional proposal with a missing required field
-    #Then  an error should appear that says the field is required
+    Then  an error should appear that says the field is required
 
-  Scenario: Create a Temporary Proposal Log and merge it with an Institutional Proposal
-    Given I log in with the Create Proposal Log user
-    And   I submit a new institutional proposal document
-    When  I submit a new Temporary Proposal Log
-    And   I merge the temporary proposal log with the institutional proposal
+  Scenario: Attempt to merge a temporary Proposal Log with an Institutional Proposal
+    Given the Create Proposal Log user submits a new Funding Proposal
+    When  the Create Proposal Log user submits a new Temporary Proposal Log
+    And   attempts to merge the temporary proposal log with the Funding Proposal
     Then  the Proposal Log's status should reflect it has been merged

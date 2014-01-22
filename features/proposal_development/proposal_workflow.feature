@@ -15,8 +15,8 @@ Feature: Proposal Workflows and Routing
     Given a User exists with the role: 'OSPApprover'
     And   the Proposal Creator submits a new Proposal into routing
     And   the OSPApprover user approves the Proposal
-    And   I log in with the Unassigned user
-    Then  I can access the proposal from my action list
+    When  I log in with the Unassigned user
+    And   I can access the proposal from my action list
     And   the <Action> button appears on the Proposal Summary and Proposal Action pages
 
   Examples:
@@ -45,8 +45,7 @@ Feature: Proposal Workflows and Routing
 
   Scenario: An FYI is sent to an OSP representative
     Given a User exists with the role: 'OSPApprover'
-    And   I log in with the Proposal Creator user
-    And   I create a Proposal
+    And   the Proposal Creator creates a Proposal
     When  I send a notification to the OSPApprover user
     And   I log in with the OSPApprover user
     Then  I should receive an action list item with the requested action being: FYI
@@ -56,8 +55,7 @@ Feature: Proposal Workflows and Routing
   Scenario: An OSP Admin overrides a budget's cost sharing amount
     Given the Budget Column's 'Cost Sharing Amount' has a lookup for 'Proposal Cost Share' that returns 'Amount'
     And   a User exists with the role: 'OSP Administrator'
-    And   I log in with the Proposal Creator user
-    And   create a Proposal
+    And   the Proposal Creator creates a Proposal
     And   add a principal investigator to the Proposal
     And   set valid credit splits for the Proposal
     And   create a Budget Version with cost sharing for the Proposal
