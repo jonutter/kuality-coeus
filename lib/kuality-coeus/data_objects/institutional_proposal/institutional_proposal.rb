@@ -67,7 +67,13 @@ class InstitutionalProposalObject < DataObject
   end
 
   def add_custom_data opts={}
-    @custom_data = prep(CustomDataObject, opts)
+    view :custom_data
+    defaults = {
+        document_id: @document_id,
+        doc_header: @doc_header
+    }
+    @custom_data = make CustomDataObject, defaults.merge(opts)
+    @custom_data.create
   end
 
   def add_cost_sharing opts={}

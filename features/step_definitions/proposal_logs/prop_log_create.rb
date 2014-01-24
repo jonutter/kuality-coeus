@@ -69,9 +69,16 @@ When /^the (.*) user submits a new Temporary Proposal Log$/ do |role_name|
   @temp_proposal_log.submit
 end
 
-Then /^the Proposal Log's status should reflect it has been merged$/ do
+Then /^the Proposal Log's status should reflect it has been (.*)$/ do |status|
   on(Researcher).search_proposal_log
-  raise "This step ain't done!!!"
+
+
+
+  sleep 50
+
+
+
+  on(ProposalLogLookup).prop_log_status(@temp_proposal_log.number)==status
 end
 
 Then /^upon submission of the Proposal Log, an error should appear saying the field is required$/ do

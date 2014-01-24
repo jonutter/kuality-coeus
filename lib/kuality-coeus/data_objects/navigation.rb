@@ -27,6 +27,11 @@ module Navigation
   def navigate
     on(BasePage).close_extra_windows
     visit @lookup_class do |page|
+
+
+      puts @search_key.inspect
+
+
       page.send(@search_key.keys[0]).set @search_key.values[0]
       page.search
       page.results_table.wait_until_present

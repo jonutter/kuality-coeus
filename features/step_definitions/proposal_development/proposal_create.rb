@@ -76,12 +76,11 @@ Then /^I should see an error that says a valid sponsor code is required$/ do
   on(Proposal).errors.should include 'A valid Sponsor Code (Sponsor) must be selected.'
 end
 
-When /^the (.*) submits the Proposal into routing$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user }
+When /^I? ?submits? the Proposal into routing$/ do
   @proposal.submit
 end
 
-When /^I? ?completes? ?the Proposal$/ do
+When /^I? ?completes? the Proposal$/ do
   @proposal.add_principal_investigator
   @proposal.set_valid_credit_splits
   @proposal.add_custom_data
@@ -104,7 +103,7 @@ end
 And /^the (.*) submits a new Proposal into routing$/ do |role_name|
   steps %{
     * I log in with the #{role_name} user
-    * create a Proposal
+    * the Proposal Creator creates a Proposal
     * add a principal investigator to the Proposal
     * set valid credit splits for the Proposal
     * complete the required custom fields on the Proposal

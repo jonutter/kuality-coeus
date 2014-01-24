@@ -8,14 +8,17 @@ Feature: Creating an Institutional Proposal from a Proposal Log
 
   Background:
     * a User exists with the roles: Create Proposal Log, Institutional Proposal Maintainer in the 000001 unit
-  @test
+
   Scenario: Attempt to create a Funding Proposal document w/o a required field
     Given the Create Proposal Log user has submitted a new Proposal Log
     When  the Create Proposal Log user attempts to create an institutional proposal with a missing required field
     Then  an error should appear that says the field is required
 
+  @test
   Scenario: Attempt to merge a temporary Proposal Log with an Institutional Proposal
-    Given the Create Proposal Log user submits a new Funding Proposal
+    Given a User exists with the roles: OSP Administrator, Proposal Submission in the 000001 unit
+    And   Users exist with the following roles: OSPApprover, Proposal Creator
+    And   a Funding Proposal has been generated out of the Development Proposal workflow
     When  the Create Proposal Log user submits a new Temporary Proposal Log
-    And   attempts to merge the temporary proposal log with the Funding Proposal
-    Then  the Proposal Log's status should reflect it has been merged
+    And   merges the temporary proposal log with the Funding Proposal
+    Then  the Proposal Log's status should reflect it has been Merged

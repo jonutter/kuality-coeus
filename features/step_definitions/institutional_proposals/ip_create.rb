@@ -1,12 +1,16 @@
-Given /^the (.*) user submits a new Funding Proposal$/ do |role_name|
+Given /^a Funding Proposal has been generated out of the Development Proposal workflow$/ do
+  steps %{
+    * Users exist with the following roles: Proposal Creator, OSPApprover
+    * a User exists with the roles: OSP Administrator, Proposal Submission in the 000001 unit
+    * the Proposal Creator submits a new Proposal into routing
+    * the OSPApprover approves the Proposal without future approval requests
+    * the principal investigator approves the Proposal
+    * the OSP Administrator submits the Proposal to its sponsor
+  }
+end
+
+Given /^the (.*) user submits the Funding Proposal$/ do |role_name|
   steps %{ * I log in with the #{role_name} user }
-  @proposal_log = create ProposalLogObject
-  @proposal_log.submit
-  @institutional_proposal = create InstitutionalProposalObject,
-                                   proposal_number: @proposal_log.number
-  person = make ProjectPersonnelObject, full_name: @proposal_log.pi_full_name,
-                units: [{:number=>@proposal_log.lead_unit}], doc_type: @institutional_proposal.doc_type,
-                document_id: @institutional_proposal.document_id
   @institutional_proposal.project_personnel << person
   @institutional_proposal.add_custom_data
   @institutional_proposal.set_valid_credit_splits
@@ -14,7 +18,7 @@ Given /^the (.*) user submits a new Funding Proposal$/ do |role_name|
   on(InstitutionalProposalActions).submit
 end
 
-When /^I? ?attempts? to merge the temporary proposal log with the Funding Proposal$/ do
+When /^I? ?merges? the temporary proposal log with the Funding Proposal$/ do
   visit(Researcher).search_proposal_log
   on ProposalLogLookup do |page|
     page.proposal_number.set @temp_proposal_log.number
@@ -49,10 +53,10 @@ Given(/^I? ?creates? a Funding Proposal$/) do
   #There's no significance here regarding the PD >> IP process.
   #The purpose of this step is simply to produce a Funding Proposal.
   steps %q{
-    And   I log in as the User with the OSP Administrator role in 000001
-    And   I approve the Proposal without future approval requests
-    And   the principal investigator approves the Proposal
-    And   I log in again as the User with the OSP Administrator role in 000001
-    And   I submit the Proposal to its sponsor
+    *   I log in as the User with the OSP Administrator role in 000001
+    *   I approve the Proposal without future approval requests
+    *   the principal investigator approves the Proposal
+    *   I log in again as the User with the OSP Administrator role in 000001
+    *   I submit the Proposal to its sponsor
   }
 end
