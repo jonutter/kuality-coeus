@@ -12,7 +12,7 @@ Feature: Adding Funding Proposals to Awards
     And   the Award Modifier starts an Award with the first Funding Proposal
     When  adds the second Funding Proposal to the unsaved Award
     Then  the Title, Activity Type, NSF Science Code, and Sponsor match the second Institutional Proposal
-  @failing
+  @test
   Scenario: KC-TS-1156 Removing a Proposal Prior to Saving Award
     Given 1 Approved Institutional Proposal exists
     Given the Award Modifier starts an Award with the Funding Proposal

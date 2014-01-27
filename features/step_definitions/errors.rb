@@ -8,7 +8,7 @@ Then /^an error should say (.*)$/ do |error|
             'a key person role is required' => 'Key Person Role is a required field.',
             'the credit split is not a valid percentage' => 'Credit Split is not a valid percentage.',
             'only one PI is allowed' => 'Only one proposal role of Principal Investigator is allowed.',
-            'the IP can not be added because it was not been properly approved' => 'Cannot add this funding proposal. The associated Development Proposal has "Approval Pending - Submitted" status.'
+            'the IP can not be added because it\'s not fully approved' => 'Cannot add this funding proposal. The associated Development Proposal has "Approval Pending - Submitted" status.'
   }
   $current_page.errors.should include errors[error]
 end

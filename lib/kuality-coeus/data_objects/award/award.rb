@@ -102,7 +102,7 @@ class AwardObject < DataObject
       page.institutional_proposal_number.fit ip_number
       page.proposal_merge_type.pick merge_type
       page.add_proposal
-      page.save
+      page.save if page.errors.empty?
     end
     @funding_proposals << {ip_number: ip_number, merge_type: merge_type}
   end

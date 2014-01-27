@@ -90,12 +90,12 @@ When /completes? the required custom fields on the Proposal$/ do
   @proposal.add_custom_data
 end
 
-When /^adds? (.*) as an? (.*) to the proposal permissions$/ do |username, role|
+When /^I? ?add (.*) as an? (.*) to the proposal permissions$/ do |username, role|
   @proposal.permissions.send("#{snake_case(role)}s") << username
   @proposal.permissions.assign
 end
 
-When /^saves? and close the Proposal document$/ do
+When /^I? ?save and close the Proposal document$/ do
   @proposal.close
   on(Confirmation).yes
 end
