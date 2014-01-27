@@ -71,14 +71,11 @@ end
 
 Then /^the Proposal Log's status should reflect it has been (.*)$/ do |status|
   on(Researcher).search_proposal_log
-
-
-
-  sleep 50
-
-
-
-  on(ProposalLogLookup).prop_log_status(@temp_proposal_log.number)==status
+  on ProposalLogLookup do |page|
+    page.proposal_number.set @temp_proposal_log.number
+    page.search
+    page.prop_log_status(@temp_proposal_log.number)==status
+  end
 end
 
 Then /^upon submission of the Proposal Log, an error should appear saying the field is required$/ do
