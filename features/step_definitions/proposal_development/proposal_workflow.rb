@@ -66,7 +66,7 @@ When /^I? ?submit the Proposal to S2S$/ do
   @proposal.submit :to_s2s
 end
 
-When /^I? ?submit the Proposal$/ do
+When /^I? ?submits? the Proposal$/ do
   @proposal.submit
 end
 

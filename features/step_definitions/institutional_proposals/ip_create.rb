@@ -52,7 +52,7 @@ Given(/^I create and submit a Proposal to its sponsor with Proposal Creator and 
     And   I blanket approve the Proposal
     When  I log in as the User with the OSP Administrator role in 000001
     And   I submit the Proposal to its sponsor
-}
+  }
 end
 
 Given(/^I? ?creates? a Funding Proposal$/) do

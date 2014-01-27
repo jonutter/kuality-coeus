@@ -108,7 +108,7 @@ And /^the (.*) submits a new Proposal into routing$/ do |role_name|
     * set valid credit splits for the Proposal
     * complete the required custom fields on the Proposal
     * submit the Proposal
-}
+  }
 end
 
 And /^the (.*) completes the remaining required actions for an S2S submission$/ do |role_name|
@@ -119,10 +119,10 @@ And /^the (.*) completes the remaining required actions for an S2S submission$/ 
     * create a final and complete Budget Version for the Proposal
     * complete the required custom fields on the Proposal
     * answer the S2S questions
-        }
+    }
 end
 
-And /^I? ?adds? the (Grants.Gov|Research.Gov) opportunity id of (.*) to the Proposal$/ do |type, op_id|
+And /adds? the (Grants.Gov|Research.Gov) opportunity id of (.*) to the Proposal$/ do |type, op_id|
   @proposal.edit opportunity_id: op_id
   on(Proposal).s2s
   on S2S do |page|
@@ -164,16 +164,7 @@ And /^I? ?add and mark complete all the required attachments for an NSF Proposal
   end
 end
 
-Then /^I should see an error that says the field is required$/ do
-  text="#{@required_field} is a required field."
-  @required_field=='Description' ? error='Document '+text : error=text
-  on(Proposal) do |page|
-    page.error_summary.wait_until_present(5)
-    page.errors.should include error
-  end
-end
-
-Given /^I? ?creates? a Proposal with these Performance Site Locations: (.*)$/ do |psl|
+Given /creates? a Proposal with these Performance Site Locations: (.*)$/ do |psl|
   locations = psl.split(',')
   @proposal = create ProposalDevelopemntObject, performance_site_locations: locations
 end

@@ -1,4 +1,4 @@
-When /^I? ?creates? a Budget Version for the Proposal$/ do
+When /creates? a Budget Version for the Proposal$/ do
   @proposal.add_budget_version
   @budget_version = @proposal.budget_versions[0]
 end
@@ -17,7 +17,7 @@ When /^correcting the Budget Version date will remove the warning$/ do
   on(Parameters).warnings.size.should be 0
 end
 
-Given /^I? ?creates? a final and complete Budget Version for the Proposal$/ do
+Given /creates? a final and complete Budget Version for the Proposal$/ do
   @proposal.add_budget_version status: 'Complete', final: :set
 end
 
@@ -50,7 +50,7 @@ Then /^the copied budget's values are all as expected$/ do
   end
 end
 
-When /^I? ?deletes? one of the budget periods$/ do
+When /deletes? one of the budget periods$/ do
   @budget_version.delete_period(rand(@budget_version.budget_periods.size)+1)
 end
 
@@ -89,21 +89,29 @@ Then /^all budget periods get recreated, zeroed, and given default date ranges$/
   end
 end
 
-When /^I? ?finalizes? the Budget Version$/ do
+When /finalizes? the Budget Version$/ do
   @budget_version.edit final: :set
 end
 
-When /^I? ?marks? the Budget Version complete$/ do
+When /marks? the Budget Version complete$/ do
   @budget_version.edit status: 'Complete'
 end
 
-Then /^I? ?sees? an error that only one version can be final$/ do
+Then /sees? an error that only one version can be final$/ do
   on(BudgetVersions).errors.should include 'Only one Budget Version can be marked "Final".'
 end
 
-When /^I? ?creates? a Budget Version with cost sharing for the Proposal$/ do
+When /creates? a Budget Version with cost sharing for the Proposal$/ do
   @proposal.add_budget_version
   @budget_version = @proposal.budget_versions[0]
-  @budget_version.edit_period(1, cost_sharing: random_dollar_value(1000000).to_f)
+  @budget_version.edit_period(1, cost_sharing: random_dollar_value(1000000))
   @budget_version.budget_periods.period(1).cost_sharing_distribution_list[0].edit source_account: random_alphanums
+end
+
+And /^adds another item to the budget period's cost sharing distribution list$/ do
+  @budget_version.budget_periods.period(1).add_item_to_cost_share_dl
+end
+
+And /^adjusts the budget period's cost sharing amount so all funds are allocated$/ do
+  @budget_version.budget_periods.period(1).edit cost_sharing: @budget_version.budget_periods.period(1).cost_sharing_distribution_list.total_funds.to_s
 end

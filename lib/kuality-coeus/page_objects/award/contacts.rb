@@ -25,11 +25,13 @@ class AwardContacts < KCAwards
   # [{:name=>"Unit1 Name", :number=>"Unit1 Number"}, {:name=>"Unit2 Name", :number=>"Unit2 Number"}]
   action(:units) { |name, b| un=[]; b.person_units(name).to_a[2..-1].each { |row| un << {name: row[2].strip, number: row[3].strip } }; un }
 
-  action(:unit_details_errors_div) { |name, p| p.target_key_person_div(name).div(class: 'left-errmsg-tab').div }
-  action(:unit_details_errors) { |name, p| p.unit_details_errors_div(name).divs.collect { |div| div.text } }
+  p_element(:unit_details_errors_div) { |name, p| p.target_key_person_div(name).div(class: 'left-errmsg-tab').div }
+  p_value(:unit_details_errors) { |name, p| p.unit_details_errors_div(name).divs.collect { |div| div.text } }
 
-  action(:lead_unit_radio) { |name, unit, b| b.person_unit_row(name, unit).radio(name: 'selectedLeadUnit') }
-  action(:delete_unit) { |name, unit, b| b.person_unit_row(name, unit).button(name: /methodToCall.deleteProjectPersonUnit/).click }
+  #Note: used to validate that the buttons exist at all...
+  element(:lead_unit_radio_button) { |b| b.frm.radio(name: 'selectedLeadUnit') }
+  p_element(:lead_unit_radio) { |name, unit, b| b.person_unit_row(name, unit).radio(name: 'selectedLeadUnit') }
+  p_action(:delete_unit) { |name, unit, b| b.person_unit_row(name, unit).button(name: /methodToCall.deleteProjectPersonUnit/).click }
 
   action(:unit_name) { |name, unit, b| b.person_unit_row(name, unit)[2].text.strip }
 

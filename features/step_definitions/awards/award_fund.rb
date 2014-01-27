@@ -80,7 +80,8 @@ When /^the(.*) Funding Proposal is added to the Award$/ do |count|
   # Note the space prefix in the key string.
   # IT IS ABSOLUTELY NECESSARY!
   index = { '' => 0, ' first' => 0, ' second' => 1 }
-  @award.add_funding_proposal @ips[index[count]].proposal_number, '::random::'
+  ip = @ips.nil? ? @institutional_proposal : @ips[index[count]]
+  @award.add_funding_proposal ip.proposal_number, '::random::'
 end
 
 When /^the(.*) Funding Proposal is removed from the Award$/ do |count|
@@ -94,7 +95,7 @@ end
 
 Then /^the Award Modifier cannot remove the Proposal from the Award$/ do
   on Award do |page|
-    page.delete_funding_proposal_button(@ips[0].key_personnel.principal_investigator.full_name).should_not exist
+    page.delete_funding_proposal_button(@institutional_proposal.key_personnel.principal_investigator.full_name).should_not exist
   end
 end
 
@@ -113,4 +114,17 @@ Given(/^I add an Institutional Proposal to an Award$/) do
     * I log in with the Award Modifier user
     * I link the Funding Proposal to an Award
         }
+end
+
+Then(/^the Award inherits the Cost Sharing data from the Funding Proposal$/) do
+  @award.view :commitments
+  cs_list = @budget_version.budget_periods.period(1).cost_sharing_distribution_list
+  on Commitments do |page|
+    page.expand_all
+    page.comments.value.should=="Added Cost Shares from Proposal Number #{@institutional_proposal.proposal_number}"
+    cs_list.each { |cost_share|
+      page.cost_sharing_commitment_amount(cost_share.index).value.groom.should==cost_share.amount.to_f
+      page.cost_sharing_source(cost_share.index).value.should==cost_share.source_account
+    }
+  end
 end

@@ -52,6 +52,16 @@ class BudgetPeriodObject < DataObject
     add_cost_sharing opts[:cost_sharing]
   end
 
+  def add_item_to_cost_share_dl opts={}
+    defaults = {
+        amount: random_dollar_value(10000),
+        project_period: @number,
+        index: @cost_sharing_distribution_list.length
+    }
+    open_budget
+    @cost_sharing_distribution_list.add defaults.merge(opts)
+  end
+
   def delete
     open_budget
     on(Parameters).delete_period @number
@@ -95,7 +105,7 @@ class BudgetPeriodObject < DataObject
   end
 
   def add_cost_sharing(cost_sharing)
-    if !cost_sharing.nil? && cost_sharing.to_f > 0
+    if @cost_sharing_distribution_list.empty? && !cost_sharing.nil? && cost_sharing.to_f > 0
       cs = make CostSharingObject, project_period: @number,
                 amount: cost_sharing, source_account: '',
                 index: @cost_sharing_distribution_list.length

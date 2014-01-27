@@ -2,7 +2,9 @@ class CostSharingObject < DataObject
 
   include StringFactory
 
-  attr_accessor :project_period, :percentage, :source_account, :amount, :index
+  attr_accessor :project_period, :percentage, :source_account, :amount,
+                # Note: Indexing is zero-based!
+                :index
 
   def initialize(browser, opts={})
     @browser = browser
@@ -17,9 +19,13 @@ class CostSharingObject < DataObject
   def create
     view
     on DistributionAndIncome do |page|
-      page.add_cost_share_period.set @project_period
-      # TODO: Add more here when needed
-      page.add
+      page.expand_all
+      page.add_cost_share_period.fit @project_period
+      page.add_cost_share_percentage.fit @percentage
+      page.add_cost_share_source_account.fit @source_account
+      page.add_cost_share_amount.fit @amount
+      page.add_cost_share
+      page.save
     end
   end
 
@@ -49,5 +55,9 @@ class CostSharingCollection < CollectionsFactory
   contains CostSharingObject
 
   #TODO: Write code that will update indexes when items change their order in the list.
+
+  def total_funds
+    self.collect{ |cs| cs.amount.to_f}.inject(0, :+)
+  end
 
 end

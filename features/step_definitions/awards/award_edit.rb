@@ -132,4 +132,10 @@ end
 
 Then /^the Institutional Proposal cannot be added to the Award$/ do
   pending
+  raise 'Step not done!'
+end
+
+And /^the Institutional Proposal Maintainer unlinks the proposal$/ do
+  steps 'Given I log in with the Institutional Proposal Maintainer user'
+  @institutional_proposal.unlock_award(@award.id)
 end

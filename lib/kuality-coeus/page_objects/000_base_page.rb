@@ -14,6 +14,8 @@ class BasePage < PageFactory
   action(:form_tab) { |name, b| b.frm.h2(text: /#{name}/) }
   action(:form_status) { |name, b| b.form_tab(name).text[/(?<=\()\w+/] }
   element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
+  value(:notification) { |b| b.frm.div(class: 'left-errmsg').div.text }
+
   value(:htm) { |b| b.frm.html }
   value(:noko) { |b| WatirNokogiri::Document.new(b.htm) }
 
@@ -56,7 +58,9 @@ class BasePage < PageFactory
            'Delete Proposal', 'approve', 'disapprove',
            'Generate All Periods', 'Calculate All Periods', 'Default Periods',
            'Calculate Current Period', 'submit', 'Send Notification'
-      action(:save) { |b| b.frm.button(name: 'methodToCall.save', title: 'save').click; b.loading }
+      action(:save) { |b| b.frm.button(name: 'methodToCall.save', title: 'save').click; b.loading;
+                          raise 'Save seems to have failed' unless b.notification=='Document was successfully saved.'
+      }
       # Explicitly defining the "recall" button to keep the method name at "recall" instead of "recall_current_document"...
       element(:recall_button) { |b| b.frm.button(class: 'globalbuttons', title: 'Recall current document') }
       action(:recall) { |b| b.recall_button.click; b.loading }
@@ -99,6 +103,8 @@ class BasePage < PageFactory
       action(:select_item) { |match, p| p.item_row(match).link(text: 'select').click }
       action(:return_random) { |b| b.return_value_links[rand(b.return_value_links.length)].click }
       element(:return_value_links) { |b| b.results_table.links(text: 'return value') }
+
+      p_value(:docs_w_status) { |status, b| array = []; (b.results_table.rows.find_all{|row| row[3].text==status}).each { |row| array << row[0].text }; array }
 
       # Used as the catch-all "document opening" method for conditional navigation,
       # when we can't know whether the current user will have edit permissions.

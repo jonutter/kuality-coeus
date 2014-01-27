@@ -63,7 +63,7 @@ module Personnel
       @units.uniq!
       if @units.size==1
         @lead_unit = @units[0][:number]
-      else
+      elsif page.lead_unit_radio_button.exists?
         @lead_unit = @units.find { |unit| page.lead_unit_radio(@full_name, unit[:number]).set? == true }[:number]
       end
     end
