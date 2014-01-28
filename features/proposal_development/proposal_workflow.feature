@@ -5,17 +5,19 @@ Feature: Proposal Workflows and Routing
   in workflow.
 
   Background:
-    * Users exist with the following roles: Proposal Creator, Unassigned, OSPApprover
+    * Users exist with the following roles: Proposal Creator, OSPApprover
 
   Scenario: Approval Requests for a Proposal are sent
     Given the Proposal Creator submits a new Proposal into routing
     Then  the Proposal status should be Approval Pending
-
+  #Failing:
+    #Watir::Exception::UnknownObjectException: unable to locate element, using {:name=>"__login_user", :tag_name=>"input or textarea", :type=>"(any text type)"}
+    #Cause: Background step
   Scenario Outline: Approval Request is sent to the Proposal's PI
     Given the Proposal Creator submits a new Proposal into routing
     And   the OSPApprover user approves the Proposal
-    When  I log in with the Unassigned user
-    And   I can access the proposal from my action list
+    When  I log in with the principal investigator
+    Then  I can access the proposal from my action list
     And   the <Action> button appears on the Proposal Summary and Proposal Action pages
 
   Examples:

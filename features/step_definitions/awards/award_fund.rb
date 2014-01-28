@@ -107,10 +107,10 @@ Then /^the status of the Funding Proposal should change to (.*)$/  do |status|
   on(InstitutionalProposalLookup).ip_status(@institutional_proposal.proposal_number)==status
 end
 
-Given(/^I add an Institutional Proposal to an Award$/) do
+Given(/^the (.*) adds an Institutional Proposal to an Award$/) do |role_name|
   steps %{
-    Given I create a Funding Proposal
-    And   I log in with the Award Modifier userF
-    And   I link the Funding Proposal to an Award
+    * a Funding Proposal has been generated out of the Development Proposal workflow
+    * I log in with the #{role_name} user
+    * the #{role_name} user links the Funding Proposal to a new Award
         }
 end

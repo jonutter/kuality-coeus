@@ -3,7 +3,8 @@ Feature: Submitting Proposals via s2s to Grants.gov
 
   As a researcher, I want the ability to submit my completed proposals
   through to grants.gov so that I can get funding for them
-  @failing
+  #Failing
+    #See: https://jira.kuali.org/browse/KRAFDBCK-10052
   Scenario Outline: Submit a proposal to Grants.gov with various sponsors and opportunities
     Given Users exist with the following roles: Proposal Creator, OSPApprover
     And   a User exists that can be a PI for Grants.gov proposals

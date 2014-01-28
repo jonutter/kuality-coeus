@@ -76,7 +76,8 @@ Then /^I should see an error that says a valid sponsor code is required$/ do
   on(Proposal).errors.should include 'A valid Sponsor Code (Sponsor) must be selected.'
 end
 
-When /^I? ?submits? the Proposal into routing$/ do
+When /^the (.*) submits the Proposal into routing$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   @proposal.submit
 end
 
