@@ -77,6 +77,10 @@ class KeyPersonnel < ProposalDevelopmentDocument
     :familiar_with_pla=>5
   }.each { |key, value| action(key) { |full_name, answer, p| p.questions_div(full_name).table(data_kc_questionindex: value.to_s).radio(value: answer).set } }
 
+  # IMPORTANT NOTE: This field does not actually exist on this page. However, we have it defined here
+  # anyway because it's needed for the Personnel Module...
+  element(:lead_unit_radio_button) { |b| b.frm.radio(name: 'selectedLeadUnit') }
+
   # =======
   private
   # =======

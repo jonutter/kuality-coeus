@@ -7,6 +7,13 @@ class Commitments < KCAwards
   element(:new_cost_sharing_project_period) { |b| b.frm.text_field(name: 'costShareFormHelper.newAwardCostShare.projectPeriod') }
   element(:new_cost_sharing_commitment_amount) { |b| b.frm.text_field(name: 'costShareFormHelper.newAwardCostShare.commitmentAmount') }
   action(:add_cost_sharing) { |b| b.frm.button(name: 'methodToCall.addCostShare.anchor').click; b.loading }
+
+  p_element(:cost_sharing_percentage) { |index, b| b.frm.text_field(name: "document.awardList[0].awardCostShares[#{index}].costSharePercentage") }
+  p_element(:cost_sharing_source) { |index, b| b.frm.text_field(name: "document.awardList[0].awardCostShares[#{index}].source") }
+  p_element(:cost_sharing_commitment_amount) { |index, b| b.frm.text_field(name: "document.awardList[0].awardCostShares[#{index}].commitmentAmount") }
+
+  element(:comments) { |b| b.frm.text_field(name: 'document.awardList[0].awardCostShareComment.comments') }
+
   action(:recalculate) { |b| b.frm.button(name: 'methodToCall.recalculateCostShareTotal.anchor').click }
   action(:sync_to_template) { |b| b.frm.button(name: 'methodToCall.syncAwardTemplate.scopes:COST_SHARE.anchor').click }
   
@@ -24,5 +31,9 @@ class Commitments < KCAwards
   element(:sponsor_effective_date) { |b| b.frm.text_field(name: 'document.awardList[0].preAwardEffectiveDate') }
   element(:institutional_authorized_amount) { |b| b.frm.text_field(name: 'document.awardList[0].preAwardInstitutionalAuthorizedAmount') }
   element(:institutional_effective_date) { |b| b.frm.text_field(name: 'document.awardList[0].preAwardInstitutionalEffectiveDate') }
+  
+  private
+  
+  element(:cost_sharing_table) { |b| b.frm.table(id: 'cost-share-table') }
   
 end

@@ -15,6 +15,10 @@ class AwardContacts < KCAwards
   element(:key_person_role) { |b| b.frm.text_field(name: 'projectPersonnelBean.newAwardContact.keyPersonRole') }
   action(:add_key_person) { |b| b.frm.button(name: 'methodToCall.addProjectPerson').click; b.loading }
 
+  p_element(:project_role) { |name, b| b.key_personnel_table.row(text: /#{name}/).select(name: /contactRoleCode/) }
+  value(:key_personnel) { |b| b.key_personnel_table.hiddens(name: /award_person.identifier_\d+/).map { |hid| hid.parent.text.strip } }
+
+
   # Person Details
 
   # Unit Details
@@ -25,11 +29,13 @@ class AwardContacts < KCAwards
   # [{:name=>"Unit1 Name", :number=>"Unit1 Number"}, {:name=>"Unit2 Name", :number=>"Unit2 Number"}]
   action(:units) { |name, b| un=[]; b.person_units(name).to_a[2..-1].each { |row| un << {name: row[2].strip, number: row[3].strip } }; un }
 
-  action(:unit_details_errors_div) { |name, p| p.target_key_person_div(name).div(class: 'left-errmsg-tab').div }
-  action(:unit_details_errors) { |name, p| p.unit_details_errors_div(name).divs.collect { |div| div.text } }
+  p_element(:unit_details_errors_div) { |name, p| p.target_key_person_div(name).div(class: 'left-errmsg-tab').div }
+  p_value(:unit_details_errors) { |name, p| p.unit_details_errors_div(name).divs.collect { |div| div.text } }
 
-  action(:lead_unit_radio) { |name, unit, b| b.person_unit_row(name, unit).radio(name: 'selectedLeadUnit') }
-  action(:delete_unit) { |name, unit, b| b.person_unit_row(name, unit).button(name: /methodToCall.deleteProjectPersonUnit/).click }
+  #Note: used to validate that the buttons exist at all...
+  element(:lead_unit_radio_button) { |b| b.frm.radio(name: 'selectedLeadUnit') }
+  p_element(:lead_unit_radio) { |name, unit, b| b.person_unit_row(name, unit).radio(name: 'selectedLeadUnit') }
+  p_action(:delete_unit) { |name, unit, b| b.person_unit_row(name, unit).button(name: /methodToCall.deleteProjectPersonUnit/).click }
 
   action(:unit_name) { |name, unit, b| b.person_unit_row(name, unit)[2].text.strip }
 
@@ -54,9 +60,10 @@ class AwardContacts < KCAwards
   private
   # ===========
   
-  action(:target_key_person_div) { |name, b| b.frm.div(id: "tab-#{nsp(name)}:UnitDetails-div") }
-  action(:person_units) { |name, b| b.target_key_person_div(name).table(summary: 'Project Personnel Units') }
-  action(:person_unit_row) { |name, unit, b| b.person_units(name).row(text: /#{unit}/) }
+  p_element(:target_key_person_div) { |name, b| b.frm.div(id: "tab-#{nsp(name)}:UnitDetails-div") }
+  p_element(:person_units) { |name, b| b.target_key_person_div(name).table(summary: 'Project Personnel Units') }
+  p_element(:person_unit_row) { |name, unit, b| b.person_units(name).row(text: /#{unit}/) }
+  element(:key_personnel_table) { |b| b.frm.table(id: 'contacts-table') }
 
   element(:credit_split_div_table) { |b| b.frm.div(id: 'tab-ProjectPersonnel:CombinedCreditSplit-div').table }
 
