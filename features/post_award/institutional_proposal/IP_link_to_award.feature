@@ -3,7 +3,8 @@ Feature: Linking an Institutional Proposal to a KC Award
   To be determined.
 
   Background: Establish test users
-    * Users exist with the following roles: Award Modifier
+    * Users exist with the following roles: Award Modifier, Proposal Creator, OSPApprover
+    * a User exists with the roles: OSP Administrator, Proposal Submission in the 000001 unit
 
     Scenario: Linking a Funding Proposal to an Award
       Given a Funding Proposal has been generated out of the Development Proposal workflow
