@@ -129,6 +129,16 @@ And /^I? ?adds? the (Grants.Gov|Research.Gov) opportunity id of (.*) to the Prop
   on S2S do |page|
     page.expand_all
     page.s2s_lookup
+
+
+
+
+    sleep 50
+
+
+
+
+
   end
   on OpportunityLookup do |look|
     look.s2s_provider.select type
