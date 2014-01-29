@@ -25,7 +25,7 @@ class Kuality
   def initialize(web_browser)
 
     @browser = Watir::Browser.new web_browser
-    @browser.window.resize_to(1400,900)
+    @browser.window.resize_to(1500,1000)
     @browser.goto $base_url
 
     $users       = Users.instance

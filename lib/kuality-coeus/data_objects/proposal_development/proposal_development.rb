@@ -131,6 +131,23 @@ class ProposalDevelopmentObject < DataObject
          proposal_number: @institutional_proposal_number,
          nsf_science_code: @nsf_science_code,
          sponsor_id: @sponsor_id
+
+
+
+
+
+
+# DEBUG!!!
+
+puts @sponsor_id
+
+
+
+
+
+
+
+
     @key_personnel.each do |person|
       project_person = make ProjectPersonnelObject, full_name: person.full_name,
                             first_name: person.first_name, last_name: person.last_name,
