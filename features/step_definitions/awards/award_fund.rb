@@ -109,7 +109,12 @@ end
 
 Given(/^the (.*) adds an Institutional Proposal to an Award$/) do |role_name|
   steps %{
-    * a Funding Proposal has been generated out of the Development Proposal workflow
+    * Users exist with the following roles: Proposal Creator, OSPApprover
+    * a User exists with the roles: OSP Administrator, Proposal Submission in the 000001 unit
+    * the Proposal Creator submits a new Proposal into routing
+    * the OSPApprover approves the Proposal without future approval requests
+    * the principal investigator approves the Proposal
+    * the OSP Administrator submits the Proposal to its sponsor
     * I log in with the #{role_name} user
     * the #{role_name} user links the Funding Proposal to a new Award
         }
