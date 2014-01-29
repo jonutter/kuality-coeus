@@ -15,6 +15,10 @@ class AwardContacts < KCAwards
   element(:key_person_role) { |b| b.frm.text_field(name: 'projectPersonnelBean.newAwardContact.keyPersonRole') }
   action(:add_key_person) { |b| b.frm.button(name: 'methodToCall.addProjectPerson').click; b.loading }
 
+  p_element(:project_role) { |name, b| b.key_personnel_table.row(text: /#{name}/).select(name: /contactRoleCode/) }
+  value(:key_personnel) { |b| b.key_personnel_table.hiddens(name: /award_person.identifier_\d+/).map { |hid| hid.parent.text.strip } }
+
+
   # Person Details
 
   # Unit Details
@@ -56,9 +60,10 @@ class AwardContacts < KCAwards
   private
   # ===========
   
-  action(:target_key_person_div) { |name, b| b.frm.div(id: "tab-#{nsp(name)}:UnitDetails-div") }
-  action(:person_units) { |name, b| b.target_key_person_div(name).table(summary: 'Project Personnel Units') }
-  action(:person_unit_row) { |name, unit, b| b.person_units(name).row(text: /#{unit}/) }
+  p_element(:target_key_person_div) { |name, b| b.frm.div(id: "tab-#{nsp(name)}:UnitDetails-div") }
+  p_element(:person_units) { |name, b| b.target_key_person_div(name).table(summary: 'Project Personnel Units') }
+  p_element(:person_unit_row) { |name, unit, b| b.person_units(name).row(text: /#{unit}/) }
+  element(:key_personnel_table) { |b| b.frm.table(id: 'contacts-table') }
 
   element(:credit_split_div_table) { |b| b.frm.div(id: 'tab-ProjectPersonnel:CombinedCreditSplit-div').table }
 

@@ -76,12 +76,22 @@ When /^adds the second Funding Proposal to the unsaved Award$/ do
   end
 end
 
-When /^the(.*) Funding Proposal is added to the Award$/ do |count|
-  # Note the space prefix in the key string.
-  # IT IS ABSOLUTELY NECESSARY!
-  index = { '' => 0, ' first' => 0, ' second' => 1 }
+When /^the (.*) Funding Proposal is added to the Award with no change$/ do |count|
+  index = { 'second' => 1 }
   ip = @ips.nil? ? @institutional_proposal : @ips[index[count]]
-  @award.add_funding_proposal ip.proposal_number, '::random::'
+  @award.add_funding_proposal ip.proposal_number, 'No Change'
+end
+
+When /^the (.*) Funding Proposal is merged to the Award$/ do |count|
+  index = { 'second' => 1 }
+  ip = @ips.nil? ? @institutional_proposal : @ips[index[count]]
+  @award.add_funding_proposal ip.proposal_number, 'Merge'
+end
+
+When /^the (.*) Funding Proposal is added to the Award, as a replacement$/ do |count|
+  index = { 'second' => 1 }
+  ip = @ips.nil? ? @institutional_proposal : @ips[index[count]]
+  @award.add_funding_proposal ip.proposal_number, 'Replace'
 end
 
 When /^the(.*) Funding Proposal is removed from the Award$/ do |count|

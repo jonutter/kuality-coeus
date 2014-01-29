@@ -42,3 +42,13 @@ Then /^the anticipated and obligated amounts are zero$/ do
     page.obligated_amount.value.should=='0.00'
   end
 end
+
+And /^the Award's PI should match the PI of the second Funding Proposal$/ do
+  person = @ips[1].project_personnel.principal_investigator.full_name
+  @award.view :contacts
+  on AwardContacts do |page|
+    page.expand_all
+    page.key_personnel.should include person
+    page.project_role(person).selected_options[0].text.should=='Principal Investigator'
+  end
+end
