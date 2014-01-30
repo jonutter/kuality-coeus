@@ -36,6 +36,7 @@ Then /^the Title, Activity Type, NSF Science Code, and Sponsor match the second 
 
 
 
+
   # DEBUG!!!!
   puts @ips[0].activity_type
   puts @ips[0].nsf_science_code
@@ -48,6 +49,7 @@ Then /^the Title, Activity Type, NSF Science Code, and Sponsor match the second 
   puts @ips[1].project_title
 
   sleep 45
+
 
 
 
