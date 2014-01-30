@@ -45,7 +45,6 @@ class BasePage < PageFactory
       value(:committee_name) { |p| p.headerinfo_table[2][3].text }
       alias_method :pi, :committee_name
       alias_method :expiration_date, :committee_name
-
     end
 
     # Included here because this is such a common field in KC
@@ -55,12 +54,14 @@ class BasePage < PageFactory
 
     def global_buttons
       glbl 'Reject', 'blanket approve', 'close', 'cancel', 'reload',
-           'Delete Proposal', 'approve', 'disapprove',
+           'Delete Proposal', 'disapprove',
            'Generate All Periods', 'Calculate All Periods', 'Default Periods',
            'Calculate Current Period', 'submit', 'Send Notification'
       action(:save) { |b| b.frm.button(name: 'methodToCall.save', title: 'save').click; b.loading;
                           raise 'Save seems to have failed' unless b.notification=='Document was successfully saved.'
       }
+      element(:approve_button) { |b| b.frm.button(name: 'methodToCall.approve') }
+      action(:approve) { |b| b.approve_button.click; b.button(name: 'methodToCall.returnToPortal').wait_while_present }
       # Explicitly defining the "recall" button to keep the method name at "recall" instead of "recall_current_document"...
       element(:recall_button) { |b| b.frm.button(class: 'globalbuttons', title: 'Recall current document') }
       action(:recall) { |b| b.recall_button.click; b.loading }
