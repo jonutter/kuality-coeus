@@ -24,7 +24,7 @@ Given /^the Award Modifier starts an Award with the( first)? Funding Proposal$/ 
 end
 
 # Note the keyword "create", here:
-When /^the Award Modifier creates an Award with the first Funding Proposal$/ do
+When /^the Award Modifier creates an Award with the( first)? Funding Proposal$/ do
   steps 'Given I log in with the Award Modifier user'
   @award = create AwardObject, funding_proposals: [{ip_number: @ips[0].proposal_number, merge_type: '::random::'}]
 end
@@ -58,7 +58,7 @@ Then /^all of the Award.s details remain the same$/ do
   end
 end
 
-Then /^the Title, Activity Type, NSF Science Code, and Sponsor still match the Proposal$/ do
+Then /^the Title, Activity Type, NSF Science Code, and Sponsor still match the( first)? Proposal$/ do
   on Award do |page|
     page.activity_type.selected_options[0].text.should==@ips[0].activity_type
     page.nsf_science_code.selected_options[0].text.should==@ips[0].nsf_science_code
@@ -74,6 +74,10 @@ When /^adds the second Funding Proposal to the unsaved Award$/ do
     page.institutional_proposal_number.set @ips[1].proposal_number
     page.add_proposal
   end
+end
+
+When /^the Funding Proposal is added to the Award$/ do
+  @award.add_funding_proposal @institutional_proposal.proposal_number, 'Initial Funding'
 end
 
 When /^the (.*) Funding Proposal is added to the Award with no change$/ do |count|
