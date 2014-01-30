@@ -7,7 +7,7 @@ class ProposalActions < ProposalDevelopmentDocument
   tiny_buttons
   validation_elements
 
-  glbl 'Submit To Sponsor', 'Submit To S2S', 'Send AdHoc Requests'
+  glbl 'Submit To S2S', 'Send AdHoc Requests'
 
   # Data Validation
   element(:data_validation_header) { |b| b.frm.h2(text: 'Data Validation') }
@@ -35,6 +35,7 @@ class ProposalActions < ProposalDevelopmentDocument
   element(:disapprove_button) { |b| b.frm.button(name: 'methodToCall.disapprove') }
   element(:reject_button) { |b| b.frm.button(name: 'methodToCall.reject') }
   element(:submit_to_sponsor_button) { |b| b.frm.button(name: 'methodToCall.submitToSponsor') }
+  action(:submit_to_sponsor) { |b| b.submit_to_sponsor_button.click; b.loading; b.awaiting_doc }
 
   # Proposal Hierarchy
 

@@ -6,6 +6,7 @@ class BasePage < PageFactory
   action(:close_children) { |b| b.windows[0].use; b.windows[1..-1].each{ |w| w.close} }
   action(:close_parents) { |b| b.windows[0..-2].each{ |w| w.close} }
   action(:loading) { |b| b.frm.image(alt: 'working...').wait_while_present }
+  action(:awaiting_doc) { |b| b.frm.button(name: 'methodToCall.returnToPortal').wait_while_present }
   element(:logout_button) { |b| b.button(title: 'Click to logout.') }
   action(:logout) { |b| b.logout_button.click }
 
@@ -61,7 +62,7 @@ class BasePage < PageFactory
                           raise 'Save seems to have failed' unless b.notification=='Document was successfully saved.'
       }
       element(:approve_button) { |b| b.frm.button(name: 'methodToCall.approve') }
-      action(:approve) { |b| b.approve_button.click; b.button(name: 'methodToCall.returnToPortal').wait_while_present }
+      action(:approve) { |b| b.approve_button.click; b.loading; b.awaiting_doc }
       # Explicitly defining the "recall" button to keep the method name at "recall" instead of "recall_current_document"...
       element(:recall_button) { |b| b.frm.button(class: 'globalbuttons', title: 'Recall current document') }
       action(:recall) { |b| b.recall_button.click; b.loading }

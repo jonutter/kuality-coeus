@@ -10,8 +10,18 @@ Feature: Adding Multiple Funding Proposals to an Award
   @test
   Scenario: KC-TS-1153 Latest Funding Proposal linked to new Award overwrites data
     Given the Award Modifier starts an Award with the first Funding Proposal
-    When  adds the second Funding Proposal to the unsaved Award
+    When  adds the second Funding Proposal to the unsaved Award, merge type 'Replace'
     Then  the Title, Activity Type, NSF Science Code, and Sponsor match the second Institutional Proposal
+
+  Scenario: KC-TS-1153 Latest Funding Proposal linked to new Award overwrites data
+    Given the Award Modifier starts an Award with the first Funding Proposal
+    When  adds the second Funding Proposal to the unsaved Award, merge type 'No Change'
+    Then  what?
+
+  Scenario: KC-TS-1153 Latest Funding Proposal linked to new Award overwrites data
+    Given the Award Modifier starts an Award with the first Funding Proposal
+    When  adds the second Funding Proposal to the unsaved Award, merge type 'Merge'
+    Then  what?
   #@test
   Scenario: Link Multiple Proposals, Replace
     Given the Award Modifier creates an Award with the first Funding Proposal
