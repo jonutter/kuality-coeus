@@ -185,7 +185,14 @@ class UserObject
 
   def create
     visit(SystemAdmin).person
-    on(PersonLookup).create
+    begin
+      on(PersonLookup).create
+    rescue Watir::Exception::UnknownObjectException
+      $users.logged_in_user.sign_out
+      $users.admin.log_in
+      visit(SystemAdmin).person
+      on(PersonLookup).create
+    end
     on Person do |add|
       add.expand_all
       add.principal_name.set @user_name
