@@ -29,7 +29,7 @@ class UserRoleObject < DataObject
       @qualifiers.each do |unit|
         create.unit_number(@id).fit unit[:unit]
         create.descends_hierarchy(@id).fit unit[:descends_hierarchy]
-        create.add_role_qualifier(@id)
+        create.add_role_qualifier(@id) unless unit[:unit].nil?
       end
     end
   end
