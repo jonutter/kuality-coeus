@@ -52,3 +52,7 @@ And /^the Award's PI should match the PI of the second Funding Proposal$/ do
     page.project_role(person).selected_options[0].text.should=='Principal Investigator'
   end
 end
+
+And /^the first Funding Proposal's PI is not listed in the Award's Contacts$/ do
+  on(AwardContacts).key_personnel.should_not include @ips[0].project_personnel.principal_investigator.full_name
+end

@@ -24,12 +24,36 @@ Given /^the Award Modifier starts an Award with the( first)? Funding Proposal$/ 
 end
 
 # Note the keyword "create", here:
-When /^the Award Modifier creates an Award with the( first)? Funding Proposal$/ do
+When /^the Award Modifier creates an Award with the( first)? Funding Proposal$/ do |x|
   steps 'Given I log in with the Award Modifier user'
   @award = create AwardObject, funding_proposals: [{ip_number: @ips[0].proposal_number, merge_type: '::random::'}]
 end
 
 Then /^the Title, Activity Type, NSF Science Code, and Sponsor match the second Institutional Proposal$/ do
+
+
+
+
+
+
+  # DEBUG!!!!
+  puts @ips[0].activity_type
+  puts @ips[0].nsf_science_code
+  puts @ips[0].sponsor_id
+  puts @ips[0].project_title
+  puts
+  puts @ips[1].activity_type
+  puts @ips[1].nsf_science_code
+  puts @ips[1].sponsor_id
+  puts @ips[1].project_title
+
+  sleep 45
+
+
+
+
+
+
   on Award do |page|
     page.activity_type.selected_options[0].text.should==@ips[1].activity_type
     page.nsf_science_code.selected_options[0].text.should==@ips[1].nsf_science_code
@@ -58,13 +82,25 @@ Then /^all of the Award.s details remain the same$/ do
   end
 end
 
-Then /^the Title, Activity Type, NSF Science Code, and Sponsor still match the( first)? Proposal$/ do
+Then /^the Title, Activity Type, NSF Science Code, and Sponsor still match the( first)? Proposal$/ do |x|
   on Award do |page|
     page.activity_type.selected_options[0].text.should==@ips[0].activity_type
     page.nsf_science_code.selected_options[0].text.should==@ips[0].nsf_science_code
     page.sponsor_id.value.should==@ips[0].sponsor_id
     page.award_title.value.should==@ips[0].project_title
   end
+end
+
+Then /^the Title, Activity Type, and NSF Science Code match the second Institutional Proposal$/ do
+  on Award do |page|
+    page.activity_type.selected_options[0].text.should==@ips[1].activity_type
+    page.nsf_science_code.selected_options[0].text.should==@ips[1].nsf_science_code
+    page.award_title.value.should==@ips[1].project_title
+  end
+end
+
+And /^the Sponsor ID is from the first Funding Proposal$/ do
+  on(Award).sponsor_id.value.should==@ips[0].sponsor_id
 end
 
 # This is a specialty step that occurs prior to the saving of the Award,

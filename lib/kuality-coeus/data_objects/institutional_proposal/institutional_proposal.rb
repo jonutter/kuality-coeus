@@ -110,21 +110,6 @@ class InstitutionalProposalObject < DataObject
         look.return_random
       end
       @sponsor_id=on(InstitutionalProposal).sponsor_id.value
-
-
-
-
-
-# DEBUG !!!!!
-puts @sponsor_id
-
-
-
-
-
-
-
-
     else
       on(InstitutionalProposal).sponsor_id.fit @sponsor_id
     end
