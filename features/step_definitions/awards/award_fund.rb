@@ -30,33 +30,6 @@ When /^the Award Modifier creates an Award with the( first)? Funding Proposal$/ 
 end
 
 Then /^the Title, Activity Type, NSF Science Code, and Sponsor match the second Institutional Proposal$/ do
-
-
-
-
-
-
-  # DEBUG!!!!
-  puts @ips[0].activity_type
-  puts @ips[0].nsf_science_code
-  puts @ips[0].sponsor_id
-  puts @ips[0].project_title
-  puts
-  puts @ips[1].activity_type
-  puts @ips[1].nsf_science_code
-  puts @ips[1].sponsor_id
-  puts @ips[1].project_title
-
-  sleep 45
-
-
-
-
-
-
-
-
-
   on Award do |page|
     page.activity_type.selected_options[0].text.should==@ips[1].activity_type
     page.nsf_science_code.selected_options[0].text.should==@ips[1].nsf_science_code
@@ -86,33 +59,6 @@ Then /^all of the Award.s details remain the same$/ do
 end
 
 Then /^the Title, Activity Type, NSF Science Code, and Sponsor still match the( first)? Proposal$/ do |x|
-
-
-
-
-
-
-
-  # DEBUG!!!!
-  puts @ips[0].activity_type
-  puts @ips[0].nsf_science_code
-  puts @ips[0].sponsor_id
-  puts @ips[0].project_title
-  puts
-  puts @ips[1].activity_type
-  puts @ips[1].nsf_science_code
-  puts @ips[1].sponsor_id
-  puts @ips[1].project_title
-
-  sleep 45
-
-
-
-
-
-
-
-
   on Award do |page|
     page.activity_type.selected_options[0].text.should==@ips[0].activity_type
     page.nsf_science_code.selected_options[0].text.should==@ips[0].nsf_science_code
