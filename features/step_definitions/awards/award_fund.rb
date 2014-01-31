@@ -30,32 +30,6 @@ When /^the Award Modifier creates an Award with the( first)? Funding Proposal$/ 
 end
 
 Then /^the Title, Activity Type, NSF Science Code, and Sponsor match the second Institutional Proposal$/ do
-
-
-
-
-
-
-
-  # DEBUG!!!!
-  puts @ips[0].activity_type
-  puts @ips[0].nsf_science_code
-  puts @ips[0].sponsor_id
-  puts @ips[0].project_title
-  puts
-  puts @ips[1].activity_type
-  puts @ips[1].nsf_science_code
-  puts @ips[1].sponsor_id
-  puts @ips[1].project_title
-
-  sleep 45
-
-
-
-
-
-
-
   on Award do |page|
     page.activity_type.selected_options[0].text.should==@ips[1].activity_type
     page.nsf_science_code.selected_options[0].text.should==@ips[1].nsf_science_code
@@ -93,7 +67,7 @@ Then /^the Title, Activity Type, NSF Science Code, and Sponsor still match the( 
   end
 end
 
-Then /^the Title, Activity Type, and NSF Science Code match the second Institutional Proposal$/ do
+Then /^the Title, Activity Type, and NSF Science Code match the second Funding Proposal$/ do
   on Award do |page|
     page.activity_type.selected_options[0].text.should==@ips[1].activity_type
     page.nsf_science_code.selected_options[0].text.should==@ips[1].nsf_science_code
@@ -107,10 +81,10 @@ end
 
 # This is a specialty step that occurs prior to the saving of the Award,
 # so it cannot use the @award data object methods. The Award doesn't exist, yet.
-When /adds the second Funding Proposal to the unsaved Award, merge type '(.*)$/ do |merge_type|
+When /adds the second Funding Proposal to the unsaved Award, merge type '(.*)'$/ do |merge_type|
   on Award do |page|
     page.institutional_proposal_number.set @ips[1].proposal_number
-    page.proposal_merge_type.set merge_type
+    page.proposal_merge_type.select merge_type
     page.add_proposal
   end
 end

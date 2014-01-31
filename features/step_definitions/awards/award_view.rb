@@ -43,8 +43,9 @@ Then /^the anticipated and obligated amounts are zero$/ do
   end
 end
 
-And /^the Award's PI should match the PI of the second Funding Proposal$/ do
-  person = @ips[1].project_personnel.principal_investigator.full_name
+And /^the Award's PI should match the PI of the (.*) Funding Proposal$/ do |number|
+  index = { 'first'=> 0, 'second' => 1 }
+  person = @ips[index[number]].project_personnel.principal_investigator.full_name
   @award.view :contacts
   on AwardContacts do |page|
     page.expand_all
@@ -55,4 +56,12 @@ end
 
 And /^the first Funding Proposal's PI is not listed in the Award's Contacts$/ do
   on(AwardContacts).key_personnel.should_not include @ips[0].project_personnel.principal_investigator.full_name
+end
+
+And /^the second Funding Proposal's PI should be a (.*) on the Award$/ do |role|
+  person = @ips[1].project_personnel.principal_investigator.full_name
+  on AwardContacts do |page|
+    page.key_personnel.should include person
+    page.project_role(person).selected_options[0].text.should==role
+  end
 end
