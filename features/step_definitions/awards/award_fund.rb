@@ -13,8 +13,8 @@ Given /^(\d+) Approved Institutional Proposals? exists?$/ do |count|
   }
 end
 
-Given /^the Award Modifier starts an Award with the( first)? Funding Proposal$/ do |x|
-  steps 'Given I log in with the Award Modifier user'
+Given /^the (.*) starts an Award with the( first)? Funding Proposal$/ do |role, x|
+  steps "Given I log in with the #{role} user"
   visit(CentralAdmin).create_award
   on Award do |page|
     page.expand_all
@@ -24,8 +24,8 @@ Given /^the Award Modifier starts an Award with the( first)? Funding Proposal$/ 
 end
 
 # Note the keyword "create", here:
-When /^the Award Modifier creates an Award with the( first)? Funding Proposal$/ do |x|
-  steps 'Given I log in with the Award Modifier user'
+When /^the (.*) creates an Award with the( first)? Funding Proposal$/ do |role, x|
+  steps "Given I log in with the #{role} user"
   @award = create AwardObject, funding_proposals: [{ip_number: @ips[0].proposal_number, merge_type: '::random::'}]
 end
 

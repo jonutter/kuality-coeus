@@ -43,4 +43,5 @@ Feature: Adding Multiple Funding Proposals to an Award
     Given the Award Modifier creates an Award with the first Funding Proposal
     When  the second Funding Proposal is added to the Award with no change
     Then  the Title, Activity Type, NSF Science Code, and Sponsor still match the first Proposal
-    And   what?
+    And   the Award's PI should match the PI of the first Funding Proposal
+    And   the second Funding Proposal's PI should not be listed on the Award
