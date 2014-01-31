@@ -7,26 +7,27 @@ Feature: Adding Multiple Funding Proposals to an Award
   Background:
     * a User exists with the role 'Award Modifier' in unit '000001'
     * 2 Approved Institutional Proposals exist
-  @test
-  Scenario: KC-TS-1153 Latest Funding Proposal linked to new Award overwrites data
-    Given the Award Modifier starts an Award with the first Funding Proposal
-    When  adds the second Funding Proposal to the unsaved Award, merge type 'Replace'
-    Then  the Title, Activity Type, NSF Science Code, and Sponsor match the second Institutional Proposal
 
-  Scenario: KC-TS-1153 Latest Funding Proposal linked to new Award overwrites data
+  Scenario: Latest Funding Proposal linked to new Award overwrites some data
+    Given the Award Modifier starts an Award with the first Funding Proposal
+    When  the Award Modifier adds the second Funding Proposal to the unsaved Award, merge type 'Replace'
+    Then  the Title, Activity Type, and NSF Science Code match the second Funding Proposal
+    But   the Sponsor ID is from the first Funding Proposal
+
+  Scenario: Latest Funding Proposal linked to new Award overwrites data
     Given the Award Modifier starts an Award with the first Funding Proposal
     When  adds the second Funding Proposal to the unsaved Award, merge type 'No Change'
-    Then  what?
+    Then  the Title, Activity Type, NSF Science Code, and Sponsor still match the first Proposal
 
-  Scenario: KC-TS-1153 Latest Funding Proposal linked to new Award overwrites data
+  Scenario: Latest Funding Proposal linked to new Award overwrites data
     Given the Award Modifier starts an Award with the first Funding Proposal
     When  adds the second Funding Proposal to the unsaved Award, merge type 'Merge'
-    Then  what?
-  #@test
+    Then  the Title, Activity Type, NSF Science Code, and Sponsor still match the first Proposal
+  @test
   Scenario: Link Multiple Proposals, Replace
     Given the Award Modifier creates an Award with the first Funding Proposal
     When  the second Funding Proposal is added to the Award, as a replacement
-    Then  the Title, Activity Type, and NSF Science Code match the second Institutional Proposal
+    Then  the Title, Activity Type, and NSF Science Code match the second Funding Proposal
     And   the Sponsor ID is from the first Funding Proposal
     And   the Award's PI should match the PI of the second Funding Proposal
     And   the first Funding Proposal's PI is not listed in the Award's Contacts
