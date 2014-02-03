@@ -66,6 +66,19 @@ And /^the second Funding Proposal's PI should be a (.*) on the Award$/ do |role|
   end
 end
 
-And(/^the second Funding Proposal's PI should not be listed on the Award$/) do
+And /^the second Funding Proposal's PI should not be listed on the Award$/ do
   on(AwardContacts).key_personnel.should_not include @ips[1].project_personnel.principal_investigator.full_name
+end
+
+And /^the Award's cost share data is from the (.*) Funding Proposal$/ do |cardinal|
+  index = { 'first' => 0, 'second' => 1 }
+  @award.view :commitments
+  cs_list = @ips[index[cardinal]].cost_sharing
+  on Commitments do |page|
+    page.expand_all
+    cs_list.each { |cost_share|
+      page.cost_sharing_commitment_amount(cost_share.index).value.groom.should==cost_share.amount.to_f
+      page.cost_sharing_source(cost_share.index).value.should==cost_share.source_account
+    }
+  end
 end

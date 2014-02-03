@@ -5,3 +5,7 @@ end
 Then /^I should see an error that the approval should occur later than the application$/ do
   on(SpecialReview).errors.should include 'Approval Date should be the same or later than Application Date.'
 end
+
+And /adds a special review item to the Proposal$/ do
+  @proposal.add_special_review
+end

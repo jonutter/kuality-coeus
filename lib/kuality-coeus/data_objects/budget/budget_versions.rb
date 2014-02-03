@@ -210,4 +210,8 @@ class BudgetVersionsCollection < CollectionsFactory
     self << self.budget(name).copy_all_periods(new_name)
   end
 
+  def complete
+    self.find { |budget| budget.status=='Complete' }
+  end
+
 end # BudgetVersionsCollection

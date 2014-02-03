@@ -13,6 +13,29 @@ Given /^(\d+) Approved Institutional Proposals? exists?$/ do |count|
   }
 end
 
+Given /^(\d+) Approved Institutional Proposals? with cost share and special review exists?$/ do |count|
+  @ips = []
+  count.to_i.times {
+    steps %q{
+      * Users exist with the following roles: OSPApprover, Proposal Creator
+      * a User exists with the roles: OSP Administrator, Proposal Submission in the 000001 unit
+      * the Proposal Creator creates a Proposal
+      * creates a Budget Version with cost sharing for the Proposal
+      * finalizes the Budget Version
+      * marks the Budget Version complete
+      * adds a special review item to the Proposal
+      * adds a principal investigator to the Proposal
+      * sets valid credit splits for the Proposal
+      * completes the required custom fields on the Proposal
+      * submits the Proposal into routing
+      * the OSPApprover approves the Proposal without future approval requests
+      * the principal investigator approves the Proposal
+      * the OSP Administrator submits the Proposal to its sponsor
+    }
+    @ips << @institutional_proposal
+  }
+end
+
 Given /^the (.*) starts an Award with the( first)? Funding Proposal$/ do |role, x|
   steps "Given I log in with the #{role} user"
   visit(CentralAdmin).create_award
@@ -143,9 +166,10 @@ Given(/^I add an Institutional Proposal to an Award$/) do
         }
 end
 
-Then(/^the Award inherits the Cost Sharing data from the Funding Proposal$/) do
+Then /^the Award inherits the Cost Sharing data from the Funding Proposal$/ do
   @award.view :commitments
-  cs_list = @budget_version.budget_periods.period(1).cost_sharing_distribution_list
+  # TODO: Have to fix this because it's brittle that we're only pulling from the first budget period.
+  cs_list = @budget_version.budget_periods[0].cost_sharing_distribution_list
   on Commitments do |page|
     page.expand_all
     page.comments.value.should=="Added Cost Shares from Proposal Number #{@institutional_proposal.proposal_number}"
