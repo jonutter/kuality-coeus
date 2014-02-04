@@ -70,15 +70,62 @@ And /^the second Funding Proposal's PI should not be listed on the Award$/ do
   on(AwardContacts).key_personnel.should_not include @ips[1].project_personnel.principal_investigator.full_name
 end
 
-And /^the Award's cost share data is from the (.*) Funding Proposal$/ do |cardinal|
+And /^the Award's cost share data are from the (.*) Funding Proposal$/ do |cardinal|
   index = { 'first' => 0, 'second' => 1 }
+  n_i = index[cardinal]==0 ? 1 : 0
   @award.view :commitments
   cs_list = @ips[index[cardinal]].cost_sharing
+  not_cs = @ips[n_i].cost_sharing
   on Commitments do |page|
     page.expand_all
     cs_list.each { |cost_share|
       page.cost_sharing_commitment_amount(cost_share.index).value.groom.should==cost_share.amount.to_f
       page.cost_sharing_source(cost_share.index).value.should==cost_share.source_account
     }
+    not_cs.each { |not_cost_share|
+      page.sources.should_not include not_cost_share.source_account
+    }
+  end
+end
+
+And /^the Award's cost share data are from both Proposals$/ do
+  @award.view :commitments
+  cs_list = []
+  index = 0
+  # TODO: This can be cleaned up...
+  @ips.collect{ |ip| ip.cost_sharing }.flatten.each do |c_s|
+    c_s.index=index
+    cs_list << c_s
+    index += 1
+  end
+  on Commitments do |page|
+    page.expand_all
+    cs_list.each { |cost_share|
+      page.cost_sharing_commitment_amount(cost_share.index).value.groom.should==cost_share.amount.to_f
+      page.cost_sharing_source(cost_share.index).value.should==cost_share.source_account
+    }
+  end
+end
+
+And /^the Award's special review items are from both Proposals$/ do
+  @award.view :special_review
+  on AwardsSpecialReview do |page|
+    @ips.collect{ |ip| ip.special_review }.flatten.each_with_index do |s_r, index|
+      page.type_code(index).selected_options[0].text.should==s_r.type
+      page.approval_status(index).selected_options[0].text.should==s_r.approval_status
+    end
+  end
+end
+
+And /^the Award's special review items are from the first Proposal$/ do
+  @award.view :special_review
+  on AwardsSpecialReview do |page|
+    @ips[0].special_review.each_with_index do |s_r, index|
+      page.type_code(index).selected_options[0].text.should==s_r.type
+      page.approval_status(index).selected_options[0].text.should==s_r.approval_status
+    end
+    @ips[1].special_review.each do |s_r|
+      page.types.should_not include s_r.type
+    end
   end
 end
