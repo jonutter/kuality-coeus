@@ -35,7 +35,7 @@ class SpecialReviewObject < DataObject
       add.add_expiration_date.fit @expiration_date
       add.add_exemption_number.fit @exemption_number
       add.add
-      break if add.error_messages_div.present? # No need to save if we've thrown an error already
+      break unless add.errors.empty? # No need to save if we've thrown an error already
       add.save
     end
   end

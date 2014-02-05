@@ -31,7 +31,9 @@ class Commitments < KCAwards
   element(:sponsor_effective_date) { |b| b.frm.text_field(name: 'document.awardList[0].preAwardEffectiveDate') }
   element(:institutional_authorized_amount) { |b| b.frm.text_field(name: 'document.awardList[0].preAwardInstitutionalAuthorizedAmount') }
   element(:institutional_effective_date) { |b| b.frm.text_field(name: 'document.awardList[0].preAwardInstitutionalEffectiveDate') }
-  
+
+  value(:sources) { |b| b.frm.text_fields(title: 'Source').map{ |field| field.value }.delete_at(0) }
+
   private
   
   element(:cost_sharing_table) { |b| b.frm.table(id: 'cost-share-table') }

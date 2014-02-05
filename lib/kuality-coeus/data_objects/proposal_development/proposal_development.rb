@@ -131,6 +131,18 @@ class ProposalDevelopmentObject < DataObject
          proposal_number: @institutional_proposal_number,
          nsf_science_code: @nsf_science_code,
          sponsor_id: @sponsor_id
+    @budget_versions.complete.budget_periods.each do |period|
+      period.cost_sharing_distribution_list.each do |cost_share|
+        cs_item = make IPCostSharingObject,
+                  percentage: cost_share.percentage,
+                  source_account: cost_share.source_account,
+                  project_period: cost_share.project_period,
+                  amount: cost_share.amount,
+                  index: cost_share.index,
+                  type: 'funded'
+         ip.cost_sharing << cs_item
+      end
+    end
     @key_personnel.each do |person|
       project_person = make ProjectPersonnelObject, full_name: person.full_name,
                             first_name: person.first_name, last_name: person.last_name,
