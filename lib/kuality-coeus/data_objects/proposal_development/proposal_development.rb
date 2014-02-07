@@ -142,7 +142,7 @@ class ProposalDevelopmentObject < DataObject
                   type: 'funded'
          ip.cost_sharing << cs_item
       end
-    end
+    end unless @budget_versions.empty?
     @key_personnel.each do |person|
       project_person = make ProjectPersonnelObject, full_name: person.full_name,
                             first_name: person.first_name, last_name: person.last_name,

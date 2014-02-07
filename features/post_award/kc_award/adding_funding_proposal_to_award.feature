@@ -8,6 +8,10 @@ Feature: Adding a Funding Proposal to an Award
     * a User exists with the role 'Award Modifier' in unit '000001'
     * 1 Approved Institutional Proposal exists
 
+  Scenario: Award Fields Remain Editable
+    When  the Award Modifier starts an Award with the Funding Proposal
+    Then  all Award fields remain editable
+
   Scenario: KC-TS-1156 Removing a Proposal Prior to Saving Award
     Given the Award Modifier starts an Award with the Funding Proposal
     When  the Funding Proposal is removed from the Award

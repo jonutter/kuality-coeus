@@ -42,7 +42,7 @@ Feature: Adding Multiple Funding Proposals to an Award
     And   the second Funding Proposal's PI should be a Co-Investigator on the Award
     And   the Award's cost share data are from both Proposals
     And   the Award's special review items are from both Proposals
-
+  @test
   Scenario: Link Multiple Proposals, No Change
     Given the Award Modifier creates an Award with the first Funding Proposal
     When  the second Funding Proposal is added to the Award with no change

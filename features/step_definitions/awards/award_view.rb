@@ -129,3 +129,16 @@ And /^the Award's special review items are from the first Proposal$/ do
     end
   end
 end
+
+Then /^all Award fields remain editable$/ do
+  on Award do |page|
+    page.expand_all
+    page.transaction_type.should be_present
+    page.award_status.should be_present
+    page.activity_type.should be_present
+    page.award_type.should be_present
+    page.award_title.should be_present
+    page.sponsor_id.should be_present
+    page.project_end_date.should be_present
+  end
+end
