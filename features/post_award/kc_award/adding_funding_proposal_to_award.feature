@@ -23,5 +23,5 @@ Feature: Adding a Funding Proposal to an Award
 
   Scenario: KC-TS-1154 Funding Proposal added to existing Award
     Given the Award Modifier creates an Award
-    When  the Funding Proposal is added to the Award
+    When  the Funding Proposal is added to the Award as its initial funding
     Then  all of the Award's details remain the same

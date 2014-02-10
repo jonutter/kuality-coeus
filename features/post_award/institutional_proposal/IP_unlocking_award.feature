@@ -12,7 +12,7 @@ Feature: Unlocking Award from an Institutional Proposal
     * adds the Funding Proposal's PI as the Award's PI
     * completes the Award requirements
     * the Funding Proposal is added to the Award
-
+  @test
   Scenario: KC-TS-1161 Unlock submitted Award from Institutional Proposal
     When the Award Modifier submits the Award
     Then the Institutional Proposal Maintainer can unlink the proposal

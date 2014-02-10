@@ -7,7 +7,7 @@ Given /^(\d+) Approved Institutional Proposals? exists?$/ do |count|
       * the Proposal Creator submits a new Proposal into routing
       * the OSPApprover approves the Proposal without future approval requests
       * the principal investigator approves the Proposal
-      * the OSP Administrator submits the Proposal to its sponsor
+      * the Proposal Submission submits the Proposal to its sponsor
     }
     @ips << @institutional_proposal
   }
@@ -113,6 +113,10 @@ When /adds the second Funding Proposal to the unsaved Award, merge type '(.*)'$/
 end
 
 When /^the Funding Proposal is added to the Award$/ do
+  @award.add_funding_proposal @institutional_proposal.proposal_number, '::random::'
+end
+
+When /^the Funding Proposal is added to the Award as its initial funding$/ do
   @award.add_funding_proposal @institutional_proposal.proposal_number, 'Initial Funding'
 end
 
