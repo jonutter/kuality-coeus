@@ -163,8 +163,8 @@ class BasePage < PageFactory
 
       action(:add) { |b| b.frm.button(name: 'methodToCall.addSpecialReview.anchorSpecialReview').click }
 
-      p_element(:type_code) { |index, b| b.frm.select(id: /specialReviews\[#{index}].specialReviewTypeCode/) }
-      p_element(:approval_status)  { |index, b| b.frm.select(name: /specialReviews\[#{index}].approvalTypeCode/) }
+      p_element(:type_code) { |index, b| b.frm.select(id: /specialReviews\[#{index}\].specialReviewTypeCode/) }
+      p_element(:approval_status)  { |index, b| b.frm.select(name: /specialReviews\[#{index}\].approvalTypeCode/) }
 
       value(:types) { |b| b.frm.selects(id: /specialReviewTypeCode/).map{ |field| field.selected_options[0].text }.delete_at(0) }
 

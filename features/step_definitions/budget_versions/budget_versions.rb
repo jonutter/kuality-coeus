@@ -105,15 +105,21 @@ When /creates? a Budget Version with cost sharing for the Proposal$/ do
   @proposal.add_budget_version
   @budget_version = @proposal.budget_versions[0]
   @budget_version.edit_period(1, cost_sharing: random_dollar_value(1000000))
-  @budget_version.budget_periods.period(1).cost_sharing_distribution_list[0].edit source_account: random_alphanums
+  @budget_version.budget_periods.period(1).cost_sharing_distribution_list.each do |cs|
+    cs.edit source_account: random_alphanums
+  end
 end
 
 And /creates? a Budget Version with unrecovered F&A for the Proposal$/ do
+  @proposal.add_budget_version
+  @budget_version = @proposal.budget_versions[0]
+  steps %q{ * add unrecovered F&A to the first period of the Budget Version }
+end
+
+And /adds? unrecovered F&A to the first period of the Budget Version$/ do
   total_allocated = random_dollar_value(1000000).to_f
   first_amount = (total_allocated/4).round(2)
   amounts = [ first_amount.to_s, (total_allocated - first_amount).to_s ]
-  @proposal.add_budget_version
-  @budget_version = @proposal.budget_versions[0]
   @budget_version.edit_period(1, unrecovered_f_and_a: total_allocated)
   @budget_version.budget_periods.period(1).unrecovered_fa_dist_list.each_with_index do |ufna, index|
     ufna.edit source_account: random_alphanums, amount: amounts[index]

@@ -6,7 +6,7 @@ Feature: Adding Multiple Funding Proposals to an Award
 
   Background:
     * a User exists with the role 'Award Modifier' in unit '000001'
-    * 2 Approved Institutional Proposals with cost share and special review exist
+    * 2 Approved Institutional Proposals with cost share, unrecovered F&A, and special review exist
 
   Scenario: Latest Funding Proposal linked to new Award overwrites some data
     Given the Award Modifier starts an Award with the first Funding Proposal
@@ -33,7 +33,7 @@ Feature: Adding Multiple Funding Proposals to an Award
     And   the first Funding Proposal's PI is not listed in the Award's Contacts
     And   the Award's cost share data are from both Proposals
     And   the Award's special review items are from both Proposals
-
+  @test
   Scenario: Link Multiple Proposals, Merge
     Given the Award Modifier creates an Award with the first Funding Proposal
     When  the second Funding Proposal is merged to the Award
@@ -42,7 +42,7 @@ Feature: Adding Multiple Funding Proposals to an Award
     And   the second Funding Proposal's PI should be a Co-Investigator on the Award
     And   the Award's cost share data are from both Proposals
     And   the Award's special review items are from both Proposals
-  @test
+
   Scenario: Link Multiple Proposals, No Change
     Given the Award Modifier creates an Award with the first Funding Proposal
     When  the second Funding Proposal is added to the Award with no change

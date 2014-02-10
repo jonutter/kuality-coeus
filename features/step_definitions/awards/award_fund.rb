@@ -13,7 +13,7 @@ Given /^(\d+) Approved Institutional Proposals? exists?$/ do |count|
   }
 end
 
-Given /^(\d+) Approved Institutional Proposals? with cost share and special review exists?$/ do |count|
+Given /^(\d+) Approved Institutional Proposals? with cost share, unrecovered F&A, and special review exists?$/ do |count|
   @ips = []
   count.to_i.times {
     steps %q{
@@ -21,6 +21,7 @@ Given /^(\d+) Approved Institutional Proposals? with cost share and special revi
       * a User exists with the roles: OSP Administrator, Proposal Submission in the 000001 unit
       * the Proposal Creator creates a Proposal
       * creates a Budget Version with cost sharing for the Proposal
+      * adds unrecovered F&A to the first period of the Budget Version
       * finalizes the Budget Version
       * marks the Budget Version complete
       * adds a special review item to the Proposal
