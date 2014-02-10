@@ -6,13 +6,14 @@ class BudgetPeriodObject < DataObject
   attr_accessor :number, :start_date, :end_date, :total_sponsor_cost,
                 :direct_cost, :f_and_a_cost, :unrecovered_f_and_a,
                 :cost_sharing, :cost_limit, :direct_cost_limit, :datified,
-                :budget_name, :cost_sharing_distribution_list
+                :budget_name, :cost_sharing_distribution_list, :unrecovered_fa_dist_list
 
   def initialize(browser, opts={})
     @browser = browser
 
     defaults = {
-      cost_sharing_distribution_list: collection('CostSharing')
+      cost_sharing_distribution_list: collection('CostSharing'),
+      unrecovered_fa_dist_list:       collection('UnrecoveredFA')
     }
 
     set_options(defaults.merge(opts))
@@ -32,6 +33,7 @@ class BudgetPeriodObject < DataObject
       create.unrecovered_fa_cost.fit @unrecoverd_f_and_a
       create.add_budget_period
     end
+    initialize_unrecovered_fa @unrecovered_f_and_a
   end
 
   def edit opts={}
@@ -47,9 +49,10 @@ class BudgetPeriodObject < DataObject
       edit.save
       break if edit.errors.size > 0
     end
-    set_options(opts)
     datify
     add_cost_sharing opts[:cost_sharing]
+    initialize_unrecovered_fa opts[:unrecovered_f_and_a]
+    set_options(opts)
   end
 
   def add_item_to_cost_share_dl opts={}
@@ -108,8 +111,23 @@ class BudgetPeriodObject < DataObject
     if @cost_sharing_distribution_list.empty? && !cost_sharing.nil? && cost_sharing.to_f > 0
       cs = make CostSharingObject, project_period: @number,
                 amount: cost_sharing, source_account: '',
-                index: @cost_sharing_distribution_list.length
+                index: 0
       @cost_sharing_distribution_list << cs
+    end
+  end
+
+  def initialize_unrecovered_fa unrec_fa
+    if @unrecovered_fa_dist_list.empty? && !unrec_fa.nil? && unrec_fa.to_f > 0
+      on(Parameters).distribution__income
+      on DistributionAndIncome do |page|
+        page.expand_all
+        page.existing_fna_rows.each_with_index do |row, index|
+          fna_item = make UnrecoveredFAObject, index: index, fiscal_year: row[1].text_field.value,
+                          applicable_rate: row[2].text_field.value, campus: row[3].select.selected_options[0].text,
+                          source_account: row[4].text_field.value, amount: row[5].text_field.value
+          @unrecovered_fa_dist_list << fna_item
+        end
+      end
     end
   end
 
