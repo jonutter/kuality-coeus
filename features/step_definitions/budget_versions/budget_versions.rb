@@ -119,7 +119,7 @@ end
 And /adds? unrecovered F&A to the first period of the Budget Version$/ do
   total_allocated = random_dollar_value(1000000).to_f
   first_amount = (total_allocated/4).round(2)
-  amounts = [ first_amount.to_s, (total_allocated - first_amount).to_s ]
+  amounts = [ first_amount.to_s, (total_allocated - first_amount).round(2).to_s ]
   @budget_version.edit_period(1, unrecovered_f_and_a: total_allocated)
   @budget_version.budget_periods.period(1).unrecovered_fa_dist_list.each_with_index do |ufna, index|
     ufna.edit source_account: random_alphanums, amount: amounts[index]

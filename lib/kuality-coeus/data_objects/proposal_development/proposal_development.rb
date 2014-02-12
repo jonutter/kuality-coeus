@@ -113,7 +113,6 @@ class ProposalDevelopmentObject < DataObject
   end
 
   def make_institutional_proposal
-    # TODO: Write any preparatory web site functional steps and page scraping code
     visit(Researcher).search_institutional_proposals
     on InstitutionalProposalLookup do |look|
       fill_out look, :institutional_proposal_number
@@ -140,7 +139,18 @@ class ProposalDevelopmentObject < DataObject
                   amount: cost_share.amount,
                   index: cost_share.index,
                   type: 'funded'
-         ip.cost_sharing << cs_item
+        ip.cost_sharing << cs_item
+        period.unrecovered_fa_dist_list.each do |fna|
+          f_n_a = make IPUnrecoveredFAObject,
+                  fiscal_year: fna.fiscal_year,
+                  index: fna.index,
+                  applicable_rate: fna.applicable_rate,
+                  rate_type: @budget_versions.complete.unrecovered_fa_rate_type,
+                  on_campus_contract: Transforms::YES_NO.invert[fna.campus],
+                  source_account: fna.source_account,
+                  amount: fna.amount
+          ip.unrecovered_fa << f_n_a
+        end unless period.unrecovered_fa_dist_list.empty?
       end
     end unless @budget_versions.empty?
     @key_personnel.each do |person|

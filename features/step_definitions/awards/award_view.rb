@@ -142,3 +142,24 @@ Then /^all Award fields remain editable$/ do
     page.project_end_date.should be_present
   end
 end
+
+And /^the Award's F&A data are from both Proposals$/ do
+  @award.view :commitments
+  ufna = IPUnrecoveredFACollection.new(@browser)
+  @ips.each do |ip|
+    ip.unrecovered_fa.each { |u| ufna << u }
+  end
+  ufna.reindex
+  on Commitments do |page|
+    page.expand_all
+    ufna.each do |unrecfna|
+      page.fna_rate(unrecfna.index).value.should==unrecfna.applicable_rate
+      page.fna_type(unrecfna.index).selected_options[0].text.should==unrecfna.rate_type
+      page.fna_fiscal_year(unrecfna.index).value.should==unrecfna.fiscal_year
+      page.fna_campus(unrecfna.index).selected_options[0].text.should==Transforms::ON_OFF[unrecfna.on_campus_contract]
+      page.fna_source(unrecfna.index).value.should==unrecfna.source_account
+      page.fna_amount(unrecfna.index).value.groom.to_s.should==unrecfna.amount
+    end
+    page.unrecovered_fna_total.groom.should==ufna.total
+  end
+end

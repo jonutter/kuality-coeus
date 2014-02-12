@@ -1,4 +1,4 @@
-class KeyPersonObject < DataObject
+ class KeyPersonObject < DataObject
 
   include StringFactory
   include Navigation

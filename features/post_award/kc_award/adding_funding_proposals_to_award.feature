@@ -7,6 +7,7 @@ Feature: Adding Multiple Funding Proposals to an Award
   Background:
     * a User exists with the role 'Award Modifier' in unit '000001'
     * 2 Approved Institutional Proposals with cost share, unrecovered F&A, and special review exist
+    * the enable.award.FnA.validation parameter is set to 0
 
   Scenario: Latest Funding Proposal linked to new Award overwrites some data
     Given the Award Modifier starts an Award with the first Funding Proposal
@@ -33,7 +34,8 @@ Feature: Adding Multiple Funding Proposals to an Award
     And   the first Funding Proposal's PI is not listed in the Award's Contacts
     And   the Award's cost share data are from both Proposals
     And   the Award's special review items are from both Proposals
-  @test
+    And   the Award's F&A data are from both Proposals
+
   Scenario: Link Multiple Proposals, Merge
     Given the Award Modifier creates an Award with the first Funding Proposal
     When  the second Funding Proposal is merged to the Award
@@ -42,6 +44,7 @@ Feature: Adding Multiple Funding Proposals to an Award
     And   the second Funding Proposal's PI should be a Co-Investigator on the Award
     And   the Award's cost share data are from both Proposals
     And   the Award's special review items are from both Proposals
+    And   the Award's F&A data are from both Proposals
 
   Scenario: Link Multiple Proposals, No Change
     Given the Award Modifier creates an Award with the first Funding Proposal
@@ -51,3 +54,4 @@ Feature: Adding Multiple Funding Proposals to an Award
     And   the second Funding Proposal's PI should not be listed on the Award
     And   the Award's cost share data are from the first Funding Proposal
     And   the Award's special review items are from the first Proposal
+    And   the Award's F&A data are from the first Proposal

@@ -70,7 +70,7 @@ class BasePage < PageFactory
       element(:edit_button) { |b| b.frm.button(name: 'methodToCall.editOrVersion') }
       action(:delete_selected) { |b| b.frm.button(class: 'globalbuttons', name: 'methodToCall.deletePerson').click; b.loading }
       element(:send_button) { |b| b.frm.button(class: 'globalbuttons', name: 'methodToCall.sendNotification', title: 'send') }
-      action(:send_fyi) { |b| b.send_button.click; b.loading }
+      action(:send_fyi) { |b| b.send_button.click; b.loading; b.awaiting_doc }
     end
 
     def tab_buttons
