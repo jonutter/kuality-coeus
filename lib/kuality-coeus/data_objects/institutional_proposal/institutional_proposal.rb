@@ -81,6 +81,7 @@ class InstitutionalProposalObject < DataObject
   end
 
   def add_unrecovered_fa opts={}
+    opts.store(:index, )
     @unrecovered_fa.add merge_settings(opts)
   end
 

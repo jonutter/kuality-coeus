@@ -24,10 +24,6 @@ module Utilities
     set(name, (make RoleObject, opts))
   end
 
-  def snake_case(string)
-    StringFactory.damballa(string)
-  end
-
   def random_percentage
     random_dollar_value(100)
   end
@@ -35,7 +31,7 @@ module Utilities
   private
 
   def snakify(item)
-    item.to_s[0]=='@' ? item : "@#{snake_case(item.to_s)}"
+    item.to_s[0]=='@' ? item : "@#{damballa(item.to_s)}"
   end
 
 end

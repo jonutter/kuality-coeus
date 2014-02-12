@@ -57,6 +57,8 @@ class BudgetVersionsObject < DataObject
       fill_out parameters, :comments, :modular_budget,
                :residual_funds, :total_cost_limit, :unrecovered_fa_rate_type,
                :f_and_a_rate_type, :submit_cost_sharing
+      @unrecovered_fa_rate_type=parameters.unrecovered_fa_rate_type.selected_options[0].text if @unrecovered_fa_rate_type.nil?
+      @f_and_a_rate_type=parameters.f_and_a_rate_type.selected_options[0].text if @f_and_a_rate_type.nil?
       parameters.on_off_campus.fit @on_off_campus
       parameters.alert.ok if parameters.alert.exists?
       parameters.save

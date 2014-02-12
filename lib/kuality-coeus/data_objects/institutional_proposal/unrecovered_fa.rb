@@ -5,7 +5,7 @@ class IPUnrecoveredFAObject < DataObject
   include Navigation
 
   attr_accessor :fiscal_year, :rate_type, :applicable_rate,
-                :on_campus_contract, :source_account, :amount
+                :on_campus_contract, :source_account, :amount, :index
 
   def initialize(browser, opts={})
     @browser = browser
@@ -57,6 +57,12 @@ class IPUnrecoveredFACollection < CollectionsFactory
 
   contains IPUnrecoveredFAObject
 
-  #TODO: Write code that will update indexes when items change their order in the list.
+  def total
+    self.collect{ |item| item.amount.to_f }.inject(0, :+).round(2)
+  end
+
+  def reindex
+    self.each_with_index { |fna, i| fna.index=i }
+  end
 
 end
