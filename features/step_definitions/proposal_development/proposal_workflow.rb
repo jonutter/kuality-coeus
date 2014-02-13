@@ -56,7 +56,7 @@ When /^I? ?submit the Proposal to its sponsor$/ do
 end
 
 And /^the (.*) submits the Proposal to its sponsor$/ do |role_name|
-  steps %{ Given I log in with the #{role_name} user }
+  steps %{ * I log in with the #{role_name} user }
   @proposal.view :proposal_actions
   @proposal.submit :to_sponsor
   @institutional_proposal = @proposal.make_institutional_proposal
@@ -86,7 +86,7 @@ And /^the principal investigator approves the Proposal$/ do
 end
 
 And /^the (.*) approves the Proposal (with|without) future approval requests$/ do |role_name, future_requests|
-  steps %{ Given I log in with the #{role_name} user }
+  steps %{* I log in with the #{role_name} user }
   conf = {'with' => :yes, 'without' => :no}
   steps '* I can access the proposal from my action list'
   on(ProposalSummary).approve

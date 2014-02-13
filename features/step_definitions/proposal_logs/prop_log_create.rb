@@ -1,4 +1,5 @@
-When /^I? ?creates? a Proposal Log but I miss a required field$/ do
+When /^the (.*) user creates a Proposal Log but misses a required field$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   # Pick a field at random for the test...
   @required_field = ['Title', 'Proposal Type', 'Lead Unit'
           ].sample
@@ -9,8 +10,15 @@ When /^I? ?creates? a Proposal Log but I miss a required field$/ do
   @proposal_log = create ProposalLogObject, field=>value
 end
 
-When /^I? ?creates? a Proposal Log$/ do
+When /^the (.*) user creates a Proposal Log$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   @proposal_log = create ProposalLogObject
+end
+
+When /^the (.*) user has submitted a new Proposal Log$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
+  @proposal_log = create ProposalLogObject
+  @proposal_log.submit
 end
 
 Then(/^the Proposal Log type should be (.*)$/) do |status|
@@ -54,20 +62,20 @@ Then /^I merge my new proposal log with my previous temporary proposal log$/ do
   raise "This step needs to be done!!!"
 end
 
-When /^I submit a new Proposal Log$/ do
-  @proposal_log = create ProposalLogObject
-  @proposal_log.submit
-end
-
-When /^I submit a new Temporary Proposal Log$/ do
+When /^the (.*) user submits a new Temporary Proposal Log$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   @temp_proposal_log = create ProposalLogObject,
                               log_type: 'Temporary'
   @temp_proposal_log.submit
 end
 
-Then /^the Proposal Log's status should reflect it has been merged$/ do
+Then /^the Proposal Log's status should reflect it has been (.*)$/ do |status|
   on(Researcher).search_proposal_log
-  raise "This step ain't done!!!"
+  on ProposalLogLookup do |page|
+    page.proposal_number.set @temp_proposal_log.number
+    page.search
+    page.prop_log_status(@temp_proposal_log.number)==status
+  end
 end
 
 Then /^upon submission of the Proposal Log, an error should appear saying the field is required$/ do
