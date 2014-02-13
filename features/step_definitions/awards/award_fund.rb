@@ -1,13 +1,13 @@
 Given /^(\d+) Approved Institutional Proposals? exists?$/ do |count|
   @ips = []
   count.to_i.times {
-    steps %q{
+    steps %{
       * Users exist with the following roles: OSPApprover, Proposal Creator
       * a User exists with the roles: OSP Administrator, Proposal Submission in the 000001 unit
       * the Proposal Creator submits a new Proposal into routing
       * the OSPApprover approves the Proposal without future approval requests
       * the principal investigator approves the Proposal
-      * the OSP Administrator submits the Proposal to its sponsor
+      * the Proposal Submission submits the Proposal to its sponsor
     }
     @ips << @institutional_proposal
   }
@@ -114,6 +114,10 @@ When /adds the second Funding Proposal to the unsaved Award, merge type '(.*)'$/
 end
 
 When /^the Funding Proposal is added to the Award$/ do
+  @award.add_funding_proposal @institutional_proposal.proposal_number, '::random::'
+end
+
+When /^the Funding Proposal is added to the Award as its initial funding$/ do
   @award.add_funding_proposal @institutional_proposal.proposal_number, 'Initial Funding'
 end
 
@@ -159,11 +163,16 @@ Then /^the status of the Funding Proposal should change to (.*)$/  do |status|
   on(InstitutionalProposalLookup).ip_status(@institutional_proposal.proposal_number)==status
 end
 
-Given(/^I add an Institutional Proposal to an Award$/) do
-  steps %q{
-    * I create a Funding Proposal
-    * I log in with the Award Modifier user
-    * I link the Funding Proposal to an Award
+Given(/^the (.*) adds an Institutional Proposal to an Award$/) do |role_name|
+  steps %{
+    * Users exist with the following roles: Proposal Creator, OSPApprover
+    * a User exists with the roles: OSP Administrator, Proposal Submission in the 000001 unit
+    * the Proposal Creator submits a new Proposal into routing
+    * the OSPApprover approves the Proposal without future approval requests
+    * the principal investigator approves the Proposal
+    * the OSP Administrator submits the Proposal to its sponsor
+    * I log in with the #{role_name} user
+    * the #{role_name} user links the Funding Proposal to a new Award
         }
 end
 
@@ -174,6 +183,14 @@ Then /^the Award inherits the Cost Sharing data from the Funding Proposal$/ do
   on Commitments do |page|
     page.expand_all
     page.comments.value.should=="Added Cost Shares from Proposal Number #{@institutional_proposal.proposal_number}"
+
+
+
+    # Debug
+    sleep 50
+
+
+
     cs_list.each { |cost_share|
       page.cost_sharing_commitment_amount(cost_share.index).value.groom.should==cost_share.amount.to_f
       page.cost_sharing_source(cost_share.index).value.should==cost_share.source_account

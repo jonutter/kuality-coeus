@@ -131,3 +131,11 @@ When /^a User exists with the roles: (.*) in the (.*) unit$/ do |roles, unit|
   make_user user: users.inject(:&).shuffle[0][0]
   $users[-1].create unless $users[-1].exists?
 end
+
+When(/^I log in with the principal investigator$/) do
+  $users.logged_in_user.sign_out unless $users.current_user==nil
+  visit Login do |log_in|
+    log_in.username.set @proposal.key_personnel.principal_investigator.user_name
+    log_in.login
+  end
+end
