@@ -21,7 +21,7 @@ class UnrecoveredFAObject < DataObject
     view
     on DistributionAndIncome do |page|
       page.expand_all
-
+      # TODO (obviously)
     end
   end
 
