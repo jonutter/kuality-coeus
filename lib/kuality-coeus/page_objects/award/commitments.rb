@@ -36,6 +36,7 @@ class Commitments < KCAwards
   p_element(:fna_destination) { |index,b| b.frm.text_field(name: /document.awardList\[0\].awardFandaRate\[#{index}\].destinationAccount/) }
   p_element(:fna_amount) { |index,b| b.frm.text_field(name: /document.awardList\[0\].awardFandaRate\[#{index}\].underrecoveryOfIndirectCost/) }
 
+  value(:fna_sources) { |b| b.noko.div(id: 'tab-Rates:FARates-div').text_fields(title: 'Source').collect{ |field| field.value }[1..-1] }
   value(:unrecovered_fna_total) { |b| b.fa_rates_table.trs[-2].td(index: 1).text }
 
   # Benefits Rates
@@ -47,8 +48,6 @@ class Commitments < KCAwards
   element(:sponsor_effective_date) { |b| b.frm.text_field(name: 'document.awardList[0].preAwardEffectiveDate') }
   element(:institutional_authorized_amount) { |b| b.frm.text_field(name: 'document.awardList[0].preAwardInstitutionalAuthorizedAmount') }
   element(:institutional_effective_date) { |b| b.frm.text_field(name: 'document.awardList[0].preAwardInstitutionalEffectiveDate') }
-
-  value(:sources) { |b| b.frm.text_fields(title: 'Source').map{ |field| field.value }.delete_at(0) }
 
   private
   
