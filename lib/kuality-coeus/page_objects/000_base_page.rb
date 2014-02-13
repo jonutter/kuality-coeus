@@ -260,13 +260,6 @@ class BasePage < PageFactory
       end
     end
 
-    # A helper method that converts the passed string into snake case. See the StringFactory
-    # module for more info.
-    #
-    def damballa(text)
-      StringFactory::damballa(text)
-    end
-
     def elementate(type, text)
       identifiers={:link=>:text, :button=>:value}
       el_name=damballa("#{text}_#{type}")

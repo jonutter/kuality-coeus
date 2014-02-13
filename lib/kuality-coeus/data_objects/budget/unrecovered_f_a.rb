@@ -2,6 +2,7 @@ class UnrecoveredFAObject < DataObject
 
   include StringFactory
   include DateFactory
+  include Navigation
 
   attr_accessor :fiscal_year, :applicable_rate, :campus, :source_account, :amount,
                 # Note: Indexing is zero-based!
@@ -34,9 +35,7 @@ class UnrecoveredFAObject < DataObject
     view
     on DistributionAndIncome do |page|
       page.expand_all
-      page.fiscal_year(@index).fit opts[:fiscal_year]
-      page.applicable_rate(@index).fit opts[:applicable_rate]
-      page.campus(@index).pick! opts[:campus]
+      edit_item_fields opts, @index, page, :fiscal_year, :applicable_rate, :campus
       page.fa_source_account(@index).fit opts[:source_account]
       page.fa_amount(@index).fit opts[:amount]
       page.save
