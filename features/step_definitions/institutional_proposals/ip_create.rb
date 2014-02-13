@@ -48,25 +48,3 @@ When /^the (.*) user attempts to create an institutional proposal with a missing
   @institutional_proposal = create InstitutionalProposalObject, proposal_number: @proposal_log.number,
                                    field=>value
 end
-
-Given(/^I create and submit a Proposal to its sponsor with Proposal Creator and OSP Administrator users$/) do
-  steps %q{
-    Given I log in with the Proposal Creator user
-    And   I submit a new Proposal into routing
-    And   I blanket approve the Proposal
-    When  I log in as the User with the OSP Administrator role in 000001
-    And   I submit the Proposal to its sponsor
-  }
-end
-
-Given(/^I? ?creates? a Funding Proposal$/) do
-  #There's no significance here regarding the PD >> IP process.
-  #The purpose of this step is simply to produce a Funding Proposal.
-  steps %q{
-    *   I log in as the User with the OSP Administrator role in 000001
-    *   I approve the Proposal without future approval requests
-    *   the principal investigator approves the Proposal
-    *   I log in again as the User with the OSP Administrator role in 000001
-    *   I submit the Proposal to its sponsor
-  }
-end
