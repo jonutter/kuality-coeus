@@ -37,13 +37,15 @@ When /^the Proposal Log status should be (.*)$/ do |prop_log_status|
   @proposal_log.log_status.should == prop_log_status
 end
 
-When /^I submit a new permanent Proposal Log with the same PI into routing$/ do
+When /^the (.*) user submits a new permanent Proposal Log with the same PI into routing$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   @proposal_log = create ProposalLogObject,
                           principal_investigator: @temp_proposal_log.principal_investigator
   @proposal_log.submit
 end
 
-When /^I? ?creates? a permanent Proposal Log$/ do
+When /^the (.*) creates a permanent Proposal Log$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   @proposal_log = create ProposalLogObject
 end
 
@@ -78,9 +80,7 @@ Then /^the Proposal Log's status should reflect it has been (.*)$/ do |status|
   end
 end
 
-Then /^upon submission of the Proposal Log, an error should appear saying the field is required$/ do
+Then /^the (.*) user submits the Proposal Log$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   on(ProposalLog).submit
-  text="#{@required_field} (#{@required_field}) is a required field."
-  @required_field=='Description' ? error='Document '+text : error=text
-  on(ProposalLog).errors.should include error
 end

@@ -8,7 +8,7 @@ Feature: Creating a proposal development document
 
 
   Scenario: Attempt to save a proposal missing a required field
-    When  the Proposal Creator attempts to create a Proposal while missing a required field
+    When  the Proposal Creator creates a Proposal while missing a required field
     Then  I should see an error that says the field is required
 
   Scenario: Attempt to save a proposal with an invalid sponsor code

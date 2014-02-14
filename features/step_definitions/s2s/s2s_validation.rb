@@ -6,14 +6,6 @@ Given /^I? ?enter a 'revision specify' description$/ do
   on(S2S).revision_specify.set random_alphanums
 end
 
-Then /^an error message appears saying that I need to select the 'Other' revision type$/ do
-  on(S2S).errors.should include %|The revision 'specify' field is only applicable when the revision type is "Other"|
-end
-
-Then /^an error message appears saying a revision type must be selected$/ do
-  on(S2S).errors.should include 'S2S Revision Type must be selected when Proposal Type is Revision.'
-end
-
 Then /^the opportunity details should appear on the page$/ do
   on S2S do |page|
     %w{opportunity_title cfda_number competition_id

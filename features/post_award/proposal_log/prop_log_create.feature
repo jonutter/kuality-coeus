@@ -6,14 +6,15 @@ Feature: Creating Proposal Logs
 
   Background:
     * a User exists with the role: 'Create Proposal Log'
-    * I log in with the Create Proposal Log user
 
   Scenario: Attempt to create a new Proposal Log Document with a missing required field
-    When  I create a Proposal Log but I miss a required field
-    Then  upon submission of the Proposal Log, an error should appear saying the field is required
+    Given the Create Proposal Log user creates a Proposal Log but misses a required field
+    When  the Create Proposal Log user submits the Proposal Log
+    ## TODO FIXME - Correct this Error Step
+    Then  an error should appear that says the field is required
 
   Scenario: Create a new Proposal Log Document
-    When  I create a Proposal Log
+    When  the Create Proposal Log user creates a Proposal Log
     Then  the status of the Proposal Log should be INITIATED
     And   the Proposal Log status should be Pending
   @test

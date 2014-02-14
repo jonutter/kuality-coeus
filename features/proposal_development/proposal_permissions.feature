@@ -54,7 +54,7 @@ Feature: Permissions in a Proposal
 
   Scenario Outline: Users who are assigned the Aggregator role cannot be assigned additional roles
     Given I assign the <Role> user as an aggregator in the proposal permissions
-    When  I attempt to add an additional proposal role to the <Role> user
+    When  I add an additional proposal role to the <Role> user
     Then  there should be an error message that says not to select other roles alongside aggregator
 
   Examples:
