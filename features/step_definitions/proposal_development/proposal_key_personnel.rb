@@ -42,10 +42,6 @@ When /^I? ?add a key person with an invalid unit type$/ do
                            units: [{number: 'invalid'}]
 end
 
-Then /^a key personnel error should appear, saying the co-investigator requires at least one unit$/ do
-  on(KeyPersonnel).errors.should include "At least one Unit is required for #{@proposal.key_personnel.co_investigator.full_name}."
-end
-
 When /^I? ?adds? a principal investigator to the Proposal$/ do
   @proposal.add_principal_investigator
 end
@@ -56,10 +52,6 @@ end
 
 When /^I? ?sets? valid credit splits for the Proposal$/ do
   @proposal.set_valid_credit_splits
-end
-
-Then /^there should be an error that says the user already holds investigator role$/ do
-  on(KeyPersonnel).errors.should include "#{@first_name} #{@last_name} already holds Investigator role."
 end
 
 And(/^the (.*) button appears on the Proposal Summary and Proposal Action pages$/) do |action|

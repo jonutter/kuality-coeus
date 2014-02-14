@@ -72,10 +72,6 @@ Given /^the (.*) creates a Proposal without a sponsor deadline date$/ do |role_n
   @proposal = create ProposalDevelopmentObject, sponsor_deadline_date: ''
 end
 
-Then /^I should see an error that says a valid sponsor code is required$/ do
-  on(Proposal).errors.should include 'A valid Sponsor Code (Sponsor) must be selected.'
-end
-
 When /^the (.*) submits the Proposal into routing$/ do |role_name|
   steps %{ * I log in with the #{role_name} user }
   @proposal.submit
@@ -122,7 +118,7 @@ And /^the (.*) completes the remaining required actions for an S2S submission$/ 
         }
 end
 
-And /^I? ?adds? the (.*) opportunity id of (.*) to the Proposal$/ do |type, op_id|
+And /^I? ?adds? the (Grants.Gov|Research.Gov) opportunity id of (.*) to the Proposal$/ do |type, op_id|
   @proposal.edit opportunity_id: op_id
   on(Proposal).s2s
   on S2S do |page|
