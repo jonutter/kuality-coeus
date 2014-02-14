@@ -13,7 +13,7 @@ end
 Then /^a validation error should say (.*)$/ do |error|
   errors = {'there is no principal investigator' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.',
   'sponsor deadline date not entered' => 'Sponsor deadline date has not been entered.',
-  'questionnaire must be completed' => %|You must complete the questionnaire "S2S FAT &amp; Flat Questionnaire"|,
+  'questionnaire must be completed' => %q|You must complete the questionnaire "S2S FAT &amp; Flat Questionnaire"|,
   'you must complete the compliance question' => 'Answer is required for Question 1 in group B. Compliance.'}
   on(ProposalActions).validation_errors_and_warnings.should include errors[error]
 end
@@ -61,7 +61,7 @@ end
 Then /^checking the questions page shows an error that says (.*)$/ do |error|
   on(Proposal).questions
   errors = {'proposal questions were not answered' => 'Answer is required for Question 1 in group A. Proposal Questions.',
-            'questionnaire must be completed' => %|You must complete the questionnaire "S2S FAT & Flat Questionnaire"|,
+            'questionnaire must be completed' => %q|You must complete the questionnaire "S2S FAT & Flat Questionnaire"|,
             'you must complete the compliance question' => 'Answer is required for Question 1 in group B. Compliance.'
   }
   on(Questions).errors.should include errors[error]

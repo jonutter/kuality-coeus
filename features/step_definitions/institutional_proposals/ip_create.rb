@@ -1,5 +1,5 @@
 Given /^a Funding Proposal has been generated out of the Development Proposal workflow$/ do
-  steps %{
+  steps %q{
     * Users exist with the following roles: Proposal Creator, OSPApprover
     * a User exists with the roles: OSP Administrator, Proposal Submission in the 000001 unit
     * the Proposal Creator submits a new Proposal into routing

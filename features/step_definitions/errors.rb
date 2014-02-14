@@ -49,3 +49,7 @@ Then(/^an error should appear that says the field is required$/) do
           end
   $current_page.errors.should include error
 end
+
+Then /^an error about the duplicate organizations is shown$/ do
+  $current_page.validation_errors_and_warnings.should include 'There is a duplicate organization name.'
+end

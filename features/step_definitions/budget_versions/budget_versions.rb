@@ -36,16 +36,17 @@ end
 Then /^the copied budget's values are all as expected$/ do
   @copied_budget_version.open_budget
   @copied_budget_version.budget_periods.each do |period|
+    n = period.number
     on Parameters do |page|
-      page.start_date_period(period.number).value.should==period.start_date
-      page.end_date_period(period.number).value.should==period.end_date
-      page.total_sponsor_cost_period(period.number).value.should==(period.direct_cost.to_f+period.f_and_a_cost.to_f).commas
-      page.direct_cost_period(period.number).value.should==period.direct_cost.to_f.commas
-      page.fa_cost_period(period.number).value.should==period.f_and_a_cost.to_f.commas
-      page.unrecovered_fa_period(period.number).value.should==period.unrecovered_f_and_a.to_f.commas
-      page.cost_sharing_period(period.number).value.should==period.cost_sharing.to_f.commas
-      page.cost_limit_period(period.number).value.should==period.cost_limit.to_f.commas
-      page.direct_cost_limit_period(period.number).value.should==period.direct_cost_limit.to_f.commas
+      page.start_date_period(n).value.should==period.start_date
+      page.end_date_period(n).value.should==period.end_date
+      page.total_sponsor_cost_period(n).value.should==(period.direct_cost.to_f+period.f_and_a_cost.to_f).commas
+      page.direct_cost_period(n).value.should==period.direct_cost.to_f.commas
+      page.fa_cost_period(n).value.should==period.f_and_a_cost.to_f.commas
+      page.unrecovered_fa_period(n).value.should==period.unrecovered_f_and_a.to_f.commas
+      page.cost_sharing_period(n).value.should==period.cost_sharing.to_f.commas
+      page.cost_limit_period(n).value.should==period.cost_limit.to_f.commas
+      page.direct_cost_limit_period(n).value.should==period.direct_cost_limit.to_f.commas
     end
   end
 end

@@ -41,7 +41,7 @@ class BudgetPeriodObject < DataObject
     on Parameters do |edit|
       edit.start_date_period(@number).fit opts[:start_date]
       edit.end_date_period(@number).fit opts[:end_date]
-      DOLLAR_FIELDS.each do |field|
+      dollar_fields.each do |field|
         confirmation
         edit.send("#{field}_period", @number).fit opts[field]
       end
@@ -69,8 +69,10 @@ class BudgetPeriodObject < DataObject
     on(Parameters).delete_period @number
   end
 
-  DOLLAR_FIELDS = [:total_sponsor_cost, :direct_cost, :f_and_a_cost, :unrecovered_f_and_a,
+  def dollar_fields
+    [:total_sponsor_cost, :direct_cost, :f_and_a_cost, :unrecovered_f_and_a,
                    :cost_sharing, :cost_limit, :direct_cost_limit]
+  end
 
   # =======
   private
