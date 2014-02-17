@@ -44,6 +44,9 @@ Given /I? ?add a \$(.*) Subaward for (.*) to the Award$/ do |amount, organizatio
   @award.add_subaward organization, amount
 end
 
+And /adds the same organization as a subaward again to the Award$/ do
+  @award.add_subaward @award.subawards[0][:org_name]
+end
 
 #----------------------#
 #Contacts
@@ -139,4 +142,12 @@ end
 And /^the Institutional Proposal Maintainer unlinks the proposal$/ do
   steps 'Given I log in with the Institutional Proposal Maintainer user'
   @institutional_proposal.unlock_award(@award.id)
+end
+
+When /^data validation is turned on for the Award$/ do
+  @award.view :award_actions
+  on AwardActions do |page|
+    page.expand_all
+    page.turn_on_validation
+  end
 end
