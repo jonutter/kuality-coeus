@@ -53,3 +53,9 @@ end
 Then /^an error about the duplicate organizations is shown$/ do
   $current_page.validation_errors_and_warnings.should include 'There is a duplicate organization name.'
 end
+
+Then /^errors about the missing terms are shown$/ do
+  ['Equipment Approval', 'Invention','Prior Approval','Property','Publication',
+   'Referenced Document','Rights In Data','Subaward Approval','Travel Restrictions']
+  .each { |term| $current_page.validation_errors_and_warnings.should include "There must be at least one #{term} Terms defined." }
+end
