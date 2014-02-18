@@ -34,7 +34,7 @@ When /^the (.*) creates a Proposal while missing a required field$/ do |role_nam
   # Properly set the nil value depending on the field type...
   @required_field=~/Type/ ? value='select' : value=''
   # Transform the field name to the appropriate symbol...
-  field = snake_case(@required_field)
+  field = damballa(@required_field)
   @proposal = create ProposalDevelopmentObject, field=>value
 end
 
@@ -88,7 +88,7 @@ When /completes? the required custom fields on the Proposal$/ do
 end
 
 When /^I? ?add (.*) as an? (.*) to the proposal permissions$/ do |username, role|
-  @proposal.permissions.send("#{snake_case(role)}s") << username
+  @proposal.permissions.send("#{damballa(role)}s") << username
   @proposal.permissions.assign
 end
 

@@ -11,7 +11,7 @@ Feature: Creating Proposal Logs
     Given the Create Proposal Log user creates a Proposal Log but misses a required field
     When  the Create Proposal Log user submits the Proposal Log
     ## TODO FIXME - Correct this Error Step
-    Then  an error should appear that says the field is required
+    Then  an error should appear indicating the field is required
 
   Scenario: Create a new Proposal Log Document
     When  the Create Proposal Log user creates a Proposal Log
@@ -20,6 +20,6 @@ Feature: Creating Proposal Logs
   @test
   Scenario: Merge a new Proposal Log with an existing Temporary Proposal Log
     And   I submit a new temporary Proposal Log with a particular PI
-    When  I submit a new permanent Proposal Log with the same PI into routing
+    When  the Create Proposal Log user submits a new permanent Proposal Log with the same PI into routing
     And   I merge my new proposal log with my previous temporary proposal log
     Then  the Proposal Log type should be Merged

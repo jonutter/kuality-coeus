@@ -44,7 +44,7 @@ When /^the (.*) user creates an institutional proposal with a missing required f
   # Properly set the nil value depending on the field type...
   @required_field=~/Type/ ? value='select' : value=' '
   # Transform the field name to the appropriate symbol...
-  field =snake_case(@required_field)
+  field = damballa(@required_field)
   @institutional_proposal = create InstitutionalProposalObject, proposal_number: @proposal_log.number,
                                    field=>value
 end

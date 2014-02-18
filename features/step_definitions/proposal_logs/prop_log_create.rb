@@ -6,7 +6,7 @@ When /^the (.*) user creates a Proposal Log but misses a required field$/ do |ro
   # Properly set the nil value depending on the field type...
   @required_field=~/Type/ ? value='select' : value=''
   # Transform the field name to the appropriate symbol...
-  field =snake_case(@required_field)
+  field = damballa(@required_field)
   @proposal_log = create ProposalLogObject, field=>value
 end
 

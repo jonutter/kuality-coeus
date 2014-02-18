@@ -20,14 +20,15 @@ end
 #----------------------#
 #Award Validations Based on Errors During Creation
 #----------------------#
-When /^I ? ?creates? an Award with a missing required field$/ do
+When /^ the (.*) user creates an Award with a missing required field$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user' }
   @required_field = ['Description', 'Transaction Type', 'Award Status',
                      'Award Title', 'Activity Type', 'Award Type',
                      'Project End Date', 'Lead Unit', 'Obligation Start Date',
                      'Obligation End Date','Anticipated Amount'
   ].sample
   @required_field=~/(Type|Status)/ ? value='select' : value=' '
-  field = snake_case(@required_field)
+  field = damballa(@required_field)
   @award = create AwardObject, field=>value
 end
 
