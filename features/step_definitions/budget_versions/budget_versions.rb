@@ -98,10 +98,6 @@ When /marks? the Budget Version complete$/ do
   @budget_version.edit status: 'Complete'
 end
 
-Then /sees? an error that only one version can be final$/ do
-  on(BudgetVersions).errors.should include 'Only one Budget Version can be marked "Final".'
-end
-
 When /creates? a Budget Version with cost sharing for the Proposal$/ do
   @proposal.add_budget_version
   @budget_version = @proposal.budget_versions[0]

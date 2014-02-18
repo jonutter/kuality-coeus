@@ -96,10 +96,6 @@ And /^their proposal permissions allow them to delete the Proposal$/ do
   expect{@proposal.delete}.should_not raise_error
 end
 
-Then /^there should be an error message that says not to select other roles alongside aggregator$/ do
-  on(Roles).errors.should include 'Do not select other roles when Aggregator is selected.'
-end
-
 When /^I? ?add an additional proposal role to the (.*) user$/ do |system_role|
   if system_role=='Proposal Creator'
     role='aggregator'

@@ -6,13 +6,13 @@ Feature: Creating/Editing Budget Versions in Proposal Documents
   Background: Create a Budget Version for a 5-year proposal
     * a User exists with the role: 'Proposal Creator'
     * the Proposal Creator creates a 5-year project Proposal
-    * create a Budget Version for the Proposal
+    * creates a Budget Version for the Proposal
 
   Scenario: System warns about budget periods when proposal dates change
     When  I push the Proposal's project start date ahead a year
     Then  opening the Budget Version will display a warning about the date change
     And   correcting the Budget Version date will remove the warning
-  @test
+
   Scenario: Copied budget periods have expected values
     Given I enter dollar amounts for all the budget periods
     When  I copy the Budget Version (all periods)
