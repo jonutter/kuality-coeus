@@ -7,8 +7,6 @@ class Questions < ProposalDevelopmentDocument
                      :proprietary_info, :environmental_impact, :authorized_exemption, :site_historic,
                      :international_activities, :other_agencies, :subject_to_review, :novice_applicants]
 
-  proposal_header_elements
-
   # Used strictly for navigation validation...
   element(:questions_header) { |b| b.frm.h2(text: 'A. Proposal Questions') }
 

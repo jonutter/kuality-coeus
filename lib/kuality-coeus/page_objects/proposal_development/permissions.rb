@@ -1,7 +1,5 @@
 class Permissions < ProposalDevelopmentDocument
 
-  proposal_header_elements
-
   USER_NAME = 1
   FULL_NAME = 2
   UNIT_NUM  = 3
