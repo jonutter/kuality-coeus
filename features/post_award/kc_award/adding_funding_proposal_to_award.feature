@@ -1,6 +1,6 @@
 Feature: Adding a Funding Proposal to an Award
 
-  As an Award Modifier, when I add a Funding Proposals to an Award,
+  As an Award Modifier, when I add a Funding Proposal to an Award,
   I want some of the Award properties to be updated automatically
   to save time and help prevent errors.
 
