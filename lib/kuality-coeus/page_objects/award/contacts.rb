@@ -1,6 +1,5 @@
 class AwardContacts < KCAwards
 
-  award_header_elements
   combined_credit_splits
 
   expected_element :close_button

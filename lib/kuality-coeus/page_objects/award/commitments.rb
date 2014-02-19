@@ -1,7 +1,5 @@
 class Commitments < KCAwards
 
-  award_header_elements
-
   # Cost Sharing
   element(:new_cost_sharing_percentage) { |b| b.frm.text_field(name: 'costShareFormHelper.newAwardCostShare.costSharePercentage') }
   element(:new_cost_sharing_type) { |b| b.frm.select(name: 'costShareFormHelper.newAwardCostShare.costShareTypeCode') }

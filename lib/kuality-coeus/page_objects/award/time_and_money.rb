@@ -1,6 +1,5 @@
 class TimeAndMoney < KCAwards
 
-  award_header_elements
   description_field
 
   action(:return_to_award) { |b| b.return_button.click; b.loading }

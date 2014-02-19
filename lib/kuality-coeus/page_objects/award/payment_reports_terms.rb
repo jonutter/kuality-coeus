@@ -1,7 +1,5 @@
 class PaymentReportsTerms < KCAwards
 
-  award_header_elements
-
   element(:payment_basis) { |b| b.frm.select(name: 'document.awardList[0].basisOfPaymentCode') }
   element(:payment_method) { |b| b.frm.select(name: 'document.awardList[0].methodOfPaymentCode') }
   element(:payment_type) { |b| b.frm.select(name: 'awardReportsBean.newAwardReportTerms[2].reportCode') }
