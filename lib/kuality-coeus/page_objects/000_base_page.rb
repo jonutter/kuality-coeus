@@ -58,9 +58,7 @@ class BasePage < PageFactory
            'Delete Proposal', 'disapprove',
            'Generate All Periods', 'Calculate All Periods', 'Default Periods',
            'Calculate Current Period', 'submit', 'Send Notification'
-      action(:save) { |b| b.frm.button(name: 'methodToCall.save', title: 'save').click; b.loading;
-                          raise 'Save seems to have failed' unless b.notification=='Document was successfully saved.'
-      }
+      action(:save) { |b| b.frm.button(name: 'methodToCall.save', title: 'save').click; b.loading }
       element(:approve_button) { |b| b.frm.button(name: 'methodToCall.approve') }
       action(:approve) { |b| b.approve_button.click; b.loading; b.awaiting_doc }
       # Explicitly defining the "recall" button to keep the method name at "recall" instead of "recall_current_document"...

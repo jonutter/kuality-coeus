@@ -13,7 +13,8 @@ When /^the (.*) creates an Award$/ do |role_name|
   @award = create AwardObject, lead_unit: lead_unit
 end
 
-Given /^I? ?creates? an Award with (.*) as the Lead Unit$/ do |lead_unit|
+Given /^the (.*) user creates an Award with (.*) as the Lead Unit$/ do |role_name, lead_unit|
+  steps %{ * I log in with the #{role_name} user' }
   @award = create AwardObject, lead_unit: lead_unit
 end
 
@@ -32,8 +33,8 @@ When /^ the (.*) user creates an Award with a missing required field$/ do |role_
   @award = create AwardObject, field=>value
 end
 
-Given /^the Award Modifier creates an Award including an Account ID, Account Type, Prime Sponsor, and CFDA Number$/ do
-  steps 'Given I log in with the Award Modifier user'
+Given /^the (.*) user creates an Award including an Account ID, Account Type, Prime Sponsor, and CFDA Number$/ do |role_name|
+  steps %{Given I log in with the #{role_name} user}
   @award = create AwardObject
 end
 

@@ -20,7 +20,7 @@ Given /^(\d+) Approved Institutional Proposals? with cost share, unrecovered F&A
       * Users exist with the following roles: OSPApprover, Proposal Creator
       * a User exists with the roles: OSP Administrator, Proposal Submission in the 000001 unit
       * the Proposal Creator creates a Proposal
-      * creates a Budget Version with cost sharing for the Proposal
+      * the Proposal Creator user creates a Budget Version with cost sharing for the Proposal
       * adds unrecovered F&A to the first period of the Budget Version
       * finalizes the Budget Version
       * marks the Budget Version complete
@@ -28,7 +28,7 @@ Given /^(\d+) Approved Institutional Proposals? with cost share, unrecovered F&A
       * adds a principal investigator to the Proposal
       * sets valid credit splits for the Proposal
       * completes the required custom fields on the Proposal
-      * submits the Proposal into routing
+      * the Proposal Creator submits the Proposal into routing
       * the OSPApprover approves the Proposal without future approval requests
       * the principal investigator approves the Proposal
       * the OSP Administrator submits the Proposal to its sponsor
