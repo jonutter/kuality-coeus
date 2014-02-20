@@ -39,7 +39,7 @@ module DocumentUtilities
       on SponsorLookup do |look|
         fill_out look, :sponsor_type_code
         look.search
-        look.page_links[rand(look.page_links.length)].click if look.page_links.size > 0
+        look.page_links.sample.click if look.page_links.size > 0
         look.return_random
       end
       @sponsor_id=on(page_class).sponsor_id.value

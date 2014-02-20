@@ -4,7 +4,7 @@ class RoleObject < DataObject
   include Navigation
 
   attr_accessor :id, :name, :type, :namespace, :description,
-                :permissions
+                :permissions, :save_type
 
   ROLES = {
       # Add roles here as needed for testing...
@@ -54,6 +54,7 @@ class RoleObject < DataObject
         assignees:        collection('RoleAssignees'),
         permissions:      [],
         responsibilities: [],
+        save_type:        :blanket_approve
         # TODO: Add this when needed:
         #delegations:      collection('Delegation')
     }
@@ -80,7 +81,7 @@ class RoleObject < DataObject
         create.add_responsibility_id.set id
         create.add_responsibility
       }
-      create.blanket_approve
+      create.send(@save_type)
     end
   end
 

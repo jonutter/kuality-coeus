@@ -3,13 +3,14 @@ class GroupAssigneeObject < DataObject
   include StringFactory
   include Navigation
 
-  attr_accessor :type_code, :member_identifier
+  attr_accessor :type_code, :member_identifier, :save_type
 
   def initialize(browser, opts={})
     @browser = browser
 
     defaults = {
-      type_code: 'Principal'
+      type_code: 'Principal',
+      save_type: :blanket_approve
     }
 
     set_options(defaults.merge(opts))
@@ -21,7 +22,7 @@ class GroupAssigneeObject < DataObject
       page.description.set random_alphanums
       fill_out page, :type_code, :member_identifier
       page.add_member
-      page.blanket_approve
+      page.send(@save_type)
     end
   end
 

@@ -31,11 +31,7 @@ class BudgetPersonnelObject < DataObject
 
   def create
     # Navigation is handled by the BudgetVersionsObject method
-    if on(BudgetPersonnel).job_code(@full_name).present?
-      # The person is already listed so do nothing
-    else
-      get_person
-    end
+    get_person unless on(BudgetPersonnel).job_code(@full_name).present?
     set_job_code
     on BudgetPersonnel do |page|
       @salary_effective_date ||= page.salary_effective_date(@full_name).value
@@ -62,15 +58,15 @@ class BudgetPersonnelObject < DataObject
   # ========
 
   def set_job_code
-    unless @job_code.nil?
-      on(BudgetPersonnel).job_code(@full_name).set @job_code
-    else
+    if @job_code.nil?
       on(BudgetPersonnel).lookup_job_code(@full_name)
       on JobCodeLookup do |page|
         page.search
         page.return_random
       end
       @job_code=on(BudgetPersonnel).job_code(@full_name).value
+    else
+      on(BudgetPersonnel).job_code(@full_name).set @job_code
     end
   end
 

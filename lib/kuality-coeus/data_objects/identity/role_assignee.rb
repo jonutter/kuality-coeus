@@ -2,14 +2,15 @@ class RoleAssigneeObject < DataObject
 
   include StringFactory
 
-  attr_accessor :type_code, :member_identifier, :unit_number
+  attr_accessor :type_code, :member_identifier, :unit_number, :save_type
 
   def initialize(browser, opts={})
     @browser = browser
 
     defaults = {
         type_code:   'Principal',
-        unit_number: '000001'
+        unit_number: '000001',
+        save_type:   :blanket_approve
     }
 
     set_options(defaults.merge(opts))
@@ -23,7 +24,7 @@ class RoleAssigneeObject < DataObject
       page.assignee_id.set @member_identifier
       page.assignee_unit_number.set @unit_number
       page.add_assignee
-      page.blanket_approve
+      page.send(@save_type)
     end
   end
 

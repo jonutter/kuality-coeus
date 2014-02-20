@@ -4,20 +4,22 @@ class IPReviewObject < DataObject
   include DateFactory
   include Navigation
 
-  attr_accessor :document_id, :activities, :submitted_for_review, :reviewer
+  attr_accessor :document_id, :activities, :submitted_for_review, :reviewer, :save_type
 
   def initialize(browser, opts={})
     @browser = browser
     defaults = {
         reviewer: '::random::',
         submitted_for_review: right_now, # Note: this is the date hash, not the string with slashes
-        activities: [{number: '1', type_code: '::random::'}]
+        activities: [{number: '1', type_code: '::random::'}],
+        save_type: :save
     }
     set_options(defaults.merge(opts))
     requires :document_id
   end
 
-  # This method only "saves" the IPReview.
+  # The save type for this method is governed by the @save_type variable,
+  # which defaults to :save.
   # You must submit or blanket approve it before it actually does anything useful
   def create
     # TODO: Add helper navigation method(s) here
@@ -31,7 +33,7 @@ class IPReviewObject < DataObject
       end
     end
     set_reviewer
-    on(IPReview).save
+    on(IPReview).send(@save_type)
   end
 
   def submit

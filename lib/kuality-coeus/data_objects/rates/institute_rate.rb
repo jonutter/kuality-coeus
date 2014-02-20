@@ -99,7 +99,7 @@ class InstituteRateObject < DataObject
 
   attr_accessor :activity_type, :activity_type_code, :fiscal_year, :on_off_campus_flag,
                 :rate_type, :rate_class_code, :rate_type_code, :start_date, :unit_number,
-                :rate, :active, :description
+                :rate, :active, :description, :save_type
 
   def initialize(browser, opts={})
     @browser = browser
@@ -112,7 +112,8 @@ class InstituteRateObject < DataObject
       rate_type: 'Salaries',
       unit_number: '000001',
       rate: "#{rand(9)+1}.#{rand(100)}",
-      active: :set
+      active: :set,
+      save_type: :blanket_approve
     }
 
     set_options(defaults.merge(opts))
@@ -129,7 +130,7 @@ class InstituteRateObject < DataObject
       fill_out create, :description, :activity_type_code, :fiscal_year,
                :rate_class_code, :rate_type_code, :start_date, :unit_number,
                :rate, :on_off_campus_flag, :active
-      create.blanket_approve
+      create.send(@save_type)
     end
   end
 
