@@ -1,6 +1,5 @@
 class ProtocolOverview < KCProtocol
 
-  protocol_header_elements
   description_field
 
   # Document Overview
