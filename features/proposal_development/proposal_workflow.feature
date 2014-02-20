@@ -13,30 +13,16 @@
   #Failing:
     #Watir::Exception::UnknownObjectException: unable to locate element, using {:name=>"__login_user", :tag_name=>"input or textarea", :type=>"(any text type)"}
     #Cause: Background step
-  Scenario Outline: Approval Request is sent to the Proposal's PI
+  Scenario: Approval Request is sent to the Proposal's PI
     Given the Proposal Creator submits a new Proposal into routing
-    And   the OSPApprover user approves the Proposal
-    When  I log in with the principal investigator
-    Then  I can access the proposal from my action list
-    And   the <Action> button appears on the Proposal Summary and Proposal Action pages
+    When  the OSPApprover user approves the Proposal
+    Then  the principal investigator can access the Proposal from their action list
+    And   the approval buttons appear on the Proposal Summary and Proposal Action pages
 
-  Examples:
-    | Action     |
-    | Approve    |
-    | Disapprove |
-    | Reject     |
-
-  Scenario Outline: Approval Requests are sent to OSP representatives
-    Given the Proposal Creator submits a new Proposal into routing
-    When  I log in with the OSPApprover user
-    Then  I can access the proposal from my action list
-    And   the <Action> button appears on the Proposal Summary and Proposal Action pages
-
-  Examples:
-    | Action     |
-    | Approve    |
-    | Disapprove |
-    | Reject     |
+  Scenario: Approval Requests are sent to OSP representatives
+    When  the Proposal Creator submits a new Proposal into routing
+    Then  the OSPApprover can access the Proposal from their action list
+    And   the approval buttons appear on the Proposal Summary and Proposal Action pages
 
   Scenario: Proposal is recalled
     Given the Proposal Creator submits a new Proposal into routing
@@ -55,15 +41,14 @@
     Given the Budget Column's 'Cost Sharing Amount' has a lookup for 'Proposal Cost Share' that returns 'Amount'
     And   a User exists with the role: 'OSP Administrator'
     And   the Proposal Creator creates a Proposal
-    And   add a principal investigator to the Proposal
-    And   set valid credit splits for the Proposal
-    And   create a Budget Version with cost sharing for the Proposal
-    And   finalize the Budget Version
-    And   mark the Budget Version complete
-    And   complete the required custom fields on the Proposal
-    And   submit the Proposal
-    When  I log in with the OSP Administrator user
-    Then  I can override the cost sharing amount
+    And   adds a principal investigator to the Proposal
+    And   sets valid credit splits for the Proposal
+    And   creates a Budget Version with cost sharing for the Proposal
+    And   finalizes the Budget Version
+    And   marks the Budget Version complete
+    And   completes the required custom fields on the Proposal
+    When  the Proposal is submitted
+    Then  the OSP Administrator can override the cost sharing amount
 
   Scenario: An OSP representative grants the final approval of a Proposal's workflow
     Given the Proposal Creator submits a new Proposal into routing
