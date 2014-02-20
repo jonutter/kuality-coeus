@@ -51,7 +51,7 @@ Then /^an error should appear indicating the field is required$/ do
             else
               "#{@required_field} is a required field."
           end
-  #$current_page.error_summary.wait_until_present(5)
+  $current_page.error_summary.wait_until_present(5)
   $current_page.errors.should include error
 end
 
@@ -61,6 +61,16 @@ Then(/^an error notification should appear to indicate the field is required$/) 
               'Activity Type (Activity) is a required field.'
             else
               "#{@required_field} (#{@required_field}) is a required field."
+          end
+  $current_page.errors.should include error
+end
+
+Then /^an error notification appears to indicate the field is required$/ do
+  error = case @required_field
+            when 'Sponsor ID'
+              'Sponsor Code is a required field.'
+            else
+              "#{@required_field} is a required field."
           end
   $current_page.errors.should include error
 end
