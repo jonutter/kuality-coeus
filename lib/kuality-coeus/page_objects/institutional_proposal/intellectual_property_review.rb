@@ -1,6 +1,5 @@
 class IPReview < KCInstitutionalProposal
 
-  inst_prop_header_elements
   route_log
   description_field
 
