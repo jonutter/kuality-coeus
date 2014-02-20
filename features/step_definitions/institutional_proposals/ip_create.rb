@@ -18,7 +18,8 @@ Given /^the (.*) user submits the Funding Proposal$/ do |role_name|
   on(InstitutionalProposalActions).submit
 end
 
-When /^I? ?merges? the temporary proposal log with the Funding Proposal$/ do
+When /^the (.*) user merges the temporary proposal log with the Funding Proposal$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   visit(Researcher).search_proposal_log
   on ProposalLogLookup do |page|
     page.proposal_number.set @temp_proposal_log.number
@@ -36,15 +37,15 @@ When /^I merge the permanent proposal log with the institutional proposal$/ do
   pending
 end
 
-When /^the (.*) user creates an institutional proposal with a missing required field$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user }
-  # Pick a field at random for the test...
-  @required_field = ['Description','Activity Type','Sponsor ID','Project Title','Proposal Type'
-  ].sample
-  # Properly set the nil value depending on the field type...
-  @required_field=~/Type/ ? value='select' : value=' '
-  # Transform the field name to the appropriate symbol...
-  field = damballa(@required_field)
-  @institutional_proposal = create InstitutionalProposalObject, proposal_number: @proposal_log.number,
-                                   field=>value
-end
+#When /^the (.*) user creates an institutional proposal with a missing required field$/ do |role_name|
+#  steps %{ * I log in with the #{role_name} user }
+#  # Pick a field at random for the test...
+#  @required_field = ['Project Title', 'Description','Activity Type','Sponsor ID', 'Proposal Type'
+#  ].sample
+#  # Properly set the nil value depending on the field type...
+#  @required_field=~/Type/ ? value='select' : value=' '
+#  # Transform the field name to the appropriate symbol...
+#  field = damballa(@required_field)
+#  @institutional_proposal = create InstitutionalProposalObject, proposal_number: @proposal_log.number,
+#                                   field=>value
+#end

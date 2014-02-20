@@ -120,27 +120,23 @@ When /^the (.*) adds the Institutional Proposal to the Award$/ do |role_name|
   @award.add_funding_proposal @institutional_proposal.proposal_number, '::random::'
 end
 
-And /^the Institutional Proposal Maintainer can unlink the proposal$/ do
-  steps 'Given I log in with the Institutional Proposal Maintainer user'
+And /^the (.*) user can unlink the proposal$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   expect{
     @institutional_proposal.unlock_award(@award.id)
   }.not_to raise_error
   on(InstitutionalProposalActions).errors.size.should == 0
 end
 
-Then /^the Institutional Proposal Maintainer cannot unlink the proposal$/ do
+Then /^the (.*) user cannot unlink the proposal$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   steps 'Given I log in with the Institutional Proposal Maintainer user'
   @institutional_proposal.unlock_award(@award.id)
   on(InstitutionalProposalActions).errors.size.should > 0
 end
 
-Then /^the Institutional Proposal cannot be added to the Award$/ do
-  pending
-  raise 'Step not done!'
-end
-
-And /^the Institutional Proposal Maintainer unlinks the proposal$/ do
-  steps 'Given I log in with the Institutional Proposal Maintainer user'
+And /^the (.*) user unlinks the proposal$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   @institutional_proposal.unlock_award(@award.id)
 end
 

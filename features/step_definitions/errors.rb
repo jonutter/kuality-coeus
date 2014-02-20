@@ -40,31 +40,27 @@ Then /^an error should appear indicating the field is required$/ do
               "#{@required_field} is required when Obligated Amount is greater than zero."
             when 'Lead Unit'
               'Lead Unit ID (Lead Unit ID) is a required field.'
-            when 'Activity Type', 'Transaction Type', 'Award Status', 'Award Type', 'Project End Date'
+            when 'Activity Type', 'Transaction Type', 'Award Status', 'Award Type', 'Project End Date', 'Sponsor ID'
               "#{@required_field} (#{@required_field}) is a required field."
-            when 'Award Title'
+            when 'Award Title', 'Project Title'
               "#{@required_field} (Title) is a required field."
+            when 'Proposal Type'
+              'Proposal Type (Proposal Type Code) is a required field.'
             when 'Anticipated Amount'
               'The Anticipated Amount must be greater than or equal to Obligated Amount.'
             else
               "#{@required_field} is a required field."
           end
-  $current_page.error_summary.wait_until_present(5)
+  #$current_page.error_summary.wait_until_present(5)
   $current_page.errors.should include error
 end
 
-Then(/^an error notification should say the field is required$/) do
+Then(/^an error notification should appear to indicate the field is required$/) do
   error = case @required_field
-            when 'Description'
-              "Document #{@required_field} is a required field."
-            when 'Proposal Type'
-              'Proposal Type (Proposal Type Code) is a required field.'
             when 'Activity Type'
               'Activity Type (Activity) is a required field.'
-            when 'Project Title'
-              "#{@required_field} (Title) is a required field."
-            when 'Sponsor ID'
-              'Sponsor ID (Sponsor ID) is a required field.'
+            else
+              "#{@required_field} (#{@required_field}) is a required field."
           end
   $current_page.errors.should include error
 end

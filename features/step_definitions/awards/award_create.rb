@@ -21,17 +21,18 @@ end
 #----------------------#
 #Award Validations Based on Errors During Creation
 #----------------------#
-When /^ the (.*) user creates an Award with a missing required field$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user' }
-  @required_field = ['Description', 'Transaction Type', 'Award Status',
-                     'Award Title', 'Activity Type', 'Award Type',
-                     'Project End Date', 'Lead Unit', 'Obligation Start Date',
-                     'Obligation End Date','Anticipated Amount'
-  ].sample
-  @required_field=~/(Type|Status)/ ? value='select' : value=' '
-  field = damballa(@required_field)
-  @award = create AwardObject, field=>value
-end
+
+#When /^ the (.*) user creates an Award with a missing required field$/ do |role_name|
+#  steps %{ * I log in with the #{role_name} user' }
+#  @required_field = ['Description', 'Transaction Type', 'Award Status',
+#                     'Award Title', 'Activity Type', 'Award Type',
+#                     'Project End Date', 'Lead Unit', 'Obligation Start Date',
+#                     'Obligation End Date','Anticipated Amount'
+#  ].sample
+#  @required_field=~/(Type|Status)/ ? value='select' : value=' '
+#  field = damballa(@required_field)
+#  @award = create AwardObject, field=>value
+#end
 
 Given /^the (.*) user creates an Award including an Account ID, Account Type, Prime Sponsor, and CFDA Number$/ do |role_name|
   steps %{Given I log in with the #{role_name} user}
