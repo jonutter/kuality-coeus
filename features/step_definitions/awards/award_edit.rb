@@ -1,3 +1,4 @@
+# coding: UTF-8
 #----------------------#
 #Key Personnel
 #----------------------#
@@ -153,10 +154,13 @@ When /^data validation is turned on for the Award$/ do
 end
 
 When /^an Account ID with special characters is added to the Award details$/ do
+  @award.edit account_id: random_string(6, %w{~ ! @ # $ % ^ &}.sample)
+end
 
-  #DEBUG
-  x = random_high_ascii(7, '!').encode('UTF-8', {:invalid => :replace, :undef => :replace, :replace => '?'})
-  puts x
+When /^the Award's title is updated to include invalid characters$/ do
+  @award.edit award_title: random_high_ascii(100)
+end
 
-  @award.edit account_id: x
+When /^the Award's title is made more than (\d+) characters long$/ do |arg|
+  @award.edit award_title: random_high_ascii(arg.to_i+1)
 end

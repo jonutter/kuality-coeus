@@ -16,11 +16,21 @@ Feature: Basic Award Validations
     Given I log in with the Award Modifier user
     When  I create an Award with a missing required field
     Then  an error should appear that says the field is required
-  @test
-  Scenario: Enter an account ID that contains special characters
+
+  Scenario: Enter an account ID that contains non-alphanumeric characters
     Given the Award Modifier creates an Award
     When  an Account ID with special characters is added to the Award details
     Then  an error should say the Account ID may only contain letters or numbers
+
+  Scenario: Enter a title containing invalid characters
+    Given the Award Modifier creates an Award
+    When  the Award's title is updated to include invalid characters
+    Then  an error should say the Award's title contains invalid characters
+
+  Scenario: Enter a title containing more than 200 characters
+    Given the Award Modifier creates an Award
+    When  the Award's title is made more than 200 characters long
+    Then  an error should say the Award's title can't be longer than 200 characters
 
   Scenario: Attempt to link an IP that has not been approved
     Given the Proposal Creator submits a new Proposal into routing
