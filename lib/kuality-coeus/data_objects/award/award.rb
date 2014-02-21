@@ -83,6 +83,11 @@ class AwardObject < DataObject
         create.add_subaward_amount.fit sa[:amount]
         create.add_subaward
       end
+
+      #DEBUG
+      sleep 50
+
+
       create.save
       @document_id = create.header_document_id
       @id = create.header_award_id.strip
