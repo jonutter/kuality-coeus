@@ -27,10 +27,9 @@ When /^I ? ?creates? an Award with a missing required field$/ do
                      'Obligation End Date','Anticipated Amount'
   ].sample
   @required_field=~/(Type|Status)/ ? value='select' : value=' '
-  field = snake_case(@required_field)
+  field = damballa(@required_field)
   @award = create AwardObject, field=>value
 end
-
 
 When /^the Award Modifier creates an Award with more obligated than anticipated amounts$/ do
   @award = create AwardObject, anticipated_amount: '9999.99', obligated_amount: '10000.00'
