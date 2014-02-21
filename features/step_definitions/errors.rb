@@ -32,20 +32,21 @@ Then /^an error should appear that says (.*)$/ do |error|
   $current_page.errors.should include errors[error]
 end
 
+#########################
+# Award                 #
+#########################
 Then /^an error should appear indicating the field is required$/ do
   error = case @required_field
             when 'Description'
               "Document #{@required_field} is a required field."
-            when /Obligation/
-              "#{@required_field} is required when Obligated Amount is greater than zero."
             when 'Lead Unit'
               'Lead Unit ID (Lead Unit ID) is a required field.'
-            when 'Activity Type', 'Transaction Type', 'Award Status', 'Award Type', 'Project End Date', 'Sponsor ID'
+            when 'Activity Type', 'Transaction Type', 'Award Status', 'Award Type', 'Project End Date'
               "#{@required_field} (#{@required_field}) is a required field."
-            when 'Award Title', 'Project Title'
-              "#{@required_field} (Title) is a required field."
-            when 'Proposal Type'
-              'Proposal Type (Proposal Type Code) is a required field.'
+            when 'Sponsor ID'
+              "Sponsor ID (Sponsor) is a required field"
+            when 'Award Title'
+              "Award Title (Title) is a required field."
             when 'Anticipated Amount'
               'The Anticipated Amount must be greater than or equal to Obligated Amount.'
             else
@@ -55,10 +56,34 @@ Then /^an error should appear indicating the field is required$/ do
   $current_page.errors.should include error
 end
 
+##########################
+# Institutional Proposal #
+##########################
 Then(/^an error notification should appear to indicate the field is required$/) do
   error = case @required_field
             when 'Activity Type'
               'Activity Type (Activity) is a required field.'
+            when 'Proposal Type'
+              'Proposal Type (Proposal Type Code) is a required field.'
+            when 'Project Title'
+              'Project Title (Title) is a required field.'
+            when 'Description'
+              "Document #{@required_field} is a required field."
+            else
+              "#{@required_field} (#{@required_field}) is a required field."
+          end
+  $current_page.errors.should include error
+end
+
+#########################
+# Proposal Log          #
+#########################
+Then(/^an error should appear on the page to indicate the field is required$/) do
+  error = case @required_field
+            when 'Description'
+              "Document #{@required_field} (Document #{@required_field}) is a required field."
+            when 'Principal Investigator'
+              "Principal Investigator (employee or non-employee) is required."
             else
               "#{@required_field} (#{@required_field}) is a required field."
           end

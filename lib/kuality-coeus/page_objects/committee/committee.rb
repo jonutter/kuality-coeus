@@ -1,7 +1,6 @@
 class Committee < CommitteeDocument
 
   document_header_elements
-  committee_header_elements
   description_field
 
   element(:committee_id_field) { |b| b.frm.text_field(id: 'document.committeeList[0].committeeId') }

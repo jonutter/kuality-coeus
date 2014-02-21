@@ -1,7 +1,5 @@
 class NewFinancialEntity < FinancialEntities
 
-  financial_entities_tabs
-
   element(:entity_name) { |b| b.frm.text_field(id: 'financialEntityHelper.newPersonFinancialEntity.entityName') }
   element(:address_line_1) { |b| b.frm.text_field(id: 'financialEntityHelper.newPersonFinancialEntity.finEntityContactInfos[0].addressLine1') }
   element(:city) { |b| b.frm.text_field(id: 'financialEntityHelper.newPersonFinancialEntity.finEntityContactInfos[0].city') }

@@ -1,6 +1,5 @@
 class Reporter < FinancialEntities
 
-  financial_entities_tabs
   tab_buttons
 
   element(:contact_info) { |b| b.frm.table(id: 'response-table').table(class: 'tab') }

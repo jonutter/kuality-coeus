@@ -1,3 +1,4 @@
+# coding: UTF-8
 class AwardObject < DataObject
 
   include Navigation
@@ -25,7 +26,7 @@ class AwardObject < DataObject
     defaults = {
       description:           random_alphanums,
       transaction_type:      '::random::',
-      award_status:          'Active', # Needs to be this way because we don't want it to pick a status of 'Closed'
+      award_status:          %w{Active Hold Pending}.sample, # Needs to be this way because we don't want it to pick a status of, e.g., 'Closed'
       award_title:           random_alphanums,
       activity_type:         '::random::',
       award_type:            '::random::',
@@ -96,7 +97,15 @@ class AwardObject < DataObject
   end
 
   def edit opts={}
-    #TODO
+    view :award
+    on Award do |edit|
+      edit_fields opts, edit, :description, :transaction_type, :award_status, :award_title,
+                  :activity_type, :award_type, :obligated_amount, :anticipated_amount,
+                  :project_start_date, :project_end_date, :obligation_start_date,
+                  :obligation_end_date, :nsf_science_code, :account_id, :account_type,
+                  :cfda_number
+      edit.save
+    end
     set_options(opts)
   end
 
