@@ -151,3 +151,12 @@ When /^data validation is turned on for the Award$/ do
     page.turn_on_validation
   end
 end
+
+When /^an Account ID with special characters is added to the Award details$/ do
+
+  #DEBUG
+  x = random_high_ascii(7, '!').encode('UTF-8', {:invalid => :replace, :undef => :replace, :replace => '?'})
+  puts x
+
+  @award.edit account_id: x
+end

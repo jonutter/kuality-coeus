@@ -10,9 +10,7 @@
   Scenario: Approval Requests for a Proposal are sent
     Given the Proposal Creator submits a new Proposal into routing
     Then  the Proposal status should be Approval Pending
-  #Failing:
-    #Watir::Exception::UnknownObjectException: unable to locate element, using {:name=>"__login_user", :tag_name=>"input or textarea", :type=>"(any text type)"}
-    #Cause: Background step
+
   Scenario: Approval Request is sent to the Proposal's PI
     Given the Proposal Creator submits a new Proposal into routing
     When  the OSPApprover user approves the Proposal

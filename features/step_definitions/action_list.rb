@@ -3,7 +3,11 @@ When /^I visit the action list outbox$/ do
 end
 
 Then /^the (principal investigator|OSPApprover) can access the Proposal from their action list$/ do |user|
-  user=='OSPApprover' ? steps '* I log in with the OSPApprover user' : steps '* I log in with the principal investigator'
+  if user=='OSPApprover'
+    steps '* I log in with the OSPApprover user'
+  else
+    steps '* I log in with the principal investigator'
+  end
   expect {
     visit(ActionList).filter
     on ActionListFilter do |page|
