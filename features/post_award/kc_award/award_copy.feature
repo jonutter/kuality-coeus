@@ -8,10 +8,8 @@ Feature: Copying Awards
     * the Award Modifier creates an Award
     * adds a subaward to the Award
     * completes the Award requirements
-    * I log in with the Time And Money Modifier user
-    * submit the Award's T&M document
-    * I log in with the Award Modifier user
-    * submit the Award
+    * the Time & Money Modifier submits the Award's T&M document
+    * the Award Modifier submits the Award
   @test
   Scenario: Award copied as new Parent
     When I copy the Award to a new parent Award

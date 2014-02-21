@@ -1,6 +1,5 @@
 class Award < KCAwards
 
-  award_header_elements
   description_field
 
   element(:institutional_proposal_number) { |b| b.frm.text_field(name: 'fundingProposalBean.newFundingProposal.proposalNumber') }

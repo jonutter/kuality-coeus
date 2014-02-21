@@ -1,7 +1,5 @@
 class Distribution < KCInstitutionalProposal
 
-  inst_prop_header_elements
-
   element(:add_cost_share_project_period) { |b| b.frm.text_field(name: 'institutionalProposalCostShareBean.newInstitutionalProposalCostShare.projectPeriod') }
   element(:add_cost_share_type) { |b| b.frm.select(name: 'institutionalProposalCostShareBean.newInstitutionalProposalCostShare.costShareTypeCode') }
   element(:add_cost_share_percentage) { |b| b.frm.text_field(name: 'institutionalProposalCostShareBean.newInstitutionalProposalCostShare.costSharePercentage') }

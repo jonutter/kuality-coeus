@@ -54,13 +54,14 @@ When /^I? ?sets? valid credit splits for the Proposal$/ do
   @proposal.set_valid_credit_splits
 end
 
-And(/^the (.*) button appears on the Proposal Summary and Proposal Action pages$/) do |action|
-  button = "#{action.downcase}_button".to_sym
-  on ProposalSummary do |page|
-    page.send(button).should exist
-    page.proposal_actions
+And /^the approval buttons appear on the Proposal Summary and Proposal Action pages$/ do
+  [:approve_button, :disapprove_button, :reject_button].each do
+    on ProposalSummary do |page|
+      page.send(button).should exist
+      page.proposal_actions
+    end
+    on(ProposalActions).send(button).should exist
   end
-  on(ProposalActions).send(button).should exist
 end
 
 When /^the (.*) user approves the Proposal$/ do |role|
@@ -70,12 +71,12 @@ When /^the (.*) user approves the Proposal$/ do |role|
   on(Confirmation).yes
 end
 
-When(/^I try to add the (.*) user as a (.*) to the key personnel Proposal roles$/) do |user_role, proposal_role|
+When /^I try to add the (.*) user as a (.*) to the key personnel Proposal roles$/ do |user_role, proposal_role|
   user = get(user_role)
   @proposal.add_key_person first_name: user.first_name, last_name: user.last_name, role: proposal_role
 end
 
-When(/^I add the same person to the Proposal as a PI and Co-Investigator$/) do
+When /^I add the same person to the Proposal as a PI and Co-Investigator$/ do
   visit PersonLookup do |page|
     page.search
     names = page.returned_full_names

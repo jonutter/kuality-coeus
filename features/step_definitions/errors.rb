@@ -65,6 +65,9 @@ Then(/^an error notification should appear to indicate the field is required$/) 
   $current_page.errors.should include error
 end
 
+#########################
+# Proposal Development #
+#########################
 Then /^an error notification appears to indicate the field is required$/ do
   error = case @required_field
             when 'Sponsor ID'

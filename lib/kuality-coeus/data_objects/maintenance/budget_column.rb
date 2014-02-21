@@ -3,7 +3,7 @@ class BudgetColumnObject < DataObject
   include StringFactory
   include Navigation
 
-  attr_accessor :name, :has_lookup, :lookup_argument, :lookup_return
+  attr_accessor :name, :has_lookup, :lookup_argument, :lookup_return, :save_type
 
   def initialize(browser, opts={})
     @browser = browser
@@ -12,7 +12,8 @@ class BudgetColumnObject < DataObject
         name:            '::random::',
         has_lookup:      :set,
         lookup_argument: '::random::',
-        lookup_return:   '::random::'
+        lookup_return:   '::random::',
+        save_type:       :blanket_approve
     }
 
     set_options(defaults.merge(opts))
@@ -32,7 +33,7 @@ class BudgetColumnObject < DataObject
         create.has_lookup.fit @has_lookup
         create.lookup_argument.pick! @lookup_argument
         create.lookup_return.pick! @lookup_return
-        create.blanket_approve
+        create.send(@save_type)
       end
     end
   end

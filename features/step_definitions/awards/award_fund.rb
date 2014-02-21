@@ -1,7 +1,7 @@
 Given /^(\d+) Approved Institutional Proposals? exists?$/ do |count|
   @ips = []
   count.to_i.times {
-    steps %{
+    steps %q{
       * Users exist with the following roles: OSPApprover, Proposal Creator
       * a User exists with the roles: OSP Administrator, Proposal Submission in the 000001 unit
       * the Proposal Creator submits a new Proposal into routing
@@ -183,14 +183,6 @@ Then /^the Award inherits the Cost Sharing data from the Funding Proposal$/ do
   on Commitments do |page|
     page.expand_all
     page.comments.value.should=="Added Cost Shares from Proposal Number #{@institutional_proposal.proposal_number}"
-
-
-
-    # Debug
-    sleep 50
-
-
-
     cs_list.each { |cost_share|
       page.cost_sharing_commitment_amount(cost_share.index).value.groom.should==cost_share.amount.to_f
       page.cost_sharing_source(cost_share.index).value.should==cost_share.source_account

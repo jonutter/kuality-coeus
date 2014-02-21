@@ -4,16 +4,17 @@ class GroupObject < DataObject
   include Navigation
 
   attr_accessor :id, :namespace, :name, :type,
-                :principal_name, :assignees
+                :principal_name, :assignees, :save_type
 
   def initialize(browser, opts={})
     @browser = browser
 
     defaults = {
-      type:        'Default',
-      namespace:   'KC-UNT - Kuali Coeus - Department',
-      name:        random_alphanums,
-      assignees:   collection('GrAssignees')
+      type:       'Default',
+      namespace:  'KC-UNT - Kuali Coeus - Department',
+      name:       random_alphanums,
+      assignees:  collection('GrAssignees'),
+      save_type: :blanket_approve
     }
 
     set_options(defaults.merge(opts))
@@ -26,7 +27,7 @@ class GroupObject < DataObject
       page.description.set random_alphanums
       @id=page.id
       fill_out page, :namespace, :name
-      page.blanket_approve
+      page.send(@save_type)
     end
   end
 

@@ -1,6 +1,5 @@
 class KeyPersonnel < ProposalDevelopmentDocument
 
-  proposal_header_elements
   combined_credit_splits
 
   action(:employee_search) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.KcPerson!!).(((personId:newPersonId))).((``)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchor').click }

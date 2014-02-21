@@ -1,6 +1,5 @@
 class InstitutionalProposal < KCInstitutionalProposal
 
-  inst_prop_header_elements
   description_field
 
   value(:institutional_proposal_number) { |b| b.institutional_proposal_tab.table[0][1].text }

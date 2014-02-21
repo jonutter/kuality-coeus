@@ -130,7 +130,8 @@ Then /^the User should be able to create a proposal$/ do
   expect{create ProposalDevelopmentObject}.not_to raise_error
 end
 
-Then /^I? ?can override the cost sharing amount$/ do
+Then /^the OSP Administrator can override the cost sharing amount$/ do
+  steps '* I log in with the OSP Administrator user'
   @proposal.view 'Proposal Actions'
   on ProposalActions do |page|
     page.expand_all

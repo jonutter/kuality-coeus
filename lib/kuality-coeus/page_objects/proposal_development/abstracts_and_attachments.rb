@@ -1,7 +1,5 @@
 class AbstractsAndAttachments < ProposalDevelopmentDocument
 
-  proposal_header_elements
-
   # Proposal Attachments
   element(:proposal_attachment_type) { |b| b.frm.select(id: 'newNarrative.narrativeTypeCode') }
   element(:attachment_status) { |b| b.frm.select(id: 'newNarrative.moduleStatusCode') }

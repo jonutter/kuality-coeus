@@ -5,7 +5,8 @@ Given /^I? ?add a T&M transaction from External to the Award, with obligated and
                                         anticipated_change: change
 end
 
-And /^I? ?submit the Award's T&M document$/ do
+And /^the Time & Money Modifier submits the Award's T&M document$/ do
+  steps '* log in with the Time And Money Modifier user'
   # This line is included because it can simplify scenarios.
   # It's safe because if the T&M document already exists
   # then all this method does is open it...

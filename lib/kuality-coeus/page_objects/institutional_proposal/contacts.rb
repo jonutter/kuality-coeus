@@ -1,7 +1,5 @@
 class IPContacts < KCInstitutionalProposal
 
-  inst_prop_header_elements
-
   # Combined Credit Split
   {
       'recognition'=>1,
