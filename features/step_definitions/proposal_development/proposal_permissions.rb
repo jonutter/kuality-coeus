@@ -8,7 +8,7 @@ end
 
 When /^I? ?assign the (.*) user as an? (.*) in the proposal permissions$/ do |system_role, role|
   make_user role: system_role
-  @proposal.permissions.send(snake_case(role+'s')) << get(system_role).user_name
+  @proposal.permissions.send(damballa(role+'s')) << get(system_role).user_name
   @proposal.permissions.assign
 end
 

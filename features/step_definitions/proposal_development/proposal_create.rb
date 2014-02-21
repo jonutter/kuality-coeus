@@ -25,18 +25,18 @@ Given /^the (.*) creates a (\d+)-year, '(.*)' Proposal$/ do |role_name, year_cou
                     activity_type: activity_type
 end
 
-When /^the (.*) creates a Proposal while missing a required field$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user }
-  # Pick a field at random for the test...
-  @required_field = ['Description', 'Proposal Type', 'Activity Type',
-           'Project Title', 'Sponsor Code', 'Project Start Date', 'Project End Date'
-          ].sample
-  # Properly set the nil value depending on the field type...
-  @required_field=~/Type/ ? value='select' : value=''
-  # Transform the field name to the appropriate symbol...
-  field = snake_case(@required_field)
-  @proposal = create ProposalDevelopmentObject, field=>value
-end
+#When /^the (.*) creates a Proposal while missing a required field$/ do |role_name|
+#  steps %{ * I log in with the #{role_name} user }
+#  # Pick a field at random for the test...
+#  @required_field = ['Description', 'Proposal Type', 'Activity Type',
+#           'Project Title', 'Sponsor Code', 'Project Start Date', 'Project End Date'
+#          ].sample
+#  # Properly set the nil value depending on the field type...
+#  @required_field=~/Type/ ? value='select' : value=''
+#  # Transform the field name to the appropriate symbol...
+#  field = damballa(@required_field)
+#  @proposal = create ProposalDevelopmentObject, field=>value
+#end
 
 When /^the (.*) creates a Proposal with an? '(.*)' sponsor type$/ do |role_name, type|
   steps %{ * I log in with the #{role_name} user }
@@ -88,7 +88,7 @@ When /completes? the required custom fields on the Proposal$/ do
 end
 
 When /^I? ?add (.*) as an? (.*) to the proposal permissions$/ do |username, role|
-  @proposal.permissions.send("#{snake_case(role)}s") << username
+  @proposal.permissions.send("#{damballa(role)}s") << username
   @proposal.permissions.assign
 end
 
