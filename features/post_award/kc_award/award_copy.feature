@@ -9,7 +9,7 @@ Feature: Copying Awards
     * adds a subaward to the Award
     * completes the Award requirements
     * the Time & Money Modifier submits the Award's T&M document
-    * the Award Modifier submits the Award
+    * the Award Modifier user submits the Award
   @test
   Scenario: Award copied as new Parent
     When I copy the Award to a new parent Award

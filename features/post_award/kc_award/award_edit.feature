@@ -1,7 +1,7 @@
-Feature: Modifying Award Properties
+Feature: Editing Awards
 
   As an Award Modifier, I want to be able to make changes to Award documents,
-  so that I can set them up properly
+  so that I can correct inaccuracies or enter additional data into optional fields
 
   Scenario: Award Modifier adds a PI to an Award
     Given a User exists with the role 'Award Modifier' in unit 'BL-BL'
