@@ -11,7 +11,8 @@ Then /^an error should say (.*)$/ do |error|
             'the IP can not be added because it\'s not fully approved' => 'Cannot add this funding proposal. The associated Development Proposal has "Approval Pending - Submitted" status.',
             'the Account ID may only contain letters or numbers' => 'The Account ID (Account ID) may only consist of letters or digits.',
             'the Award\'s title contains invalid characters' => 'The Award Title (Title) may only consist of visible characters, spaces, or tabs.',
-            'the Award\'s title can\'t be longer than 200 characters' => 'The specified Award Title (Title) must not be longer than 200 characters.'
+            'the Award\'s title can\'t be longer than 200 characters' => 'The specified Award Title (Title) must not be longer than 200 characters.',
+            'the anticipated amount must be equal to or more than obligated' => 'The Anticipated Amount must be greater than or equal to Obligated Amount.'
   }
   $current_page.errors.should include errors[error]
 end
