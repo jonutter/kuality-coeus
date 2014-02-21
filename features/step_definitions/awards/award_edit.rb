@@ -129,8 +129,7 @@ And /^the (.*) user can unlink the proposal$/ do |role_name|
   on(InstitutionalProposalActions).errors.size.should == 0
 end
 
-Then /^the (.*) user cannot unlink the proposal$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user }
+Then /^the Institutional Proposal Maintainer cannot unlink the proposal$/ do
   steps 'Given I log in with the Institutional Proposal Maintainer user'
   @institutional_proposal.unlock_award(@award.id)
   on(InstitutionalProposalActions).errors.size.should > 0
