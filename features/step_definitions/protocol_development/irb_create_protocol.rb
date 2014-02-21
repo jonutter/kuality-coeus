@@ -10,12 +10,8 @@ end
 
 When(/^the (.*) user creates an irb protocol but I miss a required field$/) do |role_name|
   steps %{ * I log in with the #{role_name} user }
-  # Pick a field at random for the test...
   @required_field = ['Description', 'Title', 'Lead Unit'
           ].sample
-  # Properly set the nil value depending on the field type...
-  @required_field= value=''
-  # Transform the field name to the appropriate symbol...
-  field = snake_case(@required_field)
-  @irb_protocol = create IRBProtocolDevelopmentObject, field=>value
+  field = damballa(@required_field)
+  @irb_protocol = create IRBProtocolDevelopmentObject, field=>''
 end
