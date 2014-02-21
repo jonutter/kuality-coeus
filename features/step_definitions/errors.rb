@@ -26,7 +26,11 @@ Then /^an error should appear that says (.*)$/ do |error|
             'proposal questions were not answered' => 'Answer is required for Question 1 in group A. Proposal Questions.',
             'a valid sponsor is required' => 'A valid Sponsor Code (Sponsor) must be selected.',
             'the duplicate organizations is shown' => '',
-            'the terms are missing' => ''
+            'the terms are missing' => '',
+            'the Account ID may only contain letters or numbers' => 'The Account ID (Account ID) may only consist of letters or digits.',
+            'the Award\'s title contains invalid characters' => 'The Award Title (Title) may only consist of visible characters, spaces, or tabs.',
+            'the Award\'s title can\'t be longer than 200 characters' => 'The specified Award Title (Title) must not be longer than 200 characters.',
+            'the anticipated amount must be equal to or more than obligated' => 'The Anticipated Amount must be greater than or equal to Obligated Amount.'
 
   }
   $current_page.errors.should include errors[error]

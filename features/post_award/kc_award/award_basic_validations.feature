@@ -31,6 +31,10 @@ Feature: Basic Award Validations
     Given the Award Modifier creates an Award
     When  the Award's title is made more than 200 characters long
     Then  an error should say the Award's title can't be longer than 200 characters
+  @test
+  Scenario: The anticipated amount is less than the obligated amount
+    When  the Award Modifier creates an Award with more obligated than anticipated amounts
+    Then  an error should say the anticipated amount must be equal to or more than obligated
 
   Scenario: Attempt to link an IP that has not been approved
     Given the Proposal Creator submits a new Proposal into routing
