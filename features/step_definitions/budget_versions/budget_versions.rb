@@ -1,9 +1,10 @@
-When /creates? a Budget Version for the Proposal$/ do
+When /^the (.*) user creates a Budget Version for the Proposal$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   @proposal.add_budget_version
   @budget_version = @proposal.budget_versions[0]
 end
 
-When /^I? ?add a subaward budget to the Budget Version$/ do
+When /^I add a subaward budget to the Budget Version$/ do
   @budget_version.add_subaward_budget
 end
 
@@ -17,7 +18,8 @@ When /^correcting the Budget Version date will remove the warning$/ do
   on(Parameters).warnings.size.should be 0
 end
 
-Given /creates? a final and complete Budget Version for the Proposal$/ do
+Given /the (.*) user creates a final and complete Budget Version for the Proposal$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   @proposal.add_budget_version status: 'Complete', final: :set
 end
 
@@ -98,7 +100,8 @@ When /marks? the Budget Version complete$/ do
   @budget_version.edit status: 'Complete'
 end
 
-When /creates? a Budget Version with cost sharing for the Proposal$/ do
+When /the (.*) user creates a Budget Version with cost sharing for the Proposal$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   @proposal.add_budget_version
   @budget_version = @proposal.budget_versions[0]
   @budget_version.edit_period(1, cost_sharing: random_dollar_value(1000000))
@@ -107,7 +110,8 @@ When /creates? a Budget Version with cost sharing for the Proposal$/ do
   end
 end
 
-And /creates? a Budget Version with unrecovered F&A for the Proposal$/ do
+And /the (.*) user creates a Budget Version with unrecovered F&A for the Proposal$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   @proposal.add_budget_version
   @budget_version = @proposal.budget_versions[0]
   steps %q{ * add unrecovered F&A to the first period of the Budget Version }

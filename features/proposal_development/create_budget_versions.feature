@@ -28,4 +28,4 @@ Feature: Creating/Editing Budget Versions in Proposal Documents
   Scenario: Only one budget version can be 'final'
     Given I finalize the Budget Version
     When  I copy the Budget Version (all periods)
-    Then  I see an error that only one version can be final
+    Then  an error should appear that says only one version can be final

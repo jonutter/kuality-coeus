@@ -244,7 +244,7 @@ warrens:  # AKA: "Principal Name"
   :employee_status:  Active
   :employee_type:    Professional
   :base_salary:      123456.78
-  :primary_department_code: 'OSP'
+  :primary_department_code: '000001'
   :first_name:       Sean
   :last_name:        Warren
   :primary_title:    OSP Superuser
