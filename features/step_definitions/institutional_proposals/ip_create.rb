@@ -1,14 +1,3 @@
-Given /^a Funding Proposal has been generated out of the Development Proposal workflow$/ do
-  steps %q{
-    * Users exist with the following roles: Proposal Creator, OSPApprover
-    * a User exists with the roles: OSP Administrator, Proposal Submission in the 000001 unit
-    * the Proposal Creator submits a new Proposal into routing
-    * the OSPApprover approves the Proposal without future approval requests
-    * the principal investigator approves the Proposal
-    * the OSP Administrator submits the Proposal to its sponsor
-  }
-end
-
 Given /^the (.*) user submits the Funding Proposal$/ do |role_name|
   steps %{ * I log in with the #{role_name} user }
   @institutional_proposal.project_personnel << person
@@ -18,8 +7,8 @@ Given /^the (.*) user submits the Funding Proposal$/ do |role_name|
   on(InstitutionalProposalActions).submit
 end
 
-When /^the (.*) user merges the temporary proposal log with the Funding Proposal$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user }
+When /^(the (.*) user |)merges the temporary proposal log with the Funding Proposal$/ do |text, role_name|
+  steps %{ * I log in with the #{role_name} user } unless text == ''
   visit(Researcher).search_proposal_log
   on ProposalLogLookup do |page|
     page.proposal_number.set @temp_proposal_log.number
@@ -37,15 +26,15 @@ When /^I merge the permanent proposal log with the institutional proposal$/ do
   pending
 end
 
-#When /^the (.*) user creates an institutional proposal with a missing required field$/ do |role_name|
-#  steps %{ * I log in with the #{role_name} user }
-#  # Pick a field at random for the test...
-#  @required_field = ['Project Title', 'Description','Activity Type','Sponsor ID', 'Proposal Type'
-#  ].sample
-#  # Properly set the nil value depending on the field type...
-#  @required_field=~/Type/ ? value='select' : value=' '
-#  # Transform the field name to the appropriate symbol...
-#  field = damballa(@required_field)
-#  @institutional_proposal = create InstitutionalProposalObject, proposal_number: @proposal_log.number,
-#                                   field=>value
-#end
+When /^(the (.*) |)user creates an institutional proposal with a missing required field$/ do |text, role_name|
+  steps %{ * I log in with the #{role_name} user } unless text == ''
+  # Pick a field at random for the test...
+  @required_field = ['Project Title', 'Description','Activity Type','Sponsor ID', 'Proposal Type'
+  ].sample
+  # Properly set the nil value depending on the field type...
+  @required_field=~/Type/ ? value='select' : value=' '
+  # Transform the field name to the appropriate symbol...
+  field = damballa(@required_field)
+  @institutional_proposal = create InstitutionalProposalObject, proposal_number: @proposal_log.number,
+                                   field=>value
+end

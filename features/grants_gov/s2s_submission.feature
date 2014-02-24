@@ -13,8 +13,8 @@ Feature: Submitting Proposals via s2s to Grants.gov
     And   the Proposal Creator creates a Proposal with <Sponsor> as the sponsor
     And   add the <Provider> opportunity id of <Opportunity> to the Proposal
     And   add the <Provider> user as the Proposal's PI
-    And   the Proposal Creator completes the remaining required actions for an S2S submission
-    And   the Proposal Creator submits the Proposal into routing
+    And   completes the remaining required actions for an S2S submission
+    And   submits the Proposal into routing
     And   the OSPApprover approves the Proposal without future approval requests
     And   the principal investigator approves the Proposal
     When  the AOR user submits the Proposal to S2S

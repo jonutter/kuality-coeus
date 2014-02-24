@@ -1,5 +1,5 @@
-When /^the (.*) user creates a Budget Version for the Proposal$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user }
+When /^(the (.*) user |)creates a Budget Version for the Proposal$/ do |text, role_name|
+  steps %{ * I log in with the #{role_name} user } unless text==''
   @proposal.add_budget_version
   @budget_version = @proposal.budget_versions[0]
 end
@@ -18,8 +18,8 @@ When /^correcting the Budget Version date will remove the warning$/ do
   on(Parameters).warnings.size.should be 0
 end
 
-Given /the (.*) user creates a final and complete Budget Version for the Proposal$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user }
+Given /^(the (.*) user |)creates a final and complete Budget Version for the Proposal$/ do |text, role_name|
+  steps %{ * I log in with the #{role_name} user } unless text ==''
   @proposal.add_budget_version status: 'Complete', final: :set
 end
 
@@ -100,8 +100,8 @@ When /marks? the Budget Version complete$/ do
   @budget_version.edit status: 'Complete'
 end
 
-When /the (.*) user creates a Budget Version with cost sharing for the Proposal$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user }
+When /^(the (.*) user |)creates a Budget Version with cost sharing for the Proposal$/ do |text, role_name|
+  steps %{ * I log in with the #{role_name} user } unless text==''
   @proposal.add_budget_version
   @budget_version = @proposal.budget_versions[0]
   @budget_version.edit_period(1, cost_sharing: random_dollar_value(1000000))
@@ -110,8 +110,8 @@ When /the (.*) user creates a Budget Version with cost sharing for the Proposal$
   end
 end
 
-And /the (.*) user creates a Budget Version with unrecovered F&A for the Proposal$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user }
+And /^(the (.*) user |)creates a Budget Version with unrecovered F&A for the Proposal$/ do |text, role_name|
+  steps %{ * I log in with the #{role_name} user } unless text==''
   @proposal.add_budget_version
   @budget_version = @proposal.budget_versions[0]
   steps %q{ * add unrecovered F&A to the first period of the Budget Version }

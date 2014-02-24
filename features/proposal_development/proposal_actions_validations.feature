@@ -8,14 +8,14 @@ Feature: Proposal Actions Validations
     * I log in with the Proposal Creator user
 
     Scenario: A PI has not been added to the proposal
-      Given I create a Proposal
+      Given the Proposal Creator creates a Proposal
       And   the Proposal has no principal investigator
       When  I activate a validation check
       Then  a validation error should say there is no principal investigator
       And   checking the key personnel page shows an error that says there is no principal investigator
 
     Scenario: Sponsor deadline date is missing
-      Given I create a Proposal without a sponsor deadline date
+      Given the Proposal Creator creates a Proposal without a sponsor deadline date
       When  I activate a validation check
       Then  a validation error should say sponsor deadline date not entered
       And   checking the proposal page shows an error that says sponsor deadline date not entered
