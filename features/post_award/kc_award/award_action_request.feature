@@ -8,6 +8,5 @@ Feature: Requesting an action from an Award
 
   Scenario: Request the action of an Approver
     Given the Award Modifier creates an Award
-    When  I filter the Award from my action list
-    Then  I should see my Award listed with the action requested status: COMPLETE
-
+    When  I filter the action list to find the Award
+    Then  I should see the Award listed with the action requested status: COMPLETE
