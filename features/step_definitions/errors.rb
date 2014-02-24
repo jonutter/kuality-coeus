@@ -40,7 +40,15 @@ end
 # Award                 #
 #########################
 Then /^an error should appear indicating the field is required$/ do
-  $current_page.errors.should include "#{@required_field} is a required field."
+  error = case @required_field
+            when 'Lead Unit ID'
+              'Lead Unit ID is a required field.'
+            when 'Description'
+              "Document Description is a required field."
+            else
+              "#{@required_field} is a required field."
+          end
+  $current_page.errors.should include error
 end
 
 ##########################
@@ -68,7 +76,7 @@ end
 Then(/^an error should appear on the page to indicate the field is required$/) do
   error = case @required_field
             when 'Description'
-              "Document #{@required_field} (Document #{@required_field}) is a required field."
+              "Document #{@required_field} (Description) is a required field."
             when 'Principal Investigator'
               "Principal Investigator (employee or non-employee) is required."
             else
