@@ -18,7 +18,7 @@ Then /^the (principal investigator|OSPApprover) can access the Proposal from the
   }.not_to raise_error
 end
 
-When /^I filter the Award from my action list$/  do
+When /^I filter the action list to find the Award$/  do
   visit(ActionList).filter
   on ActionListFilter do |page|
     page.document_title.set "KC Award - #{@award.description}"
@@ -26,6 +26,6 @@ When /^I filter the Award from my action list$/  do
   end
 end
 
-Then /^I should see my Award listed with the action requested status: (.*)$/ do |action_requested|
+Then /^I should see the Award listed with the action requested status: (.*)$/ do |action_requested|
  on(ActionList).action_requested(@award.document_id).should == action_requested
 end
