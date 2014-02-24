@@ -78,7 +78,7 @@ Then(/^an error should appear on the page to indicate the field is required$/) d
             when 'Description'
               "Document #{@required_field} (Description) is a required field."
             when 'Principal Investigator'
-              "Principal Investigator (employee or non-employee) is required."
+              "A Principal Investigator (employee or non-employee) is required."
             else
               "#{@required_field} (#{@required_field}) is a required field."
           end
