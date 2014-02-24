@@ -10,7 +10,7 @@ Feature: Copying Awards
     * completes the Award requirements
     * the Time & Money Modifier submits the Award's T&M document
     * the Award Modifier user submits the Award
-  @test
+
   Scenario: Award copied as new Parent
     When I copy the Award to a new parent Award
     Then the new Award's transaction type is 'New'

@@ -40,24 +40,7 @@ end
 # Award                 #
 #########################
 Then /^an error should appear indicating the field is required$/ do
-  error = case @required_field
-            when 'Description'
-              "Document #{@required_field} is a required field."
-            when 'Lead Unit'
-              'Lead Unit ID (Lead Unit ID) is a required field.'
-            when 'Activity Type', 'Transaction Type', 'Award Status', 'Award Type', 'Project End Date'
-              "#{@required_field} (#{@required_field}) is a required field."
-            when 'Sponsor ID'
-              "Sponsor ID (Sponsor) is a required field"
-            when 'Award Title'
-              "Award Title (Title) is a required field."
-            when 'Anticipated Amount'
-              'The Anticipated Amount must be greater than or equal to Obligated Amount.'
-            else
-              "#{@required_field} is a required field."
-          end
-  $current_page.error_summary.wait_until_present(5)
-  $current_page.errors.should include error
+  $current_page.errors.should include "#{@required_field} is a required field."
 end
 
 ##########################
@@ -100,7 +83,7 @@ end
 Then /^an error notification appears to indicate the field is required$/ do
   error = case @required_field
             when 'Sponsor ID'
-              'Sponsor Code is a required field.'
+              'A valid Sponsor Code (Sponsor) must be selected.'
             else
               "#{@required_field} is a required field."
           end
