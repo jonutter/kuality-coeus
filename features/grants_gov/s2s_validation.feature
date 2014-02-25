@@ -8,10 +8,6 @@ Feature: Validating content of s2s proposals
     * the Proposal Creator creates a Proposal with a 'Federal' sponsor type
     * adds the Grants.Gov opportunity id of PA-B2-ALL to the Proposal
 
-  Scenario: Adding the opportunity
-    Then  the opportunity details should appear on the page
-    And   the 'remove opportunity' button should be present
-
   Scenario: Enter wrong revision type information
     Given I select a revision type of 'Increase Award'
     And   enter a 'revision specify' description
