@@ -25,7 +25,7 @@ Then /^an error should appear that says (.*)$/ do |error|
             'you must complete the compliance question' => 'Answer is required for Question 1 in group B. Compliance.',
             'proposal questions were not answered' => 'Answer is required for Question 1 in group A. Proposal Questions.',
             'a valid sponsor is required' => 'A valid Sponsor Code (Sponsor) must be selected.',
-            'the duplicate organizations is shown' => '',
+            'the duplicate organizations is shown' => 'There is a duplicate organization name.',
             'the terms are missing' => '',
             'the Account ID may only contain letters or numbers' => 'The Account ID (Account ID) may only consist of letters or digits.',
             'the Award\'s title contains invalid characters' => 'The Award Title (Title) may only consist of visible characters, spaces, or tabs.',
@@ -34,6 +34,13 @@ Then /^an error should appear that says (.*)$/ do |error|
 
   }
   $current_page.errors.should include errors[error]
+end
+
+Then /^an error should appear on the actions page that says (.*)$/ do |error|
+  errors = {'the duplicate organizations is shown' => 'There is a duplicate organization name.',
+            'the terms are missing' => ''
+  }
+  $current_page.validation_errors_and_warnings.should include errors[error]
 end
 
 #########################

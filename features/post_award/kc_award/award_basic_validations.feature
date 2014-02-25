@@ -35,7 +35,7 @@ Feature: Basic Award Validations
   Scenario: The anticipated amount is less than the obligated amount
     When  the Award Modifier creates an Award with more obligated than anticipated amounts
     Then  an error should appear that says the anticipated amount must be equal to or more than obligated
-  @test
+
   Scenario: Attempt to link an IP that has not been approved
     Given the Proposal Creator submits a new Proposal into routing
     And   the OSP Administrator submits the Proposal to its sponsor
@@ -47,9 +47,9 @@ Feature: Basic Award Validations
     And   adds a subaward to the Award
     And   adds the same organization as a subaward again to the Award
     When  data validation is turned on for the Award
-    Then  an error should appear that says the duplicate organizations is shown
-
+    Then  an error should appear on the actions page that says the duplicate organizations is shown
+  @test
   Scenario: Terms are not entered in the Award
     Given the Award Modifier creates an Award
     When  data validation is turned on for the Award
-    Then  an error should appear that says the terms are missing
+    Then  an error should appear on the actions page that says the terms are missing
