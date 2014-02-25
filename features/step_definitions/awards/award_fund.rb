@@ -163,16 +163,17 @@ Then /^the status of the Funding Proposal should change to (.*)$/  do |status|
   on(InstitutionalProposalLookup).ip_status(@institutional_proposal.proposal_number)==status
 end
 
-Given(/^the (.*) adds an Institutional Proposal to an Award$/) do |role_name|
-  steps %{
+# Don't parameterize this unless and until it's necessary...
+Given /^the Award Modifier adds a new Institutional Proposal to a new Award$/ do
+  steps %q{
     * Users exist with the following roles: Proposal Creator, OSPApprover
     * a User exists with the roles: OSP Administrator, Proposal Submission in the 000001 unit
     * the Proposal Creator submits a new Proposal into routing
     * the OSPApprover approves the Proposal without future approval requests
     * the principal investigator approves the Proposal
     * the OSP Administrator submits the Proposal to its sponsor
-    * I log in with the #{role_name} user
-    * the #{role_name} user links the Funding Proposal to a new Award
+    * I log in with the Award Modifier user
+    * the Award Modifier user links the Funding Proposal to a new Award
         }
 end
 

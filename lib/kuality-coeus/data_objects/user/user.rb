@@ -16,6 +16,10 @@ class Users < Array
     self.find { |user| user.type == type }
   end
 
+  def all_with_role(role_name)
+    self.find_all { |user| user.roles.detect{|r| r.name==role_name} }
+  end
+
   def with_role(role_name)
     self.find { |user| user.roles.detect{|r| r.name==role_name} }
   end
