@@ -6,7 +6,7 @@ Feature: Creating Proposal Logs
 
   Background:
     * a User exists with the role: 'Create Proposal Log'
-  @test
+
   Scenario: Attempt to create a new Proposal Log Document with a missing required field
     Given the Create Proposal Log user creates a Proposal Log but misses a required field
     When  the Create Proposal Log user submits the Proposal Log

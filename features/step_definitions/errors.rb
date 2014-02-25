@@ -13,11 +13,11 @@ Then /^an error should appear that says (.*)$/ do |error|
             'the user already holds investigator role' => %|#{@first_name} #{@last_name} already holds Investigator role.|,
             'not to select other roles alongside aggregator' => 'Do not select other roles when Aggregator is selected.',
             'the lead unit code is invalid' => 'Lead Unit is invalid.',
-            'the co-investigator requires at least one unit' => %|At least one Unit is required for #{@proposal.key_personnel.co_investigator.full_name}.|,
+            #'the co-investigator requires at least one unit' => %|At least one Unit is required for #{@proposal.key_personnel.co_investigator.full_name}.|,
             'only one version can be final' => 'Only one Budget Version can be marked "Final".',
-            'the investigators are not all certified' => %|The Investigators are not all certified. Please certify #{@proposal.key_personnel[0].first_name}  #{@proposal.key_personnel[0].last_name}.|,
+            #'the investigators are not all certified' => %|The Investigators are not all certified. Please certify #{@proposal.key_personnel[0].first_name}  #{@proposal.key_personnel[0].last_name}.|,
             'a revision type must be selected' => 'S2S Revision Type must be selected when Proposal Type is Revision.',
-            'I need to select the Other revision type' => %|The revision 'specify' field is only applicable when the revision type is "Other"|,
+            %|I need to select the 'Other' revision type| => %|The revision 'specify' field is only applicable when the revision type is "Other"|,
             'an original proposal ID is needed'=>'Please provide an original institutional proposal ID that has been previously submitted to Grants.gov for a Change\/Corrected Application.',
             'the prior award number is required'=> %|require the sponsor's prior award number in the "sponsor proposal number."|,
             'sponsor deadline date not entered' => 'Sponsor deadline date has not been entered.',
@@ -25,15 +25,29 @@ Then /^an error should appear that says (.*)$/ do |error|
             'you must complete the compliance question' => 'Answer is required for Question 1 in group B. Compliance.',
             'proposal questions were not answered' => 'Answer is required for Question 1 in group A. Proposal Questions.',
             'a valid sponsor is required' => 'A valid Sponsor Code (Sponsor) must be selected.',
-            'the duplicate organizations is shown' => '',
-            'the terms are missing' => '',
             'the Account ID may only contain letters or numbers' => 'The Account ID (Account ID) may only consist of letters or digits.',
             'the Award\'s title contains invalid characters' => 'The Award Title (Title) may only consist of visible characters, spaces, or tabs.',
-            'the Award\'s title can\'t be longer than 200 characters' => 'The specified Award Title (Title) must not be longer than 200 characters.',
+            'the Award\'s title can\'t be longer than 200 characters' => 'Must be at most 200 characters',
             'the anticipated amount must be equal to or more than obligated' => 'The Anticipated Amount must be greater than or equal to Obligated Amount.'
 
   }
   $current_page.errors.should include errors[error]
+end
+
+Then /^an error should appear on the actions page that says (.*)$/ do |error|
+  errors = { 'there are duplicate organizations' => 'There is a duplicate organization name.',
+             'there is no principal investigator' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.',
+             'sponsor deadline date not entered' => 'Sponsor deadline date has not been entered.',
+             'the key person is not certified'  => %|The Investigators are not all certified. Please certify #{@proposal.key_personnel[0].first_name}  #{@proposal.key_personnel[0].last_name}.|
+
+  }
+  $current_page.validation_errors_and_warnings.should include errors[error]
+end
+
+Then /^errors about the missing terms are shown$/ do
+  ['Equipment Approval', 'Invention','Prior Approval','Property','Publication',
+   'Referenced Document','Rights In Data','Subaward Approval','Travel Restrictions']
+  .each { |term| $current_page.validation_errors_and_warnings.should include "There must be at least one #{term} Terms defined." }
 end
 
 #########################
@@ -41,22 +55,13 @@ end
 #########################
 Then /^an error should appear indicating the field is required$/ do
   error = case @required_field
+            when 'Lead Unit ID'
+              'Lead Unit ID is a required field.'
             when 'Description'
-              "Document #{@required_field} is a required field."
-            when 'Lead Unit'
-              'Lead Unit ID (Lead Unit ID) is a required field.'
-            when 'Activity Type', 'Transaction Type', 'Award Status', 'Award Type', 'Project End Date'
-              "#{@required_field} (#{@required_field}) is a required field."
-            when 'Sponsor ID'
-              "Sponsor ID (Sponsor) is a required field"
-            when 'Award Title'
-              "Award Title (Title) is a required field."
-            when 'Anticipated Amount'
-              'The Anticipated Amount must be greater than or equal to Obligated Amount.'
+              "Document Description is a required field."
             else
               "#{@required_field} is a required field."
           end
-  $current_page.error_summary.wait_until_present(5)
   $current_page.errors.should include error
 end
 
@@ -85,9 +90,9 @@ end
 Then(/^an error should appear on the page to indicate the field is required$/) do
   error = case @required_field
             when 'Description'
-              "Document #{@required_field} (Document #{@required_field}) is a required field."
+              "Document #{@required_field} (Description) is a required field."
             when 'Principal Investigator'
-              "Principal Investigator (employee or non-employee) is required."
+              "A Principal Investigator (employee or non-employee) is required."
             else
               "#{@required_field} (#{@required_field}) is a required field."
           end
@@ -100,7 +105,7 @@ end
 Then /^an error notification appears to indicate the field is required$/ do
   error = case @required_field
             when 'Sponsor ID'
-              'Sponsor Code is a required field.'
+              'A valid Sponsor Code (Sponsor) must be selected.'
             else
               "#{@required_field} is a required field."
           end

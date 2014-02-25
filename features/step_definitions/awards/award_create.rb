@@ -23,8 +23,7 @@ end
 When /^I ? ?creates? an Award with a missing required field$/ do
   @required_field = ['Description', 'Transaction Type', 'Award Status',
                      'Award Title', 'Activity Type', 'Award Type',
-                     'Project End Date', 'Lead Unit', 'Obligation Start Date',
-                     'Obligation End Date','Anticipated Amount'
+                     'Project End Date', 'Lead Unit'
   ].sample
   @required_field=~/(Type|Status)/ ? value='select' : value=' '
   field = damballa(@required_field)

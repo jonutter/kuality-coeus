@@ -47,9 +47,9 @@ Feature: Basic Award Validations
     And   adds a subaward to the Award
     And   adds the same organization as a subaward again to the Award
     When  data validation is turned on for the Award
-    Then  an error should appear that says the duplicate organizations is shown
+    Then  an error should appear on the actions page that says there are duplicate organizations
 
   Scenario: Terms are not entered in the Award
     Given the Award Modifier creates an Award
     When  data validation is turned on for the Award
-    Then  an error should appear that says the terms are missing
+    Then  errors about the missing terms are shown
