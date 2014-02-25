@@ -1,14 +1,14 @@
-#When /^the (.*) user creates a Proposal Log but misses a required field$/ do |role_name|
-#  steps %{ * I log in with the #{role_name} user }
-#  # Pick a field at random for the test...
-#  @required_field = ['Title', 'Proposal Type', 'Lead Unit'
-#          ].sample
-#  # Properly set the nil value depending on the field type...
-#  @required_field=~/Type/ ? value='select' : value=''
-#  # Transform the field name to the appropriate symbol...
-#  field = damballa(@required_field)
-#  @proposal_log = create ProposalLogObject, field=>value
-#end
+When /^the (.*) user creates a Proposal Log but misses a required field$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
+  # Pick a field at random for the test...
+  @required_field = ['Title', 'Proposal Type', 'Lead Unit'
+          ].sample
+  # Properly set the nil value depending on the field type...
+  @required_field=~/Type/ ? value='select' : value=''
+  # Transform the field name to the appropriate symbol...
+  field = damballa(@required_field)
+  @proposal_log = create ProposalLogObject, field=>value
+end
 
 When /^the (.*) user creates a Proposal Log$/ do |role_name|
   steps %{ * I log in with the #{role_name} user }

@@ -7,7 +7,7 @@ Feature: Permissions in a Proposal
   Background: A proposal creator user creates a proposal
     * Users exist with the following roles: Proposal Creator, Unassigned
     * I log in with the Proposal Creator user
-    * create a Proposal
+    * the Proposal Creator creates a Proposal
 
   Scenario: The proposal creator is automatically an aggregator
     When  I visit the Proposal's Permissions page
@@ -20,20 +20,13 @@ Feature: Permissions in a Proposal
 
     Examples:
     | Role                 | Permissions                          |
-<<<<<<< HEAD
-    | Aggregator           | edit all parts of the proposal       |
-    | Budget Creator       | update the budget, not the narrative |
-    | Delete Proposal      | delete the proposal                  |
-    | Viewer               | only read the proposal               |
-=======
     | Aggregator           | edit all parts of the Proposal       |
     | Budget Creator       | update the Budget, not the narrative |
     | Delete Proposal      | delete the Proposal                  |
     | Viewer               | only read the Proposal               |
->>>>>>> b5d9b1517f265fb3eb5aa91416c8909b6f85e9be
 
   Scenario: Narrative Writers can't edit budget details
-    Given I create a Budget Version for the Proposal
+    Given the Proposal Creator user creates a Budget Version for the Proposal
     When  I assign the Unassigned user as a Narrative Writer in the proposal permissions
     Then  the Unassigned user can access the Proposal
     And   their proposal permissions do not allow them to edit budget details
