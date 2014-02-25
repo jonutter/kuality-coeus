@@ -17,7 +17,7 @@ Feature: Proposal Actions Validations
       Given the Proposal Creator creates a Proposal without a sponsor deadline date
       When  I activate a validation check
       Then  an error should appear on the actions page that says sponsor deadline date not entered
-    @test
+
     Scenario Outline: Investigators added but not certified
       Given I create a Proposal with an un-certified <Person>
       When  I activate a validation check
