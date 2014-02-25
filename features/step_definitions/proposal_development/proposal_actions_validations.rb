@@ -10,12 +10,6 @@ When /^the Proposal has no principal investigator$/ do
   #nothing needed for this step
 end
 
-
-
-Then /^one of the errors should say the investigators aren't all certified$/ do
-  on(ProposalActions).validation_errors_and_warnings.should include "The Investigators are not all certified. Please certify #{@proposal.key_personnel[0].first_name}  #{@proposal.key_personnel[0].last_name}."
-end
-
 When /^I? ?do not answer my proposal questions$/ do
   #nothing necessary for this step
 end

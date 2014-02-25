@@ -13,3 +13,16 @@ Feature: Basic validations for Development Proposals
   Scenario: Attempt to save a proposal with an invalid sponsor code
     When  the Proposal Creator creates a Proposal with an invalid sponsor code
     Then  an error should appear that says a valid sponsor is required
+
+  Scenario: Sponsor deadline date is missing
+
+  Scenario: A PI has not been added to the proposal
+
+  Scenario Outline: Investigators is added but not certified
+
+  Examples:
+    | Person                  |
+    | Co-Investigator         |
+    | Principal Investigator  |
+
+  Scenario: A Key Person is added but not certified
