@@ -10,17 +10,17 @@
   Scenario: Approval Requests for a Proposal are sent
     Given the Proposal Creator submits a new Proposal into routing
     Then  the Proposal status should be Approval Pending
-
+  @test
   Scenario: Approval Request is sent to the Proposal's PI
     Given the Proposal Creator submits a new Proposal into routing
     When  the OSPApprover user approves the Proposal
     Then  the principal investigator can access the Proposal from their action list
-    And   the approval buttons appear on the Proposal Summary and Proposal Action pages
+    And   the approval button appears on the Proposal Summary and Proposal Action pages
 
   Scenario: Approval Requests are sent to OSP representatives
     When  the Proposal Creator submits a new Proposal into routing
     Then  the OSPApprover can access the Proposal from their action list
-    And   the approval buttons appear on the Proposal Summary and Proposal Action pages
+    And   the approval button appears on the Proposal Summary and Proposal Action pages
 
   Scenario: Proposal is recalled
     Given the Proposal Creator submits a new Proposal into routing
