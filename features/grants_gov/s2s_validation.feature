@@ -11,7 +11,7 @@ Feature: Validating content of s2s proposals
   Scenario: Adding the opportunity
     Then  the opportunity details should appear on the page
     And   the 'remove opportunity' button should be present
-
+  @test
   Scenario: Enter wrong revision type information
     Given I select a revision type of 'Increase Award'
     And   enter a 'revision specify' description

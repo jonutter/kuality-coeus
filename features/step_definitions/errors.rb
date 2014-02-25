@@ -13,9 +13,9 @@ Then /^an error should appear that says (.*)$/ do |error|
             'the user already holds investigator role' => %|#{@first_name} #{@last_name} already holds Investigator role.|,
             'not to select other roles alongside aggregator' => 'Do not select other roles when Aggregator is selected.',
             'the lead unit code is invalid' => 'Lead Unit is invalid.',
-            'the co-investigator requires at least one unit' => %|At least one Unit is required for #{@proposal.key_personnel.co_investigator.full_name}.|,
+            #'the co-investigator requires at least one unit' => %|At least one Unit is required for #{@proposal.key_personnel.co_investigator.full_name}.|,
             'only one version can be final' => 'Only one Budget Version can be marked "Final".',
-            'the investigators are not all certified' => %|The Investigators are not all certified. Please certify #{@proposal.key_personnel[0].first_name}  #{@proposal.key_personnel[0].last_name}.|,
+            #'the investigators are not all certified' => %|The Investigators are not all certified. Please certify #{@proposal.key_personnel[0].first_name}  #{@proposal.key_personnel[0].last_name}.|,
             'a revision type must be selected' => 'S2S Revision Type must be selected when Proposal Type is Revision.',
             'I need to select the Other revision type' => %|The revision 'specify' field is only applicable when the revision type is "Other"|,
             'an original proposal ID is needed'=>'Please provide an original institutional proposal ID that has been previously submitted to Grants.gov for a Change\/Corrected Application.',
@@ -29,7 +29,7 @@ Then /^an error should appear that says (.*)$/ do |error|
             'the terms are missing' => '',
             'the Account ID may only contain letters or numbers' => 'The Account ID (Account ID) may only consist of letters or digits.',
             'the Award\'s title contains invalid characters' => 'The Award Title (Title) may only consist of visible characters, spaces, or tabs.',
-            'the Award\'s title can\'t be longer than 200 characters' => 'The specified Award Title (Title) must not be longer than 200 characters.',
+            'the Award\'s title can\'t be longer than 200 characters' => 'Must be at most 200 characters',
             'the anticipated amount must be equal to or more than obligated' => 'The Anticipated Amount must be greater than or equal to Obligated Amount.'
 
   }
