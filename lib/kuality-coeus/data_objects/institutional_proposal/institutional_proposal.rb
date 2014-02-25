@@ -61,6 +61,22 @@ class InstitutionalProposalObject < DataObject
     end
   end
 
+  def edit opts={}
+    view :institutional_proposal
+    on InstitutionalProposal do |edit|
+      edit.edit if edit.edit_button.present?
+      edit.expand_all
+
+
+
+      # DEBUG
+      sleep 60
+
+
+
+    end
+  end
+
   def view(tab)
     open_document
     on(InstitutionalProposal).send(StringFactory.damballa(tab.to_s))

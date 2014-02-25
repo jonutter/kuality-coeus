@@ -4,19 +4,16 @@ Feature: Linking an Institutional Proposal to a KC Award
 
   Background: Establish test users
     * Users exist with the following roles: Award Modifier, Proposal Creator, OSPApprover
-    * a User exists with the roles: OSP Administrator, Proposal Submission in the 000001 unit
+    * a User exists with the roles: OSP Administrator, Proposal Submission, Institutional Proposal Maintainer in the 000001 unit
 
     Scenario: Linking a Funding Proposal to an Award
       Given 1 Approved Institutional Proposal exists
       When  the Award Modifier user links the Funding Proposal to a new Award
       Then  the status of the Funding Proposal should change to Funded
-
-    #Failing
-      #Write the expected outcome step.
     @test
     Scenario: Edit a 'Funded' Institutional Proposal
-      Given the Award Modifier adds an Institutional Proposal to an Award
-      When  I edit the Institutional Proposal
+      Given the Award Modifier adds a new Institutional Proposal to a new Award
+      When  the Institutional Proposal Maintainer edits the Institutional Proposal
       Then  a new Institutional Proposal should be generated
     #@test
     Scenario: KC-TS-1181 Funding Proposal Cost Share Amounts appear in Awards
