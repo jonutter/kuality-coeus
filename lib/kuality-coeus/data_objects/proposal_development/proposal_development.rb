@@ -257,6 +257,16 @@ class ProposalDevelopmentObject < DataObject
     end
   end
 
+  def approve_from_action_list
+    visit(ActionList).filter
+    on ActionListFilter do |page|
+      page.document_title.set @project_title
+      page.filter
+    end
+    on(ActionList).open_item(@document_id)
+    on(ProposalSummary).approve
+  end
+
   alias :sponsor_code :sponsor_id
 
   # =======

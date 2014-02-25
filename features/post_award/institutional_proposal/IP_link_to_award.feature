@@ -13,11 +13,12 @@ Feature: Linking an Institutional Proposal to a KC Award
 
     #Failing
       #Write the expected outcome step.
+    @test
     Scenario: Edit a 'Funded' Institutional Proposal
       Given the Award Modifier adds an Institutional Proposal to an Award
       When  I edit the Institutional Proposal
       Then  a new Institutional Proposal should be generated
-    @test
+    #@test
     Scenario: KC-TS-1181 Funding Proposal Cost Share Amounts appear in Awards
       Given the Proposal Creator creates a Proposal
       And   creates a Budget Version with cost sharing for the Proposal

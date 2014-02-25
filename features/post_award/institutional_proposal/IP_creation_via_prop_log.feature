@@ -15,7 +15,7 @@ Feature: Creating an Institutional Proposal from a Proposal Log
     Then  an error should appear indicating the field is required
 
   Scenario: Attempt to merge a temporary Proposal Log with an Institutional Proposal
-    Given a Funding Proposal has been generated out of the Development Proposal workflow
+    Given 1 Approved Institutional Proposal exists
     When  the Create Proposal Log user submits a new Temporary Proposal Log
     And   the Create Proposal Log user merges the temporary proposal log with the Funding Proposal
     Then  the Proposal Log's status should reflect it has been Merged

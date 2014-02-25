@@ -80,16 +80,14 @@ And /^the principal investigator approves the Proposal$/ do
     log_in.username.set @proposal.key_personnel.principal_investigator.user_name
     log_in.login
   end
-  steps '* I can access the proposal from my action list'
-  on(ProposalSummary).approve
+  @proposal.approve_from_action_list
   visit(Researcher).logout
 end
 
 And /^the (.*) approves the Proposal (with|without) future approval requests$/ do |role_name, future_requests|
   steps %{* I log in with the #{role_name} user }
   conf = {'with' => :yes, 'without' => :no}
-  steps '* I can access the proposal from my action list'
-  on(ProposalSummary).approve
+  @proposal.approve_from_action_list
   on(Confirmation).send(conf[future_requests])
 end
 
