@@ -8,7 +8,7 @@ Then /^an error should appear that says (.*)$/ do |error|
             'the credit split is not a valid percentage' => 'Credit Split is not a valid percentage.',
             'only one PI is allowed' => 'Only one proposal role of Principal Investigator is allowed.',
             'the IP can not be added because it\'s not fully approved' => 'Cannot add this funding proposal. The associated Development Proposal has "Approval Pending - Submitted" status.',
-            'approval should occur later than the application' => 'Approval Date should be the same or later than Application Date.',
+            'the approval should occur later than the application' => 'Approval Date should be the same or later than Application Date.',
             'the user already holds investigator role' => %|#{@first_name} #{@last_name} already holds Investigator role.|,
             'not to select other roles alongside aggregator' => 'Do not select other roles when Aggregator is selected.',
             'the lead unit code is invalid' => 'Lead Unit is invalid.',

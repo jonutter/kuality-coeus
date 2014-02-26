@@ -42,7 +42,8 @@ When /^I? ?add a key person with an invalid unit type$/ do
                            units: [{number: 'invalid'}]
 end
 
-When /^I? ?adds? a principal investigator to the Proposal$/ do
+When /^(the (.*) |)adds? a principal investigator to the Proposal$/ do |text, role_name|
+  steps %{ * I log in with the #{role_name} user } unless text == ''
   @proposal.add_principal_investigator
 end
 
