@@ -2,8 +2,9 @@ class InstitutionalProposal < KCInstitutionalProposal
 
   description_field
 
-  value(:institutional_proposal_number) { |b| b.institutional_proposal_tab.table[0][1].text }
-  value(:status_ro) { |b| b.institutional_proposal_tab.table[2][3].text }
+  value(:institutional_proposal_number) { |b| b.institutional_proposal_tab.table[0][1].text.strip }
+  value(:status_ro) { |b| b.institutional_proposal_tab.table[2][3].text.strip }
+  value(:version) { |b| b.institutional_proposal_tab.table[0][3].text.strip }
   element(:status) { |b| b.frm.select(name: 'document.institutionalProposal.statusCode') }
   element(:award_id) { |b| b.frm.text_field(name: 'document.institutionalProposalList[0].currentAwardNumber') }
   element(:proposal_type) { |b| b.frm.select(name: 'document.institutionalProposalList[0].proposalTypeCode') }
