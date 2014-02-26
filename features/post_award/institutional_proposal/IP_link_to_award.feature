@@ -10,12 +10,12 @@ Feature: Linking an Institutional Proposal to a KC Award
       Given 1 Approved Institutional Proposal exists
       When  the Award Modifier user links the Funding Proposal to a new Award
       Then  the status of the Funding Proposal should change to Funded
-    @test
+
     Scenario: Edit a 'Funded' Institutional Proposal
       Given the Award Modifier adds a new Institutional Proposal to a new Award
       When  the Institutional Proposal Maintainer edits the Institutional Proposal
       Then  a new Institutional Proposal should be generated
-    #@test
+
     Scenario: KC-TS-1181 Funding Proposal Cost Share Amounts appear in Awards
       Given the Proposal Creator creates a Proposal
       And   creates a Budget Version with cost sharing for the Proposal
