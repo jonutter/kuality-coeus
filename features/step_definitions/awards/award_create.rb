@@ -38,7 +38,3 @@ Given /^the Award Modifier creates an Award including an Account ID, Account Typ
   steps 'Given I log in with the Award Modifier user'
   @award = create AwardObject
 end
-
-Then /^a new Institutional Proposal should be generated$/ do
-  puts
-end

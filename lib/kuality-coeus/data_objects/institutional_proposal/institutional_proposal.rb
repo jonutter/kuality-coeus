@@ -66,14 +66,8 @@ class InstitutionalProposalObject < DataObject
     on InstitutionalProposal do |edit|
       edit.edit if edit.edit_button.present?
       edit.expand_all
-
-
-
-      # DEBUG
-      sleep 60
-
-
-
+      edit_fields opts, edit, :proposal_type, :award_id, :activity_type, :project_title, :description
+      edit.save
     end
   end
 
