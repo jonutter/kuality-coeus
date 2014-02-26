@@ -8,7 +8,7 @@ Feature: Linking an Institutional Proposal to a KC Award
 
     Scenario: Linking a Funding Proposal to an Award
       Given 1 Approved Institutional Proposal exists
-      When  the Award Modifier user links the Funding Proposal to a new Award
+      When  the Award Modifier links the Funding Proposal to a new Award
       Then  the status of the Funding Proposal should change to Funded
       And   the Funding Proposal version should be '2'
 

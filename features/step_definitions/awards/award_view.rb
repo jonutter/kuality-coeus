@@ -184,3 +184,21 @@ And /^the Award\'s F&A data are from the first Proposal$/ do
     page.unrecovered_fna_total.groom.should==@ips[0].unrecovered_fa.total
   end
 end
+
+And /^the Award Modifier can see that the Funding Proposal has been removed from the Award$/ do
+  steps '* I log in with the Award Modifier user'
+  @award.view :award
+  on Award do |page|
+    page.expand_all
+    #TODO: Improve what's being validated, here...
+    page.current_funding_proposals_table.rows.size.should==4
+  end
+end
+
+And(/^the Award's version number is '(\d+)'$/) do |version|
+  @award.view :award
+  on Award do |page|
+    page.expand_all
+    page.version.should==version
+  end
+end
