@@ -35,6 +35,6 @@ Feature: Proposal Key Personnel Validations
     Then an error should appear that says to select a valid unit
   @test
   Scenario: Error when adding the same user as a PI and Co-Investigator
-    When
+    When the Proposal Creator adds a principal investigator to the Proposal
     And  I add the same person to the Proposal as a PI and Co-Investigator
     Then an error should appear that says the user already holds investigator role
