@@ -31,10 +31,11 @@ When /^I ? ?creates? an Award with a missing required field$/ do
 end
 
 When /^the Award Modifier creates an Award with more obligated than anticipated amounts$/ do
+  steps '* I log in with the Award Modifier user'
   @award = create AwardObject, anticipated_amount: '9999.99', obligated_amount: '10000.00'
 end
 
 Given /^the Award Modifier creates an Award including an Account ID, Account Type, Prime Sponsor, and CFDA Number$/ do
-  steps 'Given I log in with the Award Modifier user'
+  steps '* I log in with the Award Modifier user'
   @award = create AwardObject
 end

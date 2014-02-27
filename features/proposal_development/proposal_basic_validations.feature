@@ -9,7 +9,7 @@ Feature: Basic validations for Development Proposals
   Scenario: Attempt to save a proposal missing a required field
     When  the Proposal Creator creates a Proposal while missing a required field
     Then  an error notification appears to indicate the field is required
-
+  @test
   Scenario: Attempt to save a proposal with an invalid sponsor code
     When  the Proposal Creator creates a Proposal with an invalid sponsor code
     Then  an error should appear that says a valid sponsor is required

@@ -3,7 +3,7 @@ Given /^(\d+) Approved Institutional Proposals? exists?$/ do |count|
   count.to_i.times {
     steps %q{
       * Users exist with the following roles: OSPApprover, Proposal Creator
-      * a User exists with the roles: OSP Administrator, Proposal Submission in the 000001 unit
+      * a User exists with the roles: OSP Administrator, Proposal Submission, Institutional Proposal Maintainer in the 000001 unit
       * the Proposal Creator submits a new Proposal into routing
       * the OSPApprover approves the Proposal without future approval requests
       * the principal investigator approves the Proposal
@@ -167,7 +167,7 @@ end
 Given /^the Award Modifier adds a new Institutional Proposal to a new Award$/ do
   steps %q{
     * Users exist with the following roles: Proposal Creator, OSPApprover
-    * a User exists with the roles: OSP Administrator, Proposal Submission in the 000001 unit
+    * a User exists with the roles: OSP Administrator, Proposal Submission, Institutional Proposal Maintainer in the 000001 unit
     * the Proposal Creator submits a new Proposal into routing
     * the OSPApprover approves the Proposal without future approval requests
     * the principal investigator approves the Proposal

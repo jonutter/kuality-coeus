@@ -33,7 +33,7 @@ Feature: Permissions in a Proposal
 
   Scenario Outline: Proposal permissions are not passed onto future proposals created by the same creator
     Given I assign the Unassigned user as a <Role> in the proposal permissions
-    When  I create a second Proposal
+    When  the Proposal Create creates a second Proposal
     Then  the Unassigned user should not be listed as a <Role> in the second Proposal
 
   Examples:
@@ -48,7 +48,7 @@ Feature: Permissions in a Proposal
   Scenario Outline: Users who are assigned the Aggregator role cannot be assigned additional roles
     Given I assign the <Role> user as an aggregator in the proposal permissions
     When  I add an additional proposal role to the <Role> user
-    Then  there should be an error message that says not to select other roles alongside aggregator
+    Then  an error should appear that says not to select other roles alongside aggregator
 
   Examples:
     | Role             |

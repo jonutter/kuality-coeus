@@ -21,7 +21,7 @@ Feature: Proposal Actions Validations
     Scenario Outline: Investigators added but not certified
       Given I create a Proposal with an un-certified <Person>
       When  I activate a validation check
-      Then  an error should appear on the actions page that says the key person is not certified
+      Then  an error about un-certified personnel is shown on the actions page
 
     Examples:
       | Person                  |
@@ -31,4 +31,4 @@ Feature: Proposal Actions Validations
     Scenario: A Key Person is added but not certified
       Given I create a Proposal where the un-certified key person has included certification questions
       When  I activate a validation check
-      Then  an error should appear on the actions page that says the key person is not certified
+      Then  an error about un-certified personnel is shown on the actions page
