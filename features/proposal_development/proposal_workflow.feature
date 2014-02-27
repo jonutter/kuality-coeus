@@ -26,12 +26,6 @@
     Given the Proposal Creator submits a new Proposal into routing
     When  I recall the Proposal
     Then  the Proposal status should be Revisions Requested
-  @maybe_bunk
-  Scenario: An FYI is sent to an OSP representative
-    Given the Proposal Creator creates a Proposal
-    When  they send a notification to the OSPApprover user
-    Then  the OSPApprover's requested Proposal action should be: FYI
-    And   they can acknowledge the requested action list item
 
   Scenario: An OSP Admin overrides a budget's cost sharing amount
     Given the Budget Column's 'Cost Sharing Amount' has a lookup for 'Proposal Cost Share' that returns 'Amount'
