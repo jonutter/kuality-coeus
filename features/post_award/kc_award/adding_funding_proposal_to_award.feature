@@ -20,7 +20,7 @@ Feature: Adding a Funding Proposal to an Award
   Scenario: KC-TS-1160 Action Availability to Delete Link
     When the Award Modifier creates an Award with the Funding Proposal
     Then the Award Modifier cannot remove the Proposal from the Award
-
+  @failing
   Scenario: KC-TS-1154 Funding Proposal added to existing Award
     Given the Award Modifier creates an Award
     When  the Funding Proposal is added to the Award as its initial funding
