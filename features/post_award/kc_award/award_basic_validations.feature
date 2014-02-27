@@ -31,7 +31,7 @@ Feature: Basic Award Validations
     Given the Award Modifier creates an Award
     When  the Award's title is made more than 200 characters long
     Then  an error should appear that says the Award's title can't be longer than 200 characters
-
+  @test
   Scenario: The anticipated amount is less than the obligated amount
     When  the Award Modifier creates an Award with more obligated than anticipated amounts
     Then  an error should appear that says the anticipated amount must be equal to or more than obligated
@@ -47,7 +47,7 @@ Feature: Basic Award Validations
     And   adds a subaward to the Award
     And   adds the same organization as a subaward again to the Award
     When  data validation is turned on for the Award
-    Then  an error should appear on the actions page that says there are duplicate organizations
+    Then  an error is shown that says there are duplicate organizations
 
   Scenario: Terms are not entered in the Award
     Given the Award Modifier creates an Award
