@@ -23,7 +23,6 @@ class IRBProtocolDevelopmentObject < DataObject
   end
 
   def create
-    window_cleanup
     visit(Researcher).create_irb_protocol
     on ProtocolOverview do |doc|
       @document_id=doc.document_id
@@ -34,8 +33,10 @@ class IRBProtocolDevelopmentObject < DataObject
       @expiration_date=doc.expiration_date
       doc.expand_all
       fill_out doc, :description, :protocol_type, :title
+    end
       set_lead_unit
       set_pi
+    on ProtocolOverview do |doc|
       doc.save
       @protocol_number=doc.protocol_number
     end
