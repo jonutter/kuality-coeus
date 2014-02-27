@@ -18,6 +18,4 @@ class ActionList < BasePage
   action(:default_action) { |b| b.frm.select(name: 'defaultActionToTake') }
   action(:apply_default_action) { |b| b.frm.link(align: 'absmiddle').click }
 
-
-
 end

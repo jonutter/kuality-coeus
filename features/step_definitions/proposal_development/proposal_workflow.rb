@@ -1,6 +1,6 @@
 # This step mentions user roles because it best fits into the context of
 # our 'Given we have users with the roles' step
-When /^I? ?send a notification to the (.*) users?$/ do |role|
+When /^they send a notification to the (.*) users?$/ do |role|
   role = role.split(', ')
 
   on(PDCustomData).proposal_actions
@@ -15,15 +15,38 @@ When /^I? ?send a notification to the (.*) users?$/ do |role|
     end
     on(NotificationEditor).add
   end
-  on(NotificationEditor).send_fyi
+  on NotificationEditor do |page|
+    page.subject.set random_alphanums
+    page.message.set random_multiline
+    page.send_fyi
+  end
 end
 
 Then /^the Proposal status should be (.*)$/ do |status|
   @proposal.status.should == status
 end
 
-Then /^I should receive an action list item with the requested action being: (.*)$/ do |action|
+# Only parameterize the user when necessary!
+Then /^the OSPApprover's requested Proposal action should be: (.*)$/ do |action|
+  steps '* log in with the OSPApprover user'
+
+
+  # DEBUG
+  puts @proposal.document_id
+  visit(ActionList).filter
+  on ActionListFilter do |page|
+    page.document_title.set @proposal.project_title
+    page.filter
+  end
+
+  sleep 180
+  exit
+
   visit ActionList do |page|
+
+
+
+
     page.last if page.last_button.present?
     # This code is needed because the list refresh
     # may not happen immediately...
@@ -43,7 +66,7 @@ Then /^I should receive an action list item with the requested action being: (.*
   end
 end
 
-Then /^I can acknowledge the requested action list item$/ do
+Then /^they can acknowledge the requested action list item$/ do
   on ActionList do |page|
     page.action(@proposal.document_id.to_i + 1).select 'FYI'
     page.take_actions
