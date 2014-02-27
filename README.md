@@ -28,8 +28,10 @@ Contribute to the Project
 
 1. Fork the repository
 2. Study the TestFactory design pattern
-3. Write a feature and associated scenarios, along with the underlying support code
-3. Send a pull request
+3. Make a new branch to contain your work
+4. Write a feature and associated scenarios, along with the underlying support code
+5. Squash your commits
+6. Send a pull request, with a concise description of your changes
 
 Copyright 2014 The Kuali Foundation
 -----------------------------------
