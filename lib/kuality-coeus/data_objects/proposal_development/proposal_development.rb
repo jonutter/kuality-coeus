@@ -290,7 +290,14 @@ class ProposalDevelopmentObject < DataObject
         lookup_class: @lookup_class,
         search_key: @search_key
     }
-    opts.merge!(defaults)
+    remove_me = opts.merge!(defaults)
+
+
+    #DEBUG
+    puts opts.inspect
+
+
+    remove_me
   end
 
   def set_lead_unit

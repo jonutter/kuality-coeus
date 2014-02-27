@@ -80,8 +80,21 @@ When /^I add the same person to the Proposal as a PI and Co-Investigator$/ do
   visit PersonLookup do |page|
     page.search
     names = page.returned_full_names
+
+
+
+    puts names.inspect
+
+
     index = rand(names.size)
     @user_name = page.returned_principal_names[index]
+
+
+
+
+    puts @user_name.inspect
+
+
     @last_name = names[index][/^.+(?=,)/]
     @first_name = names[index][/(?<=, ).+$/]
   end

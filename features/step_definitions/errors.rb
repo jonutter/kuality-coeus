@@ -11,8 +11,7 @@ Then /^an error should appear that says (.*)$/ do |error|
             'the approval should occur later than the application' => 'Approval Date should be the same or later than Application Date.',
             'the user already holds investigator role' => %|#{@first_name} #{@last_name} already holds Investigator role.|,
             'not to select other roles alongside aggregator' => 'Do not select other roles when Aggregator is selected.',
-            'the lead unit code is invalid' => 'Lead Unit is invalid.',
-            #'the co-investigator requires at least one unit' => %|At least one Unit is required for #{@proposal.key_personnel.co_investigator.full_name}.|,
+            'the co-investigator requires at least one unit' => %|At least one Unit is required for #{@proposal.key_personnel.co_investigator.full_name}.|,
             'only one version can be final' => 'Only one Budget Version can be marked "Final".',
             #'the investigators are not all certified' => %|The Investigators are not all certified. Please certify #{@proposal.key_personnel[0].first_name}  #{@proposal.key_personnel[0].last_name}.|,
             'a revision type must be selected' => 'S2S Revision Type must be selected when Proposal Type is Revision.',
@@ -28,7 +27,6 @@ Then /^an error should appear that says (.*)$/ do |error|
             'the Award\'s title contains invalid characters' => 'The Award Title (Title) may only consist of visible characters, spaces, or tabs.',
             'the Award\'s title can\'t be longer than 200 characters' => 'Must be at most 200 characters',
             'the anticipated amount must be equal to or more than obligated' => 'The Anticipated Amount must be greater than or equal to Obligated Amount.'
-
   }
   $current_page.errors.should include errors[error]
 end
@@ -47,6 +45,10 @@ Then /^errors about the missing terms are shown$/ do
   ['Equipment Approval', 'Invention','Prior Approval','Property','Publication',
    'Referenced Document','Rights In Data','Subaward Approval','Travel Restrictions']
   .each { |term| $current_page.validation_errors_and_warnings.should include "There must be at least one #{term} Terms defined." }
+end
+
+Then /^an error for the invalid unit code appears$/ do
+  $current_page.errors.should include "Lead Unit is invalid."
 end
 
 #########################
@@ -109,4 +111,8 @@ Then /^an error notification appears to indicate the field is required$/ do
               "#{@required_field} is a required field."
           end
   $current_page.errors.should include error
+end
+
+Then(/^an error requiring at least one unit is shown$/) do
+  $current_page.errors.should include %|At least one Unit is required for #{@proposal.key_personnel.co_investigator.full_name}.|
 end
