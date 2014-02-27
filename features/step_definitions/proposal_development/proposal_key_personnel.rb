@@ -55,7 +55,7 @@ When /^I? ?sets? valid credit splits for the Proposal$/ do
 end
 
 And /^the approval buttons appear on the Proposal Summary and Proposal Action pages$/ do
-  [:approve_button, :disapprove_button, :reject_button].each do
+  [:approve_button, :disapprove_button, :reject_button].each do |button|
     on ProposalSummary do |page|
       page.send(button).should exist
       page.proposal_actions

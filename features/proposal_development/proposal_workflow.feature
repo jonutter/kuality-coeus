@@ -10,7 +10,7 @@
   Scenario: Approval Requests for a Proposal are sent
     Given the Proposal Creator submits a new Proposal into routing
     Then  the Proposal status should be Approval Pending
-
+  @test
   Scenario: Approval Request is sent to the Proposal's PI
     Given the Proposal Creator submits a new Proposal into routing
     When  the OSPApprover user approves the Proposal
