@@ -13,7 +13,7 @@ Feature: Validating content of s2s proposals
     And   enter a 'revision specify' description
     When  I save the Proposal
     Then  an error should appear that says I need to select the 'Other' revision type
-  @test
+
   Scenario: Don't enter S2S Revision Type for a revision proposal
     Given I set the proposal type to 'Revision'
     When  I go to the Proposal's S2S page
