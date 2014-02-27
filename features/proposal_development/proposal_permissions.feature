@@ -33,7 +33,7 @@ Feature: Permissions in a Proposal
 
   Scenario Outline: Proposal permissions are not passed onto future proposals created by the same creator
     Given I assign the Unassigned user as a <Role> in the proposal permissions
-    When  the Proposal Create creates a second Proposal
+    When  the Proposal Creator creates a second Proposal
     Then  the Unassigned user should not be listed as a <Role> in the second Proposal
 
   Examples:

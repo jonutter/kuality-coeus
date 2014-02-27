@@ -36,4 +36,4 @@ Feature: Proposal Key Personnel Validations
 
   Scenario: Error when adding the same user as a PI and Co-Investigator
     When I add the same person to the Proposal as a PI and Co-Investigator
-    Then an error indicating the user is already an investigator is shown
+    Then an error is shown that indicates the user is already an investigator
