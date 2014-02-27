@@ -10,7 +10,7 @@
   Scenario: Approval Requests for a Proposal are sent
     Given the Proposal Creator submits a new Proposal into routing
     Then  the Proposal status should be Approval Pending
-  @test
+
   Scenario: Approval Request is sent to the Proposal's PI
     Given the Proposal Creator submits a new Proposal into routing
     When  the OSPApprover user approves the Proposal
@@ -26,13 +26,6 @@
     Given the Proposal Creator submits a new Proposal into routing
     When  I recall the Proposal
     Then  the Proposal status should be Revisions Requested
-
-  Scenario: An FYI is sent to an OSP representative
-    Given the Proposal Creator creates a Proposal
-    When  I send a notification to the OSPApprover user
-    And   I log in with the OSPApprover user
-    Then  I should receive an action list item with the requested action being: FYI
-    And   I can acknowledge the requested action list item
 
   Scenario: An OSP Admin overrides a budget's cost sharing amount
     Given the Budget Column's 'Cost Sharing Amount' has a lookup for 'Proposal Cost Share' that returns 'Amount'
