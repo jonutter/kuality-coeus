@@ -1,10 +1,10 @@
-Kuality-Coeus: Cucumber Test Automation
-=======================================
+Kuality-Coeus: Test Automation
+==============================
 
 Overview
 --------
 
-This project consists of Cucumber-based test scripts for validating Kuali Coeus
+This project consists of Cucumber-based test scripts for validating Kuali Coeus functionality
 
 Requirements
 ------------
@@ -19,7 +19,7 @@ The contents of that file should be as follows:
 
 ```ruby
 :basic:
-  :url: https://<your.test.server.address.goes.here>/kc-dev/
+  :url: https://<your.kuali.test.server.address.goes.here>/kc-dev/
   :browser: :ff # ... or :chrome, :safari, etc.
 ```
 
@@ -28,12 +28,11 @@ Contribute to the Project
 
 1. Fork the repository
 2. Study the TestFactory design pattern
+3. Write a feature and associated scenarios, along with the underlying support code
 3. Send a pull request
 
-Copyright
----------
-
-	Copyright 2014 The Kuali Foundation
+Copyright 2014 The Kuali Foundation
+-----------------------------------
 
 	Licensed under the Educational Community License, Version 2.0 (the "License");
 	you may	not use this file except in compliance with the License.
