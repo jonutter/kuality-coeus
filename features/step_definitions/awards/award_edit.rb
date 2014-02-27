@@ -115,7 +115,7 @@ When /^the Funding Proposal is linked to a new Award$/ do
 end
 
 # Don't parameterize this until it's necessary
-And /^the Award Modifier user links the Funding Proposal to a new Award$/ do
+And /^the Award Modifier links the Funding Proposal to a new Award$/ do
   steps %q{
     * I log in with the Award Modifier user
     * the Funding Proposal is linked to a new Award
@@ -128,8 +128,9 @@ When /^the (.*) adds the Institutional Proposal to the Award$/ do |role_name|
   @award.add_funding_proposal @institutional_proposal.proposal_number, '::random::'
 end
 
-And /^the (.*) user can unlink the proposal$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user }
+# Don't parameterize until needed!
+And /^the Institutional Proposal Maintainer can unlink the proposal$/ do
+  steps %q{ * I log in with the Institutional Proposal Maintainer user }
   expect{
     @institutional_proposal.unlock_award(@award.id)
   }.not_to raise_error
@@ -142,8 +143,9 @@ Then /^the Institutional Proposal Maintainer cannot unlink the proposal$/ do
   on(InstitutionalProposalActions).errors.size.should > 0
 end
 
-And /^the (.*) user unlinks the proposal$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user }
+# Don't parameterize until needed!
+And /^the Institutional Proposal Maintainer unlinks the proposal$/ do
+  steps %q{ * I log in with the Institutional Proposal Maintainer user }
   @institutional_proposal.unlock_award(@award.id)
 end
 

@@ -68,6 +68,7 @@ class InstitutionalProposalObject < DataObject
       edit.expand_all
       edit_fields opts, edit, :proposal_type, :award_id, :activity_type, :project_title, :description
       edit.save
+      @document_id=edit.document_id
     end
   end
 
@@ -110,6 +111,8 @@ class InstitutionalProposalObject < DataObject
       page.funded_award(award_id).set
       page.unlock_selected
       confirmation
+      page.save
+      @document_id=page.document_id
     end
   end
 

@@ -13,7 +13,8 @@ class Award < KCAwards
   value(:award_id) { |b| b.frm.div(id: 'tab-DetailsDates:Institution-div').table[0][1].text }
   element(:award_status) { |b| b.frm.select(name: 'document.awardList[0].statusCode') }
   element(:lead_unit_id) { |b| b.frm.text_field(name: 'document.awardList[0].unitNumber') }
-  value(:lead_unit_ro) { |b| b.frm.div(id: 'tab-DetailsDates:Institution-div').table[0][3].text }
+  value(:lead_unit_ro) { |b| b.institution_table[0][3].text.strip }
+  value(:version) { |b| b.institution_table[1][1].text.strip }
   action(:lookup_lead_unit) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.Unit!!).(((unitNumber:document.awardList[0].unitNumber))).((`document.awardList[0].unitNumber:unitNumber`)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchorDetailsDates').click }
   element(:activity_type) { |b| b.frm.select(name: 'document.awardList[0].activityTypeCode') }
   element(:account_id) { |b| b.frm.text_field(name: 'document.awardList[0].accountNumber') }
@@ -43,6 +44,7 @@ class Award < KCAwards
   element(:approved_subaward_table) { |b| b.frm.table(summary: 'Approved Subaward') }
 
   element(:tm_table) { |b| b.frm.div(id: 'tab-DetailsDates:TimeMoney-div').table }
+  element(:institution_table) { |b| b.frm.div(id: 'tab-DetailsDates:Institution-div').table }
 
   element(:current_funding_proposals_table) { |b| b.frm.table(id: 'currentFundingProposalsTable') }
 
