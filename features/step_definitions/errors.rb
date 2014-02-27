@@ -25,15 +25,15 @@ Then /^an error should appear that says (.*)$/ do |error|
   $current_page.errors.should include errors[error]
 end
 
-Then(/^an error requiring at least one unit for the co-investigator is shown$/) do
+Then /^an error requiring at least one unit for the co-investigator is shown$/ do
   $current_page.errors.should include %|At least one Unit is required for #{@proposal.key_personnel.co_investigator.full_name}.|
 end
 
-Then(/^an error about un-certified personnel is shown on the actions page$/) do
-  $current_page.errors.should include %|The Investigators are not all certified. Please certify #{@proposal.key_personnel[0].first_name} #{@proposal.key_personnel[0].last_name}.|
+Then /^an error about un-certified personnel is shown$/ do
+  $current_page.validation_errors_and_warnings.should include %|The Investigators are not all certified. Please certify #{@proposal.key_personnel[0].first_name} #{@proposal.key_personnel[0].last_name}.|
 end
 
-Then /^an error should appear on the actions page that says (.*)$/ do |error|
+Then /^an error is shown that says (.*)$/ do |error|
   errors = { 'there are duplicate organizations' => 'There is a duplicate organization name.',
              'there is no principal investigator' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.',
              'sponsor deadline date not entered' => 'Sponsor deadline date has not been entered.'
@@ -47,11 +47,11 @@ Then /^errors about the missing terms are shown$/ do
   .each { |term| $current_page.validation_errors_and_warnings.should include "There must be at least one #{term} Terms defined." }
 end
 
-Then /^an error for the invalid unit code appears$/ do
+Then /^an error is shown that indicates the lead unit code is invalid$/ do
   $current_page.errors.should include "Lead Unit is invalid."
 end
 
-Then(/^an error indicating the user is already an investigator is shown$/) do
+Then /^an error is shown that indicates the user is already an investigator$/ do
   $current_page.errors.should include %|#{@first_name} #{@last_name} already holds Investigator role.|
 end
 
@@ -73,7 +73,7 @@ end
 #------------------------#
 # Institutional Proposal #
 #------------------------#
-Then(/^an error notification should appear to indicate the field is required$/) do
+Then /^an error notification should appear to indicate the field is required$/ do
   error = case @required_field
             when 'Activity Type'
               'Activity Type (Activity) is a required field.'
@@ -92,7 +92,7 @@ end
 #------------------------#
 # Proposal Log           #
 #------------------------#
-Then(/^an error should appear on the page to indicate the field is required$/) do
+Then /^an error should appear on the page to indicate the field is required$/ do
   error = case @required_field
             when 'Description'
               "Document #{@required_field} (Description) is a required field."
