@@ -27,7 +27,7 @@ Feature: Proposal Actions Validations
       | Person                  |
       | Co-Investigator         |
       | Principal Investigator  |
-
+    @test
     Scenario: A Key Person is added but not certified
       Given I create a Proposal where the un-certified key person has included certification questions
       When  I activate a validation check

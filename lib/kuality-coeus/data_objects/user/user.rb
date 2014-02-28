@@ -303,6 +303,9 @@ class UserObject
   #   tabs/windows and return to the
   #   original window
   def sign_in
+    if $users.logged_in_user.nil?
+      sign_out
+    end
     $users.logged_in_user.sign_out unless $users.current_user==nil
     visit Login do |log_in|
       log_in.username.set @user_name
