@@ -17,7 +17,7 @@ Feature: Proposal Actions Validations
       Given the Proposal Creator creates a Proposal without a sponsor deadline date
       When  I activate a validation check
       Then  an error is shown that says sponsor deadline date not entered
-    @failing
+
     Scenario Outline: Investigators added but not certified
       Given I create a Proposal with an un-certified <Person>
       When  I activate a validation check
@@ -27,7 +27,7 @@ Feature: Proposal Actions Validations
       | Person                  |
       | Co-Investigator         |
       | Principal Investigator  |
-    @failing
+    @test
     Scenario: A Key Person is added but not certified
       Given I create a Proposal where the un-certified key person has included certification questions
       When  I activate a validation check
