@@ -21,7 +21,13 @@ Feature: Adding a Funding Proposal to an Award
     When the Award Modifier creates an Award with the Funding Proposal
     Then the Award Modifier cannot remove the Proposal from the Award
 
-  Scenario: KC-TS-1154 Funding Proposal added to existing Award
+  Scenario Outline: Funding Proposal added to existing Award with Merge Type
     Given the Award Modifier creates an Award
-    When  the Funding Proposal is added to the Award as its initial funding
-    Then  all of the Award's details remain the same
+    When  the Funding Proposal is added to the Award with '<Merge Type>'
+    Then  <Expected Result>
+
+  Examples:
+    | Merge Type | Expected Result                                        |
+    | No Change  | all of the Award's details remain the same             |
+    | Merge      | all of the Award's details remain the same             |
+    | Replace    | all the Award's details are updated except the Sponsor |

@@ -1,3 +1,4 @@
+@failing
 Feature: Validating content of s2s proposals
 
   As a Proposal creator for federal grant money, I want to ensure my

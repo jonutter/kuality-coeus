@@ -15,6 +15,7 @@ Feature: Basic validations for Development Proposals
     Then  an error should appear that says a valid sponsor is required
   @failing
   Scenario: Sponsor deadline date is missing
+
   @failing
   Scenario: A PI has not been added to the proposal
   @failing
