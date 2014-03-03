@@ -21,7 +21,8 @@ When /^(the (.*) |)creates a Proposal with an un-certified (.*)$/ do |role_name,
   @proposal.add_key_person role: @role, certified: false
 end
 
-Given /^I? ?creates? a Proposal where the un-certified key person has included certification questions$/ do
+Given /^(the (.*) |)creates a Proposal where the un-certified key person has included certification questions$/ do |role_name|
+  steps %{ * I log in with the #{role_name} user }
   @role = 'Key Person'
   @proposal = create ProposalDevelopmentObject
   @proposal.add_key_person role: @role, key_person_role: 'default', certified: false
