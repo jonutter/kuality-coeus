@@ -27,7 +27,7 @@ Contribute to the Project
 -------------------------
 
 1. Fork the repository
-2. Study the TestFactory design pattern
+2. Study the [TestFactory design pattern](https://github.com/aheward/TestFactory#design-pattern) and how to [write Cucumber Features and Scenarios well](https://github.com/cucumber/cucumber/wiki/tutorials-and-related-blog-posts).
 3. Make a new branch to contain your work
 4. Write a feature and associated scenarios, along with the underlying support code
 5. Squash your commits
