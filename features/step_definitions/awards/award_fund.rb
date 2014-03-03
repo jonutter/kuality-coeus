@@ -82,6 +82,17 @@ Then /^all of the Award.s details remain the same$/ do
   end
 end
 
+Then /^all the Award's details are updated except the Sponsor$/ do
+  on Award do |page|
+    page.sponsor_id.value.should==@award.sponsor_id
+    page.activity_type.selected_options[0].text.should==@institutional_proposal.activity_type
+    page.nsf_science_code.selected_options[0].text.should==@institutional_proposal.nsf_science_code
+    page.award_title.value.should==@institutional_proposal.project_title
+    page.prime_sponsor.value.should==@institutional_proposal.prime_sponsor_id.to_s
+    page.cfda_number.value.should==@institutional_proposal.cfda_number.to_s
+  end
+end
+
 Then /^the Title, Activity Type, NSF Science Code, and Sponsor still match the( first)? Proposal$/ do |x|
   on Award do |page|
     page.activity_type.selected_options[0].text.should==@ips[0].activity_type
@@ -117,8 +128,8 @@ When /^the Funding Proposal is added to the Award$/ do
   @award.add_funding_proposal @institutional_proposal.proposal_number, '::random::'
 end
 
-When /^the Funding Proposal is added to the Award as its initial funding$/ do
-  @award.add_funding_proposal @institutional_proposal.proposal_number, 'Initial Funding'
+When /^the Funding Proposal is added to the Award with '(.*)'$/ do |type|
+  @award.add_funding_proposal @institutional_proposal.proposal_number, type
 end
 
 When /^the (.*) Funding Proposal is added to the Award with no change$/ do |count|
