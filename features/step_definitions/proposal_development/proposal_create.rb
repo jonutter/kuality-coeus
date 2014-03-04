@@ -70,6 +70,12 @@ end
 Given /^(the (.*) |)creates a Proposal without a sponsor deadline date$/ do |text, role_name|
   steps %{ * I log in with the #{role_name} user } unless text == ''
   @proposal = create ProposalDevelopmentObject, sponsor_deadline_date: ''
+
+
+  #debug
+  sleep 40
+
+
 end
 
 When /^(the (.*) |)submits the Proposal into routing$/ do |text, role_name|

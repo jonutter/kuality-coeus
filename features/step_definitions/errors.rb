@@ -55,6 +55,21 @@ Then /^an error is shown that indicates the user is already an investigator$/ do
   $current_page.errors.should include %|#{@first_name} #{@last_name} already holds Investigator role.|
 end
 
+Then(/^an error should appear on the proposal page indicating the deadline date is missing$/) do
+  on(ProposalActions).proposal
+  $current_page.errors.should include "Sponsor deadline date has not been entered."
+end
+
+Then(/^an error appears on the key personnel page that indicates a PI is required$/) do
+  on(ProposalActions).key_personnel
+  $current_page.errors.should include "There is no Principal Investigator selected. Please enter a Principal Investigator."
+end
+
+Then(/^an error appears on the key personnel page that indicates the personnel needs certification$/) do
+  on(ProposalActions).key_personnel
+  $current_page.errors.should include %|The Investigators are not all certified. Please certify #{@proposal.key_personnel[0].first_name} #{@proposal.key_personnel[0].last_name}.|
+end
+
 #-----------------------#
 # Award                 #
 #-----------------------#
