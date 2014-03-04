@@ -202,3 +202,12 @@ And(/^the Award's version number is '(\d+)'$/) do |version|
     page.version.should==version
   end
 end
+
+When(/^the (.*) user visits the Award$/) do |role_name|
+  steps %{ * I log in with the #{role_name} user }
+  visit(DocumentSearch) do |page|
+    page.document_id.set @award.document_id
+    page.search
+    page.open_doc @award.document_id
+  end
+end

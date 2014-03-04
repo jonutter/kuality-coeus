@@ -70,6 +70,10 @@ Then(/^an error appears on the key personnel page that indicates the personnel n
   $current_page.errors.should include %|The Investigators are not all certified. Please certify #{@proposal.key_personnel[0].first_name} #{@proposal.key_personnel[0].last_name}.|
 end
 
+Then(/^an error notification will indicate that the user cannot access the Award$/) do
+  on(AuthExceptionReport).error_message.should include %|user '#{@award.key_personnel.principal_investigator.user_name}' is not authorized to open document '#{@award.document_id}'|
+end
+
 #-----------------------#
 # Award                 #
 #-----------------------#

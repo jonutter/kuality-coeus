@@ -13,14 +13,16 @@ When /^the (.*) creates an Award$/ do |role_name|
   @award = create AwardObject, lead_unit: lead_unit
 end
 
-Given /^I? ?creates? an Award with (.*) as the Lead Unit$/ do |lead_unit|
+Given /^(the (.*) |)creates an Award with (.*) as the Lead Unit$/ do |text, role_name, lead_unit|
+  steps %{ * I log in with the #{role_name} user } unless text == ''
   @award = create AwardObject, lead_unit: lead_unit
 end
 
 #----------------------#
 #Award Validations Based on Errors During Creation
 #----------------------#
-When /^I ? ?creates? an Award with a missing required field$/ do
+When /^(the (.*) |)creates an Award with a missing required field$/ do |text, role_name|
+  steps %{ * I log in with the #{role_name} user } unless text == ''
   @required_field = ['Description', 'Transaction Type', 'Award Status',
                      'Award Title', 'Activity Type', 'Award Type',
                      'Project End Date', 'Lead Unit'

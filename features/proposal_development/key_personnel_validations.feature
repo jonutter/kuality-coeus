@@ -33,7 +33,7 @@ Feature: Proposal Key Personnel Validations
   Scenario: Error when adding a key person with an invalid unit
     When I add a key person with an invalid unit type
     Then an error should appear that says to select a valid unit
-  @test
+
   Scenario: Error when adding the same user as a PI and Co-Investigator
     When I add the same person to the Proposal as a PI and Co-Investigator
     Then an error is shown that indicates the user is already an investigator
