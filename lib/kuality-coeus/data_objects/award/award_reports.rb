@@ -1,33 +1,47 @@
 class AwardReportsObject < DataObject
 
-  attr_accessor :financial, :intellectual_property,
-                :procurement, :property
+  attr_accessor :award_id, :report, :type, :frequency,
+                :frequency_base, :osp_file_copy,
+                :due_date, :recipients, :details,
+                # :number is used for field identification in the list
+                :number
 
   def initialize(browser, opts={})
     @browser = browser
 
     defaults = {
-        financial:             [{type: '::random::'}], # TODO: support the other report fields here.
-        intellectual_property: [{type: '::random::'}],
-        procurement:           [{type: '::random::'}],
-        property:              [{type: '::random::'}],
-        proposals_due:         [{type: '::random::'}],
-        technical_management:  [{type: '::random::'}]
+      type:           '::random::',
+      frequency:      '::random::',
+      frequency_base: '::random::',
+      osp_file_copy:  '::random::'
+      #recipients:    collection('ReportRecipients'),
+      #details:       collection('ReportTrackingDetails')
     }
     set_options(defaults.merge(opts))
+    requires :award_id, :report, :number
   end
 
   def create
     on PaymentReportsTerms do |page|
       page.expand_all
-      @financial.each { |f| page.financial_report_type.pick! f[:type]; page.add_financial_report }
-      @intellectual_property.each { |ip| page.intellectual_property_report_type.pick! ip[:type]; page.add_intellectual_property_report }
-      @procurement.each { |pro| page.procurement_report_type.pick! pro[:type]; page.add_procurement_report }
-      @property.each { |prop| page.property_report_type.pick! prop[:type]; page.add_property_report }
-      @proposals_due.each { |prop| page.proposals_due_report_type.pick! prop[:type]; page.add_proposals_due_report }
-      @technical_management.each { |tm| page.technical_management_report_type.pick! tm[:type]; page.add_technical_management_report }
+      page.add_report_type(@report).pick! @type
+      page.add_frequency(@report).pick! @frequency
+      page.add_frequency_base(@report).pick! @frequency_base
+      page.add_osp_file_copy(@report).pick! @osp_file_copy
+      page.add_due_date(@report).fit @due_date
+      page.add_report(@report)
       page.save
     end
+  end
+
+end # AwardReportsObject
+
+class AwardReportsCollection < CollectionFactory
+
+  contains AwardReportsObject
+
+  def count_of(report_class)
+    self.count{ |r_obj| r_obj.report==report_class }
   end
 
 end

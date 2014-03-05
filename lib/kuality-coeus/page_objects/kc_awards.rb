@@ -23,19 +23,6 @@ class KCAwards < BasePage
 
   class << self
 
-    def report_types *types
-      types.each_with_index do |type, index|
-        # This line is here because the field values inexplicably skip the number 2.
-        i = index > 1 ? index+1 : index
-        name=damballa(type)
-        tag=type.gsub(/([\s\/])/,'')
-        element("#{name}_report_type".to_sym) { |b| b.reports_div.select(name: "awardReportsBean.newAwardReportTerms[#{i}].reportCode") }
-        element("#{name}_frequency".to_sym) { |b| b.reports_div.select(name: "awardReportsBean.newAwardReportTerms[#{i}].frequencyCode") }
-        element("#{name}_frequency_base".to_sym) { |b| b.reports_div.select(name: "awardReportsBean.newAwardReportTerms[#{i}].frequencyBaseCode") }
-        action("add_#{name}_report".to_sym) { |b| b.reports_div.button(name: /anchorReportClasses:#{tag}$/).click; b.loading }
-      end
-    end
-
     def terms *terms
       terms.each_with_index do |term, index|
         name=damballa(term)
