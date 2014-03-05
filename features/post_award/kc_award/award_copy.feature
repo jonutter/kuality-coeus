@@ -1,8 +1,8 @@
-@failing
 Feature: Copying Awards
 
   Summary to be written
 
+  # Broken until 5.21 because of T&M Modifier permissions--they can't view Awards
   Background:
     * a User exists with the role 'Time And Money Modifier' in unit '000001' (descends hierarchy)
     * a User exists with the role 'Award Modifier' in unit 'BL-BL'

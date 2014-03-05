@@ -11,7 +11,12 @@ class SpecialReviewObject < DataObject
     @browser = browser
 
     defaults = {
-      type:            '::random::',
+                      # Subset of drop-down selection, excluding Human Subjects and Animal Usage,
+                      # because those options require special handling.
+      type:            ['Recombinant DNA','Biohazard Materials','International Programs','Space Change',
+                        'TLO Review - No conflict (A)','TLO review - Reviewed, no conflict (B1)',
+                        'TLO Review - Potential Conflict (B2)','TLO PR-Previously Reviewed','Foundation Relations'
+                        ].sample,
       approval_status: '::random::'
     }
 
@@ -23,12 +28,6 @@ class SpecialReviewObject < DataObject
     view
     on SpecialReview do |add|
       add.add_type.pick! @type
-      case(@type)
-        when 'Human Subjects'
-          @approval_status='Pending/In Progress'
-        else
-          add.add_approval_status.pick! @approval_status
-      end
       add.add_protocol_number.fit @protocol_number
       add.add_application_date.fit @application_date
       add.add_approval_date.fit @approval_date

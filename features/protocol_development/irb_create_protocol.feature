@@ -4,7 +4,7 @@ Feature: Creating IRB Protocols
 
   Background: Establish a Protocol Creator
     * a User exists with the role: 'Protocol Creator'
-  @failing
+
   Scenario: Attempt to save an IRB protocol missing a required field
     Given the Protocol Creator user creates an irb protocol but I miss a required field
     Then  an error should appear that says the field is required for the Protocol
