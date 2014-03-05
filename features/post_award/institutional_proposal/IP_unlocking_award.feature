@@ -25,4 +25,4 @@ Feature: Unlocking Award from an Institutional Proposal
     When the Institutional Proposal Maintainer unlinks the proposal
     Then the Institutional Proposal's status should be 'Pending'
     And  the Award Modifier can see that the Funding Proposal has been removed from the Award
-    #And  the Award's version number is '1'
+    And  the Award's version number is '1'

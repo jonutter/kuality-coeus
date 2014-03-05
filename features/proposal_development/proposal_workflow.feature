@@ -21,12 +21,12 @@
     When  the Proposal Creator submits a new Proposal into routing
     Then  the OSPApprover can access the Proposal from their action list
     And   the approval buttons appear on the Proposal Summary and Proposal Action pages
-   @test
+
    Scenario: Proposal is recalled
     Given the Proposal Creator submits a new Proposal into routing
     When  I recall the Proposal
     Then  the Proposal status should be Revisions Requested
-   @test
+
    Scenario: An OSP Admin overrides a budget's cost sharing amount
     Given the Budget Column's 'Cost Sharing Amount' has a lookup for 'Proposal Cost Share' that returns 'Amount'
     And   a User exists with the role: 'OSP Administrator'
@@ -39,28 +39,28 @@
     And   completes the required custom fields on the Proposal
     When  the Proposal is submitted
     Then  the OSP Administrator can override the cost sharing amount
-   @test
+
    Scenario: An OSP representative grants the final approval of a Proposal's workflow
     Given the Proposal Creator submits a new Proposal into routing
     And   the OSPApprover approves the Proposal with future approval requests
     And   the principal investigator approves the Proposal
     When  the OSPApprover approves the Proposal again
     Then  the Proposal status should be Approval Granted
-   @test
+
    Scenario: An OSP representative approves a proposal and requests future approval requests
     Given the Proposal Creator submits a new Proposal into routing
     When  the OSPApprover approves the Proposal with future approval requests
     And   the principal investigator approves the Proposal
     And   I log in again with the OSPApprover user
     Then  I should see the option to approve the Proposal
-   @test
+
    Scenario: An OSP representative approves a proposal and declines future approval requests
     Given the Proposal Creator submits a new Proposal into routing
     And   the OSPApprover approves the Proposal without future approval requests
     And   the principal investigator approves the Proposal
     When  I log in again with the OSPApprover user
     Then  I should not see the option to approve the Proposal
-   @test
+
    Scenario: Approval has been granted so an OSP Admin submits the Proposal to its sponsor
     Given a User exists with the roles: OSP Administrator, Proposal Submission in the 000001 unit
     And   the Proposal Creator submits a new Proposal into routing

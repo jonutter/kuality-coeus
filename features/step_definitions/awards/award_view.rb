@@ -211,3 +211,15 @@ When(/^the (.*) user visits the Award$/) do |role_name|
     page.open_doc @award.document_id
   end
 end
+
+When(/^the (.*) searches for the Award from the award lookup page$/) do |role_name|
+  steps %|* I log in with the #{role_name} user|
+  visit AwardLookup do |page|
+    page.award_id.set @id
+    page.search
+  end
+end
+
+Then(/^no results should be returned$/) do
+  on(AwardLookup).error_message.should include "No values match this search."
+end
