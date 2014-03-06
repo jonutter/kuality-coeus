@@ -72,6 +72,14 @@ class InstitutionalProposalObject < DataObject
     end
   end
 
+  def submit
+    view :institutional_proposal_actions
+    on InstitutionalProposalActions do |page|
+      page.submit
+      @document_id=page.document_id
+    end
+  end
+
   def view(tab)
     open_document
     on(InstitutionalProposal).send(StringFactory.damballa(tab.to_s))

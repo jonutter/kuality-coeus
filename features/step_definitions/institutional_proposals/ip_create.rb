@@ -38,3 +38,14 @@ When /^(the (.*) |)user creates an institutional proposal with a missing require
   @institutional_proposal = create InstitutionalProposalObject, proposal_number: @proposal_log.number,
                                    field=>value
 end
+
+And(/^(\d+) versions of an Institutional Proposal exist$/) do |count|
+  steps %{ * 1 Approved Institutional Proposal exists }
+  @ipv = []
+  count.to_i.times {
+    @institutional_proposal.edit
+    @institutional_proposal.submit
+
+    @ipv << @institutional_proposal
+  }
+end
