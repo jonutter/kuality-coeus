@@ -13,7 +13,7 @@ Given /adds the Funding Proposal's PI as the Award's PI/ do
   @award.add_pi first_name: p_i.first_name, last_name: p_i.last_name
 end
 
-Given /I? ?add a key person to the Award$/ do
+Given /I? ?adds? a key person to the Award$/ do
   @award.add_key_person
 end
 
@@ -87,29 +87,27 @@ When /^I? ?give the Award valid credit splits$/ do
   @award.set_valid_credit_splits
 end
 
-When /I? ?add Reports to the Award$/ do
-  # Logic is here because of this step's nesting in
-  # "I complete the Award"
-  @award.add_reports if @award.reports.nil?
+When /I? ?adds? a Report to the Award$/ do
+  @award.add_report
 end
 
-When /I? ?add Terms to the Award$/ do
+When /I? ?adds? Terms to the Award$/ do
   @award.add_terms if @award.terms.nil?
 end
 
-When /I? ?add the required Custom Data to the Award$/ do
+When /I? ?adds? the required Custom Data to the Award$/ do
   @award.add_custom_data if @award.custom_data.nil?
 end
 
 When /completes? the Award requirements$/ do
   steps %q{
-    And add Reports to the Award
-    And add Terms to the Award
-    And add the required Custom Data to the Award
-    And add a Payment & Invoice item to the Award
-    And add a Sponsor Contact to the Award
-    And add a PI to the Award
-    And give the Award valid credit splits
+    * add a Report to the Award
+    * add Terms to the Award
+    * add the required Custom Data to the Award
+    * add a Payment & Invoice item to the Award
+    * add a Sponsor Contact to the Award
+    * add a PI to the Award
+    * give the Award valid credit splits
   }
 end
 

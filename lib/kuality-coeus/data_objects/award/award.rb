@@ -49,6 +49,7 @@ class AwardObject < DataObject
       key_personnel:         collection('AwardKeyPersonnel'),
       cost_sharing:          collection('AwardCostSharing'),
       fa_rates:              collection('AwardFARates'),
+      reports:               collection('AwardReports'),
       children:              [], # Contains the ids of any child Awards.
       #budget_versions:       collection('BudgetVersions'), # This is not yet verified to work with Awards.
 
@@ -183,11 +184,11 @@ class AwardObject < DataObject
     @payment_and_invoice.create
   end
 
-  def add_reports opts={}
-    raise "You already created a Reports item in your scenario.\nYou want to interact with it directly, now." unless @reports.nil?
+  def add_report opts={}
+    opts[:report] ||= %w{Financial IntellectualProperty Procurement Property ProposalsDue TechnicalManagement}.sample
+    defaults = {award_id: @id, number: (@reports.count_of(opts[:report])+1).to_s}
     view :payment_reports__terms
-    @reports = make AwardReportsObject, opts
-    @reports.create
+    @reports.add defaults.merge(opts)
   end
 
   def add_terms opts={}
@@ -226,8 +227,8 @@ class AwardObject < DataObject
     view :award_actions
     on AwardActions do |page|
       page.submit
-
-      # TODO: Code for intelligently handling the appearance of this
+      page.awaiting_doc
+      # TODO: Code for intelligently handling the appearance of this (It's a screen about validation warnings)
       confirmation
 
       page.t_m_button.wait_until_present
@@ -375,7 +376,16 @@ class AwardObject < DataObject
     visit @lookup_class do |page|
       page.award_id.set @id
       page.search
-      page.medusa
+      # TODO: Remove this when document search issues are resolved
+      begin
+        page.medusa
+      rescue Watir::Exception::UnknownObjectException
+        visit DocumentSearch do |search|
+          search.document_id.set @document_id
+          search.search
+          search.open_item @document_id
+        end
+      end
     end
     # Must update the document id, now:
     @document_id=on(Award).header_document_id
