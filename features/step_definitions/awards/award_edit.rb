@@ -170,3 +170,7 @@ end
 When /^the Award's title is made more than (\d+) characters long$/ do |arg|
   @award.edit award_title: random_high_ascii(arg.to_i+1)
 end
+
+Then(/^the Funding Proposal's Time & Money data should not appear in the Award's T&M document$/) do
+  on(TimeAndMoney)
+end

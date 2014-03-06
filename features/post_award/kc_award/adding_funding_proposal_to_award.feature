@@ -31,3 +31,10 @@ Feature: Adding a Funding Proposal to an Award
     | No Change  | all of the Award's details remain the same             |
     | Merge      | all of the Award's details remain the same             |
     | Replace    | all the Award's details are updated except the Sponsor |
+
+  Scenario: KC-TS-1159 No Inst Prop Data Feed to Time & Money
+    Given Users exist with the following roles: Award Modifier, Time And Money Modifier
+    And   1 Approved Institutional Proposal exists
+    And   the Award Modifier creates an Award with the Funding Proposal
+    When  the Time And Money Modifier initializes the Award's Time And Money document
+    Then  the Funding Proposal's Time & Money data should not appear in the Award's T&M document

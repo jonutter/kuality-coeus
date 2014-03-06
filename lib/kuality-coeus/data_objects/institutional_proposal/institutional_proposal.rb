@@ -74,10 +74,7 @@ class InstitutionalProposalObject < DataObject
 
   def submit
     view :institutional_proposal_actions
-    on InstitutionalProposalActions do |page|
-      page.submit
-      @document_id=page.document_id
-    end
+    on(InstitutionalProposalActions).submit
   end
 
   def view(tab)
