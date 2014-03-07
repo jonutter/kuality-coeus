@@ -34,7 +34,7 @@ class ProposalLogObject < DataObject
       fill_out create, :proposal_type, :title, :lead_unit
     end
     set_sponsor_code
-    on(ProposalLog).send(:save_type)
+    on(ProposalLog).send(@save_type)
   end
 
   def submit

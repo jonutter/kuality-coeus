@@ -13,11 +13,10 @@ class ProjectPersonnelObject < DataObject
 
     defaults = {
         units: [],
-        role: 'Prinicipal Investigator'
+        role: 'Principal Investigator'
     }
-
     set_options(defaults.merge(opts))
-    requires :document_id
+    requires :lookup_class, :search_key, :doc_header, :document_id
   end
 
   # Note: This currently only has support for adding
@@ -35,7 +34,7 @@ class ProjectPersonnelObject < DataObject
   # Nav Aids...
 
   def navigate
-    open_document @doc_type
+    open_document
     on(InstitutionalProposal).contacts
   end
 

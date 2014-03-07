@@ -26,8 +26,9 @@ When /^I merge the permanent proposal log with the institutional proposal$/ do
   pending
 end
 
-When /^(the (.*) user |)creates? an institutional proposal with a missing required field$/ do |text, role_name|
-  steps %{ * I log in with the #{role_name} user } unless text == ''
+When /^the Create Proposal Log user creates an institutional proposal with a missing required field$/ do
+  # Note that this step implicitly requires creation of a Proposal Log first...
+  steps %q{ * I log in with the Create Proposal Log user }
   # Pick a field at random for the test...
   @required_field = ['Project Title', 'Description','Activity Type','Sponsor ID', 'Proposal Type'
   ].sample
@@ -35,6 +36,5 @@ When /^(the (.*) user |)creates? an institutional proposal with a missing requir
   @required_field=~/Type/ ? value='select' : value=' '
   # Transform the field name to the appropriate symbol...
   field = damballa(@required_field)
-  @institutional_proposal = create InstitutionalProposalObject, proposal_number: @proposal_log.number,
-                                   field=>value
+  @institutional_proposal = create InstitutionalProposalObject, field=>value
 end
