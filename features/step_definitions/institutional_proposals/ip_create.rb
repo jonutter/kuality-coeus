@@ -26,7 +26,7 @@ When /^I merge the permanent proposal log with the institutional proposal$/ do
   pending
 end
 
-When /^(the (.*) |)user creates an institutional proposal with a missing required field$/ do |text, role_name|
+When /^(the (.*) user |)creates? an institutional proposal with a missing required field$/ do |text, role_name|
   steps %{ * I log in with the #{role_name} user } unless text == ''
   # Pick a field at random for the test...
   @required_field = ['Project Title', 'Description','Activity Type','Sponsor ID', 'Proposal Type'
