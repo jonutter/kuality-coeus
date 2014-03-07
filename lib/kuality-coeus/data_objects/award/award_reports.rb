@@ -13,9 +13,10 @@ class AwardReportsObject < DataObject
       type:           '::random::',
       frequency:      '::random::',
       frequency_base: '::random::',
-      osp_file_copy:  '::random::'
-      #recipients:    collection('ReportRecipients'),
-      #details:       collection('ReportTrackingDetails')
+      osp_file_copy:  '::random::',
+      details:        collection('ReportTracking')
+      #recipients:    collection('ReportRecipients')
+
     }
     set_options(defaults.merge(opts))
     requires :award_id, :report, :number

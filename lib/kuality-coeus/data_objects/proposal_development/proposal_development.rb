@@ -219,6 +219,7 @@ class ProposalDevelopmentObject < DataObject
         @status=page.document_status
         @institutional_proposal_number=page.institutional_proposal_number
         page.send_fyi
+
       end
     elsif type == :to_s2s
       view :s2s

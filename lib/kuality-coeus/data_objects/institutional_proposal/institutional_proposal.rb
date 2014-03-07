@@ -23,14 +23,32 @@ class InstitutionalProposalObject < DataObject
         unrecovered_fa:    collection('IPUnrecoveredFA'),
         description:       random_alphanums
     }
-    unless opts[:proposal_log].nil?
+
+    # Came from nothing
+    if !opts[:proposal_log] && !opts[:proposal_number]
+      prop_log = make ProposalLogObject, sponsor_id: defaults[:sponsor_id]
+      prop_log.create
+      pi = make ProjectPersonnelObject, principal_name: prop_log.principal_investigator,
+          role: 'Principal Investigator'
+      defaults[:project_personnel] << pi
+      defaults[:proposal_type]=prop_log.proposal_type
+      defaults[:proposal_number]=prop_log.number
+      defaults[:project_title]=prop_log.title
+      defaults[:proposal_log]=prop_log
+
+    # Came from Proposal Log
+    elsif opts[:proposal_log] && !opts[:proposal_number]
       defaults[:proposal_type]=opts[:proposal_log].proposal_type
       defaults[:project_title]=opts[:proposal_log].title
       defaults[:sponsor_id]=opts[:proposal_log].sponsor_id
       pi = make ProjectPersonnelObject, principal_name: opts[:proposal_log].principal_investigator,
                 role: 'Principal Investigator'
       defaults[:project_personnel] << pi
+      defaults[:proposal_number]=opts[:proposal_log].number
+
+    # Otherwise it came from Proposal Development so we need do nothing...
     end
+
     set_options(defaults.merge(opts))
     @key_personnel = @project_personnel
     @lookup_class=InstitutionalProposalLookup
@@ -67,6 +85,11 @@ class InstitutionalProposalObject < DataObject
       edit.edit if edit.edit_button.present?
       edit.expand_all
       edit_fields opts, edit, :proposal_type, :award_id, :activity_type, :project_title, :description
+
+
+      #DEBUG
+      sleep 30
+
       edit.save
       @document_id=edit.document_id
     end
