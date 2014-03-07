@@ -39,13 +39,8 @@ When /^(the (.*) |)user creates an institutional proposal with a missing require
                                    field=>value
 end
 
-And(/^(\d+) versions of an Institutional Proposal exist$/) do |count|
-  steps %{ * 1 Approved Institutional Proposal exists }
-  @ipv = []
-  count.to_i.times {
-    @institutional_proposal.edit
-    @institutional_proposal.submit
-
-    @ipv << @institutional_proposal
-  }
+And(/^(the (.*) |)creates a second version of the Institutional Proposal$/) do |text, role_name|
+  steps %{ * I log in with the #{role_name} user } unless text == ''
+  @ipv2 = @institutional_proposal.edit
+  @ipv2.submit
 end

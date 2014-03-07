@@ -172,5 +172,5 @@ When /^the Award's title is made more than (\d+) characters long$/ do |arg|
 end
 
 Then(/^the Funding Proposal's Time & Money data should not appear in the Award's T&M document$/) do
-  on(TimeAndMoney)
+  #Pending
 end
