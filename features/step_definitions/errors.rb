@@ -93,19 +93,7 @@ end
 # Institutional Proposal #
 #------------------------#
 Then /^an error notification should appear to indicate the field is required$/ do
-  error = case @required_field
-            when 'Activity Type'
-              'Activity Type (Activity) is a required field.'
-            when 'Proposal Type'
-              'Proposal Type (Proposal Type Code) is a required field.'
-            when 'Project Title'
-              'Project Title (Title) is a required field.'
-            when 'Description'
-              "Document #{@required_field} is a required field."
-            else
-              "#{@required_field} (#{@required_field}) is a required field."
-          end
-  $current_page.errors.should include error
+  $current_page.errors.should include "#{@required_field} is a required field."
 end
 
 #------------------------#
