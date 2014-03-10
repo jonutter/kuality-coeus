@@ -14,7 +14,7 @@ class CustomDataObject < DataObject
         billing_element:        random_alphanums(40)
     }
     set_options(defaults.merge(opts))
-    requires :document_id, :doc_header
+    requires :document_id, :doc_header, :lookup_class
   end
 
   def create

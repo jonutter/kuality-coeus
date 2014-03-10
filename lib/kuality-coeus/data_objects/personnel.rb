@@ -40,6 +40,7 @@ module Personnel
 
   def set_up_units
     on page_class do |page|
+      page.expand_all
       if @units.empty? # No units in @units, so we're not setting units
                        # ...so, get the units from the UI:
         @units=page.units @full_name if @key_person_role.nil?
@@ -102,23 +103,6 @@ module Personnel
       end
 
     end
-  end
-
-  def edit opts={}
-    navigate
-    on page_class do |update|
-      update.expand_all
-      # TODO: This will eventually need to be fixed...
-      # Note: This is a dangerous short cut, as it may not
-      # apply to every field that could be edited with this
-      # method...
-
-      opts.each do |field, value|
-        update.send(field, @full_name).fit value
-      end
-      update.save
-    end
-    update_options(opts)
   end
 
 end # Personnel

@@ -19,24 +19,31 @@ class ProjectPersonnelObject < DataObject
     requires :lookup_class, :search_key, :doc_header, :document_id
   end
 
-  # Note: This currently only has support for adding
-  # employees, not non-employees.
-
   def create
 
   end
 
+  def edit opts={}
+    open_document
+    on(InstitutionalProposal).contacts
+    on page_class do |update|
+      update.expand_all
+      # TODO: This will eventually need to be fixed...
+      # Note: This is a dangerous short cut, as it may not
+      # apply to every field that could be edited with this
+      # method...
+
+      opts.each do |field, value|
+        update.send(field, @full_name).fit value
+      end
+      update.save
+    end
+    update_options(opts)
+  end
 
   # =======
   private
   # =======
-
-  # Nav Aids...
-
-  def navigate
-    open_document
-    on(InstitutionalProposal).contacts
-  end
 
   def page_class
     IPContacts

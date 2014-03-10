@@ -73,11 +73,14 @@ class InstitutionalProposalObject < DataObject
     end
     if @proposal_log
       pi = make ProjectPersonnelObject, principal_name: @proposal_log.principal_investigator,
+                full_name: @proposal_log.pi_full_name,
                 document_id: @document_id,
                 lookup_class: @lookup_class,
                 search_key: @search_key,
                 doc_header: @doc_header
       @project_personnel << pi
+      view :contacts
+      @project_personnel.principal_investigator.set_up_units
     end
   end
 
@@ -101,7 +104,9 @@ class InstitutionalProposalObject < DataObject
     view :custom_data
     defaults = {
         document_id: @document_id,
-        doc_header: @doc_header
+        doc_header: @doc_header,
+        lookup_class: @lookup_class,
+        search_key: @search_key
     }
     @custom_data = make CustomDataObject, defaults.merge(opts)
     @custom_data.create
@@ -134,6 +139,14 @@ class InstitutionalProposalObject < DataObject
       page.save
       @document_id=page.document_id
     end
+  end
+
+  def submit
+    view :institutional_proposal_actions
+    on(InstitutionalProposalActions).submit
+
+    sleep 15
+
   end
 
   # =========

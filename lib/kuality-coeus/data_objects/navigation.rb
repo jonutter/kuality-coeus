@@ -30,7 +30,19 @@ module Navigation
     visit @lookup_class do |page|
       page.send(@search_key.keys[0]).set @search_key.values[0]
       page.search
-      page.results_table.wait_until_present
+      # This rescue is a sad necessity, due to
+      # Coeus's poor implementation of the Lookup pages
+      # in conjunction with user Roles.
+      begin
+        page.results_table.wait_until_present(5)
+      rescue Watir::Wait::TimeoutError
+        visit DocumentSearch do |search|
+          search.document_id.set @document_id
+          search.search
+          search.open_doc @document_id
+        end
+        return
+      end
       if @lookup_class==DocumentSearch
         page.open_doc @search_key.values[0]
       else
