@@ -51,6 +51,10 @@ class IPUnrecoveredFAObject < DataObject
     update_options(opts)
   end
 
+  def update(id)
+    @document_id=id
+  end
+
 end
 
 class IPUnrecoveredFACollection < CollectionsFactory

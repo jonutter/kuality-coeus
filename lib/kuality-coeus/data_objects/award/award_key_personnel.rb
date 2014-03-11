@@ -102,6 +102,10 @@ class AwardKeyPersonObject < DataObject
     @units.delete(unit_number)
   end
 
+  def update(id)
+    @document_id=id
+  end
+
   # ===========
   private
   # ===========

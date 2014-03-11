@@ -4,6 +4,7 @@ class InstitutionalProposalObject < DataObject
   include DateFactory
   include Navigation
   include DocumentUtilities
+  include Observable
 
   attr_accessor :document_id, :proposal_number, :dev_proposal_number, :project_title,
                 :doc_status, :sponsor_id, :activity_type, :proposal_type, :proposal_status,
@@ -78,6 +79,7 @@ class InstitutionalProposalObject < DataObject
                 lookup_class: @lookup_class,
                 search_key: @search_key,
                 doc_header: @doc_header
+      add_observer(pi)
       @project_personnel << pi
       view :contacts
       @project_personnel.principal_investigator.set_up_units
@@ -91,7 +93,11 @@ class InstitutionalProposalObject < DataObject
       edit.expand_all
       edit_fields opts, edit, :proposal_type, :award_id, :activity_type, :project_title, :description
       edit.save
-      @document_id=edit.document_id
+      if @document_id != edit.document_id
+        @document_id=edit.document_id
+        changed
+        notify_observers(@document_id)
+      end
     end
   end
 
@@ -114,15 +120,19 @@ class InstitutionalProposalObject < DataObject
 
   def add_cost_sharing opts={}
     @cost_sharing.add merge_settings(opts)
+    add_observer(@cost_sharing[-1])
   end
 
   def add_unrecovered_fa opts={}
-    opts.store(:index, )
+    # TODO: Finish this method!
+    opts.store(:index, bogus_value)
     @unrecovered_fa.add merge_settings(opts)
+    add_observer(@unrecovered_fa[-1])
   end
 
   def add_project_personnel opts={}
     @project_personnel.add merge_settings(opts)
+    add_observer(@project_personnel[-1])
   end
 
   def unlock_award(award_id)
@@ -137,16 +147,17 @@ class InstitutionalProposalObject < DataObject
       page.unlock_selected
       confirmation
       page.save
-      @document_id=page.document_id
+      if @document_id != page.document_id
+        @document_id=page.document_id
+        changed
+        notify_observers(@document_id)
+      end
     end
   end
 
   def submit
     view :institutional_proposal_actions
     on(InstitutionalProposalActions).submit
-
-    sleep 15
-
   end
 
   # =========
@@ -171,16 +182,12 @@ class InstitutionalProposalObject < DataObject
   def merge_settings(opts)
     defaults = {
         proposal_number: @proposal_number,
+        document_id: @document_id,
+        lookup_class: @lookup_class,
+        search_key: @search_key,
         doc_header: @doc_header
     }
     opts.merge!(defaults)
-  end
-
-  def prep(object_class, opts)
-    merge_settings(opts)
-    object = make object_class, opts
-    object.create
-    object
   end
 
 end

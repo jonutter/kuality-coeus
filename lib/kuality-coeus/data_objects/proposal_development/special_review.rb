@@ -50,6 +50,10 @@ class SpecialReviewObject < DataObject
     on(Proposal).special_review unless on_page?(on(SpecialReview).add_type)
   end
 
+  def update(id)
+    @document_id=id
+  end
+
 end # SpecialReviewObject
 
 class SpecialReviewCollection < CollectionsFactory
