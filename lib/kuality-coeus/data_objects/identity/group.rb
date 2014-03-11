@@ -3,7 +3,7 @@ class GroupObject < DataObject
   include StringFactory
   include Navigation
 
-  attr_accessor :id, :namespace, :name, :type,
+  attr_reader :id, :namespace, :name, :type,
                 :principal_name, :assignees, :save_type
 
   def initialize(browser, opts={})

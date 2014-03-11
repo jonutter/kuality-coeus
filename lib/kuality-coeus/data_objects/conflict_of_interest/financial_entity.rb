@@ -3,7 +3,7 @@ class FinancialEntityObject < DataObject
   include StringFactory
   include Navigation
 
-  attr_accessor :entity_name, :type, :sponsor_code, :status_code, :held,
+  attr_reader :entity_name, :type, :sponsor_code, :status_code, :held,
                 :address_line_1, :sponsor_research, :city, :country, :postal_code,
                 :principal_activity
 

@@ -6,11 +6,11 @@ class InstitutionalProposalObject < DataObject
   include DocumentUtilities
   include Observable
 
-  attr_accessor :document_id, :proposal_number, :dev_proposal_number, :project_title,
-                :doc_status, :sponsor_id, :activity_type, :proposal_type, :proposal_status,
-                :project_personnel, :custom_data, :special_review, :cost_sharing,
-                :award_id, :initiator, :proposal_log, :unrecovered_fa,
-                :key_personnel, :nsf_science_code, :prime_sponsor_id, :account_id, :cfda_number
+  attr_reader :document_id, :proposal_number, :dev_proposal_number, :project_title,
+              :doc_status, :sponsor_id, :activity_type, :proposal_type, :proposal_status,
+              :project_personnel, :custom_data, :special_review, :cost_sharing,
+              :award_id, :initiator, :proposal_log, :unrecovered_fa,
+              :key_personnel, :nsf_science_code, :prime_sponsor_id, :account_id, :cfda_number
 
   def initialize(browser, opts={})
     @browser = browser

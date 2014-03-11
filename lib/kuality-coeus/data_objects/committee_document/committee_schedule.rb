@@ -1,6 +1,6 @@
 class CommitteeScheduleObject < DataObject
 
-  attr_accessor :document_id
+  attr_reader :document_id
 
   def initialize(browser, opts={})
     @browser = browser

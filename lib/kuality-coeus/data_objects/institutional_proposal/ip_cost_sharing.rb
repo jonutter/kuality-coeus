@@ -3,7 +3,7 @@ class IPCostSharingObject < DataObject
   include StringFactory
   include Navigation
 
-  attr_accessor :project_period, :percentage, :type,
+  attr_reader :project_period, :percentage, :type,
                 :source_account, :amount, :index
 
   def initialize(browser, opts={})

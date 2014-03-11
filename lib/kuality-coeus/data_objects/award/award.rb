@@ -7,7 +7,7 @@ class AwardObject < DataObject
   include DocumentUtilities
   include Observable
 
-  attr_accessor :description, :transaction_type, :id, :award_status,
+  attr_reader :description, :transaction_type, :id, :award_status,
                 :award_title, :lead_unit, :activity_type, :award_type, :sponsor_id, :sponsor_type_code,
                 :nsf_science_code, :account_id, :account_type, :prime_sponsor, :cfda_number,
                 :project_start_date, :project_end_date, :obligation_start_date,

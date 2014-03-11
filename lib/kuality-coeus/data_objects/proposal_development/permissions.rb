@@ -2,7 +2,7 @@ class PermissionsObject < DataObject
 
   include Navigation
 
-  attr_accessor :document_id, :aggregators, :budget_creators, :narrative_writers,
+  attr_reader :document_id, :aggregators, :budget_creators, :narrative_writers,
                 :viewers, :approvers, :delete_proposals
 
   def initialize(browser, opts={})

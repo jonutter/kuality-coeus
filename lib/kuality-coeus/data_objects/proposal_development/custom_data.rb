@@ -4,7 +4,7 @@ class CustomDataObject < DataObject
   include Navigation
   include StringFactory
 
-  attr_accessor :document_id, :graduate_student_count, :billing_element
+  attr_reader :document_id, :graduate_student_count, :billing_element
 
   def initialize(browser, opts={})
     @browser = browser

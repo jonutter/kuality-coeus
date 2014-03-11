@@ -3,7 +3,7 @@ class GroupAssigneeObject < DataObject
   include StringFactory
   include Navigation
 
-  attr_accessor :type_code, :member_identifier, :save_type
+  attr_reader :type_code, :member_identifier, :save_type
 
   def initialize(browser, opts={})
     @browser = browser

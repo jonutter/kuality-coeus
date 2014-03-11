@@ -3,7 +3,7 @@ class BudgetVersionsObject < DataObject
   include StringFactory
   include Navigation
 
-  attr_accessor :name, :document_id, :status,
+  attr_reader :name, :document_id, :status,
                 # Stuff on Budget Versions page...
                 # TODO: Because of their location in the UI, these are barely useful.
                 # Need to decide what to do with them...

@@ -3,7 +3,7 @@ class TimeAndMoneyObject < DataObject
   include Navigation
   include StringFactory
 
-  attr_accessor :id, :status, :transaction_type_code, :transactions,
+  attr_reader :id, :status, :transaction_type_code, :transactions,
                 :funds_distribution, :transaction_history
 
   def initialize(browser, opts={})

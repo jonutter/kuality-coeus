@@ -4,7 +4,7 @@ class ProposalQuestionsObject < DataObject
   include DateFactory
   include Navigation
 
-  attr_accessor :document_id, :agree_to_nih_policy, :policy_review_date
+  attr_reader :document_id, :agree_to_nih_policy, :policy_review_date
 
   def initialize(browser, opts={})
     @browser = browser

@@ -4,7 +4,7 @@ class IPReviewObject < DataObject
   include DateFactory
   include Navigation
 
-  attr_accessor :document_id, :activities, :submitted_for_review, :reviewer, :save_type
+  attr_reader :document_id, :activities, :submitted_for_review, :reviewer, :save_type
 
   def initialize(browser, opts={})
     @browser = browser

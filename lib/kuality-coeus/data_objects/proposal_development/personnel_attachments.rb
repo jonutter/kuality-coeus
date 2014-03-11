@@ -3,7 +3,7 @@ class PersonnelAttachmentObject < DataObject
   include StringFactory
   include Navigation
 
-  attr_accessor :person, :type, :file_name, :description, :document_id, :doc_type
+  attr_reader :person, :type, :file_name, :description, :document_id, :doc_type
 
   def initialize(browser, opts={})
     @browser = browser

@@ -3,7 +3,7 @@ class BudgetPeriodObject < DataObject
   include StringFactory
   include Navigation
 
-  attr_accessor :number, :start_date, :end_date, :total_sponsor_cost,
+  attr_reader :number, :start_date, :end_date, :total_sponsor_cost,
                 :direct_cost, :f_and_a_cost, :unrecovered_f_and_a,
                 :cost_sharing, :cost_limit, :direct_cost_limit, :datified,
                 :budget_name, :cost_sharing_distribution_list, :unrecovered_fa_dist_list

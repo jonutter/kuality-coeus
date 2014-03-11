@@ -5,7 +5,7 @@ class ProposalDevelopmentObject < DataObject
   include Navigation
   include DocumentUtilities
   
-  attr_accessor :proposal_type, :lead_unit, :activity_type, :project_title, :proposal_number,
+  attr_reader :proposal_type, :lead_unit, :activity_type, :project_title, :proposal_number,
                 :sponsor_id, :sponsor_type_code, :project_start_date, :project_end_date, :document_id,
                 :status, :initiator, :created, :sponsor_deadline_date, :key_personnel,
                 :opportunity_id, # Maybe add competition_id and other stuff here...

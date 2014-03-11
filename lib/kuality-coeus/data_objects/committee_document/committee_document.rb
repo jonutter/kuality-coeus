@@ -3,7 +3,7 @@ class CommitteeDocumentObject < DataObject
   include StringFactory
   include Navigation
 
-  attr_accessor :description, :committee_id, :document_id, :status, :committee_name,
+  attr_reader :description, :committee_id, :document_id, :status, :committee_name,
                 :home_unit, :min_members_for_quorum, :maximum_protocols,
                 :adv_submission_days, :review_type, :last_updated, :updated_user,
                 :initiator, :members, :areas_of_research, :type

@@ -3,7 +3,7 @@ class RoleObject < DataObject
   include StringFactory
   include Navigation
 
-  attr_accessor :id, :name, :type, :namespace, :description,
+  attr_reader :id, :name, :type, :namespace, :description,
                 :permissions, :save_type
 
   ROLES = {
