@@ -10,7 +10,8 @@ class InstitutionalProposalObject < DataObject
               :doc_status, :sponsor_id, :activity_type, :proposal_type, :proposal_status,
               :project_personnel, :custom_data, :special_review, :cost_sharing,
               :award_id, :initiator, :proposal_log, :unrecovered_fa,
-              :key_personnel, :nsf_science_code, :prime_sponsor_id, :account_id, :cfda_number
+              :key_personnel, :nsf_science_code, :prime_sponsor_id, :account_id, :cfda_number,
+              :version, :prior_versions
 
   def initialize(browser, opts={})
     @browser = browser
@@ -22,7 +23,9 @@ class InstitutionalProposalObject < DataObject
         special_review:    collection('SpecialReview'),
         cost_sharing:      collection('IPCostSharing'),
         unrecovered_fa:    collection('IPUnrecoveredFA'),
-        description:       random_alphanums
+        description:       random_alphanums,
+        version:           1,
+        prior_versions:    []
     }
 
     # Came from nothing
@@ -50,7 +53,7 @@ class InstitutionalProposalObject < DataObject
     # Unfortunately this has to be hard-coded because
     # most of the time this object's #make will not also
     # run the #create
-    @doc_header='KC Institutional Proposal '
+    @doc_header='KC Institutional Proposal'
     @search_key={ institutional_proposal_number: @proposal_number }
   end
 
@@ -93,11 +96,7 @@ class InstitutionalProposalObject < DataObject
       edit.expand_all
       edit_fields opts, edit, :proposal_type, :award_id, :activity_type, :project_title, :description
       edit.save
-      if @document_id != edit.document_id
-        @document_id=edit.document_id
-        changed
-        notify_observers(@document_id)
-      end
+      check_for_new_version
     end
   end
 
@@ -124,8 +123,7 @@ class InstitutionalProposalObject < DataObject
   end
 
   def add_unrecovered_fa opts={}
-    # TODO: Finish this method!
-    opts.store(:index, bogus_value)
+    opts.store(:index, @unrecovered_fa.size)
     @unrecovered_fa.add merge_settings(opts)
     add_observer(@unrecovered_fa[-1])
   end
@@ -147,11 +145,7 @@ class InstitutionalProposalObject < DataObject
       page.unlock_selected
       confirmation
       page.save
-      if @document_id != page.document_id
-        @document_id=page.document_id
-        changed
-        notify_observers(@document_id)
-      end
+      check_for_new_version
     end
   end
 
@@ -188,6 +182,19 @@ class InstitutionalProposalObject < DataObject
         doc_header: @doc_header
     }
     opts.merge!(defaults)
+  end
+
+  def check_for_new_version
+    if @document_id != $current_page.document_id
+      temp_peers = @observer_peers
+      @observer_peers = {}
+      @prior_versions << self.data_object_copy
+      @version += 1
+      @observer_peers = temp_peers
+      @document_id=$current_page.document_id
+      changed
+      notify_observers(@document_id)
+    end
   end
 
 end

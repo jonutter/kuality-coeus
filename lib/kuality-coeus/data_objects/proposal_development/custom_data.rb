@@ -44,7 +44,7 @@ class CustomDataObject < DataObject
         kc_award: 'AwardCustomData',
         proposal_development_document: 'PDCustomData',
         kc_institutional_proposal: 'IPCustomData'
-    }[damballa(@doc_header.chop)])
+    }[damballa(@doc_header.strip)])
   end
 
 end
