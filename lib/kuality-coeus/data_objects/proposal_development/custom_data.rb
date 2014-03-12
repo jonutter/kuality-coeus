@@ -38,7 +38,6 @@ class CustomDataObject < DataObject
     on(Proposal).custom_data unless on_page?(on(page_class).asdf_tab)
   end
 
-
   def page_class
     Kernel.const_get({
         kc_award: 'AwardCustomData',

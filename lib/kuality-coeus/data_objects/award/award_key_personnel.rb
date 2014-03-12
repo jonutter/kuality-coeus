@@ -65,6 +65,10 @@ class AwardKeyPersonObject < DataObject
     update_options(opts)
   end
 
+  def edit_unit_credit_splits
+
+  end
+
   # TODO: Some of this method should be moved to the Personnel
   # module at some point, so it can be used by the KeyPersonObject.
   def add_unit(unit_number, lead=false)
