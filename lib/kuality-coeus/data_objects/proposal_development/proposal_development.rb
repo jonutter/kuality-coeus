@@ -160,7 +160,8 @@ class ProposalDevelopmentObject < DataObject
                             project_role: person.key_person_role, units: person.units,
                             responsibility: person.responsibility, space: person.space,
                             financial: person.financial, recognition: person.recognition,
-                            document_id: doc_id
+                            document_id: doc_id, lookup_class: @lookup_class, search_key: @search_key,
+                            doc_header: @doc_header
       ip.project_personnel << project_person
     end
     ip
