@@ -87,7 +87,6 @@ module Personnel
   # Example:
   # [{:number=>"UNIT NUMBER", :responsibility=>"33.33"}]
   def update_unit_credit_splits(units=@units)
-    splits=[:responsibility, :financial, :recognition, :space]
     units.each do |unit|
       on page_class do |update|
         update.unit_space(@full_name, unit[:number]).fit unit[:space]
@@ -96,7 +95,9 @@ module Personnel
         update.unit_recognition(@full_name, unit[:number]).fit unit[:recognition]
         update.save
       end
-      splits.each do |split|
+      # This updates the @units variable, in case
+      # it was not the passed parameter...
+      Transforms::CREDIT_SPLITS.keys.each do |split|
         unless unit[split]==nil
           @units[@units.find_index{|u| u[:number]==unit[:number]}][split]=unit[split]
         end

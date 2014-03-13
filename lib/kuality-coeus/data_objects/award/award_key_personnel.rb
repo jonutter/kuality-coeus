@@ -14,7 +14,7 @@ class AwardKeyPersonObject < DataObject
     defaults = {
         type:         'employee',
         project_role: 'Principal Investigator',
-        units:        []
+        units:        [] # Contains Hashes with Keys... :number, :name, :recognition, :responsibility, :space, :financial
     }
 
     set_options(defaults.merge(opts))
@@ -29,7 +29,7 @@ class AwardKeyPersonObject < DataObject
       # TODO: Need to add code that sets the user name or id
     else
       # TODO: Need to add conditional code for
-      # if you have a user id but not a name
+      # when you have a user id but not a name
     end
     on AwardContacts do |create|
       # This conditional exists to deal with the fact that
@@ -63,10 +63,6 @@ class AwardKeyPersonObject < DataObject
       update.save
     end
     update_options(opts)
-  end
-
-  def edit_unit_credit_splits
-
   end
 
   # TODO: Some of this method should be moved to the Personnel

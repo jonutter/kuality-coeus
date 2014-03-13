@@ -53,3 +53,9 @@ Feature: Basic Award Validations
     Given the Award Modifier creates an Award
     When  data validation is turned on for the Award
     Then  errors about the missing terms are shown
+
+  Scenario: Contact's Credit Splits not valid
+    Given the Award Modifier creates an Award
+    And   adds a PI to the Award
+    When  data validation is turned on for the Award
+    Then  errors appear on the Contacts page, saying the credit splits for the PI aren't equal to 100%
