@@ -3,9 +3,9 @@ class ProposalLogObject < DataObject
   include StringFactory
   include Navigation
 
-  attr_accessor :number, :log_type, :log_status, :proposal_type, :title,
-                :principal_investigator, :lead_unit, :sponsor_id, :status,
-                :pi_full_name
+  attr_reader :number, :log_type, :log_status, :proposal_type, :title,
+              :principal_investigator, :lead_unit, :sponsor_id, :status,
+              :pi_full_name
 
   def initialize(browser, opts={})
     @browser= browser

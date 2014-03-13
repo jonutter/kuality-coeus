@@ -4,4 +4,6 @@ module Transforms
 
   ON_OFF = { set: 'on', clear: 'off' }
 
+  CREDIT_SPLITS = { recognition: 'Recognition', responsibility: 'Responsibility', space: 'Space', financial: 'Financial' }
+
 end

@@ -3,7 +3,7 @@ class SpecialReviewObject < DataObject
   include StringFactory
   include Navigation
 
-  attr_accessor :type, :approval_status, :document_id, :protocol_number,
+  attr_reader :type, :approval_status, :document_id, :protocol_number,
                 :application_date, :approval_date, :expiration_date,
                 :exemption_number, :doc_type
 
@@ -48,6 +48,10 @@ class SpecialReviewObject < DataObject
   def view
     open_document
     on(Proposal).special_review unless on_page?(on(SpecialReview).add_type)
+  end
+
+  def update(id)
+    @document_id=id
   end
 
 end # SpecialReviewObject

@@ -2,7 +2,7 @@ class DegreeObject < DataObject
 
   include StringFactory
 
-  attr_accessor :type, :description, :graduation_year, :school,
+  attr_reader :type, :description, :graduation_year, :school,
                 :document_id, :person
 
   def initialize(browser, opts={})

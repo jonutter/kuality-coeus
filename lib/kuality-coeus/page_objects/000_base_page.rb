@@ -29,7 +29,7 @@ class BasePage < PageFactory
     end
 
     def document_header_elements
-      value(:doc_title) { |b| b.noko.div(id: 'headerarea').h1.text }
+      value(:doc_title) { |b| b.frm.div(id: 'headerarea').h1.text.strip }
       value(:headerinfo_table) { |b| b.noko.div(id: 'headerarea').table(class: 'headerinfo') }
       value(:document_id) { |p| p.headerinfo_table[0].text[/\d{4}/] }
       alias_method :doc_nbr, :document_id
@@ -57,8 +57,9 @@ class BasePage < PageFactory
       glbl 'Reject', 'blanket approve', 'close', 'cancel', 'reload',
            'Delete Proposal', 'disapprove',
            'Generate All Periods', 'Calculate All Periods', 'Default Periods',
-           'Calculate Current Period', 'submit', 'Send Notification'
-      action(:save) { |b| b.frm.button(name: 'methodToCall.save', title: 'save').click; b.loading }
+           'Calculate Current Period', 'Send Notification'
+      action(:save) { |b| b.save_button.click; b.loading }
+      action(:submit){ |b| b.frm.button(title: 'submit').click; b.loading; b.awaiting_doc }
       element(:approve_button) { |b| b.frm.button(name: 'methodToCall.approve') }
       action(:approve) { |b| b.approve_button.click; b.loading; b.awaiting_doc }
       # Explicitly defining the "recall" button to keep the method name at "recall" instead of "recall_current_document"...

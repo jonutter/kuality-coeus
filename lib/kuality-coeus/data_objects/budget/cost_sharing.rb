@@ -2,7 +2,7 @@ class CostSharingObject < DataObject
 
   include StringFactory
 
-  attr_accessor :project_period, :percentage, :source_account, :amount,
+  attr_reader :project_period, :percentage, :source_account, :amount,
                 # Note: Indexing is zero-based!
                 :index
 

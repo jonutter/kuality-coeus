@@ -3,7 +3,7 @@ class AwardCostSharingObject < DataObject
   include DateFactory
   include StringFactory
 
-  attr_accessor :percentage, :type, :project_period, :source,
+  attr_reader :percentage, :type, :project_period, :source,
                 :destination, :commitment_amount, :cost_share_met,
                 :verification_date
 

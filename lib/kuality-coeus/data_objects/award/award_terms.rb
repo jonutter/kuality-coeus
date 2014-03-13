@@ -1,6 +1,6 @@
 class AwardTermsObject < DataObject
 
-  attr_accessor :equipment_approval, :invention, :prior_approval, :property,
+  attr_reader :equipment_approval, :invention, :prior_approval, :property,
                 :publication, :referenced_document, :rights_in_data,
                 :subaward_approval, :travel_restrictions
 

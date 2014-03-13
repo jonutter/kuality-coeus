@@ -4,12 +4,14 @@ class InstitutionalProposalObject < DataObject
   include DateFactory
   include Navigation
   include DocumentUtilities
+  include Observable
 
-  attr_accessor :document_id, :proposal_number, :dev_proposal_number, :project_title,
-                :doc_status, :sponsor_id, :activity_type, :proposal_type, :proposal_status,
-                :project_personnel, :custom_data, :special_review, :cost_sharing,
-                :award_id, :initiator, :proposal_log, :unrecovered_fa,
-                :key_personnel, :nsf_science_code, :prime_sponsor_id, :account_id, :cfda_number
+  attr_reader :document_id, :proposal_number, :dev_proposal_number, :project_title,
+              :doc_status, :sponsor_id, :activity_type, :proposal_type, :proposal_status,
+              :project_personnel, :custom_data, :special_review, :cost_sharing,
+              :award_id, :initiator, :proposal_log, :unrecovered_fa,
+              :key_personnel, :nsf_science_code, :prime_sponsor_id, :account_id, :cfda_number,
+              :version, :prior_versions
 
   def initialize(browser, opts={})
     @browser = browser
@@ -21,7 +23,9 @@ class InstitutionalProposalObject < DataObject
         special_review:    collection('SpecialReview'),
         cost_sharing:      collection('IPCostSharing'),
         unrecovered_fa:    collection('IPUnrecoveredFA'),
-        description:       random_alphanums
+        description:       random_alphanums,
+        version:           1,
+        prior_versions:    []
     }
 
     # Came from nothing
@@ -49,7 +53,7 @@ class InstitutionalProposalObject < DataObject
     # Unfortunately this has to be hard-coded because
     # most of the time this object's #make will not also
     # run the #create
-    @doc_header='KC Institutional Proposal '
+    @doc_header='KC Institutional Proposal'
     @search_key={ institutional_proposal_number: @proposal_number }
   end
 
@@ -73,11 +77,15 @@ class InstitutionalProposalObject < DataObject
     end
     if @proposal_log
       pi = make ProjectPersonnelObject, principal_name: @proposal_log.principal_investigator,
+                full_name: @proposal_log.pi_full_name,
                 document_id: @document_id,
                 lookup_class: @lookup_class,
                 search_key: @search_key,
                 doc_header: @doc_header
+      add_observer(pi)
       @project_personnel << pi
+      view :contacts
+      @project_personnel.principal_investigator.set_up_units
     end
   end
 
@@ -88,7 +96,7 @@ class InstitutionalProposalObject < DataObject
       edit.expand_all
       edit_fields opts, edit, :proposal_type, :award_id, :activity_type, :project_title, :description
       edit.save
-      @document_id=edit.document_id
+      check_for_new_version
     end
   end
 
@@ -106,7 +114,9 @@ class InstitutionalProposalObject < DataObject
     view :custom_data
     defaults = {
         document_id: @document_id,
-        doc_header: @doc_header
+        doc_header: @doc_header,
+        lookup_class: @lookup_class,
+        search_key: @search_key
     }
     @custom_data = make CustomDataObject, defaults.merge(opts)
     @custom_data.create
@@ -114,15 +124,18 @@ class InstitutionalProposalObject < DataObject
 
   def add_cost_sharing opts={}
     @cost_sharing.add merge_settings(opts)
+    add_observer(@cost_sharing[-1])
   end
 
   def add_unrecovered_fa opts={}
-    opts.store(:index, )
+    opts.store(:index, @unrecovered_fa.size)
     @unrecovered_fa.add merge_settings(opts)
+    add_observer(@unrecovered_fa[-1])
   end
 
   def add_project_personnel opts={}
     @project_personnel.add merge_settings(opts)
+    add_observer(@project_personnel[-1])
   end
 
   def unlock_award(award_id)
@@ -137,8 +150,13 @@ class InstitutionalProposalObject < DataObject
       page.unlock_selected
       confirmation
       page.save
-      @document_id=page.document_id
+      check_for_new_version
     end
+  end
+
+  def submit
+    view :institutional_proposal_actions
+    on(InstitutionalProposalActions).submit
   end
 
   # =========
@@ -163,16 +181,25 @@ class InstitutionalProposalObject < DataObject
   def merge_settings(opts)
     defaults = {
         proposal_number: @proposal_number,
+        document_id: @document_id,
+        lookup_class: @lookup_class,
+        search_key: @search_key,
         doc_header: @doc_header
     }
     opts.merge!(defaults)
   end
 
-  def prep(object_class, opts)
-    merge_settings(opts)
-    object = make object_class, opts
-    object.create
-    object
+  def check_for_new_version
+    if @document_id != $current_page.document_id
+      temp_peers = @observer_peers
+      @observer_peers = {}
+      @prior_versions << self.data_object_copy
+      @version += 1
+      @observer_peers = temp_peers
+      @document_id=$current_page.document_id
+      changed
+      notify_observers(@document_id)
+    end
   end
 
 end

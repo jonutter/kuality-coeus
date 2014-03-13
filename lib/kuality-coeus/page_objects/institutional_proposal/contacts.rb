@@ -15,6 +15,10 @@ class IPContacts < KCInstitutionalProposal
     action("unit_#{key}".to_sym) { |full_name, unit_name, p| p.target_unit_row(full_name, unit_name)[value].text_field }
   end
 
+  # This returns an array of hashes, like so:
+  # [{:name=>"Unit1 Name", :number=>"Unit1 Number"}, {:name=>"Unit2 Name", :number=>"Unit2 Number"}]
+  p_action(:units) { |full_name, p| units = []; p.unit_div(full_name).table.to_a[2..-1].each { |unit| units << {name: unit[2].strip, number: unit[3].strip} }; units }
+
   # =======
   private
   # =======
@@ -26,5 +30,7 @@ class IPContacts < KCInstitutionalProposal
     index = trows.find_index { |row| row.text=~/#{full_name}/ }
     trows[index..-1].find { |row| row.text=~/#{unit_number}/ }
   end
+
+  p_action(:unit_div) { |full_name, b| b.frm.div(id: "tab-#{nsp(full_name)}:UnitDetails-div") }
 
 end

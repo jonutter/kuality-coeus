@@ -5,8 +5,9 @@ class AwardObject < DataObject
   include DateFactory
   include StringFactory
   include DocumentUtilities
+  include Observable
 
-  attr_accessor :description, :transaction_type, :id, :award_status,
+  attr_reader :description, :transaction_type, :id, :award_status,
                 :award_title, :lead_unit, :activity_type, :award_type, :sponsor_id, :sponsor_type_code,
                 :nsf_science_code, :account_id, :account_type, :prime_sponsor, :cfda_number,
                 :project_start_date, :project_end_date, :obligation_start_date,
@@ -150,13 +151,20 @@ class AwardObject < DataObject
   end
 
   def add_pi opts={}
+    defaults = {
+        document_id: @document_id,
+        doc_header: @doc_header,
+        lookup_class: @lookup_class
+    }
     view :contacts
-    @key_personnel.add opts
+    @key_personnel.add defaults.merge(opts)
+    add_observer(@key_personnel[-1])
   end
   alias_method :add_principal_investigator, :add_pi
 
   def add_key_person opts={}
-    defaults={project_role: 'Key Person', key_person_role: random_alphanums}
+    defaults={project_role: 'Key Person',
+              key_person_role: random_alphanums}
     add_pi defaults.merge(opts)
   end
 

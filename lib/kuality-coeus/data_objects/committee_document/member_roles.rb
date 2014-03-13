@@ -2,7 +2,7 @@ class MemberRolesObject < DataObject
 
   include StringFactory
 
-  attr_accessor :document_id, :name, :role, :start_date, :end_date
+  attr_reader :document_id, :name, :role, :start_date, :end_date
 
   def initialize(browser, opts={})
     @browser = browser

@@ -10,7 +10,7 @@ class PHSFellowshipQuestionnaireObject < DataObject
   include Navigation
   include Utilities
 
-  attr_accessor :indefinite_human_subjects, :clinical_trial, :phase_3_trial, :indefinite_vertebrates,
+  attr_reader :indefinite_human_subjects, :clinical_trial, :phase_3_trial, :indefinite_vertebrates,
                 :human_stem_cells, :specific_cell_line, :field_of_training, :seeking_degree_during_proposed_award,
                 :expected_degree_completion_date, :type_of_degree_during_proposed_award, :have_kirchstein_support,
                 :kirschstein_support_level, :kirschstein_support_recipient, :have_kirschstein_support_start_date,
@@ -23,7 +23,7 @@ class PHSFellowshipQuestionnaireObject < DataObject
   # These make instance variables such as:
   # @stem_cell_line_1 (up to 20)
   1.upto(20) do |x|
-    attr_accessor("stem_cell_line_#{x}".to_sym)
+    attr_reader("stem_cell_line_#{x}".to_sym)
   end
 
   def initialize(browser, opts={})

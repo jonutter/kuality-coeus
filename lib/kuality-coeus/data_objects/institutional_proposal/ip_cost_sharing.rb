@@ -3,7 +3,7 @@ class IPCostSharingObject < DataObject
   include StringFactory
   include Navigation
 
-  attr_accessor :project_period, :percentage, :type,
+  attr_reader :project_period, :percentage, :type,
                 :source_account, :amount, :index
 
   def initialize(browser, opts={})
@@ -46,6 +46,10 @@ class IPCostSharingObject < DataObject
       page.save
     end
     update_options(opts)
+  end
+
+  def update(id)
+    @document_id=id
   end
 
 end

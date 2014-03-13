@@ -5,7 +5,7 @@ class PaymentInvoiceObject < DataObject
   include DateFactory
   include StringFactory
 
-  attr_accessor :payment_basis, :payment_method, #:document_funding_id,
+  attr_reader :payment_basis, :payment_method, #:document_funding_id,
                 :payment_and_invoice_requirements, :award_payment_schedule,
                 :invoice_instructions
 

@@ -4,7 +4,7 @@ class IPUnrecoveredFAObject < DataObject
   include DateFactory
   include Navigation
 
-  attr_accessor :fiscal_year, :rate_type, :applicable_rate,
+  attr_reader :fiscal_year, :rate_type, :applicable_rate,
                 :on_campus_contract, :source_account, :amount, :index
 
   def initialize(browser, opts={})
@@ -49,6 +49,10 @@ class IPUnrecoveredFAObject < DataObject
       page.save
     end
     update_options(opts)
+  end
+
+  def update(id)
+    @document_id=id
   end
 
 end

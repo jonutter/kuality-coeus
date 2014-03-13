@@ -3,7 +3,7 @@ class ComplianceQuestionsObject < DataObject
   include DateFactory
   include Navigation
 
-  attr_accessor :document_id, :agree_to_ethical_conduct, :conduct_review_date
+  attr_reader :document_id, :agree_to_ethical_conduct, :conduct_review_date
 
   def initialize(browser, opts={})
     @browser = browser

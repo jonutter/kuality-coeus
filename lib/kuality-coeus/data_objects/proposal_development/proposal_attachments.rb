@@ -2,7 +2,7 @@ class ProposalAttachmentObject < DataObject
 
   include Navigation
 
-  attr_accessor :type, :file_name, :status, :description, :document_id, :doc_type
+  attr_reader :type, :file_name, :status, :description, :document_id, :doc_type
 
   def initialize(browser, opts={})
     @browser = browser

@@ -4,7 +4,7 @@ class CustomDataObject < DataObject
   include Navigation
   include StringFactory
 
-  attr_accessor :document_id, :graduate_student_count, :billing_element
+  attr_reader :document_id, :graduate_student_count, :billing_element
 
   def initialize(browser, opts={})
     @browser = browser
@@ -14,7 +14,7 @@ class CustomDataObject < DataObject
         billing_element:        random_alphanums(40)
     }
     set_options(defaults.merge(opts))
-    requires :document_id, :doc_header
+    requires :document_id, :doc_header, :lookup_class
   end
 
   def create
@@ -38,13 +38,12 @@ class CustomDataObject < DataObject
     on(Proposal).custom_data unless on_page?(on(page_class).asdf_tab)
   end
 
-
   def page_class
     Kernel.const_get({
         kc_award: 'AwardCustomData',
         proposal_development_document: 'PDCustomData',
         kc_institutional_proposal: 'IPCustomData'
-    }[damballa(@doc_header.chop)])
+    }[damballa(@doc_header.strip)])
   end
 
 end

@@ -1,6 +1,6 @@
 class ReportTrackingObject < DataObject
 
-  attr_accessor :due_date, :preparer, :status, :activity_date, :overdue
+  attr_reader :due_date, :preparer, :status, :activity_date, :overdue
 
   def initialize(browser, opts={})
     @browser=browser

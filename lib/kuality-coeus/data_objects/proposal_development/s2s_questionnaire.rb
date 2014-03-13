@@ -15,7 +15,7 @@ class S2SQuestionnaireObject < DataObject
   include Navigation
   include Utilities
 
-  attr_accessor :document_id, :civil_service, :total_ftes, :potential_effects, :explain_potential_effects,
+  attr_reader :document_id, :civil_service, :total_ftes, :potential_effects, :explain_potential_effects,
                 :international_support, :explain_support, :pi_in_govt, :pis_us_govt_agency, :total_amount_requested,
                 :pi_foreign_employee, :change_in_pi, :former_pi, :change_in_institution, :former_institution,
                 :renewal_application, :inventions_conceived, :previously_reported, :disclose_title,
@@ -33,9 +33,9 @@ class S2SQuestionnaireObject < DataObject
   # @ftes_for_fy_1 (up to 6)
   # @stem_cell_line_1 (up to 20)
   1.upto(20) do |x|
-    attr_accessor("year_#{x+1}".to_sym, "support_provided_#{x}".to_sym) if x < 6
-    attr_accessor("fiscal_year_#{x}".to_sym, "ftes_for_fy_#{x}".to_sym) if x < 7
-    attr_accessor("stem_cell_line_#{x}".to_sym)
+    attr_reader("year_#{x+1}".to_sym, "support_provided_#{x}".to_sym) if x < 6
+    attr_reader("fiscal_year_#{x}".to_sym, "ftes_for_fy_#{x}".to_sym) if x < 7
+    attr_reader("stem_cell_line_#{x}".to_sym)
   end
 
   def initialize(browser, opts={})

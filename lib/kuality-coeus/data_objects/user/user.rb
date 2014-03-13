@@ -127,7 +127,7 @@ class UserObject
   include Navigation
   include StringFactory
 
-  attr_accessor :user_name, :principal_id,
+  attr_reader :user_name, :principal_id,
                 :first_name, :last_name, :full_name,
                 :description, :affiliation_type, :campus_code,
                 :employee_id, :employee_status, :employee_type, :base_salary, :primary_department_code,
