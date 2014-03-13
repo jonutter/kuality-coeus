@@ -154,11 +154,6 @@ class InstitutionalProposalObject < DataObject
     end
   end
 
-  def submit
-    view :institutional_proposal_actions
-    on(InstitutionalProposalActions).submit
-  end
-
   # =========
   private
   # =========
