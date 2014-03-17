@@ -1,4 +1,4 @@
-class AwardFARatesObject < DataObject
+class AwardFARatesObject < DataFactory
 
   include DateFactory
   include StringFactory

@@ -1,4 +1,4 @@
-class PersonnelAttachmentObject < DataObject
+class PersonnelAttachmentObject < DataFactory
 
   include StringFactory
   include Navigation

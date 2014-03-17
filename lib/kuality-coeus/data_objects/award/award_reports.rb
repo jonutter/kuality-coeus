@@ -1,4 +1,4 @@
-class AwardReportsObject < DataObject
+class AwardReportsObject < DataFactory
 
   attr_reader :award_id, :report, :type, :frequency,
                 :frequency_base, :osp_file_copy,

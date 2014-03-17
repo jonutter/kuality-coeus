@@ -1,4 +1,4 @@
-class IPCostSharingObject < DataObject
+class IPCostSharingObject < DataFactory
 
   include StringFactory
   include Navigation

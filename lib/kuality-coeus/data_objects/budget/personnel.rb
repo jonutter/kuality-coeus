@@ -1,4 +1,4 @@
-class BudgetPersonnelObject < DataObject
+class BudgetPersonnelObject < DataFactory
 
   include StringFactory
   include Navigation

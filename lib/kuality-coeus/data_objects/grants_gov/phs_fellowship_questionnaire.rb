@@ -1,4 +1,4 @@
-class PHSFellowshipQuestionnaireObject < DataObject
+class PHSFellowshipQuestionnaireObject < DataFactory
 
   YN_QUESTIONS = [:indefinite_human_subjects, :clinical_trial, :phase_3_trial, :indefinite_vertebrates,
                   :human_stem_cells, :specific_cell_line, :seeking_degree_during_proposed_award,

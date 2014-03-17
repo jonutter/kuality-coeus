@@ -1,4 +1,4 @@
-class CommitteeDocumentObject < DataObject
+class CommitteeDocumentObject < DataFactory
 
   include StringFactory
   include Navigation

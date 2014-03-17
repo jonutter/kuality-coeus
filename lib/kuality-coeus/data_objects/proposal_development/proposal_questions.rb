@@ -1,4 +1,4 @@
-class ProposalQuestionsObject < DataObject
+class ProposalQuestionsObject < DataFactory
 
   include StringFactory
   include DateFactory

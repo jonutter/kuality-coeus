@@ -120,10 +120,8 @@ class UserYamlCollection < Hash
 
 end # UserYamlCollection
 
-class UserObject
+class UserObject < DataFactory
 
-  include Foundry
-  include DataFactory
   include Navigation
   include StringFactory
 

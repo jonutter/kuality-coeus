@@ -1,4 +1,4 @@
-class MemberRolesObject < DataObject
+class MemberRolesObject < DataFactory
 
   include StringFactory
 

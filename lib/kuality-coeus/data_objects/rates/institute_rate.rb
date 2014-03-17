@@ -1,4 +1,4 @@
-class InstituteRateObject < DataObject
+class InstituteRateObject < DataFactory
 
   include StringFactory
   include DateFactory

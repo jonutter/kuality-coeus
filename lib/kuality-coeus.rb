@@ -1,4 +1,3 @@
-require 'observer'
 require 'singleton'
 require 'test-factory'
 require 'date'

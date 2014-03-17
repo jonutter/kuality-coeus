@@ -1,4 +1,4 @@
-class TimeAndMoneyObject < DataObject
+class TimeAndMoneyObject < DataFactory
 
   include Navigation
   include StringFactory

@@ -1,4 +1,4 @@
-class SubawardBudgetObject < DataObject
+class SubawardBudgetObject < DataFactory
 
   include StringFactory
   include Navigation

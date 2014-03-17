@@ -1,4 +1,4 @@
-class UnrecoveredFAObject < DataObject
+class UnrecoveredFAObject < DataFactory
 
   include StringFactory
   include DateFactory

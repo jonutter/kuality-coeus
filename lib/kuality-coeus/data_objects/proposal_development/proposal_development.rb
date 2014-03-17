@@ -1,4 +1,4 @@
-class ProposalDevelopmentObject < DataObject
+class ProposalDevelopmentObject < DataFactory
 
   include StringFactory
   include DateFactory

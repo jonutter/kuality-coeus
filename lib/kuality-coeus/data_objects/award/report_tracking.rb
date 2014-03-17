@@ -1,4 +1,4 @@
-class ReportTrackingObject < DataObject
+class ReportTrackingObject < DataFactory
 
   attr_reader :due_date, :preparer, :status, :activity_date, :overdue
 

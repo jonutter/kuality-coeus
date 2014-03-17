@@ -1,4 +1,4 @@
-class FinancialEntityObject < DataObject
+class FinancialEntityObject < DataFactory
 
   include StringFactory
   include Navigation
