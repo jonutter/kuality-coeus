@@ -2,7 +2,6 @@ class AwardKeyPersonObject < DataFactory
 
   include Navigation
   include Personnel
-  include Observer
 
   attr_reader :employee_user_name, :non_employee_id, :project_role,
               :key_person_role, :units, :first_name, :last_name, :full_name,
@@ -103,7 +102,7 @@ class AwardKeyPersonObject < DataFactory
     @units.delete(unit_number)
   end
 
-  def update(id)
+  def update_from_parent(id)
     @document_id=id
   end
 

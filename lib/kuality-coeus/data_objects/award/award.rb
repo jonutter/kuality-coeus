@@ -1,11 +1,10 @@
 # coding: UTF-8
-class AwardObject < DataFactory
+class AwardObject < DataObject
 
   include Navigation
   include DateFactory
   include StringFactory
   include DocumentUtilities
-  include Observable
 
   attr_reader :description, :transaction_type, :id, :award_status,
                 :award_title, :lead_unit, :activity_type, :award_type, :sponsor_id, :sponsor_type_code,
@@ -158,7 +157,6 @@ class AwardObject < DataFactory
     }
     view :contacts
     @key_personnel.add defaults.merge(opts)
-    attach_observer(@key_personnel[-1])
   end
   alias_method :add_principal_investigator, :add_pi
 
@@ -274,7 +272,6 @@ class AwardObject < DataFactory
       award.id = page.header_award_id
       award.document_id = page.header_document_id
       award.custom_data.document_id = page.header_document_id
-      award.update_observers
     end
 
     # Modify the new data object according to the
