@@ -1,4 +1,4 @@
-class DegreeObject < DataObject
+class DegreeObject < DataFactory
 
   include StringFactory
 

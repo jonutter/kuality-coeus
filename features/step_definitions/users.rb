@@ -2,7 +2,7 @@
 # the admin user. Its data object is already created
 # and added to the Users collection at the start of the
 # scripts.
-Given /^I'm( signed)? in as the admin$/ do |x|
+Given /^I'm( signed)? in (as|with) the admin$/ do |x, y|
   $users.admin.sign_in
 end
 

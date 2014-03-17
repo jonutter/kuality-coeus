@@ -1,4 +1,4 @@
-class AwardCostSharingObject < DataObject
+class AwardCostSharingObject < DataFactory
 
   include DateFactory
   include StringFactory

@@ -1,4 +1,4 @@
-class S2SQuestionnaireObject < DataObject
+class S2SQuestionnaireObject < DataFactory
 
   # Convenient gathering of all Yes/No questions. Makes it possible to
   # do simple iterations through them.

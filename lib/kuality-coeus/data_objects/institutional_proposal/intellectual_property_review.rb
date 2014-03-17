@@ -1,4 +1,4 @@
-class IPReviewObject < DataObject
+class IPReviewObject < DataFactory
 
   include StringFactory
   include DateFactory

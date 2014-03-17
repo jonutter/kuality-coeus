@@ -1,4 +1,4 @@
-class CommitteeScheduleObject < DataObject
+class CommitteeScheduleObject < DataFactory
 
   attr_reader :document_id
 

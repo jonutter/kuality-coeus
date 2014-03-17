@@ -1,4 +1,4 @@
-class CostSharingObject < DataObject
+class CostSharingObject < DataFactory
 
   include StringFactory
 

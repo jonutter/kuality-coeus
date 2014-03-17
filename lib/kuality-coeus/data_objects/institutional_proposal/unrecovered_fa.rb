@@ -1,4 +1,4 @@
-class IPUnrecoveredFAObject < DataObject
+class IPUnrecoveredFAObject < DataFactory
 
   include StringFactory
   include DateFactory

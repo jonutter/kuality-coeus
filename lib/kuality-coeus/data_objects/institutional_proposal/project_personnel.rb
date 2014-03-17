@@ -1,4 +1,4 @@
-class ProjectPersonnelObject < DataObject
+class ProjectPersonnelObject < DataFactory
 
   include Navigation
   include Personnel
@@ -41,7 +41,7 @@ class ProjectPersonnelObject < DataObject
     update_options(opts)
   end
 
-  def update(id)
+  def update_from_parent(id)
     @document_id=id
   end
 

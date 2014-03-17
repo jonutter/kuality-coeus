@@ -1,4 +1,4 @@
-class SpecialReviewObject < DataObject
+class SpecialReviewObject < DataFactory
 
   include StringFactory
   include Navigation

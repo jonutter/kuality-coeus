@@ -1,4 +1,4 @@
-class ProposalLogObject < DataObject
+class ProposalLogObject < DataFactory
 
   include StringFactory
   include Navigation

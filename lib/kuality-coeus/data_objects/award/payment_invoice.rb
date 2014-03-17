@@ -1,5 +1,5 @@
 # coding: UTF-8
-class PaymentInvoiceObject < DataObject
+class PaymentInvoiceObject < DataFactory
 
   include Navigation
   include DateFactory

@@ -26,4 +26,6 @@ class AwardActions < KCAwards
     array
   }
 
+  element(:award_hierarchy_link) { |b| b.frm.link(class: 'awardHierarchy') }
+
 end

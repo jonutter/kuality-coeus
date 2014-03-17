@@ -1,10 +1,9 @@
-class InstitutionalProposalObject < DataObject
+class InstitutionalProposalObject < DataFactory
 
   include StringFactory
   include DateFactory
   include Navigation
   include DocumentUtilities
-  include Observable
 
   attr_reader :document_id, :proposal_number, :dev_proposal_number, :project_title,
               :doc_status, :sponsor_id, :activity_type, :proposal_type, :proposal_status,
@@ -82,7 +81,6 @@ class InstitutionalProposalObject < DataObject
                 lookup_class: @lookup_class,
                 search_key: @search_key,
                 doc_header: @doc_header
-      add_observer(pi)
       @project_personnel << pi
       view :contacts
       @project_personnel.principal_investigator.set_up_units
@@ -186,14 +184,10 @@ class InstitutionalProposalObject < DataObject
 
   def check_for_new_version
     if @document_id != $current_page.document_id
-      temp_peers = @observer_peers
-      @observer_peers = {}
       @prior_versions << self.data_object_copy
       @version += 1
-      @observer_peers = temp_peers
       @document_id=$current_page.document_id
-      changed
-      notify_observers(@document_id)
+      notify_collections(@document_id)
     end
   end
 

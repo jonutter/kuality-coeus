@@ -1,4 +1,4 @@
-class AwardTermsObject < DataObject
+class AwardTermsObject < DataFactory
 
   attr_reader :equipment_approval, :invention, :prior_approval, :property,
                 :publication, :referenced_document, :rights_in_data,

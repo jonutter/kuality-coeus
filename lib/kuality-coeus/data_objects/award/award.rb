@@ -1,5 +1,5 @@
 # coding: UTF-8
-class AwardObject < DataObject
+class AwardObject < DataFactory
 
   include Navigation
   include DateFactory
@@ -158,7 +158,7 @@ class AwardObject < DataObject
     }
     view :contacts
     @key_personnel.add defaults.merge(opts)
-    add_observer(@key_personnel[-1])
+    attach_observer(@key_personnel[-1])
   end
   alias_method :add_principal_investigator, :add_pi
 
@@ -211,7 +211,8 @@ class AwardObject < DataObject
     defaults = {
         document_id: @document_id,
         doc_header: @doc_header,
-        lookup_class: @lookup_class
+        lookup_class: @lookup_class,
+        search_key: @search_key
     }
     @custom_data = make CustomDataObject, defaults.merge(opts)
     @custom_data.create
@@ -234,8 +235,9 @@ class AwardObject < DataObject
   def submit
     view :award_actions
     on AwardActions do |page|
+      page.expand_all
+      page.award_hierarchy_link.wait_until_present
       page.submit
-      page.awaiting_doc
       # TODO: Code for intelligently handling the appearance of this (It's a screen about validation warnings)
       confirmation
 
@@ -272,6 +274,7 @@ class AwardObject < DataObject
       award.id = page.header_award_id
       award.document_id = page.header_document_id
       award.custom_data.document_id = page.header_document_id
+      award.update_observers
     end
 
     # Modify the new data object according to the

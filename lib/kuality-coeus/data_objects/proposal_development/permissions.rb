@@ -1,4 +1,4 @@
-class PermissionsObject < DataObject
+class PermissionsObject < DataFactory
 
   include Navigation
 

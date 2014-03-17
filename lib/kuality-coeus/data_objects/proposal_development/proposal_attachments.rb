@@ -1,4 +1,4 @@
-class ProposalAttachmentObject < DataObject
+class ProposalAttachmentObject < DataFactory
 
   include Navigation
 

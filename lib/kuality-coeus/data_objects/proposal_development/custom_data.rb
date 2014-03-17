@@ -1,5 +1,5 @@
 # coding: UTF-8
-class CustomDataObject < DataObject
+class CustomDataObject < DataFactory
 
   include Navigation
   include StringFactory

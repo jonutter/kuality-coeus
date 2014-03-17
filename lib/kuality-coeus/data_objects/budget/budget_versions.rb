@@ -1,4 +1,4 @@
-class BudgetVersionsObject < DataObject
+class BudgetVersionsObject < DataFactory
 
   include StringFactory
   include Navigation

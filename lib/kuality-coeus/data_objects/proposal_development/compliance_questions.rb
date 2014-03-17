@@ -1,4 +1,4 @@
-class ComplianceQuestionsObject < DataObject
+class ComplianceQuestionsObject < DataFactory
 
   include DateFactory
   include Navigation
