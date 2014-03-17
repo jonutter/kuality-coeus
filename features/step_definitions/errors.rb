@@ -20,7 +20,7 @@ Then /^an error should appear that says (.*)$/ do |error|
             'the Account ID may only contain letters or numbers' => 'The Account ID (Account ID) may only consist of letters or digits.',
             'the Award\'s title contains invalid characters' => 'The Award Title (Title) may only consist of visible characters, spaces, or tabs.',
             'the Award\'s title can\'t be longer than 200 characters' => 'Must be at most 200 characters',
-            'the anticipated amount must be equal to or more than obligated' => 'The Anticipated Amount must be greater than or equal to Obligated Amount.'
+            'the anticipated amount must be equal to or more than obligated' => 'The Anticipated Amount must be greater than or equal to Obligated Amount.',
   }
   $current_page.errors.should include errors[error]
 end
@@ -82,6 +82,38 @@ end
 
 Then(/^an error notification will indicate that the user cannot access the Award$/) do
   on(AuthExceptionReport).error_message.should include %|user '#{@award.key_personnel.principal_investigator.user_name}' is not authorized to open document '#{@award.document_id}'|
+end
+
+Then(/^a cost sharing error should appear on the distribution page to indicate the field is required$/) do
+  error = case @required_field
+            when 'Amount'
+              "Cost Share Commitment Amount is a required field."
+            when 'Source Account'
+              "Source Account (Source Account) is a required field."
+            else
+              "#{@required_field} is a required field."
+          end
+  $current_page.errors.should include error
+end
+
+Then(/^an unrecovered f&a error should appear on the distribution page to indicate the field is required$/) do
+  error = case @required_field
+            when 'Amount'
+              "Cost Share Commitment Amount is a required field."
+            else
+              "#{@required_field} is a required field."
+          end
+  $current_page.errors.should include error
+end
+
+Then(/^an error should appear on the distribution page indicating that the entries are invalid$/) do
+  error = case @required_field
+            when 'Amount'
+              "Unrecovered F&A Amount is a required field."
+            else
+              "#{@required_field} is not a valid amount."
+          end
+  $current_page.errors.should include error
 end
 
 #-----------------------#

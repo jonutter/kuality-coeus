@@ -13,14 +13,46 @@ And /^the Funding Proposal version should be '(\d+)'$/ do |version|
 end
 
 When(/^the Institutional Proposal Maintainer adds a cost sharing element with a missing required field$/) do
-  # Note that this step implicitly requires creation of a Proposal Log first...
   steps %q{ * I log in with the Institutional Proposal Maintainer user }
+  @institutional_proposal.view :@institutional_proposal
+  on(InstitutionalProposal).edit
   # Pick a field at random for the test...
-  @required_field = ['Project Period', 'Cost Share Type', 'Source Account', 'Amount'
+  @required_field = ['Project Period', 'Cost Share Type', 'Source Account', 'Commitment Amount'
   ].sample
   # Properly set the nil value depending on the field type...
   @required_field=~/Type/ ? value='select' : value=' '
   # Transform the field name to the appropriate symbol...
   field = damballa(@required_field)
   @institutional_proposal.add_cost_sharing field=>value
+end
+
+When(/^the Institutional Proposal Maintainer enters invalid characters for a cost sharing element$/) do
+  steps %q{ * I log in with the Institutional Proposal Maintainer user }
+  @institutional_proposal.view :@institutional_proposal
+  on(InstitutionalProposal).edit
+  @required_field = [ 'Project Period', 'Percentage', 'Amount' ].sample
+  field = damballa(@required_field)
+  @institutional_proposal.add_cost_sharing field=>random_letters
+end
+
+When(/^the Institutional Proposal Maintainer adds an unrecovered f&a element with a missing required field$/) do
+  steps %q{ * I log in with the Institutional Proposal Maintainer user }
+  @institutional_proposal.view :@institutional_proposal
+  on(InstitutionalProposal).edit
+  # Pick a field at random for the test...
+  @required_field = ['Fiscal Year', 'Rate Type', 'Source Account', 'Amount'
+  ].sample
+  # Properly set the nil value depending on the field type...
+  @required_field=~/Type/ ? value='select' : value=' '
+  # Transform the field name to the appropriate symbol...
+  field = damballa(@required_field)
+  @institutional_proposal.add_unrecovered_fa field=>value
+
+
+
+
+
+  # debug
+
+  sleep 50
 end
