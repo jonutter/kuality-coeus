@@ -43,6 +43,9 @@ class AwardKeyPersonObject < DataFactory
       end
       fill_out create, :key_person_role
       create.add_key_person
+      # Note: This break is here for testing for an
+      # error when attempting to add 2 PIs to the Award...
+      break if create.errors.size > 0
       create.expand_all
       set_up_units
       create.save

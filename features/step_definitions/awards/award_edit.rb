@@ -2,10 +2,14 @@
 #----------------------#
 #Key Personnel
 #----------------------#
-Given /^I? ?adds? a PI to the Award$/ do
+Given /adds? a PI to the Award$/ do
   # Note: the logic is here because of the nesting of this
   # step in "I complete the Award requirements"
   @award.add_pi if @award.key_personnel.principal_investigator.nil?
+end
+
+And /^another Principal Investigator is added to the Award$/ do
+  @award.add_pi
 end
 
 Given /adds the Funding Proposal's PI as the Award's PI/ do

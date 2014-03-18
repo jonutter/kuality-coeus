@@ -83,6 +83,10 @@ Then /^an error should appear indicating the field is required$/ do
   $current_page.errors.should include error
 end
 
+Then /^an error appears that says only one PI is allowed$/ do
+  $current_page.errors.should include 'Only one Principal Investigator is allowed'
+end
+
 #------------------------#
 # Institutional Proposal #
 #------------------------#
