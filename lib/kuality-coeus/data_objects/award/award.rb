@@ -1,5 +1,5 @@
 # coding: UTF-8
-class AwardObject < DataObject
+class AwardObject < DataFactory
 
   include Navigation
   include DateFactory
