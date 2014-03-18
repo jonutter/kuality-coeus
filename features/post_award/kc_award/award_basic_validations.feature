@@ -63,4 +63,8 @@ Feature: Basic Award Validations
   Scenario: KC-TS-2114 Blank project start date with Obligated Amount
     Given the Award Modifier creates an Award with an obligated amount and blank project start date
     When  data validation is turned on for the Award
-    Then  a warning should appear saying a project start date is required for the T&M Document
+    Then  an error is shown that says a project start date is required for the T&M Document
+
+  Scenario: Project Start Date is after Obligation Start Date
+    When  the Award Modifier creates an Award with a project start date later than the obligation start date
+    Then  an error should appear that says the project start date can't be later than the obligation date

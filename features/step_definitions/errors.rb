@@ -20,7 +20,8 @@ Then /^an error should appear that says (.*)$/ do |error|
             'the Account ID may only contain letters or numbers' => 'The Account ID (Account ID) may only consist of letters or digits.',
             'the Award\'s title contains invalid characters' => 'The Award Title (Title) may only consist of visible characters, spaces, or tabs.',
             'the Award\'s title can\'t be longer than 200 characters' => 'Must be at most 200 characters',
-            'the anticipated amount must be equal to or more than obligated' => 'The Anticipated Amount must be greater than or equal to Obligated Amount.'
+            'the anticipated amount must be equal to or more than obligated' => 'The Anticipated Amount must be greater than or equal to Obligated Amount.',
+            'the project start date can\'t be later than the obligation date' => "Award #{@award.id} Project Start Date must be before or equal to Obligation Start Date."
   }
   $current_page.errors.should include errors[error]
 end
@@ -36,7 +37,8 @@ end
 Then /^an error is shown that says (.*)$/ do |error|
   errors = { 'there are duplicate organizations' => 'There is a duplicate organization name.',
              'there is no principal investigator' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.',
-             'sponsor deadline date not entered' => 'Sponsor deadline date has not been entered.'
+             'sponsor deadline date not entered' => 'Sponsor deadline date has not been entered.',
+             'a project start date is required for the T&M Document' => 'Project Start Date is required when creating a Time &amp; Money document'
   }
   $current_page.validation_errors_and_warnings.should include errors[error]
 end
@@ -78,10 +80,6 @@ Then /^an error should appear indicating the field is required$/ do
               "#{@required_field} is a required field."
           end
   $current_page.errors.should include error
-end
-
-Then /^a warning should appear saying a project start date is required for the T\&M Document$/ do
-  $current_page.validation_errors_and_warnings.should include 'Project Start Date is required when creating a Time &amp; Money document'
 end
 
 #------------------------#

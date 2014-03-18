@@ -86,7 +86,7 @@ class AwardObject < DataFactory
       end
       create.save
       @document_id = create.header_document_id
-      @id = create.header_award_id.strip
+      @id = create.award_id.strip
       @search_key = { award_id: @id }
       @document_status = create.header_status
     end

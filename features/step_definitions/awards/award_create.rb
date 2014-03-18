@@ -44,3 +44,8 @@ Given /^the Award Modifier creates an Award with an obligated amount and blank p
   steps '* I log in with the Award Modifier user'
   @award = create AwardObject, project_start_date: ''
 end
+
+When /^the Award Modifier creates an Award with a project start date later than the obligation start date$/ do
+  steps '* I log in with the Award Modifier user'
+  @award = create AwardObject, project_start_date: next_week[:date_w_slashes]
+end
