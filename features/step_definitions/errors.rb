@@ -80,6 +80,10 @@ Then /^an error should appear indicating the field is required$/ do
   $current_page.errors.should include error
 end
 
+Then /^a warning should appear saying a project start date is required for the T\&M Document$/ do
+  $current_page.validation_errors_and_warnings.should include 'Project Start Date is required when creating a Time &amp; Money document'
+end
+
 #------------------------#
 # Institutional Proposal #
 #------------------------#

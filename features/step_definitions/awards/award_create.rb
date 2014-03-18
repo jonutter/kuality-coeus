@@ -39,3 +39,8 @@ Given /^the Award Modifier creates an Award including an Account ID, Account Typ
   steps '* I log in with the Award Modifier user'
   @award = create AwardObject
 end
+
+Given /^the Award Modifier creates an Award with an obligated amount and blank project start date$/ do
+  steps '* I log in with the Award Modifier user'
+  @award = create AwardObject, project_start_date: ''
+end
