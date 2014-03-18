@@ -17,6 +17,10 @@ Given /I? ?adds? a key person to the Award$/ do
   @award.add_key_person
 end
 
+When /^a Co-Investigator is added to the Award$/ do
+  @award.add_key_person project_role: 'Co-Investigator', key_person_role: nil
+end
+
 When /^I? ?add the (.*) unit to the Award's PI$/ do |unit|
   @award.key_personnel.principal_investigator.add_unit unit
 end

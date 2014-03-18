@@ -13,7 +13,8 @@ When /^the (.*) creates an Award$/ do |role_name|
   @award = create AwardObject, lead_unit: lead_unit
 end
 
-Given /^I? ?creates? an Award with (.*) as the Lead Unit$/ do |lead_unit|
+Given /^the Award Modifier creates? an Award with (.*) as the Lead Unit$/ do |lead_unit|
+  steps '* I log in with the Award Modifier user'
   @award = create AwardObject, lead_unit: lead_unit
 end
 
