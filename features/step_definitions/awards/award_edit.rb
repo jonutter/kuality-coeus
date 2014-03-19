@@ -21,6 +21,10 @@ Given /I? ?adds? a key person to the Award$/ do
   @award.add_key_person
 end
 
+And /adds a non-employee as a Principal Investigator to the Award$/ do
+  @award.add_pi type: 'non_employee'
+end
+
 When /^a Co-Investigator is added to the Award$/ do
   @award.add_key_person project_role: 'Co-Investigator', key_person_role: nil
 end
@@ -46,6 +50,11 @@ When /^the Award\'s PI is added again with a different role$/ do
   @award.add_key_person first_name: pi.first_name, last_name: pi.last_name
 end
 
+When /^the Award's Principal Investigator has no units$/ do
+  @award.key_personnel.principal_investigator.units.each do |unit|
+    @award.key_personnel.principal_investigator.delete_unit(unit[:number])
+  end
+end
 
 #----------------------#
 #Subawards

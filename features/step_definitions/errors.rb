@@ -23,7 +23,8 @@ Then /^an error should appear that says (.*)$/ do |error|
             'the anticipated amount must be equal to or more than obligated' => 'The Anticipated Amount must be greater than or equal to Obligated Amount.',
             'the project start date can\'t be later than the obligation date' => "Award #{@award.id} Project Start Date must be before or equal to Obligation Start Date.",
             'the Award has no PI' => 'There is no Principal Investigator selected. Please enter a Principal Investigator',
-            'they are already in the Award Personnel' => "#{@award.key_personnel.principal_investigator.full_name} is already added to the Award Project Personnel"
+            'they are already in the Award Personnel' => "#{@award.key_personnel.principal_investigator.full_name} is already added to the Award Project Personnel",
+            'the Award\'s PI requires at least one unit' => "At least one Unit is required for #{@award.key_personnel.principal_investigator.full_name}"
   }
   $current_page.errors.should include errors[error]
 end
