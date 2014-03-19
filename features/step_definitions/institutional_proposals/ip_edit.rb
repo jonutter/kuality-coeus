@@ -47,12 +47,4 @@ When(/^the Institutional Proposal Maintainer adds an unrecovered f&a element wit
   # Transform the field name to the appropriate symbol...
   field = damballa(@required_field)
   @institutional_proposal.add_unrecovered_fa field=>value
-
-
-
-
-
-  # debug
-
-  sleep 50
 end

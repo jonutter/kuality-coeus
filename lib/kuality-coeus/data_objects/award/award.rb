@@ -5,7 +5,6 @@ class AwardObject < DataFactory
   include DateFactory
   include StringFactory
   include DocumentUtilities
-  include Observable
 
   attr_reader :description, :transaction_type, :id, :award_status,
                 :award_title, :lead_unit, :activity_type, :award_type, :sponsor_id, :sponsor_type_code,
