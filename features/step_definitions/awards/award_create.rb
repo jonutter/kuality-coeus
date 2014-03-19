@@ -13,15 +13,15 @@ When /^the (.*) creates an Award$/ do |role_name|
   @award = create AwardObject, lead_unit: lead_unit
 end
 
-Given /^(the (.*) |)creates an Award with (.*) as the Lead Unit$/ do |text, role_name, lead_unit|
-  steps %{ * I log in with the #{role_name} user } unless text == ''
+Given /^the Award Modifier creates an Award with (.*) as the Lead Unit$/ do |lead_unit|
+  steps '* I log in with the Award Modifier user'
   @award = create AwardObject, lead_unit: lead_unit
 end
 
 #----------------------#
 #Award Validations Based on Errors During Creation
 #----------------------#
-When /^(the (.*) |)creates an Award with a missing required field$/ do |text, role_name|
+When /^the Award Modifier creates an Award with a missing required field$/ do |text, role_name|
   steps %{ * I log in with the #{role_name} user } unless text == ''
   @required_field = ['Description', 'Transaction Type', 'Award Status',
                      'Award Title', 'Activity Type', 'Award Type',
@@ -40,4 +40,14 @@ end
 Given /^the Award Modifier creates an Award including an Account ID, Account Type, Prime Sponsor, and CFDA Number$/ do
   steps '* I log in with the Award Modifier user'
   @award = create AwardObject
+end
+
+Given /^the Award Modifier creates an Award with an obligated amount and blank project start date$/ do
+  steps '* I log in with the Award Modifier user'
+  @award = create AwardObject, project_start_date: ''
+end
+
+When /^the Award Modifier creates an Award with a project start date later than the obligation start date$/ do
+  steps '* I log in with the Award Modifier user'
+  @award = create AwardObject, project_start_date: next_week[:date_w_slashes]
 end

@@ -122,18 +122,15 @@ class InstitutionalProposalObject < DataFactory
 
   def add_cost_sharing opts={}
     @cost_sharing.add merge_settings(opts)
-    add_observer(@cost_sharing[-1])
   end
 
   def add_unrecovered_fa opts={}
     opts.store(:index, @unrecovered_fa.size)
     @unrecovered_fa.add merge_settings(opts)
-    add_observer(@unrecovered_fa[-1])
   end
 
   def add_project_personnel opts={}
     @project_personnel.add merge_settings(opts)
-    add_observer(@project_personnel[-1])
   end
 
   def unlock_award(award_id)

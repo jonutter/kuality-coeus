@@ -59,3 +59,12 @@ Feature: Basic Award Validations
     And   adds a PI to the Award
     When  data validation is turned on for the Award
     Then  errors appear on the Contacts page, saying the credit splits for the PI aren't equal to 100%
+
+  Scenario: KC-TS-2114 Blank project start date with Obligated Amount
+    Given the Award Modifier creates an Award with an obligated amount and blank project start date
+    When  data validation is turned on for the Award
+    Then  an error is shown that says a project start date is required for the T&M Document
+
+  Scenario: Project Start Date is after Obligation Start Date
+    When  the Award Modifier creates an Award with a project start date later than the obligation start date
+    Then  an error should appear that says the project start date can't be later than the obligation date

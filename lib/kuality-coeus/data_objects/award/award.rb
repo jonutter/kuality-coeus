@@ -86,7 +86,7 @@ class AwardObject < DataFactory
       end
       create.save
       @document_id = create.header_document_id
-      @id = create.header_award_id.strip
+      @id = create.award_id.strip
       @search_key = { award_id: @id }
       @document_status = create.header_status
     end
@@ -157,7 +157,6 @@ class AwardObject < DataFactory
     }
     view :contacts
     @key_personnel.add defaults.merge(opts)
-    attach_observer(@key_personnel[-1])
   end
   alias_method :add_principal_investigator, :add_pi
 
@@ -273,7 +272,6 @@ class AwardObject < DataFactory
       award.id = page.header_award_id
       award.document_id = page.header_document_id
       award.custom_data.document_id = page.header_document_id
-      award.update_observers
     end
 
     # Modify the new data object according to the

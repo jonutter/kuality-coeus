@@ -160,8 +160,8 @@ class ProposalDevelopmentObject < DataFactory
                             project_role: person.key_person_role, units: person.units,
                             responsibility: person.responsibility, space: person.space,
                             financial: person.financial, recognition: person.recognition,
-                            document_id: doc_id, lookup_class: @lookup_class, search_key: @search_key,
-                            doc_header: @doc_header
+                            document_id: doc_id, search_key: { institutional_proposal_number: doc_id },
+                            lookup_class: InstitutionalProposalLookup, doc_header: 'KC Institutional Proposal'
       ip.project_personnel << project_person
     end
     ip

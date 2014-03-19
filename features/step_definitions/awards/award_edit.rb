@@ -2,10 +2,14 @@
 #----------------------#
 #Key Personnel
 #----------------------#
-Given /^I? ?adds? a PI to the Award$/ do
+Given /adds? a PI to the Award$/ do
   # Note: the logic is here because of the nesting of this
   # step in "I complete the Award requirements"
   @award.add_pi if @award.key_personnel.principal_investigator.nil?
+end
+
+And /^another Principal Investigator is added to the Award$/ do
+  @award.add_pi
 end
 
 Given /adds the Funding Proposal's PI as the Award's PI/ do
@@ -15,6 +19,10 @@ end
 
 Given /I? ?adds? a key person to the Award$/ do
   @award.add_key_person
+end
+
+When /^a Co-Investigator is added to the Award$/ do
+  @award.add_key_person project_role: 'Co-Investigator', key_person_role: nil
 end
 
 When /^I? ?add the (.*) unit to the Award's PI$/ do |unit|
@@ -33,10 +41,11 @@ When /^I? ?set (.*) as the lead unit for the Award's PI$/ do |unit|
   @award.key_personnel.principal_investigator.set_lead_unit unit
 end
 
-And /^I? ?adds? the (.*) user as an? (.*) for the Award$/ do |user_role, proposal_role|
-  user = get(user_role)
-  @award.add_pi first_name: user.first_name, last_name: user.last_name, user_name: user.user_name, role: proposal_role
+When /^the Award\'s PI is added again with a different role$/ do
+  pi = @award.key_personnel.principal_investigator
+  @award.add_key_person first_name: pi.first_name, last_name: pi.last_name
 end
+
 
 #----------------------#
 #Subawards
