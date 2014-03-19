@@ -16,12 +16,12 @@ Feature: Basic Award Validations
     Given I log in with the Award Modifier user
     When  I create an Award with a missing required field
     Then  an error should appear indicating the field is required
-
+  @bug_in_system
   Scenario: Enter an account ID that contains non-alphanumeric characters
     Given the Award Modifier creates an Award
     When  an Account ID with special characters is added to the Award details
     Then  an error should appear that says the Account ID may only contain letters or numbers
-
+  @bug_in_system
   Scenario: Enter a title containing invalid characters
     Given the Award Modifier creates an Award
     When  the Award's title is updated to include invalid characters
@@ -64,7 +64,7 @@ Feature: Basic Award Validations
     Given the Award Modifier creates an Award with an obligated amount and blank project start date
     When  data validation is turned on for the Award
     Then  an error is shown that says a project start date is required for the T&M Document
-
+  @test
   Scenario: Project Start Date is after Obligation Start Date
     When  the Award Modifier creates an Award with a project start date later than the obligation start date
-    Then  an error should appear that says the project start date can't be later than the obligation date
+    Then  the Award should show an error saying the project start date can't be later than the obligation date

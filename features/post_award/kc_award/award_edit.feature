@@ -14,7 +14,7 @@ Feature: Editing Awards
   Scenario: Award has no Principal Investigator added
     Given the Award Modifier creates an Award
     When  a Co-Investigator is added to the Award
-    Then  an error should appear that says the Award has no PI
+    Then  an error appears that says the Award has no PI
 
   Scenario: Add two Principal Investigators
     Given the Award Modifier creates an Award
@@ -26,10 +26,10 @@ Feature: Editing Awards
     Given the Award Modifier creates an Award
     And   adds a PI to the Award
     When  the Award's PI is added again with a different role
-    Then  an error should appear that says they are already in the Award Personnel
-  @test
+    Then  the Award should throw an error saying they are already in the Award Personnel
+
   Scenario: Adding a non-employee without a Unit
     Given the Award Modifier creates an Award
     And   adds a non-employee as a Principal Investigator to the Award
     When  the Award's Principal Investigator has no units
-    Then  an error should appear that says the Award's PI requires at least one unit
+    Then  the Award should throw an error saying the Award's PI requires at least one unit
