@@ -57,6 +57,29 @@ When /^the Award's Principal Investigator has no units$/ do
 end
 
 #----------------------#
+#Commitments
+#----------------------#
+And /^a cost share item is added to the Award with a typo in the project period$/ do
+  @award.add_cost_share project_period: random_alphanums(3, 'x')
+end
+
+When /^a cost share item is added to the Award with a Percentage having 3 significant digits$/ do
+  @award.add_cost_share percentage: "#{"%02d"%rand(99)}.#{"%03d"%rand(999)}"
+end
+
+When /^a cost share item is added to the Award without a required field$/ do
+  rfs = {
+    type: 'Cost Share Type',
+    project_period: 'Project Period',
+    commitment_amount: 'Cost Share Commitment Amount'
+  }
+  field = rfs.keys.sample
+  @required_field = rfs[field]
+  value = field==:type ? 'select' : ''
+  @award.add_cost_share field => value
+end
+
+#----------------------#
 #Subawards
 #----------------------#
 Given /^I? ?adds? a subaward to the Award$/ do
@@ -77,7 +100,6 @@ end
 Given /I? ?add a Sponsor Contact to the Award$/ do
   @award.add_sponsor_contact
 end
-
 
 #----------------------#
 #Payment Info

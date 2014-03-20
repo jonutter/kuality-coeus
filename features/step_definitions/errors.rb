@@ -7,6 +7,8 @@ Then /^an error should appear that says (.*)$/ do |error|
             'a key person role is required' => 'Key Person Role is a required field.',
             'the credit split is not a valid percentage' => 'Credit Split is not a valid percentage.',
             'only one PI is allowed' => 'Only one proposal role of Principal Investigator is allowed.',
+            'the Award has no PI' => 'There is no Principal Investigator selected. Please enter a Principal Investigator',
+            'only one PI is allowed in the Contacts' => 'Only one Principal Investigator is allowed',
             'the IP can not be added because it\'s not fully approved' => 'Cannot add this funding proposal. The associated Development Proposal has "Approval Pending - Submitted" status.',
             'the approval should occur later than the application' => 'Approval Date should be the same or later than Application Date.',
             'not to select other roles alongside aggregator' => 'Do not select other roles when Aggregator is selected.',
@@ -20,7 +22,9 @@ Then /^an error should appear that says (.*)$/ do |error|
             'the Account ID may only contain letters or numbers' => 'The Account ID (Account ID) may only consist of letters or digits.',
             'the Award\'s title contains invalid characters' => 'The Award Title (Title) may only consist of visible characters, spaces, or tabs.',
             'the Award\'s title can\'t be longer than 200 characters' => 'Must be at most 200 characters',
-            'the anticipated amount must be equal to or more than obligated' => 'The Anticipated Amount must be greater than or equal to Obligated Amount.'
+            'the anticipated amount must be equal to or more than obligated' => 'The Anticipated Amount must be greater than or equal to Obligated Amount.',
+            'the project period has a typo' => 'Project Period is not formatted correctly.',
+            'cost share type is required' => 'Cost Share Type Code is a required field.'
   }
   $current_page.errors.should include errors[error]
 end
@@ -48,6 +52,7 @@ Then /^errors about the missing terms are shown$/ do
   .each { |term| $current_page.validation_errors_and_warnings.should include "There must be at least one #{term} Terms defined." }
 end
 
+# TODO: Move to the big step def.
 Then /^an error is shown that indicates the lead unit code is invalid$/ do
   $current_page.errors.should include 'Lead Unit is invalid.'
 end
@@ -81,14 +86,6 @@ Then /^an error should appear indicating the field is required$/ do
   $current_page.errors.should include error
 end
 
-Then /^an error appears that says (.*)$/ do |error|
-  errors = {
-      'the Award has no PI' => 'There is no Principal Investigator selected. Please enter a Principal Investigator',
-      'only one PI is allowed' => 'Only one Principal Investigator is allowed'
-  }
-  $current_page.errors.should include errors[error]
-end
-
 Then /^the Award should show an error saying the project start date can't be later than the obligation date$/ do
   $current_page.errors.should include "Award #{@award.id} Project Start Date must be before or equal to Obligation Start Date."
 end
@@ -99,6 +96,10 @@ Then /^the Award should throw an error saying (.*)/ do |error|
     'the Award\'s PI requires at least one unit' => "At least one Unit is required for #{@award.key_personnel.principal_investigator.full_name}"
   }
   $current_page.errors.should include errors[error]
+end
+
+Then /^an error should say that the cost share percentage can only have 2 decimal places$/ do
+  $current_page.errors.should include "Invalid value #{@award.cost_sharing[0].percentage}: at most 2 digits may follow the decimal point."
 end
 
 #------------------------#

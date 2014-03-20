@@ -183,6 +183,11 @@ class AwardObject < DataFactory
     @sponsor_contacts << s_c
   end
 
+  def add_cost_share opts={}
+    view :commitments
+    @cost_sharing.add(opts)
+  end
+
   def add_payment_and_invoice opts={}
     raise "You already created a Payment & Invoice in your scenario.\nYou want to interact with that item directly, now." unless @payment_and_invoice.nil?
     view :payment_reports__terms

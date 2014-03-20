@@ -14,13 +14,13 @@ Feature: Editing Awards
   Scenario: Award has no Principal Investigator added
     Given the Award Modifier creates an Award
     When  a Co-Investigator is added to the Award
-    Then  an error appears that says the Award has no PI
+    Then  an error should appear that says the Award has no PI
 
   Scenario: Add two Principal Investigators
     Given the Award Modifier creates an Award
     And   adds a PI to the Award
     When  another Principal Investigator is added to the Award
-    Then  an error appears that says only one PI is allowed
+    Then  an error should appear that says only one PI is allowed in the Contacts
 
   Scenario: Same Contact with two roles
     Given the Award Modifier creates an Award
