@@ -21,9 +21,7 @@ Then /^an error should appear that says (.*)$/ do |error|
             'the Award\'s title contains invalid characters' => 'The Award Title (Title) may only consist of visible characters, spaces, or tabs.',
             'the Award\'s title can\'t be longer than 200 characters' => 'Must be at most 200 characters',
             'the anticipated amount must be equal to or more than obligated' => 'The Anticipated Amount must be greater than or equal to Obligated Amount.',
-            'the project start date can\'t be later than the obligation date' => "Award #{@award.id} Project Start Date must be before or equal to Obligation Start Date.",
-            'the Award has no PI' => 'There is no Principal Investigator selected. Please enter a Principal Investigator',
-            'they are already in the Award Personnel' => "#{@award.key_personnel.principal_investigator.full_name} is already added to the Award Project Personnel"
+            'the fiscal year needs to be corrected' => "Fiscal Year must be between 1900 and 2499."
   }
   $current_page.errors.should include errors[error]
 end
@@ -103,7 +101,7 @@ end
 Then(/^an unrecovered f&a error should appear on the distribution page to indicate the field is required$/) do
   error = case @required_field
             when 'Amount'
-              "Cost Share Commitment Amount is a required field."
+              "Unrecovered F&A Amount is a required field."
             else
               "#{@required_field} is a required field."
           end
@@ -114,6 +112,8 @@ Then(/^an error should appear on the distribution page indicating that the entri
   error = case @required_field
             when 'Amount'
               "Unrecovered F&A Amount is a required field."
+            when 'Fiscal Year'
+              "Fiscal Year is not formatted correctly."
             else
               "#{@required_field} is not a valid amount."
           end

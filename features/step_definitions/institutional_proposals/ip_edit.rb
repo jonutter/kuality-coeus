@@ -48,3 +48,19 @@ When(/^the Institutional Proposal Maintainer adds an unrecovered f&a element wit
   field = damballa(@required_field)
   @institutional_proposal.add_unrecovered_fa field=>value
 end
+
+When(/^the Institutional Proposal Maintainer enters invalid characters for an unrecovered f&a element$/) do
+  steps %q{ * I log in with the Institutional Proposal Maintainer user }
+  @institutional_proposal.view :@institutional_proposal
+  on(InstitutionalProposal).edit
+  @required_field = [ 'Fiscal Year', 'Applicable Rate', 'Amount' ].sample
+  field = damballa(@required_field)
+  @institutional_proposal.add_unrecovered_fa field=>random_letters
+end
+
+When(/^the Institutional Maintainer enters an invalid year for the fiscal year field$/) do
+  steps %q{ * I log in with the Institutional Proposal Maintainer user }
+  @institutional_proposal.view :@institutional_proposal
+  on(InstitutionalProposal).edit
+  @institutional_proposal.add_unrecovered_fa :fiscal_year => '00'
+end

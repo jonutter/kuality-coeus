@@ -13,7 +13,8 @@ class Distribution < KCInstitutionalProposal
   element(:add_fa_campus_flag) { |b| b.frm.checkbox(name: 'institutionalProposalUnrecoveredFandABean.newInstitutionalProposalUnrecoveredFandA.onCampusFlag') }
   element(:add_fa_source_account) { |b| b.frm.text_field(name: 'institutionalProposalUnrecoveredFandABean.newInstitutionalProposalUnrecoveredFandA.sourceAccount') }
   element(:add_fa_amount) { |b| b.frm.text_field(name: 'institutionalProposalUnrecoveredFandABean.newInstitutionalProposalUnrecoveredFandA.underrecoveryOfIndirectcost') }
-  action(:add_unrecovered_f_a) { |b| b.frm.button(name: 'methodToCall.addUnrecoveredFandA.anchorUnrecoveredFA').click; b.loading }
+  action(:add_unrecovered_f_a) { |b| b.add_unrecovered_f_a_button.click; b.loading }
+  element(:add_unrecovered_f_a_button) { |b| b.frm.button(name: 'methodToCall.addUnrecoveredFandA.anchorUnrecoveredFA') }
 
   value(:cost_share_table) { |b| b.frm.table(id: 'cost-share-table') }
 

@@ -20,8 +20,18 @@ Feature: Basic Error Validations for Institutional Proposals
     Given 1 Approved Institutional Proposal exists
     When  the Institutional Proposal Maintainer enters invalid characters for a cost sharing element
     Then  an error should appear on the distribution page indicating that the entries are invalid
-  @test
+
   Scenario: Attempt to add an unrecovered f&a element w/o required field
     Given 1 Approved Institutional Proposal exists
     When  the Institutional Proposal Maintainer adds an unrecovered f&a element with a missing required field
     Then  an unrecovered f&a error should appear on the distribution page to indicate the field is required
+
+  Scenario: Filling out cost unrecovered f&a fields with invalid entries
+    Given 1 Approved Institutional Proposal exists
+    When  the Institutional Proposal Maintainer enters invalid characters for an unrecovered f&a element
+    Then  an error should appear on the distribution page indicating that the entries are invalid
+
+  Scenario: Filling out fiscal year with an invalid year
+    Given 1 Approved Institutional Proposal exists
+    When  the Institutional Maintainer enters an invalid year for the fiscal year field
+    Then  an error should appear that says the fiscal year needs to be corrected
