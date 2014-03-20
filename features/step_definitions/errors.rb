@@ -23,7 +23,8 @@ Then /^an error should appear that says (.*)$/ do |error|
             'the anticipated amount must be equal to or more than obligated' => 'The Anticipated Amount must be greater than or equal to Obligated Amount.',
             'the fiscal year needs to be corrected' => "Fiscal Year must be between 1900 and 2499.",
             'the project period has a typo' => 'Project Period is not formatted correctly.',
-            'cost share type is required' => 'Cost Share Type Code is a required field.'
+            'cost share type is required' => 'Cost Share Type Code is a required field.',
+            'lead unit is invalid' => 'Lead Unit is invalid.'
   }
   $current_page.errors.should include errors[error]
 end
@@ -49,11 +50,6 @@ Then /^errors about the missing terms are shown$/ do
   ['Equipment Approval', 'Invention','Prior Approval','Property','Publication',
    'Referenced Document','Rights In Data','Subaward Approval','Travel Restrictions']
   .each { |term| $current_page.validation_errors_and_warnings.should include "There must be at least one #{term} Terms defined." }
-end
-
-# TODO: Move to the big step def.
-Then /^an error is shown that indicates the lead unit code is invalid$/ do
-  $current_page.errors.should include 'Lead Unit is invalid.'
 end
 
 Then /^an error is shown that indicates the user is already an investigator$/ do
