@@ -20,10 +20,16 @@ Feature: Editing Awards
     Given the Award Modifier creates an Award
     And   adds a PI to the Award
     When  another Principal Investigator is added to the Award
-    Then  an error appears that says only one PI is allowed
+    Then  an error should appear that says only one PI is allowed in the Contacts
 
   Scenario: Same Contact with two roles
     Given the Award Modifier creates an Award
     And   adds a PI to the Award
     When  the Award's PI is added again with a different role
-    Then  an error should appear that says they are already in the Award Personnel
+    Then  the Award should throw an error saying they are already in the Award Personnel
+
+  Scenario: Adding a non-employee without a Unit
+    Given the Award Modifier creates an Award
+    And   adds a non-employee as a Principal Investigator to the Award
+    When  the Award's Principal Investigator has no units
+    Then  the Award should throw an error saying the Award's PI requires at least one unit

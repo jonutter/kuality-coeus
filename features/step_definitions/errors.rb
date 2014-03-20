@@ -21,7 +21,9 @@ Then /^an error should appear that says (.*)$/ do |error|
             'the Award\'s title contains invalid characters' => 'The Award Title (Title) may only consist of visible characters, spaces, or tabs.',
             'the Award\'s title can\'t be longer than 200 characters' => 'Must be at most 200 characters',
             'the anticipated amount must be equal to or more than obligated' => 'The Anticipated Amount must be greater than or equal to Obligated Amount.',
-            'the fiscal year needs to be corrected' => "Fiscal Year must be between 1900 and 2499."
+            'the fiscal year needs to be corrected' => "Fiscal Year must be between 1900 and 2499.",
+            'the project period has a typo' => 'Project Period is not formatted correctly.',
+            'cost share type is required' => 'Cost Share Type Code is a required field.'
   }
   $current_page.errors.should include errors[error]
 end
@@ -49,8 +51,9 @@ Then /^errors about the missing terms are shown$/ do
   .each { |term| $current_page.validation_errors_and_warnings.should include "There must be at least one #{term} Terms defined." }
 end
 
+# TODO: Move to the big step def.
 Then /^an error is shown that indicates the lead unit code is invalid$/ do
-  $current_page.errors.should include "Lead Unit is invalid."
+  $current_page.errors.should include 'Lead Unit is invalid.'
 end
 
 Then /^an error is shown that indicates the user is already an investigator$/ do
@@ -135,8 +138,20 @@ Then /^an error should appear indicating the field is required$/ do
   $current_page.errors.should include error
 end
 
-Then /^an error appears that says only one PI is allowed$/ do
-  $current_page.errors.should include 'Only one Principal Investigator is allowed'
+Then /^the Award should show an error saying the project start date can't be later than the obligation date$/ do
+  $current_page.errors.should include "Award #{@award.id} Project Start Date must be before or equal to Obligation Start Date."
+end
+
+Then /^the Award should throw an error saying (.*)/ do |error|
+  errors = {
+    'they are already in the Award Personnel' => "#{@award.key_personnel.principal_investigator.full_name} is already added to the Award Project Personnel",
+    'the Award\'s PI requires at least one unit' => "At least one Unit is required for #{@award.key_personnel.principal_investigator.full_name}"
+  }
+  $current_page.errors.should include errors[error]
+end
+
+Then /^an error should say that the cost share percentage can only have 2 decimal places$/ do
+  $current_page.errors.should include "Invalid value #{@award.cost_sharing[0].percentage}: at most 2 digits may follow the decimal point."
 end
 
 #------------------------#

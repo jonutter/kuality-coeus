@@ -23,18 +23,29 @@ module Personnel
     on(page_class).send("#{@type}_search")
     on lookup_page do |page|
       if @last_name.nil?
-        page.search
+        if @type=='non_employee'
+          results=false
+          until results do
+            page.state.pick '::random::'
+            page.search
+            results = true if page.results_table.present?
+          end
+        else
+          page.search
+        end
+
         # We need to exclude the set of test users from the list
         # of names we'll randomly select from...
         names = page.returned_full_names - $users.full_names
         @last_name=names.sample[/\w+$/]
         @first_name=$~.pre_match.strip
-        @full_name="#{@first_name} #{@last_name}"
+        @full_name = @type=='employee' ? "#{@first_name} #{@last_name}" : "#{@last_name}, #{@first_name}"
       else
         fill_out page, :first_name, :last_name
         page.search
       end
-      page.return_value @full_name
+      item = @type=='employee' ? @full_name : "#{@first_name} #{@last_name}"
+      page.return_value item
     end
   end
 

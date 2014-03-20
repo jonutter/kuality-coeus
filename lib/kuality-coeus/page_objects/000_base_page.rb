@@ -267,9 +267,9 @@ class BasePage < PageFactory
       action(act_name) { |b| b.frm.send(type, identifiers[type]=>text).click }
     end
 
-    # Used for getting rid of the space in the full name
+    # Used for getting rid of the space and comma in the full name
     def nsp(string)
-      string.gsub(' ', '')
+      string.gsub(/[ ,]/, '')
     end
 
     # Used to add an extra space in the full name (because some

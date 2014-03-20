@@ -4,7 +4,11 @@ class Commitments < KCAwards
   element(:new_cost_sharing_percentage) { |b| b.frm.text_field(name: 'costShareFormHelper.newAwardCostShare.costSharePercentage') }
   element(:new_cost_sharing_type) { |b| b.frm.select(name: 'costShareFormHelper.newAwardCostShare.costShareTypeCode') }
   element(:new_cost_sharing_project_period) { |b| b.frm.text_field(name: 'costShareFormHelper.newAwardCostShare.projectPeriod') }
+  element(:new_cost_sharing_source) { |b| b.frm.text_field(name: 'costShareFormHelper.newAwardCostShare.source') }
+  element(:new_cost_sharing_destination) { |b| b.frm.text_field(name: 'costShareFormHelper.newAwardCostShare.destination') }
   element(:new_cost_sharing_commitment_amount) { |b| b.frm.text_field(name: 'costShareFormHelper.newAwardCostShare.commitmentAmount') }
+  element(:new_cost_sharing_met) { |b| b.frm.text_field(name: 'costShareFormHelper.newAwardCostShare.costShareMet') }
+  element(:new_cost_sharing_verification_date) { |b| b.frm.text_field(name: 'costShareFormHelper.newAwardCostShare.verificationDate') }
   action(:add_cost_sharing) { |b| b.frm.button(name: 'methodToCall.addCostShare.anchor').click; b.loading }
 
   p_element(:cost_sharing_percentage) { |index, b| b.frm.text_field(name: "document.awardList[0].awardCostShares[#{index}].costSharePercentage") }
