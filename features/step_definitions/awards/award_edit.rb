@@ -79,6 +79,16 @@ When /^a cost share item is added to the Award without a required field$/ do
   @award.add_cost_share field => value
 end
 
+And /^duplicate cost share items are added to the Award$/ do
+  @award.add_cost_share
+  cs = @award.cost_sharing[0]
+  @award.add_cost_share percentage: cs.percentage,
+                        type: cs.type,
+                        project_period: cs.project_period,
+                        source: cs.source,
+                        commitment_amount: cs.commitment_amount
+end
+
 #----------------------#
 #Subawards
 #----------------------#
