@@ -89,8 +89,22 @@ And /^duplicate cost share items are added to the Award$/ do
                         commitment_amount: cs.commitment_amount
 end
 
-And /^adds an F&A rate to the Award$/ do
+And /adds an F&A rate to the Award$/ do
   @award.add_fna_rate
+end
+
+And /adds an F&A rate to the Award but misses a required field$/ do
+  rfs = ['Rate', 'Type', 'Fiscal Year', 'Start Date']
+  @required_field = rfs.sample
+
+
+  # DEBUG
+  puts @required_field
+
+
+  field = damballa(@required_field)
+  value = field==:type ? 'select' : ''
+  @award.add_fna_rate field => value
 end
 
 #----------------------#

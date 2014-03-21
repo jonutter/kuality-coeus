@@ -42,6 +42,8 @@ class AwardFARatesObject < DataFactory
       page.new_rate_campus.pick! @campus
       page.new_rate_destination.fit @destination
       page.new_rate_unrecovered_fa.fit @unrecovered_fa
+      # Added this line for testing a blank start date field...
+      page.new_rate_start_date.clear if @start_date==''
       page.add_rate
     end
   end

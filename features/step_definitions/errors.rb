@@ -87,6 +87,10 @@ Then /^an error should appear indicating the field is required$/ do
   $current_page.errors.should include error
 end
 
+Then /^an error should say the field is mandatory$/ do
+  $current_page.errors.should include "#{@required_field} is a mandatory field"
+end
+
 Then /^the Award should show an error saying the project start date can't be later than the obligation date$/ do
   $current_page.errors.should include "Award #{@award.id} Project Start Date must be before or equal to Obligation Start Date."
 end
