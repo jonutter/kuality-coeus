@@ -25,7 +25,11 @@ class Commitments < KCAwards
   element(:new_rate_type) { |b| b.frm.select(name: 'newAwardFandaRate.fandaRateTypeCode') }
   element(:new_rate_fiscal_year) { |b| b.frm.text_field(name: 'newAwardFandaRate.fiscalYear') }
   element(:new_rate_start_date) { |b| b.frm.text_field(name: 'newAwardFandaRate.startDate') }
+  element(:new_rate_end_date) { |b| b.frm.text_field(name: 'newAwardFandaRate.endDate') }
   element(:new_rate_campus) { |b| b.frm.select(name: 'newAwardFandaRate.onCampusFlag') }
+  element(:new_rate_source) { |b| b.frm.text_field(name: 'newAwardFandaRate.sourceAccount') }
+  element(:new_rate_destination) { |b| b.frm.text_field(name: 'newAwardFandaRate.destinationAccount') }
+  element(:new_rate_unrecovered_fa) { |b| b.frm.text_field(name: 'newAwardFandaRate.underrecoveryOfIndirectCost') }
   action(:add_rate) { |b| b.frm.button(name: 'methodToCall.addFandaRate.anchorRates').click; b.loading }
 
   p_element(:fna_rate) { |index, b| b.frm.text_field(name: /document.awardList\[0\].awardFandaRate\[#{index}\].applicableFandaRate/) }

@@ -89,6 +89,10 @@ And /^duplicate cost share items are added to the Award$/ do
                         commitment_amount: cs.commitment_amount
 end
 
+And /^adds an F&A rate to the Award$/ do
+  @award.add_fna_rate
+end
+
 #----------------------#
 #Subawards
 #----------------------#

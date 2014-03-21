@@ -13,7 +13,6 @@ class AwardFARatesObject < DataFactory
         rate:           rand(101).to_s,
         type:           '::random::',
         fiscal_year:    right_now[:year],
-        start_date:     right_now[:date_w_slashes],
         campus:         '::random::',
         source:         random_alphanums,
         destination:    random_alphanums,
@@ -27,9 +26,22 @@ class AwardFARatesObject < DataFactory
     on Commitments do |page|
       page.expand_all
       page.new_rate.fit @rate
-      page.new_rate_type.fit @type
+      page.new_rate_type.pick! @type
       page.new_rate_fiscal_year.fit @fiscal_year
-      page.new_rate_start_date
+      if @start_date
+        page.new_rate_start_date.set @start_date
+        page.new_rate_end_date.set @end_date
+        page.new_rate_source.fit @source
+      else
+        page.new_rate_fiscal_year.click
+        page.new_rate_source.click
+        page.new_rate_source.fit @source
+        @start_date=page.new_rate_start_date.value
+        @end_date=page.new_rate_end_date.value
+      end
+      page.new_rate_campus.pick! @campus
+      page.new_rate_destination.fit @destination
+      page.new_rate_unrecovered_fa.fit @unrecovered_fa
       page.add_rate
     end
   end
