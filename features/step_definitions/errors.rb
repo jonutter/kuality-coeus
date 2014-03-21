@@ -24,7 +24,8 @@ Then /^an error should appear that says (.*)$/ do |error|
             'the Award\'s title can\'t be longer than 200 characters' => 'Must be at most 200 characters',
             'the anticipated amount must be equal to or more than obligated' => 'The Anticipated Amount must be greater than or equal to Obligated Amount.',
             'the project period has a typo' => 'Project Period is not formatted correctly.',
-            'cost share type is required' => 'Cost Share Type Code is a required field.'
+            'cost share type is required' => 'Cost Share Type Code is a required field.',
+            'the fiscal year is not valid' => 'Fiscal Year is not formatted correctly.'
   }
   $current_page.errors.should include errors[error]
 end
@@ -103,8 +104,12 @@ Then /^the Award should throw an error saying (.*)/ do |error|
   $current_page.errors.should include errors[error]
 end
 
-Then /^an error should say that the cost share percentage can only have 2 decimal places$/ do
-  $current_page.errors.should include "Invalid value #{@award.cost_sharing[0].percentage}: at most 2 digits may follow the decimal point."
+Then /^an error should say that the (cost share|F&A rate) percentage can only have 2 decimal places$/ do |type|
+  items = {
+      'cost share' => [:cost_sharing, :percentage],
+      'F&A rate'   => [:fa_rates, :rate]
+  }
+  $current_page.errors.should include "Invalid value #{@award.send(items[type][0])[0].send(items[type][1])}: at most 2 digits may follow the decimal point."
 end
 
 #------------------------#

@@ -63,8 +63,12 @@ And /^a cost share item is added to the Award with a typo in the project period$
   @award.add_cost_share project_period: random_alphanums(3, 'x')
 end
 
-When /^a cost share item is added to the Award with a Percentage having 3 significant digits$/ do
-  @award.add_cost_share percentage: "#{"%02d"%rand(99)}.#{"%03d"%rand(999)}"
+When /^(a cost share item|an F&A rate) is added to the Award with a Percentage having 3 significant digits$/ do |type|
+  items = {
+      'a cost share item' => [:add_cost_share, :percentage],
+      'an F&A rate'       => [:add_fna_rate, :rate]
+  }
+  @award.send(items[type][0], items[type][1]=>"#{"%02d"%rand(99)}.#{"%03d"%rand(999)}")
 end
 
 When /^a cost share item is added to the Award without a required field$/ do
@@ -96,15 +100,13 @@ end
 And /adds an F&A rate to the Award but misses a required field$/ do
   rfs = ['Rate', 'Type', 'Fiscal Year', 'Start Date']
   @required_field = rfs.sample
-
-
-  # DEBUG
-  puts @required_field
-
-
   field = damballa(@required_field)
   value = field==:type ? 'select' : ''
   @award.add_fna_rate field => value
+end
+
+And /adds an F&A rate with an invalid fiscal year$/ do
+  @award.add_fna_rate fiscal_year: random_string(3)
 end
 
 #----------------------#

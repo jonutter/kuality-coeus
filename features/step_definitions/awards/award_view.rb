@@ -165,7 +165,7 @@ And /^the Award\'s F&A data are from both Proposals$/ do
   end
 end
 
-And /^the Award\'s F&A data are from the first Proposal$/ do
+And /^the Award's F&A data are from the first Proposal$/ do
   @award.view :commitments
   on Commitments do |page|
     page.expand_all
@@ -200,5 +200,16 @@ And(/^the Award's version number is '(\d+)'$/) do |version|
   on Award do |page|
     page.expand_all
     page.version.should==version
+  end
+end
+
+And /^the F&A's start and end date fields should contain '(.*)'$/ do |value|
+  on Commitments do |page|
+
+    # Takes a little while for the text to show up...
+    sleep 7
+
+    page.new_rate_start_date.value.should==value
+    page.new_rate_end_date.value.should==value
   end
 end
