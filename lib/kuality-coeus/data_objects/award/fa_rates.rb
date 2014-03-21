@@ -12,7 +12,7 @@ class AwardFARatesObject < DataFactory
     defaults = {
         rate:           rand(101).to_s,
         type:           '::random::',
-        fiscal_year:    right_now[:year],
+        fiscal_year:    date_factory(Time.random(year_range: 500))[:year],
         campus:         '::random::',
         source:         random_alphanums,
         destination:    random_alphanums,
@@ -36,6 +36,8 @@ class AwardFARatesObject < DataFactory
         page.new_rate_fiscal_year.click
         page.new_rate_source.click
         page.new_rate_source.fit @source
+        # Needed because of a delay in the fields getting updated
+        sleep 3
         @start_date=page.new_rate_start_date.value
         @end_date=page.new_rate_end_date.value
       end

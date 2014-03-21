@@ -205,11 +205,16 @@ end
 
 And /^the F&A's start and end date fields should contain '(.*)'$/ do |value|
   on Commitments do |page|
-
     # Takes a little while for the text to show up...
     sleep 7
-
     page.new_rate_start_date.value.should==value
     page.new_rate_end_date.value.should==value
   end
+end
+
+Then /^the default start and end dates are based on the F&A rate's fiscal year$/ do
+  fna = @award.fa_rates[0]
+  f_y = fna.fiscal_year.to_i
+  fna.start_date.should=="07/01/#{f_y-1}"
+  fna.end_date.should=="06/30/#{f_y}"
 end

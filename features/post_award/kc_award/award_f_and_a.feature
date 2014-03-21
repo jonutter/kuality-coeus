@@ -20,3 +20,7 @@ Feature: Award F&A Rates
   Scenario: Percentage with 3 significant digits
     When an F&A rate is added to the Award with a Percentage having 3 significant digits
     Then an error should say that the F&A rate percentage can only have 2 decimal places
+  @test
+  Scenario: Default dates based on entered fiscal year
+    When the Award Modifier adds an F&A rate to the Award
+    Then the default start and end dates are based on the F&A rate's fiscal year
