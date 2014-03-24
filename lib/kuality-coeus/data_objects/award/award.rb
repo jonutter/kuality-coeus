@@ -7,17 +7,17 @@ class AwardObject < DataFactory
   include DocumentUtilities
 
   attr_reader :description, :transaction_type, :id, :award_status,
-                :award_title, :lead_unit, :activity_type, :award_type, :sponsor_id, :sponsor_type_code,
-                :nsf_science_code, :account_id, :account_type, :prime_sponsor, :cfda_number,
-                :project_start_date, :project_end_date, :obligation_start_date,
-                :obligation_end_date, :anticipated_amount, :obligated_amount, :document_id,
-                :document_status,
-                :creation_date, :key_personnel, :cost_sharing, :fa_rates,
-                :funding_proposals, :subawards, #TODO: Add Benefits rates and preaward auths...
-                :time_and_money,
-                :budget_versions, :sponsor_contacts, :payment_and_invoice, :terms, :reports,
-                :custom_data,
-                :parent, :children
+              :award_title, :lead_unit, :activity_type, :award_type, :sponsor_id, :sponsor_type_code,
+              :nsf_science_code, :account_id, :account_type, :prime_sponsor, :cfda_number,
+              :project_start_date, :project_end_date, :obligation_start_date,
+              :obligation_end_date, :anticipated_amount, :obligated_amount, :document_id,
+              :document_status,
+              :creation_date, :key_personnel, :cost_sharing, :fa_rates,
+              :funding_proposals, :subawards, #TODO: Add Benefits rates and preaward auths...
+              :time_and_money,
+              :budget_versions, :sponsor_contacts, :payment_and_invoice, :terms, :reports,
+              :custom_data,
+              :parent, :children
 
   def initialize(browser, opts={})
     @browser = browser
@@ -186,6 +186,11 @@ class AwardObject < DataFactory
   def add_cost_share opts={}
     view :commitments
     @cost_sharing.add(opts)
+  end
+
+  def add_fna_rate opts={}
+    view :commitments
+    @fa_rates.add(opts)
   end
 
   def add_payment_and_invoice opts={}

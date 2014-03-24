@@ -24,7 +24,11 @@ Then /^an error should appear that says (.*)$/ do |error|
             'the fiscal year needs to be corrected' => "Fiscal Year must be between 1900 and 2499.",
             'the project period has a typo' => 'Project Period is not formatted correctly.',
             'cost share type is required' => 'Cost Share Type Code is a required field.',
+<<<<<<< HEAD
             'lead unit is invalid' => 'Lead Unit is invalid.'
+=======
+            'the fiscal year is not valid' => 'Fiscal Year is not formatted correctly.'
+>>>>>>> 97fb328025f2d71052b4dccc41631ba37b9948d6
   }
   $current_page.errors.should include errors[error]
 end
@@ -41,7 +45,8 @@ Then /^an error is shown that says (.*)$/ do |error|
   errors = { 'there are duplicate organizations' => 'There is a duplicate organization name.',
              'there is no principal investigator' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.',
              'sponsor deadline date not entered' => 'Sponsor deadline date has not been entered.',
-             'a project start date is required for the T&M Document' => 'Project Start Date is required when creating a Time &amp; Money document'
+             'a project start date is required for the T&M Document' => 'Project Start Date is required when creating a Time &amp; Money document',
+             'there are duplicate cost share lines' => 'A duplicate row has been entered.'
   }
   $current_page.validation_errors_and_warnings.should include errors[error]
 end
@@ -134,6 +139,10 @@ Then /^an error should appear indicating the field is required$/ do
   $current_page.errors.should include error
 end
 
+Then /^an error should say the field is mandatory$/ do
+  $current_page.errors.should include "#{@required_field} is a mandatory field"
+end
+
 Then /^the Award should show an error saying the project start date can't be later than the obligation date$/ do
   $current_page.errors.should include "Award #{@award.id} Project Start Date must be before or equal to Obligation Start Date."
 end
@@ -146,8 +155,12 @@ Then /^the Award should throw an error saying (.*)/ do |error|
   $current_page.errors.should include errors[error]
 end
 
-Then /^an error should say that the cost share percentage can only have 2 decimal places$/ do
-  $current_page.errors.should include "Invalid value #{@award.cost_sharing[0].percentage}: at most 2 digits may follow the decimal point."
+Then /^an error should say that the (cost share|F&A rate) percentage can only have 2 decimal places$/ do |type|
+  items = {
+      'cost share' => [:cost_sharing, :percentage],
+      'F&A rate'   => [:fa_rates, :rate]
+  }
+  $current_page.errors.should include "Invalid value #{@award.send(items[type][0])[0].send(items[type][1])}: at most 2 digits may follow the decimal point."
 end
 
 #------------------------#
