@@ -43,7 +43,8 @@ Then /^an error is shown that says (.*)$/ do |error|
              'there is no principal investigator' => 'There is no Principal Investigator selected. Please enter a Principal Investigator.',
              'sponsor deadline date not entered' => 'Sponsor deadline date has not been entered.',
              'a project start date is required for the T&M Document' => 'Project Start Date is required when creating a Time &amp; Money document',
-             'there are duplicate cost share lines' => 'A duplicate row has been entered.'
+             'there are duplicate cost share lines' => 'A duplicate row has been entered.',
+             'the subaward\'s amount can\'t be zero' => 'Approved Subaward amount must be greater than zero.'
   }
   $current_page.validation_errors_and_warnings.should include errors[error]
 end

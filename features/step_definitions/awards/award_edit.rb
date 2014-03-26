@@ -116,8 +116,8 @@ Given /^I? ?adds? a subaward to the Award$/ do
   @award.add_subaward
 end
 
-Given /I? ?add a \$(.*) Subaward for (.*) to the Award$/ do |amount, organization|
-  @award.add_subaward organization, amount
+Given /I? ?adds? a \$(.*) Subaward to the Award$/ do |amount|
+  @award.add_subaward 'random', amount
 end
 
 And /adds the same organization as a subaward again to the Award$/ do

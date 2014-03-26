@@ -49,6 +49,12 @@ Feature: Basic Award Validations
     When  data validation is turned on for the Award
     Then  an error is shown that says there are duplicate organizations
 
+  Scenario: Subaward added with an amount of zero
+    Given the Award Modifier creates an Award
+    And   adds a $0.00 Subaward to the Award
+    When  data validation is turned on for the Award
+    Then  an error is shown that says the subaward's amount can't be zero
+
   Scenario: Terms are not entered in the Award
     Given the Award Modifier creates an Award
     When  data validation is turned on for the Award
@@ -64,7 +70,7 @@ Feature: Basic Award Validations
     Given the Award Modifier creates an Award with an obligated amount and blank project start date
     When  data validation is turned on for the Award
     Then  an error is shown that says a project start date is required for the T&M Document
-  @test
+
   Scenario: Project Start Date is after Obligation Start Date
     When  the Award Modifier creates an Award with a project start date later than the obligation start date
     Then  the Award should show an error saying the project start date can't be later than the obligation date
