@@ -1,7 +1,7 @@
-Feature: Editing Awards
+Feature: Award Contacts
 
-  As an Award Modifier, I want to be able to make changes to Award documents,
-  so that I can correct inaccuracies or enter additional data into optional fields
+  As an Award Modifier, I want to be able to make changes to Award Personnel,
+  so that I can...
 
   Background:
     * a User exists with the role 'Award Modifier' in unit 'BL-BL'
