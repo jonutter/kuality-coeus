@@ -27,20 +27,20 @@ class AwardFARatesObject < DataFactory
       page.expand_all
       page.new_rate.fit @rate
       page.new_rate_type.pick! @type
-      page.new_rate_fiscal_year.fit @fiscal_year
+
       if @start_date
+        page.new_rate_fiscal_year.fit @fiscal_year
         page.new_rate_start_date.set @start_date
         page.new_rate_end_date.set @end_date
-        page.new_rate_source.fit @source
       else
-        page.new_rate_fiscal_year.click
-        page.new_rate_source.click
-        page.new_rate_source.fit @source
-        # Needed because of a delay in the fields getting updated
-        sleep 3
+        page.new_rate_fiscal_year.send_keys @fiscal_year.to_s
+        page.new_rate_fiscal_year.send_keys :tab
+        #FIXME
+        sleep 0.1
         @start_date=page.new_rate_start_date.value
         @end_date=page.new_rate_end_date.value
       end
+      page.new_rate_source.fit @source
       page.new_rate_campus.pick! @campus
       page.new_rate_destination.fit @destination
       page.new_rate_unrecovered_fa.fit @unrecovered_fa

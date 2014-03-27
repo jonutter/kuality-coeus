@@ -45,6 +45,9 @@ class Commitments < KCAwards
   value(:fna_sources) { |b| b.noko.div(id: 'tab-Rates:FARates-div').text_fields(title: 'Source').collect{ |field| field.value }[1..-1] }
   value(:unrecovered_fna_total) { |b| b.fa_rates_table.trs[-2].td(index: 1).text }
 
+  element(:fna_delete_buttons) { |b| b.frm.buttons(name: /deleteFandaRate/) }
+  element(:fna_source_fields) { |b| b.fa_rates_table.text_fields(title: 'Source') }
+
   # Benefits Rates
   element(:on_campus) { |b| b.frm.text_field(name: 'document.awardList[0].specialEbRateOnCampus') }
   element(:off_campus) { |b| b.frm.text_field(name: 'document.awardList[0].specialEbRateOffCampus') }
