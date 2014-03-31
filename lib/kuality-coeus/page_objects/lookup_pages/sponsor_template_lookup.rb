@@ -1,0 +1,3 @@
+class SponsorTemplateLookup < Lookups
+
+end
