@@ -203,7 +203,6 @@ And(/^the Award's version number is '(\d+)'$/) do |version|
   end
 end
 
-<<<<<<< HEAD
 When(/^the (.*) user visits the Award$/) do |role_name|
   steps %{ * I log in with the #{role_name} user }
   visit(DocumentSearch) do |page|
@@ -223,8 +222,9 @@ end
 
 Then(/^no results should be returned$/) do
   on(AwardLookup).error_message.should include "No values match this search."
-=======
-And /^the F&A's start and end date fields should contain '(.*)'$/ do |value|
+  end
+
+  And /^the F&A's start and end date fields should contain '(.*)'$/ do |value|
   on Commitments do |page|
     # Takes a little while for the text to show up...
     sleep 7
@@ -238,5 +238,4 @@ Then /^the default start and end dates are based on the F&A rate's fiscal year$/
   f_y = fna.fiscal_year.to_i
   fna.start_date.should=="07/01/#{f_y-1}"
   fna.end_date.should=="06/30/#{f_y}"
->>>>>>> 97fb328025f2d71052b4dccc41631ba37b9948d6
 end

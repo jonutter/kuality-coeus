@@ -24,11 +24,8 @@ Then /^an error should appear that says (.*)$/ do |error|
             'the fiscal year needs to be corrected' => "Fiscal Year must be between 1900 and 2499.",
             'the project period has a typo' => 'Project Period is not formatted correctly.',
             'cost share type is required' => 'Cost Share Type Code is a required field.',
-<<<<<<< HEAD
-            'lead unit is invalid' => 'Lead Unit is invalid.'
-=======
+            'lead unit is invalid' => 'Lead Unit is invalid.',
             'the fiscal year is not valid' => 'Fiscal Year is not formatted correctly.'
->>>>>>> 97fb328025f2d71052b4dccc41631ba37b9948d6
   }
   $current_page.errors.should include errors[error]
 end

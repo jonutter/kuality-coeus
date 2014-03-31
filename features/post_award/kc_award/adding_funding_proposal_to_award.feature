@@ -16,7 +16,7 @@ Feature: Adding a Funding Proposal to an Award
     Given the Award Modifier starts an Award with the Funding Proposal
     When  the Funding Proposal is removed from the Award
     Then  the Title, Activity Type, NSF Science Code, and Sponsor still match the Proposal
-
+  @test
   Scenario: KC-TS-1160 Action Availability to Delete Link
     When the Award Modifier creates an Award with the Funding Proposal
     Then the Award Modifier cannot remove the Proposal from the Award

@@ -8,7 +8,7 @@ Feature: Creating an Institutional Proposal from a Proposal Log
 
   Background:
     * a User exists with the roles: Create Proposal Log, Institutional Proposal Maintainer in the 000001 unit
-
+  @test
   Scenario: Attempt to merge a temporary Proposal Log with an Institutional Proposal
     Given 1 Approved Institutional Proposal exists
     When  the Create Proposal Log user submits a new Temporary Proposal Log

@@ -6,7 +6,7 @@ Feature: Basic Error Validations for Institutional Proposals
 
   Background:
     * a User exists with the roles: Create Proposal Log, Institutional Proposal Maintainer in the 000001 unit
-
+  @test
   Scenario: Attempt to create a Funding Proposal document w/o a required field
     Given the Create Proposal Log user creates an institutional proposal with a missing required field
     Then  an error should appear on the page to indicate the field is required
