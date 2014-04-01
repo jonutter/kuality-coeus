@@ -16,13 +16,12 @@ class SponsorTemplateObject < DataFactory
   end
 
   def create
-    $users.admin.sign_in unless $users.admin.logged_in?
     visit(Maintenance).sponsor_template
     on(SponsorTemplateLookup).create
     on SponsorTemplate do |add|
       add.expand_all
       fill_out add, :description, :payment_basis, :payment_method
-      add.save
+      add.submit
     end
   end
 

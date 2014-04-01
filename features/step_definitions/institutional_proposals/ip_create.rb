@@ -38,7 +38,3 @@ When /^the Create Proposal Log user creates an institutional proposal with a mis
   field = damballa(@required_field)
   @institutional_proposal = create InstitutionalProposalObject, field=>value
 end
-
-Given (/^the admin user creates a sponsor template$/) do
-  @sponsor_template = create SponsorTemplateObject
-end
