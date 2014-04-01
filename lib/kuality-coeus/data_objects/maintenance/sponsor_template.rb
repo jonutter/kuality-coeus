@@ -2,7 +2,8 @@ class SponsorTemplateObject < DataFactory
 
   include StringFactory
 
-  attr_reader :payment_basis, :payment_method, :save_type
+  attr_reader :doc_nbr, :description, :template_description, :template_status, :payment_basis,
+              :payment_method, :sponsor_term_lookup
 
   def initialize(browser, opts={})
     @browser = browser
@@ -10,7 +11,8 @@ class SponsorTemplateObject < DataFactory
     defaults = {
         description:    random_alphanums,
         payment_basis:  '::random::',
-        payment_method: '::random::'
+        payment_method: '::random::',
+
     }
     set_options(defaults.merge(opts))
   end
@@ -19,6 +21,7 @@ class SponsorTemplateObject < DataFactory
     visit(Maintenance).sponsor_template
     on(SponsorTemplateLookup).create
     on SponsorTemplate do |add|
+      @doc_nbr=add.doc_nbr
       add.expand_all
       fill_out add, :description, :payment_basis, :payment_method
       add.submit
