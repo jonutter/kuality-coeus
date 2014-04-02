@@ -85,3 +85,24 @@ When(/^the AOR user submits the Proposal to S2S$/) do
   @aor.sign_in
   steps '* I submit the Proposal to S2S'
 end
+
+And /^the Proposal Creator copies the Proposal, generating a new version of the Institutional Proposal$/ do
+  steps '* I log in with the Proposal Creator user'
+  @new_proposal_version = @proposal.copy_to_new_document
+  @new_proposal_version.edit proposal_type: 'Continuation', original_ip_id: @institutional_proposal.proposal_number
+  @new_proposal_version.key_personnel.principal_investigator.certification
+  @new_proposal_version.submit
+  steps '* I log in with the OSPApprover user'
+  @new_proposal_version.approve_from_action_list
+  on(Confirmation).send(:no)
+  $users.logged_in_user.sign_out
+  visit Login do |log_in|
+    log_in.username.set @new_proposal_version.key_personnel.principal_investigator.user_name
+    log_in.login
+  end
+  @new_proposal_version.approve_from_action_list
+  visit(Researcher).logout
+  steps '* I log in with the OSP Administrator user'
+  @new_proposal_version.view :proposal_actions
+  @new_proposal_version.resubmit
+end

@@ -50,7 +50,7 @@ class SpecialReviewObject < DataFactory
     on(Proposal).special_review unless on_page?(on(SpecialReview).add_type)
   end
 
-  def update(id)
+  def update_from_parent(id)
     @document_id=id
   end
 

@@ -16,6 +16,8 @@ class Proposal < ProposalDevelopmentDocument
   element(:project_title) { |b| b.frm.text_field(id: 'document.developmentProposalList[0].title') }
 
   # Institutional fields
+  element(:award_id) { |b| b.frm.text_field(name: 'document.developmentProposalList[0].currentAwardNumber') }
+  element(:original_ip_id) { |b| b.frm.text_field(title: 'Original Institutional Proposal ID') }
 
   # Sponsor and Program Information
   element(:sponsor_deadline_date) { |b| b.frm.text_field(id: 'document.developmentProposalList[0].deadlineDate') }

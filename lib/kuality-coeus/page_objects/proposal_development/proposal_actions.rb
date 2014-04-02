@@ -42,6 +42,15 @@ class ProposalActions < ProposalDevelopmentDocument
   element(:link_budget_type) { |b| b.frm.select(id: 'newHierarchyBudgetTypeCode') }
   action(:link_to_hierarchy) { |b| b.frm.button(name: 'methodToCall.linkToHierarchy.anchorProposalHierarchy').click }
 
+  # Copy to New Document
+
+  element(:include_budget) { |b| b.frm.checkbox(name: 'copyCriteria.includeBudget') }
+  element(:budget_versions_to_include) { |b| b.frm.select(name: 'copyCriteria.budgetVersions') }
+  element(:include_attachments) { |b| b.frm.checkbox(name: 'copyCriteria.includeAttachments') }
+  element(:select_lead_unit) { |b| b.frm.select(name: 'copyCriteria.leadUnitNumber') }
+  element(:include_questionnaires) { |b| b.frm.checkbox(name: 'copyCriteria.includeQuestionnaire') }
+  action(:copy_proposal) { |b| b.frm.button(name: 'methodToCall.copyProposal.anchorCopytoNewDocument').click; b.loading }
+
   # Budget Data Override
 
   element(:budget_field) { |b| b.frm.select(name: 'newBudgetChangedData.columnName') }

@@ -28,6 +28,10 @@ class DegreeObject < DataFactory
     end
   end
 
+  def update_from_parent doc_id
+    @document_id=doc_id
+  end
+
 end
 
 class DegreesCollection < CollectionsFactory

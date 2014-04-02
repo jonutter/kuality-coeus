@@ -35,7 +35,7 @@
   end
 
   def create
-    open_page
+    view
     get_person
     on KeyPersonnel do |person|
       # This conditional exists to deal with the fact that
@@ -66,11 +66,7 @@
         person.include_certification_questions(@full_name)
         person.show_proposal_person_certification(@full_name) if person.show_prop_pers_cert_button(@full_name).present?
       end
-      if @certified
-        cert_questions.each { |q| person.send(q, full_name, get(q)) }
-      else
-        cert_questions.each { |q| set(q, nil) }
-      end
+      certification
 
       # Add gathering/setting of more attributes here as needed
       fill_out_item @full_name, person, :era_commons_name
@@ -86,9 +82,8 @@
   # Those require special handling and
   # thus have their own method: #update_unit_credit_splits
   def edit opts={}
-    open_page
+    view
     on KeyPersonnel do |update|
-      update.expand_all
       # TODO: This will eventually need to be fixed...
       # Note: This is a dangerous short cut, as it may not
       # apply to every field that could be edited with this
@@ -107,24 +102,38 @@
     @degrees.add defaults.merge(opts)
   end
 
+  def view
+    open_document
+    on(Proposal).key_personnel unless on_page?(on(KeyPersonnel).proposal_role)
+    on(KeyPersonnel).expand_all
+  end
+
   def delete
-    open_page
+    view
     on KeyPersonnel do |person|
       person.check_person @full_name
       person.delete_selected
     end
   end
 
+  def certification
+    if @certified
+      view
+      cert_questions.each { |q| on(KeyPersonnel).send(q, @full_name, get(q)) }
+    else
+      cert_questions.each { |q| set(q, nil) }
+    end
+  end
+
+  def update_from_parent(doc_id)
+    @document_id=doc_id
+    @search_key[:document_id]=doc_id
+    notify_collections doc_id
+  end
+
   # =======
   private
   # =======
-
-  # Nav Aids...
-
-  def open_page
-    open_document
-    on(Proposal).key_personnel unless on_page?(on(KeyPersonnel).proposal_role)
-  end
 
   def cert_questions
     [:certify_info_true,
