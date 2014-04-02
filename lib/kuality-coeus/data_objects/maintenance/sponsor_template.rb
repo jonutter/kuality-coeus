@@ -23,7 +23,7 @@ class SponsorTemplateObject < DataFactory
     on SponsorTemplate do |add|
       @doc_nbr=add.doc_nbr
       add.expand_all
-      fill_out add, :description, :payment_basis, :payment_method
+      fill_out add, :description, :template_description, :payment_basis, :payment_method
       add.submit
     end
   end
