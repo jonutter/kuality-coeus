@@ -239,3 +239,9 @@ Then /^the default start and end dates are based on the F&A rate's fiscal year$/
   fna.start_date.should=="07/01/#{f_y-1}"
   fna.end_date.should=="06/30/#{f_y}"
 end
+
+Then /^the deleted F&A rates are restored to the Award$/ do
+  @award.fa_rates.each do |fna|
+    on(Commitments).fna_sources.should include fna.source
+  end
+end

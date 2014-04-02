@@ -26,6 +26,11 @@ class CustomDataObject < DataFactory
     end
   end
 
+  def update_doc_id(id)
+    @document_id=id
+    @search_key[:document_id]=id
+  end
+
   # =======
   private
   # =======

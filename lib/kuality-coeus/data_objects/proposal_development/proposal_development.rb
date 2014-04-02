@@ -11,7 +11,8 @@ class ProposalDevelopmentObject < DataFactory
                 :opportunity_id, # Maybe add competition_id and other stuff here...
                 :special_review, :budget_versions, :permissions, :s2s_questionnaire, :proposal_attachments,
                 :proposal_questions, :compliance_questions, :kuali_u_questions, :custom_data, :recall_reason,
-                :personnel_attachments, :mail_by, :mail_type, :institutional_proposal_number, :nsf_science_code
+                :personnel_attachments, :mail_by, :mail_type, :institutional_proposal_number, :nsf_science_code,
+                :original_ip_id
 
   def initialize(browser, opts={})
     @browser = browser
@@ -65,7 +66,8 @@ class ProposalDevelopmentObject < DataFactory
     on Proposal do |edit|
       edit.proposal
       edit.expand_all
-      edit_fields opts, edit, :project_title, :project_start_date, :opportunity_id, :proposal_type
+      edit_fields opts, edit, :project_title, :project_start_date, :opportunity_id, :proposal_type,
+                              :original_ip_id
       # TODO: Add more stuff here as necessary
       edit.save
     end
@@ -209,29 +211,49 @@ class ProposalDevelopmentObject < DataFactory
   end
 
   def submit(type=:s)
-    types={:s=>:submit, :ba=>:blanket_approve,
-           :to_sponsor=>:submit_to_sponsor, :to_s2s=>:submit_to_s2s}
+    types={
+        s:            :submit,
+        ba:           :blanket_approve,
+        to_sponsor:   :submit_to_sponsor,
+        to_s2s: :submit_to_s2s
+    }
     view 'Proposal Actions'
     on(ProposalActions).send(types[type])
-    if type==:to_sponsor
-      on NotificationEditor do |page|
-        # A breaking of the design pattern, here,
-        # but we have no alternative...
-        @status=page.document_status
-        @institutional_proposal_number=page.institutional_proposal_number
-        page.send_fyi
+    case(type)
+        when :to_sponsor
+          on NotificationEditor do |page|
+            # A breaking of the design pattern, here,
+            # but we have no alternative...
+            @status=page.document_status
+            @institutional_proposal_number=page.institutional_proposal_number
+            page.send_fyi
 
-      end
-    elsif type == :to_s2s
-      view :s2s
-      on S2S do |page|
-        @status=page.document_status
-      end
-    else
-      on ProposalActions do |page|
-        page.data_validation_header.wait_until_present
-        @status=page.document_status
-      end
+          end
+        when :to_s2s
+          view :s2s
+          on S2S do |page|
+            @status=page.document_status
+          end
+        else
+          on ProposalActions do |page|
+            page.data_validation_header.wait_until_present
+            @status=page.document_status
+          end
+    end
+  end
+
+  # Note: This method currently assumes you've entered
+  # an original institutional proposal ID and you want to
+  # generate a new version of that same IP. If that's not
+  # what you want to do then this method will need to be
+  # rethought...
+  def resubmit
+    view 'Proposal Actions'
+    on(ProposalActions).submit_to_sponsor
+    on ResubmissionOptions do |page|
+      page.generate_new_version_of_original.set
+      page.continue
+      @status=page.document_status
     end
   end
 
@@ -270,6 +292,33 @@ class ProposalDevelopmentObject < DataFactory
   end
 
   alias :sponsor_code :sponsor_id
+
+  #TODO: Parameterize this method..
+  def copy_to_new_document
+    view :proposal_actions
+    on ProposalActions do |page|
+      page.expand_all
+      page.select_lead_unit.select @lead_unit
+      page.include_questionnaires.set
+      page.copy_proposal
+    end
+    new_doc_num = on(Proposal).document_id
+    new_prop_dev = data_object_copy
+    new_prop_dev.set_new_doc_number new_doc_num
+
+    new_prop_dev
+  end
+
+  def set_new_doc_number(new_doc_number)
+    @document_id = new_doc_number
+    #TODO: See if we can use #get with the @document_id in this hash and if that will
+    # eliminate the need for this line...
+    @search_key[:document_id]=new_doc_number
+    notify_collections new_doc_number
+    [@custom_data, @permissions].each do |var|
+      var.update_doc_id(new_doc_number) unless var.nil?
+    end
+  end
 
   # =======
   private

@@ -201,3 +201,10 @@ Then /^the Award inherits the Cost Sharing data from the Funding Proposal$/ do
     }
   end
 end
+
+Then /the Award Modifier can merge the new version of the Institutional Proposal to the Award/ do
+  steps '* I log in with the Award Modifier user'
+  expect {
+    @award.add_funding_proposal @institutional_proposal.proposal_number, 'Merge'
+  }.not_to raise_error
+end
