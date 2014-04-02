@@ -28,6 +28,10 @@ class ProposalAttachmentObject < DataFactory
     on(Proposal).abstracts_and_attachments unless on_page?(on(AbstractsAndAttachments).proposal_attachment_type)
   end
 
+  def update_from_parent(id)
+    @document_id=id
+  end
+
 end
 
 class ProposalAttachmentsCollection < CollectionsFactory

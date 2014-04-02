@@ -31,8 +31,10 @@ end
 # 2) Creates the user in the system if they don't exist already,
 #    by first logging in with the admin user
 Given /^a User exists with the user name (.*)$/ do |username|
-  user = make_user user: username
-  user.create unless user.exists?
+  if $users.user(username).nil?
+    user = make_user user: username
+    user.create unless user.exists?
+  end
 end
 
 # This step definition will return a user with
@@ -41,8 +43,10 @@ end
 # them if they don't exist in the system (again by first
 # logging in with the admin user to do the creation).
 Given /^a User exists with the role: '(.*)'$/ do |role|
-  user = make_user role: role
-  user.create unless user.exists?
+  if $users.with_role(role).nil?
+    user = make_user role: role
+    user.create unless user.exists?
+  end
 end
 
 # This step definition will return a user with
@@ -51,8 +55,10 @@ end
 # of them randomly, and create them if they don't exist in the system (again by first
 # logging in with the admin user to do the creation).
 Given /^a User exists with the role '(.*)' in unit '(.*)'$/ do |role, unit|
-  user = make_user role: role, unit: unit
-  user.create unless user.exists?
+  if $users.with_role_in_unit(role, unit).nil?
+    user = make_user role: role, unit: unit
+    user.create unless user.exists?
+  end
 end
 
 # This step definition will return a user with
@@ -71,6 +77,7 @@ end
 
 # Use this step definition immediately after a step where you
 # have made/created a user. They'll be last in the collection.
+# This is a dangerous step definition if your scenario is at all complicated.
 And /^I log in with that User$/ do
   $users[-1].sign_in
 end
@@ -82,8 +89,10 @@ end
 # TODO: This will need to be changed to add "in the same unit" as a qualifier
 Given /^Users exist with the following roles: (.*)$/ do |roles|
   roles.split(', ').each do |r|
-    user = make_user role: r
-    user.create unless user.exists?
+    if $users.with_role(r).nil?
+      user = make_user role: r
+      user.create unless user.exists?
+    end
   end
 end
 
@@ -128,8 +137,11 @@ When /^a User exists with the roles: (.*) in the (.*) unit$/ do |roles, unit|
     users << UserObject::USERS.have_role_in_unit(role, unit)
   end
   raise 'There are no matching users in the users.yml file. Please add one.' if users.empty?
-  make_user user: users.inject(:&).shuffle[0][0]
-  $users[-1].create unless $users[-1].exists?
+  user_name = users.inject(:&).shuffle[0][0]
+  if $users.user(user_name).nil?
+    make_user user: user_name
+    $users[-1].create unless $users[-1].exists?
+  end
 end
 
 When /^I log in with the principal investigator$/ do

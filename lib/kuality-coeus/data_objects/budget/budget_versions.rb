@@ -163,6 +163,10 @@ class BudgetVersionsObject < DataFactory
     @personnel << person
   end
 
+  def update_from_parent(id)
+    @document_id=id
+  end
+
   # =======
   private
   # =======

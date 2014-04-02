@@ -24,7 +24,7 @@ Feature: Award F&A Rates
   Scenario: Default dates based on entered fiscal year
     When the Award Modifier adds an F&A rate to the Award
     Then the default start and end dates are based on the F&A rate's fiscal year
-  @test
+
   Scenario: Reloading deleted rate lines
     Given the Award Modifier adds several F&A rates to the Award
     And   saves the document
