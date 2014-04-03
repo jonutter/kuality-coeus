@@ -16,6 +16,7 @@ class AwardObject < DataFactory
               :funding_proposals, :subawards, #TODO: Add Benefits rates and preaward auths...
               :time_and_money,
               :budget_versions, :sponsor_contacts, :payment_and_invoice, :terms, :reports,
+              :approved_equipment,
               :custom_data,
               :parent, :children
 
@@ -50,6 +51,7 @@ class AwardObject < DataFactory
       cost_sharing:          collection('AwardCostSharing'),
       fa_rates:              collection('AwardFARates'),
       reports:               collection('AwardReports'),
+      approved_equipment:    collection('ApprovedEquipment'),
       children:              [], # Contains the ids of any child Awards.
       #budget_versions:       collection('BudgetVersions'), # This is not yet verified to work with Awards.
 
@@ -212,6 +214,11 @@ class AwardObject < DataFactory
     view :payment_reports__terms
     @terms = make AwardTermsObject, opts
     @terms.create
+  end
+
+  def add_approved_equipment opts={}
+    view :payment_reports__terms
+    @approved_equipment.add(opts)
   end
 
   def add_custom_data opts={}

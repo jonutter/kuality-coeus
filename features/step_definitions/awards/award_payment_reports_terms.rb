@@ -24,3 +24,12 @@ When /^I start adding a Payment & Invoice item to the Award$/ do
     page.add_payment_type
   end
 end
+
+And /adds an item of approved equipment to the Award$/ do
+  @award.add_approved_equipment
+end
+
+And /adds a duplicate item of approved equipment to the Award$/ do
+  ae = @award.approved_equipment[0]
+  @award.add_approved_equipment item: ae.item, vendor: ae.vendor, model: ae.model
+end

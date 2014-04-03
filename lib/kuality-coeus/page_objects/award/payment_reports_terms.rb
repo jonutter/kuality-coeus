@@ -55,8 +55,11 @@ class PaymentReportsTerms < KCAwards
   terms 'Equipment Approval', 'Invention', 'Prior Approval', 'Property', 'Publication',
         'Referenced Document', 'Rights In Data', 'Subaward Approval', 'Travel Restrictions'
 
-  element(:approved_equipment) { |b| b.frm.text_field(name: 'approvedEquipmentBean.newAwardApprovedEquipment.item') }
-  element(:equipment_amount) { |b| b.frm.text_field(name: 'approvedEquipmentBean.newAwardApprovedEquipment.amount') }
+  # Special Approval...
+  element(:add_item) { |b| b.frm.text_field(name: 'approvedEquipmentBean.newAwardApprovedEquipment.item') }
+  element(:add_vendor) { |b| b.frm.text_field(name: 'approvedEquipmentBean.newAwardApprovedEquipment.vendor') }
+  element(:add_model) { |b| b.frm.text_field(name: 'approvedEquipmentBean.newAwardApprovedEquipment.model') }
+  element(:add_approved_equipment_amount) { |b| b.frm.text_field(name: 'approvedEquipmentBean.newAwardApprovedEquipment.amount') }
   action(:add_approved_equipment) { |b| b.frm.button(name: 'methodToCall.addApprovedEquipmentItem.anchorSpecialApproval:ApprovedEquipment').click; b.loading }
 
   action(:lookup_employee_traveler_name) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.KcPerson!!).(((personId:approvedForeignTravelBean.newApprovedForeignTravel.personId,fullName:approvedForeignTravelBean.newApprovedForeignTravel.travelerName))).((`approvedForeignTravelBean.newApprovedForeignTravel.personId:contactIdId`)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchorSpecialApproval:ApprovedForeignTravel').click; b.loading }
