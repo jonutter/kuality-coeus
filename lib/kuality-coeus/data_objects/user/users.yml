@@ -857,3 +857,9 @@ dbyrne:  # AKA: "Principal Name"
       :qualifiers:
         - :unit: '000001'
           :descends_hierarchy: :clear
+  :rolez:
+    - :id:   '125'
+      :name: Application Administrator
+      :qualifiers:
+        - :unit: '000001'
+          :descends_hierarchy: :clear

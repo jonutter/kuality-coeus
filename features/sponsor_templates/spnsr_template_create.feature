@@ -10,3 +10,5 @@ Feature: Sponsor Template Creation
   Scenario: Creating a Sponsor Template without Sponsor Template Terms
     When  I submit a new Award Sponsor Template without Sponsor Template Terms
     Then  errors about missing Sponsor Template Terms are shown
+
+  Scenario: Select
