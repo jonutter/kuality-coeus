@@ -55,6 +55,12 @@ Then /^errors about the missing terms are shown$/ do
   .each { |term| $current_page.validation_errors_and_warnings.should include "There must be at least one #{term} Terms defined." }
 end
 
+Then /^errors about missing Sponsor Template Terms are shown$/ do
+  ['Equipment Approval Terms', 'Invention Terms', 'Prior Approval Terms', 'Property Terms', 'Publication Terms',
+  'Referenced Document Terms', 'Rights In Data Terms', 'Subaward Approval Terms', 'Travel Restrictions Terms']
+  .each { |term| $current_page.errors.should include %|No < #{term} > terms are selected for the current award. Please add a term.| }
+end
+
 Then /^an error is shown that indicates the user is already an investigator$/ do
   $current_page.errors.should include %|#{@first_name} #{@last_name} already holds Investigator role.|
 end

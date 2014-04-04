@@ -1,17 +1,22 @@
 class SponsorTemplateObject < DataFactory
 
   include StringFactory
+  include DateFactory
+  include Navigation
+  include DocumentUtilities
 
-  attr_reader :doc_nbr, :description, :template_description, :template_status, :payment_basis,
-              :payment_method, :sponsor_term_lookup
+  attr_reader :document_id, :status, :description, :template_description, :template_status, :payment_basis,
+              :payment_method, :find_sponsor_term
 
   def initialize(browser, opts={})
     @browser = browser
 
     defaults = {
-        description:    random_alphanums,
-        payment_basis:  '::random::',
-        payment_method: '::random::',
+        description:          random_alphanums,
+        template_description: random_alphanums,
+        template_status:      '::random::',
+        payment_basis:        'Cost reimbursement',
+        payment_method:       'Advanced payment invoice',
 
     }
     set_options(defaults.merge(opts))
@@ -21,10 +26,22 @@ class SponsorTemplateObject < DataFactory
     visit(Maintenance).sponsor_template
     on(SponsorTemplateLookup).create
     on SponsorTemplate do |add|
-      @doc_nbr=add.doc_nbr
+      @document_id=add.document_id
+      @status=add.document_status
       add.expand_all
-      fill_out add, :description, :template_description, :payment_basis, :payment_method
+      fill_out add, :description, :template_description, :template_status, :payment_basis, :payment_method
       add.submit
+    end
+  end
+
+  # =========
+  private
+  # =========
+
+  def set_sponsor_term
+    on(SponsorTemplate).find_sponsor_term
+    on SponsorTermLookup do |look|
+      look.search
     end
   end
 
