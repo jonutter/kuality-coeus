@@ -37,12 +37,21 @@ class TimeAndMoney < KCAwards
   action(:switch_award) { |b| b.frm.button(name: 'methodToCall.switchAward').click; b.loading }
 
   # Direct/F&A Funds Distribution
-  element(:funds_distribution_start_date) { |b| b.frm.text_field(name: 'awardDirectFandADistributionBean.newAwardDirectFandADistribution.startDate') }
+  # Note: These methods must be used with one of the "parent" methods listed below
+  element(:funds_distribution_start_date) { |b| b.text_field(name: 'awardDirectFandADistributionBean.newAwardDirectFandADistribution.startDate') }
   element(:funds_distribution_end_date) { |b| b.frm.text_field(name: 'awardDirectFandADistributionBean.newAwardDirectFandADistribution.endDate') }
   element(:funds_distribution_direct_cost) { |b| b.frm.text_field(name: 'awardDirectFandADistributionBean.newAwardDirectFandADistribution.directCost') }
   element(:funds_distribution_fa_cost) { |b| b.frm.text_field(name: 'awardDirectFandADistributionBean.newAwardDirectFandADistribution.indirectCost') }
+
+  p_element(:edit_funds_dist_start_date) { |number, b| b.target_funds_row(number).text_field(title: '* Start Date') }
+  p_element(:edit_funds_dist_end_date) { |number, b| b.target_funds_row(number).text_field(title: '* End Date') }
+  p_element(:edit_funds_dist_direct_cost) { |number, b| b.target_funds_row(number).text_field(title: '* Direct Cost') }
+  p_element(:edit_funds_dist_fa_cost) { |number, b| b.target_funds_row(number).text_field(title: '* F&A Cost') }
+
+  element(:existing_funds_rows) { |b| b.funds_distribution_div.table(index: 1).tbody(index: 2).trs[0..-3] }
+
   action(:add_funds_distribution) { |b| b.frm.button(name: 'methodToCall.addAwardDirectFandADistribution.anchorDirectFAFundsDistribution').click; b.loading }
-  
+
   # Summary
 
   # Action Summary
@@ -52,7 +61,9 @@ class TimeAndMoney < KCAwards
   # ==========
   private
   # ==========
-
+                                
   element(:hierarchy_table) { |b| b.frm.div(class: 'awardHierarchy').table }
-  
+  element(:funds_distribution_div) { |b| b.frm.div(id: 'tab-DirectFAFundsDistribution-div') }
+  p_element(:target_funds_row) { |number, b| b.existing_funds_rows.find{ |row| row.th(class: 'infoline').text==number }  }
+
 end

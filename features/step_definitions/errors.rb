@@ -7,6 +7,8 @@ Then /^an error should appear that says (.*)$/ do |error|
             'a key person role is required' => 'Key Person Role is a required field.',
             'the credit split is not a valid percentage' => 'Credit Split is not a valid percentage.',
             'only one PI is allowed' => 'Only one proposal role of Principal Investigator is allowed.',
+            'the Award has no PI' => 'There is no Principal Investigator selected. Please enter a Principal Investigator',
+            'only one PI is allowed in the Contacts' => 'Only one Principal Investigator is allowed',
             'the IP can not be added because it\'s not fully approved' => 'Cannot add this funding proposal. The associated Development Proposal has "Approval Pending - Submitted" status.',
             'the approval should occur later than the application' => 'Approval Date should be the same or later than Application Date.',
             'not to select other roles alongside aggregator' => 'Do not select other roles when Aggregator is selected.',
@@ -21,11 +23,10 @@ Then /^an error should appear that says (.*)$/ do |error|
             'the Award\'s title contains invalid characters' => 'The Award Title (Title) may only consist of visible characters, spaces, or tabs.',
             'the Award\'s title can\'t be longer than 200 characters' => 'Must be at most 200 characters',
             'the anticipated amount must be equal to or more than obligated' => 'The Anticipated Amount must be greater than or equal to Obligated Amount.',
-            'the fiscal year needs to be corrected' => "Fiscal Year must be between 1900 and 2499.",
             'the project period has a typo' => 'Project Period is not formatted correctly.',
             'cost share type is required' => 'Cost Share Type Code is a required field.',
-            'lead unit is invalid' => 'Lead Unit is invalid.',
-            'the fiscal year is not valid' => 'Fiscal Year is not formatted correctly.'
+            'the fiscal year is not valid' => 'Fiscal Year is not formatted correctly.',
+            'the approved equipment can\'t have duplicates' => 'Approved Equipment Vendor, Model and Item must be unique'
   }
   $current_page.errors.should include errors[error]
 end
@@ -55,10 +56,9 @@ Then /^errors about the missing terms are shown$/ do
   .each { |term| $current_page.validation_errors_and_warnings.should include "There must be at least one #{term} Terms defined." }
 end
 
-Then /^errors about missing Sponsor Template Terms are shown$/ do
-  ['Equipment Approval Terms', 'Invention Terms', 'Prior Approval Terms', 'Property Terms', 'Publication Terms',
-  'Referenced Document Terms', 'Rights In Data Terms', 'Subaward Approval Terms', 'Travel Restrictions Terms']
-  .each { |term| $current_page.errors.should include %|No < #{term} > terms are selected for the current award. Please add a term.| }
+# TODO: Move to the big step def.
+Then /^an error is shown that indicates the lead unit code is invalid$/ do
+  $current_page.errors.should include 'Lead Unit is invalid.'
 end
 
 Then /^an error is shown that indicates the user is already an investigator$/ do
@@ -73,59 +73,6 @@ Then /^errors appear on the Contacts page, saying the credit splits for the PI a
       page.errors.should include "The Unit #{type} Credit Split for #{@award.key_personnel.principal_investigator.full_name} does not equal 100%"
     end
   end
-end
-
-Then(/^an error should appear on the proposal page indicating the deadline date is missing$/) do
-  on(ProposalActions).proposal
-  $current_page.errors.should include "Sponsor deadline date has not been entered."
-end
-
-Then(/^an error appears on the key personnel page that indicates a PI is required$/) do
-  on(ProposalActions).key_personnel
-  $current_page.errors.should include "There is no Principal Investigator selected. Please enter a Principal Investigator."
-end
-
-Then(/^an error appears on the key personnel page that indicates the personnel needs certification$/) do
-  on(ProposalActions).key_personnel
-  $current_page.errors.should include %|The Investigators are not all certified. Please certify #{@proposal.key_personnel[0].first_name} #{@proposal.key_personnel[0].last_name}.|
-end
-
-Then(/^an error notification will indicate that the user cannot access the Award$/) do
-  on(AuthExceptionReport).error_message.should include %|user '#{@award.key_personnel.principal_investigator.user_name}' is not authorized to open document '#{@award.document_id}'|
-end
-
-Then(/^a cost sharing error should appear on the distribution page to indicate the field is required$/) do
-  error = case @required_field
-            when 'Amount'
-              "Cost Share Commitment Amount is a required field."
-            when 'Source Account'
-              "Source Account (Source Account) is a required field."
-            else
-              "#{@required_field} is a required field."
-          end
-  $current_page.errors.should include error
-end
-
-Then(/^an unrecovered f&a error should appear on the distribution page to indicate the field is required$/) do
-  error = case @required_field
-            when 'Amount'
-              "Unrecovered F&A Amount is a required field."
-            else
-              "#{@required_field} is a required field."
-          end
-  $current_page.errors.should include error
-end
-
-Then(/^an error should appear on the distribution page indicating that the entries are invalid$/) do
-  error = case @required_field
-            when 'Amount'
-              "Unrecovered F&A Amount is a required field."
-            when 'Fiscal Year'
-              "Fiscal Year is not formatted correctly."
-            else
-              "#{@required_field} is not a valid amount."
-          end
-  $current_page.errors.should include error
 end
 
 #-----------------------#

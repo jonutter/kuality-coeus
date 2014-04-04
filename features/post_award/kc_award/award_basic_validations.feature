@@ -55,6 +55,11 @@ Feature: Basic Award Validations
     When  data validation is turned on for the Award
     Then  an error is shown that says the subaward's amount can't be zero
 
+  Scenario: Missing required field in F&A Rate entry
+    Given the Award Modifier creates an Award
+    When  the Award Modifier adds an F&A rate to the Award but misses a required field
+    Then  an error should say the field is mandatory
+
   Scenario: Terms are not entered in the Award
     Given the Award Modifier creates an Award
     When  data validation is turned on for the Award
@@ -74,3 +79,9 @@ Feature: Basic Award Validations
   Scenario: Project Start Date is after Obligation Start Date
     When  the Award Modifier creates an Award with a project start date later than the obligation start date
     Then  the Award should show an error saying the project start date can't be later than the obligation date
+  @test
+  Scenario: Duplicate Approved Equipment entries
+    Given the Award Modifier creates an Award
+    And   adds an item of approved equipment to the Award
+    When  the AM adds a duplicate item of approved equipment to the Award
+    Then  an error should appear that says the approved equipment can't have duplicates

@@ -208,3 +208,44 @@ Then /the Award Modifier can merge the new version of the Institutional Proposal
     @award.add_funding_proposal @institutional_proposal.proposal_number, 'Merge'
   }.not_to raise_error
 end
+
+
+When /^the Funding Proposal is linked to a new Award$/ do
+  @award = create AwardObject
+  @award.add_funding_proposal @institutional_proposal.proposal_number, '::random::'
+end
+
+# Don't parameterize this until it's necessary
+And /^the Award Modifier links the Funding Proposal to a new Award$/ do
+  steps %q{
+    * I log in with the Award Modifier user
+    * the Funding Proposal is linked to a new Award
+  }
+end
+
+When /^the (.*) adds the Institutional Proposal to the Award$/ do |role_name|
+  steps %{ Given I log in with the #{role_name} user }
+  @award = create AwardObject
+  @award.add_funding_proposal @institutional_proposal.proposal_number, '::random::'
+end
+
+# Don't parameterize until needed!
+And /^the Institutional Proposal Maintainer can unlink the proposal$/ do
+  steps %q{ * I log in with the Institutional Proposal Maintainer user }
+  expect{
+    @institutional_proposal.unlock_award(@award.id)
+  }.not_to raise_error
+  on(InstitutionalProposalActions).errors.size.should == 0
+end
+
+Then /^the Institutional Proposal Maintainer cannot unlink the proposal$/ do
+  steps 'Given I log in with the Institutional Proposal Maintainer user'
+  @institutional_proposal.unlock_award(@award.id)
+  on(InstitutionalProposalActions).errors.size.should > 0
+end
+
+# Don't parameterize until needed!
+And /^the Institutional Proposal Maintainer unlinks the proposal$/ do
+  steps %q{ * I log in with the Institutional Proposal Maintainer user }
+  @institutional_proposal.unlock_award(@award.id)
+end
