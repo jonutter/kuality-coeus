@@ -811,7 +811,7 @@ dbyrne:  # AKA: "Principal Name"
       :qualifiers:
         - :unit: '000001'
 
-dbyrne:  # AKA: "Principal Name"
+kcrimson:  # AKA: "Principal Name"
   :user_name:        kcrimson
   :description:      Award Sponsor Template Modifier
   :affiliation_type: Staff
@@ -852,14 +852,14 @@ dbyrne:  # AKA: "Principal Name"
       :type:    Work
       :default: :set
   :rolez:
-    - :id:   '1444'
-      :name: Modify Sponsor Template
+    - :id:   '125'
+      :name: Application Administrator
       :qualifiers:
         - :unit: '000001'
           :descends_hierarchy: :clear
   :rolez:
-    - :id:   '125'
-      :name: Application Administrator
+    - :id:   '1444'
+      :name: Modify Sponsor Template
       :qualifiers:
         - :unit: '000001'
           :descends_hierarchy: :clear

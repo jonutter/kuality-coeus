@@ -5,10 +5,11 @@ Feature: Sponsor Template Creation
   that can be linked to KC Awards.
 
   Background: Establish Sponsor Template user
-    Given a User exists with the role: 'Modify Sponsor Template'
-  @test
+    Given a User exists with the roles: Modify Sponsor Template, Application Administrator in the 000001 unit
+
   Scenario: Creating a Sponsor Template without Sponsor Template Terms
     When  I submit a new Award Sponsor Template without Sponsor Template Terms
-    Then  errors about missing Sponsor Template Terms are shown
-
-  Scenario: Select
+    Then  errors about the missing terms are shown
+  @test
+  Scenario: test********
+    When  I submit a new Sponsor Term
