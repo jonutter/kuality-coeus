@@ -79,9 +79,17 @@ Feature: Basic Award Validations
   Scenario: Project Start Date is after Obligation Start Date
     When  the Award Modifier creates an Award with a project start date later than the obligation start date
     Then  the Award should show an error saying the project start date can't be later than the obligation date
-  @test
+
   Scenario: Duplicate Approved Equipment entries
     Given the Award Modifier creates an Award
     And   adds an item of approved equipment to the Award
     When  the AM adds a duplicate item of approved equipment to the Award
     Then  an error should appear that says the approved equipment can't have duplicates
+
+  Scenario: Cancelling and Restarting a T&M document
+    Given a User exists with the role: 'Time And Money Modifier'
+    And   the Award Modifier creates an Award
+    And   the Time And Money Modifier initializes the Award's Time And Money document
+    And   cancels the Time And Money document
+    When  the Time And Money Modifier initializes the Award's Time And Money document
+    Then  a new T&M Document is created

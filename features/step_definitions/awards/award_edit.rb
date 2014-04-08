@@ -53,3 +53,31 @@ end
 And /adds the same organization as a subaward again to the Award$/ do
   @award.add_subaward @award.subawards[0][:org_name]
 end
+
+And /edits the finalized Award$/ do
+  @award.edit transaction_type: '::random::'
+end
+
+When /^the original Award is edited again$/ do
+  visit DocumentSearch do |search|
+    search.document_id.set @award.prior_versions['1']
+    search.search
+    search.open_doc @award.prior_versions['1']
+  end
+  on(Award).edit
+end
+
+And /^selecting 'yes' takes you to the pending version$/ do
+  on(Confirmation).yes
+  on Award do |page|
+    page.header_document_id.should==@award.document_id
+  end
+end
+
+Then /^selecting 'no' on the confirmation screen creates a new version of the Award$/ do
+  on(Confirmation).no
+  on Award do |page|
+    page.header_document_id.should_not == @award.document_id
+    page.header_document_id.should_not == @award.prior_versions[1]
+  end
+end

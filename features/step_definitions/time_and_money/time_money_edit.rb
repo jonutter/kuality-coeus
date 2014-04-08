@@ -13,3 +13,7 @@ And /^the Time & Money Modifier submits the Award's T&M document$/ do
   @award.initialize_time_and_money
   @award.time_and_money.submit
 end
+
+And /cancels the Time And Money document$/ do
+  @award.time_and_money.cancel
+end

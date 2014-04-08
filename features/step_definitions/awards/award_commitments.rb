@@ -1,4 +1,8 @@
 # coding: UTF-8
+And /^a cost share item is added to the Award$/ do
+  @award.add_cost_share
+end
+
 And /^a cost share item is added to the Award with a typo in the project period$/ do
   @award.add_cost_share project_period: random_alphanums(3, 'x')
 end

@@ -26,7 +26,11 @@ class Users < Array
 
   def with_role_in_unit(role_name, unit)
     roles = self.map{ |user| user.roles }
-    self.user(roles.flatten!.find { |role| role.name==role_name && role.qualifiers.detect{ |q| q[:unit]==unit } }.user_name)
+    begin
+      self.user(roles.flatten!.find { |role| role.name==role_name && role.qualifiers.detect{ |q| q[:unit]==unit } }.user_name)
+    rescue NoMethodError
+      nil
+    end
   end
 
   def admin
