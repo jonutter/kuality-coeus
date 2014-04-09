@@ -32,9 +32,6 @@ class SponsorTermObject < DataFactory
       fill_out add, :description, :sponsor_term_id, :sponsor_term_code, :sponsor_term_type_code,
                     :sponsor_term_description
       add.submit
-
-      sleep 40
-
     end
   end
 end
