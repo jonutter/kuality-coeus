@@ -21,8 +21,8 @@ end
 #----------------------#
 #Award Validations Based on Errors During Creation
 #----------------------#
-When /^the Award Modifier creates an Award with a missing required field$/ do |text, role_name|
-  steps %{ * I log in with the #{role_name} user } unless text == ''
+When /^the Award Modifier creates an Award with a missing required field$/ do
+  steps %{ * I log in with the Award Modifier user }
   @required_field = ['Description', 'Transaction Type', 'Award Status',
                      'Award Title', 'Activity Type', 'Award Type',
                      'Project End Date', 'Lead Unit'

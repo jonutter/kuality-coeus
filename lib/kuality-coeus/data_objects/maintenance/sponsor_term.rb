@@ -13,8 +13,8 @@ class SponsorTermObject < DataFactory
 
     defaults = {
         description:              random_alphanums,
-        sponsor_term_id:          random_alphanums,
-        sponsor_term_code:        random_alphanums,
+        sponsor_term_id:          '123456',
+        sponsor_term_code:        '123',
         sponsor_term_type_code:   '::random::',
         sponsor_term_description: random_alphanums,
 
@@ -23,7 +23,7 @@ class SponsorTermObject < DataFactory
   end
 
   def create
-    visit(Maintenance).sponsor_template_term
+    visit(Maintenance).sponsor_terms
     on(SponsorTermLookup).create
     on SponsorTerm do |add|
       @document_id=add.document_id
@@ -32,6 +32,9 @@ class SponsorTermObject < DataFactory
       fill_out add, :description, :sponsor_term_id, :sponsor_term_code, :sponsor_term_type_code,
                     :sponsor_term_description
       add.submit
+
+      sleep 40
+
     end
   end
 end

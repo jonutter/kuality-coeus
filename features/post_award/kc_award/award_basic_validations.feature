@@ -13,8 +13,7 @@ Feature: Basic Award Validations
     Then  a warning appears saying tracking details won't be added until there's a PI
 
   Scenario: Attempt to create a KC Award document with a missing required field
-    Given I log in with the Award Modifier user
-    When  I create an Award with a missing required field
+    When  the Award Modifier creates an Award with a missing required field
     Then  an error should appear indicating the field is required
   @bug_in_system
   Scenario: Enter an account ID that contains non-alphanumeric characters

@@ -8,8 +8,5 @@ Feature: Sponsor Template Creation
     Given a User exists with the roles: Modify Sponsor Template, Application Administrator in the 000001 unit
 
   Scenario: Creating a Sponsor Template without Sponsor Template Terms
-    When  I submit a new Award Sponsor Template without Sponsor Template Terms
+    When  the Modify Sponsor Template user submits a new Award Sponsor Template without a Sponsor Term
     Then  errors about the missing terms are shown
-  @test
-  Scenario: test********
-    When  I submit a new Sponsor Term

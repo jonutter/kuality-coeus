@@ -148,3 +148,20 @@ Then /^an error notification appears to indicate the field is required$/ do
           end
   $current_page.errors.should include error
 end
+
+#-------------------------#
+# Sponsor Term            #
+#-------------------------#
+Then(/^an error indicating the field is required appears in the Term document$/) do
+  error = case @required_field
+            when 'Sponsor Term Code'
+              'Code (Sponsor Term Code) is a required field.'
+            when 'Description'
+              'Document Description (Description) is a required field.'
+            when 'Sponsor Term Description'
+              'Description (Description) is a required field.'
+            else
+              "#{@required_field} (#{@required_field}) is a required field."
+          end
+  $current_page.errors.should include error
+end
