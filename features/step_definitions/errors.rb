@@ -149,6 +149,13 @@ Then /^an error notification appears to indicate the field is required$/ do
   $current_page.errors.should include error
 end
 
+#------------------------#
+# Miscellaneous          #
+#------------------------#
+Then /^a confirmation screen asks if you want to edit the existing pending version$/ do
+  on(Confirmation).message.should == 'A Pending version already exists. Do you want to edit the Pending version?'
+end
+
 #-------------------------#
 # Sponsor Term            #
 #-------------------------#

@@ -10,7 +10,8 @@ class AwardObject < DataFactory
               :award_title, :lead_unit, :activity_type, :award_type, :sponsor_id, :sponsor_type_code,
               :nsf_science_code, :account_id, :account_type, :prime_sponsor, :cfda_number,
               :project_start_date, :project_end_date, :obligation_start_date,
-              :obligation_end_date, :anticipated_amount, :obligated_amount, :document_id,
+              :obligation_end_date, :anticipated_amount, :obligated_amount,
+              :document_id, :version, :prior_versions,
               :document_status,
               :creation_date, :key_personnel, :cost_sharing, :fa_rates,
               :funding_proposals, :subawards, #TODO: Add Benefits rates and preaward auths...
@@ -53,6 +54,8 @@ class AwardObject < DataFactory
       reports:               collection('AwardReports'),
       approved_equipment:    collection('ApprovedEquipment'),
       children:              [], # Contains the ids of any child Awards.
+      version:               '1',
+      prior_versions:        {} # Contains the version number and document ids of prior versions
       #budget_versions:       collection('BudgetVersions'), # This is not yet verified to work with Awards.
 
     }
@@ -97,6 +100,13 @@ class AwardObject < DataFactory
   def edit opts={}
     view :award
     on Award do |edit|
+      if edit.edit_button.present?
+        edit.edit
+        @prior_versions.store(@version, @document_id)
+        @version = edit.version
+        @document_id = edit.header_document_id
+        # TODO: update child objects with new @document_id value!
+      end
       edit_fields opts, edit, :description, :transaction_type, :award_status, :award_title,
                   :activity_type, :award_type, :obligated_amount, :anticipated_amount,
                   :project_start_date, :project_end_date, :obligation_start_date,
@@ -229,15 +239,23 @@ class AwardObject < DataFactory
         lookup_class: @lookup_class,
         search_key: @search_key
     }
-    @custom_data = make CustomDataObject, defaults.merge(opts)
-    @custom_data.create
+    if @custom_data.nil?
+      @custom_data = make CustomDataObject, defaults.merge(opts)
+      @custom_data.create
+    end
   end
 
   def initialize_time_and_money
     open_document
     on(Award).time_and_money
     # Set up to only create the instance variable if it doesn't exist, yet
-    @time_and_money ||= make TimeAndMoneyObject, id: on(TimeAndMoney).header_document_id
+    if @time_and_money.nil?
+      @time_and_money = make TimeAndMoneyObject, id: on(TimeAndMoney).header_document_id,
+                             award_number: @id
+      @time_and_money.create
+    else
+      @time_and_money.check_status
+    end
   end
 
   def view(tab)
