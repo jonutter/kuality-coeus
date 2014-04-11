@@ -23,7 +23,7 @@ Feature: Award Versions
     When  the original Award is edited again
     Then  selecting 'no' on the confirmation screen creates a new version of the Award
   @test
-  Scenario: X
+  Scenario: Canceling and reopening Time And Money
     Given the Award Modifier edits the finalized Award
     And   the Time And Money Modifier initializes the Award's Time And Money document
     And   cancels the Time And Money document
@@ -31,8 +31,7 @@ Feature: Award Versions
     When  the Time And Money Modifier initializes the Award's Time And Money document
     Then  the Time And Money document should not be the cancelled version
 
-
-    # This test will fail until fixed: https://jira.kuali.org/browse/KRAFDBCK-10616
+  # This test will fail until this issue is resolved: https://jira.kuali.org/browse/KRAFDBCK-10616
   Scenario: Time And Money still final when Award edited
     When  the Time And Money Modifier opens the Award's Time And Money document
     Then  the T&M document is still the finalized version

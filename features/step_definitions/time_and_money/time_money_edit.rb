@@ -49,6 +49,6 @@ end
 
 Then /^the Time And Money document should not be the cancelled version$/ do
   @award.time_and_money.check_status
-  @award.time_and_money.status.should_not == 'FINAL'
+  @award.time_and_money.status.should == 'SAVED'
   @award.time_and_money.versions.should_not be_empty
 end
