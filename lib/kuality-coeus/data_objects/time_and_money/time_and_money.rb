@@ -2,7 +2,7 @@ class TimeAndMoneyObject < DataFactory
 
   include StringFactory
 
-  attr_reader :id, :status, :transaction_type_code, :transactions,
+  attr_reader :status, :transaction_type_code, :transactions,
               :funds_distribution, :transaction_history, :award_number,
               :document_id, :versions
 
@@ -28,7 +28,7 @@ class TimeAndMoneyObject < DataFactory
   def create
     on TimeAndMoney do |page|
       page.expand_all
-      @document_id = page.header_document_id
+      @document_id ||= page.header_document_id
       1.upto(page.existing_funds_rows.size) do |x|
         number=x.to_s
         item = make FundsDistributionObject,

@@ -250,7 +250,7 @@ class AwardObject < DataFactory
     on(Award).time_and_money
     # Set up to only create the instance variable if it doesn't exist, yet
     if @time_and_money.nil?
-      @time_and_money = make TimeAndMoneyObject, id: on(TimeAndMoney).header_document_id,
+      @time_and_money = make TimeAndMoneyObject, document_id: on(TimeAndMoney).header_document_id,
                              award_number: @id
       @time_and_money.create
     else
@@ -375,6 +375,13 @@ class AwardObject < DataFactory
     award
   end
 
+  def cancel
+    view :award
+    on Award do |page|
+      page.cancel
+    end
+  end
+
   # ========
   private
   # ========
@@ -430,8 +437,6 @@ class AwardObject < DataFactory
         end
       end
     end
-    # Must update the document id, now:
-    @document_id=on(Award).header_document_id
   end
 
   def on_award?

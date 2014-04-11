@@ -245,3 +245,15 @@ Then /^the deleted F&A rates are restored to the Award$/ do
     on(Commitments).fna_sources.should include fna.source
   end
 end
+
+And /^returning to the Award goes to the new, pending version$/ do
+  on(TimeAndMoney).return_to_award
+  on Award do |page|
+    page.header_status.should == 'SAVED'
+    page.header_document_id.should == @award.document_id
+  end
+end
+
+And /opens the Award$/ do
+  @award.view :award
+end

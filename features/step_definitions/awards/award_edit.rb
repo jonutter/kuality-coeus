@@ -55,7 +55,7 @@ And /adds the same organization as a subaward again to the Award$/ do
 end
 
 And /edits the finalized Award$/ do
-  @award.edit transaction_type: '::random::'
+  @award.edit transaction_type: '::random::', anticipated_amount: '5', obligated_amount: '5'
 end
 
 When /^the original Award is edited again$/ do
@@ -80,4 +80,9 @@ Then /^selecting 'no' on the confirmation screen creates a new version of the Aw
     page.header_document_id.should_not == @award.document_id
     page.header_document_id.should_not == @award.prior_versions[1]
   end
+end
+
+When(/^the Award Modifier cancels the Award$/) do
+  steps '* log in with the Award Modifier user'
+  @award.cancel
 end
