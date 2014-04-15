@@ -1,10 +1,11 @@
 class SubawardObject < DataFactory
 
   include StringFactory
+  include Navigation
 
   attr_reader :document_id, :subaward_id, :version, :subaward_status,
               :document_status, :requisitioner, :requisitioner_unit,
-              :subrecipient
+              :subrecipient, :funding_sources, :custom_data, :prior_versions
 
   def initialize(browser, opts={})
     @browser = browser
@@ -15,26 +16,123 @@ class SubawardObject < DataFactory
       requisitioner: '::random::',
       subrecipient: '::random::',
       purchase_order_id: random_alphanums,
-      subaward_status: 'Active'
-      #funding_source: collection('FundingSource'),
-      #contacts: collection('SubawardContacts'),
+      subaward_status: 'Active',
+      funding_sources: [],
+      contacts: [],
+      prior_versions: {},
+      changes: collection('Changes')
       #closeout: collection('Closeout')
     }
 
     set_options(defaults.merge(opts))
+    @lookup_class = SubawardLookup
   end
 
   def create
     visit(CentralAdmin).create_subaward
     on Subaward do |page|
       fill_out page, :subaward_type, :subaward_status, :description,
-               :purchase_order_id
+               :purchase_order_id, :comments
       set_requisitioner
       set_subrecipient
       page.save
       @subaward_id = page.subaward_id
       @version = page.version
+      @document_id = page.document_id
+      @doc_header = page.doc_title
+      @search_key = { subaward_id: @subaward_id }
     end
+  end
+
+  def edit opts={}
+    view :subaward
+    on Subaward do |edit|
+      if edit.edit_button.present?
+        edit.edit
+        @prior_versions.store(@version, @document_id)
+        @version = edit.version
+        @document_id = edit.document_id
+      end
+      edit_fields opts, edit, :subaward_type, :subaward_status, :description,
+                  :purchase_order_id, :comments
+      edit.save
+    end
+  end
+
+  def add_funding_source(award_id)
+    view :subaward
+    on Subaward do |page|
+      page.expand_all
+      page.lookup_award
+    end
+    on AwardLookup do |page|
+      page.award_id.set award_id
+      page.search
+      page.return_value award_id
+    end
+    on(Subaward) do |page|
+      page.add_funding_source
+      page.save
+    end
+    @funding_sources << award_id
+  end
+
+  def add_custom_data opts={}
+    view :custom_data
+    defaults = {
+        document_id: @document_id,
+        doc_header: @doc_header,
+        lookup_class: @lookup_class,
+        search_key: @search_key
+    }
+    if @custom_data.nil?
+      @custom_data = make CustomDataObject, defaults.merge(opts)
+      @custom_data.create
+    end
+  end
+
+  def add_contact(person_id='::random::', role='::random::')
+    view :subaward
+    on Subaward do |page|
+      page.expand_all
+      if person_id=='::random::'
+        page.person_lookup
+        on AddressBookLookup do |page|
+          results=false
+          until results do
+            page.state.pick '::random::'
+            page.search
+            results = true if page.results_table.present?
+          end
+          page.return_random
+        end
+        person_id=page.non_employee_id.value
+      else
+        page.non_employee_id.set person_id
+      end
+      name = page.contact_name
+      page.project_role.pick! role
+      page.add_contact
+      page.save
+      @contacts << {id: person_id, role: role, name: name }
+    end
+  end
+
+  def add_change opts={}
+    view :financial
+    @changes.add opts
+  end
+
+  def view(tab)
+    open_document
+    unless on(Subaward).send(StringFactory.damballa("#{tab}_button")).parent.class_name=~/tabcurrent$/
+      on(Subaward).send(StringFactory.damballa(tab.to_s))
+    end
+  end
+
+  def submit
+    view :subaward_actions
+    on(SubawardActions).submit
   end
 
   # =========

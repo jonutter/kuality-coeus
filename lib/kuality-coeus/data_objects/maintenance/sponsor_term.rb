@@ -34,6 +34,7 @@ class SponsorTermObject < DataFactory
     end
     visit(Maintenance).sponsor_terms
     on(SponsorTermLookup).create
+    end
     on SponsorTerm do |add|
       @document_id=add.document_id
       @status=add.document_status

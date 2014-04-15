@@ -28,6 +28,7 @@ class RoleObject < DataFactory
       'Maintain IRB Questionnaire'      => '161',
       'Maintain Proposal Questionnaire' => '162',
       'Manager'                         =>  '98',
+      'Modify Subaward'                 => '1427',
       'Modify Sponsor Template'         => '1444',
       'Narrative Writer'                => '109',
       'Negotiation Creator'             => '1399',

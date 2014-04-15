@@ -47,7 +47,8 @@ class CustomDataObject < DataFactory
     Kernel.const_get({
         kc_award: 'AwardCustomData',
         proposal_development_document: 'PDCustomData',
-        kc_institutional_proposal: 'IPCustomData'
+        kc_institutional_proposal: 'IPCustomData',
+        kc_subaward: 'SubawardCustomData'
     }[damballa(@doc_header.strip)])
   end
 
