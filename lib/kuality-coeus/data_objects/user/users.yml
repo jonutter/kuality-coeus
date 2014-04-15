@@ -810,3 +810,47 @@ dbyrne:  # AKA: "Principal Name"
       :name: Institutional Proposal Maintainer
       :qualifiers:
         - :unit: '000001'
+greyjoy:  # AKA: "Principal Name"
+  :user_name:        greyjoy
+  :description:      Subaward Modifier
+  :affiliation_type: Other Academic Group
+  :campus_code:      'UN - UNIVERSITY'
+  :first_name:       Asha
+  :last_name:        Greyjoy
+  :primary_title:    Captain of the Black Wind
+  :directory_title:  Funkmeister General
+  :citizenship_type: US CITIZEN OR NONCITIZEN NATIONAL
+  :era_commons_user_name: qhaydivo
+  :graduate_student_count: '0'
+  :billing_element:  bla bla bla
+  :addresses:
+    - :type:    Home
+      :line_1:  475 n scottsdale rd
+      :city:    scottsdale
+      :state:   ARIZONA
+      :country: United States
+      :zip:     85257
+      :default: :set
+    - :type:    Work
+      :line_1:  475 n scottsdale rd
+      :city:    scottsdale
+      :state:   ARIZONA
+      :country: United States
+      :zip:     85257
+      :default: :clear
+  :phones:
+    - :type:    Work
+      :number:  602-228-3876
+      :default: :set
+    - :type:    Facsimile
+      :number:  602-597-5350
+      :default: :clear
+  :emails:
+    - :email:   kc-qa-notify@rsmart.com
+      :type:    Work
+      :default: :set
+  :rolez:
+    - :id:   '1427'
+      :name: Modify Subaward
+      :qualifiers:
+        - :unit:
