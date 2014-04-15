@@ -13,6 +13,8 @@ class SponsorTermObject < DataFactory
 
     defaults = {
         description:              random_alphanums,
+        ## TODO: 'Random Alphanums' won't work for this field, because it only allows numbers
+        ## Also, this field requires a unique term id, and that has yet to be resolved.
         sponsor_term_id:          '::random::',
         sponsor_term_code:        '1',
         sponsor_term_type_code:   '::random::',
@@ -29,7 +31,6 @@ class SponsorTermObject < DataFactory
       page.sort_sponsor_term_id
       page.last
       @sponsor_term_id = search.
-      sleep 40
     end
     visit(Maintenance).sponsor_terms
     on(SponsorTermLookup).create
