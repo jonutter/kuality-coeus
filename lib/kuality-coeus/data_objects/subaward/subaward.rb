@@ -54,7 +54,7 @@ class SubawardObject < DataFactory
         @document_id = edit.document_id
       end
       edit_fields opts, edit, :subaward_type, :subaward_status, :description,
-                  :purchase_order_id, :comments
+                  :purchase_order_id, :comments,
       edit.save
     end
   end

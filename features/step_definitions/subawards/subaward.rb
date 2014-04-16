@@ -1,3 +1,8 @@
+And /^the Modify Subaward user creates a Subaward$/ do
+  steps '* log in with the Modify Subaward user'
+  @subaward = create SubawardObject
+end
+
 And /^the Modify Subaward user creates and submits a Subaward$/ do
   steps '* log in with the Modify Subaward user'
   @subaward = create SubawardObject
