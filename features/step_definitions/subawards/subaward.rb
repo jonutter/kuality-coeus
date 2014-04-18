@@ -97,5 +97,19 @@ Then /^the Subaward's requisitioner can approve or disapprove the invoice$/ do
     page.filter
   end
   on(ActionList).open_item(@subaward.invoices[0].document_id)
-  expect{on(Subaward).send([:approve, :disapprove].sample)}.not_to raise_error
+  @approval = [:approve, :disapprove].sample
+  expect{on(Subaward).send(@approval)}.not_to raise_error
+  on Confirmation do |page|
+    page.reason.set(random_alphanums) if page.reason.present?
+    page.yes
+  end
+end
+
+And(/^the Modify Subaward user sees the invoice's approval\/disapproval$/) do
+  steps '* log in with the Modify Subaward user'
+  @subaward.view :financial
+  statuses = { approve: 'FINAL', disapprove: 'DISAPPROVED'}
+  on Financial do |page|
+    page.invoice_status(@subaward.invoices[0].invoice_id).should==statuses[@approval]
+  end
 end

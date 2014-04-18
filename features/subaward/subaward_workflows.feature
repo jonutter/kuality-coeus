@@ -7,3 +7,4 @@ Feature: Subaward Workflows
     And   the Modify Subaward user creates a Subaward
     When  the Modify Subaward user adds an invoice to the Subaward
     Then  the Subaward's requisitioner can approve or disapprove the invoice
+    And   the Modify Subaward user sees the invoice's approval/disapproval
