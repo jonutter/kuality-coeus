@@ -5,7 +5,8 @@ class SubawardObject < DataFactory
 
   attr_reader :document_id, :subaward_id, :version, :subaward_status,
               :document_status, :requisitioner, :requisitioner_unit,
-              :subrecipient, :funding_sources, :custom_data, :prior_versions
+              :subrecipient, :funding_sources, :custom_data, :prior_versions,
+              :invoices
 
   def initialize(browser, opts={})
     @browser = browser
@@ -20,7 +21,8 @@ class SubawardObject < DataFactory
       funding_sources: [],
       contacts: [],
       prior_versions: {},
-      changes: collection('Changes')
+      changes: collection('Changes'),
+      invoices: collection('Invoices')
       #closeout: collection('Closeout')
     }
 
@@ -54,7 +56,7 @@ class SubawardObject < DataFactory
         @document_id = edit.document_id
       end
       edit_fields opts, edit, :subaward_type, :subaward_status, :description,
-                  :purchase_order_id, :comments
+                  :purchase_order_id, :comments,
       edit.save
     end
   end
@@ -63,14 +65,7 @@ class SubawardObject < DataFactory
     view :subaward
     on Subaward do |page|
       page.expand_all
-      page.lookup_award
-    end
-    on AwardLookup do |page|
-      page.award_id.set award_id
-      page.search
-      page.return_value award_id
-    end
-    on(Subaward) do |page|
+      page.award_number.set award_id
       page.add_funding_source
       page.save
     end
@@ -121,6 +116,11 @@ class SubawardObject < DataFactory
   def add_change opts={}
     view :financial
     @changes.add opts
+  end
+
+  def add_invoice opts={}
+    view :financial
+    @invoices.add opts
   end
 
   def view(tab)
