@@ -105,11 +105,19 @@ Then /^the Subaward's requisitioner can approve or disapprove the invoice$/ do
   end
 end
 
-And(/^the Modify Subaward user sees the invoice's approval\/disapproval$/) do
+And /^the Modify Subaward user sees the invoice's approval\/disapproval$/ do
   steps '* log in with the Modify Subaward user'
   @subaward.view :financial
   statuses = { approve: 'FINAL', disapprove: 'DISAPPROVED'}
   on Financial do |page|
     page.invoice_status(@subaward.invoices[0].invoice_id).should==statuses[@approval]
   end
+end
+
+And /adds a change to the Subaward amounts$/ do
+  @subaward.add_change
+end
+
+When /^the Modify Subaward user adds an invoice to the Subaward with a released amount larger than the obligated amount$/ do
+  @subaward.add_invoice amount_released: '%.2f'%(@subaward.changes[0].obligated_change.to_f+0.01)
 end

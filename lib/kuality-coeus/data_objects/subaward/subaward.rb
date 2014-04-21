@@ -6,7 +6,7 @@ class SubawardObject < DataFactory
   attr_reader :document_id, :subaward_id, :version, :subaward_status,
               :document_status, :requisitioner, :requisitioner_unit,
               :subrecipient, :funding_sources, :custom_data, :prior_versions,
-              :invoices
+              :invoices, :changes
 
   def initialize(browser, opts={})
     @browser = browser

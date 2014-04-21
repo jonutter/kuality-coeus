@@ -15,7 +15,7 @@ class SubawardInvoiceObject < DataFactory
         start_date:      right_now[:date_w_slashes],
         end_date:        in_a_year[:date_w_slashes],
         amount_released: random_dollar_value(1000),
-        effective_date:  in_a_year[:date_w_slashes]
+        effective_date:  next_monday[:date_w_slashes]
     }
     set_options defaults.merge(opts)
   end
@@ -27,8 +27,10 @@ class SubawardInvoiceObject < DataFactory
                :amount_released, :effective_date
       @document_id = page.document_id
       page.submit
-      confirmation :yes
-      page.close_children
+      if page.errors.empty?
+        confirmation :yes
+        page.close_children
+      end
     end
   end
 
