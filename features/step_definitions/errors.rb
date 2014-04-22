@@ -115,6 +115,13 @@ Then /^an error should say that the (cost share|F&A rate) percentage can only ha
   $current_page.errors.should include "Invalid value #{@award.send(items[type][0])[0].send(items[type][1])}: at most 2 digits may follow the decimal point."
 end
 
+#-----------------------#
+# Subaward              #
+#-----------------------#
+Then /^an error should appear on the Subaward saying the person is already added to the contacts$/ do
+  on(Subaward).errors.should include "#{@subaward.contacts[0][:name]} is already added to the Subaward Contacts"
+end
+
 #------------------------#
 # Institutional Proposal #
 #------------------------#
@@ -155,4 +162,8 @@ end
 #------------------------#
 Then /^a confirmation screen asks if you want to edit the existing pending version$/ do
   on(Confirmation).message.should == 'A Pending version already exists. Do you want to edit the Pending version?'
+end
+
+Then /^there are no errors on the page$/ do
+  $current_page.errors.size.should==0
 end

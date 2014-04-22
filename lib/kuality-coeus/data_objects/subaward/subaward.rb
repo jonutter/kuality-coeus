@@ -6,7 +6,7 @@ class SubawardObject < DataFactory
   attr_reader :document_id, :subaward_id, :version, :subaward_status,
               :document_status, :requisitioner, :requisitioner_unit,
               :subrecipient, :funding_sources, :custom_data, :prior_versions,
-              :invoices, :changes
+              :invoices, :changes, :contacts
 
   def initialize(browser, opts={})
     @browser = browser
@@ -103,12 +103,18 @@ class SubawardObject < DataFactory
         end
         person_id=page.non_employee_id.value
       else
-        page.non_employee_id.set person_id
+        while page.contact_name==''
+          page.non_employee_id.set(person_id + "\n")
+          sleep 2
+          page.non_employee_id.send_keys :tab
+          page.non_employee_id.click
+          page.contacts_div.click
+        end
       end
       name = page.contact_name
       page.project_role.pick! role
       page.add_contact
-      page.save
+      page.save if page.errors.empty?
       @contacts << {id: person_id, role: role, name: name }
     end
   end

@@ -121,3 +121,19 @@ end
 When /^the Modify Subaward user adds an invoice to the Subaward with a released amount larger than the obligated amount$/ do
   @subaward.add_invoice amount_released: '%.2f'%(@subaward.changes[0].obligated_change.to_f+0.01)
 end
+
+And /adds a contact to the Subaward$/ do
+  @subaward.add_contact
+end
+
+When /adds the same contact to the Subaward, with a different role$/ do
+  roles = on(Subaward).project_role.options.map { |x| x.text }
+  2.times{roles.delete_at(0)}
+  roles.delete_if { |role| role==@subaward.contacts[0][:role] }
+  role = roles.sample
+  @subaward.add_contact(@subaward.contacts[0][:id], role)
+end
+
+When /adds the same contact to the Subaward, with the same role$/ do
+  @subaward.add_contact(@subaward.contacts[0][:id], @subaward.contacts[0][:role])
+end
