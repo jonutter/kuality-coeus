@@ -15,7 +15,7 @@ class SponsorTermObject < DataFactory
         description:              random_alphanums,
         ## TODO: 'Random Alphanums' won't work for this field, because it only allows numbers
         ## Also, this field requires a unique term id, and that has yet to be resolved.
-        sponsor_term_id:          '::random::',
+        sponsor_term_id:          dateTime.now,
         sponsor_term_code:        '1',
         sponsor_term_type_code:   '::random::',
         sponsor_term_description: random_alphanums,
@@ -26,15 +26,7 @@ class SponsorTermObject < DataFactory
 
   def create
     visit(Maintenance).sponsor_terms
-    on SponsorTermLookup do |page|
-      page.search
-      page.sort_sponsor_term_id
-      page.last
-      @sponsor_term_id = search.
-    end
-    visit(Maintenance).sponsor_terms
     on(SponsorTermLookup).create
-    end
     on SponsorTerm do |add|
       @document_id=add.document_id
       @status=add.document_status

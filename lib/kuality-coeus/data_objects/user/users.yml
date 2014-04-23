@@ -861,7 +861,8 @@ kcrimson:  # AKA: "Principal Name"
       :name: Application Administrator
       :qualifiers:
         - :unit: '000001'
-          :descends_hierarchy: :clear        - :unit: '000001'
+          :descends_hierarchy: :clear
+
 greyjoy:  # AKA: "Principal Name"
   :user_name:        greyjoy
   :description:      Subaward Modifier

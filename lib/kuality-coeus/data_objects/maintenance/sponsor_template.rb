@@ -30,18 +30,22 @@ class SponsorTemplateObject < DataFactory
       @status=add.document_status
       add.expand_all
       fill_out add, :description, :template_description, :template_status, :payment_basis, :payment_method
+      set_sponsor_terms
       add.submit
     end
+
   end
 
   # =========
   private
   # =========
 
-  def set_sponsor_term
+  def set_sponsor_terms
+
     on(SponsorTemplate).find_sponsor_term
     on SponsorTermLookup do |look|
       look.search
+      look.return_random
     end
   end
 
