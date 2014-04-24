@@ -21,7 +21,7 @@ class ProposalDevelopmentObject < DataFactory
       proposal_type:         'New',
       lead_unit:             '::random::',
       activity_type:         '::random::',
-      project_title:         random_alphanums,
+      project_title:         random_alphanums_plus,
       sponsor_id:            '::random::',
       sponsor_type_code:     '::random::',
       nsf_science_code:      '::random::',

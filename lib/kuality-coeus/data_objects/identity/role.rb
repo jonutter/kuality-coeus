@@ -48,9 +48,9 @@ class RoleObject < DataFactory
     @browser = browser
 
     defaults = {
-        description:      random_alphanums,
+        description:      random_alphanums_plus,
         type:             'Unit',
-        name:             random_alphanums,
+        name:             random_alphanums_plus,
         namespace:        'KC-UNT - Kuali Coeus - Department',
         assignees:        collection('RoleAssignees'),
         permissions:      [],

@@ -8,7 +8,7 @@ class TransactionObject < DataFactory
   def initialize(browser, opts={})
     @browser = browser
     defaults = {
-        comments: random_alphanums,
+        comments: random_alphanums_plus,
         source_award: 'External',
         obligated_change: random_dollar_value(111),
         anticipated_change: random_dollar_value(111)

@@ -3,12 +3,22 @@ And /^the Modify Subaward user creates a Subaward$/ do
   @subaward = create SubawardObject
 end
 
+And /finishes the Subaward requirements$/ do
+  @subaward.add_contact
+  @subaward.add_custom_data
+  @subaward.add_change
+end
+
 And /^the Modify Subaward user creates and submits a Subaward$/ do
   steps '* log in with the Modify Subaward user'
   @subaward = create SubawardObject
   @subaward.add_contact
   @subaward.add_custom_data
   @subaward.add_change
+  @subaward.submit
+end
+
+And /submits? the Subaward$/ do
   @subaward.submit
 end
 
@@ -81,8 +91,8 @@ Then /^they are asked if they want to edit the Subaward's existing pending versi
   on(Confirmation).yes_button.should exist
 end
 
-And /adds an invoice to the Subaward$/ do
-  @subaward.add_invoice
+And /adds? an invoice to the Subaward$/ do
+  expect{@subaward.add_invoice}.not_to raise_error
 end
 
 Then /^the Subaward's requisitioner can approve or disapprove the invoice$/ do

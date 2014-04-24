@@ -12,7 +12,7 @@ class GroupObject < DataFactory
     defaults = {
       type:       'Default',
       namespace:  'KC-UNT - Kuali Coeus - Department',
-      name:       random_alphanums,
+      name:       random_alphanums_plus,
       assignees:  collection('GrAssignees'),
       save_type: :blanket_approve
     }

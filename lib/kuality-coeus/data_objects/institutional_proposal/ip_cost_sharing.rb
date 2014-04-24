@@ -13,7 +13,7 @@ class IPCostSharingObject < DataFactory
         project_period: '1',
         percentage:     '100.00',
         type:           '::random::',
-        source_account: random_alphanums,
+        source_account: random_alphanums_plus,
         amount:         random_dollar_value(1000)
     }
     set_options(defaults.merge(opts))

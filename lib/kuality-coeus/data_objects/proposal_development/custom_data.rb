@@ -11,7 +11,7 @@ class CustomDataObject < DataFactory
 
     defaults = {
         graduate_student_count: rand(50).to_s,
-        billing_element:        random_alphanums(40)
+        billing_element:        random_alphanums_plus(40)
     }
     set_options(defaults.merge(opts))
     requires :document_id, :doc_header, :lookup_class

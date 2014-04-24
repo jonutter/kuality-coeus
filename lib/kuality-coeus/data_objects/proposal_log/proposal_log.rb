@@ -14,7 +14,7 @@ class ProposalLogObject < DataFactory
         log_type:               'Permanent',
         proposal_type:          '::random::',
         sponsor_id:             '::random::',
-        title:                  random_alphanums,
+        title:                  random_alphanums_plus,
         lead_unit:              '000001',
         save_type:              :submit
     }

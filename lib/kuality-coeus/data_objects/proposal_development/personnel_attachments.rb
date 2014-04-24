@@ -10,7 +10,7 @@ class PersonnelAttachmentObject < DataFactory
     defaults = {
         person:      '::random::',
         type:        '::random::',
-        description: random_alphanums(30)
+        description: random_alphanums_plus(30)
     }
     set_options defaults.merge(opts)
     requires :document_id, :file_name

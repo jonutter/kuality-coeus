@@ -105,7 +105,7 @@ class InstituteRateObject < DataFactory
     @browser = browser
 
     defaults = {
-      description: random_alphanums,
+      description: random_alphanums_plus,
       fiscal_year: right_now[:year],
       activity_type: 'Instruction',
       on_off_campus_flag: :set,

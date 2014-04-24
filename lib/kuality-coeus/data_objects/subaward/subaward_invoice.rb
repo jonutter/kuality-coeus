@@ -10,8 +10,8 @@ class SubawardInvoiceObject < DataFactory
   def initialize(browser, opts={})
     @browser = browser
     defaults = {
-        description:     random_alphanums,
-        invoice_id:      random_alphanums,
+        description:     random_alphanums_plus,
+        invoice_id:      random_alphanums_plus,
         start_date:      right_now[:date_w_slashes],
         end_date:        in_a_year[:date_w_slashes],
         amount_released: random_dollar_value(1000),

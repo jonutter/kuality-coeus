@@ -26,10 +26,10 @@ class AwardObject < DataFactory
     amount = random_dollar_value(1000000)
 
     defaults = {
-      description:           random_alphanums,
+      description:           random_alphanums_plus,
       transaction_type:      '::random::',
       award_status:          %w{Active Hold Pending}.sample, # Needs to be this way because we don't want it to pick a status of, e.g., 'Closed'
-      award_title:           random_alphanums,
+      award_title:           random_alphanums_plus,
       activity_type:         '::random::',
       award_type:            '::random::',
       project_start_date:    right_now[:date_w_slashes],

@@ -12,11 +12,11 @@ class SubawardObject < DataFactory
     @browser = browser
 
     defaults = {
-      description: random_alphanums,
+      description: random_alphanums_plus,
       subaward_type: '::random::',
       requisitioner: '::random::',
       subrecipient: '::random::',
-      purchase_order_id: random_alphanums,
+      purchase_order_id: random_alphanums_plus,
       subaward_status: 'Active',
       funding_sources: [],
       contacts: [],

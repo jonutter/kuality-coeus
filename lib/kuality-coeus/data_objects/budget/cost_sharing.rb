@@ -11,7 +11,7 @@ class CostSharingObject < DataFactory
 
     defaults = {
         percentage:     '0.00',
-        source_account: random_alphanums
+        source_account: random_alphanums_plus
     }
     set_options(defaults.merge(opts))
   end

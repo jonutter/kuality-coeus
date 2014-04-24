@@ -22,7 +22,7 @@ class InstitutionalProposalObject < DataFactory
         special_review:    collection('SpecialReview'),
         cost_sharing:      collection('IPCostSharing'),
         unrecovered_fa:    collection('IPUnrecoveredFA'),
-        description:       random_alphanums,
+        description:       random_alphanums_plus,
         version:           1,
         prior_versions:    []
     }

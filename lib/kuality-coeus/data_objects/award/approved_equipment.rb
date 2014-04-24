@@ -7,9 +7,9 @@ class ApprovedEquipment < DataFactory
   def initialize(browser, opts={})
     @browser=browser
     defaults = {
-        item:   random_alphanums,
-        vendor: random_alphanums,
-        model:  random_alphanums,
+        item:   random_alphanums_plus,
+        vendor: random_alphanums_plus,
+        model:  random_alphanums_plus,
         amount: random_dollar_value(100000)
     }
     set_options(defaults.merge(opts))
