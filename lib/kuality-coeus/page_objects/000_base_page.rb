@@ -117,7 +117,8 @@ class BasePage < PageFactory
 
     def budget_header_elements
       action(:return_to_proposal) { |b| b.frm.button(name: 'methodToCall.returnToProposal').click; b.loading }
-      buttons 'Budget Version', 'Parameters', 'Rates', 'Summary', 'Personnel', 'Non-Personnel',
+      action(:return_to_award) { |b| b.frm.button(name: 'methodToCall.returnToAward').click; b.loading }
+      buttons 'Budget Versions', 'Parameters', 'Rates', 'Summary', 'Personnel', 'Non-Personnel',
               'Distribution & Income', 'Budget Actions'
       # Need the _tab suffix because of method collisions
       action(:modular_budget_tab) { |b| b.frm.button(value: 'Modular Budget').click }
