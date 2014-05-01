@@ -29,3 +29,8 @@ Feature: Creating/Editing Budget Versions in Proposal Documents
     Given I finalize the Budget Version
     When  I copy the Budget Version (all periods)
     Then  an error should appear that says only one version can be final
+
+  Scenario: Complete Budgets are read-only
+    Given the Proposal Creator finalizes the Budget Version
+    When  the Proposal Creator marks the Budget Version complete
+    Then  the Budget Version is no longer editable

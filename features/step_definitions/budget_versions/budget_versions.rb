@@ -134,3 +134,12 @@ end
 And /^adjusts the budget period's cost sharing amount so all funds are allocated$/ do
   @budget_version.budget_periods.period(1).edit cost_sharing: @budget_version.budget_periods.period(1).cost_sharing_distribution_list.total_funds.to_s
 end
+
+And /^the Budget Version is no longer editable$/ do
+  @budget_version.view 'Budget Actions'
+  on BudgetActions do |page|
+    page.expand_all
+    page.add_file_name.should_not be_present
+  end
+  # TODO: Add more validations here
+end

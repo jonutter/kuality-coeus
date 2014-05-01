@@ -116,6 +116,11 @@ class BudgetVersionsObject < DataFactory
     end
   end
 
+  def view(tab)
+    open_budget
+    on(Parameters).send(damballa(tab))
+  end
+
   def copy_all_periods(new_name)
     open_document
     on(Proposal).budget_versions unless on_page?(on(BudgetVersions).name)
