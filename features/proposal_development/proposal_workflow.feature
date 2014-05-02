@@ -8,8 +8,12 @@
     * Users exist with the following roles: Proposal Creator, OSPApprover
 
   Scenario: Approval Requests for a Proposal are sent
-    Given the Proposal Creator submits a new Proposal into routing
-    Then  the Proposal status should be Approval Pending
+    When the Proposal Creator submits a new Proposal into routing
+    Then the Proposal status should be Approval Pending
+
+  Scenario: Copying a submitted Proposal
+    When the Proposal Creator submits a new Proposal into routing
+    Then it is still possible to copy the Proposal
 
    Scenario: Approval Request is sent to the Proposal's PI
     Given the Proposal Creator submits a new Proposal into routing

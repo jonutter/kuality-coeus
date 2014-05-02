@@ -118,7 +118,7 @@ class BudgetVersionsObject < DataFactory
 
   def view(tab)
     open_budget
-    on(Parameters).send(damballa(tab))
+    on(Parameters).send(damballa(tab.to_s))
   end
 
   def copy_all_periods(new_name)

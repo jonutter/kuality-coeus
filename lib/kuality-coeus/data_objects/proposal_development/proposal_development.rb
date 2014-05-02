@@ -67,7 +67,7 @@ class ProposalDevelopmentObject < DataFactory
       edit.proposal
       edit.expand_all
       edit_fields opts, edit, :project_title, :project_start_date, :opportunity_id, :proposal_type,
-                              :original_ip_id
+                              :original_ip_id, :project_end_date
       # TODO: Add more stuff here as necessary
       edit.save
     end
