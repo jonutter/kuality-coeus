@@ -1,4 +1,3 @@
-config.yml
 /test.rb
 *test.rb
 test.feature
@@ -8,6 +7,4 @@ test.feature
 *.gem
 *.log
 *test_spec.rb
-Gemfile
-Gemfile.lock
 *.png
