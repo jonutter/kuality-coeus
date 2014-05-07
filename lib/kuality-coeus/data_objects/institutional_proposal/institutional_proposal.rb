@@ -74,7 +74,7 @@ class InstitutionalProposalObject < DataFactory
       set_sponsor_code
       create.save
     end
-    if @proposal_log
+    if @proposal_log && $current_page.errors.size==0
       pi = make ProjectPersonnelObject, principal_name: @proposal_log.principal_investigator,
                 full_name: @proposal_log.pi_full_name,
                 document_id: @document_id,

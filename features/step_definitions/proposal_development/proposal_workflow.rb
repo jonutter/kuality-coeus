@@ -40,6 +40,11 @@ end
 And /^the (.*) approves the Proposal (with|without) future approval requests$/ do |role_name, future_requests|
   steps %{* I log in with the #{role_name} user }
   conf = {'with' => :yes, 'without' => :no}
+
+  #DEBUG
+  #puts @proposal.document_id
+  #sleep 120
+
   @proposal.approve_from_action_list
   on(Confirmation).send(conf[future_requests])
 end

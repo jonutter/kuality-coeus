@@ -30,11 +30,19 @@ When /^the Create Proposal Log user creates an institutional proposal with a mis
   # Note that this step implicitly requires creation of a Proposal Log first...
   steps %q{ * I log in with the Create Proposal Log user }
   # Pick a field at random for the test...
-  @required_field = ['Project Title', 'Description','Activity Type','Sponsor ID', 'Proposal Type'
+  field_name = ['Project Title','Description','Activity Type','Sponsor ID','Proposal Type'
   ].sample
   # Properly set the nil value depending on the field type...
-  @required_field=~/Type/ ? value='select' : value=' '
+  field_name=~/Type/ ? value='select' : value=' '
   # Transform the field name to the appropriate symbol...
-  field = damballa(@required_field)
+  field = damballa(field_name)
   @institutional_proposal = create InstitutionalProposalObject, field=>value
+  error_text = {
+      'Project Title'=>'Project Title (Title)',
+      'Description'=>'Document Description (Description)',
+      'Activity Type'=>'Activity Type (Activity)',
+      'Sponsor ID'=>'Sponsor ID  (Sponsor ID)',
+      'Proposal Type'=>'Proposal Type (Proposal Type Code)'
+  }
+  @required_field = error_text[field_name]
 end

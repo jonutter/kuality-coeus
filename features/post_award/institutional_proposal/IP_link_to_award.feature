@@ -5,7 +5,7 @@ Feature: Linking an Institutional Proposal to a KC Award
   Background: Establish test users
     * Users exist with the following roles: Award Modifier, Proposal Creator, OSPApprover
     * a User exists with the roles: OSP Administrator, Proposal Submission, Institutional Proposal Maintainer in the 000001 unit
-
+  @failing
   Scenario: Linking a Funding Proposal to an Award
     Given 1 Approved Institutional Proposal exists
     When  the Award Modifier links the Funding Proposal to a new Award
@@ -34,7 +34,7 @@ Feature: Linking an Institutional Proposal to a KC Award
     And   the Award Modifier creates an Award
     When  the Funding Proposal is linked to a new Award
     Then  the Award inherits the Cost Sharing data from the Funding Proposal
-
+  @failing
   Scenario: KC-TS-1143 Can Link Multiple Versions of One Institutional Proposal
     Given 1 Approved Institutional Proposal exists
     And   the Award Modifier links the Funding Proposal to a new Award
