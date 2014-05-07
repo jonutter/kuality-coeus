@@ -3,12 +3,22 @@ And /^the Modify Subaward user creates a Subaward$/ do
   @subaward = create SubawardObject
 end
 
+And /finishes the Subaward requirements$/ do
+  @subaward.add_contact
+  @subaward.add_custom_data
+  @subaward.add_change
+end
+
 And /^the Modify Subaward user creates and submits a Subaward$/ do
   steps '* log in with the Modify Subaward user'
   @subaward = create SubawardObject
   @subaward.add_contact
   @subaward.add_custom_data
   @subaward.add_change
+  @subaward.submit
+end
+
+And /submits? the Subaward$/ do
   @subaward.submit
 end
 
@@ -81,8 +91,8 @@ Then /^they are asked if they want to edit the Subaward's existing pending versi
   on(Confirmation).yes_button.should exist
 end
 
-And /adds an invoice to the Subaward$/ do
-  @subaward.add_invoice
+And /adds? an invoice to the Subaward$/ do
+  expect{@subaward.add_invoice}.not_to raise_error
 end
 
 Then /^the Subaward's requisitioner can approve or disapprove the invoice$/ do
@@ -97,5 +107,43 @@ Then /^the Subaward's requisitioner can approve or disapprove the invoice$/ do
     page.filter
   end
   on(ActionList).open_item(@subaward.invoices[0].document_id)
-  expect{on(Subaward).send([:approve, :disapprove].sample)}.not_to raise_error
+  @approval = [:approve, :disapprove].sample
+  expect{on(Subaward).send(@approval)}.not_to raise_error
+  on Confirmation do |page|
+    page.reason.set(random_alphanums) if page.reason.present?
+    page.yes
+  end
+end
+
+And /^the Modify Subaward user sees the invoice's approval\/disapproval$/ do
+  steps '* log in with the Modify Subaward user'
+  @subaward.view :financial
+  statuses = { approve: 'FINAL', disapprove: 'DISAPPROVED'}
+  on Financial do |page|
+    page.invoice_status(@subaward.invoices[0].invoice_id).should==statuses[@approval]
+  end
+end
+
+And /adds a change to the Subaward amounts$/ do
+  @subaward.add_change
+end
+
+When /^the Modify Subaward user adds an invoice to the Subaward with a released amount larger than the obligated amount$/ do
+  @subaward.add_invoice amount_released: '%.2f'%(@subaward.changes[0].obligated_change.to_f+0.01)
+end
+
+And /adds a contact to the Subaward$/ do
+  @subaward.add_contact
+end
+
+When /adds the same contact to the Subaward, with a different role$/ do
+  roles = on(Subaward).project_role.options.map { |x| x.text }
+  2.times{roles.delete_at(0)}
+  roles.delete_if { |role| role==@subaward.contacts[0][:role] }
+  role = roles.sample
+  @subaward.add_contact(@subaward.contacts[0][:id], role)
+end
+
+When /adds the same contact to the Subaward, with the same role$/ do
+  @subaward.add_contact(@subaward.contacts[0][:id], @subaward.contacts[0][:role])
 end

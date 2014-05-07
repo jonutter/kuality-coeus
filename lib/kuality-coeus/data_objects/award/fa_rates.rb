@@ -14,8 +14,8 @@ class AwardFARatesObject < DataFactory
         type:           '::random::',
         fiscal_year:    date_factory(Time.random(year_range: 500))[:year],
         campus:         '::random::',
-        source:         random_alphanums,
-        destination:    random_alphanums,
+        source:         random_alphanums_plus,
+        destination:    random_alphanums_plus,
         unrecovered_fa: random_dollar_value(99999)
     }
     set_options(defaults.merge(opts))

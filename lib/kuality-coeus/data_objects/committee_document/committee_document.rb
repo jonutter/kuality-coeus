@@ -12,10 +12,10 @@ class CommitteeDocumentObject < DataFactory
     @browser = browser
     
     defaults = {
-      description:            random_alphanums,
-      committee_id:           random_alphanums,
+      description:            random_alphanums_plus,
+      committee_id:           random_alphanums_plus,
       home_unit:              '000001',
-      committee_name:         random_alphanums,
+      committee_name:         random_alphanums_plus,
       min_members_for_quorum: rand(100).to_s,
       maximum_protocols:      rand(100).to_s,
       adv_submission_days:    rand(365).to_s,

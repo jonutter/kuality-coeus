@@ -4,12 +4,12 @@ Feature: Creating/Editing Budget Versions in Proposal Documents
   so that I can calculate how much the proposal should be for.
 
   Background: Create a Budget Version for a 5-year proposal
-    * a User exists with the role: 'Proposal Creator'
+    Given a User exists with the role: 'Proposal Creator'
     * the Proposal Creator creates a 5-year project Proposal
     * creates a Budget Version for the Proposal
 
   Scenario: System warns about budget periods when proposal dates change
-    When  I push the Proposal's project start date ahead a year
+    When  I push the Proposal's project start date ahead 1 year
     Then  opening the Budget Version will display a warning about the date change
     And   correcting the Budget Version date will remove the warning
 
@@ -29,3 +29,13 @@ Feature: Creating/Editing Budget Versions in Proposal Documents
     Given I finalize the Budget Version
     When  I copy the Budget Version (all periods)
     Then  an error should appear that says only one version can be final
+
+  Scenario: Complete Budgets are read-only
+    Given the Proposal Creator finalizes the Budget Version
+    When  the Proposal Creator marks the Budget Version complete
+    Then  the Budget Version is no longer editable
+
+  Scenario: Adding years to the Proposal
+    Given the Proposal Creator pushes the end date 2 more years
+    When  the Proposal Creator selects the default periods for the Budget Version
+    Then  the Budget Version should have two more budget periods

@@ -26,7 +26,8 @@ Then /^an error should appear that says (.*)$/ do |error|
             'the project period has a typo' => 'Project Period is not formatted correctly.',
             'cost share type is required' => 'Cost Share Type Code is a required field.',
             'the fiscal year is not valid' => 'Fiscal Year is not formatted correctly.',
-            'the approved equipment can\'t have duplicates' => 'Approved Equipment Vendor, Model and Item must be unique'
+            'the approved equipment can\'t have duplicates' => 'Approved Equipment Vendor, Model and Item must be unique',
+            'the invoiced exceeds the obligated amount' => 'Cumulative Invoiced Amount would exceed the Obligated Subaward Amount.'
   }
   $current_page.errors.should include errors[error]
 end
@@ -114,6 +115,13 @@ Then /^an error should say that the (cost share|F&A rate) percentage can only ha
   $current_page.errors.should include "Invalid value #{@award.send(items[type][0])[0].send(items[type][1])}: at most 2 digits may follow the decimal point."
 end
 
+#-----------------------#
+# Subaward              #
+#-----------------------#
+Then /^an error should appear on the Subaward saying the person is already added to the contacts$/ do
+  on(Subaward).errors.should include "#{@subaward.contacts[0][:name]} is already added to the Subaward Contacts"
+end
+
 #------------------------#
 # Institutional Proposal #
 #------------------------#
@@ -156,19 +164,6 @@ Then /^a confirmation screen asks if you want to edit the existing pending versi
   on(Confirmation).message.should == 'A Pending version already exists. Do you want to edit the Pending version?'
 end
 
-#-------------------------#
-# Sponsor Term            #
-#-------------------------#
-Then(/^an error indicating the field is required appears in the Term document$/) do
-  error = case @required_field
-            when 'Sponsor Term Code'
-              'Code (Sponsor Term Code) is a required field.'
-            when 'Description'
-              'Document Description (Description) is a required field.'
-            when 'Sponsor Term Description'
-              'Description (Description) is a required field.'
-            else
-              "#{@required_field} (#{@required_field}) is a required field."
-          end
-  $current_page.errors.should include error
+Then /^there are no errors on the page$/ do
+  $current_page.errors.size.should==0
 end

@@ -22,7 +22,7 @@ class InstitutionalProposalObject < DataFactory
         special_review:    collection('SpecialReview'),
         cost_sharing:      collection('IPCostSharing'),
         unrecovered_fa:    collection('IPUnrecoveredFA'),
-        description:       random_alphanums,
+        description:       random_alphanums_plus,
         version:           1,
         prior_versions:    []
     }
@@ -74,7 +74,7 @@ class InstitutionalProposalObject < DataFactory
       set_sponsor_code
       create.save
     end
-    if @proposal_log
+    if @proposal_log && $current_page.errors.size==0
       pi = make ProjectPersonnelObject, principal_name: @proposal_log.principal_investigator,
                 full_name: @proposal_log.pi_full_name,
                 document_id: @document_id,

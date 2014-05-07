@@ -27,6 +27,7 @@ class Subaward < SubawardDocument
   action(:add_funding_source) { |b| b.frm.button(name: 'methodToCall.addFundingSource.anchorFundingSource').click }
   
   # Contacts
+  element(:contacts_div) { |b| b.frm.div(id: 'tab-Contacts-div') }
   element(:non_employee_id) { |b| b.frm.text_field(name: 'newSubAwardContact.rolodex.rolodexId') }
   action(:person_lookup) { |b| b.frm.button(name: 'methodToCall.performLookup.(!!org.kuali.kra.bo.Rolodex!!).(((rolodexId:newSubAwardContact.rolodexId))).((`newSubAwardContact.rolodexId:rolodexId`)).((<>)).(([])).((**)).((^^)).((&&)).((//)).((~~)).(::::;;::::).anchorContacts').click }
   element(:project_role) { |b| b.frm.select(name: 'newSubAwardContact.contactTypeCode') }

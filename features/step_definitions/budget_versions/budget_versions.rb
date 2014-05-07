@@ -65,7 +65,8 @@ When /^I? ?changes? the date range for one of the periods$/ do
   on(Confirmation).yes
 end
 
-When /^I? ?selects? the default periods for the Budget Version$/ do
+When /selects? the default periods for the Budget Version$/ do
+  @original_period_count = @budget_version.budget_periods.count
   @budget_version.default_periods
 end
 
@@ -133,4 +134,17 @@ end
 
 And /^adjusts the budget period's cost sharing amount so all funds are allocated$/ do
   @budget_version.budget_periods.period(1).edit cost_sharing: @budget_version.budget_periods.period(1).cost_sharing_distribution_list.total_funds.to_s
+end
+
+Then /^the Budget Version is no longer editable$/ do
+  @budget_version.view 'Budget Actions'
+  on BudgetActions do |page|
+    page.expand_all
+    page.add_file_name.should_not be_present
+  end
+  # TODO: Add more validations here
+end
+
+Then /the Budget Version should have two more budget periods/ do
+  @budget_version.budget_periods.count.should==@original_period_count+2
 end

@@ -4,7 +4,7 @@ class IPCostSharingObject < DataFactory
   include Navigation
 
   attr_reader :project_period, :percentage, :type,
-                :source_account, :commitment_amount, :index
+                :source_account, :amount, :index
 
   def initialize(browser, opts={})
     @browser = browser
@@ -13,8 +13,8 @@ class IPCostSharingObject < DataFactory
         project_period: '1',
         percentage:     '100.00',
         type:           '::random::',
-        source_account: random_alphanums,
-        commitment_amount:         random_dollar_value(1000)
+        source_account: random_alphanums_plus,
+        amount:         random_dollar_value(1000)
     }
     set_options(defaults.merge(opts))
   end
@@ -27,7 +27,7 @@ class IPCostSharingObject < DataFactory
       page.add_cost_share_type.pick! @type
       page.add_cost_share_percentage.set @percentage
       page.add_cost_share_source_account.set @source_account
-      page.add_cost_share_commitment_amount.set @commitment_amount
+      page.add_cost_share_amount.set @amount
       page.add_cost_share
     end
   end

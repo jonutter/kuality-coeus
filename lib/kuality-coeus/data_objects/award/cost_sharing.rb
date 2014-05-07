@@ -14,7 +14,7 @@ class AwardCostSharingObject < DataFactory
         percentage:        rand(101).to_s,
         type:              '::random::',
         project_period:    '1',
-        source:            random_alphanums,
+        source:            random_alphanums_plus,
         commitment_amount: random_dollar_value(100000)
     }
     set_options(defaults.merge(opts))

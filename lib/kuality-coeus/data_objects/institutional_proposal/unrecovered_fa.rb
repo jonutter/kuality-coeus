@@ -14,7 +14,7 @@ class IPUnrecoveredFAObject < DataFactory
         fiscal_year:        right_now[:year],
         rate_type:          '::random::',
         on_campus_contract: :set,
-        source_account:     random_alphanums,
+        source_account:     random_alphanums_plus,
         amount:             random_dollar_value(1000)
     }
     set_options(defaults.merge(opts))
