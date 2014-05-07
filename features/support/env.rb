@@ -14,6 +14,15 @@ World Utilities
 
 kuality = Kuality.new @config[:browser]
 
+if ENV['HEADLESS']
+  require 'headless'
+  headless = Headless.new
+  headless.start
+  at_exit do
+    headless.destroy
+  end
+end
+
 Before do
   # Get the browser object
   @browser = kuality.browser
