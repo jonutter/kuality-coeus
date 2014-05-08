@@ -79,21 +79,6 @@ end
 #-----------------------#
 # Award                 #
 #-----------------------#
-Then /^an error should appear indicating the field is required$/ do
-  error = case @required_field
-            when 'Lead Unit ID'
-              'Lead Unit ID is a required field.'
-            when 'Description'
-              "Document Description is a required field."
-            else
-              "#{@required_field} is a required field."
-          end
-  $current_page.errors.should include error
-end
-
-Then /^an error should say the field is mandatory$/ do
-  $current_page.errors.should include "#{@required_field} is a mandatory field"
-end
 
 Then /^the Award should show an error saying the project start date can't be later than the obligation date$/ do
   $current_page.errors.should include "Award #{@award.id} Project Start Date must be before or equal to Obligation Start Date."
@@ -123,38 +108,10 @@ Then /^an error should appear on the Subaward saying the person is already added
 end
 
 #------------------------#
-# Institutional Proposal #
+# Required Fields        #
 #------------------------#
-Then /^an error notification should appear to indicate the field is required$/ do
-  $current_page.errors.should include "#{@required_field} is a required field."
-end
-
-#------------------------#
-# Proposal Log           #
-#------------------------#
-Then /^an error should appear on the page to indicate the field is required$/ do
-  error = case @required_field
-            when 'Description'
-              "Document #{@required_field} (Description) is a required field."
-            when 'Principal Investigator'
-              "A Principal Investigator (employee or non-employee) is required."
-            else
-              "#{@required_field} (#{@required_field}) is a required field."
-          end
-  $current_page.errors.should include error
-end
-
-#------------------------#
-# Proposal Development   #
-#------------------------#
-Then /^an error notification appears to indicate the field is required$/ do
-  error = case @required_field
-            when 'Sponsor ID'
-              'A valid Sponsor Code (Sponsor) must be selected.'
-            else
-              "#{@required_field} is a required field."
-          end
-  $current_page.errors.should include error
+Then /^an error should appear saying the field is required$/ do
+  $current_page.errors.should include @required_field_error
 end
 
 #------------------------#

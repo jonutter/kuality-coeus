@@ -13,19 +13,20 @@ Feature: Basic Award Validations
     Then  a warning appears saying tracking details won't be added until there's a PI
 
   Scenario: Attempt to create a KC Award document with a missing required field
-    When  the Award Modifier creates an Award with a missing required field
-    Then  an error should appear indicating the field is required
-  @bug_in_system
+    Given I log in with the Award Modifier user
+    When  I create an Award with a missing required field
+    Then  an error should appear saying the field is required
+
   Scenario: Enter an account ID that contains non-alphanumeric characters
     Given the Award Modifier creates an Award
     When  an Account ID with special characters is added to the Award details
     Then  an error should appear that says the Account ID may only contain letters or numbers
-  @bug_in_system
+
   Scenario: Enter a title containing invalid characters
     Given the Award Modifier creates an Award
     When  the Award's title is updated to include invalid characters
     Then  an error should appear that says the Award's title contains invalid characters
-
+  #@test
   Scenario: Enter a title containing more than 200 characters
     Given the Award Modifier creates an Award
     When  the Award's title is made more than 200 characters long
@@ -34,7 +35,7 @@ Feature: Basic Award Validations
   Scenario: The anticipated amount is less than the obligated amount
     When  the Award Modifier creates an Award with more obligated than anticipated amounts
     Then  an error should appear that says the anticipated amount must be equal to or more than obligated
-
+  #@test
   Scenario: Attempt to link an IP that has not been approved
     Given the Proposal Creator submits a new Proposal into routing
     And   the OSP Administrator submits the Proposal to its sponsor
@@ -57,7 +58,7 @@ Feature: Basic Award Validations
   Scenario: Missing required field in F&A Rate entry
     Given the Award Modifier creates an Award
     When  the Award Modifier adds an F&A rate to the Award but misses a required field
-    Then  an error should say the field is mandatory
+    Then  an error should appear saying the field is required
 
   Scenario: Terms are not entered in the Award
     Given the Award Modifier creates an Award

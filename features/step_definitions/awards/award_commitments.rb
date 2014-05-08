@@ -22,9 +22,10 @@ When /^a cost share item is added to the Award without a required field$/ do
       commitment_amount: 'Cost Share Commitment Amount'
   }
   field = rfs.keys.sample
-  @required_field = rfs[field]
+  required_field = rfs[field]
   value = field==:type ? 'select' : ''
   @award.add_cost_share field => value
+  @required_field_error = "#{required_field} is a required field."
 end
 
 And /^duplicate cost share items are added to the Award$/ do
@@ -42,11 +43,15 @@ And /adds an F&A rate to the Award$/ do
 end
 
 And /adds an F&A rate to the Award but misses a required field$/ do
-  rfs = ['Rate', 'Type', 'Fiscal Year', 'Start Date']
-  @required_field = rfs.sample
-  field = damballa(@required_field)
+  rf = ['Rate',
+        'Type',
+        'Fiscal Year',
+        'Start Date'
+  ].sample
+  field = damballa(rf)
   value = field==:type ? 'select' : ''
   @award.add_fna_rate field => value
+  @required_field_error = "#{rf} is a mandatory field"
 end
 
 And /adds an F&A rate with an invalid fiscal year$/ do

@@ -3,11 +3,11 @@ class BudgetVersionsObject < DataFactory
   include StringFactory
   include Navigation
 
-  attr_reader :name, :document_id, :status,
+  attr_reader :document_id, :status,
                 # Stuff on Budget Versions page...
                 # TODO: Because of their location in the UI, these are barely useful.
                 # Need to decide what to do with them...
-                :version, :direct_cost, :f_and_a, :on_off_campus,
+                :direct_cost, :f_and_a, :on_off_campus,
                 :total, :final, :residual_funds, :cost_sharing, :unrecovered_fa,
                 :comments, :f_and_a_rate_type, :last_updated, :last_updated_by,
                 # Stuff on the Parameters page...
@@ -15,7 +15,7 @@ class BudgetVersionsObject < DataFactory
                 :budget_periods, :unrecovered_fa_rate_type, :f_and_a_rate_type,
                 :submit_cost_sharing, :residual_funds, :total_cost_limit,
                 :subaward_budgets, :personnel
-
+  attr_accessor :name, :version
 
   def initialize(browser, opts={})
     @browser = browser

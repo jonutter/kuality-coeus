@@ -7,10 +7,9 @@ Feature: Creating IRB Protocols
 
   Scenario: Attempt to save an IRB protocol missing a required field
     Given the Protocol Creator user creates an irb protocol but I miss a required field
-    Then  an error should appear that says the field is required for the Protocol
+    Then  an error should appear saying the field is required
 
   Scenario: Attempt to save a proposal with an invalid lead unit
-    Given Users exist with the following roles: Protocol Creator
-    And   the Protocol Creator user creates a proposal with an invalid lead unit code
-    Then  an error should appear that says the lead unit is invalid
+    Given the Protocol Creator user creates a proposal with an invalid lead unit code
+    Then  an error is shown that indicates the lead unit code is invalid
 

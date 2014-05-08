@@ -1,13 +1,14 @@
 When /^the Create Proposal Log user creates a Proposal Log but misses a required field$/ do
   steps %{ * I log in with the Create Proposal Log user }
   # Pick a field at random for the test...
-  @required_field = ['Title', 'Proposal Type', 'Lead Unit'
+  required_field = ['Title', 'Proposal Type', 'Lead Unit'
           ].sample
   # Properly set the nil value depending on the field type...
-  @required_field=~/Type/ ? value='select' : value=''
+  required_field=~/Type/ ? value='select' : value=''
   # Transform the field name to the appropriate symbol...
   field = damballa(@required_field)
   @proposal_log = create ProposalLogObject, field=>value
+  @required_field_error = "#{required_field} (#{required_field}) is a required field."
 end
 
 When /^the Create Proposal Log user creates a Proposal Log$/ do

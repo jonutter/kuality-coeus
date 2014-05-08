@@ -50,7 +50,7 @@ When /^The Proposal's 'Future Action Requests' should include 'PENDING APPROVE' 
 end
 
 When /^I? ?push the Proposal's project start date ahead (\d+) years?$/ do |year|
-  new_year=@proposal.project_start_date[/\d+$/].to_i+year
+  new_year=@proposal.project_start_date[/\d+$/].to_i+year.to_i
   new_date="#{@proposal.project_start_date[/^\d+\/\d+/]}/#{new_year}"
   @proposal.edit project_start_date: new_date
 end

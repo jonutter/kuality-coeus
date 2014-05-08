@@ -11,8 +11,8 @@ Feature: Creating Proposal Logs
   Scenario: Attempt to create a new Proposal Log Document with a missing required field
     Given the Create Proposal Log user creates a Proposal Log but misses a required field
     When  the Create Proposal Log user submits the Proposal Log
-    Then  an error should appear on the page to indicate the field is required
-  @test
+    Then  an error should appear saying the field is required
+
   Scenario: Create a new Proposal Log Document
     When  the Create Proposal Log user creates a Proposal Log
     Then  the status of the Proposal Log should be INITIATED
