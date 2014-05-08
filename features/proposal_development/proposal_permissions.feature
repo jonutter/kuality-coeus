@@ -44,7 +44,7 @@ Feature: Permissions in a Proposal
     | Aggregator       |
     | approver         |
     | Delete Proposal  |
-  @failing
+
   Scenario Outline: Users who are assigned the Aggregator role cannot be assigned additional roles
     Given I assign the <Role> user as an aggregator in the proposal permissions
     When  I add an additional proposal role to the <Role> user

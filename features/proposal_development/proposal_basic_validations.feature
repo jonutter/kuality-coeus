@@ -1,3 +1,4 @@
+@all_passing
 Feature: Basic validations for Development Proposals
 
   As a researcher I want the ability to see an error whenever I miss
@@ -5,7 +6,7 @@ Feature: Basic validations for Development Proposals
 
   Background: Logged in with a proposal creator user
     * a User exists with the role: 'Proposal Creator'
-  @test
+
   Scenario: Attempt to save a proposal missing a required field
     When  the Proposal Creator creates a Proposal while missing a required field
     Then  an error should appear saying the field is required
