@@ -184,7 +184,7 @@ Given /^the Award Modifier adds a new Institutional Proposal to a new Award$/ do
     * the principal investigator approves the Proposal
     * the OSP Administrator submits the Proposal to its sponsor
     * I log in with the Award Modifier user
-    * the Award Modifier user links the Funding Proposal to a new Award
+    * the Award Modifier links the Funding Proposal to a new Award
         }
 end
 
@@ -241,6 +241,11 @@ end
 Then /^the Institutional Proposal Maintainer cannot unlink the proposal$/ do
   steps 'Given I log in with the Institutional Proposal Maintainer user'
   @institutional_proposal.unlock_award(@award.id)
+
+  # DEBUG
+  sleep 300
+
+
   on(InstitutionalProposalActions).errors.size.should > 0
 end
 

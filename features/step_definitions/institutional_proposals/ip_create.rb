@@ -37,12 +37,13 @@ When /^the Create Proposal Log user creates an institutional proposal with a mis
   # Transform the field name to the appropriate symbol...
   field = damballa(field_name)
   @institutional_proposal = create InstitutionalProposalObject, field=>value
+  text = ' is a required field.'
   error_text = {
-      'Project Title'=>'Project Title (Title)',
-      'Description'=>'Document Description (Description)',
-      'Activity Type'=>'Activity Type (Activity)',
-      'Sponsor ID'=>'Sponsor ID  (Sponsor ID)',
-      'Proposal Type'=>'Proposal Type (Proposal Type Code)'
+      project_title: "Project Title (Title)#{text}",
+      description:   "Document Description (Description)#{text}",
+      activity_type: "Activity Type (Activity)#{text}",
+      sponsor_id:    "Sponsor ID  (Sponsor ID)#{text}",
+      proposal_type: "Proposal Type (Proposal Type Code)#{text}"
   }
-  @required_field = error_text[field_name]
+  @required_field_error = error_text[field]
 end

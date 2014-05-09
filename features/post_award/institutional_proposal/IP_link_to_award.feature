@@ -1,11 +1,11 @@
 Feature: Linking an Institutional Proposal to a KC Award
 
-  To be determined.
+  To be written.
 
   Background: Establish test users
     * Users exist with the following roles: Award Modifier, Proposal Creator, OSPApprover
     * a User exists with the roles: OSP Administrator, Proposal Submission, Institutional Proposal Maintainer in the 000001 unit
-  @failing
+
   Scenario: Linking a Funding Proposal to an Award
     Given 1 Approved Institutional Proposal exists
     When  the Award Modifier links the Funding Proposal to a new Award
@@ -16,7 +16,7 @@ Feature: Linking an Institutional Proposal to a KC Award
     Given the Award Modifier adds a new Institutional Proposal to a new Award
     When  the Institutional Proposal Maintainer edits the Institutional Proposal
     Then  the Funding Proposal version should be '3'
-
+  @failing
   Scenario: KC-TS-1181 Funding Proposal Cost Share Amounts appear in Awards
     Given the Proposal Creator creates a Proposal
     And   creates a Budget Version with cost sharing for the Proposal
@@ -34,7 +34,7 @@ Feature: Linking an Institutional Proposal to a KC Award
     And   the Award Modifier creates an Award
     When  the Funding Proposal is linked to a new Award
     Then  the Award inherits the Cost Sharing data from the Funding Proposal
-  @failing
+
   Scenario: KC-TS-1143 Can Link Multiple Versions of One Institutional Proposal
     Given 1 Approved Institutional Proposal exists
     And   the Award Modifier links the Funding Proposal to a new Award
