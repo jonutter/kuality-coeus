@@ -5,7 +5,7 @@ Feature: Linking an Institutional Proposal to a KC Award
   Background: Establish test users
     * Users exist with the following roles: Award Modifier, Proposal Creator, OSPApprover
     * a User exists with the roles: OSP Administrator, Proposal Submission, Institutional Proposal Maintainer in the 000001 unit
-  @failing
+  @test
   Scenario: Linking a Funding Proposal to an Award
     Given 1 Approved Institutional Proposal exists
     When  the Award Modifier links the Funding Proposal to a new Award
