@@ -114,8 +114,6 @@ And /^the (.*) submits a new Proposal into routing$/ do |role_name|
     * completes the required custom fields on the Proposal
     * the #{role_name} submits the Proposal into routing
 }
-
-  sleep 30
 end
 
 And /^(the (.*) |)completes the remaining required actions for an S2S submission$/ do |text, role_name|
