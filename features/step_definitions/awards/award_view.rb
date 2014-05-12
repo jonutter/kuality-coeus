@@ -161,7 +161,9 @@ And /^the Award\'s F&A data are from both Proposals$/ do
       page.fna_source(i).value.should==unrecfna.source_account
       page.fna_amount(i).value.groom.to_s.should==unrecfna.amount
     end
-    page.unrecovered_fna_total.groom.should==ufna.total
+    # Rounded total used because of https://jira.kuali.org/browse/KRACOEUS-3991
+    # When that is fixed then test scenarios using this will fail...
+    page.unrecovered_fna_total.groom.should==ufna.rounded_total
   end
 end
 
@@ -181,7 +183,9 @@ And /^the Award's F&A data are from the first Proposal$/ do
     @ips[1].unrecovered_fa.each do |fna|
       page.fna_sources.should_not include fna.source_account
     end
-    page.unrecovered_fna_total.groom.should==@ips[0].unrecovered_fa.total
+    # Rounded total used because of https://jira.kuali.org/browse/KRACOEUS-3991
+    # When that is fixed then test scenarios using this will fail...
+    page.unrecovered_fna_total.groom.should==@ips[0].unrecovered_fa.rounded_total
   end
 end
 

@@ -8,6 +8,4 @@ test.feature
 *.gem
 *.log
 *test_spec.rb
-Gemfile
-Gemfile.lock
 *.png
