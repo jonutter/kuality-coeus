@@ -4,7 +4,8 @@ class IPCostSharingObject < DataFactory
   include Navigation
 
   attr_reader :project_period, :percentage, :type,
-                :source_account, :amount, :index
+                :source_account, :amount
+  attr_accessor :index
 
   def initialize(browser, opts={})
     @browser = browser

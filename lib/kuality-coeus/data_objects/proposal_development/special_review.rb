@@ -28,6 +28,7 @@ class SpecialReviewObject < DataFactory
     view
     on SpecialReview do |add|
       add.add_type.pick! @type
+      add.add_approval_status.pick! @approval_status
       add.add_protocol_number.fit @protocol_number
       add.add_application_date.fit @application_date
       add.add_approval_date.fit @approval_date
