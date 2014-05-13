@@ -7,7 +7,7 @@ class Financial < SubawardDocument
   element(:anticipated_change) { |b| b.frm.text_field(name: 'newSubAwardAmountInfo.anticipatedChange') }
   action(:add) { |b| b.frm.button(name: 'methodToCall.addAmountInfo.anchorHistoryofChanges').click }
 
-  p_value(:invoice_status) { |id, b| b.invoice_tab.tr(text: /#{id}/)[7].text.strip }
+  p_value(:invoice_status) { |id, b| b.invoice_tab.tr(text: /#{Regexp.escape(id)}/)[7].text.strip }
 
   element(:invoice_tab) { |b| b.frm.div(id: 'tab-Invoices-div') }
 
