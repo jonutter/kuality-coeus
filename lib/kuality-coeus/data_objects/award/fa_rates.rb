@@ -35,8 +35,7 @@ class AwardFARatesObject < DataFactory
       else
         page.new_rate_fiscal_year.send_keys @fiscal_year.to_s
         page.new_rate_fiscal_year.send_keys :tab
-        #FIXME
-        sleep 0.1
+        page.wait_until { page.new_rate_start_date.value != '' }
         @start_date=page.new_rate_start_date.value
         @end_date=page.new_rate_end_date.value
       end

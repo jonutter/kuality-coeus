@@ -1,3 +1,4 @@
+@all_passing
 Feature: Award Cost Sharing
 
   As an Award Modifier, I want the system to help
@@ -15,7 +16,7 @@ Feature: Award Cost Sharing
   Scenario: Percentage with 3 significant digits
     When a cost share item is added to the Award with a Percentage having 3 significant digits
     Then an error should say that the cost share percentage can only have 2 decimal places
-  @test
+
   Scenario: Add a Cost Share but miss a required field
     When a cost share item is added to the Award without a required field
     Then an error should appear saying the field is required
