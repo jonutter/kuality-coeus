@@ -139,7 +139,7 @@ class InstitutionalProposalObject < DataFactory
       page.funded_award(award_id).set
       page.unlock_selected
       confirmation
-      page.save
+      page.save unless page.errors.size > 0
       check_for_new_version
     end
   end

@@ -1,3 +1,4 @@
+@all_passing
 Feature: Linking an Institutional Proposal to a KC Award
 
   To be written.
@@ -16,7 +17,7 @@ Feature: Linking an Institutional Proposal to a KC Award
     Given the Award Modifier adds a new Institutional Proposal to a new Award
     When  the Institutional Proposal Maintainer edits the Institutional Proposal
     Then  the Funding Proposal version should be '3'
-  @failing
+
   Scenario: KC-TS-1181 Funding Proposal Cost Share Amounts appear in Awards
     Given the Proposal Creator creates a Proposal
     And   creates a Budget Version with cost sharing for the Proposal

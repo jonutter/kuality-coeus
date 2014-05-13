@@ -21,7 +21,7 @@ Then /^an error should appear that says (.*)$/ do |error|
             'a valid sponsor is required' => 'A valid Sponsor Code (Sponsor) must be selected.',
             'the Account ID may only contain letters or numbers' => 'The Account ID (Account ID) may only consist of letters or digits.',
             'the Award\'s title contains invalid characters' => 'The Award Title (Title) may only consist of visible characters, spaces, or tabs.',
-            'the Award\'s title can\'t be longer than 200 characters' => 'Must be at most 200 characters',
+            'the Award\'s title can\'t be longer than 200 characters' => 'The specified Award Title (Title) must not be longer than 200 characters.',
             'the anticipated amount must be equal to or more than obligated' => 'The Anticipated Amount must be greater than or equal to Obligated Amount.',
             'the project period has a typo' => 'Project Period is not formatted correctly.',
             'cost share type is required' => 'Cost Share Type Code is a required field.',

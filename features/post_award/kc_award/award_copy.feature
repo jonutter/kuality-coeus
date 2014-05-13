@@ -1,3 +1,4 @@
+@all_passing
 Feature: Copying Awards
 
   Summary to be written
