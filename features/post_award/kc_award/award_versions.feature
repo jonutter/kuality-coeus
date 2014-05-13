@@ -1,4 +1,3 @@
-@all_passing
 Feature: Award Versions
 
   Summary to be written
@@ -31,17 +30,3 @@ Feature: Award Versions
     And   opens the Award
     When  the Time And Money Modifier initializes the Award's Time And Money document
     Then  the Time And Money document should not be the cancelled version
-
-  # This test will fail until this issue is resolved: https://jira.kuali.org/browse/KRAFDBCK-10616
-  #Scenario: Time And Money still final when Award edited
-  #  When  the Time And Money Modifier opens the Award's Time And Money document
-  #  Then  the T&M document is still the finalized version
-  #  And   returning to the Award goes to the new, pending version
-
-
-
-
-    #And   cancels the Time And Money document
-    #When  the Award Modifier cancels the Award
-    #Then  a search for the Award should return the finalized Award
-    #And   the attached T&M document should be the finalized version

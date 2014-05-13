@@ -1,4 +1,3 @@
-@all_passing
 Feature: Award Contacts
 
   As an Award Modifier, I want to be able to make changes to Award Personnel,
