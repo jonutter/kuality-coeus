@@ -1,4 +1,3 @@
-@all_passing
 Feature: Award Versions
 
   Summary to be written

@@ -1,4 +1,3 @@
-@all_passing
 Feature: Unlocking Award from an Institutional Proposal
 
   As an Institutional Proposal Maintainer, I want to

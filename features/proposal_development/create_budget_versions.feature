@@ -1,4 +1,3 @@
-@all_passing
 Feature: Creating/Editing Budget Versions in Proposal Documents
 
   As a researcher I want to be able to create budgets in my proposals

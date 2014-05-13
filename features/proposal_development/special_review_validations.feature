@@ -1,4 +1,3 @@
-@all_passing
 Feature: Special Review Validation
 
   As a researcher I want to know if there are problems

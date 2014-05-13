@@ -1,4 +1,3 @@
-@all_passing
 Feature: Creating IRB Protocols
 
   As a researcher I want the ability to create a protocol for human subjects
