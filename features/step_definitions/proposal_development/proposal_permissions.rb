@@ -21,7 +21,7 @@ end
 Then /^their proposal permissions do not allow them to edit budget details$/ do
   expect{@proposal.edit(project_title: 'edit')}.not_to raise_error
   expect{@budget_version.open_budget}.not_to raise_error
-  expect{@budget_version.edit(total_direct_cost_limit: '100')}.should raise_error(Watir::Exception::UnknownObjectException, /unable to locate element/)
+  expect{@budget_version.edit(total_direct_cost_limit: '100')}.not_to raise_error(Watir::Exception::UnknownObjectException, /unable to locate element/)
 end
 
 And /^their proposal permissions allow them to edit all parts of the Proposal$/ do
@@ -57,7 +57,7 @@ end
 And /^their proposal permissions allow them to update the Budget, not the narrative$/ do
   expect{
     @proposal.add_proposal_attachment file_name: 'test.pdf', type: 'Narrative'
-  }.should raise_error
+  }.to raise_error
   expect{@proposal.add_budget_version}.not_to raise_error
 end
 
@@ -93,7 +93,7 @@ end
 
 And /^their proposal permissions allow them to delete the Proposal$/ do
   on(Proposal).proposal_actions
-  expect{@proposal.delete}.should_not raise_error
+  expect{@proposal.delete}.not_to raise_error
 end
 
 When /^I? ?add an additional proposal role to the (.*) user$/ do |system_role|

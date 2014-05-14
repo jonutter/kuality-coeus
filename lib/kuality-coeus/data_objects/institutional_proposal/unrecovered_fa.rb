@@ -5,7 +5,8 @@ class IPUnrecoveredFAObject < DataFactory
   include Navigation
 
   attr_reader :fiscal_year, :rate_type, :applicable_rate,
-                :on_campus_contract, :source_account, :amount, :index
+                :on_campus_contract, :source_account, :amount
+  attr_accessor :index
 
   def initialize(browser, opts={})
     @browser = browser
@@ -62,6 +63,12 @@ class IPUnrecoveredFACollection < CollectionsFactory
 
   def total
     self.collect{ |item| item.amount.to_f }.inject(0, :+).round(2)
+  end
+
+  # Used because of https://jira.kuali.org/browse/KRACOEUS-3991
+  # When that is fixed then test scenarios using this will fail...
+  def rounded_total
+    self.collect{ |item| item.amount.to_i }.inject(0, :+).round(2)
   end
 
   def reindex

@@ -161,7 +161,9 @@ And /^the Award\'s F&A data are from both Proposals$/ do
       page.fna_source(i).value.should==unrecfna.source_account
       page.fna_amount(i).value.groom.to_s.should==unrecfna.amount
     end
-    page.unrecovered_fna_total.groom.should==ufna.total
+    # Rounded total used because of https://jira.kuali.org/browse/KRACOEUS-3991
+    # When that is fixed then test scenarios using this will fail...
+    page.unrecovered_fna_total.groom.should==ufna.rounded_total
   end
 end
 
@@ -181,7 +183,9 @@ And /^the Award's F&A data are from the first Proposal$/ do
     @ips[1].unrecovered_fa.each do |fna|
       page.fna_sources.should_not include fna.source_account
     end
-    page.unrecovered_fna_total.groom.should==@ips[0].unrecovered_fa.total
+    # Rounded total used because of https://jira.kuali.org/browse/KRACOEUS-3991
+    # When that is fixed then test scenarios using this will fail...
+    page.unrecovered_fna_total.groom.should==@ips[0].unrecovered_fa.rounded_total
   end
 end
 
@@ -200,36 +204,6 @@ And(/^the Award's version number is '(\d+)'$/) do |version|
   on Award do |page|
     page.expand_all
     page.version.should==version
-  end
-end
-
-When(/^the (.*) user visits the Award$/) do |role_name|
-  steps %{ * I log in with the #{role_name} user }
-  visit(DocumentSearch) do |page|
-    page.document_id.set @award.document_id
-    page.search
-    page.open_doc @award.document_id
-  end
-end
-
-When(/^the (.*) searches for the Award from the award lookup page$/) do |role_name|
-  steps %|* I log in with the #{role_name} user|
-  visit AwardLookup do |page|
-    page.award_id.set @id
-    page.search
-  end
-end
-
-Then(/^no results should be returned$/) do
-  on(AwardLookup).error_message.should include "No values match this search."
-  end
-
-  And /^the F&A's start and end date fields should contain '(.*)'$/ do |value|
-  on Commitments do |page|
-    # Takes a little while for the text to show up...
-    sleep 7
-    page.new_rate_start_date.value.should==value
-    page.new_rate_end_date.value.should==value
   end
 end
 

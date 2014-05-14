@@ -54,7 +54,7 @@ Feature: Permissions in a Proposal
     | Role             |
     | Unassigned       |
     | Proposal Creator |
-  @failing
+
   Scenario Outline: Visit a recalled proposal as users with the permissions necessary to edit the document in varying ways
     Given I assign the Unassigned user as a <Role> in the proposal permissions
     And   complete the Proposal

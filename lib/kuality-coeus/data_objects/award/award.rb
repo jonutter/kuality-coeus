@@ -6,22 +6,20 @@ class AwardObject < DataFactory
   include StringFactory
   include DocumentUtilities
 
-  attr_reader :description, :transaction_type, :id, :award_status,
+  attr_reader :award_status,
               :award_title, :lead_unit, :activity_type, :award_type, :sponsor_id, :sponsor_type_code,
               :nsf_science_code, :account_id, :account_type, :prime_sponsor, :cfda_number,
-              :project_start_date, :project_end_date, :obligation_start_date,
-              :obligation_end_date, :anticipated_amount, :obligated_amount,
-              :document_id, :version, :prior_versions,
-              :document_status,
+              :version, :prior_versions,
               :creation_date, :key_personnel, :cost_sharing, :fa_rates,
-              :funding_proposals, :subawards, #TODO: Add Benefits rates and preaward auths...
-              :time_and_money,
+              :funding_proposals, #TODO: Add Benefits rates and preaward auths...
               :budget_versions, :sponsor_contacts, :payment_and_invoice, :terms, :reports,
               :approved_equipment,
-              :custom_data,
-              :parent, :children
+              :children
+  attr_accessor :document_status, :document_id, :subawards, :transaction_type, :id, :anticipated_amount, :obligated_amount,
+                :custom_data, :description, :project_start_date, :project_end_date, :obligation_start_date,
+                :obligation_end_date, :time_and_money, :parent
 
-  def initialize(browser, opts={})
+                def initialize(browser, opts={})
     @browser = browser
     amount = random_dollar_value(1000000)
 
@@ -144,19 +142,25 @@ class AwardObject < DataFactory
     view :award
     on Award do |page|
       page.expand_all
-      if name=='random'
-        page.search_organization
-        on OrganizationLookup do |search|
-          search.search
-          search.return_random
-        end
-        name=page.add_organization_name.value
-      else
-        page.add_organization_name.fit name
+      page.search_organization
+    end
+    if name=='random'
+      on OrganizationLookup do |page|
+        page.search
+        page.return_random
       end
+      name = on(Award).add_organization_name.value
+    else
+      on OrganizationLookup do |page|
+        page.organization_name.set name
+        page.search
+        page.return_value name
+      end
+    end
+    on Award do |page|
       page.add_subaward_amount.fit amount
       page.add_subaward
-      page.save
+      page.save unless page.errors.size > 0
     end
     @subawards << {org_name: name, amount: amount}
   end

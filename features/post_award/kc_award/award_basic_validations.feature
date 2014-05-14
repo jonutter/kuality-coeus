@@ -26,7 +26,7 @@ Feature: Basic Award Validations
     Given the Award Modifier creates an Award
     When  the Award's title is updated to include invalid characters
     Then  an error should appear that says the Award's title contains invalid characters
-  #@test
+
   Scenario: Enter a title containing more than 200 characters
     Given the Award Modifier creates an Award
     When  the Award's title is made more than 200 characters long
@@ -35,7 +35,7 @@ Feature: Basic Award Validations
   Scenario: The anticipated amount is less than the obligated amount
     When  the Award Modifier creates an Award with more obligated than anticipated amounts
     Then  an error should appear that says the anticipated amount must be equal to or more than obligated
-  #@test
+
   Scenario: Attempt to link an IP that has not been approved
     Given the Proposal Creator submits a new Proposal into routing
     And   the OSP Administrator submits the Proposal to its sponsor

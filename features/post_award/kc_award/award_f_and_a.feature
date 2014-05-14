@@ -15,7 +15,6 @@ Feature: Award F&A Rates
   Scenario: Invalid Fiscal Year
     When the Award Modifier adds an F&A rate with an invalid fiscal year
     Then an error should appear that says the fiscal year is not valid
-    And  the F&A's start and end date fields should contain 'not found'
 
   Scenario: Percentage with 3 significant digits
     When an F&A rate is added to the Award with a Percentage having 3 significant digits
