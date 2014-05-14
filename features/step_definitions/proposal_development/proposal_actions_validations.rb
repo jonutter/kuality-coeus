@@ -14,13 +14,15 @@ When /^I? ?do not answer my proposal questions$/ do
   #nothing necessary for this step
 end
 
-When /^I? ?creates? a Proposal with an un-certified (.*)$/ do |role|
+When /^(the (.*) |)creates a Proposal with an un-certified (.*)$/ do |text, role_name, role|
+  steps %{ * I log in with the #{role_name} user } unless text == ''
   @role = role
   @proposal = create ProposalDevelopmentObject
   @proposal.add_key_person role: @role, certified: false
 end
 
-Given /^I? ?creates? a Proposal where the un-certified key person has included certification questions$/ do
+Given /^(the (.*) |)creates a Proposal where the un-certified key person has included certification questions$/ do |text, role_name|
+  steps %{ * I log in with the #{role_name} user } unless text == ''
   @role = 'Key Person'
   @proposal = create ProposalDevelopmentObject
   @proposal.add_key_person role: @role, key_person_role: 'default', certified: false

@@ -1,5 +1,5 @@
-When /^the (.*) user creates a Proposal Log but misses a required field$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user }
+When /^the Create Proposal Log user creates a Proposal Log but misses a required field$/ do
+  steps %{ * I log in with the Create Proposal Log user }
   # Pick a field at random for the test...
   required_field = ['Title', 'Proposal Type', 'Lead Unit'
           ].sample
@@ -11,13 +11,13 @@ When /^the (.*) user creates a Proposal Log but misses a required field$/ do |ro
   @required_field_error = "#{required_field} (#{required_field}) is a required field."
 end
 
-When /^the (.*) user creates a Proposal Log$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user }
+When /^the Create Proposal Log user creates a Proposal Log$/ do
+  steps %{ * I log in with the Create Proposal Log user }
   @proposal_log = create ProposalLogObject, save_type: :save
 end
 
-When /^the (.*) user has submitted a new Proposal Log$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user }
+When /^the Create Proposal Log user has submitted a new Proposal Log$/ do
+  steps %{ * I log in with the Create Proposal Log user }
   @proposal_log = create ProposalLogObject
 end
 
@@ -37,14 +37,14 @@ When /^the Proposal Log status should be (.*)$/ do |prop_log_status|
   @proposal_log.log_status.should == prop_log_status
 end
 
-When /^the (.*) user submits a new permanent Proposal Log with the same PI into routing$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user }
+When /^the Create Proposal Log user submits a new permanent Proposal Log with the same PI into routing$/ do
+  steps %{ * I log in with the Create Proposal Log user }
   @proposal_log = create ProposalLogObject,
                           principal_investigator: @temp_proposal_log.principal_investigator
 end
 
-When /^the (.*) creates a permanent Proposal Log$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user }
+When /^the Create Proposal Log creates a permanent Proposal Log$/ do
+  steps %{ * I log in with the Create Proposal Log user }
   @proposal_log = create ProposalLogObject, save_type: :save
 end
 
@@ -62,8 +62,8 @@ Then /^I merge my new proposal log with my previous temporary proposal log$/ do
   raise "This step needs to be done!!!"
 end
 
-When /^the (.*) user submits a new Temporary Proposal Log$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user }
+When /^the Create Proposal Log user submits a new Temporary Proposal Log$/ do
+  steps %{ * I log in with the Create Proposal Log user }
   @temp_proposal_log = create ProposalLogObject,
                               log_type: 'Temporary'
 end
@@ -77,7 +77,7 @@ Then /^the Proposal Log's status should reflect it has been (.*)$/ do |status|
   end
 end
 
-Then /^the (.*) user submits the Proposal Log$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user }
+Then /^the Create Proposal Log user submits the Proposal Log$/ do
+  steps %{ * I log in with the Create Proposal Log user }
   on(ProposalLog).submit
 end

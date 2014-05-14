@@ -98,6 +98,11 @@ class InstitutionalProposalObject < DataFactory
     end
   end
 
+  def submit
+    view :institutional_proposal_actions
+    on(InstitutionalProposalActions).submit
+  end
+
   def view(tab)
     open_document
     on(InstitutionalProposal).send(StringFactory.damballa(tab.to_s))
@@ -142,11 +147,6 @@ class InstitutionalProposalObject < DataFactory
       page.save unless page.errors.size > 0
       check_for_new_version
     end
-  end
-
-  def submit
-    view :institutional_proposal_actions
-    on(InstitutionalProposalActions).submit
   end
 
   # =========

@@ -10,6 +10,7 @@ class RoleObject < DataFactory
       # Add roles here as needed for testing...
       'Aggregator'                      => '110',
       'approver'                        => '103',
+      'Application Administrator'       => '125',
       'Award Budget Aggregator'         => '113',
       'Award Budget Approver'           => '112',
       'Award Budget Modifier'           => '102',
@@ -28,6 +29,7 @@ class RoleObject < DataFactory
       'Maintain Proposal Questionnaire' => '162',
       'Manager'                         =>  '98',
       'Modify Subaward'                 => '1427',
+      'Modify Sponsor Template'         => '1444',
       'Narrative Writer'                => '109',
       'Negotiation Creator'             => '1399',
       'OSP Administrator'               => '131',

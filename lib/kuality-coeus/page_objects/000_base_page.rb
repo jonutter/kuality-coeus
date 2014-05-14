@@ -14,7 +14,7 @@ class BasePage < PageFactory
 
   action(:form_tab) { |name, b| b.frm.h2(text: /#{name}/) }
   action(:form_status) { |name, b| b.form_tab(name).text[/(?<=\()\w+/] }
-  element(:save_button) { |b| b.frm.button(name: 'methodToCall.save') }
+  element(:save_button) { |b| b.frm.button(class: 'globalbuttons', name: 'methodToCall.save') }
   value(:notification) { |b| b.frm.div(class: 'left-errmsg').div.text }
 
   value(:htm) { |b| b.frm.html }
