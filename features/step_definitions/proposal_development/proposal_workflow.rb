@@ -1,4 +1,3 @@
-
 Then /^the Proposal status should be (.*)$/ do |status|
   @proposal.status.should == status
 end

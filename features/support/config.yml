@@ -1,3 +1,5 @@
 :basic:
   :url: https://qa.research.rsmart.com/kc-dev/
   :browser: :ff
+:headless: no
+:cas_login:
