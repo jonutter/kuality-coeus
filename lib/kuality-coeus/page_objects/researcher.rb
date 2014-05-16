@@ -1,6 +1,6 @@
 class Researcher < BasePage
 
-  page_url "#{$base_url}portal.do?selectedTab=portalResearcherBody"
+  page_url "#{$base_url+$context}portal.do?selectedTab=portalResearcherBody"
 
   links 'Create Proposal', 'All My Proposals', 'Search Proposals', 'Create IRB Protocol', 'Search Proposal Log',
         'Search Institutional Proposals'

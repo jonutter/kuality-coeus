@@ -305,22 +305,24 @@ class UserObject < DataFactory
   #   tabs/windows and return to the
   #   original window
   def sign_in
-    if $users.logged_in_user.nil?
-      sign_out
-    end
     $users.logged_in_user.sign_out unless $users.current_user==nil
-    visit Login do |log_in|
+    visit login_class do |log_in|
       log_in.username.set @user_name
       log_in.login
     end
-    on(Researcher).logout_button.wait_until_present
+    visit(Researcher).logout_button.wait_until_present
     @session_status='logged in'
   end
   alias_method :log_in, :sign_in
 
   def sign_out
-    visit(Login).close_extra_windows
-    s_o.click if s_o.present?
+    if $cas
+      on(BasePage).close_extra_windows if @browser.windows.size > 1
+      @browser.goto "#{$base_url}#{$cas_context}logout"
+    else
+      visit(login_class).close_extra_windows if @browser.windows.size > 1
+      s_o.click if s_o.present?
+    end
     @session_status='logged out'
   end
   alias_method :log_out, :sign_out
@@ -412,6 +414,10 @@ class UserObject < DataFactory
       look.edit_person @user_name
     end
     on(Person).expand_all
+  end
+
+  def login_class
+    $cas ? CASLogin : Login
   end
 
 end # UserObject
