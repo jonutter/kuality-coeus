@@ -17,14 +17,14 @@ In order for the scripts to actually run successfully, you will need to add a `c
 
 The contents of that file should be as follows:
 
-```ruby
+```yaml
 :basic:
   :url: https://<your.kuali.test.server.address.goes.here>/
-  :context: <any context value that appears prior to query string>/
+  :context: <any.context.value.that.appears.prior.to.query.string>/
   :browser: :ff # ... or :chrome, :safari, etc.
 :headless: no # or yes, if you're running in headless mode
 :cas: no # or yes, if there is a CAS login page
-:cas_context: <the context string for the CAS login page URL>/
+:cas_context: <the.context.string.for.the CAS.login.page.URL>/
 ```
 
 Contribute to the Project
