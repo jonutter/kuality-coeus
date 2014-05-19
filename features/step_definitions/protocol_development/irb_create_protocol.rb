@@ -1,20 +1,20 @@
-When /^the (.*) user creates an irb protocol$/ do |role_name|
+When /^the (.*) user creates an IRB Protocol$/ do |role_name|
   steps %{ * I log in with the #{role_name} user }
-  @irb_protocol = create IRBProtocolDevelopmentObject
+  @irb_protocol = create IRBProtocolObject
 end
 
-When /^the (.*) user creates a proposal with an invalid lead unit code$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user }
-  @irb_protocol = create IRBProtocolDevelopmentObject, :lead_unit=>'000000'
+When /^the Protocol Creator user creates a Protocol with an invalid lead unit code$/ do
+  steps %{ * I log in with the Protocol Creator user }
+  @irb_protocol = create IRBProtocolObject, :lead_unit=>'000000'
 end
 
-When /^the (.*) user creates an irb protocol but I miss a required field$/ do |role_name|
-  steps %{ * I log in with the #{role_name} user }
+When /^the Protocol Creator creates an IRB Protocol but misses a required field$/ do
+  steps %{ * I log in with the Protocol Creator user }
   # Pick a field at random for the test...
   required_field = ['Description', 'Title', 'Lead Unit'
           ].sample
   field = damballa(required_field)
-  @irb_protocol = create IRBProtocolDevelopmentObject, field=>''
+  @irb_protocol = create IRBProtocolObject, field=>''
   text = ' is a required field.'
   errors = {
       description: "Document Description (Description)#{text}",

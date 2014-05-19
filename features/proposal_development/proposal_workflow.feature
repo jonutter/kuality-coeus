@@ -6,7 +6,7 @@ Feature: Proposal Workflows and Routing
 
   Background:
     * Users exist with the following roles: Proposal Creator, OSPApprover
-
+  @test
   Scenario: Approval Requests for a Proposal are sent
     When the Proposal Creator submits a new Proposal into routing
     Then the Proposal status should be Approval Pending

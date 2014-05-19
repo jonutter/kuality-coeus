@@ -305,7 +305,7 @@ class UserObject < DataFactory
   #   tabs/windows and return to the
   #   original window
   def sign_in
-    $users.logged_in_user.sign_out unless $users.current_user==nil
+    $users.current_user.sign_out unless $users.current_user==nil
     visit login_class do |log_in|
       log_in.username.set @user_name
       log_in.login
