@@ -78,11 +78,7 @@ class BudgetColumnObject < DataFactory
       look.search
 
       begin
-        if look.results_table.present?
-          return true
-        else
-          return false
-        end
+        look.results_table.present?
       rescue
         return false
       end

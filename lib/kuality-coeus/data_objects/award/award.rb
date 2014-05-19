@@ -19,7 +19,7 @@ class AwardObject < DataFactory
                 :custom_data, :description, :project_start_date, :project_end_date, :obligation_start_date,
                 :obligation_end_date, :time_and_money, :parent
 
-                def initialize(browser, opts={})
+  def initialize(browser, opts={})
     @browser = browser
     amount = random_dollar_value(1000000)
 
