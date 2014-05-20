@@ -1,9 +1,0 @@
-:basic:
-  :url: http://test.kc.kuali.org/
-  #:url: https://qa.research.rsmart.com/
-  :context: kc-dly/
-  #:context: kc-dev/
-  :browser: :ff
-:headless: no
-:cas: yes
-:cas_context: cas-dly/
