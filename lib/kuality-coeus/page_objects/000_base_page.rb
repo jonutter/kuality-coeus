@@ -77,7 +77,7 @@ class BasePage < PageFactory
     end
 
     def tiny_buttons
-      action(:search) { |b| b.frm.button(name: 'methodToCall.search', text: 'Search').click; b.loading }
+      action(:search) { |b| b.frm.button(name: 'methodToCall.search', title: 'search').click; b.loading }
       action(:clear) { |b| b.frm.button(name: 'methodToCall.clearValues').click; b.loading }
       action(:cancel_button) { |b| b.frm.link(title: 'cancel').click; b.loading }
       action(:yes) { |b| b.frm.button(name: 'methodToCall.rejectYes').click; b.loading }
