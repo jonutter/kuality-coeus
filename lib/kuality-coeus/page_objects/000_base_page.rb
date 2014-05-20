@@ -7,7 +7,6 @@ class BasePage < PageFactory
   action(:close_parents) { |b| b.windows[0..-2].each{ |w| w.close} }
   action(:loading) { |b| b.frm.image(alt: 'working...').wait_while_present }
   action(:awaiting_doc) { |b| b.frm.button(name: 'methodToCall.returnToPortal').wait_while_present }
-  element(:user_menu) { |b| b.link(data_toggle: 'dropdown') }
   element(:logout_button) { |b| b.button(value: 'Logout') }
   action(:logout) { |b| b.logout_button.click }
 
