@@ -1,4 +1,4 @@
-class IRBProtocolDevelopmentObject < DataFactory
+class IRBProtocolObject < DataFactory
 
   include StringFactory
   include DateFactory

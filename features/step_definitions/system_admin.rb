@@ -11,13 +11,6 @@ And /^the (.*) parameter is set to (.*)$/ do |parameter, value|
       page.parameter_value.set(value)
       page.description.set random_alphanums
       page.blanket_approve
-
-      # DEBUG
-
-      sleep 30
-
-
-
     end
   end
 end

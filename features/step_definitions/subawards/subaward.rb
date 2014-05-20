@@ -46,22 +46,10 @@ And /adds a Funding Source to the Subaward$/ do
   end
   award_id = on(Subaward).award_number.value
   @subaward.add_funding_source award_id
-
-
-  # DEBUG
-  sleep 120
-
-
 end
 
 And /adds the Award as a Funding Source to the Subaward$/ do
   @subaward.add_funding_source @award.id
-
-
-  # DEBUG
-  sleep 120
-
-
 end
 
 When /^the Modify Subaward user submits version 2 of the Subaward$/ do

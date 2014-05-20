@@ -7,7 +7,8 @@ class BasePage < PageFactory
   action(:close_parents) { |b| b.windows[0..-2].each{ |w| w.close} }
   action(:loading) { |b| b.frm.image(alt: 'working...').wait_while_present }
   action(:awaiting_doc) { |b| b.frm.button(name: 'methodToCall.returnToPortal').wait_while_present }
-  element(:logout_button) { |b| b.button(title: 'Click to logout.') }
+  element(:user_menu) { |b| b.link(data_toggle: 'dropdown') }
+  element(:logout_button) { |b| b.button(value: 'Logout') }
   action(:logout) { |b| b.logout_button.click }
 
   element(:portal_window) { |b| b.windows(title: 'Kuali Portal Index')[0] }
@@ -77,7 +78,7 @@ class BasePage < PageFactory
     end
 
     def tiny_buttons
-      action(:search) { |b| b.frm.button(title: 'search', value: 'search').click; b.loading }
+      action(:search) { |b| b.frm.button(name: 'methodToCall.search', text: 'Search').click; b.loading }
       action(:clear) { |b| b.frm.button(name: 'methodToCall.clearValues').click; b.loading }
       action(:cancel_button) { |b| b.frm.link(title: 'cancel').click; b.loading }
       action(:yes) { |b| b.frm.button(name: 'methodToCall.rejectYes').click; b.loading }
