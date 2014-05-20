@@ -310,7 +310,7 @@ class UserObject < DataFactory
       log_in.username.set @user_name
       log_in.login
     end
-    visit(Researcher).user_menu.wait_until_present
+    visit(Researcher).logout_button.wait_until_present
     @session_status='logged in'
   end
   alias_method :log_in, :sign_in
@@ -321,7 +321,9 @@ class UserObject < DataFactory
       @browser.goto "#{$base_url}#{$cas_context}logout"
     else
       visit(login_class).close_extra_windows if @browser.windows.size > 1
-      s_o if @browser.link(data_toggle: 'dropdown').present?
+      on BasePage do |page|
+        page.logout if page.logout_button.present?
+      end
     end
     @session_status='logged out'
   end
@@ -386,13 +388,6 @@ class UserObject < DataFactory
   #========
   private
   #========
-
-  def s_o
-    on BasePage do |page|
-      page.user_menu.click
-      page.logout
-    end
-  end
 
   def login_info_div
     @browser.div(id: 'login-info')
